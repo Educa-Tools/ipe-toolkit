@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Análisis PESTEL · Mapa de impacto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --canvas: #FBFCEF;
+  --surface: #FFFFFF;
+  --ink: #1F2417;
+  --ink-soft: #4A4F36;
+  --ink-muted: #8A8B6A;
+  --line: #E5E8C8;
+  --line-soft: #EFF1D9;
+  --olive-soft: #D8DCA0;
+  --olive-mid: #A8AD5C;
+  --olive-deep: #6B7028;
+  --lime-soft: #E8EDC4;
+  --green: #4A7028;
+  --green-soft: #E8EDC4;
+  --amber: #B88534;
+  --amber-soft: #F7EDD8;
+  --red: #A84539;
+  --red-soft: #F4E0DC;
+  --blue: #3E5778;
+  --blue-soft: #E4E8F0;
+  --purple: #5D3D66;
+  --purple-soft: #ECE5EC;
+
+  /* colores por factor */
+  --p-soft:#E4E8F0;  --p-deep:#3E5778;  --p-ink:#243650;
+  --e1-soft:#F2EDDB; --e1-deep:#8B6F2A; --e1-ink:#5A4818;
+  --s-soft:#F4E5E5;  --s-deep:#8B3A3A;  --s-ink:#5E2424;
+  --t-soft:#E5EFEC;  --t-deep:#3D6B5C;  --t-ink:#244238;
+  --e2-soft:#E5EDDB; --e2-deep:#557A35; --e2-ink:#354B22;
+  --l-soft:#ECE5EC;  --l-deep:#5D3D66;  --l-ink:#3B2442;
+
+  /* zonas del mapa */
+  --zona-planificar: #A84539;
+  --zona-planificar-soft: #F4E0DC;
+  --zona-monitorear: #3E5778;
+  --zona-monitorear-soft: #E4E8F0;
+  --zona-vigilar: #B88534;
+  --zona-vigilar-soft: #F7EDD8;
+  --zona-investigar: #557A35;
+  --zona-investigar-soft: #E5EDDB;
+  --zona-ignorar: #8A8B6A;
+  --zona-ignorar-soft: #EFF1D9;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--canvas);color:var(--ink);min-height:100vh;font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+.serif{font-family:'Fraunces',Georgia,serif;}
+.container{max-width:640px;margin:0 auto;padding:48px 28px 80px;}
+
+h1.display{font-family:'Fraunces',Georgia,serif;font-size:52px;line-height:1.05;font-weight:400;letter-spacing:-0.02em;font-variation-settings:"opsz" 72;}
+h1.display em{font-style:italic;font-weight:300;}
+h2.title{font-family:'Fraunces',Georgia,serif;font-size:28px;line-height:1.2;font-weight:400;letter-spacing:-0.01em;}
+h3.subtitle{font-family:'Fraunces',Georgia,serif;font-size:20px;line-height:1.25;font-weight:500;}
+.prose{font-family:'Fraunces',Georgia,serif;font-size:17px;line-height:1.65;font-weight:300;color:var(--ink-soft);}
+.prose .keyword{font-weight:500;color:var(--ink);}
+.prose-italic{font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:300;line-height:1.6;color:var(--ink-soft);}
+.eyebrow{font-family:'Inter',sans-serif;font-size:11px;font-weight:500;color:var(--ink-muted);text-transform:uppercase;letter-spacing:2px;}
+.eyebrow-line{display:flex;align-items:center;gap:12px;margin-bottom:28px;}
+.eyebrow-line::before{content:'';width:40px;height:1px;background:var(--ink-muted);}
+.label-form{font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--ink-soft);text-transform:uppercase;letter-spacing:1.5px;display:block;margin-bottom:10px;}
+.idea-display{font-family:'Fraunces',Georgia,serif;font-size:26px;line-height:1.3;font-weight:300;color:var(--ink);letter-spacing:-0.015em;}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 24px;border-radius:999px;font-family:'Inter',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all .2s cubic-bezier(.4,0,.2,1);border:none;outline:none;}
+.btn-primary{background:var(--ink);color:var(--canvas);}
+.btn-primary:hover:not(:disabled){background:#2D3220;transform:translateY(-1px);}
+.btn-primary:disabled{background:var(--line);color:var(--ink-muted);cursor:not-allowed;}
+.btn-ghost{background:transparent;color:var(--ink-soft);border:1px solid var(--line);}
+.btn-ghost:hover{background:var(--surface);border-color:var(--ink-muted);}
+.btn-back{display:inline-flex;align-items:center;gap:6px;background:none;border:none;font-size:13px;color:var(--ink-muted);cursor:pointer;padding:0;font-family:'Inter',sans-serif;margin-bottom:20px;}
+.btn-back:hover{color:var(--ink);}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;transition:all .25s cubic-bezier(.4,0,.2,1);}
+.card-interactive{cursor:pointer;}
+.card-interactive:hover{border-color:var(--ink-muted);transform:translateY(-2px);box-shadow:0 12px 32px -12px rgba(31,36,23,.12);}
+
+.text-input{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:14px 16px;font-family:'Inter',sans-serif;font-size:14px;color:var(--ink);background:var(--surface);resize:vertical;line-height:1.6;transition:all .2s ease;outline:none;}
+.text-input.serif-input{font-family:'Fraunces',Georgia,serif;font-weight:300;font-size:16px;}
+.text-input:focus{border-color:var(--ink);}
+.text-input.filled{border-color:var(--olive-mid);background:var(--lime-soft);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+.fade{animation:fadeUp .5s cubic-bezier(.4,0,.2,1);}
+.fade-1{animation:fadeUp .6s cubic-bezier(.4,0,.2,1) .1s backwards;}
+.fade-2{animation:fadeUp .6s cubic-bezier(.4,0,.2,1) .2s backwards;}
+.fade-3{animation:fadeUp .6s cubic-bezier(.4,0,.2,1) .3s backwards;}
+
+.progress-dots{display:flex;gap:6px;align-items:center;}
+.progress-dot{height:8px;border-radius:4px;background:var(--line);transition:all .3s cubic-bezier(.4,0,.2,1);}
+.progress-dot.active{background:var(--ink);width:24px;}
+.progress-dot.done{background:var(--ink);width:8px;}
+.progress-dot.pending{width:8px;}
+
+.top-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;}
+.screen{display:none;}
+.screen.active{display:block;}
+
+/* ── SELECTOR OPCIONES ── */
+.opt-btn{
+  display:flex;align-items:flex-start;gap:14px;
+  padding:13px 16px;border-radius:12px;
+  border:1.5px solid var(--line);background:var(--surface);
+  cursor:pointer;transition:all .18s ease;margin-bottom:8px;
+}
+.opt-btn:hover{border-color:var(--ink-muted);background:var(--line-soft);}
+.opt-dot{
+  width:20px;height:20px;border-radius:50%;flex-shrink:0;
+  border:2px solid var(--ink-muted);background:var(--surface);
+  display:flex;align-items:center;justify-content:center;
+  margin-top:2px;transition:all .18s ease;
+}
+.opt-btn span{font-size:14px;color:var(--ink);line-height:1.5;}
+
+/* ── SECCIÓN IMPACTO / INCERTIDUMBRE ── */
+.section-divider{
+  display:flex;align-items:center;gap:12px;
+  margin:28px 0 18px;
+}
+.section-divider-line{flex:1;height:1px;background:var(--line);}
+.section-divider-label{
+  font-family:'Inter',sans-serif;font-size:10px;font-weight:600;
+  text-transform:uppercase;letter-spacing:2px;
+  padding:4px 12px;border-radius:999px;
+  white-space:nowrap;
+}
+
+/* ── DOSSIER ── */
+.dossier-wrap{max-width:900px;margin:0 auto;padding:40px 24px 80px;}
+.dossier-actions{display:flex;gap:12px;justify-content:flex-end;margin-bottom:24px;}
+
+.page-a4{
+  width:100%;max-width:794px;min-height:1123px;
+  margin:0 auto 32px;background:var(--surface);
+  border:1px solid var(--line);border-radius:6px;
+  padding:64px 72px;position:relative;
+  box-shadow:0 4px 24px rgba(31,36,23,.06);
+  display:flex;flex-direction:column;
+}
+.page-header{display:flex;align-items:center;justify-content:space-between;padding-bottom:18px;border-bottom:1px solid var(--line);margin-bottom:32px;}
+.page-mark{display:flex;align-items:center;gap:10px;}
+.page-mark-line{width:24px;height:1px;background:var(--olive-deep);}
+.page-num{font-family:'Inter',sans-serif;font-size:11px;font-weight:500;color:var(--ink-muted);letter-spacing:1.5px;}
+
+.dossier-title{font-family:'Fraunces',Georgia,serif;font-size:32px;line-height:1.2;font-weight:400;letter-spacing:-.015em;color:var(--ink);margin:0;hyphens:auto;}
+.dossier-section-label{font-family:'Inter',sans-serif;font-size:10px;font-weight:600;color:var(--olive-deep);text-transform:uppercase;letter-spacing:2.5px;margin:0 0 14px;padding-bottom:8px;border-bottom:1px solid var(--line);display:block;}
+
+.dossier-summary-block{background:var(--lime-soft);border-left:3px solid var(--olive-deep);border-radius:0 6px 6px 0;padding:22px 26px;margin-bottom:36px;}
+.dossier-summary{font-family:'Fraunces',Georgia,serif;font-size:15px;line-height:1.75;font-weight:350;color:var(--ink);text-align:justify;hyphens:auto;margin:0;}
+.dossier-summary .keyword{font-weight:500;color:var(--olive-deep);}
+
+/* ── MAPA 3×3 ── */
+.map-wrap{margin-bottom:36px;}
+/* Mapa 3x3 — layout explícito sin grid automático */
+.map-outer{width:100%;display:flex;flex-direction:column;}
+.map-col-heads{
+  display:grid;grid-template-columns:88px 1fr 1fr 1fr;
+  gap:6px;margin-bottom:4px;
+}
+.map-col-head{
+  font-family:'Inter',sans-serif;font-size:9px;font-weight:600;
+  color:var(--ink-muted);text-transform:uppercase;letter-spacing:1.5px;
+  text-align:center;padding:4px 0;
+}
+.map-body{display:flex;gap:0;}
+.map-axis-y-wrap{
+  width:20px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  margin-right:4px;
+}
+.map-axis-y{
+  font-family:'Inter',sans-serif;font-size:9px;font-weight:600;
+  color:var(--ink-muted);text-transform:uppercase;letter-spacing:1.5px;
+  writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;
+}
+.map-rows{flex:1;display:flex;flex-direction:column;gap:6px;}
+.map-row{display:grid;grid-template-columns:64px 1fr 1fr 1fr;gap:6px;align-items:stretch;}
+.map-row-label{
+  font-family:'Inter',sans-serif;font-size:8.5px;font-weight:600;
+  color:var(--ink-muted);text-transform:uppercase;letter-spacing:1px;
+  display:flex;align-items:center;justify-content:flex-end;
+  padding-right:6px;
+}
+.map-cell{
+  border-radius:8px;padding:10px 8px 8px;
+  min-height:88px;
+  display:flex;flex-direction:column;
+  border:1px solid transparent;
+}
+.map-cell-label{
+  font-family:'Inter',sans-serif;font-size:8px;font-weight:700;
+  text-transform:uppercase;letter-spacing:1.5px;
+  margin-bottom:6px;opacity:.75;
+}
+.map-cell-dots{display:flex;flex-wrap:wrap;gap:4px;margin-top:auto;}
+.map-x-labels{
+  display:grid;grid-template-columns:64px 1fr 1fr 1fr;gap:6px;
+  margin-top:4px;margin-left:24px;
+}
+.map-x-label{
+  font-family:'Inter',sans-serif;font-size:8.5px;font-weight:600;
+  color:var(--ink-muted);text-transform:uppercase;letter-spacing:1px;
+  text-align:center;
+}
+.factor-bubble{
+  width:28px;height:28px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Fraunces',Georgia,serif;font-size:13px;font-weight:500;
+  color:#fff;cursor:default;
+  box-shadow:0 2px 6px rgba(0,0,0,.15);
+  transition:transform .15s ease;
+}
+.factor-bubble:hover{transform:scale(1.12);}
+
+/* colores de celdas */
+.cell-planificar{background:var(--zona-planificar-soft);border-color:rgba(168,69,57,.2);}
+.cell-planificar .map-cell-label{color:var(--zona-planificar);}
+.cell-monitorear{background:var(--zona-monitorear-soft);border-color:rgba(62,87,120,.2);}
+.cell-monitorear .map-cell-label{color:var(--zona-monitorear);}
+.cell-vigilar{background:var(--zona-vigilar-soft);border-color:rgba(184,133,52,.2);}
+.cell-vigilar .map-cell-label{color:var(--zona-vigilar);}
+.cell-investigar{background:var(--zona-investigar-soft);border-color:rgba(85,122,53,.2);}
+.cell-investigar .map-cell-label{color:var(--zona-investigar);}
+.cell-ignorar{background:var(--line-soft);border-color:rgba(138,139,106,.15);}
+.cell-ignorar .map-cell-label{color:var(--zona-ignorar);}
+
+/* ── LEYENDA DEL MAPA ── */
+.map-legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;justify-content:center;}
+.map-legend-item{display:flex;align-items:center;gap:6px;}
+.legend-dot-factor{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:10px;font-weight:500;color:#fff;}
+.legend-txt{font-family:'Inter',sans-serif;font-size:11px;font-weight:500;color:var(--ink);}
+
+/* ── ZONAS ACCIÓN — página del mapa ── */
+.zona-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:auto;}
+.zona-card{padding:16px 18px;border-radius:8px;border:1px solid transparent;}
+.zona-card-head{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.zona-card-icon{width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;background:var(--surface);}
+.zona-card-name{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;}
+.zona-card-desc{font-family:'Fraunces',Georgia,serif;font-size:12px;line-height:1.65;font-weight:350;color:var(--ink-soft);text-align:justify;hyphens:auto;}
+
+/* ── PÁGINAS DE FACTOR ── */
+.factor-page-hero{display:flex;align-items:flex-start;gap:22px;padding-bottom:24px;border-bottom:1px solid var(--line);margin-bottom:24px;}
+.factor-page-letter{width:72px;height:72px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',Georgia,serif;font-size:42px;font-weight:400;flex-shrink:0;}
+.factor-page-meta{flex:1;}
+.factor-page-eyebrow{font-family:'Inter',sans-serif;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:2px;margin-bottom:4px;}
+.factor-page-title{font-family:'Fraunces',Georgia,serif;font-size:24px;line-height:1.2;font-weight:400;letter-spacing:-.01em;margin:0 0 8px;color:var(--ink);}
+.factor-zona-pill{display:inline-flex;align-items:center;gap:5px;font-family:'Inter',sans-serif;font-size:10px;font-weight:700;padding:4px 11px;border-radius:999px;text-transform:uppercase;letter-spacing:1.5px;}
+
+.factor-scores-row{display:flex;gap:16px;margin-bottom:24px;}
+.factor-score-box{flex:1;padding:14px 16px;border-radius:8px;border:1px solid var(--line);}
+.factor-score-label{font-family:'Inter',sans-serif;font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--ink-muted);margin-bottom:4px;}
+.factor-score-val{font-family:'Fraunces',Georgia,serif;font-size:28px;font-weight:400;line-height:1;}
+.factor-score-sub{font-family:'Inter',sans-serif;font-size:10px;color:var(--ink-muted);margin-top:3px;}
+
+.factor-bar-wrap{height:4px;background:var(--line);border-radius:2px;margin-top:8px;overflow:hidden;}
+.factor-bar-fill{height:100%;border-radius:2px;}
+
+.factor-analysis{font-family:'Fraunces',Georgia,serif;font-size:14px;line-height:1.8;font-weight:350;color:var(--ink);text-align:justify;hyphens:auto;margin:0;}
+.factor-analysis .keyword{font-weight:500;}
+
+.factor-insights{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0;}
+.insight-block{padding:14px 16px;border-radius:8px;}
+.insight-block.key{background:var(--canvas);border:1px solid var(--line);}
+.insight-label{font-family:'Inter',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.8px;margin-bottom:6px;display:block;}
+.insight-label.key-lbl{color:var(--ink);}
+.insight-text{font-family:'Fraunces',Georgia,serif;font-size:12.5px;line-height:1.7;font-weight:350;color:var(--ink);margin:0;text-align:justify;hyphens:auto;}
+
+.factor-preguntas-block{margin-top:auto;padding-top:20px;border-top:1px solid var(--line);}
+.factor-preguntas-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 20px;margin-top:10px;}
+.factor-pregunta-item{font-family:'Fraunces',Georgia,serif;font-size:11.5px;line-height:1.5;color:var(--ink-soft);font-weight:350;padding-left:12px;position:relative;}
+.factor-pregunta-item::before{content:'';position:absolute;left:0;top:8px;width:4px;height:4px;border-radius:50%;background:var(--olive-mid);}
+.factor-pregunta-item .pregunta-resp{font-weight:500;color:var(--ink);}
+
+/* conclusión */
+.conclusion-block{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px 20px;}
+.conclusion-prose{font-family:'Fraunces',Georgia,serif;font-size:18px;line-height:1.75;font-weight:350;font-style:italic;color:var(--ink);max-width:540px;margin:18px 0 28px;}
+.conclusion-prose .keyword{font-weight:500;font-style:normal;}
+.conclusion-mark{width:40px;height:1px;background:var(--olive-deep);margin:0 auto 18px;}
+.conclusion-footer{font-family:'Inter',sans-serif;font-size:11px;font-weight:500;color:var(--ink-muted);text-transform:uppercase;letter-spacing:2px;}
+
+@media print{
+  @page{size:A4;margin:0;}
+  body{background:white;}
+  .dossier-wrap{padding:0;max-width:none;}
+  .dossier-actions,.top-bar{display:none !important;}
+  .page-a4{width:210mm;min-height:297mm;height:297mm;margin:0;padding:18mm 20mm;border:none;box-shadow:none;border-radius:0;page-break-after:always;page-break-inside:avoid;overflow:hidden;}
+  .page-a4:last-child{page-break-after:auto;}
+}
+/* ── TABLET ── */
+@media(max-width:820px){
+  .page-a4{padding:36px 28px;min-height:auto;}
+  .dossier-title{font-size:26px;}
+  .zona-cards,.factor-insights,.factor-preguntas-grid{grid-template-columns:1fr;}
+  .factor-scores-row{flex-direction:column;}
+}
+
+/* ── MOVIL ── */
+@media(max-width:600px){
+  h1.display{font-size:34px;line-height:1.1;}
+  .container{padding:24px 16px 72px;}
+  .prose-italic{font-size:16px !important;}
+  .idea-display{font-size:20px;}
+
+  /* factor screen */
+  .opt-btn{padding:11px 13px;}
+  .opt-btn span{font-size:13px;}
+  .section-divider-label{font-size:9px;letter-spacing:1.5px;}
+
+  /* dossier wrap */
+  .dossier-wrap{padding:14px 10px 60px;}
+  .dossier-actions{margin-bottom:14px;gap:8px;}
+  .dossier-actions .btn{padding:10px 14px;font-size:13px;}
+
+  /* paginas — sin proporcion A4 */
+  .page-a4{padding:20px 16px;min-height:auto;border-radius:10px;margin-bottom:14px;}
+  .page-header{margin-bottom:18px;padding-bottom:14px;}
+  .dossier-title{font-size:20px;line-height:1.25;}
+  .dossier-summary{font-size:13px;line-height:1.65;}
+  .dossier-summary-block{padding:14px 16px;margin-bottom:20px;}
+
+  /* mapa — scroll horizontal para no aplastar */
+  .map-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px;}
+  .map-outer{min-width:460px;}
+  .map-cell{min-height:68px;padding:7px 6px 6px;}
+  .map-cell-label{font-size:7px;letter-spacing:1px;}
+  .factor-bubble{width:24px;height:24px;font-size:11px;}
+  .map-col-head{font-size:7.5px;letter-spacing:0.8px;}
+  .map-row-label{font-size:7.5px;padding-right:4px;}
+  .map-x-label{font-size:7.5px;}
+  .map-legend{gap:8px;}
+  .legend-txt{font-size:10px;}
+
+  /* zona cards */
+  .zona-cards{grid-template-columns:1fr;gap:8px;margin-top:16px;}
+  .zona-card{padding:12px 14px;}
+  .zona-card-desc{font-size:11px;}
+
+  /* factor page hero */
+  .factor-page-hero{gap:12px;padding-bottom:14px;margin-bottom:14px;flex-wrap:wrap;}
+  .factor-page-letter{width:50px;height:50px;font-size:28px;}
+  .factor-page-title{font-size:18px;}
+
+  /* scores */
+  .factor-scores-row{flex-direction:column;gap:8px;margin-bottom:14px;}
+  .factor-score-val{font-size:22px;}
+  .factor-score-box{padding:10px 12px;}
+
+  /* analisis */
+  .factor-analysis{font-size:13px;line-height:1.7;}
+
+  /* insights */
+  .factor-insights{grid-template-columns:1fr;gap:8px;margin:12px 0;}
+  .insight-text{font-size:12px;}
+  .insight-block{padding:12px 14px;}
+
+  /* preguntas */
+  .factor-preguntas-block{padding-top:14px;}
+  .factor-preguntas-grid{grid-template-columns:1fr;gap:4px;}
+  .factor-pregunta-item{font-size:10.5px;}
+
+  /* conclusion */
+  .conclusion-block{padding:24px 12px;}
+  .conclusion-prose{font-size:15px;margin:12px 0 18px;}
+}
+
+/* zonas intro grid — responsive */
+.zonas-intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+@media(max-width:600px){.zonas-intro-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<!-- ═══ INTRO ═══ -->
+<div id="screen-intro" class="screen active">
+  <div class="container">
+    <div class="eyebrow-line fade"><span class="eyebrow">IPE 2 · Análisis del macroentorno</span></div>
+    <h1 class="display fade-1" style="margin-bottom:24px;">Mapa <em>PESTEL</em><br>de impacto</h1>
+    <p class="prose-italic fade-2" style="font-size:19px;margin-bottom:48px;">
+      Identifica, valora y posiciona los factores del macroentorno según su impacto e incertidumbre para construir una estrategia accionable.
+    </p>
+    <div class="card fade-3" style="padding:26px 28px;margin-bottom:24px;">
+      <h3 class="subtitle" style="margin-bottom:16px;">Cómo funciona</h3>
+      <ol style="list-style:none;padding:0;margin:0;">
+        <li style="display:flex;gap:14px;margin-bottom:14px;align-items:flex-start;">
+          <div style="width:24px;height:24px;border-radius:50%;background:var(--ink);color:var(--canvas);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0;font-family:'Inter',sans-serif;">1</div>
+          <span class="prose" style="font-size:15px;">Describe brevemente tu <span class="keyword">idea de negocio</span>.</span>
+        </li>
+        <li style="display:flex;gap:14px;margin-bottom:14px;align-items:flex-start;">
+          <div style="width:24px;height:24px;border-radius:50%;background:var(--ink);color:var(--canvas);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0;font-family:'Inter',sans-serif;">2</div>
+          <span class="prose" style="font-size:15px;">Responde <span class="keyword">6 preguntas</span> por cada uno de los 6 factores PESTEL.</span>
+        </li>
+        <li style="display:flex;gap:14px;align-items:flex-start;">
+          <div style="width:24px;height:24px;border-radius:50%;background:var(--ink);color:var(--canvas);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0;font-family:'Inter',sans-serif;">3</div>
+          <span class="prose" style="font-size:15px;">Obtén el <span class="keyword">mapa de impacto</span> y el dossier estratégico con recomendaciones por factor.</span>
+        </li>
+      </ol>
+    </div>
+    <div class="card fade-3" style="padding:20px 24px;margin-bottom:36px;background:var(--lime-soft);border-color:var(--olive-soft);">
+      <p style="font-family:'Inter',sans-serif;font-size:10px;font-weight:700;color:var(--olive-deep);text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;">Las 5 zonas del mapa</p>
+      <div class="zonas-intro-grid">
+        <div style="display:flex;align-items:center;gap:8px;"><div style="width:10px;height:10px;border-radius:50%;background:var(--zona-planificar);flex-shrink:0;"></div><span style="font-family:'Inter',sans-serif;font-size:12px;color:var(--ink-soft);"><b style="color:var(--zona-planificar);">Planificar</b> — alto impacto, alta incertidumbre</span></div>
+        <div style="display:flex;align-items:center;gap:8px;"><div style="width:10px;height:10px;border-radius:50%;background:var(--zona-monitorear);flex-shrink:0;"></div><span style="font-family:'Inter',sans-serif;font-size:12px;color:var(--ink-soft);"><b style="color:var(--zona-monitorear);">Monitorear</b> — alto impacto, baja incertidumbre</span></div>
+        <div style="display:flex;align-items:center;gap:8px;"><div style="width:10px;height:10px;border-radius:50%;background:var(--zona-vigilar);flex-shrink:0;"></div><span style="font-family:'Inter',sans-serif;font-size:12px;color:var(--ink-soft);"><b style="color:var(--zona-vigilar);">Vigilar</b> — impacto medio, incertidumbre media</span></div>
+        <div style="display:flex;align-items:center;gap:8px;"><div style="width:10px;height:10px;border-radius:50%;background:var(--zona-investigar);flex-shrink:0;"></div><span style="font-family:'Inter',sans-serif;font-size:12px;color:var(--ink-soft);"><b style="color:var(--zona-investigar);">Investigar</b> — bajo impacto, alta incertidumbre</span></div>
+        <div style="display:flex;align-items:center;gap:8px;"><div style="width:10px;height:10px;border-radius:50%;background:var(--zona-ignorar);flex-shrink:0;"></div><span style="font-family:'Inter',sans-serif;font-size:12px;color:var(--ink-soft);"><b style="color:var(--zona-ignorar);">Ignorar</b> — bajo impacto, baja incertidumbre</span></div>
+      </div>
+    </div>
+    <div class="fade-3" style="margin-bottom:28px;">
+      <label class="label-form">Tu idea de negocio</label>
+      <textarea id="idea-input" class="text-input serif-input" rows="4"
+        placeholder="Ej: Cafetería de especialidad en el centro de Santiago, enfocada a estudiantes universitarios y teletrabajadores, con café de origen y espacios de trabajo compartidos."
+        style="min-height:110px;"></textarea>
+    </div>
+    <button id="btn-start" class="btn btn-primary fade-3" style="width:100%;padding:16px;font-size:15px;" disabled>
+      <span>Comenzar el análisis</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- ═══ DASHBOARD ═══ -->
+<div id="screen-dashboard" class="screen">
+  <div class="container">
+    <button class="btn-back" onclick="go('intro')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+      Volver
+    </button>
+    <span class="eyebrow" style="display:block;margin-bottom:10px;">Analizando</span>
+    <p id="idea-display-dashboard" class="idea-display" style="margin-bottom:8px;"></p>
+    <p id="progress-text" class="sans" style="font-size:13px;color:var(--ink-soft);margin-bottom:36px;"></p>
+    <div id="factors-list" style="display:flex;flex-direction:column;gap:12px;margin-bottom:32px;"></div>
+    <button id="btn-generate" class="btn btn-primary" style="width:100%;padding:16px;font-size:15px;" disabled>
+      <span id="btn-generate-text">Completa los factores restantes</span>
+    </button>
+  </div>
+</div>
+
+<!-- ═══ FACTOR ═══ -->
+<div id="screen-factor" class="screen">
+  <div class="container">
+    <div class="top-bar">
+      <button class="btn-back" onclick="go('dashboard')" style="margin:0;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+        Panel de factores
+      </button>
+      <div id="factor-progress" class="progress-dots"></div>
+    </div>
+    <div id="factor-header" class="fade" style="padding:24px 26px;border-radius:18px;margin-bottom:24px;">
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:14px;">
+        <div id="factor-letter-el" style="width:60px;height:60px;border-radius:14px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',Georgia,serif;font-size:34px;font-weight:500;"></div>
+        <div>
+          <p id="factor-eyebrow" class="eyebrow" style="margin-bottom:3px;"></p>
+          <h2 id="factor-title" class="title" style="font-size:24px;"></h2>
+        </div>
+      </div>
+      <p id="factor-desc" class="prose-italic" style="font-size:15px;"></p>
+    </div>
+    <div id="factor-questions"></div>
+    <div style="display:flex;gap:10px;padding-top:16px;">
+      <button class="btn btn-ghost" onclick="go('dashboard')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+        Panel
+      </button>
+      <button id="btn-save-factor" class="btn btn-primary" style="flex:1;" disabled>
+        Guardar y volver al panel
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ RESULTADOS ═══ -->
+<div id="screen-results" class="screen">
+  <div class="dossier-wrap">
+    <div class="dossier-actions">
+      <button class="btn btn-ghost" onclick="reset()">Nueva idea</button>
+      <button class="btn btn-primary" onclick="window.print()">Imprimir informe</button>
+    </div>
+
+    <!-- PÁGINA 1 — PORTADA + MAPA -->
+    <article class="page-a4 fade">
+      <header class="page-header">
+        <div class="page-mark"><div class="page-mark-line"></div><span class="eyebrow">Informe PESTEL · Mapa de impacto</span></div>
+        <span class="page-num">01 / <span class="total-pages-ref">08</span></span>
+      </header>
+      <div style="margin-bottom:24px;">
+        <span class="eyebrow" style="color:var(--olive-deep);margin-bottom:12px;display:block;">Análisis estratégico</span>
+        <h1 id="idea-display-results" class="dossier-title"></h1>
+      </div>
+      <div class="dossier-summary-block">
+        <p class="dossier-section-label" style="border:none;padding:0;margin-bottom:8px;">Síntesis ejecutiva</p>
+        <p id="resumen-general" class="dossier-summary"></p>
+      </div>
+      <div class="map-wrap">
+        <p class="dossier-section-label">Mapa de impacto e incertidumbre</p>
+        <div id="map-mount"></div>
+      </div>
+      <div class="zona-cards" id="zona-cards-portada"></div>
+    </article>
+
+    <!-- PÁGINAS 2–7 — FACTORES -->
+    <div id="results-factors"></div>
+
+    <!-- PÁGINA FINAL -->
+    <article class="page-a4 fade">
+      <header class="page-header">
+        <div class="page-mark"><div class="page-mark-line"></div><span class="eyebrow">Reflexión final</span></div>
+        <span class="page-num" id="final-page-num">08 / 08</span>
+      </header>
+      <div class="conclusion-block">
+        <p class="dossier-section-label" style="border:none;text-align:center;">Lectura estratégica</p>
+        <p id="conclusion-text" class="conclusion-prose"></p>
+        <div class="conclusion-mark"></div>
+        <p class="conclusion-footer">Análisis PESTEL · Mapa de impacto · IPE 2</p>
+      </div>
+    </article>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// DATOS
+// ═══════════════════════════════════════════════════════════════
+const FACTORS = [
+  {
+    id:'politico', letter:'P', color:'p',
+    label:'Factores políticos', labelShort:'Político',
+    subtitle:'Acciones del Gobierno y entorno institucional',
+    description:'Cómo las decisiones políticas y gubernamentales pueden afectar a tu actividad empresarial.',
+    preguntas:[
+      // IMPACTO (3)
+      { id:'p_i1', eje:'impacto', texto:'¿En qué medida depende tu sector de decisiones del gobierno?',
+        opts:[{v:1,t:'Poco — funciona igual independientemente del gobierno'},{v:2,t:'Moderadamente — algunas políticas le afectan'},{v:3,t:'Mucho — las decisiones políticas son clave para el sector'}]},
+      { id:'p_i2', eje:'impacto', texto:'¿Existen subvenciones, ayudas públicas o incentivos fiscales relevantes para tu negocio?',
+        opts:[{v:1,t:'No hay ninguna ayuda específica aplicable'},{v:2,t:'Hay algunas, pero no son determinantes'},{v:3,t:'Sí, y pueden cambiar significativamente la viabilidad del negocio'}]},
+      { id:'p_i3', eje:'impacto', texto:'¿Podría un cambio de gobierno afectar directamente las condiciones en las que opera tu negocio?',
+        opts:[{v:1,t:'No — el sector es estable al margen del partido gobernante'},{v:2,t:'Algo — depende de la orientación del gobierno'},{v:3,t:'Mucho — el cambio político puede transformar las reglas del juego'}]},
+      // INCERTIDUMBRE (3)
+      { id:'p_u1', eje:'incertidumbre', texto:'¿Hay elecciones, cambios de gobierno o inestabilidad política prevista en tu territorio?',
+        opts:[{v:1,t:'No — el panorama político es estable a corto plazo'},{v:2,t:'Puede haber cambios, pero no son inminentes'},{v:3,t:'Sí — hay incertidumbre política real en el horizonte'}]},
+      { id:'p_u2', eje:'incertidumbre', texto:'¿Sabes con qué políticas públicas vas a poder contar en los próximos 2-3 años?',
+        opts:[{v:1,t:'Sí — el marco es claro y predecible'},{v:2,t:'Más o menos — hay cierta indefinición'},{v:3,t:'No — es muy difícil anticipar qué políticas habrá'}]},
+      { id:'p_u3', eje:'incertidumbre', texto:'¿Está la regulación de tu sector sujeta a debates o cambios políticos activos?',
+        opts:[{v:1,t:'No — la regulación es estable y consensuada'},{v:2,t:'Hay algún debate, pero sin cambios inminentes'},{v:3,t:'Sí — hay propuestas o reformas en marcha que afectan al sector'}]},
+    ],
+  },
+  {
+    id:'economico', letter:'E', color:'e1',
+    label:'Factores económicos', labelShort:'Económico',
+    subtitle:'Coyuntura y estructura económica del territorio',
+    description:'Cómo la situación económica del entorno donde operas afecta a tu rentabilidad y demanda.',
+    preguntas:[
+      { id:'e_i1', eje:'impacto', texto:'¿Cómo afecta el poder adquisitivo de tus clientes a la demanda de tu producto o servicio?',
+        opts:[{v:1,t:'Poco — mis clientes compran independientemente de la coyuntura'},{v:2,t:'Algo — la situación económica influye pero no es decisiva'},{v:3,t:'Mucho — si baja la renta disponible, mi demanda cae directamente'}]},
+      { id:'e_i2', eje:'impacto', texto:'¿Cuánto afecta la inflación o la subida de costes a la rentabilidad de tu negocio?',
+        opts:[{v:1,t:'Poco — mis márgenes son resistentes a la inflación'},{v:2,t:'Moderadamente — noto el efecto pero lo puedo gestionar'},{v:3,t:'Mucho — la inflación puede comprometer directamente mi viabilidad'}]},
+      { id:'e_i3', eje:'impacto', texto:'¿Depende tu negocio de financiación externa o crédito bancario?',
+        opts:[{v:1,t:'No — me autofinancio o no necesito crédito'},{v:2,t:'Algo — uso financiación pero no es esencial'},{v:3,t:'Sí — los tipos de interés afectan directamente a mis costes y planes'}]},
+      { id:'e_u1', eje:'incertidumbre', texto:'¿Es predecible la evolución económica del territorio donde vas a operar?',
+        opts:[{v:1,t:'Sí — la economía local es estable y previsible'},{v:2,t:'Más o menos — hay cierta volatilidad pero dentro de márgenes conocidos'},{v:3,t:'No — la situación económica es inestable o muy cambiante'}]},
+      { id:'e_u2', eje:'incertidumbre', texto:'¿Puedes anticipar cómo van a evolucionar tus principales costes en los próximos años?',
+        opts:[{v:1,t:'Sí — tengo buena visibilidad sobre mis costes futuros'},{v:2,t:'Parcialmente — algunos costes son impredecibles'},{v:3,t:'No — hay mucha incertidumbre sobre cómo evolucionarán mis costes'}]},
+      { id:'e_u3', eje:'incertidumbre', texto:'¿Depende tu sector de materias primas, divisas o mercados internacionales volátiles?',
+        opts:[{v:1,t:'No — opero en un entorno económico local y estable'},{v:2,t:'Algo — tengo alguna exposición pero limitada'},{v:3,t:'Sí — estoy expuesto a volatilidad de mercados externos'}]},
+    ],
+  },
+  {
+    id:'social', letter:'S', color:'s',
+    label:'Factores sociales', labelShort:'Social',
+    subtitle:'Cultura, valores y tendencias de la sociedad',
+    description:'Cómo los hábitos, valores y características demográficas de tu entorno influyen en tu negocio.',
+    preguntas:[
+      { id:'s_i1', eje:'impacto', texto:'¿Encaja tu propuesta con alguna tendencia social o cultural en crecimiento?',
+        opts:[{v:1,t:'No especialmente — es una propuesta estable y tradicional'},{v:2,t:'Parcialmente — conecta con alguna tendencia menor'},{v:3,t:'Sí claramente — surfeo una tendencia social fuerte y en expansión'}]},
+      { id:'s_i2', eje:'impacto', texto:'¿Depende tu demanda de un perfil demográfico concreto?',
+        opts:[{v:1,t:'No — mi propuesta es amplia y no depende de un perfil específico'},{v:2,t:'Algo — tengo un público objetivo definido pero diverso'},{v:3,t:'Sí — mi negocio depende de un segmento demográfico muy concreto'}]},
+      { id:'s_i3', eje:'impacto', texto:'¿En qué medida influyen los hábitos y valores sociales en la decisión de compra de tu cliente?',
+        opts:[{v:1,t:'Poco — la decisión de compra responde más a precio o funcionalidad'},{v:2,t:'Moderadamente — los valores importan pero no son determinantes'},{v:3,t:'Mucho — mis clientes eligen en función de sus valores y estilo de vida'}]},
+      { id:'s_u1', eje:'incertidumbre', texto:'¿Es estable o predecible el perfil de tu cliente objetivo en los próximos años?',
+        opts:[{v:1,t:'Sí — es un segmento consolidado y estable'},{v:2,t:'Más o menos — puede evolucionar pero de forma gradual'},{v:3,t:'No — el perfil de mi cliente puede cambiar significativamente'}]},
+      { id:'s_u2', eje:'incertidumbre', texto:'¿Las tendencias sociales que benefician a tu negocio están consolidadas o son emergentes?',
+        opts:[{v:1,t:'Consolidadas — llevan años creciendo y tienen recorrido'},{v:2,t:'En desarrollo — están creciendo pero aún no son mainstream'},{v:3,t:'Muy emergentes — podrían consolidarse o desvanecerse'}]},
+      { id:'s_u3', eje:'incertidumbre', texto:'¿Puede un cambio cultural o de valores afectar negativamente a la demanda de tu producto?',
+        opts:[{v:1,t:'No — mi propuesta es culturalmente neutra o resiliente'},{v:2,t:'Algo — hay cierta exposición pero manejable'},{v:3,t:'Sí — un cambio de valores podría hacer obsoleta mi propuesta'}]},
+    ],
+  },
+  {
+    id:'tecnologico', letter:'T', color:'t',
+    label:'Factores tecnológicos', labelShort:'Tecnológico',
+    subtitle:'Cambios tecnológicos y digitalización',
+    description:'Cómo el ritmo de innovación tecnológica afecta a tu modelo de negocio y operativa.',
+    preguntas:[
+      { id:'t_i1', eje:'impacto', texto:'¿Qué papel juega la tecnología en el funcionamiento central de tu negocio?',
+        opts:[{v:1,t:'Secundario — la tecnología es un apoyo, no el núcleo'},{v:2,t:'Relevante — facilita operaciones pero no es imprescindible'},{v:3,t:'Central — sin tecnología específica el negocio no funciona'}]},
+      { id:'t_i2', eje:'impacto', texto:'¿Pueden las nuevas tecnologías (IA, automatización, plataformas digitales) mejorar significativamente tu modelo?',
+        opts:[{v:1,t:'Poco — mi sector no se beneficia especialmente de la innovación tecnológica'},{v:2,t:'Algo — hay oportunidades puntuales pero no transformadoras'},{v:3,t:'Mucho — la tecnología puede cambiar radicalmente mi eficiencia o propuesta de valor'}]},
+      { id:'t_i3', eje:'impacto', texto:'¿Existe una tecnología disruptiva que pueda amenazar o hacer obsoleto tu modelo de negocio?',
+        opts:[{v:1,t:'No — mi sector es resistente a la disrupción tecnológica'},{v:2,t:'Tal vez — hay tecnologías emergentes pero sin impacto inmediato claro'},{v:3,t:'Sí — hay tecnologías que podrían transformar las reglas del juego en mi sector'}]},
+      { id:'t_u1', eje:'incertidumbre', texto:'¿Es predecible la evolución tecnológica en tu sector a 2-3 años vista?',
+        opts:[{v:1,t:'Sí — el ritmo de cambio es lento y anticipable'},{v:2,t:'Más o menos — hay cambios pero dentro de tendencias identificables'},{v:3,t:'No — el sector evoluciona muy rápido y es difícil anticipar hacia dónde va'}]},
+      { id:'t_u2', eje:'incertidumbre', texto:'¿El nivel de adopción tecnológica de tus clientes es estable o está cambiando?',
+        opts:[{v:1,t:'Estable — mis clientes tienen hábitos tecnológicos consolidados'},{v:2,t:'Cambiando gradualmente — hay evolución pero es paulatina'},{v:3,t:'Cambiando rápidamente — los hábitos digitales de mis clientes están en plena transformación'}]},
+      { id:'t_u3', eje:'incertidumbre', texto:'¿Depende tu ventaja competitiva de una tecnología que puede quedar obsoleta pronto?',
+        opts:[{v:1,t:'No — mi ventaja no depende de ninguna tecnología específica'},{v:2,t:'Algo — uso tecnología actual pero puedo adaptarme'},{v:3,t:'Sí — si esa tecnología queda obsoleta, mi propuesta pierde valor'}]},
+    ],
+  },
+  {
+    id:'ecologico', letter:'E', color:'e2',
+    label:'Factores ecológicos', labelShort:'Ecológico',
+    subtitle:'Sostenibilidad y conciencia medioambiental',
+    description:'Cómo las normativas ambientales y la conciencia ecológica afectan a tu actividad.',
+    preguntas:[
+      { id:'ec_i1', eje:'impacto', texto:'¿Está tu actividad sujeta a normativa medioambiental específica?',
+        opts:[{v:1,t:'No — mi sector tiene regulación ambiental mínima'},{v:2,t:'Algo — hay normativas a cumplir pero son estándar'},{v:3,t:'Sí — la regulación ambiental condiciona directamente mi operativa'}]},
+      { id:'ec_i2', eje:'impacto', texto:'¿Valoran tus clientes activamente la sostenibilidad a la hora de decidir su compra?',
+        opts:[{v:1,t:'No — la sostenibilidad no es un criterio relevante para ellos'},{v:2,t:'Algo — les importa pero no es determinante'},{v:3,t:'Sí — la sostenibilidad es un factor de decisión clave para mi cliente'}]},
+      { id:'ec_i3', eje:'impacto', texto:'¿Genera tu actividad un impacto ambiental relevante (residuos, emisiones, consumo energético)?',
+        opts:[{v:1,t:'No — mi huella ambiental es mínima o neutra'},{v:2,t:'Algo — hay impacto pero dentro de estándares habituales'},{v:3,t:'Sí — mi actividad genera un impacto ambiental significativo que debo gestionar'}]},
+      { id:'ec_u1', eje:'incertidumbre', texto:'¿Es estable la regulación medioambiental de tu sector o está en proceso de endurecimiento?',
+        opts:[{v:1,t:'Estable — la normativa ambiental es clara y no preveo cambios importantes'},{v:2,t:'Algo incierta — hay señales de cambio pero sin concretar'},{v:3,t:'Muy incierta — la regulación está evolucionando rápido y es difícil anticiparla'}]},
+      { id:'ec_u2', eje:'incertidumbre', texto:'¿Puedes anticipar cómo evolucionará la conciencia ecológica de tus clientes?',
+        opts:[{v:1,t:'Sí — la tendencia es clara y puedo planificar en consecuencia'},{v:2,t:'Más o menos — hay tendencia pero con velocidad incierta'},{v:3,t:'No — es muy difícil saber cuánto y cómo cambiará el comportamiento de mis clientes'}]},
+      { id:'ec_u3', eje:'incertidumbre', texto:'¿Puede la transición ecológica (energías limpias, economía circular) afectar a tu cadena de valor?',
+        opts:[{v:1,t:'No — mi cadena de valor no depende de sectores con alta transición ecológica'},{v:2,t:'Algo — hay alguna dependencia pero gestionable'},{v:3,t:'Sí — la transición ecológica puede transformar mis costes, proveedores o procesos'}]},
+    ],
+  },
+  {
+    id:'legal', letter:'L', color:'l',
+    label:'Factores legales', labelShort:'Legal',
+    subtitle:'Marco normativo que regula tu actividad',
+    description:'Cómo las leyes y regulaciones específicas condicionan tu operativa empresarial.',
+    preguntas:[
+      { id:'l_i1', eje:'impacto', texto:'¿Cómo de compleja es la normativa legal específica de tu sector?',
+        opts:[{v:1,t:'Sencilla — la normativa es estándar, sin requisitos especiales'},{v:2,t:'Moderada — hay normativas específicas pero manejables'},{v:3,t:'Compleja — el sector tiene regulación muy específica y exigente'}]},
+      { id:'l_i2', eje:'impacto', texto:'¿Puede un cambio en la legislación afectar directamente tu modelo de negocio o tus costes?',
+        opts:[{v:1,t:'Poco — los cambios legales no suelen impactar en mi modelo'},{v:2,t:'Moderadamente — algunos cambios podrían obligarme a adaptar operaciones'},{v:3,t:'Mucho — un cambio legal podría transformar o inviabilizar mi negocio'}]},
+      { id:'l_i3', eje:'impacto', texto:'¿Tu actividad implica gestión de datos personales, propiedad intelectual o contratos complejos?',
+        opts:[{v:1,t:'No — mi actividad tiene pocas implicaciones legales específicas'},{v:2,t:'Algo — hay aspectos legales a gestionar pero no son críticos'},{v:3,t:'Sí — la gestión legal es una parte crítica de la operativa del negocio'}]},
+      { id:'l_u1', eje:'incertidumbre', texto:'¿Es estable el marco legal de tu sector o hay procesos legislativos activos que te afecten?',
+        opts:[{v:1,t:'Estable — no hay cambios legislativos relevantes en el horizonte'},{v:2,t:'Algo incierto — hay debates pero sin cambios inminentes'},{v:3,t:'Muy incierto — hay propuestas o reformas en tramitación que afectan directamente al sector'}]},
+      { id:'l_u2', eje:'incertidumbre', texto:'¿Con qué facilidad puedes anticipar los requisitos legales que tendrás que cumplir en 2-3 años?',
+        opts:[{v:1,t:'Con facilidad — el marco legal es predecible y estable'},{v:2,t:'Con dificultad media — hay cierta incertidumbre pero manejable'},{v:3,t:'Es muy difícil — la incertidumbre regulatoria es alta'}]},
+      { id:'l_u3', eje:'incertidumbre', texto:'¿Puede la armonización de normativas europeas o internacionales afectar a tu sector?',
+        opts:[{v:1,t:'No — opero en un marco local sin influencia normativa internacional relevante'},{v:2,t:'Algo — hay normativa europea que afecta pero de forma gradual'},{v:3,t:'Sí — cambios en normativa europea o internacional pueden transformar las condiciones de mi sector'}]},
+    ],
+  },
+];
+
+// Zonas del mapa 3×3
+// impacto (1-3) x incertidumbre (1-3)
+// i=impacto fila (3=alto arriba), u=incertidumbre col (1=baja izq, 3=alta der)
+const ZONA_MAP = {
+  '3-1':'monitorear','3-2':'planificar','3-3':'planificar',
+  '2-1':'ignorar',   '2-2':'vigilar',   '2-3':'investigar',
+  '1-1':'ignorar',   '1-2':'ignorar',   '1-3':'investigar',
+};
+const ZONAS = {
+  planificar:{ name:'Planificar', color:'var(--zona-planificar)', soft:'var(--zona-planificar-soft)', icon:'🎯',
+    desc:'Alto impacto, alta incertidumbre. Requiere planificación estratégica activa, diseño de escenarios y planes de contingencia.' },
+  monitorear:{ name:'Monitorear', color:'var(--zona-monitorear)', soft:'var(--zona-monitorear-soft)', icon:'👁️',
+    desc:'Alto impacto, baja incertidumbre. El factor es relevante y predecible: incorpora su gestión en el plan de negocio.' },
+  vigilar:{ name:'Vigilar', color:'var(--zona-vigilar)', soft:'var(--zona-vigilar-soft)', icon:'⚠️',
+    desc:'Impacto medio e incertidumbre media. Mantén seguimiento periódico: puede desplazarse hacia zonas de mayor prioridad.' },
+  investigar:{ name:'Investigar', color:'var(--zona-investigar)', soft:'var(--zona-investigar-soft)', icon:'🔍',
+    desc:'Bajo impacto, alta incertidumbre. Profundiza en el conocimiento del factor antes de decidir si merece más atención.' },
+  ignorar:{ name:'Ignorar', color:'var(--zona-ignorar)', soft:'var(--zona-ignorar-soft)', icon:'✓',
+    desc:'Bajo impacto, baja incertidumbre. No requiere atención estratégica prioritaria en este momento.' },
+};
+
+const ANALISIS = {
+  politico:{
+    planificar:'El entorno político tiene un impacto profundo sobre tu negocio y su evolución es altamente incierta. Necesitas diseñar escenarios alternativos y planes de contingencia ante posibles cambios de gobierno o reformas regulatorias.',
+    monitorear:'El factor político tiene un peso significativo en tu sector y el marco es relativamente predecible. Incorpora la vigilancia política en tu planificación ordinaria y aprovecha las oportunidades de subvención disponibles.',
+    vigilar:'El entorno político tiene una influencia moderada y cierta volatilidad. Mantén un seguimiento trimestral de cambios en política sectorial sin que consuma recursos estratégicos prioritarios.',
+    investigar:'La incertidumbre política es alta pero el impacto sobre tu modelo es limitado. Profundiza en el análisis del marco institucional antes de determinar si merece mayor atención estratégica.',
+    ignorar:'El factor político tiene un impacto contenido y el entorno es estable. No requiere atención estratégica prioritaria más allá del cumplimiento normativo habitual.',
+  },
+  economico:{
+    planificar:'Tu negocio es altamente sensible al ciclo económico y la coyuntura es incierta. Diseña estructuras de coste flexibles, diversifica ingresos y prepara escenarios para distintos entornos macroeconómicos.',
+    monitorear:'El factor económico influye de forma relevante y predecible en tu modelo. Integra los indicadores clave (inflación, tipos, renta disponible) en tu seguimiento mensual y ajusta precios y costes con anticipación.',
+    vigilar:'La situación económica tiene una influencia moderada sobre tu negocio con cierta volatilidad. Mantén un colchón financiero razonable y revisa tus márgenes semestralmente.',
+    investigar:'La incertidumbre económica es alta pero el impacto directo sobre tu modelo es limitado. Analiza en profundidad la sensibilidad de tu demanda antes de tomar medidas preventivas.',
+    ignorar:'El factor económico tiene un impacto contenido y el entorno es estable. Céntrate en la eficiencia operativa y no dediques recursos a cobertura de riesgos macroeconómicos.',
+  },
+  social:{
+    planificar:'Los factores sociales tienen un impacto determinante en tu propuesta y su evolución es incierta. Invierte en investigación de mercado continua y diseña tu oferta con capacidad de adaptación rápida a cambios culturales.',
+    monitorear:'Tu modelo conecta con tendencias sociales relevantes y predecibles. Refuerza tu posicionamiento alrededor de esa conexión cultural y vigila su evolución para mantener la relevancia.',
+    vigilar:'Los factores sociales influyen de forma moderada con cierta incertidumbre. Establece un sistema de escucha activa del mercado y revisa tu propuesta de valor semestralmente.',
+    investigar:'La dinámica social tiene alta incertidumbre pero impacto limitado actual. Profundiza en el conocimiento de tu segmento antes de hacer apuestas estratégicas basadas en tendencias.',
+    ignorar:'Los factores sociales tienen un impacto contenido sobre tu modelo y el entorno es predecible. No requieren atención estratégica especial más allá del seguimiento ordinario del mercado.',
+  },
+  tecnologico:{
+    planificar:'La tecnología tiene un impacto central en tu negocio y evoluciona de forma incierta. Asigna recursos a vigilancia tecnológica continua, experimenta con nuevas herramientas y mantén la agilidad como principio operativo.',
+    monitorear:'La tecnología es un factor relevante y su evolución es anticipable. Diseña una hoja de ruta tecnológica clara e intégrala en tu plan de negocio con revisiones anuales.',
+    vigilar:'La tecnología tiene una influencia moderada con cierta incertidumbre. Identifica las herramientas prioritarias a adoptar este año y mantén un seguimiento del estado del arte en tu sector.',
+    investigar:'La incertidumbre tecnológica es alta pero el impacto actual es limitado. Explora tendencias emergentes sin comprometer recursos estratégicos hasta tener mayor claridad.',
+    ignorar:'El factor tecnológico tiene un impacto contenido y evolución predecible. Mantén las herramientas actuales actualizadas sin necesidad de inversión tecnológica estratégica.',
+  },
+  ecologico:{
+    planificar:'La sostenibilidad y la regulación ambiental tienen un impacto profundo en tu actividad y su evolución es incierta. Convierte la sostenibilidad en eje estratégico y prepárate para distintos escenarios regulatorios.',
+    monitorear:'El factor ecológico es relevante para tu sector y el marco es relativamente predecible. Integra criterios de sostenibilidad en tu modelo y comunícalos como ventaja competitiva.',
+    vigilar:'Los factores ecológicos tienen una influencia moderada con cierta volatilidad. Diseña una estrategia de sostenibilidad básica y revisa la normativa ambiental semestralmente.',
+    investigar:'La incertidumbre ecológica es alta pero el impacto actual es limitado. Analiza la transición hacia economía circular y energías limpias antes de comprometer inversiones.',
+    ignorar:'El factor ecológico tiene un impacto contenido y la regulación es estable. Cumple la normativa básica sin necesidad de estrategia ambiental diferenciada.',
+  },
+  legal:{
+    planificar:'El marco legal tiene un impacto profundo en tu negocio y su evolución es muy incierta. Invierte en asesoramiento jurídico especializado y diseña tu modelo con flexibilidad para adaptarse a cambios normativos.',
+    monitorear:'El factor legal es relevante y el marco es relativamente predecible. Establece una relación estable con asesoría jurídica y documenta procesos de cumplimiento desde el inicio.',
+    vigilar:'La normativa tiene una influencia moderada con cierta incertidumbre. Realiza auditorías de cumplimiento anuales y mantén actualizados los contratos y políticas clave.',
+    investigar:'La incertidumbre legal es alta pero el impacto actual es limitado. Analiza en profundidad las tendencias regulatorias de tu sector antes de tomar decisiones estructurales.',
+    ignorar:'El marco legal es sencillo y estable. Asegura el cumplimiento normativo básico con asesoramiento puntual sin necesidad de estructura legal compleja.',
+  },
+};
+
+const PUNTO_CLAVE = {
+  politico:{ planificar:'La política es el mayor factor de riesgo estratégico de tu modelo.',monitorear:'El marco político es favorable y predecible: aprovéchalo.',vigilar:'La política requiere seguimiento pero no es determinante aún.',investigar:'Profundiza antes de decidir cómo gestionar el riesgo político.',ignorar:'El entorno político no condiciona tu estrategia a corto plazo.' },
+  economico:{ planificar:'La economía puede ser tu mayor amenaza o palanca: prepárate para ambos escenarios.',monitorear:'Gestionar los indicadores económicos clave es parte de tu estrategia.',vigilar:'El ciclo económico merece atención pero no compromete tu modelo.',investigar:'Analiza la sensibilidad económica de tu demanda antes de actuar.',ignorar:'La estabilidad económica es un activo que no debes dar por garantizado.' },
+  social:{ planificar:'Las tendencias sociales pueden acelerar o destruir tu modelo: vigílalas de cerca.',monitorear:'Surfeas una tendencia real: construye marca alrededor de esa conexión.',vigilar:'Los factores sociales acompañan a tu propuesta sin ser determinantes.',investigar:'El segmento social es incierto: investiga antes de apostar.',ignorar:'Tu propuesta es socialmente estable: la ejecución es lo que importa.' },
+  tecnologico:{ planificar:'La tecnología es simultáneamente tu mayor palanca y tu mayor riesgo.',monitorear:'La tecnología impulsa tu modelo: intégrala en tu planificación.',vigilar:'La tecnología es relevante pero manejable con el ritmo actual.',investigar:'Explora el panorama tecnológico antes de comprometer decisiones.',ignorar:'La tecnología no condiciona tu ventaja competitiva a corto plazo.' },
+  ecologico:{ planificar:'La sostenibilidad no es opcional en tu sector: es condición de supervivencia.',monitorear:'La sostenibilidad es una oportunidad de diferenciación predecible.',vigilar:'Lo ecológico es relevante pero gestionable con medidas progresivas.',investigar:'Analiza la transición ecológica antes de definir tu posicionamiento.',ignorar:'La presión ecológica es baja hoy, pero la tendencia global apunta a crecer.' },
+  legal:{ planificar:'La complejidad legal es una palanca competitiva si la dominas mejor que tu competencia.',monitorear:'Dominar el marco legal es una ventaja diferencial en tu sector.',vigilar:'La normativa requiere atención periódica pero no consume recursos estratégicos.',investigar:'Entiende la evolución regulatoria antes de tomar decisiones de modelo.',ignorar:'La simplicidad normativa facilita la entrada pero no crea barreras.' },
+};
+
+// ═══════════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════════
+const state = { screen:'intro', idea:'', respuestas:{}, currentFactor:0 };
+
+// ═══════════════════════════════════════════════════════════════
+// UTILS
+// ═══════════════════════════════════════════════════════════════
+function cv(c,s){ return `var(--${c}-${s})`; }
+
+function getEjeScore(f, eje){
+  const qs = f.preguntas.filter(p=>p.eje===eje);
+  const total = qs.reduce((a,p)=>a+(Number(state.respuestas[p.id])||0),0);
+  return Math.round(total/qs.length); // 1, 2, o 3
+}
+
+function getZona(f){
+  const i = getEjeScore(f,'impacto');
+  const u = getEjeScore(f,'incertidumbre');
+  return ZONA_MAP[`${i}-${u}`] || 'vigilar';
+}
+
+function isFactorComplete(f){
+  return f.preguntas.every(p=> state.respuestas[p.id] != null);
+}
+
+function highlightKeywords(text){
+  const kw=['idea de negocio','macroentorno','entorno general','propuesta de valor','oportunidad','amenaza','ventaja competitiva','sostenibilidad','tendencia','regulación','inflación','tecnología','mercado','sector','competencia','estrategia','incertidumbre','impacto'];
+  let r=text;
+  kw.forEach(k=>{ r=r.replace(new RegExp(`\\b(${k})\\b`,'gi'),'<span class="keyword">$1</span>'); });
+  return r;
+}
+
+function getScoreLabel(v){ return v===1?'Bajo':v===2?'Medio':'Alto'; }
+function getScoreColor(eje,v){
+  if(eje==='impacto') return v===1?'var(--green)':v===2?'var(--amber)':'var(--red)';
+  return v===1?'var(--green)':v===2?'var(--amber)':'var(--red)';
+}
+
+// ═══════════════════════════════════════════════════════════════
+// NAV
+// ═══════════════════════════════════════════════════════════════
+function go(screen){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-'+screen).classList.add('active');
+  state.screen=screen;
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(screen==='dashboard') renderDashboard();
+  if(screen==='factor') renderFactor();
+  if(screen==='results') renderResults();
+}
+
+// ═══════════════════════════════════════════════════════════════
+// INTRO
+// ═══════════════════════════════════════════════════════════════
+document.getElementById('idea-input').addEventListener('input',e=>{
+  state.idea=e.target.value;
+  document.getElementById('btn-start').disabled=state.idea.trim().length<15;
+});
+document.getElementById('btn-start').addEventListener('click',()=>go('dashboard'));
+
+// ═══════════════════════════════════════════════════════════════
+// DASHBOARD
+// ═══════════════════════════════════════════════════════════════
+function renderDashboard(){
+  document.getElementById('idea-display-dashboard').textContent=state.idea;
+  const done=FACTORS.filter(isFactorComplete).length;
+  document.getElementById('progress-text').textContent=`${done} de ${FACTORS.length} factores analizados`;
+  const list=document.getElementById('factors-list');
+  list.innerHTML='';
+  FACTORS.forEach((f,i)=>{
+    const isDone=isFactorComplete(f);
+    let zonaPill='';
+    if(isDone){
+      const z=getZona(f);
+      const zd=ZONAS[z];
+      zonaPill=`<span style="font-family:'Inter',sans-serif;font-size:10px;font-weight:600;color:${zd.color};background:${zd.soft};padding:2px 8px;border-radius:999px;text-transform:uppercase;letter-spacing:1px;">${zd.name}</span>`;
+    }
+    const card=document.createElement('div');
+    card.className='card card-interactive';
+    card.style.cssText='padding:20px 24px;display:flex;align-items:center;gap:18px;';
+    card.onclick=()=>{ state.currentFactor=i; go('factor'); };
+    card.innerHTML=`
+      <div style="width:54px;height:54px;border-radius:14px;background:${cv(f.color,'soft')};display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Fraunces',Georgia,serif;font-size:28px;font-weight:500;color:${cv(f.color,'deep')};">${f.letter}</div>
+      <div style="flex:1;min-width:0;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:3px;">
+          <span style="font-size:11px;font-weight:500;color:${cv(f.color,'deep')};text-transform:uppercase;letter-spacing:1px;">Factor ${i+1}</span>
+          ${isDone?`<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`:'' }
+        </div>
+        <h3 class="subtitle" style="font-size:16px;font-weight:500;margin:0 0 4px;line-height:1.3;">${f.label}</h3>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <p class="sans" style="font-size:12px;color:var(--ink-muted);margin:0;">${f.subtitle}</p>
+          ${zonaPill}
+        </div>
+      </div>
+      <div style="width:32px;height:32px;border-radius:50%;background:var(--canvas);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </div>`;
+    list.appendChild(card);
+  });
+  const allDone=FACTORS.every(isFactorComplete);
+  document.getElementById('btn-generate').disabled=!allDone;
+  document.getElementById('btn-generate-text').textContent=allDone
+    ?'Generar mapa e informe'
+    :`Completa los ${FACTORS.length-done} factores restantes`;
+}
+
+document.getElementById('btn-generate').addEventListener('click',()=>go('results'));
+
+// ═══════════════════════════════════════════════════════════════
+// FACTOR SCREEN
+// ═══════════════════════════════════════════════════════════════
+function renderFactor(){
+  const i=state.currentFactor;
+  const f=FACTORS[i];
+
+  document.getElementById('factor-header').style.background=cv(f.color,'soft');
+  document.getElementById('factor-header').style.border=`1px solid ${cv(f.color,'soft')}`;
+  const lel=document.getElementById('factor-letter-el');
+  lel.textContent=f.letter; lel.style.color=cv(f.color,'deep');
+  document.getElementById('factor-eyebrow').textContent=`Factor ${i+1} de 6`;
+  document.getElementById('factor-eyebrow').style.color=cv(f.color,'deep');
+  document.getElementById('factor-title').textContent=f.label;
+  document.getElementById('factor-title').style.color=cv(f.color,'ink');
+  document.getElementById('factor-desc').textContent=f.description;
+  document.getElementById('factor-desc').style.color=cv(f.color,'ink');
+
+  // dots
+  const dots=document.getElementById('factor-progress');
+  dots.innerHTML='';
+  for(let j=0;j<6;j++){
+    const d=document.createElement('div');
+    d.className='progress-dot '+(j===i?'active':j<i?'done':'pending');
+    dots.appendChild(d);
+  }
+
+  const qc=document.getElementById('factor-questions');
+  qc.innerHTML='';
+
+  // Dividimos en impacto e incertidumbre
+  ['impacto','incertidumbre'].forEach(eje=>{
+    const ejeLabel = eje==='impacto'?'Impacto sobre tu negocio':'Incertidumbre del factor';
+    const ejeColor = eje==='impacto'?cv(f.color,'deep'):'var(--ink-muted)';
+    const ejeBg   = eje==='impacto'?cv(f.color,'soft'):'var(--line-soft)';
+
+    const divider=document.createElement('div');
+    divider.className='section-divider';
+    divider.innerHTML=`
+      <div class="section-divider-line"></div>
+      <span class="section-divider-label" style="color:${ejeColor};background:${ejeBg};">${ejeLabel}</span>
+      <div class="section-divider-line"></div>`;
+    qc.appendChild(divider);
+
+    const ejePreguntas=f.preguntas.filter(p=>p.eje===eje);
+    ejePreguntas.forEach((q,qi)=>{
+      const v=state.respuestas[q.id]||null;
+      const div=document.createElement('div');
+      div.style.marginBottom='20px';
+      div.className='fade';
+
+      const optsHTML=q.opts.map(op=>{
+        const sel=v==op.v;
+        return `<div class="opt-btn${sel?' selected':''}" data-qid="${q.id}" data-val="${op.v}"
+          style="${sel?`border-color:${cv(f.color,'deep')};background:${cv(f.color,'soft')};`:''}">
+          <div class="opt-dot" style="${sel?`border-color:${cv(f.color,'deep')};background:${cv(f.color,'deep')};`:''}">
+            ${sel?`<div style="width:7px;height:7px;border-radius:50%;background:#fff;"></div>`:''}
+          </div>
+          <span style="${sel?`color:${cv(f.color,'deep')};font-weight:500;`:''}">${op.t}</span>
+        </div>`;
+      }).join('');
+
+      div.innerHTML=`
+        <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:12px;">
+          <div style="width:24px;height:24px;border-radius:50%;background:${cv(f.color,'soft')};color:${cv(f.color,'deep')};display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px;font-family:'Inter',sans-serif;">${qi+1}</div>
+          <p class="serif" style="font-size:15px;font-weight:400;color:var(--ink);margin:0;line-height:1.45;">${q.texto}</p>
+        </div>
+        <div style="padding-left:36px;">${optsHTML}</div>`;
+      qc.appendChild(div);
+    });
+  });
+
+  // eventos
+  qc.querySelectorAll('.opt-btn').forEach(el=>{
+    el.onclick=()=>{
+      state.respuestas[el.dataset.qid]=Number(el.dataset.val);
+      updateSaveButton();
+      renderFactor();
+    };
+  });
+
+  updateSaveButton();
+}
+
+function updateSaveButton(){
+  const f=FACTORS[state.currentFactor];
+  document.getElementById('btn-save-factor').disabled=!isFactorComplete(f);
+}
+document.getElementById('btn-save-factor').addEventListener('click',()=>go('dashboard'));
+
+// ═══════════════════════════════════════════════════════════════
+// MAPA 3×3
+// ═══════════════════════════════════════════════════════════════
+function renderMap(){
+  const factorColors={
+    politico:'#3E5778',economico:'#8B6F2A',social:'#8B3A3A',
+    tecnologico:'#3D6B5C',ecologico:'#557A35',legal:'#5D3D66'
+  };
+
+  // Asignar cada factor a su celda (impacto 1-3, incertidumbre 1-3)
+  const cellFactors={};
+  ['3-1','3-2','3-3','2-1','2-2','2-3','1-1','1-2','1-3'].forEach(k=>{ cellFactors[k]=[]; });
+  FACTORS.forEach(f=>{
+    const key=`${getEjeScore(f,'impacto')}-${getEjeScore(f,'incertidumbre')}`;
+    if(cellFactors[key]) cellFactors[key].push(f);
+  });
+
+  const bubble=(f)=>`<div class="factor-bubble" style="background:${factorColors[f.id]};" title="${f.label}">${f.letter}</div>`;
+  const cell=(imp,unc)=>{
+    const zona=ZONA_MAP[`${imp}-${unc}`];
+    const zd=ZONAS[zona];
+    const dots=(cellFactors[`${imp}-${unc}`]||[]).map(bubble).join('');
+    return `<div class="map-cell cell-${zona}"><div class="map-cell-label">${zd.name}</div><div class="map-cell-dots">${dots}</div></div>`;
+  };
+
+  // Cabeceras de columna (alineadas con map-row que tiene 64px + 3×1fr)
+  let html=`<div class="map-outer">
+    <div class="map-col-heads">
+      <div></div>
+      <div class="map-col-head">Baja incertidumbre</div>
+      <div class="map-col-head">Media incertidumbre</div>
+      <div class="map-col-head">Alta incertidumbre</div>
+    </div>
+    <div class="map-body">
+      <div class="map-axis-y-wrap"><span class="map-axis-y">← Impacto →</span></div>
+      <div class="map-rows">
+        <div class="map-row">
+          <div class="map-row-label">Alto</div>
+          ${cell(3,1)}${cell(3,2)}${cell(3,3)}
+        </div>
+        <div class="map-row">
+          <div class="map-row-label">Medio</div>
+          ${cell(2,1)}${cell(2,2)}${cell(2,3)}
+        </div>
+        <div class="map-row">
+          <div class="map-row-label">Bajo</div>
+          ${cell(1,1)}${cell(1,2)}${cell(1,3)}
+        </div>
+      </div>
+    </div>
+    <div class="map-x-labels">
+      <div></div>
+      <div class="map-x-label">Baja</div>
+      <div class="map-x-label">Media</div>
+      <div class="map-x-label">Alta</div>
+    </div>
+  </div>`;
+
+  // Leyenda factores
+  html+=`<div class="map-legend">`;
+  FACTORS.forEach(f=>{
+    html+=`<div class="map-legend-item">
+      <div class="legend-dot-factor" style="background:${factorColors[f.id]};">${f.letter}</div>
+      <span class="legend-txt">${f.labelShort}</span>
+    </div>`;
+  });
+  html+=`</div>`;
+
+  return html;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// RESULTADOS
+// ═══════════════════════════════════════════════════════════════
+function renderResults(){
+  // Mapa
+  document.getElementById('map-mount').innerHTML=renderMap();
+
+  // Idea
+  document.getElementById('idea-display-results').textContent=state.idea;
+
+  // Síntesis
+  const zonaCounts={planificar:0,monitorear:0,vigilar:0,investigar:0,ignorar:0};
+  FACTORS.forEach(f=>{ zonaCounts[getZona(f)]++; });
+  const topZona=Object.entries(zonaCounts).sort((a,b)=>b[1]-a[1])[0][0];
+  const resumen=`El análisis del macroentorno de tu idea revela que la mayoría de los factores externos se concentran en la zona de "${ZONAS[topZona].name.toLowerCase()}". ${
+    topZona==='planificar'?'El entorno presenta alta incertidumbre con elevado impacto potencial: la planificación estratégica por escenarios es prioritaria.':
+    topZona==='monitorear'?'Los factores externos más relevantes son predecibles: incorpóralos activamente en tu plan de negocio.':
+    topZona==='vigilar'?'El entorno presenta impacto e incertidumbre moderados: mantén un seguimiento periódico y ajusta según evolucione.':
+    topZona==='investigar'?'La alta incertidumbre en factores de bajo impacto actual aconseja profundizar en el análisis antes de comprometer recursos.':
+    'El entorno externo presenta bajo impacto e incertidumbre contenida: las condiciones son favorables para centrarse en la ejecución.'
+  }`;
+  document.getElementById('resumen-general').innerHTML=highlightKeywords(resumen);
+
+  // Cards de zonas en portada
+  const zonasPresentes=[...new Set(FACTORS.map(f=>getZona(f)))];
+  const portadaCards=document.getElementById('zona-cards-portada');
+  portadaCards.innerHTML='';
+  zonasPresentes.forEach(z=>{
+    const zd=ZONAS[z];
+    const factoresZona=FACTORS.filter(f=>getZona(f)===z);
+    const card=document.createElement('div');
+    card.className='zona-card';
+    card.style.cssText=`background:${zd.soft};border-color:${zd.color}33;`;
+    card.innerHTML=`<div class="zona-card-head">
+      <div class="zona-card-icon">${zd.icon}</div>
+      <span class="zona-card-name" style="color:${zd.color};">${zd.name}</span>
+    </div>
+    <p class="zona-card-desc">${zd.desc}</p>
+    <p style="font-family:'Inter',sans-serif;font-size:10px;font-weight:600;color:${zd.color};margin-top:8px;text-transform:uppercase;letter-spacing:1px;">
+      ${factoresZona.map(f=>f.labelShort).join(' · ')}
+    </p>`;
+    portadaCards.appendChild(card);
+  });
+
+  // Páginas de factor
+  const totalPages=FACTORS.length+2;
+  document.querySelectorAll('.total-pages-ref').forEach(el=>el.textContent=String(totalPages).padStart(2,'0'));
+  document.getElementById('final-page-num').textContent=`${String(totalPages).padStart(2,'0')} / ${String(totalPages).padStart(2,'0')}`;
+
+  const factorColors={
+    politico:'#3E5778',economico:'#8B6F2A',social:'#8B3A3A',
+    tecnologico:'#3D6B5C',ecologico:'#557A35',legal:'#5D3D66'
+  };
+
+  const container=document.getElementById('results-factors');
+  container.innerHTML='';
+
+  FACTORS.forEach((f,i)=>{
+    const zona=getZona(f);
+    const zd=ZONAS[zona];
+    const impacto=getEjeScore(f,'impacto');
+    const incert=getEjeScore(f,'incertidumbre');
+    const analisis=ANALISIS[f.id][zona];
+    const puntoClave=PUNTO_CLAVE[f.id][zona];
+    const pageNum=i+2;
+    const fColor=factorColors[f.id];
+
+    // Resumen de respuestas
+    const preguntasHTML=f.preguntas.map(p=>{
+      const v=state.respuestas[p.id];
+      const opt=p.opts.find(o=>o.v==v);
+      const ejeTag=p.eje==='impacto'?'Impacto':'Incert.';
+      return `<div class="factor-pregunta-item">
+        <span style="font-family:'Inter',sans-serif;font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:${p.eje==='impacto'?fColor:'var(--ink-muted)'};">${ejeTag}</span>
+        ${p.texto.substring(0,55)}… <span class="pregunta-resp">→ ${opt?opt.t.split('—')[0].trim():''}</span>
+      </div>`;
+    }).join('');
+
+    const page=document.createElement('article');
+    page.className='page-a4 fade';
+    page.innerHTML=`
+      <header class="page-header">
+        <div class="page-mark">
+          <div class="page-mark-line" style="background:${fColor};"></div>
+          <span class="eyebrow" style="color:${fColor};">Factor ${i+1} · ${f.labelShort}</span>
+        </div>
+        <span class="page-num">${String(pageNum).padStart(2,'0')} / ${String(totalPages).padStart(2,'0')}</span>
+      </header>
+
+      <div class="factor-page-hero">
+        <div class="factor-page-letter" style="background:${cv(f.color,'soft')};color:${fColor};">${f.letter}</div>
+        <div class="factor-page-meta">
+          <span class="factor-page-eyebrow" style="color:${fColor};">Análisis del factor</span>
+          <h2 class="factor-page-title">${f.label}</h2>
+          <span class="factor-zona-pill" style="background:${zd.soft};color:${zd.color};">${zd.icon} ${zd.name}</span>
+        </div>
+      </div>
+
+      <div class="factor-scores-row">
+        <div class="factor-score-box" style="background:${impacto===3?'var(--red-soft)':impacto===2?'var(--amber-soft)':'var(--green-soft)'};border-color:${impacto===3?'rgba(168,69,57,.2)':impacto===2?'rgba(184,133,52,.2)':'rgba(74,112,40,.2)'};">
+          <div class="factor-score-label">Impacto</div>
+          <div class="factor-score-val" style="color:${getScoreColor('impacto',impacto)};">${getScoreLabel(impacto)}</div>
+          <div class="factor-bar-wrap"><div class="factor-bar-fill" style="width:${(impacto/3)*100}%;background:${getScoreColor('impacto',impacto)};"></div></div>
+        </div>
+        <div class="factor-score-box" style="background:${incert===3?'var(--red-soft)':incert===2?'var(--amber-soft)':'var(--green-soft)'};border-color:${incert===3?'rgba(168,69,57,.2)':incert===2?'rgba(184,133,52,.2)':'rgba(74,112,40,.2)'};">
+          <div class="factor-score-label">Incertidumbre</div>
+          <div class="factor-score-val" style="color:${getScoreColor('incertidumbre',incert)};">${getScoreLabel(incert)}</div>
+          <div class="factor-bar-wrap"><div class="factor-bar-fill" style="width:${(incert/3)*100}%;background:${getScoreColor('incertidumbre',incert)};"></div></div>
+        </div>
+        <div class="factor-score-box" style="background:${zd.soft};">
+          <div class="factor-score-label">Acción estratégica</div>
+          <div style="font-family:'Fraunces',Georgia,serif;font-size:20px;font-weight:500;color:${zd.color};line-height:1.2;">${zd.icon} ${zd.name}</div>
+          <div class="factor-score-sub">${
+            zona==='planificar'?'Planificar escenarios':
+            zona==='monitorear'?'Seguimiento activo':
+            zona==='vigilar'?'Vigilancia periódica':
+            zona==='investigar'?'Profundizar análisis':'Sin prioridad estratégica'
+          }</div>
+        </div>
+      </div>
+
+      <div style="margin-bottom:20px;">
+        <span class="dossier-section-label" style="color:${fColor};">Lectura del factor</span>
+        <p class="factor-analysis">${highlightKeywords(analisis)}</p>
+      </div>
+
+      <div class="factor-insights">
+        <div class="insight-block key">
+          <span class="insight-label key-lbl">Punto clave</span>
+          <p class="insight-text">${puntoClave}</p>
+        </div>
+        <div class="insight-block" style="background:${zd.soft};">
+          <span class="insight-label" style="color:${zd.color};">Acción recomendada</span>
+          <p class="insight-text" style="color:${cv(f.color,'ink')};">
+            ${zona==='planificar'?'Diseña al menos dos escenarios alternativos para este factor y asigna un responsable de seguimiento.':
+              zona==='monitorear'?'Incorpora los indicadores clave de este factor en tu cuadro de mando mensual.':
+              zona==='vigilar'?'Establece una revisión semestral de este factor y define el umbral que lo elevaría a zona de planificación.':
+              zona==='investigar'?'Dedica tiempo a investigar este factor en profundidad antes de tu próxima revisión estratégica.':
+              'No requiere acción inmediata. Revisa su posición en tu próxima revisión anual del entorno.'}
+          </p>
+        </div>
+      </div>
+
+      <div class="factor-preguntas-block">
+        <span class="dossier-section-label" style="color:${fColor};border:none;padding:0;">Respuestas del análisis</span>
+        <div class="factor-preguntas-grid">${preguntasHTML}</div>
+      </div>`;
+    container.appendChild(page);
+  });
+
+  // Conclusión
+  const planificarF=FACTORS.filter(f=>getZona(f)==='planificar');
+  const monitorearF=FACTORS.filter(f=>getZona(f)==='monitorear');
+  const conclusion=`El mapa PESTEL de tu idea muestra un entorno ${
+    planificarF.length>=3?'con alta carga de incertidumbre e impacto: la planificación estratégica por escenarios es la herramienta central para navegar el macroentorno':
+    monitorearF.length>=3?'con factores de alto impacto bien identificados y predecibles: tienes visibilidad suficiente para tomar decisiones estratégicas con confianza':
+    'equilibrado, con una combinación de factores que requieren acciones diferenciadas según su posición en el mapa'
+  }. ${
+    planificarF.length>0?`Los factores ${planificarF.map(f=>f.labelShort.toLowerCase()).join(' y ')} exigen mayor atención estratégica inmediata. `:''}${
+    monitorearF.length>0?`Los factores ${monitorearF.map(f=>f.labelShort.toLowerCase()).join(' y ')} son tus palancas más predecibles.`:''
+  } Usa este análisis como punto de partida vivo: revísalo cada vez que el entorno cambie.`;
+
+  document.getElementById('conclusion-text').innerHTML=highlightKeywords(conclusion);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// RESET
+// ═══════════════════════════════════════════════════════════════
+function reset(){
+  state.idea=''; state.respuestas={}; state.currentFactor=0;
+  document.getElementById('idea-input').value='';
+  document.getElementById('btn-start').disabled=true;
+  go('intro');
+}
+</script>
+</body>
+</html>
