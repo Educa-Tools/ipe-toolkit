@@ -1,0 +1,1910 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --canvas: #FAF7F2;
+    --surface: #FFFFFF;
+    --ink: #1F2417;
+    --ink-soft: #4A4F36;
+    --ink-muted: #8A8B6A;
+    --line: #E5E8C8;
+    --line-strong: #C8CCA8;
+    --olive-deep: #6B7028;
+    --olive-mid: #A8AD5C;
+    --olive-soft: #D8DCA0;
+    --lime-soft: #E8EDC4;
+    --lime-mid: #C5CD78;
+    --amber: #B88534;
+    --amber-soft: #F7EDD8;
+  }
+
+  .biz-tool { font-family: var(--font-body); color: var(--ink); background: var(--canvas); max-width: 100%; padding: 0; font-size: 16px; line-height: 1.6; }
+  .biz-tool * { box-sizing: border-box; }
+
+  .biz-header { text-align: center; margin-bottom: 2.5rem; padding-top: 0.5rem; }
+  .biz-eyebrow {
+    display: inline-block; font-size: 12px; font-weight: 600;
+    letter-spacing: 1.8px; text-transform: uppercase;
+    color: var(--olive-deep); background: var(--lime-soft);
+    padding: 6px 14px; border-radius: 999px; margin-bottom: 18px;
+  }
+  .biz-title { font-family: var(--font-display); font-size: 38px; font-weight: 500; margin: 0 0 10px; color: var(--ink); letter-spacing: -0.8px; line-height: 1.15; }
+  .biz-subtitle { font-size: 16px; color: var(--ink-muted); margin: 0; }
+
+  .biz-progress { margin-bottom: 2rem; }
+  .biz-progress-meta { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 13px; color: var(--ink-muted); font-weight: 500; }
+  .biz-progress-track { height: 6px; background: var(--olive-soft); border-radius: 999px; overflow: hidden; }
+  .biz-progress-bar { height: 100%; background: linear-gradient(90deg, var(--olive-mid), var(--olive-deep)); border-radius: 999px; transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+
+  .biz-card { background: var(--surface); border: 0.5px solid var(--line); border-radius: 18px; padding: 2.25rem 2rem; margin-bottom: 1.5rem; }
+  .biz-step { animation: slideIn 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
+  @keyframes slideIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  .biz-step-num { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--olive-deep); margin-bottom: 10px; }
+  .biz-q { font-family: var(--font-display); font-size: 28px; font-weight: 500; margin: 0 0 8px; color: var(--ink); letter-spacing: -0.5px; line-height: 1.25; }
+  .biz-help { font-size: 15px; color: var(--ink-muted); margin: 0 0 1.75rem; line-height: 1.55; }
+  .biz-field { margin-bottom: 1.5rem; }
+  .biz-label { display: block; font-size: 13px; font-weight: 500; color: var(--ink-soft); margin-bottom: 10px; letter-spacing: 0.2px; }
+
+  .biz-input, .biz-select, .biz-textarea {
+    width: 100%; font-family: var(--font-body); font-size: 15px; color: var(--ink);
+    background: var(--canvas); border: 0.5px solid var(--line);
+    border-radius: 12px; padding: 13px 16px; transition: all 0.2s ease; outline: none;
+  }
+  .biz-input:hover, .biz-select:hover, .biz-textarea:hover { border-color: var(--line-strong); }
+  .biz-input:focus, .biz-select:focus, .biz-textarea:focus { border-color: var(--olive-deep); background: var(--surface); box-shadow: 0 0 0 3px var(--lime-soft); }
+  .biz-textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
+  .biz-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%238A8B6A' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 16px center; padding-right: 44px; cursor: pointer;
+  }
+
+  .biz-pill-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+  .biz-pill-grid.cols-3 { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
+
+  .biz-pill {
+    background: var(--surface); border: 1px solid var(--line-strong);
+    border-radius: 12px; padding: 13px 16px; font-size: 14px; font-weight: 500;
+    color: var(--ink-soft); cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: center; font-family: var(--font-body);
+    box-shadow: 0 1px 2px rgba(107, 112, 40, 0.04);
+  }
+  .biz-pill:hover {
+    border-color: var(--olive-deep); background: var(--lime-soft); color: var(--ink-soft);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(107, 112, 40, 0.12);
+  }
+  .biz-pill.is-selected {
+    background: linear-gradient(135deg, var(--lime-soft), var(--olive-soft));
+    border-color: var(--olive-deep); color: var(--ink-soft);
+    box-shadow: 0 0 0 1px var(--olive-deep), 0 4px 12px rgba(107, 112, 40, 0.15);
+    transform: translateY(-1px);
+  }
+
+  .biz-stack { display: flex; flex-direction: column; gap: 12px; }
+  .biz-radio-card {
+    background: var(--surface); border: 1px solid var(--line-strong);
+    border-radius: 14px; padding: 16px 18px; cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); text-align: left;
+    font-family: var(--font-body); color: var(--ink);
+    box-shadow: 0 1px 2px rgba(107, 112, 40, 0.04);
+  }
+  .biz-radio-card:hover {
+    border-color: var(--olive-deep); background: var(--lime-soft);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(107, 112, 40, 0.12);
+  }
+  .biz-radio-card.is-selected {
+    background: linear-gradient(135deg, var(--lime-soft), var(--olive-soft));
+    border-color: var(--olive-deep);
+    box-shadow: 0 0 0 1px var(--olive-deep), 0 4px 12px rgba(107, 112, 40, 0.15);
+  }
+  .biz-radio-title { font-size: 15px; font-weight: 600; margin-bottom: 4px; color: var(--ink); }
+  .biz-radio-desc { font-size: 14px; color: var(--ink-muted); line-height: 1.55; }
+  .biz-radio-card.is-selected .biz-radio-title { color: var(--ink-soft); }
+
+  .biz-nav { display: flex; justify-content: space-between; gap: 12px; margin-top: 1.75rem; }
+  .biz-btn {
+    font-family: var(--font-body); font-size: 15px; font-weight: 500;
+    padding: 13px 24px; border-radius: 12px; cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid var(--line-strong);
+    background: var(--surface); color: var(--ink-soft);
+  }
+  .biz-btn:hover { background: var(--lime-soft); color: var(--ink); transform: translateY(-1px); }
+  .biz-btn-primary {
+    background: linear-gradient(135deg, var(--olive-deep), #4A5010);
+    border-color: var(--olive-deep); color: #FFFFFF;
+    box-shadow: 0 2px 8px rgba(107, 112, 40, 0.25);
+  }
+  .biz-btn-primary:hover {
+    background: linear-gradient(135deg, #4A5010, var(--olive-deep));
+    border-color: #4A5010; color: #FFFFFF;
+    box-shadow: 0 4px 14px rgba(107, 112, 40, 0.35);
+    transform: translateY(-1px);
+  }
+
+  .biz-loading { text-align: center; padding: 4rem 1rem; }
+  .biz-spinner { display: inline-block; width: 40px; height: 40px; border: 3px solid var(--olive-soft); border-top-color: var(--olive-deep); border-right-color: var(--olive-mid); border-radius: 50%; animation: bizSpin 0.8s linear infinite; margin-bottom: 1.5rem; }
+  @keyframes bizSpin { to { transform: rotate(360deg); } }
+  .biz-loading-text { font-size: 15px; color: var(--ink-soft); margin: 0; transition: opacity 0.3s ease; }
+
+  .biz-results-header { text-align: center; margin-bottom: 2.5rem; }
+  .biz-results-eyebrow { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 1.8px; text-transform: uppercase; color: var(--olive-deep); margin-bottom: 12px; }
+  .biz-results-title { font-family: var(--font-display); font-size: 34px; font-weight: 500; margin: 0 0 14px; color: var(--ink); letter-spacing: -0.6px; line-height: 1.2; }
+  .biz-results-summary { font-family: var(--font-display); font-size: 17px; color: var(--ink-soft); line-height: 1.55; max-width: 580px; margin: 0 auto; font-style: italic; font-weight: 400; }
+
+  .biz-idea {
+    background: var(--surface); border: 0.5px solid var(--line);
+    border-radius: 18px; padding: 2rem; margin-bottom: 1.25rem;
+    transition: border-color 0.2s ease; position: relative; overflow: hidden;
+  }
+  .biz-idea::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; }
+  .biz-idea[data-tipo="sector"]::before { background: var(--olive-mid); }
+  .biz-idea[data-tipo="hibrido"]::before { background: var(--olive-deep); }
+  .biz-idea[data-tipo="innovadora"]::before { background: linear-gradient(180deg, var(--olive-mid), var(--olive-deep)); }
+  .biz-idea:hover { border-color: var(--line-strong); }
+
+  .biz-idea-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 999px; margin-bottom: 16px;
+  }
+  .biz-idea[data-tipo="sector"] .biz-idea-tag { background: var(--lime-soft); color: var(--ink-soft); }
+  .biz-idea[data-tipo="hibrido"] .biz-idea-tag { background: var(--olive-soft); color: var(--ink-soft); }
+  .biz-idea[data-tipo="innovadora"] .biz-idea-tag { background: var(--canvas); color: var(--ink); }
+
+  .biz-idea-num { font-family: var(--font-display); font-size: 14px; font-weight: 500; color: #C8CCA8; margin-right: 6px; font-style: italic; }
+  .biz-idea-title { font-family: var(--font-display); font-size: 24px; font-weight: 500; margin: 0 0 6px; color: var(--ink); letter-spacing: -0.4px; line-height: 1.25; }
+  .biz-idea-nicho { font-size: 14px; color: var(--ink-muted); margin: 0 0 18px; }
+  .biz-idea-desc { font-size: 16px; line-height: 1.65; color: var(--ink-soft); margin: 0; }
+
+  .biz-section { margin-top: 20px; padding-top: 20px; border-top: 0.5px solid var(--line); }
+  .biz-section-label { font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--olive-deep); margin: 0 0 10px; }
+  .biz-section-text { font-size: 15px; line-height: 1.65; color: var(--ink-soft); margin: 0; }
+
+  .biz-meta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 18px; }
+  .biz-meta-item { background: var(--canvas); padding: 14px 16px; border-radius: 12px; border: 0.5px solid var(--line); }
+  .biz-meta-label { font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 5px; }
+  .biz-meta-value { font-size: 14px; font-weight: 600; color: var(--ink); line-height: 1.3; }
+
+  .biz-step-action {
+    background: linear-gradient(135deg, var(--lime-soft), var(--canvas));
+    border-radius: 14px; padding: 16px 18px; margin-top: 18px;
+    border: 0.5px solid var(--line);
+  }
+  .biz-step-action .biz-section-label { color: #4A5010; margin-bottom: 8px; }
+  .biz-step-action .biz-section-text { color: var(--ink-soft); font-weight: 500; font-size: 15px; }
+
+  .biz-feature-list {
+    margin: 0; padding: 0; list-style: none;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .biz-feature-list li {
+    position: relative; padding-left: 22px;
+    font-size: 14px; line-height: 1.6; color: var(--ink-soft);
+  }
+  .biz-feature-list li::before {
+    content: ''; position: absolute; left: 0; top: 9px;
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--olive-deep);
+  }
+
+  .biz-info-search {
+    margin: 10px 0 0; font-size: 13px; color: var(--ink-muted); line-height: 1.5;
+  }
+  .biz-info-search-label {
+    font-weight: 500; color: var(--ink-soft);
+  }
+  .biz-info-search code {
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+    background: var(--lime-soft); padding: 2px 8px; border-radius: 6px;
+    font-size: 12px; color: var(--olive-deep);
+  }
+
+  .biz-restart { text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 0.5px solid var(--line); }
+
+  .biz-validation {
+    background: var(--lime-soft); color: var(--ink-soft);
+    font-size: 14px; padding: 12px 16px; border-radius: 10px;
+    margin-top: 14px; border: 0.5px solid var(--line); display: none; font-weight: 500;
+  }
+  .biz-validation.is-visible { display: block; animation: shake 0.4s ease; }
+  @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+</style>
+
+<div class="biz-tool">
+
+  <div class="biz-header" id="biz-header">
+    <span class="biz-eyebrow">Itinerario para la empleabilidad</span>
+    <h1 class="biz-title">Generador de ideas de negocio</h1>
+    <p class="biz-subtitle">Descubre líneas de negocio alineadas con tu perfil</p>
+  </div>
+
+  <div class="biz-progress" id="biz-progress">
+    <div class="biz-progress-meta">
+      <span id="biz-step-label">Paso 1 de 8</span>
+      <span id="biz-step-pct">13%</span>
+    </div>
+    <div class="biz-progress-track">
+      <div class="biz-progress-bar" id="biz-bar" style="width: 13%;"></div>
+    </div>
+  </div>
+
+  <div class="biz-card" id="biz-form-card">
+
+    <div class="biz-step" data-step="1">
+      <span class="biz-step-num">Sobre tu formación</span>
+      <h2 class="biz-q">¿Qué ciclo formativo estás cursando?</h2>
+      <p class="biz-help">Selecciona la familia, el nivel y tu ciclo concreto</p>
+
+      <div class="biz-field">
+        <label class="biz-label">Familia profesional</label>
+        <select id="biz-familia" class="biz-select">
+          <option value="">Selecciona una familia...</option>
+          <option value="administracion">Administración y Gestión</option>
+          <option value="deportiva">Actividades Físicas y Deportivas</option>
+          <option value="agraria">Agraria</option>
+          <option value="artes_graficas">Artes Gráficas</option>
+          <option value="comercio">Comercio y Marketing</option>
+          <option value="edificacion">Edificación y Obra Civil</option>
+          <option value="electricidad">Electricidad y Electrónica</option>
+          <option value="energia">Energía y Agua</option>
+          <option value="fabricacion">Fabricación Mecánica</option>
+          <option value="hosteleria">Hostelería y Turismo</option>
+          <option value="imagen_personal">Imagen Personal</option>
+          <option value="imagen_sonido">Imagen y Sonido</option>
+          <option value="alimentaria">Industrias Alimentarias</option>
+          <option value="informatica">Informática y Comunicaciones</option>
+          <option value="instalacion">Instalación y Mantenimiento</option>
+          <option value="madera">Madera, Mueble y Corcho</option>
+          <option value="maritima">Marítimo Pesquera</option>
+          <option value="quimica">Química</option>
+          <option value="sanidad">Sanidad</option>
+          <option value="seguridad">Seguridad y Medio Ambiente</option>
+          <option value="sociocultural">Servicios Socioculturales y a la Comunidad</option>
+          <option value="textil">Textil, Confección y Piel</option>
+          <option value="transporte">Transporte y Mantenimiento de Vehículos</option>
+          <option value="vidrio">Vidrio y Cerámica</option>
+        </select>
+      </div>
+
+      <div class="biz-field">
+        <label class="biz-label">Nivel</label>
+        <select id="biz-nivel" class="biz-select" disabled>
+          <option value="">Primero selecciona la familia...</option>
+        </select>
+      </div>
+
+      <div class="biz-field">
+        <label class="biz-label">Ciclo formativo</label>
+        <select id="biz-ciclo-sel" class="biz-select" disabled>
+          <option value="">Primero selecciona el nivel...</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="biz-step" data-step="2" style="display: none;">
+      <span class="biz-step-num">Formación y experiencia complementaria</span>
+      <h2 class="biz-q">¿Tienes formación o experiencia más allá del ciclo?</h2>
+      <p class="biz-help">Otros estudios, cursos, prácticas, trabajos previos o conocimientos sólidos. No incluyas aquí simples aficiones.</p>
+
+      <div class="biz-field">
+        <textarea id="biz-formacion-extra" class="biz-textarea" rows="3" maxlength="500" spellcheck="true" autocomplete="off" placeholder="Ej: Curso de soldadura TIG, prácticas en concesionario Audi, dos años trabajando en hostelería, certificado B2 inglés..."></textarea>
+        <p style="font-size: 13px; color: var(--ink-muted); margin-top: 8px;">Déjalo en blanco si no procede. Máximo 500 caracteres.</p>
+      </div>
+
+      <div class="biz-field">
+        <label class="biz-label">¿En qué áreas tienes conocimientos sólidos? (más allá de tu ciclo)</label>
+        <div class="biz-pill-grid">
+          <button class="biz-pill" data-key="conocimientos" data-value="idiomas" type="button">Idiomas (B2+)</button>
+          <button class="biz-pill" data-key="conocimientos" data-value="ofimatica" type="button">Ofimática avanzada</button>
+          <button class="biz-pill" data-key="conocimientos" data-value="contabilidad" type="button">Contabilidad / fiscal</button>
+          <button class="biz-pill" data-key="conocimientos" data-value="marketing" type="button">Marketing digital</button>
+          <button class="biz-pill" data-key="conocimientos" data-value="diseno" type="button">Diseño gráfico</button>
+          <button class="biz-pill" data-key="conocimientos" data-value="fotovideo" type="button">Foto / vídeo</button>
+          <button class="biz-pill" data-key="conocimientos" data-value="programacion" type="button">Programación</button>
+          <button class="biz-pill" data-key="conocimientos" data-value="otro_oficio" type="button">Otro oficio técnico</button>
+          <button class="biz-pill" data-key="conocimientos" data-value="ventas" type="button">Ventas / negociación</button>
+          <button class="biz-pill" data-key="conocimientos" data-value="rrss" type="button">RRSS / creación de contenido</button>
+          <button class="biz-pill" data-key="conocimientos" data-value="gestion_personas" type="button">Gestión de personas</button>
+          <button class="biz-pill" data-key="conocimientos" data-value="atencion_cliente" type="button">Atención al cliente</button>
+          <button class="biz-pill" data-key="conocimientos" data-value="ninguno" type="button">Solo mi ciclo</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="biz-step" data-step="3" style="display: none;">
+      <span class="biz-step-num">Intereses personales</span>
+      <h2 class="biz-q">¿Qué te apasiona en tu tiempo libre?</h2>
+      <p class="biz-help">Aficiones y temas que te motivan, sin que necesariamente sepas mucho de ellos. Esto orientará el tono del negocio, no su base técnica.</p>
+
+      <div class="biz-field">
+        <textarea id="biz-intereses" class="biz-textarea" rows="3" maxlength="400" spellcheck="true" autocomplete="off" placeholder="Ej: Me encantan los videojuegos de estrategia, practico escalada los fines de semana, me llama la atención la fotografía callejera y el diseño urbano..."></textarea>
+      </div>
+
+      <div class="biz-field">
+        <label class="biz-label">Marca los temas que te resulten más atractivos</label>
+        <div class="biz-pill-grid">
+          <button class="biz-pill" data-key="tags" data-value="deporte" type="button">Deporte / fitness</button>
+          <button class="biz-pill" data-key="tags" data-value="tecnologia" type="button">Tecnología / gaming</button>
+          <button class="biz-pill" data-key="tags" data-value="arte" type="button">Arte / diseño</button>
+          <button class="biz-pill" data-key="tags" data-value="naturaleza" type="button">Naturaleza / aire libre</button>
+          <button class="biz-pill" data-key="tags" data-value="gastronomia" type="button">Gastronomía</button>
+          <button class="biz-pill" data-key="tags" data-value="motor" type="button">Motor / vehículos</button>
+          <button class="biz-pill" data-key="tags" data-value="moda" type="button">Moda / belleza</button>
+          <button class="biz-pill" data-key="tags" data-value="musica" type="button">Música / audiovisual</button>
+          <button class="biz-pill" data-key="tags" data-value="animales" type="button">Animales / mascotas</button>
+          <button class="biz-pill" data-key="tags" data-value="sostenibilidad" type="button">Sostenibilidad / eco</button>
+          <button class="biz-pill" data-key="tags" data-value="social" type="button">Impacto social</button>
+          <button class="biz-pill" data-key="tags" data-value="diy" type="button">DIY / manualidades</button>
+          <button class="biz-pill" data-key="tags" data-value="viajes" type="button">Viajes / turismo</button>
+        </div>
+      </div>
+
+      <div class="biz-field">
+        <label class="biz-label">¿En qué entorno te ves trabajando?</label>
+        <div class="biz-pill-grid">
+          <button class="biz-pill" data-key="entorno" data-value="online" type="button">100% online</button>
+          <button class="biz-pill" data-key="entorno" data-value="local" type="button">Local físico</button>
+          <button class="biz-pill" data-key="entorno" data-value="mixto" type="button">Mixto</button>
+          <button class="biz-pill" data-key="entorno" data-value="domicilio" type="button">A domicilio</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="biz-step" data-step="4" style="display: none;">
+      <span class="biz-step-num">Tus puntos fuertes</span>
+      <h2 class="biz-q">¿En qué destacas?</h2>
+      <p class="biz-help">Selecciona todas las habilidades en las que te consideres competente</p>
+
+      <div class="biz-pill-grid">
+        <button class="biz-pill" data-key="habilidades" data-value="tecnica" type="button">Técnica / manual</button>
+        <button class="biz-pill" data-key="habilidades" data-value="personas" type="button">Trato con personas</button>
+        <button class="biz-pill" data-key="habilidades" data-value="creatividad" type="button">Creatividad</button>
+        <button class="biz-pill" data-key="habilidades" data-value="organizacion" type="button">Organización</button>
+        <button class="biz-pill" data-key="habilidades" data-value="ventas" type="button">Ventas</button>
+        <button class="biz-pill" data-key="habilidades" data-value="digital" type="button">Tecnología / RRSS</button>
+        <button class="biz-pill" data-key="habilidades" data-value="liderazgo" type="button">Liderazgo</button>
+        <button class="biz-pill" data-key="habilidades" data-value="resolucion" type="button">Resolver problemas</button>
+        <button class="biz-pill" data-key="habilidades" data-value="idiomas" type="button">Idiomas</button>
+      </div>
+    </div>
+
+    <div class="biz-step" data-step="5" style="display: none;">
+      <span class="biz-step-num">Tu actitud frente al riesgo</span>
+      <h2 class="biz-q">¿Cuál es tu perfil de riesgo?</h2>
+      <p class="biz-help">¿Cuánto estás dispuesto/a a arriesgar al emprender?</p>
+
+      <div class="biz-stack">
+        <button class="biz-radio-card" data-key="riesgo" data-value="bajo" type="button">
+          <div class="biz-radio-title">Conservador</div>
+          <div class="biz-radio-desc">Prefiero ingresos estables, baja inversión inicial y modelos probados</div>
+        </button>
+        <button class="biz-radio-card" data-key="riesgo" data-value="medio" type="button">
+          <div class="biz-radio-title">Equilibrado</div>
+          <div class="biz-radio-desc">Acepto riesgo moderado si el potencial de crecimiento lo compensa</div>
+        </button>
+        <button class="biz-radio-card" data-key="riesgo" data-value="alto" type="button">
+          <div class="biz-radio-title">Arriesgado</div>
+          <div class="biz-radio-desc">Apuesto por ideas innovadoras aunque pueda perder la inversión</div>
+        </button>
+      </div>
+    </div>
+
+    <div class="biz-step" data-step="6" style="display: none;">
+      <span class="biz-step-num">Recursos disponibles</span>
+      <h2 class="biz-q">¿Con qué cuentas para empezar?</h2>
+      <p class="biz-help">Esto nos ayuda a calibrar la inversión recomendada</p>
+
+      <div class="biz-field">
+        <label class="biz-label">Capital disponible aproximado</label>
+        <div class="biz-pill-grid cols-3">
+          <button class="biz-pill" data-key="capital" data-value="muy_bajo" type="button">Menos de 1000€</button>
+          <button class="biz-pill" data-key="capital" data-value="bajo" type="button">1000–5000€</button>
+          <button class="biz-pill" data-key="capital" data-value="medio" type="button">5000–15000€</button>
+          <button class="biz-pill" data-key="capital" data-value="alto" type="button">Más de 15000€</button>
+        </div>
+      </div>
+
+      <div class="biz-field">
+        <label class="biz-label">Tiempo semanal que puedes dedicar</label>
+        <div class="biz-pill-grid cols-3">
+          <button class="biz-pill" data-key="tiempo" data-value="poco" type="button">Menos de 10h</button>
+          <button class="biz-pill" data-key="tiempo" data-value="medio" type="button">10–20h</button>
+          <button class="biz-pill" data-key="tiempo" data-value="alto" type="button">20–40h</button>
+          <button class="biz-pill" data-key="tiempo" data-value="completo" type="button">Completa</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="biz-step" data-step="7" style="display: none;">
+      <span class="biz-step-num">Oportunidad detectada</span>
+      <h2 class="biz-q">¿Has detectado algún problema sin cubrir?</h2>
+      <p class="biz-help">Puede ser de tu sector o de tu vida cotidiana. ¿Qué te frustra que aún no exista?</p>
+
+      <div class="biz-field">
+        <textarea id="biz-problema" class="biz-textarea" rows="5" maxlength="600" spellcheck="true" autocomplete="off" placeholder="Ej: En mi pueblo no hay ningún taller que arregle bicicletas eléctricas; los servicios técnicos tardan semanas..."></textarea>
+        <p style="font-size: 13px; color: var(--ink-muted); margin-top: 8px;">Si no se te ocurre nada, déjalo en blanco. Máximo 600 caracteres.</p>
+      </div>
+    </div>
+
+    <div class="biz-step" data-step="8" style="display: none;">
+      <span class="biz-step-num">Ámbito geográfico</span>
+      <h2 class="biz-q">¿Dónde quieres operar?</h2>
+      <p class="biz-help">Define el alcance territorial de tu posible negocio</p>
+
+      <div class="biz-field">
+        <label class="biz-label">Ámbito de operación</label>
+        <div class="biz-pill-grid">
+          <button class="biz-pill" data-key="ambito" data-value="local" type="button">Mi localidad</button>
+          <button class="biz-pill" data-key="ambito" data-value="provincial" type="button">Provincial</button>
+          <button class="biz-pill" data-key="ambito" data-value="autonomico" type="button">Autonómico</button>
+          <button class="biz-pill" data-key="ambito" data-value="nacional" type="button">Nacional</button>
+          <button class="biz-pill" data-key="ambito" data-value="internacional" type="button">Internacional</button>
+        </div>
+      </div>
+
+      <div class="biz-field">
+        <label class="biz-label">Localidad o zona (opcional)</label>
+        <input type="text" id="biz-localidad" class="biz-input" placeholder="Ej: A Coruña, comarca de Vigo..." />
+      </div>
+    </div>
+
+    <div class="biz-validation" id="biz-validation"></div>
+
+    <div class="biz-nav">
+      <button class="biz-btn" id="biz-prev" type="button" style="visibility: hidden;">← Anterior</button>
+      <button class="biz-btn biz-btn-primary" id="biz-next" type="button">Siguiente →</button>
+    </div>
+  </div>
+
+  <div class="biz-card biz-loading" id="biz-loading" style="display: none;">
+    <div class="biz-spinner"></div>
+    <p class="biz-loading-text" id="biz-loading-text">Analizando tu perfil emprendedor...</p>
+  </div>
+
+  <div id="biz-results" style="display: none;">
+    <div class="biz-results-header">
+      <span class="biz-results-eyebrow">Resultado personalizado</span>
+      <h2 class="biz-results-title">Tres líneas de negocio para ti</h2>
+      <p class="biz-results-summary" id="biz-summary"></p>
+    </div>
+    <div id="biz-cards"></div>
+    <div class="biz-restart">
+      <button class="biz-btn" id="biz-restart" type="button">Empezar de nuevo</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function() {
+
+  // ===========================================
+  // BANCO DE IDEAS POR FAMILIA PROFESIONAL
+  // ===========================================
+  const ideasBanco = {
+    administracion: {
+      sector: [
+        { titulo: "Asesoría fiscal para autónomos digitales", nicho: "Servicios profesionales", desc: "Servicio especializado en la fiscalidad de creadores de contenido (YouTube, Twitch, OnlyFans), freelancers tech y dropshippers. Modelo: cuota mensual de 60-150€ por cliente que incluye declaraciones trimestrales, IRPF, asesoramiento por WhatsApp y revisión de gastos deducibles. El nicho está mal atendido por gestorías tradicionales que no entienden estos modelos de ingreso.", inv: "1500-4000€", tiempo: "2-3 meses" },
+        { titulo: "Gestión administrativa a domicilio para mayores", nicho: "Servicios senior", desc: "Acompañamiento administrativo a personas mayores en una zona delimitada (5-10 km): gestión de citas en Sergas/Seguridad Social, declaración de la renta, trámites bancarios online, ayudas para dependencia. Modelo: bono de 10 horas a 200-300€ o cuota mensual de 80€ con visitas quincenales. Mercado fiel y de boca a boca.", inv: "500-1500€", tiempo: "1-2 meses" },
+        { titulo: "Asistente virtual remoto para PYMES locales", nicho: "Outsourcing administrativo", desc: "Llevar la administración por horas (15-25h/mes) a 5-8 pequeños negocios desde casa: facturación con software como Holded, seguimiento de cobros, atención de emails y coordinación con la gestoría. Modelo: tarifa por horas (18-25€/h) o paquete mensual cerrado (300-600€). Sin necesidad de oficina.", inv: "300-1000€", tiempo: "1 mes" }
+      ]
+    },
+    deportiva: {
+      sector: [
+        { titulo: "Entrenamiento personalizado a domicilio", nicho: "Fitness premium", desc: "Sesiones individuales o de grupos reducidos (2-4 personas) en parques, domicilios o pequeñas salas alquiladas por horas. Público objetivo: profesionales de 30-50 años con poder adquisitivo que rechazan gimnasios masificados. Modelo: bono de 10 sesiones a 350-500€ o cuota mensual con 8 sesiones a 220€. Seguimiento por app gratuita (TrueCoach o similar).", inv: "500-2000€", tiempo: "1-2 meses" },
+        { titulo: "Campamentos deportivos urbanos", nicho: "Ocio infantil", desc: "Campamentos de día en vacaciones escolares (Navidad, Semana Santa, verano) para niños de 6 a 14 años. Actividades multideporte rotando entre instalaciones municipales (pabellón, piscina, parque). Modelo: 130-180€ por semana y niño, grupos de 15-20. Convenios con ayuntamiento o AMPAs para captar familias en bloque.", inv: "2000-6000€", tiempo: "3-4 meses" },
+        { titulo: "Preparador físico para opositores", nicho: "Preparación pruebas físicas", desc: "Entrenamientos específicos para superar pruebas físicas de bombero, policía local, guardia civil o militar. Plan de 4-6 meses con 3 sesiones semanales y simulacros. Modelo: matrícula de 80€ + cuota mensual de 90-130€. Mercado constante todo el año, alumnos motivados que pagan sin regatear porque se juegan una plaza.", inv: "1000-3000€", tiempo: "2 meses" }
+      ]
+    },
+    agraria: {
+      sector: [
+        { titulo: "Huerto ecológico de proximidad por suscripción", nicho: "Agricultura ecológica", desc: "Cestas semanales de 5-7 kg de verduras de temporada con entrega a domicilio en un radio de 20 km. Producción propia en 2000-5000 m² de tierra (alquilada o cedida). Modelo: suscripción mensual de 60-90€ con 4 entregas. Captación inicial vía Instagram mostrando el huerto y cosechas. Objetivo realista: 50-80 familias suscritas el primer año.", inv: "3000-10000€", tiempo: "4-6 meses" },
+        { titulo: "Servicio de jardinería sostenible", nicho: "Mantenimiento", desc: "Mantenimiento de jardines particulares (chalets) y comunidades de vecinos con criterios ecológicos: poda, riego automatizado eficiente, plantas autóctonas que necesitan poca agua. Modelo: contratos anuales de 600-1500€ por jardín particular o 200-400€/mes por comunidad. Cartera estable de 25-40 clientes da una facturación previsible.", inv: "2000-5000€", tiempo: "2-3 meses" },
+        { titulo: "Tienda especializada en semillas y plantel", nicho: "Retail agrario", desc: "Pequeña tienda física (40-60 m²) y venta online de variedades autóctonas, ecológicas y de colección difíciles de encontrar (semillas heirloom, frutales de variedades antiguas). Combinada con asesoramiento técnico de pago. Modelo: margen del 50-70% en producto + servicio de consultoría a 40€/h. Público: hortelanos urbanos y neorrurales.", inv: "5000-12000€", tiempo: "3-4 meses" }
+      ]
+    },
+    artes_graficas: {
+      sector: [
+        { titulo: "Estudio de diseño para hostelería local", nicho: "Branding sectorial", desc: "Identidad visual completa para bares, restaurantes y cafeterías que abren o renuevan imagen: logo, cartas, redes sociales, packaging para take-away, rotulación. Modelo: paquete cerrado de 1200-2500€ por establecimiento + mantenimiento opcional de RRSS a 200-400€/mes. Especializarse en hostelería permite construir un porfolio reconocible y captar por boca a boca.", inv: "1000-3000€", tiempo: "1-2 meses" },
+        { titulo: "Imprenta digital con servicio express", nicho: "Impresión rápida", desc: "Impresión digital de tarjetas, flyers, lonas y rotulación pequeña con entrega en 24h en zona local. Pedido online con configurador y diseño asistido si el cliente sube un logo. Mercado: pequeños comercios, eventos, autónomos. Modelo: tickets medios de 30-150€ con alta rotación (10-20 pedidos/día). Ubicación clave: cerca de polígonos o zona comercial activa.", inv: "8000-20000€", tiempo: "3-4 meses" },
+        { titulo: "Maquetación editorial para autopublicación", nicho: "Servicios autores", desc: "Servicio remoto de maquetación profesional de libros para autores que se autopublican en Amazon KDP, IngramSpark o BoD. Incluye diseño de portada, maquetación interior y archivos listos para imprenta. Modelo: tarifa cerrada de 300-700€ por libro según extensión. Mercado nacional o internacional captado vía LinkedIn y grupos de Facebook de escritores autopublicados.", inv: "300-1000€", tiempo: "1 mes" }
+      ]
+    },
+    comercio: {
+      sector: [
+        { titulo: "Tienda online especializada en producto local", nicho: "E-commerce nicho", desc: "Pequeño marketplace (Shopify o WooCommerce) con productos artesanos de tu zona seleccionados con criterio: alimentación gourmet, decoración, regalos exclusivos. Diferenciación por curaduría rigurosa (15-30 productos, no 500) y storytelling de cada productor. Modelo: margen del 30-50% sobre PVP. Captación vía Instagram y Google Ads geolocalizadas. Valor añadido: packaging cuidado para regalo.", inv: "2000-6000€", tiempo: "3-4 meses" },
+        { titulo: "Servicio de gestión de e-commerce para pymes", nicho: "Marketing digital", desc: "Llevar la tienda online completa a 4-6 pequeños comerciantes que no saben o no tienen tiempo: actualizar catálogo, diseñar campañas de email, gestionar Google y Meta Ads, atender reseñas y devoluciones. Modelo: cuota mensual de 400-900€ por comercio + comisión sobre ventas adicional opcional. Resultados medibles que justifican la cuota mes a mes.", inv: "500-1500€", tiempo: "1-2 meses" },
+        { titulo: "Personal shopper para regalos corporativos", nicho: "B2B regalos", desc: "Búsqueda y gestión integral de regalos personalizados para empresas en momentos clave: Navidad, aniversarios de empleados, incentivos para clientes top, lanzamientos. Catálogo curado por rangos de presupuesto (30€/100€/300€). Modelo: margen del 25-40% sobre coste + fee de gestión de 200-500€ por campaña. Cliente B2B = pedidos de 30-300 unidades.", inv: "500-2000€", tiempo: "1-2 meses" }
+      ]
+    },
+    edificacion: {
+      sector: [
+        { titulo: "Reformas integrales express para alquiler turístico", nicho: "Reformas turísticas", desc: "Reformas rápidas (3-6 semanas) de pisos destinados a alquiler vacacional o larga duración. Diseño optimizado para Airbnb (zonas comunes amplias, baños duplicados, fotogenia). Plazos cerrados con penalización por retraso. Modelo: presupuestos de 15.000-40.000€ por vivienda con margen del 25-30%. Cliente: pequeños inversores que compran piso y reforman. Captación vía inmobiliarias asociadas.", inv: "5000-15000€", tiempo: "3-6 meses" },
+        { titulo: "Servicio de pequeñas reparaciones a domicilio", nicho: "Manitas profesional", desc: "Multiservicio de fontanería ligera, electricidad básica, pequeñas obras de albañilería (alicatado, pintura, montaje). Reserva online vía web sencilla con precio cerrado por intervención (60-180€). Modelo: 4-7 servicios al día con ticket medio de 90€. Mercado: comunidades de vecinos, particulares con reparaciones que los gremios grandes rechazan por pequeñas.", inv: "1500-4000€", tiempo: "1-2 meses" },
+        { titulo: "Aislamiento térmico para ahorro energético", nicho: "Eficiencia energética", desc: "Aislamiento de fachadas (SATE), cubiertas y cámaras de aire para particulares y comunidades, aprovechando ayudas Next Generation que cubren 40-80% del coste. Modelo: presupuestos de 8.000-25.000€ por vivienda unifamiliar, gestionando la subvención al cliente. Mercado en expansión hasta 2027 mínimo. Ventaja: pocos competidores formados específicamente.", inv: "3000-10000€", tiempo: "2-4 meses" }
+      ]
+    },
+    electricidad: {
+      sector: [
+        { titulo: "Instalador certificado de puntos de recarga VE", nicho: "Movilidad eléctrica", desc: "Instalación de cargadores domésticos para coches eléctricos en garajes particulares y comunidades de vecinos. Tramitación incluida de ayudas Moves III (cubren 70%). Modelo: presupuestos de 800-2.500€ por instalación particular + servicios anuales de mantenimiento. Mercado en expansión: el parque de VE en España crece al 50% anual. Requiere certificación específica de baja tensión.", inv: "2000-6000€", tiempo: "2-3 meses" },
+        { titulo: "Domótica para hogares de mayores", nicho: "Smart home senior", desc: "Sistemas sencillos diseñados para personas mayores: control por voz (Alexa adaptada), sensores de caída con aviso a familiares, alarmas técnicas (humo, gas, agua), iluminación automática nocturna. Modelo: instalación de 800-2.500€ + cuota mensual de 25-40€ de soporte y monitoreo. Cliente real: hijos que viven lejos y quieren tranquilidad. Mercado creciente con envejecimiento poblacional.", inv: "2000-5000€", tiempo: "2-3 meses" },
+        { titulo: "Mantenimiento eléctrico para pequeño comercio", nicho: "B2B mantenimiento", desc: "Contratos mensuales con hostelería y comercios (15-30 establecimientos en cartera): revisión preventiva trimestral, atención prioritaria de averías, certificados de baja tensión obligatorios. Modelo: cuota fija de 80-200€/mes por local + intervenciones extra a 40-60€/h. Ingresos recurrentes y previsibles que estabilizan el negocio.", inv: "1500-4000€", tiempo: "1-2 meses" }
+      ]
+    },
+    energia: {
+      sector: [
+        { titulo: "Auditoría energética para hogares y comunidades", nicho: "Consultoría energética", desc: "Estudios de eficiencia energética con certificado oficial para particulares y comunidades de vecinos, con plan de acción priorizado y gestión completa de subvenciones (Next Generation, IDAE, autonómicas). Modelo: estudio inicial de 350-700€ + comisión del 5-10% sobre subvención conseguida. Mercado regulatorio en expansión hasta 2030.", inv: "1000-3000€", tiempo: "2-3 meses" },
+        { titulo: "Instalación de placas solares llave en mano", nicho: "Renovables residencial", desc: "Servicio integral de autoconsumo solar para vivienda unifamiliar (3-8 kW): estudio de viabilidad, instalación, legalización ante industria, gestión de bonificación IBI y subvenciones. Modelo: presupuestos de 6.000-15.000€ por instalación con margen del 20-25%. Captación vía Google Ads geolocalizadas y referidos. Mercado consolidado pero con crecimiento sostenido.", inv: "5000-15000€", tiempo: "3-6 meses" }
+      ]
+    },
+    fabricacion: {
+      sector: [
+        { titulo: "Taller de mecanizado para prototipado", nicho: "Fabricación a medida", desc: "Servicio de fabricación de piezas únicas o series cortas (1-50 unidades) para inventores, makers, ingenierías y empresas que necesitan prototipos rápidos. Equipamiento básico: torno CNC, fresadora CNC, impresora 3D metal opcional. Modelo: presupuesto por pieza basado en horas-máquina (35-60€/h) + material. Captación vía LinkedIn y plataformas como Hubs o Xometry.", inv: "8000-20000€", tiempo: "3-6 meses" },
+        { titulo: "Mantenimiento mecánico industrial preventivo", nicho: "Industria 4.0", desc: "Contratos de mantenimiento preventivo de maquinaria para 5-10 pequeñas industrias locales (carpinterías, talleres metálicos, productoras alimentarias). Revisiones programadas que evitan paradas costosas. Modelo: cuota mensual de 300-800€ por industria + intervenciones extras facturadas aparte. Diferenciación clave: tiempo de respuesta menor a 24h ante avería.", inv: "3000-8000€", tiempo: "2-4 meses" }
+      ]
+    },
+    hosteleria: {
+      sector: [
+        { titulo: "Catering saludable para empresas", nicho: "Catering corporativo", desc: "Menús diarios saludables y variados para oficinas y coworkings (8-25 personas por entrega). Cocina con técnicas que mantengan calidad tras transporte: bowls, ensaladas templadas, platos al horno. Modelo: suscripción semanal a 9-13€ por menú con entrega en bandejas reutilizables. Diferenciación: variedad real (menú distinto cada día), opciones veganas y celíacas.", inv: "5000-12000€", tiempo: "3-4 meses" },
+        { titulo: "Experiencias gastronómicas privadas", nicho: "Chef a domicilio", desc: "Cenas privadas con menú degustación cerrado (5-8 pases) en domicilio del cliente para grupos de 4-12 personas. Ingredientes premium incluidos, servicio completo (mantelería, vajilla opcional). Modelo: menú a 65-120€ por comensal según niveles. Ocasiones: cumpleaños, aniversarios, eventos corporativos pequeños. Captación vía Instagram con fotografía cuidada del producto final.", inv: "1000-3000€", tiempo: "1-2 meses" },
+        { titulo: "Obrador artesano de pastelería sin gluten o vegana", nicho: "Repostería celíaca", desc: "Producción artesana de tartas, panes, galletas y repostería sin gluten o vegana hechos por encargo. Distribución a 5-10 cafeterías locales (B2B) y particulares vía web (encargos para celebraciones). Modelo: precio premium del 30-40% sobre repostería convencional. Nicho con poca competencia formada y clientela muy fiel por necesidad real.", inv: "3000-8000€", tiempo: "2-4 meses" }
+      ]
+    },
+    imagen_personal: {
+      sector: [
+        { titulo: "Peluquería a domicilio premium", nicho: "Belleza domiciliaria", desc: "Servicio de peluquería en el domicilio para clientela exigente: novias y eventos, profesionales muy ocupados, personas mayores con movilidad reducida. Modelo: tarifa premium del 50-80% sobre salón (servicio de corte+color a 80-130€). Reserva online vía Booksy o web propia. Cartera realista: 4-6 clientes/día con ticket alto. Diferenciación: puntualidad, equipo profesional desplazado, experiencia personalizada.", inv: "1500-4000€", tiempo: "1-2 meses" },
+        { titulo: "Barbería premium especializada", nicho: "Estética masculina", desc: "Barbería de 60-90 m² con servicios completos: corte, barba, afeitado tradicional con navaja, tratamientos faciales masculinos. Ambiente cuidado (estética industrial-vintage), reserva online, fidelización con app. Modelo: corte+barba a 25-35€, tickets ampliados con tratamientos a 50-70€. Cartera estable de 30-50 clientes recurrentes mensuales por barbero genera 4.000-6.000€ de facturación.", inv: "10000-25000€", tiempo: "4-6 meses" },
+        { titulo: "Centro de estética avanzada monográfico", nicho: "Cabina especializada", desc: "Pequeño centro especializado en una única técnica de alto valor: depilación láser diodo, micropigmentación de cejas, depilación con hilo, tratamientos de pestañas. Especialización permite cobrar premium y construir reputación. Modelo: bonos cerrados (depilación láser piernas: 600-900€ por 6 sesiones). Captación vía Instagram con antes/después y reseñas Google.", inv: "8000-20000€", tiempo: "3-5 meses" }
+      ]
+    },
+    imagen_sonido: {
+      sector: [
+        { titulo: "Productora audiovisual para PYMES", nicho: "Vídeo corporativo", desc: "Vídeos promocionales, reels para redes y contenido publicitario para pequeños negocios locales. Paquetes mensuales: 4 reels + 1 vídeo largo a 600-1200€/mes. Mercado: hostelería, comercio, servicios profesionales que ven a la competencia con presencia audiovisual y necesitan ponerse al día. Diferenciación: producción local rápida, precios accesibles vs agencias grandes.", inv: "3000-8000€", tiempo: "2-3 meses" },
+        { titulo: "Estudio de podcast con equipo de alquiler", nicho: "Producción podcast", desc: "Estudio insonorizado de 15-25 m² con equipo profesional (4 micros condensador, mesa de mezclas, cámaras 4K) para alquiler por horas a podcasters, creadores de contenido y empresas que graban formación interna. Modelo: 35-60€/h básico + servicios opcionales de edición (200-400€/episodio) y distribución multiplataforma. Cartera estable de 8-15 clientes recurrentes.", inv: "5000-12000€", tiempo: "3-4 meses" },
+        { titulo: "Servicio de fotografía y vídeo para inmobiliarias", nicho: "Fotografía nicho", desc: "Reportajes profesionales para inmobiliarias y particulares que venden propiedades: fotografía con gran angular, tour virtual 360, vídeo con dron exterior, plano 2D. Modelo: paquete básico a 120-180€ por vivienda, paquete completo a 250-400€. Cartera realista: 4-6 inmobiliarias asociadas que pidan 2-4 reportajes/semana cada una. Mercado constante todo el año.", inv: "3000-7000€", tiempo: "2-3 meses" }
+      ]
+    },
+    alimentaria: {
+      sector: [
+        { titulo: "Productos artesanos sin conservantes por suscripción", nicho: "Alimentación premium", desc: "Caja mensual con 5-7 productos artesanos elaborados con materia prima local: conservas vegetales, panes de masa madre, mermeladas, dulces. Producción propia en obrador pequeño homologado. Modelo: suscripción mensual de 35-55€ con envío incluido. Captación vía Instagram y mercados locales premium. Objetivo realista: 80-150 cajas/mes para sostenibilidad.", inv: "3000-8000€", tiempo: "3-4 meses" },
+        { titulo: "Asesoría sanitaria para restaurantes", nicho: "Seguridad alimentaria", desc: "Implantación y seguimiento mensual de APPCC, formación obligatoria de manipuladores, auditorías internas y preparación para inspecciones de Sanidad para hostelería local. Modelo: implantación inicial de 400-800€ + cuota mensual de 60-120€ por establecimiento. Cartera de 25-40 clientes da una facturación estable. Servicio que casi nadie cumple bien, pero es obligatorio.", inv: "500-2000€", tiempo: "1-2 meses" }
+      ]
+    },
+    informatica: {
+      sector: [
+        { titulo: "Soporte informático con cuota mensual a pymes", nicho: "IT managed services", desc: "Mantenimiento informático integral para 8-15 pequeñas empresas (5-30 equipos cada una): backups automatizados, antivirus gestionado, soporte remoto y presencial, monitorización de servidores. Modelo: cuota mensual de 25-45€ por equipo gestionado. Una cartera de 10 empresas con 15 equipos de media = 4.000-6.500€/mes recurrentes. Negocio escalable con previsibilidad.", inv: "500-1500€", tiempo: "1-2 meses" },
+        { titulo: "Desarrollo de webs autogestionables", nicho: "Web design pymes", desc: "Webs profesionales sobre WordPress o Webflow para pequeños negocios que quieren autonomía después: incluye formación de 2h para que el cliente actualice contenidos él mismo. Modelo: web básica a 600-1.200€, e-commerce básico a 1.500-3.000€, mantenimiento opcional a 30-60€/mes. Diferenciación: formación incluida y plantillas optimizadas para SEO local.", inv: "300-1000€", tiempo: "1 mes" },
+        { titulo: "Automatizaciones con IA para procesos manuales", nicho: "Consultoría IA aplicada", desc: "Implementación práctica de automatizaciones para empresas locales: chatbots para web/WhatsApp, agentes IA que clasifican emails, automatizaciones con Make/Zapier conectando ERP-Excel-email. Modelo: proyecto cerrado de 800-2.500€ + mantenimiento de 80-150€/mes. Mercado emergente con muchísima demanda y poca oferta cualificada en zonas no metropolitanas.", inv: "500-2000€", tiempo: "1-2 meses" }
+      ]
+    },
+    instalacion: {
+      sector: [
+        { titulo: "Mantenimiento de aerotermia y bombas de calor", nicho: "Climatización eficiente", desc: "Servicio especializado en equipos modernos de climatización (aerotermia, bombas de calor inverter) que la mayoría de instaladores tradicionales no dominan. Modelo: contratos anuales de mantenimiento a 120-200€ por equipo + intervenciones de avería a 50-80€/h. Mercado creciente: cada nueva vivienda eficiente lleva estos sistemas. Pocos competidores realmente formados.", inv: "2000-5000€", tiempo: "2-3 meses" },
+        { titulo: "Instalación de sistemas de seguridad residencial", nicho: "Seguridad para particulares", desc: "Cámaras IP, alarmas conectadas a app y videoporteros inteligentes para chalets y pisos. Instalación, configuración remota y mantenimiento. Modelo: instalación inicial de 600-2.500€ según equipamiento + cuota mensual opcional de 15-30€ por monitorización y soporte. Captación: comunidades de vecinos preocupadas por robos, urbanizaciones aisladas.", inv: "2000-6000€", tiempo: "2-3 meses" }
+      ]
+    },
+    madera: {
+      sector: [
+        { titulo: "Mobiliario a medida para espacios pequeños", nicho: "Mueble urbano", desc: "Diseño y fabricación de muebles para pisos pequeños (40-70 m²) en zonas urbanas: camas con almacenamiento integrado, mesas plegables, librerías-separador, armarios encastrados. Modelo: pedidos personalizados de 800-3.500€ con visita técnica incluida. Captación vía Instagram mostrando proyectos con fotografía cuidada. Cartera realista: 4-6 proyectos/mes da una facturación de 6.000-10.000€.", inv: "5000-15000€", tiempo: "3-4 meses" },
+        { titulo: "Restauración de muebles antiguos", nicho: "Restauración artesanal", desc: "Restauración profesional de muebles heredados o adquiridos en mercadillos, anticuarios y subastas. Documentación del proceso (foto/vídeo) para Instagram y TikTok como herramienta de captación. Modelo: presupuestos de 200-1.200€ por pieza según trabajo. Mercado: clase media-alta urbana con piezas familiares con valor sentimental que no quieren tirar.", inv: "2000-5000€", tiempo: "2-3 meses" },
+        { titulo: "Producción de objetos decorativos para hostelería", nicho: "Diseño hostelero", desc: "Mostradores, mesas, lámparas y elementos decorativos a medida para bares, restaurantes y tiendas que abren con identidad propia. Estilo identificable que se convierte en marca. Modelo: proyectos de 3.000-12.000€ por establecimiento. Captación: alianzas con interioristas y arquitectos locales que diseñan locales. Cartera de 10-15 proyectos/año da estabilidad.", inv: "5000-15000€", tiempo: "3-5 meses" }
+      ]
+    },
+    maritima: {
+      sector: [
+        { titulo: "Mantenimiento náutico a domicilio en puerto", nicho: "Servicios náuticos", desc: "Mantenimiento mensual de embarcaciones de recreo en puertos deportivos: limpieza interior y exterior, revisión y mantenimiento de motor, electrónica básica, antiincrustantes. Modelo: cuota anual de 600-1.800€ por barco + intervenciones extras facturadas aparte. Cartera estable de 20-40 barcos genera ingresos recurrentes. Mercado: propietarios que usan el barco pocas veces al año.", inv: "2000-5000€", tiempo: "2-3 meses" },
+        { titulo: "Pesca-turismo y experiencias marineras", nicho: "Turismo experiencial", desc: "Salidas guiadas en barco de 4-6 horas: pesca con caña, almuerzo a bordo con producto local, contado del oficio. Combina patrón profesional + storytelling auténtico. Modelo: 80-150€ por persona, grupos de 4-8 personas. Captación vía Booking, GetYourGuide y alianzas con hoteles. Temporada principal: mayo-octubre. Importantes regulaciones que cumplir (autorizaciones, seguros).", inv: "5000-15000€", tiempo: "3-6 meses" }
+      ]
+    },
+    quimica: {
+      sector: [
+        { titulo: "Cosmética natural por encargo", nicho: "Cosmética artesanal", desc: "Producción a pequeña escala de cosméticos naturales con marca propia: jabones artesanos, cremas faciales, perfumes botánicos. Registro sanitario obligatorio. Modelo: venta directa online (web propia + Etsy) con tickets medios de 25-45€ y márgenes del 60-70%. Captación vía Instagram con contenido educativo y mercados artesanos. Diferenciación: trazabilidad e ingredientes locales.", inv: "3000-7000€", tiempo: "3-4 meses" },
+        { titulo: "Análisis de calidad para pequeñas industrias", nicho: "Consultoría química", desc: "Servicio de análisis y control de calidad para pequeñas empresas alimentarias o cosméticas que no tienen laboratorio propio: análisis microbiológicos, fisicoquímicos, certificaciones. Modelo: tarifa por análisis (40-200€) + contratos mensuales de 200-500€ con clientes recurrentes. Mercado: queserías artesanas, conserveras pequeñas, marcas de cosmética indie.", inv: "5000-15000€", tiempo: "3-5 meses" }
+      ]
+    },
+    sanidad: {
+      sector: [
+        { titulo: "Cuidados sociosanitarios a domicilio premium", nicho: "Atención mayores", desc: "Atención profesional individualizada a personas mayores en su hogar: aseo, movilización, acompañamiento médico, control de medicación. Modelo: tarifa por horas (15-22€/h) o paquete mensual cerrado (1.200-2.000€ por 4h diarias). Cliente real: hijos que pagan por la calidad del cuidado de sus padres. Diferenciación frente a empresas grandes: continuidad del mismo profesional, trato cercano.", inv: "1000-3000€", tiempo: "1-2 meses" },
+        { titulo: "Centro de fisioterapia con cita online", nicho: "Fisioterapia digital", desc: "Pequeña clínica de 60-100 m² con foco en una especialización concreta: deportiva, suelo pélvico, neurológica o geriátrica. Reserva y seguimiento por app. Modelo: sesión a 35-55€, bonos cerrados a 250-450€ (8-10 sesiones). Cartera realista: 25-40 sesiones/semana da facturación de 4.500-7.500€/mes. Especialización permite tarifas premium y reputación.", inv: "8000-20000€", tiempo: "3-5 meses" },
+        { titulo: "Servicio de podología deportiva", nicho: "Podología nicho", desc: "Especialización en deportistas amateurs y semi-profesionales: estudio biomecánico de la pisada, plantillas a medida impresas en 3D, recuperación de lesiones específicas (fascitis, esguinces de tobillo). Modelo: estudio inicial a 90-150€ + plantillas a 130-180€/par + revisiones. Mercado: corredores populares (running boom), ciclistas, jugadores amateur. Dispuestos a pagar por especialización real.", inv: "5000-12000€", tiempo: "3-4 meses" }
+      ]
+    },
+    seguridad: {
+      sector: [
+        { titulo: "Auditoría de seguridad para pymes", nicho: "Consultoría PRL", desc: "Implantación y seguimiento mensual de planes de prevención de riesgos laborales para pequeños negocios (5-30 trabajadores). Servicio que la ley obliga pero que muchas pymes cumplen mal o subcontratan a precio elevado. Modelo: cuota mensual de 80-200€ por empresa según tamaño. Cartera realista: 20-30 pymes en cartera = 2.500-5.000€/mes recurrentes.", inv: "1000-3000€", tiempo: "1-2 meses" },
+        { titulo: "Limpieza ecológica para empresas", nicho: "Servicios sostenibles", desc: "Servicio de limpieza con productos ecológicos certificados para oficinas, coworkings y locales con conciencia ambiental (clínicas, escuelas privadas, marcas con valores). Diferenciación clara frente a competencia: trazabilidad de productos, equipos sin químicos agresivos. Modelo: contratos mensuales a 350-1.200€ por local según horas. Cartera de 8-15 clientes da estabilidad.", inv: "2000-5000€", tiempo: "2-3 meses" }
+      ]
+    },
+    sociocultural: {
+      sector: [
+        { titulo: "Servicio de educación en el ocio", nicho: "Ocio infantil", desc: "Talleres extraescolares y campamentos urbanos con propuesta educativa diferenciada: ciencia experimental, naturaleza urbana, arte y creatividad, robótica básica. Convenios con AMPAs y colegios. Modelo: cuota mensual de 30-50€ por niño en extraescolares + campamentos puntuales a 130-180€/semana. Cartera realista: 60-120 niños activos da una facturación de 2.500-5.000€/mes.", inv: "2000-5000€", tiempo: "2-3 meses" },
+        { titulo: "Animación y dinamización para centros", nicho: "Animación senior", desc: "Programación de actividades para residencias de mayores, centros de día y asociaciones: estimulación cognitiva, talleres de memoria, actividades intergeneracionales, fiestas temáticas. Modelo: contratos mensuales de 600-1.500€ por centro según horas/semana. Cartera de 5-8 centros genera 4.000-8.000€/mes. Mercado en crecimiento por envejecimiento poblacional.", inv: "500-2000€", tiempo: "1-2 meses" },
+        { titulo: "Mediación familiar y conflictos vecinales", nicho: "Mediación profesional", desc: "Servicio profesional de mediación para conflictos familiares (separaciones, herencias) o comunidades de vecinos. Alternativa más rápida y barata que ir a juicio. Modelo: tarifa por sesión (60-120€) o procedimiento completo cerrado (500-1.500€). Captación vía colegios profesionales (abogados, administradores de fincas) que derivan casos.", inv: "500-1500€", tiempo: "1-2 meses" }
+      ]
+    },
+    textil: {
+      sector: [
+        { titulo: "Arreglos y transformaciones a medida", nicho: "Sastrería express", desc: "Arreglos rápidos (24-48h), transformaciones de prendas heredadas, customización y reparación de ropa de calidad. Recogida y entrega a domicilio en zona urbana. Modelo: tickets medios de 15-60€ con alta rotación (10-20 prendas/día). Cartera realista: 80-150 clientes recurrentes con 1-2 prendas/mes da 2.000-4.000€/mes. Tendencia favorable: consumo más consciente y reparación.", inv: "1500-4000€", tiempo: "1-2 meses" },
+        { titulo: "Marca pequeña de ropa upcycling", nicho: "Moda sostenible", desc: "Producción local en series cortas (10-30 piezas por modelo) con tejidos reciclados, vintage y deadstock. Venta directa online y mercados de diseño. Modelo: prendas con margen del 60-70% y precio premium (camisetas a 35-50€, prendas elaboradas a 80-200€). Captación vía Instagram con storytelling de cada prenda. Mercado: público joven con conciencia ambiental.", inv: "3000-8000€", tiempo: "3-5 meses" }
+      ]
+    },
+    transporte: {
+      sector: [
+        { titulo: "Taller especializado en vehículos eléctricos e híbridos", nicho: "Mecánica eléctrica", desc: "Taller mecánico con formación específica y equipamiento certificado para VE e híbridos. Mercado creciente exponencialmente con muy poca competencia formada. Modelo: hora de taller premium a 55-80€ (vs 40-50€ taller convencional) + venta de baterías y mantenimientos específicos. Mercado: el parque de VE en España crece al 50% anual, los talleres tradicionales no están preparados.", inv: "10000-25000€", tiempo: "4-6 meses" },
+        { titulo: "Servicio de pre-ITV y revisiones a domicilio", nicho: "Mantenimiento ágil", desc: "Revisión mecánica básica en domicilio o aparcamiento del cliente: pre-ITV completa, cambio de aceite y filtros, revisión de frenos. Reserva online con precio cerrado por tipo de servicio. Modelo: pre-ITV a 45-65€, cambio de aceite a 70-100€. Cartera realista: 6-10 servicios al día con ticket medio de 70€. Diferenciación: comodidad, sin esperas en taller.", inv: "2000-6000€", tiempo: "2-3 meses" },
+        { titulo: "Restauración de vehículos clásicos", nicho: "Coches clásicos", desc: "Restauración mecánica y estética de vehículos clásicos (Seat 600, R5, MG, Vespa, Ducati clásicas) para coleccionistas. Documentación visual del proceso para Instagram/YouTube como herramienta de captación. Modelo: proyectos de 8.000-30.000€ con duración de 4-12 meses cada uno. Cartera de 4-6 proyectos simultáneos. Mercado nicho pero sin competencia local en muchas zonas.", inv: "8000-20000€", tiempo: "4-6 meses" }
+      ]
+    },
+    vidrio: {
+      sector: [
+        { titulo: "Cerámica artesanal de autor", nicho: "Decoración artesanal", desc: "Producción de pequeñas series (10-30 piezas por colección) de cerámica utilitaria o decorativa con sello propio: vajilla, jarrones, lámparas. Venta directa online (web propia + Etsy) y a tiendas especializadas de decoración. Modelo: márgenes del 60-75% con tickets medios de 30-120€. Captación vía Instagram con contenido del proceso creativo. Mercado: consumidor que valora lo artesano y único.", inv: "3000-8000€", tiempo: "3-4 meses" }
+      ]
+    }
+  };
+
+  // Ideas híbridas: combinan formación técnica del ciclo con un sector de interés (no de formación)
+  const ideasHibridas = {
+    deporte: {
+      titulo_template: "Servicios de [SECTOR] orientados al sector deportivo",
+      nicho: "Sector deportivo",
+      desc_template: "Aplica los conocimientos técnicos de tu ciclo en [SECTOR] al ecosistema deportivo: clubes, gimnasios, federaciones y deportistas profesionales tienen necesidades específicas que los proveedores generalistas no atienden bien. Modelo: contratos anuales con clubes (1.200-3.000€) y servicios puntuales con deportistas individuales. Tu interés por el deporte te da el lenguaje y los contactos; tu ciclo te da la base técnica para vender el servicio.",
+      caracteristicas: [
+        "Cliente objetivo: clubes locales (fútbol, baloncesto, balonmano), gimnasios independientes y deportistas semi-profesionales",
+        "Tipo de servicio: el propio de tu ciclo, pero adaptado al calendario y necesidades del sector deportivo",
+        "Forma de captar clientes: presencia en eventos deportivos locales, alianzas con federaciones autonómicas, recomendaciones cruzadas con preparadores",
+        "Punto fuerte: el cliente prefiere a alguien que entiende el deporte sobre un proveedor frío y técnico",
+        "Reto principal: traducir tu oficio a problemas concretos del cliente deportivo, no vender un servicio genérico"
+      ],
+      info: { texto: "Federación Deportiva de tu comunidad autónoma + asociaciones de clubes locales", busqueda: "federación deportiva [tu provincia] + directorio clubes" }
+    },
+    tecnologia: {
+      titulo_template: "Productos o servicios de [SECTOR] para gamers y creadores",
+      nicho: "Sector gaming y creadores",
+      desc_template: "Adapta los servicios de tu ciclo en [SECTOR] al público gamer y a creadores de contenido: setup gaming, accesorios personalizados, productos para streamers o servicios B2B para tiendas y eventos del sector. Modelo: producto físico con margen del 50-70% o servicio especializado. Tu afición te aporta el conocimiento del lenguaje y de las comunidades; tu ciclo aporta la ejecución técnica. Mercado fiel y dispuesto a pagar por especialización.",
+      caracteristicas: [
+        "Cliente objetivo: gamers de 18-35 años con poder adquisitivo, streamers de Twitch/YouTube, tiendas especializadas",
+        "Producto/servicio típico: customización, accesorios, mantenimiento, instalaciones o servicios técnicos pensados para el contexto gaming",
+        "Canal principal: Instagram, TikTok y Twitch (no Facebook). Comunidad activa en Reddit y Discord",
+        "Punto fuerte: especialización real (no postureo) y entender la jerga y los referentes del sector",
+        "Reto principal: construir autoridad antes de vender. Crear contenido durante 3-6 meses sin vender nada"
+      ],
+      info: { texto: "Eventos como Madrid Games Week o Gamergy + canales de YouTube de referencia del sector", busqueda: "eventos gaming españa 2026 + ferias creadores contenido" }
+    },
+    arte: {
+      titulo_template: "Servicios de [SECTOR] para galerías y artistas",
+      nicho: "Sector cultural",
+      desc_template: "Galerías, talleres de artista, centros culturales y artesanos profesionales necesitan servicios de [SECTOR] de profesionales que entiendan su lenguaje y sensibilidad. Modelo: proyectos puntuales (montajes, instalaciones, mantenimientos) y contratos anuales con espacios estables (200-500€/mes). Nicho pequeño pero leal y con presupuesto. Tu interés por el arte te da el acceso; tu ciclo te da la capacidad de ejecutar.",
+      caracteristicas: [
+        "Cliente objetivo: galerías privadas y públicas, centros culturales, artistas con espacio propio, festivales de arte",
+        "Tipo de servicio: aplicación de tu oficio adaptada a las necesidades específicas del entorno cultural (montajes, mantenimiento, técnica)",
+        "Forma de captar: asistencia a inauguraciones, alianzas con comisarios y gestores culturales, presencia en redes vinculadas al arte",
+        "Punto fuerte: hablar el lenguaje del cliente, valorar el contexto y entender los plazos del calendario expositivo",
+        "Reto principal: presupuestos a veces limitados; compensa con volumen de proyectos y prestigio que abre otras puertas"
+      ],
+      info: { texto: "Asociación de Galerías de Arte de España (FEGA) + revistas como ARTnews y Exit Express", busqueda: "galerías arte [tu provincia] + agenda cultural" }
+    },
+    naturaleza: {
+      titulo_template: "Servicios de [SECTOR] para turismo activo y rural",
+      nicho: "Turismo de naturaleza",
+      desc_template: "El turismo activo, la hostelería rural y los albergues necesitan profesionales de [SECTOR] con sensibilidad por el entorno y disponibilidad para zonas alejadas. Modelo: servicios estacionales (marzo-octubre) con contratos puntuales y mantenimientos anuales (300-1.200€/establecimiento). Mercado en crecimiento sostenido. Tu pasión por la naturaleza te da el conocimiento del territorio y los contactos.",
+      caracteristicas: [
+        "Cliente objetivo: casas rurales, albergues, empresas de turismo activo, refugios, campings",
+        "Tipo de servicio: el propio de tu ciclo, adaptado a entornos rurales (acceso difícil, instalaciones específicas)",
+        "Estacionalidad clara: temporada alta marzo-octubre con picos en Semana Santa y verano",
+        "Punto fuerte: disponibilidad para desplazamientos a zonas que la competencia urbana evita",
+        "Reto principal: gestionar los meses de baja temporada con servicios complementarios o cartera urbana paralela"
+      ],
+      info: { texto: "Asociación Española de Turismo Rural (ASETUR) + Top Rural y EscapadaRural como directorios", busqueda: "asociación turismo rural [tu comunidad] + directorio casas rurales" }
+    },
+    gastronomia: {
+      titulo_template: "Servicios especializados de [SECTOR] para hostelería",
+      nicho: "Sector horeca",
+      desc_template: "El sector de bares, restaurantes y obradores tiene necesidades muy específicas de [SECTOR] que los proveedores grandes no cubren con cercanía. Modelo: contratos de mantenimiento mensual (200-600€/local) o intervenciones puntuales con tarifa premium por urgencias. Cliente recurrente y de alta facturación. Tu interés por la gastronomía te ayuda a entender realmente sus problemas, tu ciclo te da la solución técnica.",
+      caracteristicas: [
+        "Cliente objetivo: bares, restaurantes, obradores, panaderías y pequeñas cadenas locales (3-10 locales)",
+        "Modelo de ingresos: mezcla de cuotas mensuales (estabilidad) e intervenciones urgentes (margen alto)",
+        "Forma de captar: visitas comerciales en horarios de cierre/apertura, recomendación entre hosteleros",
+        "Punto fuerte: tiempo de respuesta menor a 24h ante avería (en hostelería, una avería = pérdida de día completo de facturación)",
+        "Reto principal: los hosteleros piden mucho fuera de horario. Hay que poner límites desde el primer momento"
+      ],
+      info: { texto: "Asociación de Hostelería de tu provincia + Hostelería de España (CEHE)", busqueda: "asociación hostelería [tu provincia] + directorio restaurantes" }
+    },
+    motor: {
+      titulo_template: "Servicios de [SECTOR] para entusiastas del motor",
+      nicho: "Sector motor",
+      desc_template: "El público motero, de coches clásicos y de tuning paga por especialización real. Aplica tu formación de [SECTOR] a este nicho con identidad propia: producto, servicio o asesoramiento dirigido. Modelo: tickets medios elevados (200-1.500€) con cliente fiel y comunidad activa en redes que actúa como prescriptor. Tu pasión te da la credibilidad inicial sin la cual es imposible entrar.",
+      caracteristicas: [
+        "Cliente objetivo: aficionados a coches clásicos, moteros, fans de tuning y restauración, propietarios de garajes-taller particulares",
+        "Producto/servicio típico: piezas o servicios específicos para vehículos clásicos o personalizados, donde la pieza estándar no encaja",
+        "Canal principal: Instagram con foto de calidad, foros especializados (Forocoches, foros de marca), eventos y concentraciones",
+        "Punto fuerte: comunidad muy unida que actúa como prescriptor; un cliente satisfecho trae 3-4 más",
+        "Reto principal: hay que demostrar conocimiento real desde el primer post; la comunidad detecta y rechaza al impostor en minutos"
+      ],
+      info: { texto: "Federación Española de Vehículos Antiguos (FEVA) + concentraciones locales y motoclubes", busqueda: "concentración coches clásicos [tu provincia] + motoclub" }
+    },
+    moda: {
+      titulo_template: "Servicios de [SECTOR] para la industria de la moda local",
+      nicho: "Sector moda",
+      desc_template: "Tiendas multimarca, marcas pequeñas independientes y profesionales del sector moda necesitan proveedores especializados de [SECTOR] con sensibilidad estética y rapidez. Modelo: contratos por temporada (4 al año) con marcas y servicios puntuales con tiendas. Cartera realista: 6-10 clientes activos en cartera. Tu interés por la moda te da el ojo y los contactos.",
+      caracteristicas: [
+        "Cliente objetivo: tiendas multimarca, marcas pequeñas independientes (slow fashion), showrooms, agencias de comunicación de moda",
+        "Tipo de trabajo: proyectos vinculados a las 4 temporadas (primavera-verano, otoño-invierno y resort/pre-fall)",
+        "Forma de captar: presencia en eventos y showrooms, alianzas con escuelas de moda, networking en Madrid o Barcelona",
+        "Punto fuerte: rapidez de ejecución (en moda los plazos son ajustados) y sensibilidad estética que aporta valor más allá del servicio técnico",
+        "Reto principal: pagos a 60-90 días habituales en el sector; necesitas colchón financiero para no asfixiarte"
+      ],
+      info: { texto: "ACME (Asociación de Creadores de Moda de España) + Modaes.es como medio profesional", busqueda: "asociación moda españa + showroom [ciudad cercana grande]" }
+    },
+    musica: {
+      titulo_template: "Servicios de [SECTOR] para músicos y salas locales",
+      nicho: "Sector musical",
+      desc_template: "Músicos profesionales, salas de conciertos y festivales necesitan servicios de [SECTOR] que pocas empresas atienden con conocimiento real del sector y sus tiempos. Modelo: contratos puntuales con festivales (proyectos de 1.500-5.000€) y servicios continuados con salas o estudios. Tu vínculo con la música te da el acceso a la red de contactos imprescindible para entrar.",
+      caracteristicas: [
+        "Cliente objetivo: salas de conciertos pequeñas y medianas, festivales locales, productoras independientes, músicos solistas y bandas con cierta trayectoria",
+        "Tipo de servicio: técnica, mantenimiento o producción adaptada al ritmo y necesidades de la industria musical",
+        "Patrón de trabajo: temporada alta de festivales mayo-septiembre + actividad regular en salas todo el año",
+        "Punto fuerte: conocer los códigos del sector, los tiempos y las urgencias propias del directo",
+        "Reto principal: el sector paga lentamente; combina con clientes B2B de pago rápido para equilibrar la caja"
+      ],
+      info: { texto: "Asociación de Promotores Musicales (APM) + ARC y otras asociaciones de salas en directo", busqueda: "asociación salas conciertos españa + festivales [tu zona]" }
+    },
+    animales: {
+      titulo_template: "Servicios de [SECTOR] especializados en mundo animal",
+      nicho: "Sector mascotas",
+      desc_template: "El gasto en mascotas crece un 8-10% anual en España. Aplica tu formación de [SECTOR] al cuidado animal: clínicas veterinarias, residencias caninas, tiendas especializadas, adiestradores y peluquerías caninas tienen necesidades específicas. Modelo: contratos anuales con establecimientos (600-1.800€) o servicios directos a particulares. Tu cariño por los animales te da la sensibilidad que buscan los clientes.",
+      caracteristicas: [
+        "Cliente objetivo: clínicas veterinarias, residencias caninas, tiendas especializadas, peluquerías caninas, particulares con varias mascotas",
+        "Modelo de ingresos: contratos anuales con establecimientos (estabilidad) + servicios puntuales con particulares (volumen)",
+        "Canal principal: Instagram con contenido de animales (alto engagement) + Google Maps con buenas reseñas",
+        "Punto fuerte: el cliente percibe rápidamente quién quiere de verdad a los animales y quién no",
+        "Reto principal: trato emocional con clientes muy implicados; requiere empatía, no solo competencia técnica"
+      ],
+      info: { texto: "Asociación Nacional de Fabricantes de Alimentos para Animales de Compañía (ANFAAC) + estudios de mercado en Veterindustria", busqueda: "estudio mercado mascotas españa 2026 + asociación veterinaria" }
+    },
+    sostenibilidad: {
+      titulo_template: "Servicio sostenible de [SECTOR] con impacto ambiental",
+      nicho: "Sector ecológico",
+      desc_template: "Aplica tu formación de [SECTOR] desde una perspectiva ecológica clara: trazabilidad de materiales, circularidad, reducción de residuos. Cliente comprometido y dispuesto a pagar un 15-30% más por valores. Modelo: precio premium justificado con certificaciones (B Corp, ECOLABEL) y storytelling auténtico. Mercado en crecimiento sostenido. Tu compromiso con la sostenibilidad te da la coherencia que el cliente exige.",
+      caracteristicas: [
+        "Cliente objetivo: empresas con declaración de sostenibilidad, particulares con conciencia ambiental, marcas que necesitan proveedores certificados",
+        "Diferenciación clave: certificaciones reconocidas (B Corp, ECOLABEL, ISO 14001) + trazabilidad demostrable",
+        "Modelo de precio: 15-30% más caro que la competencia convencional, justificado con datos concretos de impacto",
+        "Punto fuerte: cada vez más empresas están obligadas por ley a reportar impacto ambiental (CSRD) y necesitan proveedores alineados",
+        "Reto principal: greenwashing como riesgo reputacional; cualquier inconsistencia destruye la marca al instante"
+      ],
+      info: { texto: "B Lab Spain + Pacto Mundial ONU España + revista Ecointeligencia", busqueda: "empresa sostenible certificación españa + b corp" }
+    },
+    social: {
+      titulo_template: "Empresa social vinculada a [SECTOR]",
+      nicho: "Economía social",
+      desc_template: "Aplica tu formación de [SECTOR] con un modelo de empresa social: cooperativa, integración laboral de colectivos vulnerables, comercio justo. Acceso a contratos públicos reservados (3-5% en algunas administraciones), ayudas específicas y financiación de banca ética. Modelo: márgenes algo menores compensados por subvenciones y contratos estables. Tu vocación social te da la energía para defender el modelo.",
+      caracteristicas: [
+        "Forma jurídica habitual: cooperativa de trabajo asociado, sociedad laboral, empresa de inserción o centro especial de empleo",
+        "Cliente objetivo: administraciones públicas (con cláusulas sociales), empresas con políticas RSC, consumidor consciente",
+        "Ventaja competitiva: acceso a contratos públicos reservados (Ley 9/2017), bonificaciones de Seguridad Social, financiación de banca ética (Triodos, Fiare)",
+        "Punto fuerte: misión clara que motiva al equipo y conecta con el cliente final",
+        "Reto principal: gestión más compleja (toma de decisiones colectiva) y márgenes ajustados los primeros años"
+      ],
+      info: { texto: "CEPES (Confederación Empresarial Española de Economía Social) + Coop57 para financiación", busqueda: "confederación economía social + cooperativa trabajo asociado" }
+    },
+    diy: {
+      titulo_template: "Talleres y formación práctica de [SECTOR] para particulares",
+      nicho: "Formación práctica",
+      desc_template: "Mercado creciente de adultos que quieren aprender oficios prácticos como hobby o como vía de cambio profesional. Imparte talleres de [SECTOR] presenciales en formato fin de semana o cursos online por suscripción. Modelo: taller intensivo de fin de semana a 80-180€ por alumno (grupos de 6-10), o suscripción mensual a 25-40€ con contenido nuevo cada mes. Tu gusto por enseñar y compartir te diferencia.",
+      caracteristicas: [
+        "Cliente objetivo: adultos 25-50 años con poder adquisitivo medio-alto que buscan ocio formativo o reciclaje profesional",
+        "Formato presencial: talleres intensivos de fin de semana (6-10 alumnos) en espacios alquilados o propios",
+        "Formato online: plataforma propia (Hotmart, Teachable) con suscripción mensual + comunidad privada",
+        "Captación principal: Instagram y YouTube con contenido gratuito que demuestre el conocimiento (tutorial corto + invitación al taller completo)",
+        "Reto principal: dar pedagogía requiere otra habilidad distinta a saber el oficio; revisa metodología antes de empezar"
+      ],
+      info: { texto: "Plataformas como Domestika y Hotmart como referencia del modelo + canal de YouTube de tu sector", busqueda: "talleres [tu oficio] + cursos online domestika" }
+    },
+    viajes: {
+      titulo_template: "Servicios de [SECTOR] para el sector turístico y viajero",
+      nicho: "Sector turístico",
+      desc_template: "Aplica los conocimientos técnicos de tu ciclo en [SECTOR] al sector turístico: agencias, alojamientos, experiencias y servicios para viajeros tienen necesidades específicas que proveedores generalistas no atienden bien. Modelo: contratos estacionales con establecimientos turísticos (600-2.000€/temporada) y servicios bajo demanda. Tu interés por los viajes te da el conocimiento del sector y empatía real con el cliente viajero.",
+      caracteristicas: [
+        "Cliente objetivo: agencias de viajes, alojamientos rurales y urbanos, tour operadores locales, empresas de actividades turísticas",
+        "Estacionalidad: picos en verano y Semana Santa; planifica línea de ingresos para temporada baja",
+        "Tipo de servicio: el propio de tu ciclo, adaptado a las necesidades específicas de establecimientos y experiencias turísticas",
+        "Punto fuerte: entiendes al viajero porque eres viajero; sabes lo que falla y lo que se valora",
+        "Reto principal: el sector turístico es muy sensible al precio; hay que diferenciarse por especialización o rapidez, no por precio"
+      ],
+      info: { texto: "Asociación Española de la Industria de Viajes (ACAVE) + Hosteltur como medio sectorial", busqueda: "turismo experiencial españa + asociación agencias viaje" }
+    }
+  };
+
+  // Ideas innovadoras con descripciones específicas
+  const ideasInnovadoras = [
+    {
+      titulo: "Marca digital que documenta tu oficio",
+      nicho: "Personal branding",
+      desc: "Convertir tu formación de [SECTOR] en una marca personal en TikTok, Instagram y YouTube documentando tu trabajo: procesos, antes/después, errores y aprendizajes. Modelo de monetización combinado: contenido patrocinado (300-2.000€/post según audiencia), formación propia vendida a tu comunidad (cursos a 50-200€) y producto físico de marca propia. Mercado emergente para profesionales con cara y voz auténtica. Requiere constancia (post diario mínimo 6 meses) y tolerar la exposición pública.",
+      caracteristicas: [
+        "Plataformas principales: TikTok e Instagram para captar audiencia, YouTube para profundizar, LinkedIn para B2B",
+        "Producto/contenido típico: vídeos cortos del proceso (60-90s), antes/después, errores divertidos, tutoriales más largos en YouTube",
+        "Vías de ingresos: contenido patrocinado, cursos online propios, producto físico de marca, afiliación con herramientas",
+        "Punto fuerte: bajo coste inicial (móvil + iluminación básica) y alto potencial si conectas con la comunidad",
+        "Reto principal: 6-12 meses sin ingresos significativos hasta que la audiencia genera dinero. Hay que aguantar"
+      ],
+      info: { texto: "Canales como El Rubius (no por nicho sino por método), libros como 'Vende como un crack' de Frank Kern, comunidad de creadores en LinkedIn", busqueda: "creador contenido [tu sector] españa + curso personal branding" }
+    },
+    {
+      titulo: "Comunidad de pago para profesionales del sector",
+      nicho: "Knowledge business",
+      desc: "Crear una comunidad online de pago en Discord, Circle o plataforma propia para otros profesionales del sector [SECTOR]: formación continua, networking, ofertas exclusivas con proveedores, foros de consulta entre miembros. Modelo: suscripción mensual de 25-50€/miembro. Objetivo realista: 100-300 miembros activos = 2.500-15.000€/mes recurrentes. Captación inicial vía contenido gratuito en LinkedIn y YouTube.",
+      caracteristicas: [
+        "Plataforma típica: Discord, Skool o Circle (más profesional que Discord, con cuotas integradas)",
+        "Cliente objetivo: otros profesionales del sector que quieren mejorar y conectar; suelen ser autónomos o trabajadores con inquietud",
+        "Contenido clave: directos mensuales con expertos invitados + biblioteca de formación grabada + foro de consulta",
+        "Punto fuerte: ingresos recurrentes y previsibles una vez construida la base de miembros (modelo SaaS aplicado al conocimiento)",
+        "Reto principal: la primera fase (0-50 miembros) es la más dura; necesitas autoridad previa o invertir mucho en captación"
+      ],
+      info: { texto: "Skool.com como plataforma de referencia + libros como '$100M Offers' de Alex Hormozi", busqueda: "comunidad pago profesional sector + skool comunidad" }
+    },
+    {
+      titulo: "Marketplace local especializado",
+      nicho: "Plataforma sectorial",
+      desc: "Plataforma web/app que conecte profesionales del sector [SECTOR] con clientes finales en tu zona, garantizando calidad mediante curaduría manual (verificación de credenciales, sistema de reseñas, mediación de incidencias). Modelo: comisión del 10-15% por servicio formalizado. Requiere validar la idea con 50-100 conversaciones antes de invertir en desarrollo. Coste inicial principal: desarrollo de plataforma y captación bilateral (oferta+demanda).",
+      caracteristicas: [
+        "Cliente bilateral: profesionales del sector (oferta) + particulares o empresas que necesitan servicio (demanda)",
+        "Modelo de negocio: comisión sobre transacción (10-15%) + cuota mensual opcional para profesionales destacados",
+        "Tecnología requerida: web responsive con sistema de reservas, pasarela de pago, valoraciones; suele empezar con no-code (Bubble) antes de desarrollo a medida",
+        "Punto fuerte: efecto de red exponencial; cuantos más profesionales y clientes, más valor para ambos lados",
+        "Reto principal: es el modelo más difícil de los tres innovadores; sin masa crítica desde el principio, no funciona. Requiere capital o inversor"
+      ],
+      info: { texto: "Casos de éxito: Wallapop, Kibus, Glovo. Libro 'Platform Revolution' de Geoffrey Parker", busqueda: "marketplace nicho españa + crear plataforma servicios" }
+    },
+    {
+      titulo: "Producto físico de fabricación propia",
+      nicho: "Producto físico",
+      desc: "Diseñar y fabricar un producto concreto vinculado al sector [SECTOR] y venderlo online a nivel nacional o internacional con marca propia. Modelo de e-commerce con margen del 50-65% si la marca está bien construida. Distribución: web propia (Shopify) + marketplaces (Amazon, Etsy). Requiere fuerte inversión inicial en producto + branding + publicidad (Meta Ads, Google) y validación previa con preventas o crowdfunding (Kickstarter, Verkami).",
+      caracteristicas: [
+        "Cliente objetivo: usuario final a nivel nacional o internacional que conecta con la marca y la propuesta",
+        "Canal de venta: web propia (Shopify, WooCommerce) + Amazon FBA + Etsy si es producto artesanal/decorativo",
+        "Inversión clave: desarrollo de producto + branding + stock inicial + publicidad. Antes de lanzar: validar con preventa o crowdfunding",
+        "Punto fuerte: escalable internacionalmente sin tener que abrir tiendas físicas",
+        "Reto principal: alta competencia y dependencia de algoritmos publicitarios (Meta Ads, Amazon). Margen real puede quedar en 30-40% tras costes"
+      ],
+      info: { texto: "Plataformas como Verkami y Kickstarter para validar + libro 'The Lean Product Playbook' + comunidad eCommerceShow", busqueda: "crear marca producto físico españa + dropshipping vs marca propia" }
+    }
+  ];
+
+  // ===========================================
+  // ESTADO Y LÓGICA DE FORMULARIO
+  // ===========================================
+  const state = {
+    step: 1,
+    total: 8,
+    data: {
+      familia: '', cicloTexto: '', familiaTexto: '', nivel: 'medio', nivelTexto: 'Grado Medio',
+      formacionExtra: '', conocimientos: [],
+      intereses: '', tags: [], entorno: '',
+      habilidades: [],
+      riesgo: '',
+      capital: '', tiempo: '',
+      problema: '',
+      ambito: '', localidad: ''
+    }
+  };
+
+  // ===========================================
+  // CATÁLOGO MEFP COMPLETO (Básico / Medio / Superior)
+  // ===========================================
+  const CATALOGO = {
+    administracion: {
+      basico: [
+        "Servicios Administrativos"
+      ],
+      medio: [
+        "Gestión Administrativa"
+      ],
+      superior: [
+        "Administración y Finanzas",
+        "Asistencia a la Dirección"
+      ]
+    },
+    deportiva: {
+      basico: [],
+      medio: [
+        "Conducción de Actividades Físico-Deportivas en el Medio Natural",
+        "Guía en el Medio Natural y de Tiempo Libre"
+      ],
+      superior: [
+        "Acondicionamiento Físico",
+        "Animación de Actividades Físicas y Deportivas",
+        "Enseñanza y Animación Sociodeportiva"
+      ]
+    },
+    agraria: {
+      basico: [
+        "Agrojardinería y Composiciones Florales",
+        "Actividades Agropecuarias"
+      ],
+      medio: [
+        "Producción Agropecuaria",
+        "Jardinería y Floristería",
+        "Producción Agroecológica",
+        "Técnico en Aprovechamiento y Conservación del Medio Natural"
+      ],
+      superior: [
+        "Ganadería y Asistencia en Sanidad Animal",
+        "Gestión Forestal y del Medio Natural",
+        "Paisajismo y Medio Rural",
+        "Vitivinicultura"
+      ]
+    },
+    artes_graficas: {
+      basico: [
+        "Artes Gráficas"
+      ],
+      medio: [
+        "Impresión Gráfica",
+        "Preimpresión Digital",
+        "Encuadernación y Manipulados de Papel y Cartón"
+      ],
+      superior: [
+        "Diseño y Edición de Publicaciones Impresas y Multimedia",
+        "Gestión del Diseño y la Producción Gráfica",
+        "Producción en Industrias de Artes Gráficas"
+      ]
+    },
+    comercio: {
+      basico: [
+        "Servicios Comerciales"
+      ],
+      medio: [
+        "Actividades Comerciales"
+      ],
+      superior: [
+        "Comercio Internacional",
+        "Gestión de Ventas y Espacios Comerciales",
+        "Marketing y Publicidad",
+        "Transporte y Logística"
+      ]
+    },
+    edificacion: {
+      basico: [
+        "Reformas y Obras de Interior",
+        "Servicios de Construcción"
+      ],
+      medio: [
+        "Construcción",
+        "Obras de Interior, Decoración y Rehabilitación"
+      ],
+      superior: [
+        "Desarrollo y Aplicación de Proyectos de Construcción",
+        "Organización y Control de Obras de Construcción",
+        "Proyectos de Obra Civil"
+      ]
+    },
+    electricidad: {
+      basico: [
+        "Electricidad y Electrónica",
+        "Aprovechamiento de Energías Renovables"
+      ],
+      medio: [
+        "Instalaciones Eléctricas y Automáticas",
+        "Instalaciones de Telecomunicaciones",
+        "Equipos Electrónicos de Consumo"
+      ],
+      superior: [
+        "Automatización y Robótica Industrial",
+        "Electrónica Industrial",
+        "Mantenimiento Electrónico",
+        "Sistemas de Telecomunicaciones e Informáticos",
+        "Sistemas Electrotécnicos y Automatizados"
+      ]
+    },
+    energia: {
+      basico: [],
+      medio: [
+        "Instalaciones de Producción de Calor",
+        "Instalaciones Frigoríficas y de Climatización"
+      ],
+      superior: [
+        "Eficiencia Energética y Energía Solar Térmica",
+        "Energías Renovables",
+        "Gestión del Agua",
+        "Química Industrial"
+      ]
+    },
+    fabricacion: {
+      basico: [
+        "Fabricación y Montaje",
+        "Mantenimiento de Viviendas"
+      ],
+      medio: [
+        "Mecanizado",
+        "Soldadura y Calderería",
+        "Tratamientos Superficiales y Térmicos",
+        "Construcciones Metálicas"
+      ],
+      superior: [
+        "Diseño en Fabricación Mecánica",
+        "Programación de la Producción en Fabricación Mecánica",
+        "Construcciones Metálicas"
+      ]
+    },
+    hosteleria: {
+      basico: [
+        "Servicios en Restauración",
+        "Cocina y Restauración"
+      ],
+      medio: [
+        "Cocina y Gastronomía",
+        "Servicios en Restauración",
+        "Panadería, Repostería y Confitería"
+      ],
+      superior: [
+        "Agencias de Viajes y Gestión de Eventos",
+        "Dirección de Cocina",
+        "Dirección de Servicios de Restauración",
+        "Gestión de Alojamientos Turísticos",
+        "Guía, Información y Asistencias Turísticas"
+      ]
+    },
+    imagen_personal: {
+      basico: [
+        "Peluquería y Cosmética Capilar",
+        "Servicios de Atención a las Personas"
+      ],
+      medio: [
+        "Caracterización y Maquillaje Profesional",
+        "Estética y Belleza",
+        "Peluquería y Cosmética Capilar"
+      ],
+      superior: [
+        "Asesoría de Imagen Personal y Corporativa",
+        "Estética Integral y Bienestar",
+        "Estilismo y Dirección de Peluquería"
+      ]
+    },
+    imagen_sonido: {
+      basico: [],
+      medio: [
+        "Técnico en Vídeo Disc-Jockey y Sonido",
+        "Laboratorio de Imagen"
+      ],
+      superior: [
+        "Animaciones 3D, Juegos y Entornos Interactivos",
+        "Diseño y Gestión de la Producción Gráfica",
+        "Fotografía y Vídeo",
+        "Realización de Audiovisuales y Espectáculos",
+        "Sonido para Audiovisuales y Espectáculos"
+      ]
+    },
+    alimentaria: {
+      basico: [
+        "Industrias Alimentarias",
+        "Panadería y Pastelería"
+      ],
+      medio: [
+        "Elaboración de Productos Alimenticios",
+        "Aceites de Oliva y Vinos",
+        "Carnicería y Elaboración de Productos Cárnicos",
+        "Panadería, Repostería y Confitería",
+        "Elaboración del Vino"
+      ],
+      superior: [
+        "Industria Alimentaria",
+        "Procesos y Calidad en la Industria Alimentaria",
+        "Vitivinicultura"
+      ]
+    },
+    informatica: {
+      basico: [
+        "Informática y Comunicaciones",
+        "Informática de Oficina"
+      ],
+      medio: [
+        "Sistemas Microinformáticos y Redes"
+      ],
+      superior: [
+        "Administración de Sistemas Informáticos en Red",
+        "Desarrollo de Aplicaciones Multiplataforma",
+        "Desarrollo de Aplicaciones Web"
+      ]
+    },
+    instalacion: {
+      basico: [
+        "Electricidad y Electrónica",
+        "Mantenimiento de Viviendas"
+      ],
+      medio: [
+        "Instalaciones de Producción de Calor",
+        "Instalaciones Frigoríficas y de Climatización",
+        "Mantenimiento de Instalaciones Térmicas y de Fluidos",
+        "Montaje y Mantenimiento de Instalaciones de Frío, Climatización y Producción de Calor"
+      ],
+      superior: [
+        "Desarrollo de Proyectos de Instalaciones Térmicas y de Fluidos",
+        "Mantenimiento de Instalaciones Industriales",
+        "Prevención de Riesgos Profesionales"
+      ]
+    },
+    madera: {
+      basico: [
+        "Carpintería y Mueble",
+        "Reformas y Obras de Interior"
+      ],
+      medio: [
+        "Carpintería y Mueble",
+        "Instalación y Amueblamiento"
+      ],
+      superior: [
+        "Diseño y Amueblamiento",
+        "Producción de Madera y Mueble"
+      ]
+    },
+    maritima: {
+      basico: [],
+      medio: [
+        "Buceo a Media Profundidad",
+        "Navegación y Pesca de Litoral",
+        "Operaciones Subacuáticas e Hiperbáricas",
+        "Pesca y Transporte Marítimo",
+        "Producción Acuícola"
+      ],
+      superior: [
+        "Acuicultura",
+        "Coordinación de Emergencias Marítimas",
+        "Marina y Embarcaciones Deportivas",
+        "Supervisión y Control de Máquinas e Instalaciones del Buque",
+        "Transporte Marítimo y Pesca de Altura"
+      ]
+    },
+    quimica: {
+      basico: [],
+      medio: [
+        "Farmacia y Parafarmacia",
+        "Laboratorio",
+        "Operaciones de Fabricación de Productos Farmacéuticos",
+        "Operaciones de Proceso en Planta Química",
+        "Plásticos y Caucho"
+      ],
+      superior: [
+        "Análisis y Control",
+        "Fabricación de Productos Farmacéuticos y Afines",
+        "Química Ambiental",
+        "Química Industrial",
+        "Plásticos, Caucho y Poliuretanos"
+      ]
+    },
+    sanidad: {
+      basico: [
+        "Cuidados Auxiliares de Enfermería"
+      ],
+      medio: [
+        "Cuidados Auxiliares de Enfermería",
+        "Emergencias Sanitarias",
+        "Farmacia y Parafarmacia",
+        "Técnico en Auxiliar de Veterinaria"
+      ],
+      superior: [
+        "Anatomía Patológica y Citodiagnóstico",
+        "Audioprótesis",
+        "Caracterización y Maquillaje Profesional",
+        "Dietética",
+        "Documentación Sanitaria",
+        "Educación y Control Sanitario",
+        "Higiene Bucodental",
+        "Imagen para el Diagnóstico y Medicina Nuclear",
+        "Laboratorio Clínico y Biomédico",
+        "Ortoprótesis y Productos de Apoyo",
+        "Prótesis Dentales",
+        "Radioterapia y Dosimetría",
+        "Salud Ambiental",
+        "Óptica de Anteojería"
+      ]
+    },
+    seguridad: {
+      basico: [],
+      medio: [
+        "Gestión Forestal y del Medio Natural",
+        "Conducción de Actividades Físico-Deportivas en el Medio Natural"
+      ],
+      superior: [
+        "Coordinación de Emergencias y Protección Civil",
+        "Educación y Control Ambiental",
+        "Gestión Ambiental",
+        "Prevención de Riesgos Profesionales"
+      ]
+    },
+    sociocultural: {
+      basico: [
+        "Atención a Personas en Situación de Dependencia",
+        "Servicios de Atención a las Personas"
+      ],
+      medio: [
+        "Atención a Personas en Situación de Dependencia"
+      ],
+      superior: [
+        "Animación Sociocultural y Turística",
+        "Educación Infantil",
+        "Integración Social",
+        "Mediación Comunicativa",
+        "Promoción de Igualdad de Género"
+      ]
+    },
+    textil: {
+      basico: [
+        "Textil, Confección y Piel"
+      ],
+      medio: [
+        "Calzado y Marroquinería",
+        "Confección y Moda",
+        "Curtidos",
+        "Producción de Hilatura y Tejeduría de Calada",
+        "Producción de Tejidos de Punto"
+      ],
+      superior: [
+        "Diseño Técnico en Textil y Piel",
+        "Gestión del Diseño y la Producción Gráfica",
+        "Patronaje y Moda"
+      ]
+    },
+    transporte: {
+      basico: [
+        "Mantenimiento de Vehículos",
+        "Reparación y Mantenimiento de Carrocerías"
+      ],
+      medio: [
+        "Carrocería",
+        "Electromecánica de Maquinaria",
+        "Electromecánica de Vehículos Automóviles"
+      ],
+      superior: [
+        "Automoción",
+        "Mantenimiento Aeromecánico",
+        "Mantenimiento de Sistemas Electrónicos",
+        "Transporte y Logística"
+      ]
+    },
+    vidrio: {
+      basico: [],
+      medio: [
+        "Fabricación y Transformación de Productos de Vidrio",
+        "Operaciones de Fabricación de Vidrio y Transformados"
+      ],
+      superior: [
+        "Fabricación y Transformación de Productos de Vidrio y Cerámica"
+      ]
+    }
+  };
+
+  const NIVEL_LABELS = { basico: "Grado Básico", medio: "Grado Medio", superior: "Grado Superior" };
+
+  function poblarNiveles(familiaKey) {
+    const selNivel = document.getElementById('biz-nivel');
+    const selCiclo = document.getElementById('biz-ciclo-sel');
+
+    selNivel.innerHTML = '<option value="">Selecciona el nivel...</option>';
+    selCiclo.innerHTML = '<option value="">Primero selecciona el nivel...</option>';
+    selCiclo.disabled = true;
+
+    if (!familiaKey || !CATALOGO[familiaKey]) {
+      selNivel.disabled = true;
+      return;
+    }
+
+    const familia = CATALOGO[familiaKey];
+    const niveles = ['basico', 'medio', 'superior'];
+    let hayOpciones = false;
+
+    niveles.forEach(n => {
+      if (familia[n] && familia[n].length > 0) {
+        const opt = document.createElement('option');
+        opt.value = n;
+        opt.textContent = NIVEL_LABELS[n];
+        selNivel.appendChild(opt);
+        hayOpciones = true;
+      }
+    });
+
+    selNivel.disabled = !hayOpciones;
+  }
+
+  function poblarCiclos(familiaKey, nivelKey) {
+    const selCiclo = document.getElementById('biz-ciclo-sel');
+    selCiclo.innerHTML = '<option value="">Selecciona el ciclo...</option>';
+
+    if (!familiaKey || !nivelKey || !CATALOGO[familiaKey] || !CATALOGO[familiaKey][nivelKey]) {
+      selCiclo.disabled = true;
+      return;
+    }
+
+    const ciclos = CATALOGO[familiaKey][nivelKey];
+    ciclos.forEach(c => {
+      const opt = document.createElement('option');
+      opt.value = c;
+      opt.textContent = c;
+      selCiclo.appendChild(opt);
+    });
+
+    selCiclo.disabled = ciclos.length === 0;
+  }
+
+  const $ = (id) => document.getElementById(id);
+
+  // Listeners de los tres desplegables encadenados
+  document.getElementById('biz-familia').addEventListener('change', function() {
+    poblarNiveles(this.value);
+    state.data.familia = this.value;
+    state.data.familiaTexto = FAMILIA_LABELS[this.value] || '';
+    state.data.nivel = '';
+    state.data.nivelTexto = '';
+    state.data.cicloTexto = '';
+  });
+
+  document.getElementById('biz-nivel').addEventListener('change', function() {
+    const familiaKey = document.getElementById('biz-familia').value;
+    poblarCiclos(familiaKey, this.value);
+    state.data.nivel = this.value;
+    state.data.nivelTexto = NIVEL_LABELS[this.value] || '';
+    state.data.cicloTexto = '';
+  });
+
+  document.getElementById('biz-ciclo-sel').addEventListener('change', function() {
+    state.data.cicloTexto = this.value;
+  });
+
+  const FAMILIA_LABELS = {
+    administracion: "Administración y Gestión", deportiva: "Actividades Físicas y Deportivas",
+    agraria: "Agraria", artes_graficas: "Artes Gráficas", comercio: "Comercio y Marketing",
+    edificacion: "Edificación y Obra Civil", electricidad: "Electricidad y Electrónica",
+    energia: "Energía y Agua", fabricacion: "Fabricación Mecánica", hosteleria: "Hostelería y Turismo",
+    imagen_personal: "Imagen Personal", imagen_sonido: "Imagen y Sonido",
+    alimentaria: "Industrias Alimentarias", informatica: "Informática y Comunicaciones",
+    instalacion: "Instalación y Mantenimiento", madera: "Madera, Mueble y Corcho",
+    maritima: "Marítimo Pesquera", quimica: "Química", sanidad: "Sanidad",
+    seguridad: "Seguridad y Medio Ambiente", sociocultural: "Servicios Socioculturales y a la Comunidad",
+    textil: "Textil, Confección y Piel", transporte: "Transporte y Mantenimiento de Vehículos",
+    vidrio: "Vidrio y Cerámica"
+  };
+
+  // Multi-select para tags, habilidades y conocimientos
+  ['tags', 'habilidades', 'conocimientos'].forEach(key => {
+    document.querySelectorAll(`.biz-pill[data-key="${key}"]`).forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Comportamiento especial para "ninguno" en conocimientos: deselecciona el resto
+        if (key === 'conocimientos' && btn.dataset.value === 'ninguno') {
+          document.querySelectorAll(`.biz-pill[data-key="conocimientos"]`).forEach(b => {
+            if (b !== btn) b.classList.remove('is-selected');
+          });
+          state.data.conocimientos = [];
+          if (!btn.classList.contains('is-selected')) {
+            btn.classList.add('is-selected');
+            state.data.conocimientos.push('ninguno');
+          } else {
+            btn.classList.remove('is-selected');
+          }
+          return;
+        }
+        // Si selecciona otro y "ninguno" estaba activo, lo desactiva
+        if (key === 'conocimientos') {
+          const ningunoBtn = document.querySelector(`.biz-pill[data-key="conocimientos"][data-value="ninguno"]`);
+          if (ningunoBtn && ningunoBtn.classList.contains('is-selected')) {
+            ningunoBtn.classList.remove('is-selected');
+            const idx = state.data.conocimientos.indexOf('ninguno');
+            if (idx > -1) state.data.conocimientos.splice(idx, 1);
+          }
+        }
+        btn.classList.toggle('is-selected');
+        const v = btn.dataset.value;
+        const idx = state.data[key].indexOf(v);
+        if (idx > -1) state.data[key].splice(idx, 1);
+        else state.data[key].push(v);
+      });
+    });
+  });
+
+  // Single-select pills
+  ['entorno', 'capital', 'tiempo', 'ambito'].forEach(key => {
+    document.querySelectorAll(`.biz-pill[data-key="${key}"]`).forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll(`.biz-pill[data-key="${key}"]`).forEach(b => b.classList.remove('is-selected'));
+        btn.classList.add('is-selected');
+        state.data[key] = btn.dataset.value;
+      });
+    });
+  });
+
+  // Single-select riesgo
+  document.querySelectorAll('.biz-radio-card[data-key="riesgo"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.biz-radio-card[data-key="riesgo"]').forEach(b => b.classList.remove('is-selected'));
+      btn.classList.add('is-selected');
+      state.data.riesgo = btn.dataset.value;
+    });
+  });
+
+  function showValidation(msg) {
+    const el = $('biz-validation');
+    el.textContent = msg;
+    el.classList.add('is-visible');
+    setTimeout(() => el.classList.remove('is-visible'), 3500);
+  }
+
+  function updateProgress() {
+    const pct = Math.round((state.step / state.total) * 100);
+    $('biz-bar').style.width = pct + '%';
+    $('biz-step-label').textContent = `Paso ${state.step} de ${state.total}`;
+    $('biz-step-pct').textContent = pct + '%';
+  }
+
+  function showStep(n) {
+    document.querySelectorAll('.biz-step').forEach(s => s.style.display = 'none');
+    const s = document.querySelector(`.biz-step[data-step="${n}"]`);
+    if (s) s.style.display = 'block';
+    $('biz-prev').style.visibility = n === 1 ? 'hidden' : 'visible';
+    $('biz-next').textContent = n === state.total ? 'Generar ideas →' : 'Siguiente →';
+    updateProgress();
+  }
+
+  function collect() {
+    if (state.step === 1) {
+      state.data.familia = $('biz-familia').value;
+      state.data.familiaTexto = FAMILIA_LABELS[state.data.familia] || '';
+      state.data.nivel = $('biz-nivel').value;
+      state.data.nivelTexto = NIVEL_LABELS[state.data.nivel] || '';
+      state.data.cicloTexto = $('biz-ciclo-sel').value;
+    } else if (state.step === 2) {
+      state.data.formacionExtra = $('biz-formacion-extra').value.trim();
+    } else if (state.step === 3) {
+      state.data.intereses = $('biz-intereses').value.trim();
+    } else if (state.step === 7) {
+      state.data.problema = $('biz-problema').value.trim();
+    } else if (state.step === 8) {
+      state.data.localidad = $('biz-localidad').value.trim();
+    }
+  }
+
+  function validate() {
+    const d = state.data;
+    if (state.step === 1) {
+      if (!d.familia) { showValidation('Selecciona tu familia profesional'); return false; }
+      if (!d.nivel) { showValidation('Selecciona el nivel del ciclo'); return false; }
+      if (!d.cicloTexto) { showValidation('Selecciona tu ciclo formativo'); return false; }
+    } else if (state.step === 2) {
+      if (d.conocimientos.length === 0) { showValidation('Marca al menos una opción (puedes elegir "Solo mi ciclo")'); return false; }
+    } else if (state.step === 3) {
+      if (!d.intereses && d.tags.length === 0) { showValidation('Cuéntanos un interés o marca alguna etiqueta'); return false; }
+      if (!d.entorno) { showValidation('Selecciona un entorno de trabajo'); return false; }
+    } else if (state.step === 4) {
+      if (d.habilidades.length === 0) { showValidation('Selecciona al menos una habilidad'); return false; }
+    } else if (state.step === 5) {
+      if (!d.riesgo) { showValidation('Selecciona tu perfil de riesgo'); return false; }
+    } else if (state.step === 6) {
+      if (!d.capital) { showValidation('Indica el capital disponible'); return false; }
+      if (!d.tiempo) { showValidation('Indica el tiempo semanal'); return false; }
+    } else if (state.step === 8) {
+      if (!d.ambito) { showValidation('Selecciona un ámbito geográfico'); return false; }
+    }
+    return true;
+  }
+
+  $('biz-next').addEventListener('click', () => {
+    collect();
+    if (!validate()) return;
+    if (state.step < state.total) {
+      state.step++;
+      showStep(state.step);
+    } else {
+      generate();
+    }
+  });
+
+  $('biz-prev').addEventListener('click', () => {
+    if (state.step > 1) {
+      state.step--;
+      showStep(state.step);
+    }
+  });
+
+  $('biz-restart').addEventListener('click', () => location.reload());
+
+  // ===========================================
+  // MOTOR DE RECOMENDACIÓN
+  // ===========================================
+
+  function pickIdeaSector(d) {
+    const banco = ideasBanco[d.familia];
+    if (!banco || !banco.sector || banco.sector.length === 0) return null;
+
+    let pool = banco.sector.slice();
+
+    // Filtrar por capital si es muy bajo
+    if (d.capital === 'muy_bajo') {
+      const lowCost = pool.filter(i => {
+        const min = parseInt(i.inv.split('-')[0].replace(/[^0-9]/g, ''));
+        return min <= 1500;
+      });
+      if (lowCost.length > 0) pool = lowCost;
+    }
+
+    // Filtrar por riesgo
+    if (d.riesgo === 'bajo') {
+      const safe = pool.filter(i => {
+        const min = parseInt(i.inv.split('-')[0].replace(/[^0-9]/g, ''));
+        return min <= 5000;
+      });
+      if (safe.length > 0) pool = safe;
+    }
+
+    return pool[Math.floor(Math.random() * pool.length)];
+  }
+
+  function pickIdeaHibrida(d) {
+    if (d.tags.length === 0) return null;
+    const tag = d.tags[Math.floor(Math.random() * d.tags.length)];
+    const tpl = ideasHibridas[tag];
+    if (!tpl || !d.familiaTexto) return null;
+    const sectorTexto = d.familiaTexto.toLowerCase();
+    return {
+      titulo: tpl.titulo_template.replace('[SECTOR]', sectorTexto),
+      nicho: tpl.nicho,
+      desc: tpl.desc_template.replace(/\[SECTOR\]/g, sectorTexto),
+      caracteristicas: tpl.caracteristicas,
+      info: tpl.info,
+      inv: estimateInv(d, 'medio'),
+      tiempo: '2-4 meses',
+      tagOrigen: tag
+    };
+  }
+
+  function pickIdeaInnovadora(d) {
+    let pool = ideasInnovadoras.slice();
+
+    // Si hay problema, añadimos una idea ad-hoc
+    if (d.problema && d.problema.length > 20) {
+      const adHoc = {
+        titulo: "Solución específica al problema que detectaste",
+        nicho: "Oportunidad detectada",
+        desc: `Aprovecha tu detección de mercado: "${d.problema.substring(0, 150)}${d.problema.length > 150 ? '...' : ''}". Construir una solución directa a este problema combinando la base técnica de tu ciclo en ${d.familiaTexto.toLowerCase()} con un enfoque diferencial. Si el problema es real para ti, probablemente lo sea para más gente: el primer paso indispensable es validarlo conversando con 5-10 personas afectadas antes de invertir un solo euro. Modelo de negocio: por definir tras esa validación, pero suele ser servicio recurrente o producto con margen elevado por resolver una necesidad mal cubierta.`,
+        inv: estimateInv(d, 'medio'),
+        tiempo: '3-5 meses',
+        adhoc: true
+      };
+      return adHoc;
+    }
+
+    const idea = pool[Math.floor(Math.random() * pool.length)];
+    return {
+      titulo: idea.titulo,
+      nicho: idea.nicho,
+      desc: idea.desc.replace('[SECTOR]', d.familiaTexto.toLowerCase()),
+      inv: estimateInv(d, 'medio'),
+      tiempo: '3-6 meses'
+    };
+  }
+
+  function estimateInv(d, defaultLevel) {
+    const ranges = {
+      muy_bajo: '300-1000€',
+      bajo: '1000-5000€',
+      medio: '3000-10000€',
+      alto: '8000-20000€'
+    };
+    return ranges[d.capital] || ranges[defaultLevel];
+  }
+
+  function getSectorCaracteristicas(idea, d) {
+    if (idea.caracteristicas) return idea.caracteristicas;
+    // Características genéricas basadas en patrones de la descripción
+    return [
+      `Servicio enmarcado en el ámbito de "${idea.nicho}", una especialización dentro de ${d.familiaTexto.toLowerCase()}`,
+      `Inversión inicial estimada: ${idea.inv}, ajustable según equipamiento y local`,
+      `Tiempo estimado hasta facturar: ${idea.tiempo} desde el arranque`,
+      `Modelo de ingresos detallado en la descripción anterior`,
+      `Requiere la formación de tu ciclo como base + algo de habilidad comercial para captar los primeros clientes`
+    ];
+  }
+
+  function getSectorInfo(idea, d) {
+    if (idea.info) return idea.info;
+    return {
+      texto: `Asociaciones profesionales del sector ${d.familiaTexto.toLowerCase()} de tu comunidad autónoma + cámara de comercio local`,
+      busqueda: `asociación ${d.familiaTexto.toLowerCase()} ${d.localidad || '[tu provincia]'} + cámara comercio`
+    };
+  }
+
+  function getInnovInfo(idea) {
+    return idea.info || { texto: "Recursos genéricos sobre emprendimiento digital", busqueda: "emprender online españa + casos de éxito" };
+  }
+
+  function getInnovCaracteristicas(idea) {
+    return idea.caracteristicas || [];
+  }
+
+  // Características e info para idea ad-hoc del problema detectado
+  function getAdHocCaracteristicas(d) {
+    return [
+      `Punto de partida: tú mismo has detectado el problema, lo que reduce el riesgo de construir algo que nadie quiere`,
+      `Cliente objetivo: las personas o empresas que sufren ese problema concreto`,
+      `Modelo de ingresos: por definir tras validar; suele ser servicio recurrente o producto con margen elevado`,
+      `Validación obligatoria antes de invertir: 5-10 entrevistas con personas afectadas para confirmar que pagarían por la solución`,
+      `Riesgo principal: confundir tu intuición con un mercado real. Sin validación previa no avances`
+    ];
+  }
+
+  function getAdHocInfo() {
+    return {
+      texto: "Libro 'The Mom Test' de Rob Fitzpatrick (cómo entrevistar a clientes potenciales) + metodología Lean Startup de Eric Ries",
+      busqueda: "validación idea negocio + the mom test entrevistas clientes"
+    };
+  }
+
+  function buildPorqueEncaja(idea, tipo, d) {
+    const partes = [];
+
+    if (tipo === 'sector') {
+      partes.push(`Aprovecha directamente tu formación en ${d.cicloTexto || d.familiaTexto.toLowerCase()}, lo que te da credibilidad técnica y autoridad desde el primer día con clientes y proveedores.`);
+      if (d.conocimientos.includes('idiomas')) {
+        partes.push(`Tu nivel de idiomas te abre la puerta a clientes internacionales o residentes extranjeros, que suelen pagar tarifas más altas por buen servicio en su lengua.`);
+      } else if (d.conocimientos.includes('marketing')) {
+        partes.push(`Tus conocimientos de marketing digital te permiten captar clientes sin depender de intermediarios, controlando el coste de adquisición.`);
+      } else if (d.conocimientos.includes('contabilidad')) {
+        partes.push(`Tu base contable te ayuda a llevar las cuentas con rigor desde el primer día, algo que la mayoría de autónomos delega y descuida.`);
+      }
+    } else if (tipo === 'hibrido' && idea.tagOrigen) {
+      const tagDesc = {
+        deporte: "tu interés por el deporte",
+        tecnologia: "tu afición por la tecnología y el gaming",
+        arte: "tu sensibilidad artística",
+        naturaleza: "tu vínculo con la naturaleza",
+        gastronomia: "tu interés por la gastronomía",
+        motor: "tu pasión por el motor",
+        moda: "tu interés por la moda",
+        musica: "tu vínculo con el mundo musical",
+        animales: "tu cariño por los animales",
+        sostenibilidad: "tu compromiso con la sostenibilidad",
+        social: "tu vocación de impacto social",
+        diy: "tu gusto por hacer cosas con las manos",
+        viajes: "tu pasión por los viajes y el turismo"
+      };
+      partes.push(`Cruza tu base técnica de ${d.familiaTexto.toLowerCase()} con ${tagDesc[idea.tagOrigen] || 'tus intereses personales'}: combinación poco común que te diferencia automáticamente. Importante: la base técnica viene de tu ciclo, no del interés. El interés te da el lenguaje, los códigos y el acceso al cliente, pero la solvencia profesional la aporta tu formación.`);
+    } else if (tipo === 'innovadora') {
+      if (idea.adhoc) {
+        partes.push(`Parte de un problema real que tú mismo detectaste, lo que aporta una motivación auténtica y un conocimiento del cliente que muchos emprendedores no tienen al empezar. Tener problema validado de antemano reduce mucho el riesgo de construir algo que nadie quiere.`);
+      } else {
+        partes.push(`Es una vía emergente que apenas están explorando otros profesionales del sector ${d.familiaTexto.toLowerCase()}: el que llega primero suele consolidar la posición durante años.`);
+      }
+    }
+
+    // Sobre habilidades (matiz adicional)
+    if (d.habilidades.includes('digital') && (tipo === 'innovadora' || tipo === 'hibrido')) {
+      partes.push(`Tu soltura con tecnología y redes sociales es decisiva: te ahorra contratar a alguien para la parte digital, que es donde se gana o se pierde el negocio en este modelo.`);
+    } else if (d.habilidades.includes('personas') && tipo === 'sector') {
+      partes.push(`Tu habilidad para el trato directo será clave: este modelo se sostiene sobre relaciones, confianza y boca-a-boca, no sobre publicidad.`);
+    } else if (d.habilidades.includes('creatividad') && tipo === 'hibrido') {
+      partes.push(`Tu creatividad es el factor diferencial que justifica cobrar más que la competencia genérica.`);
+    }
+
+    // Sobre el riesgo (cierre)
+    if (d.riesgo === 'bajo' && tipo === 'sector') {
+      partes.push(`Encaja con tu perfil prudente: modelo probado, demanda demostrada y curva de ingresos previsible.`);
+    } else if (d.riesgo === 'alto' && tipo === 'innovadora') {
+      partes.push(`Tu disposición al riesgo te permite apostar antes que la competencia y posicionarte cuando todavía hay espacio.`);
+    }
+
+    return partes.join(' ');
+  }
+
+  function buildPrimerPaso(idea, tipo, d) {
+    const ambitoPaso = d.localidad ? `en ${d.localidad}` : `en tu zona`;
+
+    if (tipo === 'sector') {
+      return `Esta semana: identifica 5 negocios o profesionales similares ${ambitoPaso}, analiza sus precios y ponte en contacto con 1 cliente potencial para validar la idea.`;
+    } else if (tipo === 'hibrido') {
+      return `Esta semana: localiza 3 referentes nacionales que combinen estos dos mundos y entrevista a uno de ellos por DM o email para entender el modelo real.`;
+    } else {
+      if (idea.adhoc) {
+        return `Esta semana: entrevista a 5 personas que sufran ese mismo problema y pregúntales qué pagarían por solucionarlo. Sin esa validación, no avances.`;
+      }
+      return `Esta semana: define en 1 frase tu propuesta única, abre un perfil profesional en redes y publica el primer contenido mostrando tu trabajo en proceso.`;
+    }
+  }
+
+  function generateSummary(d) {
+    const partes = [];
+
+    if (d.riesgo === 'bajo') partes.push("perfil prudente");
+    else if (d.riesgo === 'alto') partes.push("perfil emprendedor con apetito de riesgo");
+    else partes.push("perfil equilibrado");
+
+    if (d.capital === 'muy_bajo' || d.capital === 'bajo') partes.push("recursos contenidos");
+    else if (d.capital === 'alto') partes.push("buena base de capital");
+
+    if (d.tags.length >= 3) partes.push("intereses diversos que abren caminos no obvios");
+    else if (d.tags.length > 0) partes.push("intereses bien definidos");
+
+    return `Tu ${partes.join(', ')} apuntan a tres líneas con distinto nivel de ambición y riesgo, pensadas para tu formación en ${d.familiaTexto.toLowerCase()}.`;
+  }
+
+  function adjustRiesgo(idea, d) {
+    if (d.riesgo === 'bajo') return 'bajo';
+    if (d.riesgo === 'alto') return 'alto';
+    return 'medio';
+  }
+
+  async function generate() {
+    $('biz-header').style.display = 'none';
+    $('biz-progress').style.display = 'none';
+    $('biz-form-card').style.display = 'none';
+    $('biz-loading').style.display = 'block';
+
+    const loadingMsgs = [
+      'Analizando tu perfil emprendedor...',
+      'Cruzando tu sector con tendencias actuales...',
+      'Identificando nichos compatibles contigo...',
+      'Ajustando inversión a tus recursos...',
+      'Redactando recomendaciones personalizadas...'
+    ];
+    let i = 0;
+    const el = $('biz-loading-text');
+    const iv = setInterval(() => {
+      i = (i + 1) % loadingMsgs.length;
+      el.style.opacity = '0';
+      setTimeout(() => { el.textContent = loadingMsgs[i]; el.style.opacity = '1'; }, 250);
+    }, 700);
+
+    // Pequeño delay para que el spinner se vea
+    setTimeout(() => {
+      clearInterval(iv);
+
+      const d = state.data;
+      const ideas = [];
+
+      const ideaSector = pickIdeaSector(d);
+      if (ideaSector) {
+        ideas.push({
+          tipo: 'sector',
+          titulo: ideaSector.titulo,
+          nicho: ideaSector.nicho,
+          descripcion: ideaSector.desc,
+          caracteristicas: getSectorCaracteristicas(ideaSector, d),
+          info: getSectorInfo(ideaSector, d),
+          porque_encaja: buildPorqueEncaja(ideaSector, 'sector', d),
+          inversion: ideaSector.inv,
+          tiempo_arranque: ideaSector.tiempo,
+          riesgo_nivel: 'bajo',
+          primer_paso: buildPrimerPaso(ideaSector, 'sector', d)
+        });
+      }
+
+      const ideaHibrida = pickIdeaHibrida(d);
+      if (ideaHibrida) {
+        ideas.push({
+          tipo: 'hibrido',
+          titulo: ideaHibrida.titulo,
+          nicho: ideaHibrida.nicho,
+          descripcion: ideaHibrida.desc,
+          caracteristicas: ideaHibrida.caracteristicas || [],
+          info: ideaHibrida.info,
+          porque_encaja: buildPorqueEncaja(ideaHibrida, 'hibrido', d),
+          inversion: ideaHibrida.inv,
+          tiempo_arranque: ideaHibrida.tiempo,
+          riesgo_nivel: 'medio',
+          primer_paso: buildPrimerPaso(ideaHibrida, 'hibrido', d)
+        });
+      }
+
+      const ideaInnov = pickIdeaInnovadora(d);
+      if (ideaInnov) {
+        ideas.push({
+          tipo: 'innovadora',
+          titulo: ideaInnov.titulo,
+          nicho: ideaInnov.nicho,
+          descripcion: ideaInnov.desc,
+          caracteristicas: ideaInnov.adhoc ? getAdHocCaracteristicas() : (getInnovCaracteristicas(ideaInnov) || []),
+          info: ideaInnov.adhoc ? getAdHocInfo() : getInnovInfo(ideaInnov),
+          porque_encaja: buildPorqueEncaja(ideaInnov, 'innovadora', d),
+          inversion: ideaInnov.inv,
+          tiempo_arranque: ideaInnov.tiempo,
+          riesgo_nivel: 'alto',
+          primer_paso: buildPrimerPaso(ideaInnov, 'innovadora', d)
+        });
+      }
+
+      const result = {
+        resumen: generateSummary(d),
+        ideas: ideas
+      };
+
+      render(result);
+    }, 1800);
+  }
+
+  const tipoLabels = {
+    sector: 'Alineada con tu sector',
+    hibrido: 'Híbrido sector + intereses',
+    innovadora: 'Oportunidad emergente'
+  };
+
+  const riesgoLabels = { bajo: 'Bajo', medio: 'Medio', alto: 'Alto' };
+
+  function escapeHtml(s) {
+    if (s === null || s === undefined) return '';
+    return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  function render(result) {
+    $('biz-loading').style.display = 'none';
+    $('biz-results').style.display = 'block';
+    $('biz-summary').textContent = result.resumen || '';
+
+    const cards = result.ideas.map((idea, i) => {
+      const tipo = idea.tipo || 'sector';
+      const titulo = escapeHtml(idea.titulo || 'Idea de negocio');
+
+      const caracteristicasHtml = (idea.caracteristicas && idea.caracteristicas.length > 0) ? `
+          <div class="biz-section">
+            <p class="biz-section-label">Características clave</p>
+            <ul class="biz-feature-list">
+              ${idea.caracteristicas.map(c => `<li>${escapeHtml(c)}</li>`).join('')}
+            </ul>
+          </div>
+      ` : '';
+
+      const infoHtml = idea.info ? `
+          <div class="biz-section">
+            <p class="biz-section-label">Encuentra más información</p>
+            <p class="biz-section-text">${escapeHtml(idea.info.texto)}</p>
+            ${idea.info.busqueda ? `<p class="biz-info-search"><span class="biz-info-search-label">Búsqueda sugerida:</span> <code>${escapeHtml(idea.info.busqueda)}</code></p>` : ''}
+          </div>
+      ` : '';
+
+      return `
+        <article class="biz-idea" data-tipo="${escapeHtml(tipo)}">
+          <span class="biz-idea-tag">${tipoLabels[tipo] || 'Idea'}</span>
+          <h3 class="biz-idea-title"><span class="biz-idea-num">0${i + 1}</span> ${titulo}</h3>
+          <p class="biz-idea-nicho">${escapeHtml(idea.nicho || '')}</p>
+          <p class="biz-idea-desc">${escapeHtml(idea.descripcion || '')}</p>
+
+          ${caracteristicasHtml}
+
+          <div class="biz-section">
+            <p class="biz-section-label">Por qué encaja contigo</p>
+            <p class="biz-section-text">${escapeHtml(idea.porque_encaja || '')}</p>
+          </div>
+
+          <div class="biz-meta">
+            <div class="biz-meta-item">
+              <div class="biz-meta-label">Inversión</div>
+              <div class="biz-meta-value">${escapeHtml(idea.inversion || '—')}</div>
+            </div>
+            <div class="biz-meta-item">
+              <div class="biz-meta-label">Arranque</div>
+              <div class="biz-meta-value">${escapeHtml(idea.tiempo_arranque || '—')}</div>
+            </div>
+            <div class="biz-meta-item">
+              <div class="biz-meta-label">Riesgo</div>
+              <div class="biz-meta-value">${riesgoLabels[idea.riesgo_nivel] || '—'}</div>
+            </div>
+          </div>
+
+          <div class="biz-step-action">
+            <p class="biz-section-label">Primer paso esta semana</p>
+            <p class="biz-section-text">${escapeHtml(idea.primer_paso || '')}</p>
+          </div>
+
+          ${infoHtml}
+        </article>
+      `;
+    }).join('');
+
+    $('biz-cards').innerHTML = cards;
+  }
+
+  showStep(1);
+})();
+</script>
