@@ -1,0 +1,2134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selector de Forma Jurídica · IPE 2</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --canvas:    #FAF7F2;
+  --surface:   #FFFFFF;
+  --ink:       #1E1C1A;
+  --ink-soft:  #4A463F;
+  --ink-muted: #8B847A;
+  --line:      #E8E1D6;
+  --line-soft: #F0EBE2;
+
+  --green:      #5C8A3E;
+  --green-soft: #EEF3E5;
+  --amber:      #B88534;
+  --amber-soft: #F7EDD8;
+  --red:        #A84539;
+  --red-soft:   #F4E0DC;
+
+  /* acento institucional propio de esta herramienta */
+  --deep:      #2E4F6B;
+  --soft:      #E4EBF1;
+  --accent-ink:#1D3247;
+  --accent-2:  #8B6430; /* dorado para acentos secundarios */
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--canvas);
+  color: var(--ink);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.screen { display: none; min-height: 100vh; }
+.screen.active { display: block; }
+
+h1, h2, h3, .serif { font-family: 'Fraunces', serif; }
+
+.wrap {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 64px 24px 96px;
+}
+
+/* ================================================
+   SCREEN 1 · INTRO — Portada editorial
+   ================================================ */
+.hero-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--deep);
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.hero-badge.subtle {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--ink-soft);
+}
+.hero-badge .dot-sm { width: 6px; height: 6px; border-radius: 999px; background: currentColor; }
+
+.eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--deep);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.eyebrow::before {
+  content: '';
+  width: 28px; height: 1px;
+  background: var(--deep);
+  flex-shrink: 0;
+}
+
+.intro-title {
+  font-size: 56px;
+  font-weight: 300;
+  line-height: 1.05;
+  color: var(--ink);
+  margin-bottom: 24px;
+  letter-spacing: -0.02em;
+}
+.intro-title em {
+  font-style: italic;
+  color: var(--deep);
+  font-weight: 400;
+}
+
+.intro-desc {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  margin-bottom: 48px;
+  max-width: 600px;
+  text-align: justify;
+  hyphens: auto;
+}
+
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin-bottom: 56px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 20px 0;
+}
+.stat-item {
+  text-align: center;
+  padding: 0 12px;
+  border-right: 1px solid var(--line-soft);
+}
+.stat-item:last-child { border-right: none; }
+.stat-num {
+  font-family: 'Fraunces', serif;
+  font-size: 32px;
+  font-weight: 400;
+  color: var(--deep);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.stat-label {
+  font-size: 10.5px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 56px;
+}
+.step-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 24px 20px;
+  position: relative;
+  overflow: hidden;
+}
+.step-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--deep);
+  opacity: 0.15;
+}
+.step-num {
+  font-family: 'Fraunces', serif;
+  font-size: 28px;
+  color: var(--deep);
+  margin-bottom: 12px;
+  font-weight: 400;
+}
+.step-card h3 {
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  margin-bottom: 6px;
+  color: var(--ink);
+}
+.step-card p {
+  font-size: 13px;
+  color: var(--ink-muted);
+  line-height: 1.55;
+}
+
+.idea-block { margin-bottom: 32px; }
+.idea-label {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+textarea#ideaText {
+  width: 100%;
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  padding: 18px 20px;
+  font-family: 'Fraunces', serif;
+  font-size: 17px;
+  font-weight: 350;
+  color: var(--ink);
+  resize: none;
+  height: 72px;
+  transition: all 0.2s;
+  background: var(--surface);
+}
+textarea#ideaText:focus { outline: none; border-color: var(--deep); box-shadow: 0 0 0 4px var(--soft); }
+textarea#ideaText.filled { border-color: var(--deep); background: var(--soft); }
+.idea-hint { font-size: 12px; color: var(--ink-muted); margin-top: 10px; }
+
+.btn-primary {
+  background: var(--ink); color: var(--canvas);
+  padding: 15px 30px; border-radius: 999px;
+  font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500;
+  border: none; cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
+  display: inline-flex; align-items: center; gap: 8px;
+  letter-spacing: 0.02em;
+}
+.btn-primary:hover:not(:disabled) { background: #2D2926; transform: translateY(-1px); box-shadow: 0 8px 20px -8px rgba(30,28,26,0.3); }
+.btn-primary:disabled { background: var(--line); color: var(--ink-muted); cursor: not-allowed; }
+
+.btn-ghost {
+  background: transparent; color: var(--ink-soft);
+  padding: 13px 22px; border-radius: 999px;
+  font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500;
+  border: 1.5px solid var(--line); cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-ghost:hover { border-color: var(--ink-muted); color: var(--ink); }
+
+/* ================================================
+   SCREEN 2 · QUIZ
+   ================================================ */
+.quiz-header {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 40px 24px 0;
+}
+.quiz-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  gap: 20px;
+}
+.quiz-counter-block { display: flex; flex-direction: column; gap: 4px; }
+.quiz-counter {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.quiz-idea-echo {
+  font-family: 'Fraunces', serif;
+  font-size: 13px;
+  font-style: italic;
+  color: var(--ink-muted);
+  max-width: 400px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.progress-track {
+  flex: 1;
+  max-width: 200px;
+  height: 4px;
+  background: var(--line-soft);
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--deep);
+  border-radius: 999px;
+  transition: width 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+
+.quiz-body {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+
+.q-block { display: none; }
+.q-block.active { display: block; animation: fadein 0.35s ease; }
+@keyframes fadein { from { opacity: 0; transform: translateY(8px);} to { opacity: 1; transform: translateY(0);} }
+
+.q-tag-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.q-tag {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--deep);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.q-tag-line {
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+.q-tag-num {
+  font-family: 'Fraunces', serif;
+  font-size: 13px;
+  color: var(--ink-muted);
+  font-style: italic;
+}
+.q-text {
+  font-family: 'Fraunces', serif;
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--ink);
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
+}
+.q-hint {
+  font-family: 'Fraunces', serif;
+  font-size: 15px;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--ink-muted);
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+.options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 40px; }
+
+.option {
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  padding: 18px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
+  font-family: 'Inter', sans-serif;
+}
+.option:hover {
+  border-color: var(--ink-muted);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px -12px rgba(30,28,26,0.15);
+}
+.option.selected {
+  border-color: var(--deep);
+  background: var(--soft);
+}
+.option-radio {
+  flex-shrink: 0;
+  width: 20px; height: 20px;
+  border-radius: 999px;
+  border: 2px solid var(--ink-muted);
+  position: relative;
+  margin-top: 1px;
+}
+.option.selected .option-radio { border-color: var(--deep); }
+.option.selected .option-radio::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 8px; height: 8px;
+  border-radius: 999px;
+  background: var(--deep);
+  transform: translate(-50%, -50%);
+}
+.option-body { flex: 1; }
+.option-text {
+  font-size: 15.5px;
+  color: var(--ink);
+  font-weight: 400;
+  line-height: 1.45;
+}
+.option-note {
+  font-size: 12.5px;
+  color: var(--ink-muted);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+.quiz-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ================================================
+   SCREEN 3 · RESULT
+   ================================================ */
+.result-actions {
+  max-width: 830px;
+  margin: 0 auto;
+  padding: 32px 24px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.result-actions-right { display: flex; gap: 10px; }
+
+.page-a4 {
+  max-width: 830px;
+  min-height: 1123px;
+  margin: 32px auto 32px;
+  padding: 60px 68px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  box-shadow: 0 4px 24px rgba(31,36,23,0.06);
+}
+.page-a4 + .page-a4 { margin-top: 0; }
+
+/* Portada del informe */
+.rpt-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 22px;
+  margin-bottom: 36px;
+  gap: 24px;
+}
+.rpt-header-left { flex: 1; min-width: 0; }
+.rpt-header .eyebrow { margin-bottom: 6px; }
+.rpt-idea {
+  font-family: 'Fraunces', serif;
+  font-size: 14px;
+  font-style: italic;
+  color: var(--ink-muted);
+  max-width: 380px;
+  text-align: right;
+  line-height: 1.5;
+}
+.rpt-pagenum {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink-muted);
+  letter-spacing: 0.08em;
+  text-align: right;
+  margin-top: 4px;
+}
+
+.rpt-title-block {
+  margin-bottom: 32px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+.rpt-title-block-left { flex: 1; }
+.rpt-label {
+  font-size: 11.5px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--ink-muted); margin-bottom: 12px;
+}
+.rpt-form-name {
+  font-family: 'Fraunces', serif;
+  font-size: 44px;
+  font-weight: 400;
+  color: var(--accent-ink);
+  line-height: 1.05;
+  margin-bottom: 10px;
+  letter-spacing: -0.015em;
+}
+.rpt-form-sub {
+  font-family: 'Fraunces', serif;
+  font-size: 15px;
+  font-style: italic;
+  color: var(--ink-soft);
+  font-weight: 300;
+  max-width: 480px;
+}
+
+.match-score-block {
+  flex-shrink: 0;
+  text-align: center;
+  padding: 14px 20px;
+  border: 1.5px solid var(--deep);
+  border-radius: 12px;
+  background: var(--soft);
+}
+.match-score-num {
+  font-family: 'Fraunces', serif;
+  font-size: 34px;
+  font-weight: 500;
+  color: var(--accent-ink);
+  line-height: 1;
+}
+.match-score-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--deep);
+  margin-top: 4px;
+}
+
+.synth-box {
+  background: var(--soft);
+  border-left: 3px solid var(--deep);
+  border-radius: 4px;
+  padding: 22px 26px;
+  margin-bottom: 40px;
+}
+.synth-box p {
+  font-family: 'Fraunces', serif;
+  font-weight: 350;
+  font-size: 15.5px;
+  line-height: 1.8;
+  color: var(--accent-ink);
+  text-align: justify;
+  hyphens: auto;
+}
+.synth-box .kw { font-weight: 500; }
+
+.section-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 18px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line-soft);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.section-title .kicker {
+  font-family: 'Fraunces', serif;
+  font-size: 12px;
+  font-style: italic;
+  color: var(--ink-muted);
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* Radar chart */
+.radar-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 40px;
+  align-items: center;
+}
+.radar-wrap {
+  aspect-ratio: 1;
+  max-width: 320px;
+  margin: 0 auto;
+  position: relative;
+}
+.radar-svg { width: 100%; height: 100%; }
+.radar-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.radar-legend-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+.radar-legend-item:last-child { border-bottom: none; }
+.radar-legend-label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.radar-legend-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+}
+.radar-legend-desc {
+  font-size: 11.5px;
+  color: var(--ink-muted);
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+}
+.radar-legend-score {
+  font-family: 'Fraunces', serif;
+  font-size: 20px;
+  color: var(--deep);
+  font-weight: 500;
+}
+
+.reasons-list { margin-bottom: 36px; }
+.reason-item {
+  display: flex;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+.reason-item:last-child { border-bottom: none; }
+.reason-num {
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
+  color: var(--deep);
+  flex-shrink: 0;
+  width: 30px;
+  font-weight: 400;
+}
+.reason-body { padding-top: 2px; }
+.reason-text {
+  font-size: 14.5px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+.reason-text .kw { font-weight: 500; color: var(--ink); }
+
+/* Ficha técnica */
+.ficha-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 36px;
+}
+.ficha-item {
+  background: var(--line-soft);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+.ficha-item.full { grid-column: 1 / -1; }
+.ficha-item .fl {
+  font-size: 10.5px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.06em; color: var(--ink-muted); margin-bottom: 5px;
+}
+.ficha-item .fv {
+  font-size: 13.5px; color: var(--ink); font-weight: 500; line-height: 1.5;
+}
+
+/* Pros / cons */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 36px; }
+.two-col h4 {
+  font-size: 11.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--ink-soft); margin-bottom: 14px;
+}
+.two-col ul { list-style: none; }
+.two-col li {
+  font-size: 13.5px; color: var(--ink-soft); line-height: 1.6;
+  padding-left: 20px; position: relative; margin-bottom: 10px;
+}
+.two-col li::before {
+  content: ''; position: absolute; left: 0; top: 9px;
+  width: 7px; height: 7px; border-radius: 999px;
+}
+.two-col.pros li::before { background: var(--green); }
+.two-col.cons li::before { background: var(--red); }
+
+/* Comparativa top 3 */
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 36px;
+  font-size: 12.5px;
+  margin-top: 16px;
+}
+.compare-table th, .compare-table td {
+  padding: 12px 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--line-soft);
+  vertical-align: top;
+}
+.compare-table thead th {
+  background: var(--canvas);
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--ink-soft);
+  border-bottom: 2px solid var(--line);
+}
+.compare-table thead th.winner-col {
+  background: var(--soft);
+  color: var(--accent-ink);
+  position: relative;
+}
+.compare-table thead th.winner-col::after {
+  content: 'RECOMENDADA';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--deep);
+  color: white;
+  font-size: 9px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 999px;
+  letter-spacing: 0.08em;
+}
+.compare-table thead th .form-name {
+  font-family: 'Fraunces', serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+  display: block;
+  margin-bottom: 3px;
+  line-height: 1.2;
+}
+.compare-table thead th.winner-col .form-name { color: var(--accent-ink); }
+.compare-table thead th .form-score {
+  font-family: 'Fraunces', serif;
+  font-size: 13px;
+  color: var(--deep);
+  font-style: italic;
+  font-weight: 400;
+}
+.compare-table td.criterion {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  color: var(--ink-soft);
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  width: 22%;
+}
+.compare-table td.winner-cell { background: rgba(228, 235, 241, 0.4); }
+.compare-table td .cell-content {
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+/* Hoja de ruta */
+.roadmap {
+  position: relative;
+  padding-left: 32px;
+  margin-bottom: 36px;
+}
+.roadmap::before {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: var(--line);
+}
+.roadmap-step {
+  position: relative;
+  margin-bottom: 22px;
+  padding-left: 4px;
+}
+.roadmap-step:last-child { margin-bottom: 0; }
+.roadmap-marker {
+  position: absolute;
+  left: -32px;
+  top: 4px;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 2px solid var(--deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Fraunces', serif;
+  font-size: 12px;
+  color: var(--deep);
+  font-weight: 500;
+}
+.roadmap-title {
+  font-family: 'Fraunces', serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.roadmap-desc {
+  font-size: 13px;
+  color: var(--ink-soft);
+  line-height: 1.55;
+  margin-bottom: 6px;
+}
+.roadmap-meta {
+  display: flex;
+  gap: 14px;
+  font-size: 11.5px;
+  color: var(--ink-muted);
+  font-weight: 500;
+}
+.roadmap-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.roadmap-meta span::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--accent-2);
+}
+
+.roadmap-summary {
+  background: var(--canvas);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.roadmap-summary-item {
+  text-align: center;
+}
+.roadmap-summary-item .rs-label {
+  font-size: 10.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  margin-bottom: 4px;
+}
+.roadmap-summary-item .rs-value {
+  font-family: 'Fraunces', serif;
+  font-size: 17px;
+  color: var(--accent-ink);
+  font-weight: 500;
+}
+
+.rpt-footer {
+  text-align: center;
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  color: var(--ink-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.rpt-footer span { margin: 0 6px; opacity: 0.5; }
+
+/* Cita final */
+.final-quote {
+  text-align: center;
+  padding: 40px 20px 20px;
+}
+.final-quote-text {
+  font-family: 'Fraunces', serif;
+  font-size: 19px;
+  font-style: italic;
+  color: var(--ink-soft);
+  font-weight: 300;
+  line-height: 1.6;
+  max-width: 480px;
+  margin: 0 auto 20px;
+}
+.final-quote-line {
+  width: 40px;
+  height: 1px;
+  background: var(--ink-muted);
+  margin: 0 auto;
+}
+
+@media print {
+  .no-print { display: none !important; }
+  body { background: white; }
+  .page-a4 {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+    padding: 18mm 20mm;
+    page-break-after: always;
+    page-break-inside: avoid;
+  }
+  @page { size: A4; margin: 0; }
+}
+
+@media (max-width: 720px) {
+  .steps { grid-template-columns: 1fr; }
+  .intro-title { font-size: 40px; }
+  .stat-row { grid-template-columns: repeat(2, 1fr); gap: 20px 0; }
+  .stat-item:nth-child(2) { border-right: none; }
+  .ficha-grid, .two-col, .radar-block { grid-template-columns: 1fr; }
+  .page-a4 { padding: 36px 24px; }
+  .rpt-header, .rpt-title-block { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .rpt-idea, .rpt-pagenum { text-align: left; }
+  .roadmap-summary { grid-template-columns: 1fr; }
+  .compare-table { font-size: 11px; }
+  .compare-table th, .compare-table td { padding: 8px 6px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ SCREEN 1 · INTRO ============ -->
+<section class="screen active" id="screen-intro">
+  <div class="wrap">
+    <div class="hero-badge-row">
+      <span class="hero-badge"><span class="dot-sm"></span>IPE 2 · UD 5</span>
+      <span class="hero-badge subtle">Grado Superior</span>
+    </div>
+
+    <div class="eyebrow">Creación empresarial</div>
+    <h1 class="intro-title">Selector de <em>Forma Jurídica</em></h1>
+    <p class="intro-desc">Cada proyecto empresarial necesita una estructura legal a medida: no es lo mismo emprender en solitario que con socios, ni arriesgar tu patrimonio personal que protegerlo, ni cotizar en el RETA que en el régimen general. Este cuestionario guiado analiza trece variables técnicas de tu proyecto y te propone la forma jurídica más adecuada, con las razones que sustentan la decisión, comparativa con las alternativas y una hoja de ruta de constitución.</p>
+
+    <div class="stat-row">
+      <div class="stat-item">
+        <div class="stat-num">10</div>
+        <div class="stat-label">Formas jurídicas</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">13</div>
+        <div class="stat-label">Preguntas técnicas</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">6</div>
+        <div class="stat-label">Ejes de idoneidad</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">A4</div>
+        <div class="stat-label">Informe imprimible</div>
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <h3>Describe tu idea</h3>
+        <p>Una línea sobre el negocio que quieres montar.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <h3>Responde 13 preguntas</h3>
+        <p>Socios, capital, responsabilidad, sector, Seguridad Social, aportaciones... todo con opciones.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <h3>Recibe tu informe</h3>
+        <p>Recomendación técnica, radar de idoneidad, comparativa top 3 y hoja de ruta de constitución.</p>
+      </div>
+    </div>
+
+    <div class="idea-block">
+      <label class="idea-label" for="ideaText">Describe en una línea tu idea de negocio</label>
+      <textarea id="ideaText" placeholder="Ej: una tienda online de material de escalada y montaña..."></textarea>
+      <div class="idea-hint" id="ideaHint">Mínimo 5 caracteres para empezar</div>
+    </div>
+
+    <button class="btn-primary" id="startBtn" disabled>Comenzar cuestionario →</button>
+  </div>
+</section>
+
+<!-- ============ SCREEN 2 · QUIZ ============ -->
+<section class="screen" id="screen-quiz">
+  <div class="quiz-header">
+    <div class="quiz-topbar">
+      <div class="quiz-counter-block">
+        <div class="quiz-counter" id="quizCounter">Pregunta 1 / 13</div>
+        <div class="quiz-idea-echo" id="quizIdeaEcho"></div>
+      </div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    </div>
+  </div>
+  <div class="quiz-body" id="quizBody"></div>
+</section>
+
+<!-- ============ SCREEN 3 · RESULT ============ -->
+<section class="screen" id="screen-result">
+  <div class="result-actions no-print">
+    <button class="btn-ghost" id="restartBtn">↺ Empezar de nuevo</button>
+    <div class="result-actions-right">
+      <button class="btn-primary" id="printBtn">Imprimir / Guardar PDF</button>
+    </div>
+  </div>
+
+  <!-- Página 1: Portada y radar -->
+  <div class="page-a4">
+    <div class="rpt-header">
+      <div class="rpt-header-left">
+        <div class="eyebrow">Informe · Selector de Forma Jurídica</div>
+        <div style="font-size:12px;color:var(--ink-muted);font-weight:500;letter-spacing:0.03em">Toolkit IPE 2 · Creación empresarial</div>
+      </div>
+      <div>
+        <div class="rpt-idea" id="rptIdea"></div>
+        <div class="rpt-pagenum">01 / 03</div>
+      </div>
+    </div>
+
+    <div class="rpt-title-block">
+      <div class="rpt-title-block-left">
+        <div class="rpt-label">Forma jurídica recomendada</div>
+        <div class="rpt-form-name" id="rptFormName"></div>
+        <div class="rpt-form-sub" id="rptFormSub"></div>
+      </div>
+      <div class="match-score-block">
+        <div class="match-score-num" id="rptMatchScore">—</div>
+        <div class="match-score-label">Idoneidad</div>
+      </div>
+    </div>
+
+    <div class="synth-box">
+      <p id="rptSynth"></p>
+    </div>
+
+    <div class="section-title">
+      Radar de idoneidad
+      <span class="kicker">seis ejes técnicos de valoración</span>
+    </div>
+    <div class="radar-block">
+      <div class="radar-wrap">
+        <svg class="radar-svg" viewBox="0 0 320 320" id="radarSvg"></svg>
+      </div>
+      <div class="radar-legend" id="radarLegend"></div>
+    </div>
+
+    <div class="section-title">Por qué esta recomendación</div>
+    <div class="reasons-list" id="rptReasons"></div>
+
+    <div class="rpt-footer">
+      Selector de Forma Jurídica <span>·</span> Toolkit IPE 2 <span>·</span> Página 01
+    </div>
+  </div>
+
+  <!-- Página 2: Ficha técnica, ventajas/inconvenientes y comparativa -->
+  <div class="page-a4">
+    <div class="rpt-header">
+      <div class="rpt-header-left">
+        <div class="eyebrow">Ficha técnica y comparativa</div>
+        <div style="font-size:12px;color:var(--ink-muted);font-weight:500;letter-spacing:0.03em">Análisis detallado de la recomendación</div>
+      </div>
+      <div>
+        <div class="rpt-idea" id="rptIdea2"></div>
+        <div class="rpt-pagenum">02 / 03</div>
+      </div>
+    </div>
+
+    <div class="section-title">Ficha técnica de la forma recomendada</div>
+    <div class="ficha-grid" id="rptFicha"></div>
+
+    <div class="two-col">
+      <div class="pros">
+        <h4>Ventajas</h4>
+        <ul id="rptPros"></ul>
+      </div>
+      <div class="cons">
+        <h4>Inconvenientes</h4>
+        <ul id="rptCons"></ul>
+      </div>
+    </div>
+
+    <div class="section-title">
+      Comparativa técnica · Top 3
+      <span class="kicker">la recomendada frente a las dos mejores alternativas</span>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="compare-table" id="rptCompareTable"></table>
+    </div>
+
+    <div class="rpt-footer">
+      Selector de Forma Jurídica <span>·</span> Toolkit IPE 2 <span>·</span> Página 02
+    </div>
+  </div>
+
+  <!-- Página 3: Hoja de ruta de constitución -->
+  <div class="page-a4">
+    <div class="rpt-header">
+      <div class="rpt-header-left">
+        <div class="eyebrow">Hoja de ruta de constitución</div>
+        <div style="font-size:12px;color:var(--ink-muted);font-weight:500;letter-spacing:0.03em">Cómo poner en marcha tu proyecto</div>
+      </div>
+      <div>
+        <div class="rpt-idea" id="rptIdea3"></div>
+        <div class="rpt-pagenum">03 / 03</div>
+      </div>
+    </div>
+
+    <div class="section-title">
+      Trámites paso a paso
+      <span class="kicker">recorrido oficial de constitución</span>
+    </div>
+    <div class="roadmap" id="rptRoadmap"></div>
+
+    <div class="roadmap-summary" id="rptRoadmapSummary"></div>
+
+    <div class="final-quote">
+      <div class="final-quote-text" id="finalQuote"></div>
+      <div class="final-quote-line"></div>
+    </div>
+
+    <div class="rpt-footer">
+      Selector de Forma Jurídica <span>·</span> Toolkit IPE 2 <span>·</span> Página 03 <span>·</span> Fin del análisis
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+'use strict';
+
+/* =========================================================
+   1. DATOS: FORMAS JURÍDICAS
+   ========================================================= */
+var FORMS = {
+  aut: {
+    name: 'Empresario Individual (Autónomo)',
+    sub: 'La forma más sencilla para emprender en solitario, sin separación de patrimonios',
+    socios: '1 persona física',
+    responsabilidad: 'Ilimitada — responde con todo su patrimonio personal',
+    capital: 'No se exige capital mínimo',
+    fiscalidad: 'IRPF (estimación directa u objetiva)',
+    ss: 'RETA (Régimen Especial de Trabajadores Autónomos)',
+    tramites: 'Alta censal en Hacienda (modelo 036/037) y alta en el RETA de la Seguridad Social',
+    pros: [
+      'Constitución rápida y prácticamente sin coste',
+      'Contabilidad y obligaciones formales muy simplificadas',
+      'Control absoluto sobre las decisiones del negocio'
+    ],
+    cons: [
+      'Responde con su patrimonio personal, incluida la vivienda habitual',
+      'La tributación en IRPF puede ser más gravosa a medida que crecen los beneficios',
+      'Menor imagen de solidez frente a clientes y proveedores grandes'
+    ],
+    ejes: { coste: 10, agilidad: 10, proteccion: 2, imagen: 4, fiscalidad: 6, crecimiento: 3 },
+    roadmap: [
+      { t: 'Alta censal en Hacienda', d: 'Presentar modelo 036 o 037 declarando la actividad económica.', plazo: '1 día', coste: 'Gratuito' },
+      { t: 'Alta en el RETA', d: 'Alta en el Régimen Especial de Trabajadores Autónomos de la Seguridad Social.', plazo: '1 día', coste: 'Gratuito' },
+      { t: 'Licencias municipales', d: 'Comunicación previa o licencia de apertura según el ayuntamiento y la actividad.', plazo: '15-30 días', coste: 'Variable' }
+    ],
+    quote: 'Emprender en solitario es la vía más directa: pocos trámites, todo el control, toda la responsabilidad.'
+  },
+  erl: {
+    name: 'Emprendedor de Responsabilidad Limitada (ERL)',
+    sub: 'Un autónomo que protege su vivienda habitual frente a las deudas del negocio',
+    socios: '1 persona física',
+    responsabilidad: 'Ilimitada, salvo la vivienda habitual (si se inscribe y cumple los requisitos legales)',
+    capital: 'No se exige capital mínimo',
+    fiscalidad: 'IRPF (estimación directa u objetiva)',
+    ss: 'RETA (Régimen Especial de Trabajadores Autónomos)',
+    tramites: 'Alta en el RETA + inscripción de la condición de ERL en el Registro Mercantil',
+    pros: [
+      'Protege la vivienda habitual bajo ciertas condiciones (valor tasado y no afecta a la actividad)',
+      'Mantiene la simplicidad de gestión del autónomo',
+      'No requiere capital inicial ni escritura pública notarial de sociedad'
+    ],
+    cons: [
+      'La protección de la vivienda tiene límites y requisitos formales estrictos',
+      'Menos conocida por bancos y clientes, lo que puede generar dudas',
+      'El resto del patrimonio personal sigue respondiendo de las deudas'
+    ],
+    ejes: { coste: 8, agilidad: 8, proteccion: 5, imagen: 5, fiscalidad: 6, crecimiento: 3 },
+    roadmap: [
+      { t: 'Alta censal en Hacienda', d: 'Presentar modelo 036 declarando la actividad económica.', plazo: '1 día', coste: 'Gratuito' },
+      { t: 'Alta en el RETA', d: 'Alta en el Régimen Especial de Trabajadores Autónomos.', plazo: '1 día', coste: 'Gratuito' },
+      { t: 'Inscripción como ERL', d: 'Solicitar la inscripción de la condición de ERL en el Registro Mercantil aportando la tasación de la vivienda.', plazo: '1-2 semanas', coste: '≈40-80 €' },
+      { t: 'Licencias municipales', d: 'Comunicación previa o licencia de apertura según la actividad y municipio.', plazo: '15-30 días', coste: 'Variable' }
+    ],
+    quote: 'Proteger el hogar sin renunciar a la sencillez del autónomo: un punto medio pensado para quien emprende solo.'
+  },
+  cb: {
+    name: 'Comunidad de Bienes (CB)',
+    sub: 'Varios comuneros comparten la propiedad de un negocio, sin llegar a crear una sociedad',
+    socios: '2 o más comuneros (personas físicas)',
+    responsabilidad: 'Ilimitada y mancomunada entre los comuneros',
+    capital: 'No se exige capital mínimo',
+    fiscalidad: 'Atribución de rentas — cada comunero tributa en su IRPF por su parte',
+    ss: 'RETA para todos los comuneros que trabajen en la actividad',
+    tramites: 'Contrato privado entre comuneros + alta en Hacienda y RETA de cada uno',
+    pros: [
+      'Constitución muy rápida, barata y sin necesidad de notario',
+      'Flexible para negocios familiares o entre pocos socios de gran confianza',
+      'No requiere capital ni personalidad jurídica mercantil'
+    ],
+    cons: [
+      'No tiene personalidad jurídica propia diferente de la de los comuneros',
+      'Responsabilidad ilimitada de todos los comuneros con su patrimonio personal',
+      'Poco recomendable si crece mucho la facturación o el número de socios'
+    ],
+    ejes: { coste: 9, agilidad: 9, proteccion: 2, imagen: 4, fiscalidad: 5, crecimiento: 3 },
+    roadmap: [
+      { t: 'Contrato de comunidad', d: 'Redactar contrato privado de comunidad de bienes entre los comuneros.', plazo: '1 día', coste: 'Gratuito o mínimo' },
+      { t: 'Alta censal en Hacienda', d: 'Solicitar el NIF de la comunidad y presentar el modelo 036.', plazo: '1-2 días', coste: 'Gratuito' },
+      { t: 'Alta en el RETA', d: 'Cada comunero que trabaje en la actividad se da de alta en el RETA.', plazo: '1 día', coste: 'Gratuito' },
+      { t: 'Licencias municipales', d: 'Comunicación previa o licencia de apertura según actividad.', plazo: '15-30 días', coste: 'Variable' }
+    ],
+    quote: 'La forma más pura de emprender entre varios: mucha confianza mutua, pocos trámites y responsabilidad compartida.'
+  },
+  sc: {
+    name: 'Sociedad Civil (SC)',
+    sub: 'Forma habitual para actividades profesionales entre varios socios con vínculo estrecho',
+    socios: '2 o más socios (personas físicas o jurídicas)',
+    responsabilidad: 'Ilimitada, subsidiaria a la de la propia sociedad',
+    capital: 'No se exige capital mínimo',
+    fiscalidad: 'IRPF (atribución de rentas) o Impuesto de Sociedades si tiene objeto mercantil y personalidad jurídica',
+    ss: 'RETA para los socios que trabajen en la actividad',
+    tramites: 'Escritura pública o contrato privado + alta en Hacienda y Seguridad Social',
+    pros: [
+      'Sencilla y económica de constituir',
+      'Muy utilizada por profesionales (consultorías, estudios de arquitectura, clínicas)',
+      'Flexibilidad total en el reparto interno de beneficios entre socios'
+    ],
+    cons: [
+      'Responsabilidad personal de los socios salvo pacto que la limite',
+      'Menor protección patrimonial que una sociedad limitada',
+      'Imagen menos formal ante grandes clientes o financiadores'
+    ],
+    ejes: { coste: 8, agilidad: 8, proteccion: 3, imagen: 5, fiscalidad: 6, crecimiento: 4 },
+    roadmap: [
+      { t: 'Contrato o escritura social', d: 'Redactar contrato entre socios o formalizar escritura pública si hay aportaciones no dinerarias.', plazo: '1-3 días', coste: 'Bajo' },
+      { t: 'Alta censal en Hacienda', d: 'Solicitar el NIF de la sociedad y presentar el modelo 036.', plazo: '1-2 días', coste: 'Gratuito' },
+      { t: 'Alta en el RETA', d: 'Cada socio trabajador se da de alta en el RETA.', plazo: '1 día', coste: 'Gratuito' },
+      { t: 'Licencias municipales', d: 'Comunicación previa o licencia de apertura según actividad.', plazo: '15-30 días', coste: 'Variable' }
+    ],
+    quote: 'La forma clásica para profesionales que se asocian: agilidad de gestión y confianza como base del proyecto.'
+  },
+  sl: {
+    name: 'Sociedad Limitada (SL)',
+    sub: 'La forma mercantil más habitual para pymes en España',
+    socios: '2 o más socios (personas físicas o jurídicas)',
+    responsabilidad: 'Limitada al capital aportado',
+    capital: 'Mínimo legal: 1 € (se recomienda 3.000 € para evitar obligaciones adicionales de reserva)',
+    fiscalidad: 'Impuesto de Sociedades (25% general; 15% los dos primeros años con beneficios para empresas de nueva creación)',
+    ss: 'RETA para socios trabajadores con control efectivo; régimen general para el resto',
+    tramites: 'Escritura pública notarial + inscripción en el Registro Mercantil + alta censal',
+    pros: [
+      'Responsabilidad limitada al capital aportado, protege el patrimonio personal',
+      'Buena imagen frente a bancos, clientes y proveedores',
+      'Estructura flexible para incorporar socios y crecer'
+    ],
+    cons: [
+      'Trámites de constitución más costosos y lentos que el autónomo',
+      'Contabilidad y obligaciones formales más exigentes (libros oficiales, cuentas anuales)',
+      'Requiere gestoría o asesoría en la mayoría de los casos'
+    ],
+    ejes: { coste: 5, agilidad: 5, proteccion: 9, imagen: 8, fiscalidad: 7, crecimiento: 8 },
+    roadmap: [
+      { t: 'Certificación negativa de nombre', d: 'Solicitar la denominación social en el Registro Mercantil Central.', plazo: '2-3 días', coste: '≈15 €' },
+      { t: 'Apertura de cuenta bancaria', d: 'Ingresar el capital social en una cuenta a nombre de la sociedad en constitución.', plazo: '1-3 días', coste: 'Gratuito' },
+      { t: 'Escritura pública ante notario', d: 'Otorgamiento de la escritura de constitución con los estatutos sociales.', plazo: '1-2 semanas', coste: '≈150-300 €' },
+      { t: 'Inscripción en el Registro Mercantil', d: 'Presentar la escritura para su inscripción registral.', plazo: '2-3 semanas', coste: '≈100-200 €' },
+      { t: 'Alta censal y Seguridad Social', d: 'Modelo 036 en Hacienda y alta de los socios trabajadores en el régimen correspondiente.', plazo: '1 semana', coste: 'Gratuito' }
+    ],
+    quote: 'El estándar de la pyme española: equilibrio entre protección patrimonial, imagen empresarial y flexibilidad de crecimiento.'
+  },
+  slu: {
+    name: 'Sociedad Limitada Unipersonal (SLU)',
+    sub: 'Una Sociedad Limitada con un único socio: protección patrimonial para el emprendedor en solitario',
+    socios: '1 socio (persona física o jurídica)',
+    responsabilidad: 'Limitada al capital aportado',
+    capital: 'Mínimo legal: 1 € (se recomienda 3.000 € para evitar obligaciones adicionales de reserva)',
+    fiscalidad: 'Impuesto de Sociedades (25% general; 15% los dos primeros años con beneficios para empresas de nueva creación)',
+    ss: 'RETA para el socio único administrador (autónomo societario)',
+    tramites: 'Escritura pública notarial + inscripción en el Registro Mercantil + alta censal',
+    pros: [
+      'Protege el patrimonio personal aun emprendiendo en solitario',
+      'Buena imagen corporativa desde el primer momento',
+      'Facilita incorporar socios en el futuro sin cambiar de forma jurídica'
+    ],
+    cons: [
+      'Trámites y costes de constitución mayores que el autónomo',
+      'Obligaciones contables y fiscales más exigentes',
+      'El socio único administrador cotiza como autónomo societario (cuota mínima incrementada)'
+    ],
+    ejes: { coste: 5, agilidad: 5, proteccion: 9, imagen: 8, fiscalidad: 7, crecimiento: 7 },
+    roadmap: [
+      { t: 'Certificación negativa de nombre', d: 'Solicitar la denominación social en el Registro Mercantil Central.', plazo: '2-3 días', coste: '≈15 €' },
+      { t: 'Apertura de cuenta bancaria', d: 'Ingresar el capital social en una cuenta a nombre de la sociedad en constitución.', plazo: '1-3 días', coste: 'Gratuito' },
+      { t: 'Escritura pública ante notario', d: 'Otorgamiento de la escritura de constitución declarando la unipersonalidad.', plazo: '1-2 semanas', coste: '≈150-300 €' },
+      { t: 'Inscripción en el Registro Mercantil', d: 'Presentar la escritura para su inscripción registral con mención expresa de la unipersonalidad.', plazo: '2-3 semanas', coste: '≈100-200 €' },
+      { t: 'Alta censal y RETA', d: 'Modelo 036 en Hacienda y alta del socio único administrador en el RETA (autónomo societario).', plazo: '1 semana', coste: 'Gratuito' }
+    ],
+    quote: 'Emprender solo sin poner en riesgo tu patrimonio: la SLU combina la protección de la SL con el control total del autónomo.'
+  },
+  sa: {
+    name: 'Sociedad Anónima (SA)',
+    sub: 'Pensada para proyectos de gran envergadura y captación intensiva de capital',
+    socios: '1 o más accionistas',
+    responsabilidad: 'Limitada al capital aportado',
+    capital: 'Mínimo legal: 60.000 € (al menos el 25% desembolsado en la constitución)',
+    fiscalidad: 'Impuesto de Sociedades (25% general)',
+    ss: 'Régimen general para directivos y trabajadores; RETA para consejeros con control efectivo',
+    tramites: 'Escritura pública + inscripción en el Registro Mercantil + estatutos más complejos que en la SL',
+    pros: [
+      'Facilita la entrada de inversores y la ampliación de capital vía emisión de acciones',
+      'Estructura idónea si se plantea salir a bolsa en el futuro',
+      'Gran solidez y credibilidad frente a terceros (bancos, grandes clientes)'
+    ],
+    cons: [
+      'Capital mínimo elevado (60.000 €)',
+      'Trámites, estatutos y órganos de gobierno más complejos (consejo de administración, junta general)',
+      'Costes de constitución y mantenimiento más altos que la SL'
+    ],
+    ejes: { coste: 2, agilidad: 2, proteccion: 10, imagen: 10, fiscalidad: 7, crecimiento: 10 },
+    roadmap: [
+      { t: 'Certificación negativa de nombre', d: 'Solicitar la denominación social en el Registro Mercantil Central.', plazo: '2-3 días', coste: '≈15 €' },
+      { t: 'Depósito del capital social', d: 'Ingresar al menos el 25% de los 60.000 € en una cuenta a nombre de la sociedad en constitución.', plazo: '1-3 días', coste: 'Gratuito' },
+      { t: 'Escritura pública notarial', d: 'Otorgamiento con estatutos, órganos de gobierno y régimen de acciones.', plazo: '2-3 semanas', coste: '≈300-600 €' },
+      { t: 'Inscripción en el Registro Mercantil', d: 'Presentación e inscripción registral de la escritura.', plazo: '3-4 semanas', coste: '≈200-400 €' },
+      { t: 'Alta censal y Seguridad Social', d: 'Modelo 036 en Hacienda y alta de directivos y trabajadores en su régimen correspondiente.', plazo: '1 semana', coste: 'Gratuito' }
+    ],
+    quote: 'Para proyectos con ambición de escala: la SA está pensada para captar capital, crecer y, si procede, abrirse a los mercados.'
+  },
+  coop: {
+    name: 'Sociedad Cooperativa',
+    sub: 'Gestión democrática, vocación de economía social y beneficios fiscales específicos',
+    socios: 'Mínimo habitual: 3 socios cooperativistas (varía según la normativa autonómica)',
+    responsabilidad: 'Limitada a las aportaciones al capital social',
+    capital: 'Variable, fijado en los estatutos (sin mínimo legal único a nivel estatal)',
+    fiscalidad: 'Impuesto de Sociedades con tipo reducido — 20% para cooperativas fiscalmente protegidas',
+    ss: 'Los socios pueden optar entre el régimen general o el RETA según estatutos',
+    tramites: 'Estatutos + escritura pública + inscripción en el Registro de Cooperativas',
+    pros: [
+      'Beneficios fiscales relevantes (tipo reducido en Sociedades, bonificaciones)',
+      'Gestión democrática: un socio, un voto, con independencia del capital aportado',
+      'Buena imagen social y acceso a ayudas específicas para economía social'
+    ],
+    cons: [
+      'Toma de decisiones puede ser más lenta al ser democrática y participativa',
+      'Requiere un número mínimo de socios para constituirse (habitualmente 3)',
+      'Normativa específica y variable según cada comunidad autónoma'
+    ],
+    ejes: { coste: 5, agilidad: 4, proteccion: 8, imagen: 8, fiscalidad: 10, crecimiento: 7 },
+    roadmap: [
+      { t: 'Redacción de estatutos', d: 'Estatutos adaptados a la Ley de Cooperativas estatal o autonómica correspondiente.', plazo: '1-2 semanas', coste: 'Bajo' },
+      { t: 'Asamblea constituyente', d: 'Acta de constitución en la que los socios aprueban los estatutos.', plazo: '1 día', coste: 'Gratuito' },
+      { t: 'Escritura pública ante notario', d: 'Otorgamiento de la escritura con los estatutos y el acta constituyente.', plazo: '1-2 semanas', coste: '≈150-300 €' },
+      { t: 'Inscripción en el Registro de Cooperativas', d: 'Inscripción en el Registro estatal o autonómico según ámbito.', plazo: '2-4 semanas', coste: '≈100-200 €' },
+      { t: 'Alta censal y Seguridad Social', d: 'Modelo 036 en Hacienda y alta de los socios en el régimen elegido en estatutos.', plazo: '1 semana', coste: 'Gratuito' }
+    ],
+    quote: 'Cuando el proyecto vive del trabajo compartido: la cooperativa hace del reparto democrático su ventaja competitiva.'
+  },
+  sll: {
+    name: 'Sociedad Limitada Laboral (SLL)',
+    sub: 'La mayoría del capital está en manos de los socios trabajadores',
+    socios: 'Mínimo habitual: 3 socios trabajadores (la mayoría del capital en sus manos)',
+    responsabilidad: 'Limitada al capital aportado',
+    capital: 'Mismo mínimo que la SL — 1 € (recomendado 3.000 €)',
+    fiscalidad: 'Impuesto de Sociedades con bonificaciones específicas por fomento del autoempleo colectivo',
+    ss: 'Régimen general para los socios trabajadores',
+    tramites: 'Estatutos + escritura pública + calificación e inscripción como Sociedad Laboral',
+    pros: [
+      'Fomenta el autoempleo colectivo entre los propios trabajadores',
+      'Responsabilidad limitada al capital aportado',
+      'Bonificaciones y ayudas específicas para este tipo de sociedades'
+    ],
+    cons: [
+      'Exige que la mayoría del capital esté en manos de socios trabajadores',
+      'Trámites de calificación adicionales frente a una SL estándar',
+      'Menos flexible si se prevé incorporar socios puramente inversores'
+    ],
+    ejes: { coste: 5, agilidad: 4, proteccion: 9, imagen: 7, fiscalidad: 8, crecimiento: 6 },
+    roadmap: [
+      { t: 'Certificación negativa de nombre', d: 'Solicitar la denominación social en el Registro Mercantil Central.', plazo: '2-3 días', coste: '≈15 €' },
+      { t: 'Escritura pública notarial', d: 'Otorgamiento de la escritura con la calificación de laboral.', plazo: '1-2 semanas', coste: '≈150-300 €' },
+      { t: 'Calificación como Sociedad Laboral', d: 'Solicitar la calificación en el registro autonómico de Sociedades Laborales.', plazo: '2-3 semanas', coste: 'Bajo' },
+      { t: 'Inscripción en el Registro Mercantil', d: 'Inscripción registral de la escritura con la calificación laboral.', plazo: '2-3 semanas', coste: '≈100-200 €' },
+      { t: 'Alta censal y régimen general', d: 'Modelo 036 en Hacienda y alta de los socios trabajadores en el régimen general.', plazo: '1 semana', coste: 'Gratuito' }
+    ],
+    quote: 'Un modelo diseñado para que los trabajadores sean, a la vez, dueños del proyecto: autoempleo colectivo con protección societaria.'
+  },
+  colectiva: {
+    name: 'Sociedad Colectiva',
+    sub: 'Sociedad personalista basada en la confianza mutua absoluta entre los socios',
+    socios: '2 o más socios (personas físicas)',
+    responsabilidad: 'Ilimitada y solidaria entre todos los socios',
+    capital: 'No se exige capital mínimo',
+    fiscalidad: 'Impuesto de Sociedades',
+    ss: 'RETA para todos los socios que trabajen en la actividad',
+    tramites: 'Escritura pública + inscripción en el Registro Mercantil',
+    pros: [
+      'No requiere capital mínimo para constituirse',
+      'Adecuada para socios con vínculo de máxima confianza personal',
+      'Estructura sencilla en su funcionamiento interno y en la toma de decisiones'
+    ],
+    cons: [
+      'Responsabilidad ilimitada y solidaria — cada socio responde por las deudas de todos',
+      'Muy poco utilizada hoy frente a la SL, que ofrece mucha mejor protección',
+      'Difícil acceso a financiación externa con esta forma jurídica'
+    ],
+    ejes: { coste: 7, agilidad: 6, proteccion: 1, imagen: 3, fiscalidad: 6, crecimiento: 3 },
+    roadmap: [
+      { t: 'Redacción de estatutos', d: 'Redactar los pactos sociales entre los socios colectivos.', plazo: '1 semana', coste: 'Bajo' },
+      { t: 'Escritura pública notarial', d: 'Otorgamiento de la escritura de constitución.', plazo: '1-2 semanas', coste: '≈100-250 €' },
+      { t: 'Inscripción en el Registro Mercantil', d: 'Inscripción registral de la escritura.', plazo: '2-3 semanas', coste: '≈100-200 €' },
+      { t: 'Alta censal y RETA', d: 'Modelo 036 en Hacienda y alta de todos los socios trabajadores en el RETA.', plazo: '1 semana', coste: 'Gratuito' }
+    ],
+    quote: 'Una forma histórica reservada para vínculos de confianza absoluta: hoy poco frecuente, pero conceptualmente clara.'
+  }
+};
+
+var TIEBREAK_ORDER = ['aut','sl','slu','erl','coop','sll','sc','cb','sa','colectiva'];
+
+var EJES = [
+  { id: 'coste',       name: 'Coste',        desc: 'facilidad de constitución económica' },
+  { id: 'agilidad',    name: 'Agilidad', desc: 'rapidez del proceso administrativo' },
+  { id: 'proteccion',  name: 'Protección', desc: 'límite de responsabilidad patrimonial' },
+  { id: 'imagen',      name: 'Imagen',   desc: 'solidez empresarial ante terceros' },
+  { id: 'fiscalidad',  name: 'Fiscalidad',           desc: 'régimen tributario aplicable' },
+  { id: 'crecimiento', name: 'Escalabilidad',        desc: 'capacidad de crecer y captar socios' }
+];
+
+/* =========================================================
+   2. PREGUNTAS + MATRIZ DE PUNTOS (13 preguntas)
+   ========================================================= */
+var QUESTIONS = [
+  {
+    id: 'q1', tag: 'Socios y promotores',
+    text: '¿Cuántas personas van a promover el proyecto?',
+    hint: 'Cuenta a todos los que aportarán capital, trabajo o ambas cosas desde el arranque.',
+    options: [
+      { id:'a', text:'Solo yo (1 persona)', points:{aut:3, erl:3, slu:3, sl:-2, sa:-3, coop:-3, sll:-3, cb:-3, sc:-3, colectiva:-3} },
+      { id:'b', text:'Entre 2 y 4 socios', points:{sl:3, sc:2, cb:2, colectiva:2, sll:1, coop:1, aut:-3, erl:-3, slu:-3, sa:-1} },
+      { id:'c', text:'Entre 5 y 9 socios', points:{coop:2, sll:2, sl:1, sa:1, sc:1, cb:1, aut:-3, erl:-3, slu:-3, colectiva:-1} },
+      { id:'d', text:'10 o más socios / inversores', points:{sa:3, coop:2, sll:1, sl:-1, aut:-3, erl:-3, slu:-3, cb:-2, sc:-2, colectiva:-3} }
+    ]
+  },
+  {
+    id: 'q2', tag: 'Responsabilidad patrimonial',
+    text: '¿Qué nivel de responsabilidad patrimonial estás dispuesto a asumir?',
+    hint: 'Esta es la variable más determinante: define si respondes con tu casa o solo con lo invertido.',
+    options: [
+      { id:'a', text:'No me preocupa responder con mi patrimonio personal', points:{aut:2, cb:2, sc:2, colectiva:3, erl:-2, sl:-1, slu:-1, sa:-1, coop:-1, sll:-1} },
+      { id:'b', text:'Quiero limitar mi responsabilidad a lo invertido en el negocio', points:{sl:3, slu:3, sa:2, coop:2, sll:2, erl:1, aut:-2, cb:-2, sc:-2, colectiva:-3} },
+      { id:'c', text:'Sobre todo quiero proteger mi vivienda habitual', points:{erl:3, sl:1, slu:1, aut:-1} }
+    ]
+  },
+  {
+    id: 'q3', tag: 'Capital inicial',
+    text: '¿De cuánto capital inicial dispones para arrancar?',
+    hint: 'Incluye ahorros propios, aportaciones de socios y financiación ya cerrada.',
+    options: [
+      { id:'a', text:'Menos de 3.000 €', points:{aut:2, erl:2, cb:2, sc:2, colectiva:1, sl:1, sa:-3, coop:-1, sll:-1} },
+      { id:'b', text:'Entre 3.000 € y 60.000 €', points:{sl:3, slu:3, coop:2, sll:2, sc:1, cb:1, sa:-2, aut:-1, erl:-1} },
+      { id:'c', text:'Más de 60.000 €', points:{sa:3, sl:1, slu:1, coop:1, sll:1} }
+    ]
+  },
+  {
+    id: 'q4', tag: 'Naturaleza de las aportaciones',
+    text: '¿Cómo se van a materializar las aportaciones al proyecto?',
+    hint: 'Aportar dinero, un local o know-how tiene implicaciones jurídicas y contables muy distintas.',
+    options: [
+      { id:'a', text:'Exclusivamente dinero', points:{aut:2, erl:2, sl:2, slu:2, cb:2, sc:1} },
+      { id:'b', text:'Dinero + bienes materiales (local, maquinaria, mobiliario)', points:{sl:3, slu:2, coop:2, sll:2, sa:2, sc:1, cb:-1} },
+      { id:'c', text:'Sobre todo trabajo, know-how o servicios profesionales de los socios', points:{coop:3, sll:3, sc:2, colectiva:2, cb:1, aut:1, erl:1, sa:-2} }
+    ]
+  },
+  {
+    id: 'q5', tag: 'Implicación de los socios',
+    text: '¿Todos los promotores van a trabajar activamente en el negocio?',
+    hint: 'No es lo mismo que todos remen a diario que tener socios que solo ponen dinero.',
+    options: [
+      { id:'a', text:'Sí, todos trabajaremos en el día a día (autoempleo colectivo)', points:{coop:3, sll:3, cb:2, sc:2, colectiva:2, aut:1, erl:1, slu:1} },
+      { id:'b', text:'Habrá socios que solo aportan capital, sin trabajar en el negocio', points:{sa:3, sl:2, coop:-2, sll:-2, cb:-1} },
+      { id:'c', text:'Emprendo yo solo y seré quien trabaje directamente', points:{aut:2, erl:2, slu:2} }
+    ]
+  },
+  {
+    id: 'q6', tag: 'Régimen de Seguridad Social',
+    text: '¿Qué régimen de Seguridad Social prefieres para el promotor principal?',
+    hint: 'El RETA es más flexible pero con menos prestaciones; el régimen general ofrece mejores coberturas.',
+    options: [
+      { id:'a', text:'RETA — quiero flexibilidad y no me preocupa cotizar menos', points:{aut:3, erl:3, cb:2, sc:2, colectiva:2, slu:1, sl:1} },
+      { id:'b', text:'Régimen general — quiero las mejores coberturas y prestaciones', points:{sll:3, coop:2, sa:2, sl:1, aut:-2, erl:-2, slu:-2, cb:-2, sc:-2} },
+      { id:'c', text:'Me es indiferente — decide lo que sea más ventajoso', points:{sl:1, slu:1, coop:1, sll:1} }
+    ]
+  },
+  {
+    id: 'q7', tag: 'Previsión de facturación',
+    text: '¿Qué facturación estimas para el primer año?',
+    hint: 'La facturación condiciona la carga fiscal y el tipo de contabilidad que necesitarás llevar.',
+    options: [
+      { id:'a', text:'Menos de 30.000 €', points:{aut:2, erl:2, cb:1, sc:1, colectiva:1, sl:-1, sa:-2} },
+      { id:'b', text:'Entre 30.000 € y 100.000 €', points:{sl:2, slu:2, coop:1, sll:1, aut:1, erl:1} },
+      { id:'c', text:'Más de 100.000 €', points:{sl:2, slu:1, sa:2, coop:1, sll:1, aut:-2, erl:-2, cb:-1, sc:-1} }
+    ]
+  },
+  {
+    id: 'q8', tag: 'Financiación externa',
+    text: '¿Vas a necesitar financiación externa o atraer inversores?',
+    hint: 'Los bancos y los inversores miran con lupa la forma jurídica: unas dan mucha más solidez que otras.',
+    options: [
+      { id:'a', text:'No, me autofinancio con mis propios recursos', points:{aut:1, erl:1, cb:1, sc:1, colectiva:1} },
+      { id:'b', text:'Puede que necesite un préstamo bancario puntual', points:{sl:2, slu:2, coop:1, sll:1} },
+      { id:'c', text:'Sí, quiero atraer inversores o ampliar capital a futuro', points:{sa:3, sl:1, aut:-2, erl:-2, cb:-2, sc:-2, colectiva:-2} }
+    ]
+  },
+  {
+    id: 'q9', tag: 'Sector de actividad',
+    text: '¿En qué sector se enmarca principalmente tu actividad?',
+    hint: 'Algunos sectores tienen formas jurídicas casi obligatorias por normativa o por tradición.',
+    options: [
+      { id:'a', text:'Comercio (minorista, e-commerce, hostelería, restauración)', points:{aut:2, sl:2, slu:2, cb:1, erl:1} },
+      { id:'b', text:'Servicios profesionales (consultoría, arquitectura, sanidad, ingeniería)', points:{sc:3, sl:2, slu:2, aut:1} },
+      { id:'c', text:'Industria, producción o artesanía', points:{sl:2, sll:2, coop:2, slu:1, sa:1} },
+      { id:'d', text:'Actividad regulada (transporte, seguros, construcción especializada)', points:{sl:2, sa:2, coop:1, sll:1} }
+    ]
+  },
+  {
+    id: 'q10', tag: 'Trámites y gestión',
+    text: '¿Qué nivel de trámites estás dispuesto a asumir para constituirte?',
+    hint: 'A más trámites, más protección; a menos trámites, más agilidad. Elige tu equilibrio.',
+    options: [
+      { id:'a', text:'El mínimo posible: quiero poder facturar cuanto antes', points:{aut:3, erl:2, cb:1, sc:1, sl:-1, slu:-1, sa:-2} },
+      { id:'b', text:'Una gestión moderada (constitución, estatutos, registro)', points:{sl:2, slu:2, coop:1, sll:1, sc:1} },
+      { id:'c', text:'Acepto trámites notariales y registrales más complejos si compensa', points:{sa:2, coop:1, sll:1, sl:1} }
+    ]
+  },
+  {
+    id: 'q11', tag: 'Carácter del proyecto',
+    text: '¿Cómo definirías el carácter de tu proyecto?',
+    hint: 'El carácter mercantil, social o profesional del proyecto empuja hacia formas jurídicas distintas.',
+    options: [
+      { id:'a', text:'Puramente mercantil / lucrativo', points:{sl:2, slu:2, sa:2, aut:1, erl:1} },
+      { id:'b', text:'Con vocación social, participativa o de economía social', points:{coop:3, sll:2, cb:1} },
+      { id:'c', text:'Actividad profesional colegiada (consultoría, sanidad, arquitectura...)', points:{sc:3, sl:1, aut:1} }
+    ]
+  },
+  {
+    id: 'q12', tag: 'Vínculo entre socios',
+    text: 'Si hay socios, ¿qué tipo de vínculo tenéis entre vosotros?',
+    hint: 'El grado de confianza mutua condiciona qué tan blindada debe estar la relación por escrito.',
+    options: [
+      { id:'a', text:'Confianza absoluta y compromiso solidario (familia, socios de toda la vida)', points:{colectiva:3, cb:2, sc:2} },
+      { id:'b', text:'Relación contractual: cada uno responde por lo que aporta', points:{sl:2, slu:2, sa:2, coop:1, sll:1} },
+      { id:'c', text:'No aplica, emprendo en solitario', points:{aut:2, erl:2, slu:2} }
+    ]
+  },
+  {
+    id: 'q13', tag: 'Horizonte de crecimiento',
+    text: '¿Cuál es el horizonte de crecimiento que imaginas para el proyecto?',
+    hint: 'La escala que ambicionas hoy limita las formas que podrás usar mañana.',
+    options: [
+      { id:'a', text:'Negocio pequeño o local, sin previsión de crecer mucho', points:{aut:2, erl:2, cb:1, sc:1, colectiva:1} },
+      { id:'b', text:'Proyecto con ambición de crecer y escalar en los próximos años', points:{sl:2, slu:2, coop:1, sll:1} },
+      { id:'c', text:'Proyecto muy grande desde el inicio (gran inversión, posible salida a bolsa)', points:{sa:3, sl:1} }
+    ]
+  }
+];
+
+/* Frases de motivo por (pregunta, forma) */
+var REASON_PHRASES = {
+  q1: {
+    aut:'vas a emprender en solitario', erl:'vas a emprender en solitario', slu:'vas a emprender en solitario',
+    sl:'contáis con varios socios en el proyecto', sc:'contáis con varios socios en el proyecto', cb:'contáis con varios socios en el proyecto', colectiva:'contáis con varios socios en el proyecto',
+    coop:'el número de socios encaja con una estructura cooperativa', sll:'el número de socios encaja con una sociedad laboral',
+    sa:'el número de promotores e inversores es elevado'
+  },
+  q2: {
+    aut:'no te preocupa responder con tu patrimonio personal', cb:'no te preocupa responder con tu patrimonio personal', sc:'no te preocupa responder con tu patrimonio personal', colectiva:'no te preocupa responder con tu patrimonio personal',
+    sl:'quieres limitar tu responsabilidad al capital aportado', slu:'quieres limitar tu responsabilidad al capital aportado', sa:'quieres limitar tu responsabilidad al capital aportado', coop:'quieres limitar tu responsabilidad al capital aportado', sll:'quieres limitar tu responsabilidad al capital aportado',
+    erl:'quieres proteger especialmente tu vivienda habitual'
+  },
+  q3: {
+    aut:'dispones de poco capital inicial', erl:'dispones de poco capital inicial', cb:'dispones de poco capital inicial', sc:'dispones de poco capital inicial',
+    sl:'tu capital inicial encaja con el mínimo exigido', slu:'tu capital inicial encaja con el mínimo exigido', coop:'tu capital inicial encaja con esta forma', sll:'tu capital inicial encaja con esta forma',
+    sa:'dispones de un capital inicial elevado'
+  },
+  q4: {
+    aut:'las aportaciones serán exclusivamente dinerarias', erl:'las aportaciones serán exclusivamente dinerarias',
+    sl:'las aportaciones incluyen bienes materiales que conviene valorar formalmente', slu:'las aportaciones incluyen bienes materiales que conviene valorar formalmente',
+    coop:'las aportaciones principales son trabajo y know-how de los socios', sll:'las aportaciones principales son trabajo y know-how de los socios', sc:'las aportaciones principales son trabajo y know-how de los socios'
+  },
+  q5: {
+    coop:'todos los socios trabajaréis activamente en el proyecto', sll:'todos los socios trabajaréis activamente en el proyecto', cb:'todos los socios trabajaréis activamente en el proyecto', sc:'todos los socios trabajaréis activamente en el proyecto', colectiva:'todos los socios trabajaréis activamente en el proyecto',
+    sa:'habrá socios puramente inversores que no trabajarán en el negocio', sl:'habrá socios puramente inversores que no trabajarán en el negocio',
+    aut:'trabajarás tú directamente en el negocio', erl:'trabajarás tú directamente en el negocio', slu:'trabajarás tú directamente en el negocio'
+  },
+  q6: {
+    aut:'has priorizado el RETA como régimen de Seguridad Social', erl:'has priorizado el RETA como régimen de Seguridad Social', slu:'has priorizado el RETA como régimen de Seguridad Social',
+    sll:'has priorizado el régimen general con mejores coberturas', coop:'has priorizado el régimen general con mejores coberturas', sa:'has priorizado el régimen general con mejores coberturas'
+  },
+  q7: {
+    aut:'tu previsión de facturación es reducida', erl:'tu previsión de facturación es reducida',
+    sl:'tu previsión de facturación es propia de una pyme consolidada', slu:'tu previsión de facturación es propia de una pyme consolidada',
+    sa:'tu previsión de facturación es elevada desde el inicio'
+  },
+  q8: {
+    aut:'no vas a necesitar financiación externa', erl:'no vas a necesitar financiación externa', cb:'no vas a necesitar financiación externa', sc:'no vas a necesitar financiación externa', colectiva:'no vas a necesitar financiación externa',
+    sl:'podrías necesitar financiación bancaria puntual', slu:'podrías necesitar financiación bancaria puntual',
+    sa:'quieres atraer inversores o ampliar capital en el futuro'
+  },
+  q9: {
+    aut:'tu actividad es de tipo comercial o minorista', sl:'tu actividad es de tipo comercial o minorista', slu:'tu actividad es de tipo comercial o minorista',
+    sc:'desarrollas una actividad profesional colegiada',
+    coop:'tu actividad tiene componente industrial o productivo', sll:'tu actividad tiene componente industrial o productivo',
+    sa:'tu actividad opera en un sector regulado que exige solidez societaria'
+  },
+  q10: {
+    aut:'quieres el mínimo trámite posible para empezar ya', erl:'quieres el mínimo trámite posible para empezar ya',
+    sl:'aceptas una gestión moderada de constitución', slu:'aceptas una gestión moderada de constitución',
+    sa:'aceptas trámites más complejos si aportan ventajas'
+  },
+  q11: {
+    sl:'tu proyecto tiene un carácter puramente mercantil', slu:'tu proyecto tiene un carácter puramente mercantil', sa:'tu proyecto tiene un carácter puramente mercantil',
+    coop:'tu proyecto tiene vocación social y participativa', sll:'tu proyecto tiene vocación social y participativa',
+    sc:'tu actividad es de tipo profesional colegiado'
+  },
+  q12: {
+    colectiva:'el vínculo con tus socios es de máxima confianza', cb:'el vínculo con tus socios es de máxima confianza', sc:'el vínculo con tus socios es de máxima confianza',
+    sl:'tu relación con los socios es de tipo contractual', slu:'tu relación con los socios es de tipo contractual', sa:'tu relación con los socios es de tipo contractual',
+    aut:'emprendes en solitario', erl:'emprendes en solitario'
+  },
+  q13: {
+    aut:'tu horizonte es un negocio pequeño o local', erl:'tu horizonte es un negocio pequeño o local',
+    sl:'tu proyecto tiene ambición de crecer y escalar', slu:'tu proyecto tiene ambición de crecer y escalar',
+    sa:'tu proyecto es de gran envergadura desde el inicio'
+  }
+};
+
+/* =========================================================
+   3. ESTADO
+   ========================================================= */
+var state = {
+  ideaText: '',
+  currentQ: 0,
+  answers: {}
+};
+
+/* =========================================================
+   4. NAVEGACIÓN ENTRE PANTALLAS
+   ========================================================= */
+function go(screenId) {
+  document.querySelectorAll('.screen').forEach(function (s) { s.classList.remove('active'); });
+  document.getElementById(screenId).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+}
+
+/* =========================================================
+   5. PANTALLA INTRO
+   ========================================================= */
+var ideaTextEl = document.getElementById('ideaText');
+var startBtn = document.getElementById('startBtn');
+var ideaHint = document.getElementById('ideaHint');
+
+ideaTextEl.addEventListener('input', function () {
+  var v = ideaTextEl.value.trim();
+  state.ideaText = v;
+  if (v.length >= 5) {
+    ideaTextEl.classList.add('filled');
+    startBtn.disabled = false;
+    ideaHint.textContent = 'Listo para empezar';
+  } else {
+    ideaTextEl.classList.remove('filled');
+    startBtn.disabled = true;
+    ideaHint.textContent = 'Mínimo 5 caracteres para empezar';
+  }
+});
+
+startBtn.addEventListener('click', function () {
+  document.getElementById('quizIdeaEcho').textContent = '"' + state.ideaText + '"';
+  buildQuiz();
+  go('screen-quiz');
+});
+
+/* =========================================================
+   6. PANTALLA QUIZ
+   ========================================================= */
+var quizBody = document.getElementById('quizBody');
+var quizCounter = document.getElementById('quizCounter');
+var progressFill = document.getElementById('progressFill');
+
+function buildQuiz() {
+  quizBody.innerHTML = '';
+
+  QUESTIONS.forEach(function (q, idx) {
+    var block = document.createElement('div');
+    block.className = 'q-block';
+    block.id = 'qblock-' + idx;
+
+    var tagRow = document.createElement('div');
+    tagRow.className = 'q-tag-row';
+    tagRow.innerHTML = '<div class="q-tag">' + q.tag + '</div>' +
+      '<div class="q-tag-line"></div>' +
+      '<div class="q-tag-num">' + (idx+1).toString().padStart(2,'0') + ' / ' + QUESTIONS.length.toString().padStart(2,'0') + '</div>';
+    block.appendChild(tagRow);
+
+    var text = document.createElement('div');
+    text.className = 'q-text';
+    text.textContent = q.text;
+    block.appendChild(text);
+
+    if (q.hint) {
+      var hint = document.createElement('div');
+      hint.className = 'q-hint';
+      hint.textContent = q.hint;
+      block.appendChild(hint);
+    }
+
+    var optsWrap = document.createElement('div');
+    optsWrap.className = 'options';
+
+    q.options.forEach(function (opt) {
+      var optEl = document.createElement('div');
+      optEl.className = 'option';
+      optEl.dataset.qid = q.id;
+      optEl.dataset.oid = opt.id;
+
+      var radio = document.createElement('div');
+      radio.className = 'option-radio';
+
+      var body = document.createElement('div');
+      body.className = 'option-body';
+      var txt = document.createElement('div');
+      txt.className = 'option-text';
+      txt.textContent = opt.text;
+      body.appendChild(txt);
+
+      optEl.appendChild(radio);
+      optEl.appendChild(body);
+      optEl.addEventListener('click', function () { selectOption(q.id, opt.id, idx); });
+
+      optsWrap.appendChild(optEl);
+    });
+
+    block.appendChild(optsWrap);
+
+    var nav = document.createElement('div');
+    nav.className = 'quiz-nav';
+
+    var backBtn = document.createElement('button');
+    backBtn.className = 'btn-ghost';
+    backBtn.textContent = '← Anterior';
+    backBtn.style.visibility = idx === 0 ? 'hidden' : 'visible';
+    backBtn.addEventListener('click', function () { showQuestion(idx - 1); });
+
+    var nextBtn = document.createElement('button');
+    nextBtn.className = 'btn-primary';
+    nextBtn.id = 'next-' + idx;
+    nextBtn.disabled = true;
+    nextBtn.textContent = idx === QUESTIONS.length - 1 ? 'Ver informe →' : 'Siguiente →';
+    nextBtn.addEventListener('click', function () {
+      if (idx === QUESTIONS.length - 1) {
+        computeResult();
+        go('screen-result');
+      } else {
+        showQuestion(idx + 1);
+      }
+    });
+
+    nav.appendChild(backBtn);
+    nav.appendChild(nextBtn);
+    block.appendChild(nav);
+
+    quizBody.appendChild(block);
+  });
+
+  showQuestion(0);
+}
+
+function showQuestion(idx) {
+  state.currentQ = idx;
+  document.querySelectorAll('.q-block').forEach(function (b) { b.classList.remove('active'); });
+  document.getElementById('qblock-' + idx).classList.add('active');
+  quizCounter.textContent = 'Pregunta ' + (idx + 1) + ' / ' + QUESTIONS.length;
+
+  var pct = ((idx) / (QUESTIONS.length - 1)) * 100;
+  progressFill.style.width = pct + '%';
+
+  window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+}
+
+function selectOption(qId, oId, idx) {
+  state.answers[qId] = oId;
+
+  var block = document.getElementById('qblock-' + idx);
+  block.querySelectorAll('.option').forEach(function (o) {
+    o.classList.toggle('selected', o.dataset.oid === oId);
+  });
+
+  document.getElementById('next-' + idx).disabled = false;
+}
+
+/* =========================================================
+   7. CÁLCULO DEL RESULTADO
+   ========================================================= */
+function computeResult() {
+  var scores = {};
+  Object.keys(FORMS).forEach(function (k) { scores[k] = 0; });
+
+  var contributions = [];
+
+  QUESTIONS.forEach(function (q) {
+    var chosenId = state.answers[q.id];
+    var opt = q.options.filter(function (o) { return o.id === chosenId; })[0];
+    if (!opt) return;
+    Object.keys(opt.points).forEach(function (formId) {
+      scores[formId] += opt.points[formId];
+      contributions.push({ qId: q.id, formId: formId, value: opt.points[formId] });
+    });
+  });
+
+  var ranking = Object.keys(scores).map(function (id) { return { id: id, score: scores[id] }; });
+  ranking.sort(function (a, b) {
+    if (b.score !== a.score) return b.score - a.score;
+    return TIEBREAK_ORDER.indexOf(a.id) - TIEBREAK_ORDER.indexOf(b.id);
+  });
+
+  renderReport(ranking, contributions);
+}
+
+function renderReport(ranking, contributions) {
+  var winnerId = ranking[0].id;
+  var runnerUpId = ranking[1].id;
+  var thirdId = ranking[2].id;
+  var winner = FORMS[winnerId];
+
+  // Idea + cabeceras
+  document.getElementById('rptIdea').textContent = '"' + state.ideaText + '"';
+  document.getElementById('rptIdea2').textContent = '"' + state.ideaText + '"';
+  document.getElementById('rptIdea3').textContent = '"' + state.ideaText + '"';
+
+  document.getElementById('rptFormName').textContent = winner.name;
+  document.getElementById('rptFormSub').textContent = winner.sub;
+
+  // Score de idoneidad (normalización)
+  var maxScore = ranking[0].score;
+  var minScore = ranking[ranking.length - 1].score;
+  var range = Math.max(maxScore - minScore, 1);
+  var idoneidad = Math.round(((maxScore - minScore) / range) * 40 + 60);
+  if (maxScore <= 0) idoneidad = 60;
+  document.getElementById('rptMatchScore').textContent = idoneidad + '%';
+
+  // Síntesis
+  var synth = 'Según tus respuestas, la <span class="kw">' + winner.name + '</span> es la forma jurídica que mejor se ajusta a tu proyecto. ' +
+    'Combina el nivel de <span class="kw">responsabilidad patrimonial</span> que has indicado con el número de socios, el capital disponible, el régimen de <span class="kw">Seguridad Social</span> preferido y el carácter del negocio que describes. ' +
+    'A continuación tienes el radar de idoneidad, las razones concretas, la ficha técnica completa, una comparativa con las dos mejores alternativas y una hoja de ruta con los trámites de constitución.';
+  document.getElementById('rptSynth').innerHTML = synth;
+
+  // Radar chart
+  renderRadar(winner.ejes);
+  renderRadarLegend(winner.ejes);
+
+  // Razones (top 5)
+  var winnerContribs = contributions
+    .filter(function (c) { return c.formId === winnerId && c.value > 0; })
+    .sort(function (a, b) { return b.value - a.value; });
+
+  var seenQ = {};
+  var reasons = [];
+  winnerContribs.forEach(function (c) {
+    if (seenQ[c.qId]) return;
+    seenQ[c.qId] = true;
+    var phrase = (REASON_PHRASES[c.qId] && REASON_PHRASES[c.qId][winnerId]) || null;
+    if (phrase) reasons.push(phrase);
+  });
+  reasons = reasons.slice(0, 5);
+  if (reasons.length === 0) reasons.push('tus respuestas en conjunto encajan mejor con esta forma jurídica que con el resto de opciones');
+
+  var reasonsHtml = '';
+  reasons.forEach(function (r, i) {
+    reasonsHtml += '<div class="reason-item"><div class="reason-num">' + (i + 1).toString().padStart(2, '0') + '</div>' +
+      '<div class="reason-body"><div class="reason-text">Porque ' + r + '.</div></div></div>';
+  });
+  document.getElementById('rptReasons').innerHTML = reasonsHtml;
+
+  // Ficha técnica
+  var fichaHtml =
+    '<div class="ficha-item"><div class="fl">Nº de socios</div><div class="fv">' + winner.socios + '</div></div>' +
+    '<div class="ficha-item"><div class="fl">Responsabilidad</div><div class="fv">' + winner.responsabilidad + '</div></div>' +
+    '<div class="ficha-item"><div class="fl">Capital mínimo</div><div class="fv">' + winner.capital + '</div></div>' +
+    '<div class="ficha-item"><div class="fl">Fiscalidad</div><div class="fv">' + winner.fiscalidad + '</div></div>' +
+    '<div class="ficha-item full"><div class="fl">Régimen de Seguridad Social</div><div class="fv">' + winner.ss + '</div></div>' +
+    '<div class="ficha-item full"><div class="fl">Trámites principales</div><div class="fv">' + winner.tramites + '</div></div>';
+  document.getElementById('rptFicha').innerHTML = fichaHtml;
+
+  // Pros / cons
+  document.getElementById('rptPros').innerHTML = winner.pros.map(function (p) { return '<li>' + p + '</li>'; }).join('');
+  document.getElementById('rptCons').innerHTML = winner.cons.map(function (c) { return '<li>' + c + '</li>'; }).join('');
+
+  // Comparativa top 3
+  renderCompareTable([winnerId, runnerUpId, thirdId], ranking);
+
+  // Hoja de ruta
+  renderRoadmap(winner.roadmap);
+
+  // Cita final
+  document.getElementById('finalQuote').textContent = '"' + winner.quote + '"';
+}
+
+/* =========================================================
+   8. RADAR CHART (SVG)
+   ========================================================= */
+function renderRadar(ejes) {
+  var svg = document.getElementById('radarSvg');
+  svg.innerHTML = '';
+  var cx = 160, cy = 160, maxR = 100;
+  var n = EJES.length;
+
+  // rejilla concéntrica
+  var levels = [0.25, 0.5, 0.75, 1];
+  levels.forEach(function (lvl) {
+    var pts = [];
+    for (var i = 0; i < n; i++) {
+      var ang = (Math.PI * 2 * i) / n - Math.PI / 2;
+      var r = maxR * lvl;
+      pts.push((cx + r * Math.cos(ang)) + ',' + (cy + r * Math.sin(ang)));
+    }
+    var poly = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+    poly.setAttribute('points', pts.join(' '));
+    poly.setAttribute('fill', 'none');
+    poly.setAttribute('stroke', '#E8E1D6');
+    poly.setAttribute('stroke-width', '1');
+    svg.appendChild(poly);
+  });
+
+  // ejes
+  for (var i = 0; i < n; i++) {
+    var ang = (Math.PI * 2 * i) / n - Math.PI / 2;
+    var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', cx);
+    line.setAttribute('y1', cy);
+    line.setAttribute('x2', cx + maxR * Math.cos(ang));
+    line.setAttribute('y2', cy + maxR * Math.sin(ang));
+    line.setAttribute('stroke', '#E8E1D6');
+    line.setAttribute('stroke-width', '1');
+    svg.appendChild(line);
+  }
+
+  // polígono de valores
+  var pts = [];
+  var pointCoords = [];
+  for (var i = 0; i < n; i++) {
+    var ang = (Math.PI * 2 * i) / n - Math.PI / 2;
+    var val = ejes[EJES[i].id] || 0;
+    var r = maxR * (val / 10);
+    var x = cx + r * Math.cos(ang);
+    var y = cy + r * Math.sin(ang);
+    pts.push(x + ',' + y);
+    pointCoords.push({x:x, y:y});
+  }
+  var poly = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+  poly.setAttribute('points', pts.join(' '));
+  poly.setAttribute('fill', 'rgba(46, 79, 107, 0.18)');
+  poly.setAttribute('stroke', '#2E4F6B');
+  poly.setAttribute('stroke-width', '2');
+  poly.setAttribute('stroke-linejoin', 'round');
+  svg.appendChild(poly);
+
+  // puntos
+  pointCoords.forEach(function (p) {
+    var c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    c.setAttribute('cx', p.x);
+    c.setAttribute('cy', p.y);
+    c.setAttribute('r', '3.5');
+    c.setAttribute('fill', '#2E4F6B');
+    c.setAttribute('stroke', 'white');
+    c.setAttribute('stroke-width', '1.5');
+    svg.appendChild(c);
+  });
+
+  // etiquetas
+  for (var i = 0; i < n; i++) {
+    var ang = (Math.PI * 2 * i) / n - Math.PI / 2;
+    var lr = maxR + 22;
+    var lx = cx + lr * Math.cos(ang);
+    var ly = cy + lr * Math.sin(ang);
+    var t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    t.setAttribute('x', lx);
+    t.setAttribute('y', ly);
+    t.setAttribute('text-anchor', 'middle');
+    t.setAttribute('dominant-baseline', 'middle');
+    t.setAttribute('fill', '#4A463F');
+    t.setAttribute('font-family', 'Inter, sans-serif');
+    t.setAttribute('font-size', '10');
+    t.setAttribute('font-weight', '600');
+    t.textContent = EJES[i].name;
+    svg.appendChild(t);
+  }
+}
+
+function renderRadarLegend(ejes) {
+  var html = '';
+  EJES.forEach(function (e) {
+    var val = ejes[e.id] || 0;
+    html += '<div class="radar-legend-item">' +
+      '<div class="radar-legend-label">' +
+        '<div class="radar-legend-name">' + e.name + '</div>' +
+        '<div class="radar-legend-desc">' + e.desc + '</div>' +
+      '</div>' +
+      '<div class="radar-legend-score">' + val + '<span style="font-size:12px;color:var(--ink-muted);font-weight:400"> /10</span></div>' +
+    '</div>';
+  });
+  document.getElementById('radarLegend').innerHTML = html;
+}
+
+/* =========================================================
+   9. TABLA COMPARATIVA TOP 3
+   ========================================================= */
+function renderCompareTable(topIds, ranking) {
+  var criterios = [
+    { label: 'Nº socios', key: 'socios' },
+    { label: 'Responsabilidad', key: 'responsabilidad' },
+    { label: 'Capital mínimo', key: 'capital' },
+    { label: 'Fiscalidad', key: 'fiscalidad' },
+    { label: 'Seguridad Social', key: 'ss' }
+  ];
+
+  var scoreMap = {};
+  ranking.forEach(function(r){ scoreMap[r.id] = r.score; });
+
+  var html = '<thead><tr><th></th>';
+  topIds.forEach(function (id, i) {
+    var f = FORMS[id];
+    html += '<th class="' + (i === 0 ? 'winner-col' : '') + '">' +
+      '<span class="form-name">' + f.name.split(' (')[0] + '</span>' +
+      '<span class="form-score">' + scoreMap[id] + ' pts</span>' +
+    '</th>';
+  });
+  html += '</tr></thead><tbody>';
+
+  criterios.forEach(function (c) {
+    html += '<tr><td class="criterion">' + c.label + '</td>';
+    topIds.forEach(function (id, i) {
+      var f = FORMS[id];
+      html += '<td class="' + (i === 0 ? 'winner-cell' : '') + '"><div class="cell-content">' + f[c.key] + '</div></td>';
+    });
+    html += '</tr>';
+  });
+
+  html += '</tbody>';
+  document.getElementById('rptCompareTable').innerHTML = html;
+}
+
+/* =========================================================
+   10. HOJA DE RUTA
+   ========================================================= */
+function renderRoadmap(steps) {
+  var html = '';
+  steps.forEach(function (s, i) {
+    html += '<div class="roadmap-step">' +
+      '<div class="roadmap-marker">' + (i+1) + '</div>' +
+      '<div class="roadmap-title">' + s.t + '</div>' +
+      '<div class="roadmap-desc">' + s.d + '</div>' +
+      '<div class="roadmap-meta"><span>Plazo: ' + s.plazo + '</span><span>Coste: ' + s.coste + '</span></div>' +
+    '</div>';
+  });
+  document.getElementById('rptRoadmap').innerHTML = html;
+
+  // Resumen
+  var totalPasos = steps.length;
+  // Estimar plazo total y coste total
+  var totalPlazo = estimatePlazo(steps);
+  var totalCoste = estimateCoste(steps);
+  var summaryHtml =
+    '<div class="roadmap-summary-item"><div class="rs-label">Pasos totales</div><div class="rs-value">' + totalPasos + '</div></div>' +
+    '<div class="roadmap-summary-item"><div class="rs-label">Plazo estimado</div><div class="rs-value">' + totalPlazo + '</div></div>' +
+    '<div class="roadmap-summary-item"><div class="rs-label">Coste orientativo</div><div class="rs-value">' + totalCoste + '</div></div>';
+  document.getElementById('rptRoadmapSummary').innerHTML = summaryHtml;
+}
+
+function estimatePlazo(steps) {
+  // extraer días máximos aproximados de cada paso
+  var totalDias = 0;
+  steps.forEach(function (s) {
+    var match = s.plazo.match(/(\d+)(?:-(\d+))?\s*(día|semana)/);
+    if (match) {
+      var max = parseInt(match[2] || match[1]);
+      if (match[3] === 'semana') max *= 7;
+      totalDias += max;
+    }
+  });
+  if (totalDias < 14) return totalDias + ' días';
+  var semanas = Math.ceil(totalDias / 7);
+  if (semanas < 8) return semanas + ' semanas';
+  return Math.ceil(semanas / 4) + '-' + (Math.ceil(semanas / 4) + 1) + ' meses';
+}
+
+function estimateCoste(steps) {
+  var minTotal = 0, maxTotal = 0, hasVariable = false;
+  steps.forEach(function (s) {
+    if (s.coste === 'Gratuito' || s.coste === 'Bajo') { minTotal += 0; maxTotal += 30; return; }
+    if (s.coste === 'Variable') { hasVariable = true; return; }
+    var match = s.coste.match(/(\d+)(?:-(\d+))?/);
+    if (match) {
+      minTotal += parseInt(match[1]);
+      maxTotal += parseInt(match[2] || match[1]);
+    }
+  });
+  if (minTotal === 0 && maxTotal === 0 && !hasVariable) return 'Muy bajo';
+  if (minTotal === 0 && maxTotal < 100) return 'Bajo';
+  var range = minTotal + '-' + maxTotal + ' €';
+  return hasVariable ? range + '+' : range;
+}
+
+/* =========================================================
+   11. RESTART / PRINT
+   ========================================================= */
+document.getElementById('restartBtn').addEventListener('click', function () {
+  state = { ideaText: '', currentQ: 0, answers: {} };
+  ideaTextEl.value = '';
+  ideaTextEl.classList.remove('filled');
+  startBtn.disabled = true;
+  ideaHint.textContent = 'Mínimo 5 caracteres para empezar';
+  go('screen-intro');
+});
+
+document.getElementById('printBtn').addEventListener('click', function () {
+  window.print();
+});
+
+})();
+</script>
+</body>
+</html>
