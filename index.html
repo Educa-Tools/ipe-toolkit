@@ -3,390 +3,409 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="IPE Toolkit — Herramientas interactivas para Formación Profesional">
+  <meta name="description" content="IPE Toolkit — Herramientas interactivas para Formación Profesional · Educa Tools">
   <title>Educa Tools — IPE Toolkit</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,ital@9..144,400,0;9..144,500,0;9..144,600,0;9..144,400,1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,ital@9..144,400,0;9..144,500,0;9..144,700,0;9..144,400,1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
     /* ── Tokens ── */
     :root {
+      /* Fondos — canvas-pestel como fondo principal, más claro y airoso */
+      --bg:          #FBFCEF;
       --canvas:      #FAF7F2;
       --surface:     #FFFFFF;
+      --surface-alt: #F5F6E4;
+
+      /* Tinta */
       --ink:         #1E1C1A;
       --ink-soft:    #4A463F;
       --ink-muted:   #8B847A;
+
+      /* Líneas */
       --line:        #E8E1D6;
+      --line-soft:   #EEEFD8;
+
+      /* Marca */
       --olive-deep:  #6B7028;
       --olive-mid:   #A8AD5C;
-      --olive-soft:  #D8DCA0;
       --lime-soft:   #E8EDC4;
-      --accent-bg:   #F0F2DC;
+      --lime-mid:    #C5CD78;
 
       --font-display: 'Fraunces', Georgia, serif;
       --font-ui:      'Inter', -apple-system, 'Segoe UI', sans-serif;
 
-      --radius-card: 16px;
+      --radius-card: 18px;
       --radius-pill: 999px;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root:not([data-theme="light"]) {
-        --canvas:     #17190F;
-        --surface:    #1F221A;
-        --ink:        #EDE9E2;
-        --ink-soft:   #B8B4AD;
-        --ink-muted:  #7A7870;
-        --line:       #2E3020;
-        --olive-deep: #A8AD5C;
-        --olive-mid:  #C8CC80;
-        --olive-soft: #3C4020;
-        --lime-soft:  #2A2E18;
-        --accent-bg:  #252910;
-      }
-    }
-    :root[data-theme="dark"] {
-      --canvas:     #17190F;
-      --surface:    #1F221A;
-      --ink:        #EDE9E2;
-      --ink-soft:   #B8B4AD;
-      --ink-muted:  #7A7870;
-      --line:       #2E3020;
-      --olive-deep: #A8AD5C;
-      --olive-mid:  #C8CC80;
-      --olive-soft: #3C4020;
-      --lime-soft:  #2A2E18;
-      --accent-bg:  #252910;
+      --shadow-card: 0 2px 12px rgba(107,112,40,0.07), 0 1px 3px rgba(30,28,26,0.05);
+      --shadow-hover: 0 8px 32px rgba(107,112,40,0.13), 0 2px 8px rgba(30,28,26,0.07);
     }
 
     /* ── Reset ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     img { max-width: 100%; display: block; }
-
-    html, body { height: 100%; }
 
     body {
       font-family: var(--font-ui);
-      background: var(--canvas);
+      background: var(--bg);
       color: var(--ink);
       font-size: 15px;
       line-height: 1.6;
-      padding-inline: 24px;
-      padding-block: 0;
     }
 
-    /* ── Page wrapper ── */
-    .page {
-      max-width: 980px;
+    /* ── Layout helper ── */
+    .wrap {
+      max-width: 1020px;
       margin-inline: auto;
+      padding-inline: 28px;
     }
 
-    /* ── Header / Hero ── */
-    .site-header {
-      padding-block: 48px 0;
-      border-bottom: 1px solid var(--line);
-      margin-bottom: 56px;
+    /* ═══════════════════════════════════════
+       HERO / HEADER
+    ═══════════════════════════════════════ */
+    .hero {
+      background: var(--surface);
+      border-bottom: 1px solid var(--line-soft);
+      padding-block: 56px 48px;
     }
 
-    .header-inner {
+    .hero-inner {
       display: flex;
       align-items: flex-start;
-      justify-content: space-between;
-      gap: 40px;
+      gap: 56px;
       flex-wrap: wrap;
-      padding-bottom: 48px;
     }
 
-    .logo-lockup { flex-shrink: 0; }
-    .logo-lockup svg { width: auto; height: 72px; }
+    /* ── Logo lockup ── */
+    .logo-wrap {
+      flex-shrink: 0;
+    }
 
-    .hero-text {
+    .logo-wrap svg {
+      width: auto;
+      height: 90px;
+    }
+
+    /* ── Hero copy ── */
+    .hero-copy {
       flex: 1;
       min-width: 260px;
-      padding-top: 6px;
+      padding-top: 8px;
     }
 
     .eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      font-family: var(--font-ui);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
+      gap: 7px;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
       text-transform: uppercase;
       color: var(--olive-deep);
       background: var(--lime-soft);
-      padding: 5px 12px;
+      padding: 5px 13px;
       border-radius: var(--radius-pill);
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     .hero-headline {
       font-family: var(--font-display);
-      font-size: clamp(28px, 4vw, 42px);
-      font-weight: 500;
-      line-height: 1.15;
+      font-size: clamp(26px, 3.8vw, 40px);
+      font-weight: 700;
+      line-height: 1.12;
       letter-spacing: -0.03em;
       color: var(--ink);
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       text-wrap: balance;
-      max-width: 540px;
+      max-width: 520px;
     }
 
     .hero-desc {
       font-size: 15px;
-      line-height: 1.7;
+      line-height: 1.72;
       color: var(--ink-soft);
-      max-width: 500px;
+      max-width: 480px;
     }
 
-    .header-meta {
+    /* ── Módulos pill row ── */
+    .modulos-row {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding-block: 16px;
-      border-top: 1px solid var(--line);
+      gap: 8px;
       flex-wrap: wrap;
+      margin-top: 24px;
     }
 
-    .meta-label {
+    .modulos-label {
       font-size: 11px;
       font-weight: 600;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.09em;
       text-transform: uppercase;
       color: var(--ink-muted);
-      margin-right: 4px;
     }
 
-    .meta-tag {
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--ink-soft);
-      background: var(--surface);
-      border: 1px solid var(--line);
+    .modulo-pill {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--olive-deep);
+      background: var(--lime-soft);
+      border: 1px solid var(--lime-mid);
       border-radius: var(--radius-pill);
-      padding: 4px 12px;
+      padding: 3px 11px;
     }
 
-    /* ── Section header ── */
+    /* ═══════════════════════════════════════
+       SOBRE EL PROYECTO
+    ═══════════════════════════════════════ */
+    .sobre {
+      background: var(--surface-alt);
+      border-bottom: 1px solid var(--line-soft);
+      padding-block: 40px;
+    }
+
+    .sobre-inner {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .sobre-label {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 500;
+      font-style: italic;
+      color: var(--olive-mid);
+      margin-bottom: 8px;
+      letter-spacing: 0.01em;
+    }
+
+    .sobre-heading {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      line-height: 1.2;
+      text-wrap: balance;
+    }
+
+    .sobre-body {
+      font-size: 14.5px;
+      line-height: 1.75;
+      color: var(--ink-soft);
+    }
+
+    .sobre-body p + p {
+      margin-top: 12px;
+    }
+
+    .sobre-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      font-size: 13.5px;
+      line-height: 1.5;
+      color: var(--ink-soft);
+    }
+
+    .feature-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--olive-mid);
+      flex-shrink: 0;
+      margin-top: 6px;
+    }
+
+    /* ═══════════════════════════════════════
+       HERRAMIENTAS
+    ═══════════════════════════════════════ */
+    .tools-section {
+      padding-block: 52px 64px;
+      background: var(--bg);
+    }
+
     .section-header {
       display: flex;
       align-items: baseline;
       justify-content: space-between;
       gap: 16px;
-      margin-bottom: 24px;
+      margin-bottom: 28px;
       flex-wrap: wrap;
     }
 
     .section-title {
       font-family: var(--font-display);
-      font-size: 22px;
-      font-weight: 500;
-      letter-spacing: -0.02em;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.025em;
       color: var(--ink);
     }
 
-    .tool-count {
+    .section-count {
       font-size: 12px;
       font-weight: 500;
       color: var(--ink-muted);
+      letter-spacing: 0.02em;
     }
 
-    /* ── Tools grid ── */
+    /* ── Grid ── */
     .tools-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-      margin-bottom: 72px;
+      gap: 18px;
     }
 
-    /* ── Tool card ── */
+    /* ── Card ── */
     .tool-card {
       display: flex;
       flex-direction: column;
       background: var(--surface);
-      border: 1px solid var(--line);
+      border: 1px solid var(--line-soft);
       border-radius: var(--radius-card);
-      padding: 28px 28px 24px;
+      padding: 30px 30px 24px;
       text-decoration: none;
       color: inherit;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: var(--shadow-card);
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
       position: relative;
       overflow: hidden;
     }
 
-    .tool-card::before {
+    /* barra de acento superior */
+    .tool-card::after {
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0;
-      height: 3px;
+      height: 4px;
       background: var(--card-accent, var(--olive-deep));
+      border-radius: var(--radius-card) var(--radius-card) 0 0;
       opacity: 0;
-      transition: opacity 0.2s ease;
+      transition: opacity 0.22s ease;
     }
 
     .tool-card:hover {
-      border-color: var(--olive-soft);
-      box-shadow: 0 4px 24px rgba(107,112,40,0.10);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--line);
     }
-    .tool-card:hover::before { opacity: 1; }
+    .tool-card:hover::after { opacity: 1; }
 
     .tool-card:focus-visible {
       outline: 2px solid var(--olive-deep);
       outline-offset: 3px;
     }
 
+    /* Card top */
     .card-top {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
       gap: 12px;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     .card-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      background: var(--accent-bg);
+      width: 46px;
+      height: 46px;
+      border-radius: 13px;
       display: grid;
       place-items: center;
       flex-shrink: 0;
     }
 
-    .card-icon svg { width: 22px; height: 22px; }
+    .card-icon svg { width: 23px; height: 23px; }
 
     .card-badge {
       font-size: 10px;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--olive-deep);
-      background: var(--lime-soft);
       border-radius: var(--radius-pill);
-      padding: 3px 9px;
+      padding: 3px 10px;
       white-space: nowrap;
-      margin-top: 4px;
+      margin-top: 3px;
+    }
+
+    /* Card body */
+    .card-num {
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--ink-muted);
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
     }
 
     .card-title {
       font-family: var(--font-display);
       font-size: 19px;
-      font-weight: 500;
+      font-weight: 700;
       letter-spacing: -0.02em;
-      line-height: 1.2;
+      line-height: 1.18;
       color: var(--ink);
       margin-bottom: 10px;
       text-wrap: balance;
     }
 
     .card-desc {
-      font-size: 14px;
+      font-size: 13.5px;
       line-height: 1.65;
       color: var(--ink-soft);
       flex: 1;
     }
 
+    /* Card footer */
     .card-footer {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start;
       margin-top: 22px;
-      padding-top: 18px;
-      border-top: 1px solid var(--line);
+      padding-top: 16px;
+      border-top: 1px solid var(--line-soft);
+      gap: 6px;
     }
 
     .card-cta {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--olive-deep);
-      letter-spacing: 0.01em;
+      font-size: 12.5px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       transition: gap 0.2s ease;
     }
 
-    .tool-card:hover .card-cta { gap: 10px; }
-    .card-cta svg { width: 14px; height: 14px; }
+    .tool-card:hover .card-cta { gap: 9px; }
+    .card-cta svg { width: 13px; height: 13px; }
 
-    .card-step {
-      font-family: var(--font-display);
-      font-size: 28px;
-      font-weight: 400;
-      font-style: italic;
-      color: var(--line);
-      line-height: 1;
-      user-select: none;
-    }
-
-    /* ── About ── */
-    .about-strip {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: var(--radius-card);
-      padding: 32px;
-      margin-bottom: 72px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      align-items: start;
-    }
-
-    .about-heading {
-      font-family: var(--font-display);
-      font-size: 17px;
-      font-weight: 500;
-      letter-spacing: -0.01em;
-      color: var(--ink);
-      margin-bottom: 10px;
-    }
-
-    .about-text {
-      font-size: 14px;
-      line-height: 1.7;
-      color: var(--ink-soft);
-    }
-
-    .about-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      padding: 0;
-    }
-
-    .about-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      font-size: 14px;
-      line-height: 1.55;
-      color: var(--ink-soft);
-    }
-
-    .about-list li::before {
-      content: '';
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--olive-mid);
-      margin-top: 7px;
-      flex-shrink: 0;
-    }
-
-    /* ── Footer ── */
+    /* ═══════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════ */
     .site-footer {
-      border-top: 1px solid var(--line);
-      padding-block: 24px;
+      background: var(--surface);
+      border-top: 1px solid var(--line-soft);
+      padding-block: 28px;
+    }
+
+    .footer-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 16px;
       flex-wrap: wrap;
-      margin-bottom: 24px;
     }
 
     .footer-brand {
@@ -395,212 +414,291 @@
       gap: 10px;
     }
 
-    .footer-brand svg { width: 24px; height: 24px; }
+    /* Estrella pequeña en el footer */
+    .footer-brand svg { width: 22px; height: 22px; }
 
     .footer-name {
       font-family: var(--font-display);
       font-size: 14px;
-      font-weight: 500;
-      color: var(--ink-soft);
+      font-weight: 700;
+      color: var(--olive-deep);
     }
 
     .footer-copy {
-      font-size: 13px;
+      font-size: 12.5px;
       color: var(--ink-muted);
     }
 
-    /* ── Responsive ── */
-    @media (max-width: 680px) {
-      body { padding-inline: 16px; }
+    /* ═══════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════ */
+    @media (max-width: 700px) {
+      .wrap { padding-inline: 18px; }
 
-      .header-inner { flex-direction: column; gap: 28px; }
-      .logo-lockup svg { height: 56px; }
+      .hero { padding-block: 40px 36px; }
+      .hero-inner { gap: 32px; }
+      .logo-wrap svg { height: 70px; }
+
+      .sobre-inner { grid-template-columns: 1fr; gap: 20px; }
+      .sobre-features { grid-template-columns: 1fr; }
+      .sobre { padding-block: 32px; }
+
       .tools-grid { grid-template-columns: 1fr; }
-      .about-strip { grid-template-columns: 1fr; gap: 24px; padding: 24px; }
-      .site-header { margin-bottom: 40px; }
-      .tools-grid { margin-bottom: 48px; }
-      .about-strip { margin-bottom: 48px; }
+      .tools-section { padding-block: 40px 48px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .tool-card, .tool-card::before, .card-cta { transition: none; }
+      .tool-card, .tool-card::after, .card-cta { transition: none; }
     }
   </style>
 </head>
 
 <body>
-<div class="page">
 
-  <!-- HEADER -->
-  <header class="site-header">
-    <div class="header-inner">
+  <!-- ═══════════════════ HERO ═══════════════════ -->
+  <section class="hero">
+    <div class="wrap hero-inner">
 
-      <div class="logo-lockup" aria-label="Educa Tools — Herramientas Didácticas">
-        <svg viewBox="0 0 210 88" fill="none" xmlns="http://www.w3.org/2000/svg" role="img">
+      <!-- LOGO COMPLETO — Lockup según Brand Kit p.1 -->
+      <!-- "Educa" encima en olive-mid/Fraunces bold,
+           luego estrella grande (olive-deep) + estrella pequeña (olive-mid) + "Tools" en la misma línea -->
+      <div class="logo-wrap" aria-label="Educa Tools — Herramientas Didácticas">
+        <svg viewBox="0 0 220 112" fill="none" xmlns="http://www.w3.org/2000/svg" role="img">
           <title>Educa Tools</title>
-          <text x="0" y="38" font-family="'Fraunces', Georgia, serif" font-size="36" font-weight="600" fill="#6B7028" letter-spacing="-1">Educa</text>
-          <g transform="translate(0, 44)">
-            <path d="M18 0 C18 0 16 8 12 12 C8 16 0 18 0 18 C0 18 8 20 12 24 C16 28 18 36 18 36 C18 36 20 28 24 24 C28 20 36 18 36 18 C36 18 28 16 24 12 C20 8 18 0 18 0Z" fill="#6B7028"/>
-            <path d="M34 6 C34 6 33 10 31 12 C29 14 25 15 25 15 C25 15 29 16 31 18 C33 20 34 24 34 24 C34 24 35 20 37 18 C39 16 43 15 43 15 C43 15 39 14 37 12 C35 10 34 6 34 6Z" fill="#A8AD5C"/>
-          </g>
-          <text x="48" y="82" font-family="'Fraunces', Georgia, serif" font-size="36" font-weight="600" fill="#1E1C1A" letter-spacing="-1">Tools</text>
-          <text x="0" y="88" font-family="'Inter', sans-serif" font-size="8" font-weight="600" fill="#8B847A" letter-spacing="2">HERRAMIENTAS DIDÁCTICAS</text>
+
+          <!-- "Educa" — Fraunces bold, olive-mid, línea superior -->
+          <text
+            x="0" y="38"
+            font-family="'Fraunces', Georgia, serif"
+            font-size="40"
+            font-weight="700"
+            fill="#A8AD5C"
+            letter-spacing="-1.5">Educa</text>
+
+          <!-- Estrella grande (olive-deep) — separada bajo "Educa", alineada con "Tools" -->
+          <path d="M20 0
+            C20 0 18 9 14 13 C10 17 0 20 0 20
+            C0 20 10 23 14 27 C18 31 20 40 20 40
+            C20 40 22 31 26 27 C30 23 40 20 40 20
+            C40 20 30 17 26 13 C22 9 20 0 20 0Z"
+            fill="#6B7028"
+            transform="translate(0, 52)"/>
+
+          <!-- Estrella pequeña (olive-mid) — arriba a la derecha de la grande -->
+          <path d="M10 0
+            C10 0 9 4 7 6 C5 8 0 9 0 9
+            C0 9 5 10 7 12 C9 14 10 18 10 18
+            C10 18 11 14 13 12 C15 10 20 9 20 9
+            C20 9 15 8 13 6 C11 4 10 0 10 0Z"
+            fill="#A8AD5C"
+            transform="translate(30, 50)"/>
+
+          <!-- "Tools" — Fraunces bold, ink, alineado con las estrellas -->
+          <text
+            x="55" y="92"
+            font-family="'Fraunces', Georgia, serif"
+            font-size="40"
+            font-weight="700"
+            fill="#1E1C1A"
+            letter-spacing="-1.5">Tools</text>
+
+          <!-- Tagline -->
+          <text
+            x="0" y="110"
+            font-family="'Inter', sans-serif"
+            font-size="7"
+            font-weight="600"
+            fill="#8B847A"
+            letter-spacing="2.2">HERRAMIENTAS DIDÁCTICAS</text>
         </svg>
       </div>
 
-      <div class="hero-text">
-        <div class="eyebrow">IPE 2 · Toolkit</div>
-        <h1 class="hero-headline">Herramientas digitales para crear tu proyecto empresarial</h1>
+      <!-- Hero copy -->
+      <div class="hero-copy">
+        <div class="eyebrow">Formación Profesional · Toolkit</div>
+        <h1 class="hero-headline">Crea tu proyecto empresarial paso a paso</h1>
         <p class="hero-desc">
-          Un repositorio de herramientas interactivas con IA diseñadas para guiar al alumnado de FP en la elaboración de un plan de empresa: desde la generación de ideas hasta el análisis estratégico del entorno.
+          Un conjunto de herramientas digitales interactivas diseñadas para acompañar al alumnado de FP en la construcción de un plan de empresa real: desde la primera idea hasta el análisis estratégico del entorno.
         </p>
+        <div class="modulos-row">
+          <span class="modulos-label">Módulo</span>
+          <span class="modulo-pill">IPE 1</span>
+          <span class="modulo-pill">IPE 2</span>
+          <span class="modulo-pill">EIE</span>
+          <span class="modulo-pill">FOL</span>
+        </div>
       </div>
 
     </div>
+  </section>
 
-    <div class="header-meta">
-      <span class="meta-label">Módulo</span>
-      <span class="meta-tag">IPE 1</span>
-      <span class="meta-tag">IPE 2</span>
-      <span class="meta-tag">EIE</span>
-      <span class="meta-tag">FOL</span>
-    </div>
-  </header>
+  <!-- ═══════════════════ SOBRE EL PROYECTO ═══════════════════ -->
+  <section class="sobre" aria-labelledby="sobre-heading">
+    <div class="wrap sobre-inner">
 
-  <!-- TOOLS -->
-  <section aria-labelledby="tools-title">
-    <div class="section-header">
-      <h2 class="section-title" id="tools-title">Herramientas disponibles</h2>
-      <span class="tool-count">4 herramientas</span>
-    </div>
+      <div>
+        <p class="sobre-label">Sobre el proyecto</p>
+        <h2 class="sobre-heading" id="sobre-heading">¿Qué es el IPE Toolkit?</h2>
+      </div>
 
-    <div class="tools-grid">
-
-      <a class="tool-card" href="generador.html" style="--card-accent: #6B7028;">
-        <div class="card-top">
-          <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#6B7028" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M9.663 17h4.673M12 3v1m6.364 1.636-.707.707M21 12h-1M4 12H3m1.636-6.364.707.707M12 21a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6Z"/>
-            </svg>
-          </div>
-          <span class="card-badge">IPE 1 · IPE 2</span>
+      <div>
+        <div class="sobre-body">
+          <p>
+            El <strong>IPE Toolkit</strong> nació para digitalizar la creación empresarial en el aula de FP. Cada herramienta guía al alumno a través de un paso concreto del plan de empresa, generando un entregable técnico y visual que puede presentar directamente al profesor o incorporar a su dossier.
+          </p>
+          <p>
+            La metodología es activa y orientada a resultados: el alumno aprende haciendo, no memorizando. Las herramientas se pueden usar de forma secuencial para construir el plan de empresa completo, o de forma independiente para trabajar contenidos concretos de cada módulo.
+          </p>
         </div>
-        <h3 class="card-title">Generador de ideas de negocio</h3>
-        <p class="card-desc">Partiendo del perfil formativo del alumno, genera propuestas de negocio personalizadas alineadas con su ciclo, sus intereses y el contexto local.</p>
-        <div class="card-footer">
-          <span class="card-cta">
-            Abrir herramienta
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 8h10M9 4l4 4-4 4"/>
-            </svg>
-          </span>
-          <span class="card-step">01</span>
+        <div class="sobre-features">
+          <div class="feature-item"><span class="feature-dot"></span>Prácticas de aula dinámicas y no evaluables</div>
+          <div class="feature-item"><span class="feature-dot"></span>Pruebas de evaluación con entregable digital</div>
+          <div class="feature-item"><span class="feature-dot"></span>Plan de empresa progresivo a lo largo del curso</div>
+          <div class="feature-item"><span class="feature-dot"></span>Metodología visual, activa y orientada a FP</div>
         </div>
-      </a>
-
-      <a class="tool-card" href="pestel.html" style="--card-accent: #3E5778;">
-        <div class="card-top">
-          <div class="card-icon" style="background: #E4E8F0;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#3E5778" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 12h18M3 6h18M3 18h18"/>
-              <circle cx="8" cy="6" r="2" fill="#3E5778" stroke="none"/>
-              <circle cx="16" cy="12" r="2" fill="#3E5778" stroke="none"/>
-              <circle cx="10" cy="18" r="2" fill="#3E5778" stroke="none"/>
-            </svg>
-          </div>
-          <span class="card-badge" style="color: #3E5778; background: #E4E8F0;">IPE 2 · EIE</span>
-        </div>
-        <h3 class="card-title">Análisis PESTEL</h3>
-        <p class="card-desc">Evalúa los factores Políticos, Económicos, Sociales, Tecnológicos, Ecológicos y Legales del entorno de cualquier idea de negocio, con orientación guiada.</p>
-        <div class="card-footer">
-          <span class="card-cta" style="color: #3E5778;">
-            Abrir herramienta
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 8h10M9 4l4 4-4 4"/>
-            </svg>
-          </span>
-          <span class="card-step">02</span>
-        </div>
-      </a>
-
-      <a class="tool-card" href="selector_forma_juridica.html" style="--card-accent: #8B6430;">
-        <div class="card-top">
-          <div class="card-icon" style="background: #F2E8D9;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#8B6430" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2 3 7v5c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V7l-9-5Z"/>
-            </svg>
-          </div>
-          <span class="card-badge" style="color: #8B6430; background: #F2E8D9;">IPE 2 · EIE</span>
-        </div>
-        <h3 class="card-title">Selector de forma jurídica</h3>
-        <p class="card-desc">Compara las principales formas jurídicas empresariales y encuentra la que mejor encaja con el proyecto según socios, capital, responsabilidad y fiscalidad.</p>
-        <div class="card-footer">
-          <span class="card-cta" style="color: #8B6430;">
-            Abrir herramienta
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 8h10M9 4l4 4-4 4"/>
-            </svg>
-          </span>
-          <span class="card-step">03</span>
-        </div>
-      </a>
-
-      <a class="tool-card" href="Estrella.html" style="--card-accent: #557A35;">
-        <div class="card-top">
-          <div class="card-icon" style="background: #E5EDDB;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#557A35" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-            </svg>
-          </div>
-          <span class="card-badge" style="color: #557A35; background: #E5EDDB;">IPE 1 · IPE 2</span>
-        </div>
-        <h3 class="card-title">Matriz Estrella</h3>
-        <p class="card-desc">Herramienta de evaluación visual para puntuar y comparar distintos aspectos de una idea de negocio: viabilidad, innovación, mercado y recursos.</p>
-        <div class="card-footer">
-          <span class="card-cta" style="color: #557A35;">
-            Abrir herramienta
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 8h10M9 4l4 4-4 4"/>
-            </svg>
-          </span>
-          <span class="card-step">04</span>
-        </div>
-      </a>
+      </div>
 
     </div>
   </section>
 
-  <!-- ABOUT -->
-  <section class="about-strip" aria-label="Sobre el proyecto">
-    <div>
-      <h3 class="about-heading">¿Qué es el IPE Toolkit?</h3>
-      <p class="about-text">
-        El IPE Toolkit es un repositorio de herramientas digitales interactivas diseñadas para digitalizar el proceso de creación empresarial en Formación Profesional. Cada herramienta permite al alumnado obtener entregables técnicos y visuales que pueden integrarse directamente en su plan de empresa.
-      </p>
-    </div>
-    <div>
-      <h3 class="about-heading">¿Para qué se usa?</h3>
-      <ul class="about-list">
-        <li>Prácticas no evaluables y actividades de aula dinámicas</li>
-        <li>Pruebas de evaluación con entregable digital</li>
-        <li>Desarrollo progresivo del plan de empresa a lo largo del curso</li>
-        <li>Metodología activa, visual y orientada a resultados reales</li>
-      </ul>
+  <!-- ═══════════════════ HERRAMIENTAS ═══════════════════ -->
+  <section class="tools-section" aria-labelledby="tools-heading">
+    <div class="wrap">
+
+      <div class="section-header">
+        <h2 class="section-title" id="tools-heading">Herramientas disponibles</h2>
+        <span class="section-count">4 herramientas</span>
+      </div>
+
+      <div class="tools-grid">
+
+        <!-- 01 · Generador de ideas -->
+        <a class="tool-card" href="generador.html"
+           style="--card-accent: #6B7028;">
+          <div class="card-top">
+            <div class="card-icon" style="background: #EFF1D8;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#6B7028" stroke-width="1.7"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9.663 17h4.673M12 3v1m6.364 1.636-.707.707M21 12h-1M4 12H3m1.636-6.364.707.707M12 21a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6Z"/>
+              </svg>
+            </div>
+            <span class="card-badge" style="color: #6B7028; background: #E8EDC4; border: 1px solid #C5CD78;">IPE 1 · IPE 2</span>
+          </div>
+          <p class="card-num">Herramienta 01</p>
+          <h3 class="card-title">Generador de ideas de negocio</h3>
+          <p class="card-desc">Partiendo del perfil formativo del alumno, genera propuestas de negocio personalizadas según su ciclo, sus conocimientos, sus aficiones y el contexto local.</p>
+          <div class="card-footer">
+            <span class="card-cta" style="color: #6B7028;">
+              Abrir herramienta
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 8h10M9 4l4 4-4 4"/>
+              </svg>
+            </span>
+          </div>
+        </a>
+
+        <!-- 02 · PESTEL -->
+        <a class="tool-card" href="pestel.html"
+           style="--card-accent: #3E5778;">
+          <div class="card-top">
+            <div class="card-icon" style="background: #E4E8F0;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#3E5778" stroke-width="1.7"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 12h18M3 6h18M3 18h18"/>
+                <circle cx="8" cy="6" r="2" fill="#3E5778" stroke="none"/>
+                <circle cx="16" cy="12" r="2" fill="#3E5778" stroke="none"/>
+                <circle cx="10" cy="18" r="2" fill="#3E5778" stroke="none"/>
+              </svg>
+            </div>
+            <span class="card-badge" style="color: #3E5778; background: #E4E8F0; border: 1px solid #B8C5D6;">IPE 2 · EIE</span>
+          </div>
+          <p class="card-num">Herramienta 02</p>
+          <h3 class="card-title">Análisis PESTEL</h3>
+          <p class="card-desc">Evalúa los factores Políticos, Económicos, Sociales, Tecnológicos, Ecológicos y Legales del entorno de cualquier idea de negocio, con orientación guiada en cada apartado.</p>
+          <div class="card-footer">
+            <span class="card-cta" style="color: #3E5778;">
+              Abrir herramienta
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 8h10M9 4l4 4-4 4"/>
+              </svg>
+            </span>
+          </div>
+        </a>
+
+        <!-- 03 · Forma jurídica -->
+        <a class="tool-card" href="selector_forma_juridica.html"
+           style="--card-accent: #8B6430;">
+          <div class="card-top">
+            <div class="card-icon" style="background: #F2E8D9;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#8B6430" stroke-width="1.7"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2 3 7v5c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V7l-9-5Z"/>
+              </svg>
+            </div>
+            <span class="card-badge" style="color: #8B6430; background: #F2E8D9; border: 1px solid #D4B896;">IPE 2 · EIE</span>
+          </div>
+          <p class="card-num">Herramienta 03</p>
+          <h3 class="card-title">Selector de forma jurídica</h3>
+          <p class="card-desc">Compara las principales formas jurídicas empresariales y encuentra la que mejor encaja con el proyecto según número de socios, capital inicial, responsabilidad y fiscalidad.</p>
+          <div class="card-footer">
+            <span class="card-cta" style="color: #8B6430;">
+              Abrir herramienta
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 8h10M9 4l4 4-4 4"/>
+              </svg>
+            </span>
+          </div>
+        </a>
+
+        <!-- 04 · Matriz Estrella -->
+        <a class="tool-card" href="Estrella.html"
+           style="--card-accent: #557A35;">
+          <div class="card-top">
+            <div class="card-icon" style="background: #E5EDDB;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#557A35" stroke-width="1.7"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+            </div>
+            <span class="card-badge" style="color: #557A35; background: #E5EDDB; border: 1px solid #AECB96;">IPE 1 · IPE 2</span>
+          </div>
+          <p class="card-num">Herramienta 04</p>
+          <h3 class="card-title">Matriz Estrella</h3>
+          <p class="card-desc">Evaluación visual de una idea de negocio: puntúa y compara viabilidad, innovación, mercado y recursos necesarios para tomar una decisión informada sobre el proyecto.</p>
+          <div class="card-footer">
+            <span class="card-cta" style="color: #557A35;">
+              Abrir herramienta
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 8h10M9 4l4 4-4 4"/>
+              </svg>
+            </span>
+          </div>
+        </a>
+
+      </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- ═══════════════════ FOOTER ═══════════════════ -->
   <footer class="site-footer">
-    <div class="footer-brand">
-      <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M18 0 C18 0 16 8 12 12 C8 16 0 18 0 18 C0 18 8 20 12 24 C16 28 18 36 18 36 C18 36 20 28 24 24 C28 20 36 18 36 18 C36 18 28 16 24 12 C20 8 18 0 18 0Z" fill="#6B7028"/>
-        <path d="M30 6 C30 6 29 9.5 27 11.5 C25 13.5 21.5 14.5 21.5 14.5 C21.5 14.5 25 15.5 27 17.5 C29 19.5 30 23 30 23 C30 23 31 19.5 33 17.5 C35 15.5 38.5 14.5 38.5 14.5 C38.5 14.5 35 13.5 33 11.5 C31 9.5 30 6 30 6Z" fill="#A8AD5C"/>
-      </svg>
-      <span class="footer-name">Educa Tools</span>
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <!-- Icono estrella doble (versión pequeña del brand mark) -->
+        <svg viewBox="0 0 44 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <!-- Estrella grande -->
+          <path d="M14 0 C14 0 12 6 9 9 C6 12 0 14 0 14 C0 14 6 16 9 19 C12 22 14 28 14 28 C14 28 16 22 19 19 C22 16 28 14 28 14 C28 14 22 12 19 9 C16 6 14 0 14 0Z" fill="#6B7028"/>
+          <!-- Estrella pequeña -->
+          <path d="M29 4 C29 4 28 7 26.5 8.5 C25 10 22 11 22 11 C22 11 25 12 26.5 13.5 C28 15 29 18 29 18 C29 18 30 15 31.5 13.5 C33 12 36 11 36 11 C36 11 33 10 31.5 8.5 C30 7 29 4 29 4Z" fill="#A8AD5C"/>
+        </svg>
+        <span class="footer-name">Educa Tools</span>
+      </div>
+      <span class="footer-copy">IPE Toolkit · Recursos interactivos para Formación Profesional</span>
     </div>
-    <span class="footer-copy">IPE Toolkit · Recursos interactivos para Formación Profesional</span>
   </footer>
 
-</div>
 </body>
 </html>
