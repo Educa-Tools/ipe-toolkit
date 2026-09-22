@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wizard · Determinación de contingencias</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --canvas: #FBFCEF;
+  --surface: #FFFFFF;
+  --ink: #1F2417;
+  --ink-soft: #4A4F36;
+  --ink-muted: #8A8B6A;
+  --line: #E5E8C8;
+  --line-soft: #EFF1D9;
+
+  --olive-soft: #D8DCA0;
+  --olive-deep: #6B7028;
+  --lime-soft: #E8EDC4;
+
+  --tool-soft: #DFEEEC;
+  --tool-mid: #6FA39D;
+  --tool-deep: #2D6A6A;
+  --tool-ink: #1C3F3D;
+
+  --yes-soft: #E5EDDB; --yes-deep: #557A35;
+  --no-soft: #F4E5E5; --no-deep: #8B3A3A;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--canvas);
+  color: var(--ink);
+  min-height: 100vh;
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.serif { font-family: 'Fraunces', Georgia, serif; }
+.sans { font-family: 'Inter', system-ui, sans-serif; }
+
+.container { max-width: 640px; margin: 0 auto; padding: 48px 24px 80px; }
+
+h1.display {
+  font-family: 'Fraunces', Georgia, serif; font-size: 42px; line-height: 1.1; font-weight: 400;
+  letter-spacing: -0.015em; font-variation-settings: "opsz" 72;
+}
+h1.display em { font-style: italic; font-weight: 300; color: var(--tool-deep); }
+
+.eyebrow { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 2px; }
+.eyebrow-line { display: flex; align-items: center; gap: 12px; margin-bottom: 22px; }
+.eyebrow-line::before { content: ''; width: 40px; height: 1px; background: var(--tool-deep); }
+
+.prose-italic { font-family: 'Fraunces', Georgia, serif; font-style: italic; font-weight: 300; line-height: 1.6; color: var(--ink-soft); }
+.prose { font-family: 'Fraunces', Georgia, serif; font-size: 16px; line-height: 1.7; font-weight: 350; color: var(--ink); }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; }
+.card-interactive { cursor: pointer; transition: all 0.2s ease; }
+.card-interactive:hover { border-color: var(--ink-muted); transform: translateY(-2px); box-shadow: 0 10px 26px -14px rgba(31,36,23,0.16); }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 14px 24px; border-radius: 999px; font-family: 'Inter', sans-serif;
+  font-size: 14.5px; font-weight: 500; cursor: pointer; border: none; outline: none;
+  transition: all 0.2s ease;
+}
+.btn-primary { background: var(--ink); color: var(--canvas); }
+.btn-primary:hover { background: #2D3220; }
+.btn-ghost { background: transparent; color: var(--ink-soft); border: 1px solid var(--line); }
+.btn-ghost:hover { background: var(--surface); border-color: var(--ink-muted); }
+.btn-back { display: inline-flex; align-items: center; gap: 6px; background: none; border: none; font-size: 13px; color: var(--ink-muted); cursor: pointer; padding: 0; font-family: 'Inter', sans-serif; margin-bottom: 20px; }
+.btn-back:hover { color: var(--ink); }
+
+.btn-yes, .btn-no {
+  flex: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 4px;
+  padding: 16px 18px; border-radius: 14px; border: 1.5px solid var(--line); background: var(--surface);
+  cursor: pointer; text-align: left; transition: all 0.18s ease;
+}
+.btn-yes:hover { border-color: var(--yes-deep); background: var(--yes-soft); }
+.btn-no:hover { border-color: var(--no-deep); background: var(--no-soft); }
+.btn-yn-label { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.btn-yes .btn-yn-label { color: var(--yes-deep); }
+.btn-no .btn-yn-label { color: var(--no-deep); }
+.btn-yn-text { font-family: 'Fraunces', Georgia, serif; font-size: 15px; color: var(--ink); }
+
+.caso-banner {
+  display: flex; gap: 12px; align-items: flex-start; padding: 14px 18px; border-radius: 12px;
+  background: var(--tool-soft); border: 1px solid var(--tool-mid); margin-bottom: 24px;
+}
+.caso-banner .icon { flex-shrink: 0; color: var(--tool-deep); margin-top: 2px; }
+.caso-banner-label { font-family: 'Inter', sans-serif; font-size: 10.5px; font-weight: 700; color: var(--tool-ink); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 3px; }
+.caso-banner-text { font-family: 'Fraunces', Georgia, serif; font-size: 14px; line-height: 1.5; color: var(--tool-ink); }
+
+.step-eyebrow { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+.step-count { font-family: 'Inter', sans-serif; font-size: 12px; color: var(--ink-muted); font-feature-settings: "tnum"; }
+.step-type-pill { display: inline-flex; align-items: center; gap: 5px; font-family: 'Inter', sans-serif; font-size: 10.5px; font-weight: 700; padding: 4px 11px; border-radius: 999px; text-transform: uppercase; letter-spacing: 1px; }
+
+.who-block { display: flex; align-items: center; gap: 10px; padding: 12px 16px; background: var(--canvas); border-radius: 10px; margin-top: 16px; }
+.who-block svg { color: var(--tool-deep); flex-shrink: 0; }
+.who-text { font-family: 'Inter', sans-serif; font-size: 12.5px; color: var(--ink-soft); }
+.who-text strong { color: var(--ink); font-weight: 600; }
+
+.node-title { font-family: 'Fraunces', Georgia, serif; font-size: 26px; font-weight: 400; line-height: 1.2; margin-bottom: 14px; }
+
+/* ── Timeline resumen ── */
+.timeline { position: relative; padding-left: 30px; margin: 24px 0 32px; }
+.timeline::before { content: ''; position: absolute; left: 9px; top: 6px; bottom: 6px; width: 2px; background: var(--line); }
+.timeline-item { position: relative; padding-bottom: 22px; }
+.timeline-item:last-child { padding-bottom: 0; }
+.timeline-dot { position: absolute; left: -30px; top: 2px; width: 20px; height: 20px; border-radius: 50%; background: var(--surface); border: 2px solid var(--tool-deep); display: flex; align-items: center; justify-content: center; }
+.timeline-dot.decision { background: var(--tool-deep); }
+.timeline-title { font-family: 'Fraunces', Georgia, serif; font-size: 16px; color: var(--ink); margin-bottom: 2px; }
+.timeline-choice { display: inline-flex; align-items: center; gap: 5px; font-family: 'Inter', sans-serif; font-size: 11.5px; font-weight: 600; padding: 2px 9px; border-radius: 999px; margin-top: 4px; }
+
+.glossary-item { border-bottom: 1px solid var(--line-soft); padding: 14px 0; }
+.glossary-item:last-child { border-bottom: none; }
+.glossary-term { display: flex; align-items: center; justify-content: space-between; cursor: pointer; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; color: var(--ink); }
+.glossary-def { font-family: 'Fraunces', Georgia, serif; font-size: 14.5px; line-height: 1.6; color: var(--ink-soft); margin-top: 8px; display: none; }
+.glossary-item.open .glossary-def { display: block; }
+.glossary-item.open .chevron { transform: rotate(180deg); }
+.chevron { transition: transform 0.2s ease; color: var(--ink-muted); flex-shrink: 0; }
+
+.reassure-card { display: flex; gap: 14px; align-items: flex-start; padding: 18px 20px; border-radius: 14px; background: var(--lime-soft); border: 1px solid var(--olive-soft); margin-bottom: 28px; }
+.reassure-card svg { flex-shrink: 0; color: var(--olive-deep); margin-top: 2px; }
+.reassure-card p { font-family: 'Fraunces', Georgia, serif; font-size: 14.5px; line-height: 1.6; color: var(--ink-soft); }
+
+.en-plata { margin-top: 16px; padding: 12px 16px; background: var(--lime-soft); border-radius: 10px; border-left: 3px solid var(--olive-deep); }
+.en-plata-label { font-family: 'Inter', sans-serif; font-size: 10.5px; font-weight: 700; color: var(--olive-deep); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+.en-plata-text { font-family: 'Fraunces', Georgia, serif; font-size: 13.5px; line-height: 1.55; color: var(--ink-soft); }
+
+.term-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.term-chip { display: inline-flex; align-items: center; gap: 5px; padding: 6px 13px; border-radius: 999px; background: var(--tool-soft); color: var(--tool-ink); font-family: 'Inter', sans-serif; font-size: 11.5px; font-weight: 600; cursor: pointer; border: 1px solid var(--tool-mid); transition: all 0.15s ease; }
+.term-chip:hover { background: var(--tool-mid); color: #fff; }
+.term-chip svg { flex-shrink: 0; }
+
+.wizard-topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+.glossary-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--tool-soft); border: 1px solid var(--tool-mid); color: var(--tool-ink); border-radius: 999px; padding: 8px 15px; font-family: 'Inter', sans-serif; font-size: 12.5px; font-weight: 600; cursor: pointer; margin-bottom: 20px; transition: all 0.15s ease; }
+.glossary-btn:hover { background: var(--tool-mid); color: #fff; }
+
+.modal-backdrop { position: fixed; inset: 0; background: rgba(31,36,23,0.45); display: none; align-items: flex-end; justify-content: center; z-index: 100; }
+.modal-backdrop.open { display: flex; }
+@media (min-width: 640px) { .modal-backdrop { align-items: center; } }
+.modal-panel { background: var(--surface); width: 100%; max-width: 560px; max-height: 82vh; border-radius: 20px 20px 0 0; overflow-y: auto; padding: 26px 26px 34px; box-shadow: 0 -10px 40px rgba(0,0,0,0.2); }
+@media (min-width: 640px) { .modal-panel { border-radius: 20px; } }
+.modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+.modal-close { background: none; border: none; cursor: pointer; color: var(--ink-muted); padding: 4px; }
+.modal-close:hover { color: var(--ink); }
+.glossary-item.highlight { background: var(--tool-soft); border-radius: 10px; padding-left: 10px; padding-right: 10px; margin: 0 -10px; }
+
+.screen { display: none; }
+.screen.active { display: block; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.fade { animation: fadeUp 0.4s cubic-bezier(0.4,0,0.2,1); }
+
+@media (max-width: 540px) { h1.display { font-size: 32px; } .container { padding: 36px 18px 60px; } }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ INTRO ═══════════ -->
+<div id="screen-intro" class="screen active">
+  <div class="container">
+    <div class="eyebrow-line"><span class="eyebrow">IPE 1 · Seguridad Social</span></div>
+    <h1 class="display fade" style="margin-bottom: 16px;">¿Qué pasa si no estás de acuerdo con tu <em>contingencia</em>?</h1>
+    <p class="prose-italic fade" style="font-size: 17px; margin-bottom: 28px;">
+      Recorre paso a paso el procedimiento de determinación de contingencias: desde que te dan la baja hasta que, si hace falta, lo resuelve un juzgado.
+    </p>
+
+    <div class="card fade" style="padding: 22px 24px; margin-bottom: 32px;">
+      <p class="sans" style="font-size: 12px; font-weight: 700; color: var(--tool-deep); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px;">¿Qué es la determinación de contingencias?</p>
+      <p class="prose" style="font-size: 15px;">
+        Es el procedimiento por el que el INSS decide si una baja se debe realmente a una <span style="font-weight:500;">enfermedad común</span>, un <span style="font-weight:500;">accidente no laboral</span>, un <span style="font-weight:500;">accidente de trabajo</span> o una <span style="font-weight:500;">enfermedad profesional</span> — cuando el trabajador, la empresa o la mutua no están de acuerdo con la calificación inicial.
+      </p>
+    </div>
+
+    <div class="reassure-card fade">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 1 9l11 6 9-4.91V17"/><path d="M5 10.5V16c0 1.5 3 3 7 3s7-1.5 7-3v-5.5"/></svg>
+      <p>Antes de empezar: te vas a encontrar términos como <strong>INSS</strong>, <strong>EVI</strong> o <strong>base reguladora</strong> que ahora mismo pueden sonarte a chino. Es totalmente normal — los iremos viendo uno a uno, con calma, a lo largo del curso. De momento no hace falta que te los aprendas: quédate con la <em>lógica del proceso</em>, y usa el glosario (aquí abajo y durante el recorrido) cada vez que te encalles con una palabra.</p>
+    </div>
+
+    <p class="sans" style="font-size: 12px; font-weight: 700; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 14px;">Elige cómo empezar</p>
+    <div id="casos-list" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px;"></div>
+
+    <div class="card fade" style="padding: 20px 22px;">
+      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom: 14px;">
+        <button class="glossary-btn" style="margin-bottom: 0;" onclick="openGlossaryModal()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>
+          Ver glosario completo
+        </button>
+        <button class="glossary-btn" style="margin-bottom: 0;" onclick="openFAQModal()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+          Preguntas frecuentes
+        </button>
+      </div>
+      <p class="sans" style="font-size: 12px; font-weight: 700; color: var(--tool-deep); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px;">Un adelanto</p>
+      <p class="prose" style="font-size: 14px;">La palabra más importante de toda esta herramienta es <strong>contingencia</strong>: la "etiqueta" que se le pone a tu baja para saber su origen. Todo el proceso gira en torno a esa etiqueta.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ MODAL GLOSARIO (accesible durante todo el recorrido) ═══════════ -->
+<div id="glossary-modal" class="modal-backdrop" onclick="if(event.target===this) closeGlossaryModal()">
+  <div class="modal-panel">
+    <div class="modal-header">
+      <p class="sans" style="font-size: 12px; font-weight: 700; color: var(--tool-deep); text-transform: uppercase; letter-spacing: 1.5px;">Glosario</p>
+      <button class="modal-close" onclick="closeGlossaryModal()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+    <p class="prose-italic" style="font-size: 13.5px; margin-bottom: 14px;">Consulta cualquier término en el momento en que lo necesites, sin perder tu sitio en el recorrido.</p>
+    <div id="glossary-modal-list"></div>
+  </div>
+</div>
+
+<!-- ═══════════ MODAL FAQ (accesible desde el principio, sin terminar el recorrido) ═══════════ -->
+<div id="faq-modal" class="modal-backdrop" onclick="if(event.target===this) closeFAQModal()">
+  <div class="modal-panel">
+    <div class="modal-header">
+      <p class="sans" style="font-size: 12px; font-weight: 700; color: var(--tool-deep); text-transform: uppercase; letter-spacing: 1.5px;">Preguntas frecuentes</p>
+      <button class="modal-close" onclick="closeFAQModal()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+    <p class="prose-italic" style="font-size: 13.5px; margin-bottom: 14px;">Dudas que suelen surgir sobre este procedimiento, en corto.</p>
+    <div id="faq-modal-list"></div>
+  </div>
+</div>
+
+<!-- ═══════════ WIZARD ═══════════ -->
+<div id="screen-wizard" class="screen">
+  <div class="container">
+    <div class="wizard-topbar">
+      <button class="btn-back" style="margin-bottom: 0;" onclick="go('intro')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+        Empezar de nuevo
+      </button>
+      <div style="display:flex; gap:8px;">
+        <button class="glossary-btn" style="margin-bottom: 0;" onclick="openGlossaryModal()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>
+          Glosario
+        </button>
+        <button class="glossary-btn" style="margin-bottom: 0;" onclick="openFAQModal()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+          FAQ
+        </button>
+      </div>
+    </div>
+    <div style="height:20px;"></div>
+
+    <div id="caso-banner"></div>
+
+    <div class="step-eyebrow">
+      <span class="eyebrow" id="step-count-label">Paso 1</span>
+      <span id="step-type-pill"></span>
+    </div>
+
+    <div class="card fade" id="node-card" style="padding: 26px 26px 24px; margin-bottom: 22px;">
+      <h2 class="node-title" id="node-title"></h2>
+      <p class="prose" id="node-text"></p>
+      <div id="who-block" class="who-block" style="display:none;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a7 7 0 0 1 14 0v1"/></svg>
+        <span class="who-text" id="who-text"></span>
+      </div>
+      <div id="en-plata-block" class="en-plata" style="display:none;">
+        <div class="en-plata-label">En plata</div>
+        <div class="en-plata-text" id="en-plata-text"></div>
+      </div>
+      <div id="term-chips" class="term-chips"></div>
+    </div>
+
+    <div id="node-actions"></div>
+  </div>
+</div>
+
+<!-- ═══════════ RESUMEN ═══════════ -->
+<div id="screen-resumen" class="screen">
+  <div class="container">
+    <button class="btn-back" onclick="go('intro')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+      Volver al inicio
+    </button>
+
+    <div class="eyebrow-line"><span class="eyebrow">Resultado</span></div>
+    <h2 class="node-title fade" id="resumen-title" style="font-size: 30px; margin-bottom: 8px;"></h2>
+    <p class="prose fade" id="resumen-text" style="margin-bottom: 30px;"></p>
+
+    <p class="sans" style="font-size: 12px; font-weight: 700; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px;">Tu camino</p>
+    <div id="timeline" class="timeline fade"></div>
+
+    <div class="card fade" style="padding: 22px 24px; margin-bottom: 20px;">
+      <p class="sans" style="font-size: 12px; font-weight: 700; color: var(--tool-deep); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px;">Glosario</p>
+      <div id="glossary"></div>
+    </div>
+
+    <div class="card fade" style="padding: 22px 24px; margin-bottom: 20px;">
+      <p class="sans" style="font-size: 12px; font-weight: 700; color: var(--tool-deep); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px;">Preguntas frecuentes</p>
+      <div id="faq"></div>
+    </div>
+
+    <button class="btn btn-primary fade" style="width: 100%; padding: 16px;" onclick="go('intro')">
+      <span>Probar otro camino</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// CASOS
+// ═══════════════════════════════════════════════════════════════
+const CASOS = [
+  { id: "tendinitis", nombre: "Marta, administrativa", texto: "Tras meses de dolor en la muñeca por el uso del teclado, la mutua calificó su baja como enfermedad común." },
+  { id: "panadero", nombre: "Antonio, panadero", texto: "Se lesionó la espalda levantando un saco de harina en el obrador. El médico del Servicio Público de Salud calificó la baja como enfermedad común." },
+  { id: "ninguno", nombre: "Sin caso concreto — quiero explorar el proceso general", texto: "" },
+];
+
+// ═══════════════════════════════════════════════════════════════
+// GRAFO DEL PROCESO
+// ═══════════════════════════════════════════════════════════════
+const NODES = {
+  n1: {
+    type: "info", title: "Calificación inicial de la baja",
+    text: "Cuando te dan la baja médica, el médico del Servicio Público de Salud (SPS) o el médico de la mutua colaboradora la califica como una contingencia: enfermedad común, accidente no laboral, accidente de trabajo o enfermedad profesional, según el cuadro del RD 1299/2006.",
+    enPlata: "En cuanto te dan la baja, alguien le pone una primera etiqueta —de qué tipo es— basándose en lo que cuentas y en los informes médicos.",
+    who: "Interviene: SPS o mutua colaboradora", next: "n2",
+    relacionados: ["contingencia", "sps", "mutua"],
+  },
+  n2: {
+    type: "decision", title: "¿Estás de acuerdo con esa calificación?",
+    text: "La contingencia reconocida no es un detalle menor: determina desde cuándo cobras la prestación, con qué base reguladora y qué trámites tendrás que hacer.",
+    yes: { label: "Sí, estoy de acuerdo", next: "endA" },
+    no: { label: "No, no estoy de acuerdo", next: "n3" },
+    relacionados: ["contingencia", "base_reguladora", "incapacidad_temporal"],
+  },
+  n3: {
+    type: "info", title: "Inicio del procedimiento de determinación de contingencias",
+    text: "Puede instarlo el propio trabajador o trabajadora, la empresa, la mutua, o iniciarlo de oficio el INSS —a propuesta de la Inspección de Trabajo o del Servicio Público de Salud—. Se presenta ante el INSS, aportando informes médicos, partes de baja, informe de empresa sobre el puesto y las tareas, y los datos de cotización.",
+    enPlata: "Como no estás de acuerdo, alguien —tú, la empresa, la mutua o el propio INSS— tiene que pedir formalmente que se revise esa etiqueta.",
+    who: "Puede pedirlo: trabajador/a, empresa, mutua o el propio INSS de oficio", next: "n4",
+    relacionados: ["inss", "expediente"],
+  },
+  n4: {
+    type: "info", title: "Instrucción del expediente",
+    text: "El INSS comunica el inicio del procedimiento a las partes implicadas (mutua, empresa, Servicio Público de Salud), que disponen de 4 días hábiles para aportar los antecedentes que tengan. Al trabajador o trabajadora se le conceden 10 días hábiles para presentar alegaciones y documentación adicional.",
+    enPlata: "Antes de decidir nada, el INSS reúne toda la documentación de todas las partes implicadas — como armar un puzle con la pieza de cada uno.",
+    who: "Interviene: INSS, mutua, empresa, SPS", next: "n5",
+    relacionados: ["expediente", "alegaciones", "dias_habiles"],
+  },
+  n5: {
+    type: "info", title: "Valoración del EVI",
+    text: "El Equipo de Valoración de Incapacidades (EVI) estudia todo el expediente —informes médicos, de empresa, de Inspección de Trabajo si los hay— y emite una propuesta sobre el origen real de la contingencia.",
+    enPlata: "Un equipo médico-técnico del INSS —el EVI— estudia todo ese puzle y hace una propuesta sobre cuál es realmente el origen de la baja.",
+    who: "Interviene: Equipo de Valoración de Incapacidades (EVI)", next: "n6",
+    relacionados: ["evi", "expediente"],
+  },
+  n6: {
+    type: "info", title: "Resolución del INSS",
+    text: "La Dirección Provincial del INSS dicta una resolución que fija la contingencia: común, accidente de trabajo o enfermedad profesional. Mientras dura el procedimiento sigues cobrando la incapacidad temporal con la contingencia que tuvieras reconocida hasta ese momento; si al final cambia, la mutua te abona la diferencia con efecto retroactivo.",
+    enPlata: "El INSS decide oficialmente y te lo comunica. Si la contingencia cambia respecto a la inicial, te abonan la diferencia con carácter retroactivo: no pierdes ese dinero.",
+    who: "Resuelve: Dirección Provincial del INSS", next: "n7",
+    relacionados: ["inss", "incapacidad_temporal", "efecto_retroactivo"],
+  },
+  n7: {
+    type: "decision", title: "¿Estás conforme con la resolución del INSS?",
+    text: "A partir de aquí, si sigues sin estar de acuerdo, el siguiente paso ya no es administrativo dentro del INSS, sino una reclamación formal.",
+    yes: { label: "Sí, estoy conforme", next: "endB" },
+    no: { label: "No, sigo sin estar de acuerdo", next: "n8" },
+    relacionados: ["reclamacion_previa"],
+  },
+  n8: {
+    type: "info", title: "Reclamación previa",
+    text: "Antes de poder acudir a los tribunales es obligatorio presentar una reclamación previa ante el propio INSS, en el plazo de 30 días desde que se notifica la resolución.",
+    enPlata: "Es un paso obligatorio antes de poder ir a juicio — como pedirle al INSS, por escrito y con plazo, que reconsidere su propia decisión.",
+    who: "Se presenta ante: el INSS · Plazo: 30 días", next: "n9",
+    relacionados: ["reclamacion_previa", "dias_habiles"],
+  },
+  n9: {
+    type: "decision", title: "¿Se resuelve la reclamación a tu favor?",
+    text: "Si el INSS desestima la reclamación —o no contesta en plazo—, queda abierta la vía judicial.",
+    yes: { label: "Sí, se resuelve a mi favor", next: "endC" },
+    no: { label: "No, se desestima o no hay respuesta", next: "n10" },
+    relacionados: ["via_judicial"],
+  },
+  n10: {
+    type: "info", title: "Vía judicial: demanda ante el Juzgado de lo Social",
+    text: "El último paso es presentar una demanda ante los Juzgados de lo Social, también en el plazo de 30 días. Es el juzgado quien dicta sentencia y fija, ya con carácter judicial, la contingencia definitiva.",
+    enPlata: "Si ninguno de los pasos anteriores ha funcionado, quien decide ya no es el INSS, sino un juez — y su decisión sí es definitiva, salvo recurso posterior.",
+    who: "Resuelve: Juzgado de lo Social", next: "endD",
+    relacionados: ["via_judicial", "recurso_suplicacion"],
+  },
+  endA: { type: "end", title: "Contingencia fijada", text: "Al estar conforme con la calificación inicial, la contingencia que determinaron el SPS o la mutua queda fijada sin necesidad de ningún trámite adicional." },
+  endB: { type: "end", title: "Contingencia fijada por el INSS", text: "La resolución del INSS, al no ser recurrida, fija la contingencia con carácter definitivo en vía administrativa." },
+  endC: { type: "end", title: "Contingencia fijada tras la reclamación previa", text: "La reclamación previa prospera: el INSS reconoce la contingencia reclamada, sin necesidad de llegar a los tribunales." },
+  endD: { type: "end", title: "Contingencia fijada por sentencia judicial", text: "El Juzgado de lo Social dicta sentencia y fija la contingencia definitiva. Según el caso, frente a esa sentencia todavía podría caber recurso de suplicación." },
+};
+
+const GLOSARIO = [
+  { key: "contingencia", term: "Contingencia", def: "La 'etiqueta' que se le pone a una baja médica para saber su origen: enfermedad común, accidente no laboral, accidente de trabajo o enfermedad profesional. De ella depende cuánto cobras, desde cuándo y qué trámites te tocan. Es la palabra clave de todo este procedimiento." },
+  { key: "inss", term: "INSS", def: "Instituto Nacional de la Seguridad Social. Entidad gestora pública que reconoce las prestaciones y resuelve la contingencia en caso de disconformidad." },
+  { key: "mutua", term: "Mutua colaboradora", def: "Entidad privada, sin ánimo de lucro, que colabora con la Seguridad Social gestionando las contingencias profesionales (accidentes de trabajo y enfermedades profesionales) de las empresas asociadas." },
+  { key: "sps", term: "Servicio Público de Salud (SPS)", def: "Sistema sanitario público autonómico. Sus médicos de atención primaria emiten y califican inicialmente la baja cuando la contingencia parece común." },
+  { key: "evi", term: "EVI", def: "Equipo de Valoración de Incapacidades. Órgano técnico del INSS que estudia el expediente médico y laboral y propone la resolución sobre el origen de la contingencia o el grado de incapacidad." },
+  { key: "expediente", term: "Expediente", def: "El conjunto de documentos —informes médicos, partes de baja, informe de la empresa, datos de cotización— que se reúne para poder resolver el caso. Piensa en él como la carpeta con todas las pruebas." },
+  { key: "alegaciones", term: "Alegaciones", def: "Los argumentos y documentos que una persona puede aportar para defender su versión durante un procedimiento, antes de que se resuelva." },
+  { key: "dias_habiles", term: "Días hábiles", def: "Los días que cuentan para los plazos administrativos, sin contar domingos ni festivos (y, según el trámite, tampoco los sábados). No es lo mismo que 'días naturales'." },
+  { key: "base_reguladora", term: "Base reguladora", def: "La cantidad, calculada a partir de tu salario, sobre la que se calcula el importe de tu prestación económica. A más base reguladora, más se cobra." },
+  { key: "incapacidad_temporal", term: "Incapacidad temporal (IT)", def: "La prestación económica que sustituye tu salario mientras estás de baja médica y no puedes trabajar. Es lo que coloquialmente se llama 'estar de baja'." },
+  { key: "efecto_retroactivo", term: "Efecto retroactivo", def: "Cuando un cambio se aplica también hacia atrás en el tiempo: si la contingencia cambia, te pagan la diferencia desde el principio de la baja, no solo desde el momento en que se resuelve." },
+  { key: "reclamacion_previa", term: "Reclamación previa", def: "Trámite administrativo obligatorio ante el propio INSS antes de poder demandar. Es un requisito previo para acceder a la vía judicial en materia de Seguridad Social." },
+  { key: "via_judicial", term: "Vía judicial social", def: "Demanda ante los Juzgados de lo Social, competentes en materia laboral y de Seguridad Social, una vez agotada la vía administrativa." },
+  { key: "recurso_suplicacion", term: "Recurso de suplicación", def: "Recurso que, en determinados casos, se puede presentar ante el Tribunal Superior de Justicia contra una sentencia de un Juzgado de lo Social." },
+];
+
+const FAQ = [
+  { q: "¿Qué son las mutuas y qué papel juegan aquí?",
+    a: "Asociaciones privadas de empresarios, sin ánimo de lucro, que colaboran con la Seguridad Social. Gestionan la asistencia y las prestaciones de las contingencias profesionales (AT/EP) de las empresas asociadas a ellas, y a veces también la IT por contingencias comunes si la empresa lo ha contratado así." },
+  { q: "¿Están tan cualificadas como el SPS para calificar? ¿Y si no se ponen de acuerdo?",
+    a: "Técnicamente sí —tienen servicios médicos especializados en patología laboral— pero legalmente ninguna tiene la última palabra: ambas califican en primera instancia, no en firme. Si discrepan, se activa este mismo procedimiento: resuelve el INSS con apoyo del EVI, con carácter vinculante para las dos." },
+  { q: "¿Cuánto puede tardar todo esto, hasta llegar a un juzgado?",
+    a: "La reclamación previa tiene plazos claros: 30 días para presentarla y 45 días que tiene el INSS para responder (si no contesta, se entiende desestimada). La vía judicial, en cambio, no tiene un plazo legal fijo: en la práctica puede ir de varios meses a más de un año, y más si hay recurso de suplicación." },
+  { q: "Si me tengo que incorporar antes de que esto termine, ¿qué pasa?",
+    a: "El alta médica y la determinación de contingencia son trámites distintos. Si te dan el alta antes de cumplir 365 días de baja, tienes que reincorporarte aunque el conflicto sobre la contingencia siga abierto —no hacerlo puede acarrear sanción—. El procedimiento sigue corriendo en paralelo y, si cambia el resultado, te pagan la diferencia con efecto retroactivo." },
+];
+
+// ═══════════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════════
+const state = { caso: null, currentNode: "n1", path: [], stepNum: 1 };
+
+function go(screen) {
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+  document.getElementById("screen-" + screen).classList.add("active");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// INTRO
+// ═══════════════════════════════════════════════════════════════
+function renderCasos() {
+  const list = document.getElementById("casos-list");
+  list.innerHTML = "";
+  CASOS.forEach(c => {
+    const card = document.createElement("div");
+    card.className = "card card-interactive";
+    card.style.padding = "18px 20px";
+    card.innerHTML = c.texto
+      ? `<p class="sans" style="font-size: 12px; font-weight: 700; color: var(--tool-deep); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">${c.nombre}</p>
+         <p class="prose" style="font-size: 14.5px;">${c.texto}</p>`
+      : `<p class="prose" style="font-size: 15px;">${c.nombre}</p>`;
+    card.onclick = () => startWizard(c.id);
+    list.appendChild(card);
+  });
+}
+
+function startWizard(casoId) {
+  state.caso = CASOS.find(c => c.id === casoId);
+  state.currentNode = "n1";
+  state.path = [];
+  state.stepNum = 1;
+  renderCasoBanner();
+  go("wizard");
+  renderNode();
+}
+
+function renderCasoBanner() {
+  const el = document.getElementById("caso-banner");
+  if (!state.caso || !state.caso.texto) { el.innerHTML = ""; return; }
+  el.innerHTML = `
+    <div class="caso-banner">
+      <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
+      <div>
+        <p class="caso-banner-label">${state.caso.nombre}</p>
+        <p class="caso-banner-text">${state.caso.texto}</p>
+      </div>
+    </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// WIZARD
+// ═══════════════════════════════════════════════════════════════
+function renderNode() {
+  const node = NODES[state.currentNode];
+
+  document.getElementById("step-count-label").textContent = "Paso " + state.stepNum;
+  const pill = document.getElementById("step-type-pill");
+  if (node.type === "decision") {
+    pill.style.display = "inline-flex";
+    pill.style.background = "var(--tool-soft)"; pill.style.color = "var(--tool-deep)";
+    pill.textContent = "Decisión";
+  } else {
+    pill.style.display = "none";
+  }
+
+  document.getElementById("node-title").textContent = node.title;
+  document.getElementById("node-text").textContent = node.text;
+
+  const whoBlock = document.getElementById("who-block");
+  if (node.who) {
+    whoBlock.style.display = "flex";
+    document.getElementById("who-text").innerHTML = node.who.replace(/^([^:]+:)/, "<strong>$1</strong>");
+  } else {
+    whoBlock.style.display = "none";
+  }
+
+  const enPlataBlock = document.getElementById("en-plata-block");
+  if (node.enPlata) {
+    enPlataBlock.style.display = "block";
+    document.getElementById("en-plata-text").textContent = node.enPlata;
+  } else {
+    enPlataBlock.style.display = "none";
+  }
+
+  const chipsWrap = document.getElementById("term-chips");
+  chipsWrap.innerHTML = "";
+  (node.relacionados || []).forEach(key => {
+    const g = GLOSARIO.find(x => x.key === key);
+    if (!g) return;
+    const chip = document.createElement("span");
+    chip.className = "term-chip";
+    chip.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>${g.term}`;
+    chip.onclick = () => openGlossaryModal(key);
+    chipsWrap.appendChild(chip);
+  });
+
+  const actions = document.getElementById("node-actions");
+  actions.innerHTML = "";
+
+  if (node.type === "decision") {
+    const wrap = document.createElement("div");
+    wrap.style.display = "flex";
+    wrap.style.gap = "12px";
+    wrap.innerHTML = `
+      <button class="btn-yes" id="btn-yes">
+        <span class="btn-yn-label">Sí</span>
+        <span class="btn-yn-text">${node.yes.label}</span>
+      </button>
+      <button class="btn-no" id="btn-no">
+        <span class="btn-yn-label">No</span>
+        <span class="btn-yn-text">${node.no.label}</span>
+      </button>`;
+    actions.appendChild(wrap);
+    document.getElementById("btn-yes").onclick = () => advance(node, "yes");
+    document.getElementById("btn-no").onclick = () => advance(node, "no");
+  } else {
+    const btn = document.createElement("button");
+    btn.className = "btn btn-primary";
+    btn.style.width = "100%";
+    btn.style.padding = "16px";
+    btn.innerHTML = `<span>Continuar</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>`;
+    btn.onclick = () => advance(node, null);
+    actions.appendChild(btn);
+  }
+}
+
+function advance(node, choice) {
+  state.path.push({ title: node.title, type: node.type, choice: choice, choiceLabel: choice ? node[choice].label : null });
+
+  let nextId;
+  if (node.type === "decision") { nextId = node[choice].next; }
+  else { nextId = node.next; }
+
+  const nextNode = NODES[nextId];
+  if (nextNode.type === "end") {
+    state.path.push({ title: nextNode.title, type: "end", text: nextNode.text });
+    renderResumen(nextNode);
+    go("resumen");
+    return;
+  }
+
+  state.currentNode = nextId;
+  state.stepNum++;
+  renderNode();
+}
+
+// ═══════════════════════════════════════════════════════════════
+// RESUMEN
+// ═══════════════════════════════════════════════════════════════
+function renderResumen(endNode) {
+  document.getElementById("resumen-title").textContent = endNode.title;
+  document.getElementById("resumen-text").textContent = endNode.text;
+
+  const tl = document.getElementById("timeline");
+  tl.innerHTML = "";
+  state.path.forEach(p => {
+    const item = document.createElement("div");
+    item.className = "timeline-item";
+    const isDecision = p.type === "decision";
+    const isEnd = p.type === "end";
+    item.innerHTML = `
+      <div class="timeline-dot ${isDecision ? "decision" : ""}"></div>
+      <div class="timeline-title">${p.title}</div>
+      ${isDecision ? `<span class="timeline-choice" style="background:${p.choice === "yes" ? "var(--yes-soft)" : "var(--no-soft)"}; color:${p.choice === "yes" ? "var(--yes-deep)" : "var(--no-deep)"};">${p.choiceLabel}</span>` : ""}
+    `;
+    tl.appendChild(item);
+  });
+
+  renderGlossaryInto(document.getElementById("glossary"));
+  renderFAQ();
+}
+
+function renderFAQ() {
+  renderFAQInto(document.getElementById("faq"));
+}
+
+function renderFAQInto(container) {
+  container.innerHTML = "";
+  FAQ.forEach(f => {
+    const item = document.createElement("div");
+    item.className = "glossary-item";
+    item.innerHTML = `
+      <div class="glossary-term">
+        <span>${f.q}</span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <p class="glossary-def">${f.a}</p>`;
+    item.querySelector(".glossary-term").onclick = () => item.classList.toggle("open");
+    container.appendChild(item);
+  });
+}
+
+function openFAQModal() {
+  renderFAQInto(document.getElementById("faq-modal-list"));
+  document.getElementById("faq-modal").classList.add("open");
+}
+
+function closeFAQModal() {
+  document.getElementById("faq-modal").classList.remove("open");
+}
+
+// ═══════════════════════════════════════════════════════════════
+// GLOSARIO — render reutilizable + modal accesible en cualquier paso
+// ═══════════════════════════════════════════════════════════════
+function renderGlossaryInto(container, highlightKey) {
+  container.innerHTML = "";
+  GLOSARIO.forEach(g => {
+    const item = document.createElement("div");
+    item.className = "glossary-item";
+    item.dataset.key = g.key;
+    item.innerHTML = `
+      <div class="glossary-term">
+        <span>${g.term}</span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <p class="glossary-def">${g.def}</p>`;
+    item.querySelector(".glossary-term").onclick = () => item.classList.toggle("open");
+    if (highlightKey && g.key === highlightKey) {
+      item.classList.add("open", "highlight");
+    }
+    container.appendChild(item);
+  });
+}
+
+function openGlossaryModal(highlightKey) {
+  const modal = document.getElementById("glossary-modal");
+  renderGlossaryInto(document.getElementById("glossary-modal-list"), highlightKey);
+  modal.classList.add("open");
+  if (highlightKey) {
+    requestAnimationFrame(() => {
+      const el = modal.querySelector(`.glossary-item[data-key="${highlightKey}"]`);
+      if (el) el.scrollIntoView({ block: "center", behavior: "smooth" });
+    });
+  }
+}
+
+function closeGlossaryModal() {
+  document.getElementById("glossary-modal").classList.remove("open");
+}
+
+// ═══════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════
+renderCasos();
+</script>
+
+</body>
+</html>

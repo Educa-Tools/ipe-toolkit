@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pirámide interactiva · Jerarquía normativa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --canvas: #FBFCEF;
+  --surface: #FFFFFF;
+  --ink: #1F2417;
+  --ink-soft: #4A4F36;
+  --ink-muted: #8A8B6A;
+  --line: #E5E8C8;
+  --line-soft: #EFF1D9;
+
+  --olive-soft: #D8DCA0;
+  --olive-deep: #6B7028;
+  --lime-soft: #E8EDC4;
+
+  --tool-soft: #ECE5EC;
+  --tool-mid: #A582AC;
+  --tool-deep: #5D3D66;
+  --tool-ink: #3B2442;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--canvas);
+  color: var(--ink);
+  min-height: 100vh;
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.serif { font-family: 'Fraunces', Georgia, serif; }
+.sans { font-family: 'Inter', system-ui, sans-serif; }
+
+.container { max-width: 760px; margin: 0 auto; padding: 48px 24px 80px; }
+
+h1.display {
+  font-family: 'Fraunces', Georgia, serif; font-size: 40px; line-height: 1.1; font-weight: 400;
+  letter-spacing: -0.015em; font-variation-settings: "opsz" 72;
+}
+h1.display em { font-style: italic; font-weight: 300; color: var(--tool-deep); }
+
+.eyebrow { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 2px; }
+.eyebrow-line { display: flex; align-items: center; gap: 12px; margin-bottom: 22px; }
+.eyebrow-line::before { content: ''; width: 40px; height: 1px; background: var(--tool-deep); }
+
+.prose-italic { font-family: 'Fraunces', Georgia, serif; font-style: italic; font-weight: 300; line-height: 1.6; color: var(--ink-soft); }
+.prose { font-family: 'Fraunces', Georgia, serif; font-size: 16px; line-height: 1.7; font-weight: 350; color: var(--ink); }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; }
+
+.section-label { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 700; color: var(--tool-deep); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; }
+
+.analogy-card { display: flex; gap: 14px; align-items: flex-start; padding: 18px 20px; border-radius: 14px; background: var(--lime-soft); border: 1px solid var(--olive-soft); margin-bottom: 28px; }
+.analogy-card svg { flex-shrink: 0; color: var(--olive-deep); margin-top: 2px; }
+.analogy-card p { font-family: 'Fraunces', Georgia, serif; font-size: 14.5px; line-height: 1.6; color: var(--ink-soft); }
+.analogy-card .analogy-label { font-family: 'Inter', sans-serif; font-size: 10.5px; font-weight: 700; color: var(--olive-deep); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 5px; display: block; }
+
+.en-plata { margin-top: 16px; padding: 12px 16px; background: var(--lime-soft); border-radius: 10px; border-left: 3px solid var(--olive-deep); }
+.en-plata-label { font-family: 'Inter', sans-serif; font-size: 10.5px; font-weight: 700; color: var(--olive-deep); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+.en-plata-text { font-family: 'Fraunces', Georgia, serif; font-size: 13.5px; line-height: 1.55; color: var(--ink-soft); }
+
+.key-principle { display: flex; gap: 14px; align-items: flex-start; padding: 20px 22px; border-radius: 14px; background: var(--tool-soft); border: 1px solid var(--tool-mid); margin-top: 28px; }
+.key-principle svg { flex-shrink: 0; color: var(--tool-deep); margin-top: 2px; }
+.key-principle .kp-label { font-family: 'Inter', sans-serif; font-size: 10.5px; font-weight: 700; color: var(--tool-ink); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 5px; display: block; }
+.key-principle p { font-family: 'Fraunces', Georgia, serif; font-size: 14.5px; line-height: 1.6; color: var(--tool-ink); }
+
+.pyramid-wrap { display: flex; gap: 30px; align-items: flex-start; flex-wrap: wrap; margin-bottom: 4px; }
+.pyramid-svg-col { flex: 0 0 260px; max-width: 100%; }
+.pyramid-svg-col svg { width: 100%; height: auto; display: block; }
+.pyramid-list-col { flex: 1 1 260px; display: flex; flex-direction: column; gap: 8px; min-width: 240px; }
+
+.pyramid-band { cursor: pointer; stroke: #FBFCEF; stroke-width: 2.5; transition: filter 0.15s ease; }
+.pyramid-band:hover { filter: brightness(1.08); }
+.pyramid-band.active { filter: brightness(1.12); stroke: var(--tool-ink); stroke-width: 3.5; }
+.pyramid-num { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 700; pointer-events: none; text-anchor: middle; dominant-baseline: middle; }
+
+.level-pill { cursor: pointer; border: 1.5px solid transparent; border-radius: 12px; padding: 12px 14px; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; transition: all 0.18s ease; display: flex; align-items: center; gap: 10px; }
+.level-pill:hover { filter: brightness(1.05); }
+.level-pill .num-badge { width: 20px; height: 20px; border-radius: 50%; background: rgba(255,255,255,0.35); display: flex; align-items: center; justify-content: center; font-size: 10.5px; flex-shrink: 0; }
+.level-pill .pill-name { flex: 1; }
+.level-pill .check { flex-shrink: 0; opacity: 0; transition: opacity 0.15s ease; }
+.level-pill.viewed .check { opacity: 1; }
+.level-pill.active { border-color: var(--tool-ink); transform: translateX(4px); box-shadow: 0 6px 16px -8px rgba(59,36,66,0.45); }
+
+.progress-track { font-family: 'Inter', sans-serif; font-size: 12px; color: var(--ink-muted); margin: 18px 0 16px; }
+
+.explain-panel { padding: 24px 26px; margin-top: 6px; min-height: 168px; }
+.explain-placeholder { color: var(--ink-muted); font-family: 'Fraunces', Georgia, serif; font-style: italic; font-size: 15px; }
+.level-title { font-family: 'Fraunces', Georgia, serif; font-size: 22px; font-weight: 400; line-height: 1.2; margin-bottom: 10px; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.fade { animation: fadeUp 0.3s cubic-bezier(0.4,0,0.2,1); }
+
+@media (max-width: 560px) {
+  h1.display { font-size: 30px; }
+  .container { padding: 36px 18px 60px; }
+  .pyramid-svg-col { flex: 0 0 200px; margin: 0 auto; }
+  .pyramid-wrap { justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="eyebrow-line"><span class="eyebrow">IPE 1 · Fuentes del Derecho Laboral</span></div>
+  <h1 class="display fade" style="margin-bottom: 16px;">La <em>jerarquía normativa</em>, explicada</h1>
+  <p class="prose-italic fade" style="font-size: 17px; margin-bottom: 28px;">
+    No todas las normas pesan lo mismo. Descubre, nivel a nivel, qué manda sobre qué en el Derecho Laboral.
+  </p>
+
+  <div class="card fade" style="padding: 22px 24px; margin-bottom: 20px;">
+    <p class="section-label">¿Qué es la jerarquía normativa?</p>
+    <p class="prose" style="font-size: 15px;">
+      Es el orden de importancia entre las distintas normas que regulan una materia. Cuando dos normas dicen cosas distintas sobre lo mismo, <strong>gana la que está más arriba</strong> en la pirámide. Es el principio que evita el caos: sin este orden, cualquier norma podría contradecir a cualquier otra sin que supiéramos cuál aplicar.
+    </p>
+  </div>
+
+  <div class="analogy-card fade">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 12h.01M18 12h.01M10 12h4"/></svg>
+    <div>
+      <span class="analogy-label">En plata</span>
+      <p>Piénsalo como las reglas de un videojuego online: las reglas del propio motor del juego están por encima de las de un servidor concreto, y las del servidor están por encima de lo que tú y tus colegas pactéis en una partida privada. Podéis inventar vuestras normas para jugar entre vosotros, pero nunca podéis saltaros las del servidor — y mucho menos las del motor del juego.</p>
+    </div>
+  </div>
+
+  <p class="section-label" style="margin-top: 8px;">Pirámide interactiva: las fuentes del Derecho Laboral</p>
+  <p class="prose" style="font-size: 14.5px; margin-bottom: 20px; color: var(--ink-soft);">Toca cualquier nivel de la pirámide o de la lista para ver de qué se trata.</p>
+
+  <div class="pyramid-wrap fade">
+    <div class="pyramid-svg-col">
+      <svg id="pyramid-svg" viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+    <div class="pyramid-list-col" id="pyramid-list"></div>
+  </div>
+
+  <p class="progress-track" id="progress-text">Has explorado 0/8 niveles</p>
+
+  <div class="card explain-panel fade" id="explain-panel">
+    <p class="explain-placeholder">Toca un nivel de la pirámide o de la lista para empezar a explorar.</p>
+  </div>
+
+  <div class="key-principle fade">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+    <div>
+      <span class="kp-label">Un matiz importante</span>
+      <p>La jerarquía no es solo "la de arriba manda". En Derecho Laboral existe también el <strong>principio de norma más favorable</strong>: una norma de rango inferior puede <em>mejorar</em> lo que dice una superior — nunca empeorarlo. Por eso un convenio colectivo o un contrato de trabajo pueden dar más derechos que la ley, aunque estén más abajo en la pirámide. Lo que no pueden hacer nunca es dar menos.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// NIVELES — de mayor a menor rango (id 1 = cúspide, id 8 = base)
+// ═══════════════════════════════════════════════════════════════
+const LEVELS = [
+  { id: 1, nombre: "Derecho comunitario", corta: "Normas de la Unión Europea",
+    def: "Reglamentos y directivas aprobados por la Unión Europea. España, al formar parte de la UE, está obligada a cumplirlos e incorporarlos a su propia normativa. Es la fuente más alta: ninguna ley española puede contradecirla.",
+    ejemplo: "La directiva europea sobre tiempo de trabajo y descanso, que luego España traspone a su legislación interna.",
+    color: "#3B2442", text: "#FFFFFF" },
+  { id: 2, nombre: "Constitución española", corta: "La norma suprema del Estado",
+    def: "Aprobada en 1978, es la norma más importante de España. Recoge los derechos laborales básicos —derecho al trabajo, libertad sindical, huelga, negociación colectiva— y ninguna otra norma española puede ir en su contra.",
+    ejemplo: "El artículo 28 CE reconoce la libertad sindical; el artículo 35, el derecho al trabajo y a una remuneración suficiente.",
+    color: "#54405A", text: "#FFFFFF" },
+  { id: 3, nombre: "Tratados internacionales", corta: "Acuerdos con otros países u organismos",
+    def: "Convenios firmados y ratificados por España con otros países o con organismos internacionales. Una vez ratificados, pasan a formar parte de nuestro ordenamiento jurídico y están por encima de las leyes ordinarias.",
+    ejemplo: "Los convenios de la Organización Internacional del Trabajo (OIT), que fijan estándares mínimos en materia laboral a nivel mundial.",
+    color: "#6E5B73", text: "#FFFFFF" },
+  { id: 4, nombre: "Normas con rango de LEY", corta: "Leyes aprobadas por el Parlamento",
+    def: "Normas aprobadas por las Cortes Generales (o por el Gobierno con fuerza de ley, en casos excepcionales). En el ámbito laboral, la más importante con diferencia es el Estatuto de los Trabajadores: la 'ley madre' que regula los derechos y deberes básicos de empresas y trabajadores.",
+    ejemplo: "El Estatuto de los Trabajadores (Real Decreto Legislativo 2/2015), que regula el contrato de trabajo, el salario, la jornada, el despido...",
+    color: "#87778B", text: "#FFFFFF" },
+  { id: 5, nombre: "Reales Decretos", corta: "Normas del Gobierno que desarrollan una ley",
+    def: "El Gobierno los aprueba para desarrollar y concretar en detalle lo que una ley establece de forma más general. No pueden contradecir a la ley que desarrollan, solo aterrizarla.",
+    ejemplo: "El Real Decreto que fija cada año la cuantía del Salario Mínimo Interprofesional (SMI).",
+    color: "#A092A3", text: "#3B2442" },
+  { id: 6, nombre: "Convenio Colectivo", corta: "Pactado entre sindicatos y empresarios",
+    def: "Acuerdo negociado entre los representantes de los trabajadores (sindicatos) y los empresarios de un sector o una empresa. Regula condiciones concretas —salario, jornada, categorías profesionales, permisos— y puede mejorar lo que diga la ley, pero nunca empeorarlo.",
+    ejemplo: "El convenio colectivo del sector de hostelería de tu provincia, que fija salarios y pluses distintos a los de otro sector.",
+    color: "#B9AEBB", text: "#3B2442" },
+  { id: 7, nombre: "Contrato de trabajo", corta: "El acuerdo individual con tu empresa",
+    def: "El pacto concreto entre un trabajador y su empresa. Tiene que respetar lo que diga el convenio colectivo y la ley, pero puede mejorarlo si ambas partes lo acuerdan — por ejemplo, pactando un salario superior al mínimo del convenio.",
+    ejemplo: "Que tu contrato fije 1.600 € al mes cuando el convenio de tu sector marca un mínimo de 1.400 €: mejora lo pactado, así que es válido.",
+    color: "#D3C9D4", text: "#3B2442" },
+  { id: 8, nombre: "Usos y costumbres", corta: "La práctica habitual de un lugar o profesión",
+    def: "Prácticas no escritas, propias de un lugar o de una profesión, que se aplican solo cuando ninguna norma superior regula esa cuestión. Es la fuente más débil de todas: en cuanto exista una ley, un convenio o un contrato que diga algo al respecto, esa norma manda por encima de la costumbre.",
+    ejemplo: "Cómo se reparte tradicionalmente una propina entre el personal de un restaurante, si ni el convenio ni el contrato dicen nada al respecto.",
+    color: "#ECE5EC", text: "#3B2442" },
+];
+
+const N = LEVELS.length;
+const APEX_Y = 10, BASE_Y = 310, HALF_BASE = 190, CENTER_X = 200;
+
+function bandGeometry(i) {
+  const yTop = APEX_Y + i * (BASE_Y - APEX_Y) / N;
+  const yBot = APEX_Y + (i + 1) * (BASE_Y - APEX_Y) / N;
+  const wTop = 2 * HALF_BASE * (yTop - APEX_Y) / (BASE_Y - APEX_Y);
+  const wBot = 2 * HALF_BASE * (yBot - APEX_Y) / (BASE_Y - APEX_Y);
+  const xTL = CENTER_X - wTop / 2, xTR = CENTER_X + wTop / 2;
+  const xBL = CENTER_X - wBot / 2, xBR = CENTER_X + wBot / 2;
+  return { yTop, yBot, xTL, xTR, xBL, xBR };
+}
+
+const state = { selected: null, viewed: new Set() };
+
+function renderPyramid() {
+  const svg = document.getElementById("pyramid-svg");
+  svg.innerHTML = "";
+  LEVELS.forEach((lvl, i) => {
+    const g = bandGeometry(i);
+    const poly = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+    poly.setAttribute("points", `${g.xTL},${g.yTop} ${g.xTR},${g.yTop} ${g.xBR},${g.yBot} ${g.xBL},${g.yBot}`);
+    poly.setAttribute("fill", lvl.color);
+    poly.classList.add("pyramid-band");
+    poly.dataset.id = lvl.id;
+    poly.onclick = () => selectLevel(lvl.id);
+    svg.appendChild(poly);
+
+    const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    label.setAttribute("x", CENTER_X);
+    label.setAttribute("y", (g.yTop + g.yBot) / 2);
+    label.setAttribute("fill", lvl.text);
+    label.classList.add("pyramid-num");
+    label.textContent = lvl.id;
+    label.style.pointerEvents = "none";
+    svg.appendChild(label);
+  });
+}
+
+function renderList() {
+  const wrap = document.getElementById("pyramid-list");
+  wrap.innerHTML = "";
+  LEVELS.forEach(lvl => {
+    const pill = document.createElement("div");
+    pill.className = "level-pill";
+    pill.dataset.id = lvl.id;
+    pill.style.background = lvl.color;
+    pill.style.color = lvl.text;
+    pill.innerHTML = `
+      <span class="num-badge" style="color:${lvl.text};">${lvl.id}</span>
+      <span class="pill-name">${lvl.nombre}</span>
+      <svg class="check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="${lvl.text}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+    `;
+    pill.onclick = () => selectLevel(lvl.id);
+    wrap.appendChild(pill);
+  });
+}
+
+function selectLevel(id) {
+  state.selected = id;
+  state.viewed.add(id);
+
+  document.querySelectorAll(".pyramid-band").forEach(p => {
+    p.classList.toggle("active", Number(p.dataset.id) === id);
+  });
+  document.querySelectorAll(".level-pill").forEach(p => {
+    p.classList.toggle("active", Number(p.dataset.id) === id);
+    p.classList.toggle("viewed", state.viewed.has(Number(p.dataset.id)));
+  });
+
+  renderExplain(id);
+  updateProgress();
+}
+
+function renderExplain(id) {
+  const lvl = LEVELS.find(l => l.id === id);
+  const panel = document.getElementById("explain-panel");
+  panel.innerHTML = `
+    <div class="fade">
+      <p class="section-label" style="margin-bottom: 6px;">Nivel ${lvl.id} · ${lvl.corta}</p>
+      <h3 class="level-title">${lvl.nombre}</h3>
+      <p class="prose" style="font-size: 15px; margin-bottom: 14px;">${lvl.def}</p>
+      <div class="en-plata">
+        <div class="en-plata-label">Ejemplo</div>
+        <div class="en-plata-text">${lvl.ejemplo}</div>
+      </div>
+    </div>
+  `;
+}
+
+function updateProgress() {
+  document.getElementById("progress-text").textContent = `Has explorado ${state.viewed.size}/8 niveles`;
+}
+
+renderPyramid();
+renderList();
+</script>
+
+</body>
+</html>
