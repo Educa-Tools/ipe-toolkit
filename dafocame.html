@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DAFO y CAME</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════════════════════════
+   EDUCA TOOLS — DAFO + CAME
+   Paleta de marca (canónica, brand-kit-especificacion.md) +
+   familias de color por cuadrante, heredadas del sistema PESTEL.
+   Tema claro únicamente — decisión de marca del proyecto.
+   ══════════════════════════════════════════════════════════════ */
+:root {
+  --bg: #FBFCEF;
+  --canvas: #FBFCEF;
+  --surface: #FFFFFF;
+  --surface-alt: #F5F6E4;
+
+  --ink: #1E1C1A;
+  --ink-soft: #4A463F;
+  --ink-muted: #8B847A;
+
+  --line: #E8E1D6;
+  --line-soft: #EEEFD8;
+
+  --olive-deep: #6B7028;
+  --olive-mid: #A8AD5C;
+  --lime-soft: #E8EDC4;
+  --lime-mid: #C5CD78;
+
+  --radius-card: 18px;
+  --radius-pill: 999px;
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-ui: 'Inter', -apple-system, 'Segoe UI', sans-serif;
+
+  /* Acento de herramienta — DAFO/CAME (índigo, nuevo dentro del kit) */
+  --tool-soft: #E7E8F1;
+  --tool-mid: #8890BE;
+  --tool-deep: #454B78;
+
+  /* Familias por cuadrante (heredadas de la paleta PESTEL) */
+  --f-soft: #E5EDDB; --f-mid: #A8C485; --f-deep: #557A35; --f-ink: #354B22; /* Fortalezas */
+  --o-soft: #E5EFEC; --o-mid: #7FAA9D; --o-deep: #3D6B5C; --o-ink: #244238; /* Oportunidades */
+  --d-soft: #F2EDDB; --d-mid: #C9B073; --d-deep: #8B6F2A; --d-ink: #5A4818; /* Debilidades */
+  --a-soft: #F4E5E5; --a-mid: #C58A8A; --a-deep: #8B3A3A; --a-ink: #5E2424; /* Amenazas */
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100%;
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.serif { font-family: 'Fraunces', Georgia, serif; font-optical-sizing: auto; }
+.sans  { font-family: 'Inter', system-ui, sans-serif; }
+
+.container { max-width: 640px; margin: 0 auto; padding: 48px 20px 80px; }
+
+h1.display {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 48px;
+  line-height: 1.06;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  font-variation-settings: "opsz" 72;
+  color: var(--ink);
+  text-wrap: balance;
+}
+h1.display em { font-style: italic; font-weight: 300; color: var(--tool-deep); }
+
+h2.title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 27px;
+  line-height: 1.2;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+h3.subtitle {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 19px;
+  line-height: 1.25;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.idea-display {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 27px;
+  line-height: 1.25;
+  font-weight: 300;
+  color: var(--ink);
+  letter-spacing: -0.015em;
+}
+
+.prose {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 16px;
+  line-height: 1.65;
+  font-weight: 300;
+  color: var(--ink-soft);
+}
+.prose .keyword { font-weight: 500; color: var(--ink); }
+
+.prose-italic {
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+.eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.eyebrow-line { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.eyebrow-line::before { content: ''; width: 40px; height: 1px; background: var(--ink-muted); }
+
+.label-form {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* ── BOTONES ── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 8px; padding: 14px 24px; border-radius: 999px;
+  font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500;
+  cursor: pointer; transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
+  border: none; outline: none;
+}
+.btn:focus-visible { outline: 2px solid var(--tool-deep); outline-offset: 2px; }
+.btn-primary { background: var(--ink); color: var(--canvas); }
+.btn-primary:hover:not(:disabled) { background: #2D3220; transform: translateY(-1px); }
+.btn-primary:disabled { background: var(--line); color: var(--ink-muted); cursor: not-allowed; transform:none; }
+.btn-ghost { background: transparent; color: var(--ink-soft); border: 1px solid var(--line); }
+.btn-ghost:hover { background: var(--surface); border-color: var(--ink-muted); }
+.btn-ghost:disabled { color: var(--ink-muted); cursor: not-allowed; }
+.btn-back {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: none; border: none; font-size: 13px; color: var(--ink-muted);
+  cursor: pointer; padding: 4px 0; font-family: 'Inter', sans-serif; margin-bottom: 20px;
+}
+.btn-back:hover { color: var(--ink); }
+.btn-back:focus-visible { outline: 2px solid var(--tool-deep); outline-offset: 2px; }
+
+/* ── CARDS ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+}
+.card-interactive { cursor: pointer; text-align: left; width: 100%; font: inherit; color: inherit; }
+.card-interactive:hover { border-color: var(--ink-muted); transform: translateY(-2px); box-shadow: 0 12px 32px -12px rgba(31,36,23,0.12); }
+.card-interactive:focus-visible { outline: 2px solid var(--tool-deep); outline-offset: 2px; }
+
+/* ── TEXTAREA ── */
+.text-input {
+  width: 100%;
+  border: 1.5px solid var(--line); border-radius: 12px;
+  padding: 14px 16px;
+  font-family: 'Fraunces', Georgia, serif; font-size: 16px; font-weight: 300;
+  color: var(--ink); background: var(--surface);
+  resize: vertical; line-height: 1.6;
+  transition: all 0.2s ease; outline: none;
+}
+.text-input:focus { border-color: var(--ink); }
+.text-input.filled { border-color: var(--olive-mid); background: var(--lime-soft); }
+.field-hint { font-size: 12px; color: var(--ink-muted); margin-top: 6px; font-family: 'Inter', sans-serif; }
+.field-warn { font-size: 12px; color: var(--a-deep); margin-top: 6px; font-family: 'Inter', sans-serif; font-weight: 500; }
+
+/* ── PRIORITY PILLS (chips de selección única) ── */
+.priority-pills { display: flex; gap: 8px; }
+.priority-pill {
+  flex: 1; padding: 10px 12px; border-radius: 999px;
+  border: 1.5px solid var(--line); background: var(--surface);
+  font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500;
+  color: var(--ink-soft); cursor: pointer; transition: all 0.15s ease;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.priority-pill:hover { border-color: var(--ink-muted); }
+.priority-pill:focus-visible { outline: 2px solid var(--tool-deep); outline-offset: 2px; }
+.priority-pill[data-sel="1"] { color: var(--surface); border-color: var(--ink); }
+.priority-pill[data-level="alta"][data-sel="1"] { background: var(--ink); }
+.priority-pill[data-level="media"][data-sel="1"] { background: var(--ink-soft); }
+.priority-pill[data-level="baja"][data-sel="1"] { background: var(--ink-muted); }
+
+/* Insignia de prioridad (peso visual = intensidad, no color de cuadrante) */
+.priority-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600;
+  padding: 3px 10px; border-radius: 999px; text-transform: uppercase; letter-spacing: 1.1px;
+  flex-shrink: 0;
+}
+.priority-badge.alta { background: var(--ink); color: var(--surface); }
+.priority-badge.media { background: var(--line-soft); color: var(--ink-soft); border: 1px solid var(--line); }
+.priority-badge.baja { background: transparent; color: var(--ink-muted); border: 1px solid var(--line); }
+
+/* ── CHIPS de selección múltiple (pantalla de cruce) ── */
+.item-chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 14px; border-radius: 12px;
+  border: 1.5px solid var(--line); background: var(--surface);
+  cursor: pointer; text-align: left; font: inherit; color: var(--ink);
+  transition: all 0.15s ease; width: 100%;
+}
+.item-chip:hover { border-color: var(--ink-muted); }
+.item-chip:focus-visible { outline: 2px solid var(--tool-deep); outline-offset: 2px; }
+.item-chip .chip-check {
+  width: 18px; height: 18px; border-radius: 5px; border: 1.5px solid var(--ink-muted);
+  flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+  background: var(--surface); transition: all 0.15s ease;
+}
+.item-chip[data-sel="1"] .chip-check svg { display: block; }
+.item-chip .chip-check svg { display: none; }
+.item-chip .chip-text { font-family: 'Fraunces', Georgia, serif; font-size: 14.5px; line-height: 1.4; font-weight: 400; }
+
+/* ── ANIMACIONES ── */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+.fade { animation: fadeUp 0.5s cubic-bezier(0.4,0,0.2,1); }
+.fade-1 { animation: fadeUp 0.6s cubic-bezier(0.4,0,0.2,1) 0.08s backwards; }
+.fade-2 { animation: fadeUp 0.6s cubic-bezier(0.4,0,0.2,1) 0.16s backwards; }
+.fade-3 { animation: fadeUp 0.6s cubic-bezier(0.4,0,0.2,1) 0.24s backwards; }
+@media (prefers-reduced-motion: reduce) { .fade, .fade-1, .fade-2, .fade-3 { animation: none; } }
+
+/* ── PROGRESO ── */
+.progress-dots { display: flex; gap: 6px; align-items: center; }
+.progress-dot { height: 8px; width: 8px; border-radius: 4px; background: var(--line); transition: all 0.3s cubic-bezier(0.4,0,0.2,1); }
+.progress-dot.active { background: var(--ink); width: 24px; }
+.progress-dot.done { background: var(--ink); }
+
+.top-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
+
+/* ── SCREENS ── */
+.screen { display: none; }
+.screen.active { display: block; }
+
+@media (max-width: 540px) {
+  h1.display { font-size: 34px; }
+  .idea-display { font-size: 22px; }
+  .container { padding: 32px 16px 60px; }
+  .priority-pills { flex-wrap: wrap; }
+  .priority-pill { min-width: 30%; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   MATRIZ DAFO 2×2 (pantalla de panel + portada del informe)
+   ══════════════════════════════════════════════════════════════ */
+.matrix-shell { display: grid; grid-template-columns: 34px 1fr 1fr; grid-template-rows: auto 1fr 1fr; gap: 8px; }
+.matrix-corner { }
+.matrix-col-label, .matrix-row-label {
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Inter', sans-serif; font-size: 10.5px; font-weight: 600;
+  color: var(--ink-muted); text-transform: uppercase; letter-spacing: 1.6px;
+}
+.matrix-row-label { writing-mode: vertical-rl; transform: rotate(180deg); padding: 6px 0; }
+.matrix-cell {
+  border-radius: 14px; padding: 16px 18px; min-height: 108px; min-width: 0;
+  display: flex; flex-direction: column; gap: 6px; border: 1px solid transparent;
+}
+.matrix-cell-head { display: flex; align-items: center; justify-content: space-between; }
+.matrix-cell-letter { font-family: 'Fraunces', Georgia, serif; font-size: 22px; font-weight: 500; }
+.matrix-cell-score { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; padding: 2px 9px; border-radius: 999px; background: rgba(255,255,255,0.6); }
+.matrix-cell-label { font-family: 'Inter', sans-serif; font-size: 11.5px; font-weight: 600; }
+.matrix-cell-list { font-family: 'Fraunces', Georgia, serif; font-size: 12px; line-height: 1.5; font-weight: 350; margin-top: 2px; min-width: 0; }
+.matrix-cell-list div { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.matrix-cell.f { background: var(--f-soft); }
+.matrix-cell.d { background: var(--d-soft); }
+.matrix-cell.o { background: var(--o-soft); }
+.matrix-cell.a { background: var(--a-soft); }
+.matrix-cell.f .matrix-cell-letter, .matrix-cell.f .matrix-cell-label { color: var(--f-ink); }
+.matrix-cell.d .matrix-cell-letter, .matrix-cell.d .matrix-cell-label { color: var(--d-ink); }
+.matrix-cell.o .matrix-cell-letter, .matrix-cell.o .matrix-cell-label { color: var(--o-ink); }
+.matrix-cell.a .matrix-cell-letter, .matrix-cell.a .matrix-cell-label { color: var(--a-ink); }
+.matrix-cell-list { color: var(--ink-soft); }
+
+@media (max-width: 540px) {
+  .matrix-shell { grid-template-columns: 22px 1fr 1fr; }
+  .matrix-cell { padding: 12px; min-height: 90px; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   DOSSIER A4 — informe imprimible
+   ══════════════════════════════════════════════════════════════ */
+.dossier-wrap { max-width: 880px; margin: 0 auto; padding: 40px 20px 80px; }
+.dossier-actions { display: flex; gap: 12px; justify-content: flex-end; margin-bottom: 24px; }
+
+.page-a4 {
+  width: 100%; max-width: 794px; min-height: 1123px;
+  margin: 0 auto 32px; background: var(--surface);
+  border: 1px solid var(--line); border-radius: 6px;
+  padding: 60px 64px; box-sizing: border-box; position: relative;
+  box-shadow: 0 4px 24px rgba(31,36,23,0.06);
+  display: flex; flex-direction: column;
+}
+.page-header { display: flex; align-items: center; justify-content: space-between; padding-bottom: 16px; border-bottom: 1px solid var(--line); margin-bottom: 28px; }
+.page-mark { display: flex; align-items: center; gap: 10px; }
+.page-mark-line { width: 24px; height: 1px; background: var(--tool-deep); }
+.page-num { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; color: var(--ink-muted); letter-spacing: 1.5px; font-variant-numeric: tabular-nums; }
+
+.dossier-title-block { margin-bottom: 28px; }
+.dossier-title { font-family: 'Fraunces', Georgia, serif; font-size: 30px; line-height: 1.2; font-weight: 400; letter-spacing: -0.015em; color: var(--ink); font-variation-settings: "opsz" 60; hyphens: auto; text-wrap: balance; }
+
+.dossier-section-label {
+  font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600; color: var(--tool-deep);
+  text-transform: uppercase; letter-spacing: 2.4px; margin: 0 0 12px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--line); display: block;
+}
+.dossier-section-label.centered { text-align: center; border-bottom: none; padding-bottom: 0; }
+.dossier-section-label.centered::before, .dossier-section-label.centered::after {
+  content: ''; display: inline-block; width: 24px; height: 1px; background: var(--tool-mid); vertical-align: middle; margin: 0 12px;
+}
+
+.dossier-summary-block { background: var(--tool-soft); border-left: 3px solid var(--tool-deep); border-radius: 0 6px 6px 0; padding: 20px 24px; margin-bottom: 28px; }
+.dossier-summary-block .dossier-section-label { border-bottom: none; padding-bottom: 0; margin-bottom: 8px; }
+.dossier-summary { font-family: 'Fraunces', Georgia, serif; font-size: 14.5px; line-height: 1.75; font-weight: 350; color: var(--ink); text-align: justify; hyphens: auto; }
+.dossier-summary .keyword { font-weight: 500; color: var(--tool-deep); }
+
+.dossier-matrix-block { margin-bottom: 28px; }
+.dossier-mount { margin: 14px 0 4px; }
+
+.dossier-highlights { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: auto; }
+.highlight-card { padding: 18px 20px; border-radius: 8px; border: 1px solid; }
+.highlight-palanca { background: var(--f-soft); border-color: rgba(85,122,53,0.25); }
+.highlight-riesgo { background: var(--a-soft); border-color: rgba(139,58,57,0.25); }
+.highlight-head { display: flex; align-items: center; gap: 8px; margin-bottom: 9px; }
+.highlight-icon { width: 24px; height: 24px; border-radius: 6px; background: var(--surface); display: flex; align-items: center; justify-content: center; }
+.highlight-palanca .highlight-icon { color: var(--f-deep); }
+.highlight-riesgo .highlight-icon { color: var(--a-deep); }
+.highlight-label { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.7px; }
+.highlight-palanca .highlight-label { color: var(--f-deep); }
+.highlight-riesgo .highlight-label { color: var(--a-deep); }
+.highlight-title { font-family: 'Fraunces', Georgia, serif; font-size: 16px; font-weight: 500; color: var(--ink); margin: 6px 0 6px; line-height: 1.3; }
+.highlight-body { font-family: 'Fraunces', Georgia, serif; font-size: 12.5px; line-height: 1.6; font-weight: 350; color: var(--ink-soft); text-align: justify; hyphens: auto; }
+
+/* Página de cuadrante */
+.quad-page-hero { display: flex; align-items: flex-start; gap: 20px; padding-bottom: 22px; border-bottom: 1px solid var(--line); margin-bottom: 24px; flex-wrap: wrap; }
+.quad-page-letter { width: 74px; height: 74px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-family: 'Fraunces', Georgia, serif; font-size: 42px; font-weight: 400; flex-shrink: 0; }
+.quad-page-meta { flex: 1; min-width: 200px; }
+.quad-page-eyebrow { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 4px; }
+.quad-page-title { font-family: 'Fraunces', Georgia, serif; font-size: 25px; line-height: 1.2; font-weight: 400; letter-spacing: -0.01em; margin: 0 0 8px; color: var(--ink); }
+.quad-page-def { font-family: 'Fraunces', Georgia, serif; font-style: italic; font-size: 14px; line-height: 1.55; color: var(--ink-soft); max-width: 480px; }
+.quad-page-score-box { text-align: right; margin-left: auto; }
+.quad-page-score-num { font-family: 'Fraunces', Georgia, serif; font-size: 46px; font-weight: 400; letter-spacing: -0.03em; line-height: 1; }
+.quad-page-score-unit { font-family: 'Inter', sans-serif; font-size: 10.5px; color: var(--ink-muted); margin-top: 4px; }
+
+.quad-item-row { display: flex; align-items: flex-start; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--line-soft); }
+.quad-item-row:last-child { border-bottom: none; }
+.quad-item-num { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; flex-shrink: 0; margin-top: 1px; }
+.quad-item-text { font-family: 'Fraunces', Georgia, serif; font-size: 14px; line-height: 1.6; color: var(--ink); flex: 1; }
+
+.quad-bullets-block { margin-top: auto; padding-top: 20px; border-top: 1px solid var(--line); }
+.quad-bullets { display: grid; grid-template-columns: 1fr 1fr; gap: 7px 22px; margin: 12px 0 0; list-style: none; }
+.quad-bullets li { font-family: 'Fraunces', Georgia, serif; font-size: 12.5px; line-height: 1.5; color: var(--ink-soft); font-weight: 350; padding-left: 14px; position: relative; }
+.quad-bullets li::before { content: ''; position: absolute; left: 0; top: 8px; width: 5px; height: 5px; border-radius: 50%; background: var(--ink-muted); }
+
+/* Página de cruce CAME */
+.cruce-page-hero { padding-bottom: 20px; border-bottom: 1px solid var(--line); margin-bottom: 24px; }
+.cruce-page-pill { display: inline-flex; align-items: center; gap: 6px; font-family: 'Inter', sans-serif; font-size: 10.5px; font-weight: 600; padding: 5px 13px; border-radius: 999px; text-transform: uppercase; letter-spacing: 1.6px; margin-bottom: 12px; }
+.cruce-page-title { font-family: 'Fraunces', Georgia, serif; font-size: 26px; line-height: 1.2; font-weight: 400; color: var(--ink); margin-bottom: 8px; }
+.cruce-page-def { font-family: 'Fraunces', Georgia, serif; font-style: italic; font-size: 14.5px; line-height: 1.6; color: var(--ink-soft); max-width: 560px; }
+
+.cruce-sources { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 26px; }
+.cruce-source-col { border-radius: 10px; padding: 16px 18px; }
+.cruce-source-label { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.6px; margin-bottom: 10px; display: block; }
+.cruce-source-item { font-family: 'Fraunces', Georgia, serif; font-size: 13px; line-height: 1.5; margin-bottom: 8px; padding-left: 12px; position: relative; color: var(--ink); }
+.cruce-source-item::before { content: '—'; position: absolute; left: 0; opacity: 0.5; }
+
+.cruce-strategy-block { background: var(--canvas); border-radius: 10px; padding: 22px 24px; border: 1px solid var(--line); flex: 1; }
+.cruce-strategy-label { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.8px; color: var(--ink-muted); margin-bottom: 10px; display: block; }
+.cruce-strategy-text { font-family: 'Fraunces', Georgia, serif; font-size: 16px; line-height: 1.75; font-weight: 350; font-style: italic; color: var(--ink); }
+
+/* Página final */
+.conclusion-block { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 30px 10px; }
+.conclusion-prose { font-family: 'Fraunces', Georgia, serif; font-size: 17px; line-height: 1.75; font-weight: 350; font-style: italic; color: var(--ink); max-width: 540px; margin: 16px 0 26px; }
+.conclusion-prose .keyword { font-weight: 500; font-style: normal; color: var(--tool-deep); }
+.conclusion-mark { width: 40px; height: 1px; background: var(--tool-deep); margin: 0 auto 18px; }
+.conclusion-footer { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 2px; }
+.roadmap-block { width: 100%; max-width: 560px; margin-top: 8px; text-align: left; }
+.roadmap-row { display: flex; gap: 12px; padding: 12px 0; border-top: 1px solid var(--line-soft); align-items: flex-start; }
+.roadmap-verbo { font-family: 'Fraunces', Georgia, serif; font-size: 13px; font-weight: 600; width: 78px; flex-shrink: 0; padding-top: 1px; }
+.roadmap-text { font-family: 'Inter', sans-serif; font-size: 12.5px; line-height: 1.55; color: var(--ink-soft); font-style: normal; }
+
+@media print {
+  @page { size: A4; margin: 0; }
+  body { background: white; }
+  .dossier-wrap { padding: 0; max-width: none; }
+  .dossier-actions, .top-bar { display: none !important; }
+  .page-a4 {
+    width: 210mm; min-height: 297mm; height: 297mm; margin: 0; padding: 17mm 19mm;
+    border: none; box-shadow: none; border-radius: 0;
+    page-break-after: always; page-break-inside: avoid; overflow: hidden;
+  }
+  .page-a4.is-last { page-break-after: auto; }
+  /* Un transform/animación sin resolver en el momento de imprimir descuadra
+     la paginación de Chromium (añade una página en blanco de más): se anulan
+     explícitamente para la impresión, que ya no necesita la entrada animada. */
+  .fade, .fade-1, .fade-2, .fade-3 { animation: none !important; transform: none !important; opacity: 1 !important; }
+}
+
+@media (max-width: 820px) {
+  .page-a4 { padding: 34px 26px; min-height: auto; }
+  .dossier-title { font-size: 24px; }
+  .dossier-highlights, .cruce-sources, .quad-bullets { grid-template-columns: 1fr; }
+  .quad-page-hero { flex-wrap: wrap; }
+  .quad-page-score-box { margin-left: 0; text-align: left; }
+}
+</style>
+
+
+</head>
+<body>
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- INTRO                                                            -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div id="screen-intro" class="screen active">
+  <div class="container">
+    <div class="eyebrow-line fade"><span class="eyebrow">IPE 1/2 · Diagnóstico estratégico</span></div>
+
+    <h1 class="display fade-1" style="margin-bottom: 22px;">El análisis <em>DAFO</em> y su cruce <em>CAME</em></h1>
+
+    <p class="prose-italic fade-2" style="font-size: 18px; margin-bottom: 40px;">
+      Diagnostica tu idea de negocio por dentro y por fuera, y convierte cada cuadrante en una estrategia concreta cruzando fortalezas, debilidades, oportunidades y amenazas.
+    </p>
+
+    <div class="card fade-3" style="padding: 24px 26px; margin-bottom: 28px;">
+      <h3 class="subtitle" style="margin-bottom: 14px;">Cómo funciona</h3>
+      <ol style="list-style:none;">
+        <li style="display:flex; gap:14px; margin-bottom:12px; align-items:flex-start;">
+          <div class="priority-badge alta" style="border-radius:50%; width:22px; height:22px; padding:0; justify-content:center; flex-shrink:0;">1</div>
+          <span class="prose" style="font-size:14.5px;">Describe tu <span class="keyword">idea de negocio</span> y rellena los cuatro cuadrantes del DAFO.</span>
+        </li>
+        <li style="display:flex; gap:14px; margin-bottom:12px; align-items:flex-start;">
+          <div class="priority-badge alta" style="border-radius:50%; width:22px; height:22px; padding:0; justify-content:center; flex-shrink:0;">2</div>
+          <span class="prose" style="font-size:14.5px;">Cruza tus cuadrantes en las <span class="keyword">4 estrategias CAME</span>: explotar, corregir, mantener y afrontar.</span>
+        </li>
+        <li style="display:flex; gap:14px; align-items:flex-start;">
+          <div class="priority-badge alta" style="border-radius:50%; width:22px; height:22px; padding:0; justify-content:center; flex-shrink:0;">3</div>
+          <span class="prose" style="font-size:14.5px;">Recibe tu <span class="keyword">informe estratégico</span> con matriz DAFO y hoja de ruta CAME.</span>
+        </li>
+      </ol>
+    </div>
+
+    <div class="card fade-3" style="padding: 20px 24px; margin-bottom: 36px; background: var(--tool-soft); border-color: var(--tool-mid);">
+      <p class="sans" style="font-size: 12.5px; color: var(--tool-deep); margin: 0 0 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.4px;">¿Qué es el DAFO-CAME?</p>
+      <p class="prose" style="font-size: 14.5px; color: var(--ink-soft);">
+        El <span class="keyword">DAFO</span> (Debilidades, Amenazas, Fortalezas, Oportunidades) diagnostica tu negocio distinguiendo lo interno de lo externo y lo favorable de lo desfavorable. El <span class="keyword">CAME</span> da el paso siguiente: cruza esos cuadrantes dos a dos para decidir qué <span class="keyword">Corregir</span>, <span class="keyword">Afrontar</span>, <span class="keyword">Mantener</span> y <span class="keyword">Explotar</span>.
+      </p>
+    </div>
+
+    <div class="fade-3" style="margin-bottom: 26px;">
+      <label class="label-form" for="idea-input">Tu idea de negocio</label>
+      <textarea id="idea-input" class="text-input" rows="4"
+        placeholder="Ej: Taller de carpintería a medida especializado en mobiliario para pequeños comercios y hostelería del barrio, con servicio de instalación incluido."
+        style="min-height: 104px;"></textarea>
+    </div>
+
+    <button id="btn-start" class="btn btn-primary fade-3" style="width: 100%; padding: 16px; font-size: 15px;" disabled>
+      <span>Comenzar el diagnóstico</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- PANEL DE CUADRANTES                                              -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div id="screen-quadrants" class="screen">
+  <div class="container">
+    <button class="btn-back" onclick="go('intro')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+      Volver
+    </button>
+
+    <span class="eyebrow" style="display:block; margin-bottom:10px;">Analizando</span>
+    <p id="idea-display-quadrants" class="idea-display" style="margin-bottom: 28px;"></p>
+
+    <h3 class="subtitle" style="margin-bottom: 6px;">Tu matriz DAFO</h3>
+    <p class="prose" style="font-size:13.5px; margin-bottom:18px; color:var(--ink-muted);">Necesitas al menos 2 elementos en cada cuadrante para poder cruzarlos en el CAME.</p>
+    <div id="quadrants-matrix" class="matrix-shell fade" style="margin-bottom: 28px;"></div>
+
+    <div id="quadrants-list" style="display:flex; flex-direction:column; gap:12px; margin-bottom: 28px;"></div>
+
+    <button id="btn-to-cruces" class="btn btn-primary" style="width: 100%; padding: 16px; font-size: 15px;" disabled onclick="go('cruces')">
+      <span id="btn-to-cruces-text">Completa los cuadrantes restantes</span>
+    </button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- DETALLE DE CUADRANTE                                             -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div id="screen-quadrant-detail" class="screen">
+  <div class="container">
+    <div class="top-bar">
+      <button class="btn-back" onclick="go('quadrants')" style="margin:0;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+        Matriz DAFO
+      </button>
+      <div id="quadrant-progress" class="progress-dots"></div>
+    </div>
+
+    <div id="quadrant-header" class="fade" style="padding: 26px; border-radius: 18px; margin-bottom: 22px;">
+      <div style="display:flex; align-items:center; gap:16px; margin-bottom:14px;">
+        <div id="quadrant-letter" style="width:60px; height:60px; border-radius:15px; background:var(--surface); display:flex; align-items:center; justify-content:center; font-family:'Fraunces',Georgia,serif; font-size:32px; font-weight:500;"></div>
+        <div>
+          <p id="quadrant-eyebrow" class="eyebrow" style="margin-bottom:3px;"></p>
+          <h2 id="quadrant-title" class="title" style="font-size:24px;"></h2>
+        </div>
+      </div>
+      <p id="quadrant-desc" class="prose-italic" style="font-size:15px; margin-bottom:12px;"></p>
+      <div style="padding:13px 15px; background:var(--surface); border-radius:10px;">
+        <p class="sans" style="font-size:11.5px; color:var(--ink-muted); margin:0 0 7px; font-weight:600; text-transform:uppercase; letter-spacing:1.4px;">Piensa en...</p>
+        <ul id="quadrant-bullets" style="margin:0; padding-left:18px; font-family:'Fraunces',serif; font-size:13.5px; line-height:1.65; color:var(--ink-soft); font-weight:400;"></ul>
+      </div>
+    </div>
+
+    <div class="fade" style="margin-bottom: 20px;">
+      <label class="label-form" for="item-text-input">Añade un elemento</label>
+      <textarea id="item-text-input" class="text-input" rows="3" style="min-height:76px; margin-bottom:12px;"></textarea>
+      <p class="label-form" style="margin-bottom:8px;">Prioridad</p>
+      <div class="priority-pills" id="priority-pills" style="margin-bottom:10px;">
+        <button type="button" class="priority-pill" data-level="alta">Alta</button>
+        <button type="button" class="priority-pill" data-level="media">Media</button>
+        <button type="button" class="priority-pill" data-level="baja">Baja</button>
+      </div>
+      <p id="item-warn" class="field-warn" style="display:none; margin-bottom:8px;"></p>
+      <button id="btn-add-item" class="btn btn-primary" style="width:100%;" disabled>Añadir al cuadrante</button>
+    </div>
+
+    <div id="quadrant-items-list" style="display:flex; flex-direction:column; gap:10px; margin-bottom:24px;"></div>
+
+    <div style="display:flex; gap:10px; padding-top:8px;">
+      <button class="btn btn-ghost" onclick="go('quadrants')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+        Matriz
+      </button>
+      <button id="btn-save-quadrant" class="btn btn-primary" style="flex:1;" disabled onclick="go('quadrants')">
+        <span>Guardar y volver a la matriz</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- PANEL DE CRUCES CAME                                             -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div id="screen-cruces" class="screen">
+  <div class="container">
+    <button class="btn-back" onclick="go('quadrants')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+      Matriz DAFO
+    </button>
+
+    <span class="eyebrow" style="display:block; margin-bottom:10px;">Cruce estratégico</span>
+    <h2 class="title fade" style="margin-bottom:10px;">Del DAFO al <em style="font-style:italic; color:var(--tool-deep);">CAME</em></h2>
+    <p class="prose" style="font-size:14.5px; margin-bottom:24px; color:var(--ink-soft);">Cruza cada pareja de cuadrantes: selecciona qué elementos combinas y escribe la acción estratégica que se deriva de ellos.</p>
+
+    <div id="cruces-list" style="display:flex; flex-direction:column; gap:12px; margin-bottom:28px;"></div>
+
+    <button id="btn-to-results" class="btn btn-primary" style="width:100%; padding:16px; font-size:15px;" disabled onclick="finishAndShowResults()">
+      <span id="btn-to-results-text">Completa los cruces restantes</span>
+    </button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- DETALLE DE CRUCE                                                 -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div id="screen-cruce-detail" class="screen">
+  <div class="container">
+    <div class="top-bar">
+      <button class="btn-back" onclick="go('cruces')" style="margin:0;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+        Cruces CAME
+      </button>
+      <div id="cruce-progress" class="progress-dots"></div>
+    </div>
+
+    <div id="cruce-header" class="fade" style="padding:24px 26px; border-radius:18px; margin-bottom:22px;">
+      <span id="cruce-pill" class="cruce-page-pill" style="margin-bottom:10px;"></span>
+      <h2 id="cruce-title" class="title" style="font-size:24px; margin-bottom:8px;"></h2>
+      <p id="cruce-def" class="prose-italic" style="font-size:14.5px;"></p>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:22px;" id="cruce-columns"></div>
+
+    <div class="fade" style="margin-bottom:22px;">
+      <label class="label-form" id="cruce-question" for="cruce-text-input" style="text-transform:none; letter-spacing:0; font-size:15.5px; font-family:'Fraunces',Georgia,serif; font-weight:400; color:var(--ink); margin-bottom:12px;"></label>
+      <textarea id="cruce-text-input" class="text-input" rows="4" style="min-height:96px;"></textarea>
+      <p class="field-hint" id="cruce-hint"></p>
+    </div>
+
+    <div style="display:flex; gap:10px;">
+      <button class="btn btn-ghost" onclick="go('cruces')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+        Cruces
+      </button>
+      <button id="btn-save-cruce" class="btn btn-primary" style="flex:1;" disabled onclick="go('cruces')">Guardar y volver</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- RESULTADOS                                                       -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div id="screen-results" class="screen">
+  <div class="dossier-wrap">
+    <div class="actions-bar dossier-actions">
+      <button class="btn btn-ghost" onclick="resetAll()">Nueva idea</button>
+      <button class="btn btn-primary" onclick="window.print()">Imprimir informe</button>
+    </div>
+
+    <!-- PÁGINA 1 — PORTADA -->
+    <article class="page-a4 fade">
+      <header class="page-header">
+        <div class="page-mark">
+          <div class="page-mark-line"></div>
+          <span class="eyebrow">Informe DAFO · CAME</span>
+        </div>
+        <span class="page-num">01 / <span id="total-pages">10</span></span>
+      </header>
+
+      <div class="dossier-title-block">
+        <span class="eyebrow" style="color:var(--tool-deep); margin-bottom:12px; display:block;">Diagnóstico estratégico</span>
+        <h1 id="idea-display-results" class="dossier-title"></h1>
+      </div>
+
+      <div class="dossier-summary-block">
+        <p class="dossier-section-label">Síntesis ejecutiva</p>
+        <p id="resumen-general" class="dossier-summary"></p>
+      </div>
+
+      <div class="dossier-matrix-block">
+        <p class="dossier-section-label centered">Matriz DAFO</p>
+        <div id="results-matrix-mount" class="dossier-mount"></div>
+      </div>
+
+      <div class="dossier-highlights">
+        <div class="highlight-card highlight-palanca">
+          <div class="highlight-head">
+            <div class="highlight-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6-6 6 6"/></svg></div>
+            <span class="highlight-label">Principal palanca</span>
+          </div>
+          <h4 id="palanca-title" class="highlight-title"></h4>
+          <p id="palanca-text" class="highlight-body"></p>
+        </div>
+        <div class="highlight-card highlight-riesgo">
+          <div class="highlight-head">
+            <div class="highlight-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 15 6 6 6-6"/></svg></div>
+            <span class="highlight-label">Principal riesgo</span>
+          </div>
+          <h4 id="riesgo-title" class="highlight-title"></h4>
+          <p id="riesgo-text" class="highlight-body"></p>
+        </div>
+      </div>
+    </article>
+
+    <!-- PÁGINAS 2–5 — una por cuadrante -->
+    <div id="results-quadrants"></div>
+
+    <!-- PÁGINAS 6–9 — una por cruce CAME -->
+    <div id="results-cruces"></div>
+
+    <!-- PÁGINA FINAL — conclusión -->
+    <article class="page-a4 fade is-last">
+      <header class="page-header">
+        <div class="page-mark"><div class="page-mark-line"></div><span class="eyebrow">Reflexión final</span></div>
+        <span class="page-num" id="final-page-num"></span>
+      </header>
+      <div class="conclusion-block">
+        <p class="dossier-section-label centered">Lectura estratégica</p>
+        <p id="conclusion-text" class="conclusion-prose"></p>
+        <div class="conclusion-mark"></div>
+        <div class="roadmap-block">
+          <p class="sans" style="font-size:11px; font-weight:600; color:var(--ink-muted); text-transform:uppercase; letter-spacing:1.8px; margin-bottom:2px;">Tu hoja de ruta CAME</p>
+          <div id="roadmap-list"></div>
+        </div>
+        <p class="conclusion-footer" style="margin-top:26px;">Análisis DAFO · CAME · Toolkit IPE</p>
+      </div>
+    </article>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// DATOS
+// ═══════════════════════════════════════════════════════════════
+const QUADRANTS = [
+  { id:'F', color:'f', label:'Fortalezas', axis:'Interno · Positivo',
+    desc:'Capacidades y recursos propios que te dan ventaja sobre la competencia.',
+    bullets:['Recursos y capacidades diferenciales','Ventajas en coste, calidad o marca','Conocimientos y habilidades del equipo','Activos, patentes o ubicación privilegiada'],
+    placeholder:'Ej: Dominamos la técnica artesanal gracias a la experiencia previa del equipo' },
+  { id:'D', color:'d', label:'Debilidades', axis:'Interno · Negativo',
+    desc:'Recursos escasos o limitaciones propias que juegan en tu contra.',
+    bullets:['Falta de recursos financieros o humanos','Carencias de formación o experiencia','Procesos ineficientes o mal definidos','Dependencia de terceros o proveedores'],
+    placeholder:'Ej: No contamos con financiación inicial suficiente para el primer año' },
+  { id:'O', color:'o', label:'Oportunidades', axis:'Externo · Positivo',
+    desc:'Factores favorables del entorno que podrías aprovechar si actúas a tiempo.',
+    bullets:['Tendencias de mercado en auge','Nichos desatendidos por la competencia','Cambios normativos o tecnológicos favorables','Nuevos canales de distribución o venta'],
+    placeholder:'Ej: Crece la demanda de mobiliario de proximidad en el barrio' },
+  { id:'A', color:'a', label:'Amenazas', axis:'Externo · Negativo',
+    desc:'Factores del entorno que podrían perjudicar tu proyecto si no los anticipas.',
+    bullets:['Nuevos competidores o productos sustitutivos','Cambios normativos desfavorables','Barreras de entrada bajas para terceros','Cambios en gustos o hábitos de consumo'],
+    placeholder:'Ej: Una gran superficie de mobiliario va a abrir a 200 metros' },
+];
+
+const CRUCES = [
+  { id:'FO', from:'F', to:'O', verbo:'Explotar', tipo:'Estrategia ofensiva',
+    def:'Usa tus fortalezas para aprovechar al máximo las oportunidades detectadas.',
+    pregunta:'¿Cómo puedes apoyarte en estas fortalezas para lanzarte a por estas oportunidades?' },
+  { id:'DO', from:'D', to:'O', verbo:'Corregir', tipo:'Estrategia de reorientación',
+    def:'Corrige tus debilidades apoyándote en las oportunidades que ofrece el entorno.',
+    pregunta:'¿Cómo pueden estas oportunidades ayudarte a superar estas debilidades?' },
+  { id:'FA', from:'F', to:'A', verbo:'Mantener', tipo:'Estrategia defensiva',
+    def:'Usa tus fortalezas para neutralizar o amortiguar el efecto de las amenazas.',
+    pregunta:'¿Cómo puedes defenderte de estas amenazas apoyándote en estas fortalezas?' },
+  { id:'DA', from:'D', to:'A', verbo:'Afrontar', tipo:'Estrategia de supervivencia',
+    def:'Reduce tus debilidades y evita quedar expuesto ante las amenazas del entorno.',
+    pregunta:'¿Qué puedes hacer para que estas debilidades no te dejen expuesto ante estas amenazas?' },
+];
+
+const WEIGHT = { alta:3, media:2, baja:1 };
+const MAX_ITEMS = 6;
+const MIN_ITEMS = 2;
+
+const RESUMEN = {
+  ventaja: 'tu proyecto parte de una posición ventajosa: tus fortalezas y las oportunidades del entorno superan claramente a tus puntos débiles y a las amenazas detectadas. El reto ahora es actuar con rapidez para no dejar pasar la ventana de oportunidad.',
+  equilibrado: 'tu proyecto presenta un balance equilibrado entre lo que juega a tu favor y lo que juega en tu contra. Ninguno de los dos lados es determinante por sí solo, así que la ejecución concreta de las estrategias marcará la diferencia.',
+  vulnerable: 'tu proyecto presenta una posición vulnerable: las debilidades y amenazas identificadas pesan más que tus fortalezas y oportunidades actuales. Esto no invalida la idea, pero exige un plan de acción prioritario antes de escalarla.',
+};
+
+// ═══════════════════════════════════════════════════════════════
+// ESTADO
+// ═══════════════════════════════════════════════════════════════
+const state = {
+  screen: 'intro',
+  idea: '',
+  items: { F: [], D: [], O: [], A: [] },
+  cruces: {
+    FO: { selF: new Set(), selO: new Set(), texto: '' },
+    DO: { selD: new Set(), selO: new Set(), texto: '' },
+    FA: { selF: new Set(), selA: new Set(), texto: '' },
+    DA: { selD: new Set(), selA: new Set(), texto: '' },
+  },
+  currentQuadrant: null,
+  currentCruce: null,
+  currentPriority: null,
+  itemSeq: 1,
+};
+
+// ═══════════════════════════════════════════════════════════════
+// UTILS
+// ═══════════════════════════════════════════════════════════════
+function q(id) { return QUADRANTS.find(x => x.id === id); }
+function esc(str) { const d = document.createElement('div'); d.textContent = str; return d.innerHTML; }
+
+function highlightKeywords(text) {
+  const keywords = ['idea de negocio','fortaleza','debilidad','oportunidad','amenaza','estrategia','ventaja competitiva','DAFO','CAME','entorno','sector','mercado','riesgo'];
+  let result = text;
+  keywords.forEach(kw => { const re = new RegExp(`\\b(${kw}s?)\\b`, 'gi'); result = result.replace(re, '<span class="keyword">$1</span>'); });
+  return result;
+}
+
+function quadrantScore(qid) {
+  const items = state.items[qid];
+  if (!items.length) return 0;
+  return items.reduce((s, it) => s + WEIGHT[it.priority], 0);
+}
+function isQuadrantComplete(qid) { return state.items[qid].length >= MIN_ITEMS; }
+function topItem(qid) {
+  const items = state.items[qid];
+  if (!items.length) return null;
+  return items.reduce((a, b) => (WEIGHT[b.priority] > WEIGHT[a.priority] ? b : a));
+}
+function cruceState(cid) { return state.cruces[cid]; }
+function cruceSelKeys(cid) {
+  const c = CRUCES.find(x => x.id === cid);
+  return [`sel${c.from}`, `sel${c.to}`];
+}
+function isCruceComplete(cid) {
+  const c = CRUCES.find(x => x.id === cid);
+  const st = cruceState(cid);
+  const [kFrom, kTo] = cruceSelKeys(cid);
+  return st[kFrom].size >= 1 && st[kTo].size >= 1 && st.texto.trim().length >= 15;
+}
+function allQuadrantsComplete() { return QUADRANTS.every(f => isQuadrantComplete(f.id)); }
+function allCrucesComplete() { return CRUCES.every(c => isCruceComplete(c.id)); }
+
+function getEstadoGlobal() {
+  const positivo = quadrantScore('F') + quadrantScore('O');
+  const negativo = quadrantScore('D') + quadrantScore('A');
+  if (positivo > negativo * 1.25) return 'ventaja';
+  if (negativo > positivo * 1.25) return 'vulnerable';
+  return 'equilibrado';
+}
+
+// ═══════════════════════════════════════════════════════════════
+// NAVEGACIÓN
+// ═══════════════════════════════════════════════════════════════
+function go(screen) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + screen).classList.add('active');
+  state.screen = screen;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (screen === 'quadrants') renderQuadrants();
+  if (screen === 'quadrant-detail') renderQuadrantDetail();
+  if (screen === 'cruces') renderCruces();
+  if (screen === 'cruce-detail') renderCruceDetail();
+}
+
+// ═══════════════════════════════════════════════════════════════
+// INTRO
+// ═══════════════════════════════════════════════════════════════
+document.getElementById('idea-input').addEventListener('input', (e) => {
+  state.idea = e.target.value;
+  document.getElementById('btn-start').disabled = state.idea.trim().length < 15;
+});
+document.getElementById('btn-start').addEventListener('click', () => go('quadrants'));
+
+// ═══════════════════════════════════════════════════════════════
+// MATRIZ DAFO (componente reutilizado en panel y portada)
+// ═══════════════════════════════════════════════════════════════
+function renderMatrixHTML() {
+  const cell = (qid) => {
+    const f = q(qid);
+    const items = state.items[qid];
+    const score = quadrantScore(qid);
+    const preview = items.slice(0, 2).map(it => `<div>${esc(it.text)}</div>`).join('');
+    return `
+      <div class="matrix-cell ${f.color}">
+        <div class="matrix-cell-head">
+          <span class="matrix-cell-letter">${f.id}</span>
+          ${items.length ? `<span class="matrix-cell-score">${score}</span>` : ''}
+        </div>
+        <span class="matrix-cell-label">${f.label} · ${items.length}</span>
+        <div class="matrix-cell-list">${preview || '<div style="opacity:.55;">Sin elementos aún</div>'}</div>
+      </div>`;
+  };
+  return `
+    <div class="matrix-corner"></div>
+    <div class="matrix-col-label">Positivo</div>
+    <div class="matrix-col-label">Negativo</div>
+    <div class="matrix-row-label">Interno</div>
+    ${cell('F')}
+    ${cell('D')}
+    <div class="matrix-row-label">Externo</div>
+    ${cell('O')}
+    ${cell('A')}
+  `;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// PANEL DE CUADRANTES
+// ═══════════════════════════════════════════════════════════════
+function renderQuadrants() {
+  document.getElementById('idea-display-quadrants').innerHTML = highlightKeywords(esc(state.idea));
+  document.getElementById('quadrants-matrix').innerHTML = renderMatrixHTML();
+
+  const list = document.getElementById('quadrants-list');
+  list.innerHTML = '';
+  QUADRANTS.forEach((f) => {
+    const isDone = isQuadrantComplete(f.id);
+    const n = state.items[f.id].length;
+    const s = quadrantScore(f.id);
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'card card-interactive';
+    btn.style.cssText = 'padding:18px 22px; display:flex; align-items:center; gap:16px;';
+    btn.onclick = () => { state.currentQuadrant = f.id; go('quadrant-detail'); };
+    btn.innerHTML = `
+      <div style="width:50px; height:50px; border-radius:13px; background:var(--${f.color}-soft); display:flex; align-items:center; justify-content:center; flex-shrink:0; font-family:'Fraunces',Georgia,serif; font-size:25px; font-weight:500; color:var(--${f.color}-deep);">${f.id}</div>
+      <div style="flex:1; min-width:0;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:2px;">
+          <span style="font-size:11px; font-weight:500; color:var(--${f.color}-deep); text-transform:uppercase; letter-spacing:1px;">${f.axis}</span>
+          ${isDone ? `<span style="display:inline-flex; align-items:center; gap:3px; font-size:11px; color:var(--f-deep); font-weight:500;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Completo</span>` : ''}
+        </div>
+        <h3 class="subtitle" style="font-size:17px; font-weight:500; margin:0 0 2px;">${f.label}</h3>
+        <p class="sans" style="font-size:12.5px; color:var(--ink-muted); margin:0;">${n} de ${MAX_ITEMS} elementos ${n < MIN_ITEMS ? `· mínimo ${MIN_ITEMS}` : ''}</p>
+      </div>
+      <div style="display:flex; align-items:center; gap:10px; flex-shrink:0;">
+        ${n ? `<span class="serif" style="font-size:20px; font-weight:500; color:var(--${f.color}-deep);">${s}</span>` : ''}
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ink-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </div>
+    `;
+    list.appendChild(btn);
+  });
+
+  const done = QUADRANTS.filter(f => isQuadrantComplete(f.id)).length;
+  const allDone = allQuadrantsComplete();
+  document.getElementById('btn-to-cruces').disabled = !allDone;
+  document.getElementById('btn-to-cruces-text').textContent = allDone
+    ? 'Continuar al cruce CAME'
+    : `Completa los ${QUADRANTS.length - done} cuadrantes restantes`;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// DETALLE DE CUADRANTE
+// ═══════════════════════════════════════════════════════════════
+function renderQuadrantDetail() {
+  const f = q(state.currentQuadrant);
+  state.currentPriority = null;
+
+  const header = document.getElementById('quadrant-header');
+  header.style.background = `var(--${f.color}-soft)`;
+  document.getElementById('quadrant-letter').textContent = f.id;
+  document.getElementById('quadrant-letter').style.color = `var(--${f.color}-deep)`;
+  document.getElementById('quadrant-eyebrow').textContent = f.axis;
+  document.getElementById('quadrant-eyebrow').style.color = `var(--${f.color}-deep)`;
+  document.getElementById('quadrant-title').textContent = f.label;
+  document.getElementById('quadrant-title').style.color = `var(--${f.color}-ink)`;
+  document.getElementById('quadrant-desc').textContent = f.desc;
+  document.getElementById('quadrant-desc').style.color = `var(--${f.color}-ink)`;
+  document.getElementById('quadrant-bullets').innerHTML = f.bullets.map(b => `<li style="margin-bottom:4px;">${b}</li>`).join('');
+
+  const dots = document.getElementById('quadrant-progress');
+  dots.innerHTML = '';
+  QUADRANTS.forEach((qq) => {
+    const d = document.createElement('div');
+    d.className = 'progress-dot ' + (qq.id === f.id ? 'active' : (isQuadrantComplete(qq.id) ? 'done' : ''));
+    dots.appendChild(d);
+  });
+
+  const input = document.getElementById('item-text-input');
+  input.value = '';
+  input.placeholder = f.placeholder;
+
+  document.querySelectorAll('.priority-pill').forEach(p => p.removeAttribute('data-sel'));
+  document.getElementById('item-warn').style.display = 'none';
+
+  renderQuadrantItemsList();
+  updateAddButton();
+  updateSaveQuadrantButton();
+}
+
+function renderQuadrantItemsList() {
+  const f = q(state.currentQuadrant);
+  const container = document.getElementById('quadrant-items-list');
+  const items = state.items[f.id];
+  if (!items.length) {
+    container.innerHTML = `<p class="prose-italic" style="font-size:13.5px; color:var(--ink-muted); text-align:center; padding:16px 0;">Aún no has añadido ningún elemento.</p>`;
+    return;
+  }
+  container.innerHTML = items.map((it) => `
+    <div class="card" style="padding:14px 16px; display:flex; align-items:flex-start; gap:12px;">
+      <span class="priority-badge ${it.priority}">${it.priority}</span>
+      <p class="prose" style="flex:1; font-size:14px; margin:0;">${esc(it.text)}</p>
+      <button type="button" onclick="removeItem('${f.id}','${it.id}')" aria-label="Eliminar elemento" style="background:none; border:none; cursor:pointer; color:var(--ink-muted); padding:2px; flex-shrink:0;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+      </button>
+    </div>
+  `).join('');
+}
+
+function removeItem(qid, itemId) {
+  state.items[qid] = state.items[qid].filter(it => it.id !== itemId);
+  if (state.currentQuadrant === qid) { renderQuadrantItemsList(); updateSaveQuadrantButton(); updateAddButton(); }
+}
+
+document.querySelectorAll('.priority-pill').forEach(el => {
+  el.addEventListener('click', () => {
+    document.querySelectorAll('.priority-pill').forEach(p => p.removeAttribute('data-sel'));
+    el.setAttribute('data-sel', '1');
+    state.currentPriority = el.dataset.level;
+    updateAddButton();
+  });
+});
+
+document.getElementById('item-text-input').addEventListener('input', updateAddButton);
+
+function updateAddButton() {
+  const f = q(state.currentQuadrant);
+  const text = document.getElementById('item-text-input').value.trim();
+  const warn = document.getElementById('item-warn');
+  const atMax = state.items[f.id].length >= MAX_ITEMS;
+  const isDup = state.items[f.id].some(it => it.text.toLowerCase() === text.toLowerCase());
+  let msg = '';
+  if (atMax) msg = `Has alcanzado el máximo de ${MAX_ITEMS} elementos en este cuadrante.`;
+  else if (isDup && text.length > 0) msg = 'Ya has añadido un elemento con este mismo texto.';
+  warn.textContent = msg;
+  warn.style.display = msg ? 'block' : 'none';
+  const ok = text.length >= 5 && !!state.currentPriority && !atMax && !isDup;
+  document.getElementById('btn-add-item').disabled = !ok;
+}
+
+document.getElementById('btn-add-item').addEventListener('click', () => {
+  const f = q(state.currentQuadrant);
+  const text = document.getElementById('item-text-input').value.trim();
+  if (text.length < 5 || !state.currentPriority) return;
+  state.items[f.id].push({ id: 'it' + (state.itemSeq++), text, priority: state.currentPriority });
+  document.getElementById('item-text-input').value = '';
+  document.querySelectorAll('.priority-pill').forEach(p => p.removeAttribute('data-sel'));
+  state.currentPriority = null;
+  renderQuadrantItemsList();
+  updateAddButton();
+  updateSaveQuadrantButton();
+});
+
+function updateSaveQuadrantButton() {
+  document.getElementById('btn-save-quadrant').disabled = !isQuadrantComplete(state.currentQuadrant);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// PANEL DE CRUCES
+// ═══════════════════════════════════════════════════════════════
+function renderCruces() {
+  const list = document.getElementById('cruces-list');
+  list.innerHTML = '';
+  CRUCES.forEach((c) => {
+    const isDone = isCruceComplete(c.id);
+    const fromQ = q(c.from), toQ = q(c.to);
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'card card-interactive';
+    btn.style.cssText = 'padding:18px 22px; display:flex; align-items:center; gap:16px;';
+    btn.onclick = () => { state.currentCruce = c.id; go('cruce-detail'); };
+    btn.innerHTML = `
+      <div style="display:flex; align-items:center; flex-shrink:0;">
+        <div style="width:44px; height:44px; border-radius:12px; background:var(--${fromQ.color}-soft); display:flex; align-items:center; justify-content:center; font-family:'Fraunces',Georgia,serif; font-size:20px; font-weight:500; color:var(--${fromQ.color}-deep); z-index:1;">${fromQ.id}</div>
+        <div style="width:44px; height:44px; border-radius:12px; background:var(--${toQ.color}-soft); display:flex; align-items:center; justify-content:center; font-family:'Fraunces',Georgia,serif; font-size:20px; font-weight:500; color:var(--${toQ.color}-deep); margin-left:-14px;">${toQ.id}</div>
+      </div>
+      <div style="flex:1; min-width:0;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:2px;">
+          <span style="font-size:11px; font-weight:500; color:var(--tool-deep); text-transform:uppercase; letter-spacing:1px;">${c.tipo}</span>
+          ${isDone ? `<span style="display:inline-flex; align-items:center; gap:3px; font-size:11px; color:var(--f-deep); font-weight:500;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Completo</span>` : ''}
+        </div>
+        <h3 class="subtitle" style="font-size:17px; font-weight:500; margin:0;">${c.verbo} (${c.id})</h3>
+      </div>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ink-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+    `;
+    list.appendChild(btn);
+  });
+
+  const done = CRUCES.filter(c => isCruceComplete(c.id)).length;
+  const allDone = allCrucesComplete();
+  document.getElementById('btn-to-results').disabled = !allDone;
+  document.getElementById('btn-to-results-text').textContent = allDone
+    ? 'Generar informe estratégico'
+    : `Completa los ${CRUCES.length - done} cruces restantes`;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// DETALLE DE CRUCE
+// ═══════════════════════════════════════════════════════════════
+function renderCruceDetail() {
+  const c = CRUCES.find(x => x.id === state.currentCruce);
+  const st = cruceState(c.id);
+  const fromQ = q(c.from), toQ = q(c.to);
+
+  const header = document.getElementById('cruce-header');
+  header.style.background = 'var(--tool-soft)';
+  const pill = document.getElementById('cruce-pill');
+  pill.textContent = `${c.tipo} · ${c.id}`;
+  pill.style.background = 'var(--surface)';
+  pill.style.color = 'var(--tool-deep)';
+  document.getElementById('cruce-title').textContent = `${c.verbo}: ${fromQ.label.toLowerCase()} + ${toQ.label.toLowerCase()}`;
+  document.getElementById('cruce-title').style.color = 'var(--tool-deep)';
+  document.getElementById('cruce-def').textContent = c.def;
+
+  const dots = document.getElementById('cruce-progress');
+  dots.innerHTML = '';
+  CRUCES.forEach((cc) => {
+    const d = document.createElement('div');
+    d.className = 'progress-dot ' + (cc.id === c.id ? 'active' : (isCruceComplete(cc.id) ? 'done' : ''));
+    dots.appendChild(d);
+  });
+
+  const cols = document.getElementById('cruce-columns');
+  const colHTML = (side, letQ, selKey) => {
+    const items = state.items[letQ.id];
+    return `
+      <div>
+        <p class="label-form" style="color:var(--${letQ.color}-deep);">${letQ.label}</p>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          ${items.map(it => `
+            <button type="button" class="item-chip" data-sel="${st[selKey].has(it.id) ? 1 : 0}" data-side="${selKey}" data-id="${it.id}"
+              style="${st[selKey].has(it.id) ? `border-color:var(--${letQ.color}-deep); background:var(--${letQ.color}-soft);` : ''}">
+              <span class="chip-check" style="${st[selKey].has(it.id) ? `border-color:var(--${letQ.color}-deep); background:var(--${letQ.color}-deep);` : ''}">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span class="chip-text">${esc(it.text)}</span>
+            </button>
+          `).join('')}
+        </div>
+      </div>`;
+  };
+  const [kFrom, kTo] = cruceSelKeys(c.id);
+  cols.innerHTML = colHTML('from', fromQ, kFrom) + colHTML('to', toQ, kTo);
+
+  cols.querySelectorAll('.item-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const side = chip.dataset.side, id = chip.dataset.id;
+      if (st[side].has(id)) st[side].delete(id); else st[side].add(id);
+      renderCruceDetail();
+    });
+  });
+
+  document.getElementById('cruce-question').textContent = c.pregunta;
+  const textInput = document.getElementById('cruce-text-input');
+  textInput.value = st.texto;
+  document.getElementById('cruce-hint').textContent = `Mínimo 15 caracteres · ${st.texto.trim().length} escritos`;
+
+  updateSaveCruceButton();
+}
+
+document.getElementById('cruce-text-input').addEventListener('input', (e) => {
+  const c = CRUCES.find(x => x.id === state.currentCruce);
+  cruceState(c.id).texto = e.target.value;
+  document.getElementById('cruce-hint').textContent = `Mínimo 15 caracteres · ${e.target.value.trim().length} escritos`;
+  updateSaveCruceButton();
+});
+
+function updateSaveCruceButton() {
+  document.getElementById('btn-save-cruce').disabled = !isCruceComplete(state.currentCruce);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// RESULTADOS
+// ═══════════════════════════════════════════════════════════════
+function finishAndShowResults() {
+  if (!allCrucesComplete()) return;
+  go('results');
+  renderResults();
+}
+
+function renderResults() {
+  const estado = getEstadoGlobal();
+
+  document.getElementById('idea-display-results').innerHTML = highlightKeywords(esc(state.idea));
+  document.getElementById('resumen-general').innerHTML = highlightKeywords(`Tras diagnosticar tu idea, ${RESUMEN[estado]}`);
+  document.getElementById('results-matrix-mount').innerHTML = `<div class="matrix-shell">${renderMatrixHTML()}</div>`;
+
+  // Principal palanca / principal riesgo
+  const topF = topItem('F'), topO = topItem('O'), topD = topItem('D'), topA = topItem('A');
+  let palanca = null, palancaQ = null;
+  if (topF && topO) { palanca = WEIGHT[topF.priority] >= WEIGHT[topO.priority] ? topF : topO; palancaQ = palanca === topF ? q('F') : q('O'); }
+  else if (topF) { palanca = topF; palancaQ = q('F'); } else if (topO) { palanca = topO; palancaQ = q('O'); }
+  let riesgo = null, riesgoQ = null;
+  if (topD && topA) { riesgo = WEIGHT[topD.priority] >= WEIGHT[topA.priority] ? topD : topA; riesgoQ = riesgo === topD ? q('D') : q('A'); }
+  else if (topD) { riesgo = topD; riesgoQ = q('D'); } else if (topA) { riesgo = topA; riesgoQ = q('A'); }
+
+  document.getElementById('palanca-title').textContent = palancaQ ? palancaQ.label : '—';
+  document.getElementById('palanca-text').innerHTML = palanca ? highlightKeywords(esc(palanca.text)) : 'Aún no hay elementos de prioridad alta en fortalezas u oportunidades.';
+  document.getElementById('riesgo-title').textContent = riesgoQ ? riesgoQ.label : '—';
+  document.getElementById('riesgo-text').innerHTML = riesgo ? highlightKeywords(esc(riesgo.text)) : 'Aún no hay elementos de prioridad alta en debilidades o amenazas.';
+
+  const totalPages = 1 + QUADRANTS.length + CRUCES.length + 1;
+  document.getElementById('total-pages').textContent = String(totalPages).padStart(2, '0');
+  document.getElementById('final-page-num').textContent = `${String(totalPages).padStart(2,'0')} / ${String(totalPages).padStart(2,'0')}`;
+
+  // Páginas de cuadrante
+  const quadContainer = document.getElementById('results-quadrants');
+  quadContainer.innerHTML = '';
+  QUADRANTS.forEach((f, i) => {
+    const pageNum = i + 2;
+    const items = [...state.items[f.id]].sort((a, b) => WEIGHT[b.priority] - WEIGHT[a.priority]);
+    const score = quadrantScore(f.id);
+    const rowsHTML = items.map((it, idx) => `
+      <div class="quad-item-row">
+        <div class="quad-item-num" style="background:var(--${f.color}-soft); color:var(--${f.color}-deep);">${idx+1}</div>
+        <p class="quad-item-text">${highlightKeywords(esc(it.text))}</p>
+        <span class="priority-badge ${it.priority}">${it.priority}</span>
+      </div>
+    `).join('');
+    const bulletsHTML = f.bullets.map(b => `<li>${b}</li>`).join('');
+    const page = document.createElement('article');
+    page.className = 'page-a4 fade';
+    page.innerHTML = `
+      <header class="page-header">
+        <div class="page-mark"><div class="page-mark-line" style="background:var(--${f.color}-deep);"></div><span class="eyebrow" style="color:var(--${f.color}-deep);">${f.axis} · ${f.label}</span></div>
+        <span class="page-num">${String(pageNum).padStart(2,'0')} / ${String(totalPages).padStart(2,'0')}</span>
+      </header>
+      <div class="quad-page-hero">
+        <div class="quad-page-letter" style="background:var(--${f.color}-soft); color:var(--${f.color}-deep);">${f.id}</div>
+        <div class="quad-page-meta">
+          <span class="quad-page-eyebrow" style="color:var(--${f.color}-deep);">Cuadrante del diagnóstico</span>
+          <h2 class="quad-page-title">${f.label}</h2>
+          <p class="quad-page-def">${f.desc}</p>
+        </div>
+        <div class="quad-page-score-box">
+          <p class="quad-page-score-num" style="color:var(--${f.color}-deep);">${score}</p>
+          <p class="quad-page-score-unit">puntuación</p>
+        </div>
+      </div>
+      <div style="margin-bottom:20px;">${rowsHTML}</div>
+      <div class="quad-bullets-block">
+        <span class="dossier-section-label" style="color:var(--${f.color}-deep); border-bottom:none; padding-bottom:0;">Aspectos a considerar en este cuadrante</span>
+        <ul class="quad-bullets">${bulletsHTML}</ul>
+      </div>
+    `;
+    quadContainer.appendChild(page);
+  });
+
+  // Páginas de cruce
+  const cruceContainer = document.getElementById('results-cruces');
+  cruceContainer.innerHTML = '';
+  CRUCES.forEach((c, i) => {
+    const pageNum = i + 2 + QUADRANTS.length;
+    const st = cruceState(c.id);
+    const fromQ = q(c.from), toQ = q(c.to);
+    const [kFrom, kTo] = cruceSelKeys(c.id);
+    const fromItems = state.items[c.from].filter(it => st[kFrom].has(it.id));
+    const toItems = state.items[c.to].filter(it => st[kTo].has(it.id));
+    const listHTML = (items) => items.map(it => `<div class="cruce-source-item">${esc(it.text)}</div>`).join('');
+    const page = document.createElement('article');
+    page.className = 'page-a4 fade';
+    page.innerHTML = `
+      <header class="page-header">
+        <div class="page-mark"><div class="page-mark-line" style="background:var(--tool-deep);"></div><span class="eyebrow" style="color:var(--tool-deep);">Cruce CAME · ${c.tipo}</span></div>
+        <span class="page-num">${String(pageNum).padStart(2,'0')} / ${String(totalPages).padStart(2,'0')}</span>
+      </header>
+      <div class="cruce-page-hero">
+        <span class="cruce-page-pill" style="background:var(--tool-soft); color:var(--tool-deep);">${c.id} · ${c.tipo}</span>
+        <h2 class="cruce-page-title">${c.verbo}: ${fromQ.label.toLowerCase()} + ${toQ.label.toLowerCase()}</h2>
+        <p class="cruce-page-def">${c.def}</p>
+      </div>
+      <div class="cruce-sources">
+        <div class="cruce-source-col" style="background:var(--${fromQ.color}-soft);">
+          <span class="cruce-source-label" style="color:var(--${fromQ.color}-deep);">${fromQ.label} consideradas</span>
+          ${listHTML(fromItems)}
+        </div>
+        <div class="cruce-source-col" style="background:var(--${toQ.color}-soft);">
+          <span class="cruce-source-label" style="color:var(--${toQ.color}-deep);">${toQ.label} consideradas</span>
+          ${listHTML(toItems)}
+        </div>
+      </div>
+      <div class="cruce-strategy-block">
+        <span class="cruce-strategy-label">Estrategia definida por el alumnado</span>
+        <p class="cruce-strategy-text">${highlightKeywords(esc(st.texto))}</p>
+      </div>
+    `;
+    cruceContainer.appendChild(page);
+  });
+
+  // Conclusión + hoja de ruta
+  const conclusionTemplates = {
+    ventaja: `El diagnóstico confirma que <span class="keyword">${palancaQ ? palancaQ.label.toLowerCase() : 'tus fortalezas'}</span> es tu mayor activo estratégico. La prioridad es ejecutar con decisión tu estrategia ofensiva antes de que otros detecten la misma oportunidad.`,
+    equilibrado: `El diagnóstico muestra un pulso equilibrado entre <span class="keyword">${palancaQ ? palancaQ.label.toLowerCase() : 'tus puntos fuertes'}</span> y <span class="keyword">${riesgoQ ? riesgoQ.label.toLowerCase() : 'tus puntos débiles'}</span>. Combinar bien tus cuatro estrategias CAME será lo que incline la balanza a tu favor.`,
+    vulnerable: `El diagnóstico señala que <span class="keyword">${riesgoQ ? riesgoQ.label.toLowerCase() : 'tus amenazas'}</span> requiere atención inmediata. Antes de escalar el proyecto, conviene resolver esta fragilidad con las estrategias de supervivencia y reorientación que has definido.`,
+  };
+  document.getElementById('conclusion-text').innerHTML = conclusionTemplates[estado];
+
+  const roadmap = document.getElementById('roadmap-list');
+  roadmap.innerHTML = CRUCES.map(c => {
+    const txt = cruceState(c.id).texto.trim();
+    const preview = txt.length > 100 ? txt.slice(0, 97) + '…' : txt;
+    return `<div class="roadmap-row"><span class="roadmap-verbo" style="color:var(--tool-deep);">${c.verbo}</span><span class="roadmap-text">${esc(preview)}</span></div>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════════════════════════════
+// RESET
+// ═══════════════════════════════════════════════════════════════
+function resetAll() {
+  state.idea = '';
+  state.items = { F: [], D: [], O: [], A: [] };
+  state.cruces = {
+    FO: { selF: new Set(), selO: new Set(), texto: '' },
+    DO: { selD: new Set(), selO: new Set(), texto: '' },
+    FA: { selF: new Set(), selA: new Set(), texto: '' },
+    DA: { selD: new Set(), selA: new Set(), texto: '' },
+  };
+  state.currentQuadrant = null;
+  state.currentCruce = null;
+  state.currentPriority = null;
+  state.itemSeq = 1;
+  document.getElementById('idea-input').value = '';
+  document.getElementById('btn-start').disabled = true;
+  go('intro');
+}
+</script>
+
+</body>
+</html>
