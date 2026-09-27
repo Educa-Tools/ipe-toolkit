@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ruta al Artículo 22</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:          #FBFCEF;
+    --canvas:      #FAF7F2;
+    --surface:     #FFFFFF;
+    --surface-alt: #F5F6E4;
+
+    --ink:         #1E1C1A;
+    --ink-soft:    #4A463F;
+    --ink-muted:   #8B847A;
+
+    --line:        #E8E1D6;
+    --line-soft:   #EEEFD8;
+
+    --olive-deep:  #6B7028;
+    --olive-mid:   #A8AD5C;
+    --lime-soft:   #E8EDC4;
+    --lime-mid:    #C5CD78;
+
+    --accent:      #6A3FA0;
+    --accent-deep: #4E2E78;
+    --accent-soft: #EFE6F7;
+
+    --ok:          #557A35;
+    --ok-soft:     #E5EDDB;
+    --bad:         #8B3A3A;
+    --bad-soft:    #F4E5E5;
+
+    --p-soft:#E4E8F0; --p-mid:#8B9CB5; --p-deep:#3E5778; --p-ink:#243650;
+    --t-soft:#E5EFEC; --t-mid:#7FAA9D; --t-deep:#3D6B5C; --t-ink:#244238;
+    --e2-soft:#E5EDDB; --e2-mid:#A8C485; --e2-deep:#557A35; --e2-ink:#354B22;
+    --e1-soft:#F2EDDB; --e1-mid:#C9B073; --e1-deep:#8B6F2A; --e1-ink:#5A4818;
+    --s-soft:#F4E5E5; --s-mid:#C58A8A; --s-deep:#8B3A3A; --s-ink:#5E2424;
+
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-ui:      'Inter', -apple-system, 'Segoe UI', sans-serif;
+
+    --radius-card: 18px;
+    --radius-pill: 999px;
+
+    color-scheme: light;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { background: var(--bg); }
+  body {
+    margin: 0;
+    font-family: var(--font-ui);
+    color: var(--ink);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding-inline: 20px;
+    padding-block: 28px 64px;
+  }
+  h1, h2, h3 { font-family: var(--font-display); margin: 0; text-wrap: balance; }
+  p { margin: 0; }
+  button { font-family: var(--font-ui); cursor: pointer; }
+
+  /* ---- Header / brand ---- */
+  .brand {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 34px;
+  }
+  .brand-star { width: 22px; height: 22px; color: var(--olive-deep); flex: none; }
+  .brand-name {
+    font-family: var(--font-display); font-weight: 700; font-size: 17px;
+    color: var(--ink); letter-spacing: -0.2px;
+  }
+  .brand-name em { font-style: normal; color: var(--olive-mid); }
+  .brand-tag {
+    font-size: 10px; font-weight: 600; color: var(--ink-muted);
+    letter-spacing: 1.6px; text-transform: uppercase; margin-left: 2px;
+  }
+
+  /* ---- Hero ---- */
+  .eyebrow {
+    display: inline-block; font-size: 12px; font-weight: 600;
+    letter-spacing: 1.2px; text-transform: uppercase; color: var(--accent-deep);
+    background: var(--accent-soft); border-radius: var(--radius-pill);
+    padding: 5px 12px; margin-bottom: 14px;
+  }
+  h1.title { font-size: clamp(28px, 6vw, 38px); font-weight: 700; line-height: 1.08; letter-spacing: -0.5px; }
+  .subtitle {
+    margin-top: 12px; font-size: 16px; line-height: 1.55; color: var(--ink-soft);
+    max-width: 58ch;
+  }
+
+  /* ---- Progress strip ---- */
+  .progress-card {
+    margin-top: 26px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+    padding: 18px 20px;
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+    gap: 14px;
+  }
+  .progress-metrics { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 200px; }
+  .progress-line { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+  .progress-label { font-size: 12.5px; font-weight: 600; color: var(--ink-muted); letter-spacing: 0.3px; }
+  .progress-value { font-size: 13px; font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .segbar { display: flex; gap: 5px; }
+  .segbar span {
+    height: 7px; flex: 1; border-radius: var(--radius-pill); background: var(--line-soft);
+    transition: background .2s ease;
+  }
+  .segbar span.filled { background: var(--accent); }
+  .streak-badge {
+    display: flex; align-items: center; gap: 7px;
+    background: var(--surface-alt); border: 1px solid var(--line-soft);
+    border-radius: var(--radius-pill); padding: 8px 14px; flex: none;
+  }
+  .streak-badge svg { width: 15px; height: 15px; color: var(--accent); }
+  .streak-badge b { font-size: 13px; color: var(--ink); }
+  .streak-badge small { display: block; font-size: 10px; color: var(--ink-muted); letter-spacing: .4px; text-transform: uppercase; }
+
+  /* ---- Route ---- */
+  .route { margin-top: 34px; position: relative; }
+  .route-title { font-size: 13px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 16px; }
+  .route-track { position: relative; }
+  .route-track::before {
+    content: ''; position: absolute; left: 27px; top: 30px; bottom: 30px; width: 3px;
+    background: var(--line); border-radius: 3px; z-index: 0;
+  }
+  .level-node {
+    position: relative; z-index: 1; width: 100%; text-align: left;
+    display: flex; align-items: center; gap: 16px;
+    background: none; border: none; padding: 10px 0; margin: 0;
+  }
+  .node-badge {
+    flex: none; width: 56px; height: 56px; border-radius: 50%;
+    background: var(--surface); border: 3px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 700; font-size: 19px; color: var(--ink-soft);
+    transition: border-color .15s ease, color .15s ease, transform .1s ease;
+  }
+  .level-node:hover .node-badge { transform: scale(1.05); }
+  .level-node:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 14px; }
+  .node-badge.done { border-color: var(--fam-deep); color: var(--fam-deep); background: var(--fam-soft); }
+  .node-body {
+    flex: 1; background: var(--surface); border: 1px solid var(--line);
+    border-radius: 14px; padding: 13px 16px; display: flex; align-items: center;
+    justify-content: space-between; gap: 12px; transition: border-color .15s ease, box-shadow .15s ease;
+  }
+  .level-node:hover .node-body { border-color: var(--fam-mid); box-shadow: 0 2px 10px -4px rgba(0,0,0,.12); }
+  .node-info { display: flex; flex-direction: column; gap: 3px; }
+  .node-tag { font-size: 10.5px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--fam-deep); }
+  .node-title { font-size: 15.5px; font-weight: 600; color: var(--ink); }
+  .node-status { flex: none; font-size: 12.5px; font-weight: 600; color: var(--ink-muted); text-align: right; white-space: nowrap; }
+  .node-status.stars { color: var(--fam-deep); letter-spacing: 1px; }
+
+  /* ---- Boss node ---- */
+  .boss-node {
+    position: relative; z-index: 1; width: 100%; text-align: left;
+    display: flex; align-items: center; gap: 16px; margin-top: 6px;
+    background: none; border: none; padding: 10px 0;
+  }
+  .boss-node[disabled] { cursor: default; }
+  .boss-badge {
+    flex: none; width: 56px; height: 56px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 700; font-size: 22px;
+    background: var(--surface); border: 3px dashed var(--ink-muted); color: var(--ink-muted);
+  }
+  .boss-badge.unlocked { border-style: solid; border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+  .boss-body {
+    flex: 1; border-radius: 14px; padding: 14px 16px;
+    background: var(--surface-alt); border: 1px solid var(--line-soft);
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  }
+  .boss-body.unlocked { background: var(--accent-soft); border-color: var(--accent); }
+  .boss-node:not([disabled]):hover .boss-body { box-shadow: 0 2px 10px -4px rgba(0,0,0,.12); }
+  .boss-title { font-size: 15.5px; font-weight: 700; color: var(--ink-soft); }
+  .boss-body.unlocked .boss-title { color: var(--accent-deep); }
+  .boss-sub { font-size: 12px; color: var(--ink-muted); margin-top: 2px; }
+
+  /* ---- Level view ---- */
+  #level-view { margin-top: 8px; }
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 6px; background: none; border: none;
+    color: var(--ink-soft); font-size: 13.5px; font-weight: 600; padding: 8px 0; margin-bottom: 10px;
+  }
+  .back-btn:hover { color: var(--ink); }
+  .level-head {
+    background: var(--fam-soft); border: 1px solid var(--fam-mid);
+    border-radius: var(--radius-card); padding: 20px 22px; margin-bottom: 20px;
+  }
+  .level-eyebrow { font-size: 11.5px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--fam-deep); }
+  .level-head h2 { font-size: 22px; margin-top: 6px; color: var(--fam-ink); }
+  .level-intro { margin-top: 8px; font-size: 14.5px; line-height: 1.5; color: var(--ink-soft); }
+
+  .qdots { display: flex; gap: 6px; margin-bottom: 14px; }
+  .qdots span { width: 26px; height: 5px; border-radius: var(--radius-pill); background: var(--line-soft); }
+  .qdots span.active { background: var(--fam-deep); }
+  .qdots span.past { background: var(--fam-mid); }
+
+  .card {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius-card); padding: 22px;
+  }
+  .q-text { font-size: 17px; font-weight: 600; line-height: 1.4; }
+  .options { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; }
+  .opt {
+    display: flex; align-items: center; gap: 12px; text-align: left;
+    border: 1.5px solid var(--line); border-radius: 12px; padding: 12px 14px;
+    background: var(--surface); font-size: 14.5px; color: var(--ink); line-height: 1.4;
+    transition: border-color .12s ease, background .12s ease;
+  }
+  .opt-mark {
+    flex: none; width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid var(--line);
+    display: flex; align-items: center; justify-content: center; font-size: 11px; color: transparent;
+  }
+  .opt:hover { border-color: var(--fam-mid); }
+  .opt.selected { border-color: var(--accent); background: var(--accent-soft); }
+  .opt.selected .opt-mark { border-color: var(--accent); background: var(--accent); color: #fff; }
+  .opt.selected .opt-mark::after { content: '✓'; }
+  .opt.correct { border-color: var(--ok); background: var(--ok-soft); }
+  .opt.correct .opt-mark { border-color: var(--ok); background: var(--ok); color: #fff; }
+  .opt.correct .opt-mark::after { content: '✓'; }
+  .opt.wrong { border-color: var(--bad); background: var(--bad-soft); }
+  .opt.wrong .opt-mark { border-color: var(--bad); background: var(--bad); color: #fff; }
+  .opt.wrong .opt-mark::after { content: '✕'; }
+  .opt.locked { cursor: default; }
+
+  .vf-row { display: flex; gap: 12px; margin-top: 18px; }
+  .vf-row .opt { flex: 1; justify-content: center; text-align: center; font-weight: 600; }
+
+  .actions { margin-top: 20px; display: flex; justify-content: flex-end; }
+  .btn {
+    border: none; border-radius: var(--radius-pill); padding: 11px 22px;
+    font-size: 14px; font-weight: 700; background: var(--accent); color: #fff;
+  }
+  .btn[disabled] { background: var(--line); color: var(--ink-muted); cursor: default; }
+  .btn.ghost { background: var(--surface); border: 1.5px solid var(--line); color: var(--ink); }
+
+  .feedback { margin-top: 18px; padding: 15px 16px; border-radius: 12px; border-left: 4px solid var(--ok); background: var(--ok-soft); }
+  .feedback.bad { border-left-color: var(--bad); background: var(--bad-soft); }
+  .feedback-verdict { font-size: 13px; font-weight: 700; color: var(--ok); text-transform: uppercase; letter-spacing: .4px; }
+  .feedback.bad .feedback-verdict { color: var(--bad); }
+  .feedback-text { margin-top: 6px; font-size: 14px; line-height: 1.5; color: var(--ink-soft); }
+  .feedback-text b { color: var(--ink); }
+
+  /* ---- Level summary ---- */
+  .summary-card { text-align: center; padding: 32px 22px; }
+  .summary-stars { display: flex; justify-content: center; gap: 8px; margin: 16px 0 6px; }
+  .summary-stars svg { width: 30px; height: 30px; color: var(--line); }
+  .summary-stars svg.on { color: var(--fam-deep); }
+  .summary-note { font-size: 14px; color: var(--ink-soft); margin-top: 4px; }
+
+  /* ---- Boss view ---- */
+  #boss-view .card { background: var(--accent-soft); border-color: var(--accent); }
+  .boss-eyebrow { font-size: 11.5px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--accent-deep); }
+  #boss-view h2 { font-size: 24px; color: var(--accent-deep); margin-top: 6px; }
+  #boss-view .body-text { margin-top: 12px; font-size: 15px; line-height: 1.6; color: var(--ink-soft); }
+  #boss-view .body-text + .body-text { margin-top: 10px; }
+  .boss-link {
+    display: inline-block; margin-top: 16px; font-size: 13.5px; font-weight: 700;
+    color: var(--accent-deep); text-decoration: underline; text-underline-offset: 3px;
+  }
+
+  [hidden] { display: none !important; }
+
+  @media (max-width: 480px) {
+    .node-body { flex-direction: column; align-items: flex-start; gap: 4px; }
+    .node-status { text-align: left; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="brand">
+    <svg class="brand-star" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+      <path d="M20 0 C20 0 18 9 14 13 C10 17 0 20 0 20 C0 20 10 23 14 27 C18 31 20 40 20 40 C20 40 22 31 26 27 C30 23 40 20 40 20 C40 20 30 17 26 13 C22 9 20 0 20 0Z" fill="currentColor"/>
+    </svg>
+    <span class="brand-name">Educa <em>Tools</em></span>
+    <span class="brand-tag">Herramientas didácticas</span>
+  </header>
+
+  <!-- ===== ROUTE VIEW ===== -->
+  <section id="route-view">
+    <span class="eyebrow">IPE 1 · Prevención de Riesgos Laborales</span>
+    <h1 class="title">Ruta al Artículo 22</h1>
+    <p class="subtitle">Repaso exprés de los artículos 17 a 21 de la LPRL antes de entrar en el 22, que tiene bastante chicha. Cinco niveles, tres preguntas cada uno. Puedes hacerlos en el orden que quieras.</p>
+
+    <div class="progress-card">
+      <div class="progress-metrics">
+        <div class="progress-line">
+          <span class="progress-label">Niveles superados</span>
+          <span class="progress-value" id="pv-levels">0/5</span>
+        </div>
+        <div class="segbar" id="segbar"></div>
+        <div class="progress-line">
+          <span class="progress-label">Aciertos a la primera</span>
+          <span class="progress-value" id="pv-stars">0/15</span>
+        </div>
+      </div>
+      <div class="streak-badge">
+        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M20 0 C20 0 18 9 14 13 C10 17 0 20 0 20 C0 20 10 23 14 27 C18 31 20 40 20 40 C20 40 22 31 26 27 C30 23 40 20 40 20 C40 20 30 17 26 13 C22 9 20 0 20 0Z" fill="currentColor"/>
+        </svg>
+        <span>
+          <b id="pv-streak">0</b>
+          <small>Racha actual</small>
+        </span>
+      </div>
+    </div>
+
+    <div class="route">
+      <div class="route-title">Elige un nivel</div>
+      <div class="route-track" id="route-track"></div>
+    </div>
+  </section>
+
+  <!-- ===== LEVEL VIEW ===== -->
+  <section id="level-view" hidden>
+    <button class="back-btn" id="btn-back-route" type="button">← Volver a la ruta</button>
+
+    <div id="level-head-wrap"></div>
+
+    <div id="qdots" class="qdots"></div>
+
+    <div id="question-wrap"></div>
+
+    <div id="summary-wrap" hidden></div>
+  </section>
+
+  <!-- ===== BOSS VIEW ===== -->
+  <section id="boss-view" hidden>
+    <button class="back-btn" id="btn-back-boss" type="button">← Volver a la ruta</button>
+    <div class="card">
+      <span class="boss-eyebrow">Próximo nivel</span>
+      <h2>Artículo 22 · Vigilancia de la salud</h2>
+      <p class="body-text">Consentimiento del trabajador salvo excepciones tasadas, reconocimientos médicos, confidencialidad de los resultados frente a la empresa... es el artículo con más matices de toda la unidad, y por algo lo dejamos para el final.</p>
+      <p class="body-text">Has superado los cinco niveles previos, así que ya manejas el terreno en el que se apoya: información, formación, EPI, emergencias y riesgo grave. En la próxima sesión entramos a fondo con el 22.</p>
+      <a class="boss-link" href="simuladorprl.html" target="_blank" rel="noopener">Cuando lo veamos en clase, practícalo en el Simulador de expedientes PRL →</a>
+    </div>
+  </section>
+
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var LS_KEY = 'ipe_ruta_art22_progreso_v1';
+
+  var FAM = {
+    17: 'p', 18: 't', 19: 'e2', 20: 'e1', 21: 's'
+  };
+
+  var NIVELES = [
+    {
+      art: '17', tag: 'EPI', titulo: 'Equipos de protección individual',
+      intro: 'Todo lo que se lleva puesto para protegerse de un riesgo concreto que no se ha podido eliminar de otra forma: casco, guantes, arnés, gafas, mascarilla...',
+      preguntas: [
+        {
+          type: 'mc',
+          texto: '¿Quién debe proporcionar los EPI necesarios y quién asume su coste?',
+          opciones: [
+            { id: 'a', texto: 'El trabajador, que se los descuenta de la nómina' },
+            { id: 'b', texto: 'El empresario, de forma gratuita' },
+            { id: 'c', texto: 'Se reparte al 50% entre empresa y trabajador' },
+            { id: 'd', texto: 'Los sindicatos, si el convenio lo prevé' }
+          ],
+          correcta: 'b',
+          explicacion: 'El art. 17.3 obliga al empresario a proporcionar los EPI adecuados y a velar por su uso correcto. El coste nunca puede recaer sobre el trabajador.'
+        },
+        {
+          type: 'vf',
+          texto: 'Cuando un EPI debe usarse frente a varios riesgos a la vez, el empresario tiene que comprobar que los distintos equipos son compatibles entre sí y mantienen su eficacia.',
+          respuesta: 'si',
+          explicacion: 'Verdadero. El art. 17.2 exige garantizar el funcionamiento y la eficacia de los EPI cuando concurren varios riesgos que obligan a llevarlos simultáneamente.'
+        },
+        {
+          type: 'mc',
+          texto: 'Un trabajador dice que prefiere no llevar el arnés porque "total, nunca pasa nada". ¿Qué es lo correcto?',
+          opciones: [
+            { id: 'a', texto: 'Es una decisión personal, el EPI es voluntario' },
+            { id: 'b', texto: 'Debe utilizar el EPI facilitado, cuidarlo y avisar de cualquier defecto o riesgo que detecte' },
+            { id: 'c', texto: 'Solo es obligatorio a partir de un accidente previo' },
+            { id: 'd', texto: 'El uso del EPI solo es exigible pasados dos años de antigüedad' }
+          ],
+          correcta: 'b',
+          explicacion: 'El art. 17 obliga a la empresa a facilitar el EPI adecuado, y el art. 29 obliga al trabajador a utilizarlo y cuidarlo correctamente. No es una opción.'
+        }
+      ]
+    },
+    {
+      art: '18', tag: 'Consulta', titulo: 'Información, consulta y participación',
+      intro: 'El derecho de la plantilla a saber qué riesgos hay en su puesto, a que se le consulte antes de decisiones que le afectan, y a participar activamente en la prevención.',
+      preguntas: [
+        {
+          type: 'vf',
+          texto: 'Basta con que el empresario informe a los delegados de prevención; no hace falta que cada trabajador reciba información directa sobre los riesgos de su propio puesto.',
+          respuesta: 'no',
+          explicacion: 'Falso. El art. 18.1 exige que la información llegue directamente a cada trabajador sobre los riesgos de su puesto, las medidas de protección y las de emergencia, además de la consulta a los representantes.'
+        },
+        {
+          type: 'mc',
+          texto: '¿Sobre cuál de estas cuestiones debe consultarse a los trabajadores o a sus representantes antes de que la empresa decida?',
+          opciones: [
+            { id: 'a', texto: 'El horario de la cafetería de la empresa' },
+            { id: 'b', texto: 'La planificación de la actividad preventiva y la introducción de nuevas tecnologías' },
+            { id: 'c', texto: 'El logotipo corporativo' },
+            { id: 'd', texto: 'Las fechas de las vacaciones de verano' }
+          ],
+          correcta: 'b',
+          explicacion: 'El art. 18.2 obliga a consultar con antelación cualquier decisión que afecte a la seguridad y salud: planificación preventiva, nuevas tecnologías, organización del trabajo, designación de personal de emergencias, etc.'
+        },
+        {
+          type: 'vf',
+          texto: 'El derecho de participación en materia preventiva es solo de los delegados de prevención; el resto de la plantilla no puede plantear propuestas.',
+          respuesta: 'no',
+          explicacion: 'Falso. El art. 18.2 reconoce el derecho de participación de los trabajadores en general, no únicamente de sus representantes.'
+        }
+      ]
+    },
+    {
+      art: '19', tag: 'Formación', titulo: 'Formación de los trabajadores',
+      intro: 'Nadie debería enfrentarse a un riesgo para el que no ha sido preparado. La formación en PRL es una obligación empresarial, no un favor.',
+      preguntas: [
+        {
+          type: 'mc',
+          texto: '¿Cuándo tiene que dar formación en PRL el empresario a un trabajador?',
+          opciones: [
+            { id: 'a', texto: 'Solo si lo pide expresamente el trabajador por escrito' },
+            { id: 'b', texto: 'En el momento de la contratación y siempre que cambien sus funciones o se introduzcan nuevos equipos o tecnologías' },
+            { id: 'c', texto: 'Una única vez, al empezar en la empresa, y ya no hace falta repetirla' },
+            { id: 'd', texto: 'Solo el personal directivo necesita formación en PRL' }
+          ],
+          correcta: 'b',
+          explicacion: 'El art. 19.1 vincula la formación a la contratación y a cualquier cambio de puesto, funciones, equipos o tecnología que introduzca riesgos nuevos.'
+        },
+        {
+          type: 'vf',
+          texto: 'La formación debe darse, siempre que sea posible, dentro de la jornada laboral; si no es posible, se descuenta ese tiempo de otras actividades.',
+          respuesta: 'si',
+          explicacion: 'Verdadero, así lo recoge el art. 19.2.'
+        },
+        {
+          type: 'vf',
+          texto: 'El coste de la formación en PRL puede repercutirse sobre el trabajador cuando supere un número determinado de horas al año.',
+          respuesta: 'no',
+          explicacion: 'Falso. El art. 19.2 es explícito: el coste no recaerá en ningún caso sobre los trabajadores, sin límite de horas.'
+        }
+      ]
+    },
+    {
+      art: '20', tag: 'Emergencias', titulo: 'Medidas de emergencia',
+      intro: 'Incendios, evacuaciones, primeros auxilios. Cuando algo sale mal de verdad, la empresa ya tenía que tener el plan hecho de antemano.',
+      preguntas: [
+        {
+          type: 'mc',
+          texto: '¿Qué obligación tiene el empresario respecto a las situaciones de emergencia?',
+          opciones: [
+            { id: 'a', texto: 'Ninguna, es competencia exclusiva de Protección Civil' },
+            { id: 'b', texto: 'Analizar las posibles emergencias y adoptar las medidas de primeros auxilios, lucha contra incendios y evacuación, designando personal encargado' },
+            { id: 'c', texto: 'Basta con tener un extintor visible en la entrada' },
+            { id: 'd', texto: 'Solo aplica a empresas de más de 250 personas trabajadoras' }
+          ],
+          correcta: 'b',
+          explicacion: 'El art. 20 obliga a analizar las posibles emergencias por adelantado y a tener un plan de actuación con personal designado, no a improvisar cuando ocurren.'
+        },
+        {
+          type: 'vf',
+          texto: 'El personal designado para aplicar las medidas de emergencia debe ser suficiente en número y contar con la formación necesaria.',
+          respuesta: 'si',
+          explicacion: 'Verdadero, es un requisito explícito del art. 20.'
+        },
+        {
+          type: 'vf',
+          texto: 'Una vez implantadas, las medidas de emergencia no es necesario comprobarlas de nuevo salvo que ocurra un accidente.',
+          respuesta: 'no',
+          explicacion: 'Falso. El art. 20 exige comprobar periódicamente su correcto funcionamiento, no esperar a que falle de verdad.'
+        }
+      ]
+    },
+    {
+      art: '21', tag: 'Riesgo grave', titulo: 'Riesgo grave e inminente',
+      intro: 'El nivel de alerta máximo de la ley: un peligro grave e inminente activa derechos especiales para quien lo sufre en primera persona.',
+      preguntas: [
+        {
+          type: 'vf',
+          texto: 'Ante un riesgo grave e inminente, el trabajador puede interrumpir su actividad y abandonar el lugar de trabajo si es necesario, sin que ello le suponga ningún perjuicio.',
+          respuesta: 'si',
+          explicacion: 'Verdadero, salvo negligencia grave por su parte. Así lo establece el art. 21.2.'
+        },
+        {
+          type: 'mc',
+          texto: 'En cuanto el empresario tiene conocimiento de una situación de riesgo grave e inminente, ¿qué debe hacer?',
+          opciones: [
+            { id: 'a', texto: 'Esperar a que termine el turno para no interrumpir la producción' },
+            { id: 'b', texto: 'Informar cuanto antes a los trabajadores afectados del riesgo y de las medidas adoptadas' },
+            { id: 'c', texto: 'Comunicarlo únicamente a la Inspección de Trabajo' },
+            { id: 'd', texto: 'No está obligado a informar si el riesgo dura pocos minutos' }
+          ],
+          correcta: 'b',
+          explicacion: 'El art. 21.1 obliga a informar lo antes posible a todos los trabajadores afectados sobre el riesgo y las medidas adoptadas o que deban adoptarse.'
+        },
+        {
+          type: 'vf',
+          texto: 'Un trabajador que se niega a reanudar su actividad mientras persiste un peligro grave e inminente puede ser sancionado igual que si hubiera abandonado el puesto sin motivo.',
+          respuesta: 'no',
+          explicacion: 'Falso. El art. 21.3 impide exigir la reanudación de la actividad mientras persista el peligro, salvo excepción debidamente justificada, sin que quepa sanción por ello.'
+        }
+      ]
+    }
+  ];
+
+  var starIconOn = '<svg viewBox="0 0 24 24" fill="currentColor" class="on"><path d="M12 2l2.7 6.6L22 9.3l-5.3 4.6L18.2 21 12 17.1 5.8 21l1.5-7.1L2 9.3l7.3-.7z"/></svg>';
+  var starIconOff = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.7 6.6L22 9.3l-5.3 4.6L18.2 21 12 17.1 5.8 21l1.5-7.1L2 9.3l7.3-.7z"/></svg>';
+
+  var state = {
+    view: 'route',        // 'route' | 'level' | 'boss'
+    art: null,
+    qi: 0,
+    selected: null,
+    locked: false,
+    firstTryCorrect: []
+  };
+
+  function loadProgress() {
+    try {
+      var raw = localStorage.getItem(LS_KEY);
+      if (!raw) return { niveles: {}, streak: 0, bestStreak: 0 };
+      var parsed = JSON.parse(raw);
+      return {
+        niveles: parsed.niveles || {},
+        streak: parsed.streak || 0,
+        bestStreak: parsed.bestStreak || 0
+      };
+    } catch (e) {
+      return { niveles: {}, streak: 0, bestStreak: 0 };
+    }
+  }
+  function saveProgress(p) {
+    try { localStorage.setItem(LS_KEY, JSON.stringify(p)); } catch (e) {}
+  }
+
+  var progress = loadProgress();
+
+  function nivelById(art) {
+    for (var i = 0; i < NIVELES.length; i++) if (NIVELES[i].art === art) return NIVELES[i];
+    return null;
+  }
+
+  function el(tag, cls, html) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (html !== undefined) e.innerHTML = html;
+    return e;
+  }
+
+  function setView(v) {
+    state.view = v;
+    document.getElementById('route-view').hidden = v !== 'route';
+    document.getElementById('level-view').hidden = v !== 'level';
+    document.getElementById('boss-view').hidden = v !== 'boss';
+  }
+
+  // ---------- ROUTE ----------
+  function levelsDone() {
+    var n = 0;
+    for (var i = 0; i < NIVELES.length; i++) if (progress.niveles[NIVELES[i].art] && progress.niveles[NIVELES[i].art].done) n++;
+    return n;
+  }
+  function starsTotal() {
+    var n = 0;
+    for (var i = 0; i < NIVELES.length; i++) {
+      var d = progress.niveles[NIVELES[i].art];
+      if (d) n += (d.stars || 0);
+    }
+    return n;
+  }
+
+  function renderProgressStrip() {
+    var done = levelsDone();
+    document.getElementById('pv-levels').textContent = done + '/5';
+    document.getElementById('pv-stars').textContent = starsTotal() + '/15';
+    document.getElementById('pv-streak').textContent = progress.streak;
+
+    var bar = document.getElementById('segbar');
+    bar.innerHTML = '';
+    for (var i = 0; i < 5; i++) {
+      var s = document.createElement('span');
+      if (i < done) s.className = 'filled';
+      bar.appendChild(s);
+    }
+  }
+
+  function renderRoute() {
+    renderProgressStrip();
+
+    var track = document.getElementById('route-track');
+    track.innerHTML = '';
+
+    NIVELES.forEach(function (nivel) {
+      var fam = FAM[nivel.art];
+      var d = progress.niveles[nivel.art];
+      var btn = el('button', 'level-node');
+      btn.type = 'button';
+      btn.style.setProperty('--fam-soft', 'var(--' + fam + '-soft)');
+      btn.style.setProperty('--fam-mid', 'var(--' + fam + '-mid)');
+      btn.style.setProperty('--fam-deep', 'var(--' + fam + '-deep)');
+      btn.style.setProperty('--fam-ink', 'var(--' + fam + '-ink)');
+
+      var badge = el('div', 'node-badge' + (d && d.done ? ' done' : ''), nivel.art);
+      var body = el('div', 'node-body');
+      var info = el('div', 'node-info');
+      info.appendChild(el('span', 'node-tag', 'Art. ' + nivel.art + ' · ' + nivel.tag));
+      info.appendChild(el('span', 'node-title', nivel.titulo));
+      var status;
+      if (d && d.done) {
+        status = el('span', 'node-status stars', '★'.repeat(d.stars) + '☆'.repeat(3 - d.stars));
+      } else {
+        status = el('span', 'node-status', 'Sin empezar');
+      }
+      body.appendChild(info);
+      body.appendChild(status);
+      btn.appendChild(badge);
+      btn.appendChild(body);
+      btn.addEventListener('click', function () { openLevel(nivel.art); });
+      track.appendChild(btn);
+    });
+
+    var unlocked = levelsDone() >= NIVELES.length;
+    var boss = el('button', 'boss-node');
+    boss.type = 'button';
+    if (!unlocked) boss.disabled = true;
+    var bossBadge = el('div', 'boss-badge' + (unlocked ? ' unlocked' : ''), unlocked ? '22' : '?');
+    var bossBody = el('div', 'boss-body' + (unlocked ? ' unlocked' : ''));
+    var bossInfo = el('div');
+    bossInfo.appendChild(el('div', 'boss-title', unlocked ? 'Artículo 22 · desbloqueado' : 'Artículo 22'));
+    bossInfo.appendChild(el('div', 'boss-sub', unlocked ? 'Vigilancia de la salud — toca para ver el adelanto' : 'Se desbloquea al superar los 5 niveles'));
+    bossBody.appendChild(bossInfo);
+    boss.appendChild(bossBadge);
+    boss.appendChild(bossBody);
+    if (unlocked) boss.addEventListener('click', function () { setView('boss'); });
+    track.appendChild(boss);
+  }
+
+  // ---------- LEVEL ----------
+  function openLevel(art) {
+    state.art = art;
+    state.qi = 0;
+    state.selected = null;
+    state.locked = false;
+    state.firstTryCorrect = [];
+    document.getElementById('summary-wrap').hidden = true;
+    document.getElementById('summary-wrap').innerHTML = '';
+    setView('level');
+    renderLevelHead();
+    renderQuestion();
+  }
+
+  function renderLevelHead() {
+    var nivel = nivelById(state.art);
+    var fam = FAM[nivel.art];
+    var wrap = document.getElementById('level-head-wrap');
+    wrap.innerHTML = '';
+    var head = el('div', 'level-head');
+    head.style.setProperty('--fam-soft', 'var(--' + fam + '-soft)');
+    head.style.setProperty('--fam-mid', 'var(--' + fam + '-mid)');
+    head.style.setProperty('--fam-deep', 'var(--' + fam + '-deep)');
+    head.style.setProperty('--fam-ink', 'var(--' + fam + '-ink)');
+    head.appendChild(el('div', 'level-eyebrow', 'Nivel · Artículo ' + nivel.art));
+    head.appendChild(el('h2', '', nivel.titulo));
+    head.appendChild(el('p', 'level-intro', nivel.intro));
+    wrap.appendChild(head);
+  }
+
+  function renderDots() {
+    var nivel = nivelById(state.art);
+    var fam = FAM[nivel.art];
+    var dots = document.getElementById('qdots');
+    dots.innerHTML = '';
+    dots.style.setProperty('--fam-mid', 'var(--' + fam + '-mid)');
+    dots.style.setProperty('--fam-deep', 'var(--' + fam + '-deep)');
+    nivel.preguntas.forEach(function (q, i) {
+      var s = document.createElement('span');
+      if (i === state.qi) s.className = 'active';
+      else if (i < state.qi) s.className = 'past';
+      dots.appendChild(s);
+    });
+  }
+
+  function renderQuestion() {
+    document.getElementById('summary-wrap').hidden = true;
+    var nivel = nivelById(state.art);
+    var fam = FAM[nivel.art];
+    var q = nivel.preguntas[state.qi];
+    state.selected = null;
+    state.locked = false;
+
+    renderDots();
+
+    var wrap = document.getElementById('question-wrap');
+    wrap.innerHTML = '';
+    var card = el('div', 'card');
+    card.style.setProperty('--fam-mid', 'var(--' + fam + '-mid)');
+    card.appendChild(el('p', 'q-text', q.texto));
+
+    if (q.type === 'vf') {
+      var row = el('div', 'vf-row');
+      ['si', 'no'].forEach(function (val) {
+        var opt = el('button', 'opt', '<span class="opt-mark"></span><span>' + (val === 'si' ? 'Verdadero' : 'Falso') + '</span>');
+        opt.type = 'button';
+        opt.addEventListener('click', function () { selectAnswer(val, opt, row.querySelectorAll('.opt')); });
+        row.appendChild(opt);
+      });
+      card.appendChild(row);
+    } else {
+      var opts = el('div', 'options');
+      q.opciones.forEach(function (o) {
+        var opt = el('button', 'opt', '<span class="opt-mark"></span><span>' + o.texto + '</span>');
+        opt.type = 'button';
+        opt.addEventListener('click', function () { selectAnswer(o.id, opt, opts.querySelectorAll('.opt')); });
+        opts.appendChild(opt);
+      });
+      card.appendChild(opts);
+    }
+
+    var feedbackSlot = el('div');
+    card.appendChild(feedbackSlot);
+
+    var actions = el('div', 'actions');
+    var btn = el('button', 'btn', 'Comprobar');
+    btn.type = 'button';
+    btn.disabled = true;
+    btn.addEventListener('click', function () { confirmAnswer(q, feedbackSlot, actions); });
+    actions.appendChild(btn);
+    card.appendChild(actions);
+
+    wrap.appendChild(card);
+  }
+
+  function selectAnswer(val, optEl, allOpts) {
+    if (state.locked) return;
+    state.selected = val;
+    for (var i = 0; i < allOpts.length; i++) allOpts[i].classList.remove('selected');
+    optEl.classList.add('selected');
+    var btn = document.querySelector('.actions .btn');
+    if (btn) btn.disabled = false;
+  }
+
+  function confirmAnswer(q, feedbackSlot, actions) {
+    if (state.locked || state.selected === null) return;
+    state.locked = true;
+
+    var correct = q.type === 'vf' ? q.respuesta : q.correcta;
+    var isRight = state.selected === correct;
+    state.firstTryCorrect[state.qi] = isRight;
+
+    var allOpts = document.querySelectorAll('.opt');
+    allOpts.forEach(function (o) { o.classList.add('locked'); });
+
+    if (q.type === 'vf') {
+      allOpts.forEach(function (o, i) {
+        var val = i === 0 ? 'si' : 'no';
+        if (val === correct) o.classList.add('correct');
+        else if (val === state.selected) o.classList.add('wrong');
+      });
+    } else {
+      q.opciones.forEach(function (o, i) {
+        var elOpt = allOpts[i];
+        if (o.id === correct) elOpt.classList.add('correct');
+        else if (o.id === state.selected) elOpt.classList.add('wrong');
+      });
+    }
+
+    var fb = el('div', 'feedback' + (isRight ? '' : ' bad'));
+    fb.appendChild(el('div', 'feedback-verdict', isRight ? 'Correcto' : 'No es así'));
+    fb.appendChild(el('div', 'feedback-text', q.explicacion));
+    feedbackSlot.innerHTML = '';
+    feedbackSlot.appendChild(fb);
+
+    if (isRight) {
+      progress.streak += 1;
+      if (progress.streak > progress.bestStreak) progress.bestStreak = progress.streak;
+    } else {
+      progress.streak = 0;
+    }
+    saveProgress(progress);
+    renderProgressStrip();
+
+    actions.innerHTML = '';
+    var nivel = nivelById(state.art);
+    var isLast = state.qi === nivel.preguntas.length - 1;
+    var nextBtn = el('button', 'btn', isLast ? 'Ver resultado' : 'Siguiente pregunta');
+    nextBtn.type = 'button';
+    nextBtn.addEventListener('click', function () {
+      if (isLast) finishLevel();
+      else { state.qi += 1; renderQuestion(); }
+    });
+    actions.appendChild(nextBtn);
+  }
+
+  function finishLevel() {
+    var nivel = nivelById(state.art);
+    var fam = FAM[nivel.art];
+    var stars = state.firstTryCorrect.filter(Boolean).length;
+
+    progress.niveles[nivel.art] = { done: true, stars: stars };
+    saveProgress(progress);
+    renderProgressStrip();
+
+    document.getElementById('question-wrap').innerHTML = '';
+    document.getElementById('qdots').innerHTML = '';
+
+    var wrap = document.getElementById('summary-wrap');
+    wrap.hidden = false;
+    wrap.innerHTML = '';
+    var card = el('div', 'card summary-card');
+    card.style.setProperty('--fam-deep', 'var(--' + fam + '-deep)');
+    card.appendChild(el('div', 'level-eyebrow', 'Nivel superado'));
+    card.appendChild(el('h2', '', 'Artículo ' + nivel.art));
+    var starsRow = el('div', 'summary-stars');
+    for (var i = 0; i < 3; i++) starsRow.innerHTML += (i < stars ? starIconOn : starIconOff);
+    card.appendChild(starsRow);
+    card.appendChild(el('p', 'summary-note', stars + ' de 3 aciertos a la primera.'));
+    var back = el('button', 'btn', 'Volver a la ruta');
+    back.type = 'button';
+    back.style.marginTop = '20px';
+    back.addEventListener('click', function () { setView('route'); renderRoute(); });
+    var backWrap = el('div', 'actions');
+    backWrap.style.justifyContent = 'center';
+    backWrap.appendChild(back);
+    card.appendChild(backWrap);
+    wrap.appendChild(card);
+  }
+
+  document.getElementById('btn-back-route').addEventListener('click', function () { setView('route'); renderRoute(); });
+  document.getElementById('btn-back-boss').addEventListener('click', function () { setView('route'); renderRoute(); });
+
+  // ---------- boot / hot reload ----------
+  function snapshot() {
+    return { view: state.view, art: state.art, qi: state.qi };
+  }
+  function start(data) {
+    renderRoute();
+    if (data && data.view === 'level' && data.art) {
+      openLevel(data.art);
+      state.qi = Math.min(data.qi || 0, nivelById(data.art).preguntas.length - 1);
+      renderQuestion();
+    } else if (data && data.view === 'boss' && levelsDone() >= NIVELES.length) {
+      setView('boss');
+    } else {
+      setView('route');
+    }
+  }
+  if (window.claude && window.claude.hot) {
+    window.claude.hot.snapshot(snapshot);
+    if (window.claude.hot.ready) window.claude.hot.ready(start);
+    else start(window.claude.hot.data || {});
+  } else {
+    start({});
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buscador de enfermedades profesionales · RD 1299/2006</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --canvas: #FBFCEF;
+  --surface: #FFFFFF;
+  --ink: #1F2417;
+  --ink-soft: #4A4F36;
+  --ink-muted: #8A8B6A;
+  --line: #E5E8C8;
+  --line-soft: #EFF1D9;
+
+  --olive-soft: #D8DCA0;
+  --olive-mid: #A8AD5C;
+  --olive-deep: #6B7028;
+  --lime-soft: #E8EDC4;
+
+  --tool: #A8452E;
+  --tool-soft: #F3E3DE;
+  --tool-ink: #6B2A19;
+
+  /* Familias de color por grupo del cuadro RD 1299/2006 */
+  --g1-soft: #F4E5E5; --g1-mid: #C58A8A; --g1-deep: #8B3A3A; --g1-ink: #5E2424; /* químicos */
+  --g2-soft: #E4E8F0; --g2-mid: #8B9CB5; --g2-deep: #3E5778; --g2-ink: #243650; /* físicos */
+  --g3-soft: #E5EDDB; --g3-mid: #A8C485; --g3-deep: #557A35; --g3-ink: #354B22; /* biológicos */
+  --g4-soft: #E5EFEC; --g4-mid: #7FAA9D; --g4-deep: #3D6B5C; --g4-ink: #244238; /* inhalación */
+  --g5-soft: #F2EDDB; --g5-mid: #C9B073; --g5-deep: #8B6F2A; --g5-ink: #5A4818; /* piel */
+  --g6-soft: #ECE5EC; --g6-mid: #A582AC; --g6-deep: #5D3D66; --g6-ink: #3B2442; /* carcinógenos */
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--canvas);
+  color: var(--ink);
+  min-height: 100vh;
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.serif { font-family: 'Fraunces', Georgia, serif; }
+.sans  { font-family: 'Inter', system-ui, sans-serif; }
+
+.container { max-width: 760px; margin: 0 auto; padding: 48px 24px 80px; }
+
+h1.display {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 44px;
+  line-height: 1.08;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  font-variation-settings: "opsz" 72;
+}
+h1.display em { font-style: italic; font-weight: 300; color: var(--tool); }
+
+.eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px; font-weight: 600; color: var(--ink-muted);
+  text-transform: uppercase; letter-spacing: 2px;
+}
+.eyebrow-line { display: flex; align-items: center; gap: 12px; margin-bottom: 22px; }
+.eyebrow-line::before { content: ''; width: 40px; height: 1px; background: var(--tool); }
+
+.prose-italic {
+  font-family: 'Fraunces', Georgia, serif; font-style: italic; font-weight: 300;
+  line-height: 1.6; color: var(--ink-soft);
+}
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 13px 22px; border-radius: 999px; font-family: 'Inter', sans-serif;
+  font-size: 14px; font-weight: 500; cursor: pointer; border: none; outline: none;
+  transition: all 0.2s ease;
+}
+.btn-primary { background: var(--ink); color: var(--canvas); }
+.btn-primary:hover { background: #2D3220; }
+.btn-ghost { background: transparent; color: var(--ink-soft); border: 1px solid var(--line); }
+.btn-ghost:hover { background: var(--surface); border-color: var(--ink-muted); }
+.btn-back {
+  display: inline-flex; align-items: center; gap: 6px; background: none; border: none;
+  font-size: 13px; color: var(--ink-muted); cursor: pointer; padding: 0;
+  font-family: 'Inter', sans-serif; margin-bottom: 20px;
+}
+.btn-back:hover { color: var(--ink); }
+
+.search-box {
+  display: flex; align-items: center; gap: 10px;
+  border: 1.5px solid var(--line); border-radius: 14px; padding: 14px 18px;
+  background: var(--surface); margin-bottom: 18px;
+}
+.search-box input {
+  border: none; outline: none; flex: 1; font-family: 'Inter', sans-serif;
+  font-size: 15px; color: var(--ink); background: transparent;
+}
+.search-box svg { color: var(--ink-muted); flex-shrink: 0; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+.chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 14px; border-radius: 999px; border: 1.5px solid var(--line);
+  background: var(--surface); font-family: 'Inter', sans-serif; font-size: 12.5px;
+  font-weight: 500; color: var(--ink-soft); cursor: pointer; transition: all 0.15s ease;
+}
+.chip:hover { border-color: var(--ink-muted); }
+.chip .dot { width: 8px; height: 8px; border-radius: 50%; }
+.chip.active { color: #fff; border-color: transparent; }
+
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 560px) { .grid { grid-template-columns: 1fr; } .container { padding: 36px 18px 60px; } h1.display { font-size: 34px; } }
+
+.prof-card {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+  padding: 16px 18px; cursor: pointer; transition: all 0.2s ease; text-align: left;
+}
+.prof-card:hover { border-color: var(--ink-muted); transform: translateY(-2px); box-shadow: 0 10px 26px -14px rgba(31,36,23,0.18); }
+.prof-badge {
+  display: inline-flex; align-items: center; gap: 5px; font-family: 'Inter', sans-serif;
+  font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 999px;
+  text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px;
+}
+.prof-nombre { font-family: 'Fraunces', Georgia, serif; font-size: 17px; font-weight: 500; color: var(--ink); margin-bottom: 3px; line-height: 1.3; }
+.prof-sector { font-family: 'Inter', sans-serif; font-size: 12px; color: var(--ink-muted); }
+
+.empty-state { text-align: center; padding: 48px 20px; color: var(--ink-muted); font-family: 'Fraunces', Georgia, serif; font-style: italic; font-size: 16px; }
+
+/* ── DETALLE ── */
+.detail-hero { padding: 26px 26px 24px; border-radius: 18px; margin-bottom: 22px; }
+.detail-badge {
+  display: inline-flex; align-items: center; gap: 6px; font-family: 'Inter', sans-serif;
+  font-size: 11px; font-weight: 700; padding: 5px 12px; border-radius: 999px;
+  text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px;
+}
+.detail-title { font-family: 'Fraunces', Georgia, serif; font-size: 30px; font-weight: 400; line-height: 1.15; margin-bottom: 6px; }
+.detail-sector { font-family: 'Inter', sans-serif; font-size: 13px; color: var(--ink-muted); }
+
+.section-label {
+  font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1.6px; margin: 0 0 12px; display: block;
+}
+
+.block { padding: 20px 22px; border-radius: 14px; border: 1px solid var(--line); background: var(--surface); margin-bottom: 16px; }
+.block-tight { padding: 18px 20px; }
+
+.ep-list { list-style: none; padding: 0; margin: 0; }
+.ep-list li {
+  font-family: 'Fraunces', Georgia, serif; font-size: 15.5px; line-height: 1.6; color: var(--ink);
+  padding: 10px 0 10px 26px; position: relative; border-bottom: 1px solid var(--line-soft);
+}
+.ep-list li:last-child { border-bottom: none; }
+.ep-list li::before {
+  content: ''; position: absolute; left: 4px; top: 18px; width: 6px; height: 6px; border-radius: 50%;
+}
+
+.secundarios { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.sec-pill {
+  display: inline-flex; align-items: center; gap: 5px; padding: 5px 11px; border-radius: 999px;
+  font-family: 'Inter', sans-serif; font-size: 11.5px; font-weight: 500;
+}
+
+.disclaimer {
+  background: var(--lime-soft); border: 1px solid var(--olive-soft); border-radius: 12px;
+  padding: 16px 18px; font-family: 'Inter', sans-serif; font-size: 12.5px; line-height: 1.6;
+  color: var(--ink-soft); margin-bottom: 30px;
+}
+.disclaimer a { color: var(--olive-deep); }
+
+.legend-row { display: flex; flex-wrap: wrap; gap: 10px 18px; margin-bottom: 8px; }
+.legend-item { display: flex; align-items: center; gap: 7px; font-family: 'Inter', sans-serif; font-size: 12px; color: var(--ink-soft); }
+.legend-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+
+.screen { display: none; }
+.screen.active { display: block; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.fade { animation: fadeUp 0.4s cubic-bezier(0.4,0,0.2,1); }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ BUSCADOR ═══════════ -->
+<div id="screen-buscador" class="screen active">
+  <div class="container">
+    <div class="eyebrow-line">
+      <span class="eyebrow">IPE 1 · Prevención de Riesgos Laborales</span>
+    </div>
+    <h1 class="display fade" style="margin-bottom: 16px;">¿Qué enfermedad profesional puede tener <em>tu oficio</em>?</h1>
+    <p class="prose-italic fade" style="font-size: 17px; margin-bottom: 24px;">
+      Busca una profesión y descubre a qué grupo del cuadro de enfermedades profesionales pertenece, qué agente la provoca y qué patologías puede generar.
+    </p>
+
+    <div class="disclaimer fade">
+      Herramienta con fines didácticos, basada en los seis grupos del <strong>Real Decreto 1299/2006</strong>, que aprueba el cuadro de enfermedades profesionales del sistema de la Seguridad Social. Los casos son ejemplos orientativos de asociación agente–oficio: la calificación real de una enfermedad profesional siempre la determina la entidad gestora o colaboradora a partir del caso concreto. Texto completo en <a href="https://www.boe.es/eli/es/rd/2006/11/10/1299/con" target="_blank" rel="noopener">boe.es</a>.
+    </div>
+
+    <div class="search-box fade">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="search-input" type="text" placeholder="Busca un oficio: soldador, camarero, peluquera, albañil...">
+    </div>
+
+    <div id="chips" class="chips fade"></div>
+
+    <div id="grid" class="grid fade"></div>
+    <div id="empty" class="empty-state" style="display:none;">No hay oficios que coincidan con la búsqueda. Prueba con otro término o quita algún filtro.</div>
+  </div>
+</div>
+
+<!-- ═══════════ DETALLE ═══════════ -->
+<div id="screen-detalle" class="screen">
+  <div class="container">
+    <button class="btn-back" onclick="go('buscador')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+      Volver al buscador
+    </button>
+
+    <div id="detail-hero" class="detail-hero fade"></div>
+
+    <div class="block fade">
+      <span class="section-label" id="agente-label">Agente causante</span>
+      <p id="agente-text" class="serif" style="font-size: 16px; line-height: 1.55; color: var(--ink);"></p>
+    </div>
+
+    <div class="block fade">
+      <span class="section-label" id="ep-label">Enfermedades profesionales asociadas</span>
+      <ul id="ep-list" class="ep-list"></ul>
+    </div>
+
+    <div class="block block-tight fade">
+      <span class="section-label" style="color: var(--ink-muted);">Por qué se produce</span>
+      <p class="sans" style="font-size: 13.5px; line-height: 1.6; color: var(--ink-soft);" id="actividad-text"></p>
+    </div>
+
+    <div id="secundarios-block" class="fade" style="margin-top: 4px;"></div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// GRUPOS — RD 1299/2006
+// ═══════════════════════════════════════════════════════════════
+const GRUPOS = {
+  1: { nombre: "Agentes químicos", color: "g1", desc: "Metales, disolventes, pesticidas, ácidos y otras sustancias químicas." },
+  2: { nombre: "Agentes físicos", color: "g2", desc: "Ruido, vibraciones, posturas forzadas, radiaciones, presión, temperaturas extremas." },
+  3: { nombre: "Agentes biológicos", color: "g3", desc: "Virus, bacterias, hongos y parásitos por contacto laboral." },
+  4: { nombre: "Inhalación de sustancias", color: "g4", desc: "Polvo mineral u orgánico no incluido en el grupo 1 (sílice, amianto, harina, algodón...)." },
+  5: { nombre: "Enfermedades de la piel", color: "g5", desc: "Dermatosis por contacto con sustancias no incluidas en el grupo 1." },
+  6: { nombre: "Agentes carcinógenos", color: "g6", desc: "Sustancias y procesos con capacidad demostrada de producir cáncer." },
+};
+
+// ═══════════════════════════════════════════════════════════════
+// OFICIOS
+// ═══════════════════════════════════════════════════════════════
+const OFICIOS = [
+  { id:"carpintero", nombre:"Carpintero/a · ebanista", sector:"Madera y mueble", grupo:6, secundarios:[4,5],
+    agente:"Polvo de madera (maderas duras: roble, haya, iroko...)",
+    enfermedades:["Cáncer de las fosas nasales y senos paranasales (adenocarcinoma)","Asma y rinitis alérgica por polvo de madera","Dermatitis de contacto por resinas, colas y barnices"],
+    actividad:"Lijado y corte de madera en talleres con ventilación insuficiente y exposición prolongada al serrín fino." },
+  { id:"camarero", nombre:"Camarero/a de sala", sector:"Hostelería", grupo:2, secundarios:[5],
+    agente:"Movimientos repetitivos, bipedestación prolongada, carga de bandejas",
+    enfermedades:["Bursitis","Tendinitis de hombro y muñeca","Síndrome del túnel carpiano"],
+    actividad:"Servicio de mesas de pie durante toda la jornada, con movimientos repetitivos al portar peso." },
+  { id:"cocinero", nombre:"Cocinero/a", sector:"Hostelería", grupo:2, secundarios:[5],
+    agente:"Calor, posturas forzadas, contacto continuo con agua y detergentes",
+    enfermedades:["Tendinitis y bursitis por movimientos repetitivos","Dermatitis de contacto en las manos","Trastornos por exposición a calor extremo"],
+    actividad:"Trabajo de pie junto a fuentes de calor, con lavado constante de manos y utensilios." },
+  { id:"peluquero", nombre:"Peluquero/a", sector:"Estética y peluquería", grupo:5, secundarios:[1,2],
+    agente:"Productos capilares: tintes, decolorantes, champús",
+    enfermedades:["Dermatitis alérgica de contacto en las manos","Asma ocupacional por persulfatos (decolorantes)","Tendinitis de hombro por posturas mantenidas con los brazos elevados"],
+    actividad:"Contacto directo y repetido con productos químicos capilares, a menudo sin protección adecuada." },
+  { id:"esteticista", nombre:"Esteticista · manicurista", sector:"Estética", grupo:5, secundarios:[1],
+    agente:"Resinas acrílicas, disolventes, esmaltes",
+    enfermedades:["Dermatitis de contacto","Asma o rinitis por vapores de resinas (uñas de gel o acrílicas)"],
+    actividad:"Aplicación de productos químicos en espacios cerrados con ventilación limitada." },
+  { id:"auxenf", nombre:"Auxiliar de enfermería · celador/a", sector:"Sanidad", grupo:3, secundarios:[5,2],
+    agente:"Fluidos biológicos y agentes infecciosos",
+    enfermedades:["Hepatitis B y C","Tuberculosis","Dermatitis por lavado frecuente de manos y alergia al látex"],
+    actividad:"Contacto directo con pacientes, fluidos corporales y material contaminado." },
+  { id:"radiologo", nombre:"Técnico/a de radiología", sector:"Sanidad", grupo:2, secundarios:[6],
+    agente:"Radiaciones ionizantes",
+    enfermedades:["Alteraciones hematológicas por radiación","Cáncer inducido por exposición crónica a radiación ionizante"],
+    actividad:"Manejo habitual de equipos de rayos X y radiodiagnóstico." },
+  { id:"veterinario", nombre:"Veterinario/a", sector:"Sanidad animal", grupo:3, secundarios:[],
+    agente:"Agentes zoonóticos (brucella, leptospira...)",
+    enfermedades:["Brucelosis","Leptospirosis","Tétanos"],
+    actividad:"Contacto directo con animales, sus fluidos y tejidos." },
+  { id:"agricultor", nombre:"Agricultor/a · aplicador/a de fitosanitarios", sector:"Agrario", grupo:1, secundarios:[2],
+    agente:"Plaguicidas y herbicidas",
+    enfermedades:["Intoxicación aguda o crónica por pesticidas","Dermatitis por contacto con productos fitosanitarios","Trastornos por vibraciones (maquinaria agrícola)"],
+    actividad:"Aplicación de productos fitosanitarios sin equipo de protección adecuado." },
+  { id:"ganadero", nombre:"Ganadero/a", sector:"Agroganadero", grupo:3, secundarios:[2],
+    agente:"Contacto con animales y sus productos",
+    enfermedades:["Brucelosis","Carbunco (ántrax)","Tétanos"],
+    actividad:"Manejo diario de ganado, ordeño y limpieza de establos." },
+  { id:"albanil", nombre:"Albañil · operario/a de construcción", sector:"Construcción", grupo:4, secundarios:[6,2],
+    agente:"Sílice cristalina (corte de ladrillo, hormigón, piedra)",
+    enfermedades:["Silicosis","Cáncer de pulmón por sílice cristalina","Trastornos por vibraciones mecánicas (martillo picador)"],
+    actividad:"Corte y perforación de materiales de construcción que generan polvo de sílice." },
+  { id:"cantero", nombre:"Cantero/a · marmolista", sector:"Piedra natural", grupo:4, secundarios:[6],
+    agente:"Polvo de sílice cristalina",
+    enfermedades:["Silicosis","Cáncer de pulmón"],
+    actividad:"Corte y pulido de piedra natural (mármol, granito) en seco o con ventilación insuficiente." },
+  { id:"soldador", nombre:"Soldador/a", sector:"Metal", grupo:1, secundarios:[2,6],
+    agente:"Humos metálicos (óxidos de hierro, manganeso, cromo)",
+    enfermedades:["Siderosis (neumoconiosis benigna por óxido de hierro)","Hipoacusia por ruido","Queratitis por radiación ultravioleta del arco"],
+    actividad:"Soldadura en espacios con ventilación insuficiente y exposición a radiación UV del arco eléctrico." },
+  { id:"fundidor", nombre:"Operario/a de fundición", sector:"Metal", grupo:1, secundarios:[6],
+    agente:"Metales pesados (plomo, cadmio, níquel)",
+    enfermedades:["Saturnismo (intoxicación por plomo)","Cáncer de pulmón por níquel o cadmio"],
+    actividad:"Fundición y manipulación de metales a alta temperatura." },
+  { id:"panadero", nombre:"Panadero/a · pastelero/a", sector:"Alimentación", grupo:4, secundarios:[5],
+    agente:"Polvo de harina",
+    enfermedades:["Asma ocupacional del panadero","Rinitis alérgica por harina","Dermatitis de contacto por masas y aditivos"],
+    actividad:"Manipulación diaria de harina en ambientes con polvo en suspensión." },
+  { id:"textil", nombre:"Operario/a textil", sector:"Textil", grupo:4, secundarios:[2],
+    agente:"Polvo de algodón y fibras textiles",
+    enfermedades:["Bisinosis","Hipoacusia por ruido de maquinaria textil"],
+    actividad:"Trabajo continuado junto a maquinaria textil generadora de polvo y ruido." },
+  { id:"limpiador", nombre:"Limpiador/a industrial o doméstico/a", sector:"Limpieza", grupo:5, secundarios:[1],
+    agente:"Detergentes, lejía y productos de limpieza",
+    enfermedades:["Dermatitis de contacto irritativa en las manos","Asma ocupacional por mezclas de productos de limpieza"],
+    actividad:"Contacto continuo con agua y productos químicos de limpieza sin guantes adecuados." },
+  { id:"dependiente", nombre:"Dependiente/a de comercio", sector:"Comercio y ventas", grupo:2, secundarios:[],
+    agente:"Bipedestación prolongada y movimientos repetitivos",
+    enfermedades:["Varices y trastornos circulatorios por estar de pie","Tendinitis por movimientos repetitivos (reposición, caja)","Lumbalgia por manipulación de cargas"],
+    actividad:"Atención al público de pie durante toda la jornada, reposición de mercancía y manejo de caja." },
+  { id:"administrativo", nombre:"Administrativo/a de oficina", sector:"Administración", grupo:2, secundarios:[],
+    agente:"Movimientos repetitivos con teclado y ratón",
+    enfermedades:["Síndrome del túnel carpiano","Tendinitis de muñeca","Cervicalgia por postura mantenida frente a la pantalla"],
+    actividad:"Uso intensivo y prolongado de teclado y ratón en tareas administrativas." },
+  { id:"teleoperador", nombre:"Teleoperador/a", sector:"Atención al cliente", grupo:2, secundarios:[],
+    agente:"Uso prolongado de auriculares y esfuerzo vocal",
+    enfermedades:["Hipoacusia por presión acústica en los auriculares","Nódulos en las cuerdas vocales por esfuerzo vocal sostenido"],
+    actividad:"Atención telefónica continuada con auriculares durante toda la jornada." },
+  { id:"conductor", nombre:"Conductor/a profesional", sector:"Transporte", grupo:2, secundarios:[],
+    agente:"Vibraciones del vehículo y posturas mantenidas",
+    enfermedades:["Lumbalgia y hernia discal por vibraciones de cuerpo entero","Trastornos circulatorios por sedestación prolongada"],
+    actividad:"Conducción prolongada de vehículos pesados en jornadas largas." },
+  { id:"docente", nombre:"Docente / auxiliar de educación infantil", sector:"Educación", grupo:3, secundarios:[2],
+    agente:"Contacto con menores y agentes infecciosos comunes",
+    enfermedades:["Infecciones víricas de repetición por contacto estrecho","Nódulos vocales por esfuerzo vocal continuado"],
+    actividad:"Contacto físico estrecho y continuo con niños y niñas en espacios cerrados." },
+  { id:"deshollinador", nombre:"Deshollinador/a", sector:"Mantenimiento", grupo:6, secundarios:[],
+    agente:"Hollín y alquitranes de combustión",
+    enfermedades:["Cáncer de piel","Cáncer de pulmón por exposición a hollín"],
+    actividad:"Exposición directa y continuada al hollín en la limpieza de conductos de combustión." },
+  { id:"caucho", nombre:"Operario/a de industria del caucho", sector:"Industria", grupo:6, secundarios:[1],
+    agente:"Aminas aromáticas del proceso del caucho",
+    enfermedades:["Cáncer de vejiga urinaria","Dermatitis por contacto con aditivos del caucho"],
+    actividad:"Fabricación de productos de caucho con exposición a aminas aromáticas." },
+];
+
+// ═══════════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════════
+const state = { query: "", activeGrupo: null };
+
+function go(screen) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + screen).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function colorVar(g, suf) { return `var(--g${g}-${suf})`; }
+
+// ═══════════════════════════════════════════════════════════════
+// CHIPS
+// ═══════════════════════════════════════════════════════════════
+function renderChips() {
+  const el = document.getElementById('chips');
+  el.innerHTML = '';
+  Object.entries(GRUPOS).forEach(([num, g]) => {
+    const chip = document.createElement('div');
+    const active = state.activeGrupo === Number(num);
+    chip.className = 'chip' + (active ? ' active' : '');
+    if (active) { chip.style.background = colorVar(num, 'deep'); }
+    chip.innerHTML = `<span class="dot" style="background:${active ? '#fff' : colorVar(num,'deep')};"></span>Grupo ${num} · ${g.nombre}`;
+    chip.onclick = () => { state.activeGrupo = active ? null : Number(num); renderChips(); renderGrid(); };
+    el.appendChild(chip);
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// GRID
+// ═══════════════════════════════════════════════════════════════
+function renderGrid() {
+  const q = state.query.trim().toLowerCase();
+  const list = OFICIOS.filter(o => {
+    const matchQ = !q || o.nombre.toLowerCase().includes(q) || o.sector.toLowerCase().includes(q);
+    const matchG = state.activeGrupo == null || o.grupo === state.activeGrupo || (o.secundarios || []).includes(state.activeGrupo);
+    return matchQ && matchG;
+  });
+
+  const grid = document.getElementById('grid');
+  const empty = document.getElementById('empty');
+  grid.innerHTML = '';
+
+  if (!list.length) { empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+
+  list.forEach(o => {
+    const card = document.createElement('button');
+    card.className = 'prof-card';
+    card.innerHTML = `
+      <span class="prof-badge" style="background:${colorVar(o.grupo,'soft')}; color:${colorVar(o.grupo,'deep')};">Grupo ${o.grupo}</span>
+      <div class="prof-nombre">${o.nombre}</div>
+      <div class="prof-sector">${o.sector}</div>
+    `;
+    card.onclick = () => openDetail(o.id);
+    grid.appendChild(card);
+  });
+}
+
+document.getElementById('search-input').addEventListener('input', (e) => {
+  state.query = e.target.value;
+  renderGrid();
+});
+
+// ═══════════════════════════════════════════════════════════════
+// DETALLE
+// ═══════════════════════════════════════════════════════════════
+function openDetail(id) {
+  const o = OFICIOS.find(x => x.id === id);
+  const g = GRUPOS[o.grupo];
+
+  document.getElementById('detail-hero').style.background = colorVar(o.grupo, 'soft');
+  document.getElementById('detail-hero').innerHTML = `
+    <span class="detail-badge" style="background:${colorVar(o.grupo,'deep')}; color:#fff;">Grupo ${o.grupo} · ${g.nombre}</span>
+    <h2 class="detail-title" style="color:${colorVar(o.grupo,'ink')};">${o.nombre}</h2>
+    <p class="detail-sector">${o.sector}</p>
+  `;
+
+  document.getElementById('agente-label').style.color = colorVar(o.grupo, 'deep');
+  document.getElementById('agente-text').textContent = o.agente;
+
+  document.getElementById('ep-label').style.color = colorVar(o.grupo, 'deep');
+  const epList = document.getElementById('ep-list');
+  epList.innerHTML = o.enfermedades.map(e => `<li style="border-color: var(--line-soft);"><span style="position:absolute;left:4px;top:18px;width:6px;height:6px;border-radius:50%;background:${colorVar(o.grupo,'deep')};"></span>${e}</li>`).join('');
+
+  document.getElementById('actividad-text').textContent = o.actividad;
+
+  const secBlock = document.getElementById('secundarios-block');
+  if (o.secundarios && o.secundarios.length) {
+    secBlock.innerHTML = `
+      <span class="section-label" style="color: var(--ink-muted);">También relacionado con</span>
+      <div class="secundarios">
+        ${o.secundarios.map(s => `<span class="sec-pill" style="background:${colorVar(s,'soft')}; color:${colorVar(s,'deep')};">Grupo ${s} · ${GRUPOS[s].nombre}</span>`).join('')}
+      </div>
+    `;
+  } else {
+    secBlock.innerHTML = '';
+  }
+
+  go('detalle');
+}
+
+// ═══════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════
+renderChips();
+renderGrid();
+</script>
+
+</body>
+</html>

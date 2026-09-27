@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico · Patologías inespecíficas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --canvas: #FBFCEF;
+  --surface: #FFFFFF;
+  --ink: #1F2417;
+  --ink-soft: #4A4F36;
+  --ink-muted: #8A8B6A;
+  --line: #E5E8C8;
+  --line-soft: #EFF1D9;
+
+  --olive-soft: #D8DCA0;
+  --olive-mid: #A8AD5C;
+  --olive-deep: #6B7028;
+  --lime-soft: #E8EDC4;
+
+  --tool: #2E4B8B;
+  --tool-soft: #E3E8F4;
+  --tool-ink: #1C2F5A;
+
+  /* Familias de color reutilizadas del Brand Kit — una por patología */
+  --p-soft: #E4E8F0; --p-mid: #8B9CB5; --p-deep: #3E5778; --p-ink: #243650; /* envejecimiento prematuro */
+  --e1-soft: #F2EDDB; --e1-mid: #C9B073; --e1-deep: #8B6F2A; --e1-ink: #5A4818; /* síndrome del quemado */
+  --s-soft: #F4E5E5; --s-mid: #C58A8A; --s-deep: #8B3A3A; --s-ink: #5E2424; /* estrés laboral */
+  --t-soft: #E5EFEC; --t-mid: #7FAA9D; --t-deep: #3D6B5C; --t-ink: #244238; /* fatiga profesional */
+  --e2-soft: #E5EDDB; --e2-mid: #A8C485; --e2-deep: #557A35; --e2-ink: #354B22; /* insatisfacción laboral */
+  --l-soft: #ECE5EC; --l-mid: #A582AC; --l-deep: #5D3D66; --l-ink: #3B2442; /* mobbing / acoso laboral */
+
+  --ok-soft: #E5EDDB; --ok-deep: #557A35;
+  --ko-soft: #F4E5E5; --ko-deep: #8B3A3A;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--canvas);
+  color: var(--ink);
+  min-height: 100vh;
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.serif { font-family: 'Fraunces', Georgia, serif; }
+.sans  { font-family: 'Inter', system-ui, sans-serif; }
+
+.container { max-width: 860px; margin: 0 auto; padding: 48px 24px 90px; }
+
+h1.display {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 42px;
+  line-height: 1.08;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  font-variation-settings: "opsz" 72;
+}
+h1.display em { font-style: italic; font-weight: 300; color: var(--tool); }
+
+.eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px; font-weight: 600; color: var(--ink-muted);
+  text-transform: uppercase; letter-spacing: 2px;
+}
+.eyebrow-line { display: flex; align-items: center; gap: 12px; margin-bottom: 22px; }
+.eyebrow-line::before { content: ''; width: 40px; height: 1px; background: var(--tool); }
+
+.prose-italic {
+  font-family: 'Fraunces', Georgia, serif; font-style: italic; font-weight: 300;
+  line-height: 1.6; color: var(--ink-soft);
+}
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 13px 22px; border-radius: 999px; font-family: 'Inter', sans-serif;
+  font-size: 14px; font-weight: 500; cursor: pointer; border: none; outline: none;
+  transition: all 0.2s ease;
+}
+.btn-primary { background: var(--ink); color: var(--canvas); }
+.btn-primary:hover { background: #2D3220; }
+.btn-primary:disabled { opacity: .4; cursor: not-allowed; }
+.btn-ghost { background: transparent; color: var(--ink-soft); border: 1px solid var(--line); }
+.btn-ghost:hover { background: var(--surface); border-color: var(--ink-muted); }
+.btn-back {
+  display: inline-flex; align-items: center; gap: 6px; background: none; border: none;
+  font-size: 13px; color: var(--ink-muted); cursor: pointer; padding: 0;
+  font-family: 'Inter', sans-serif; margin-bottom: 20px;
+}
+.btn-back:hover { color: var(--ink); }
+
+.screen { display: none; }
+.screen.active { display: block; animation: fadeUp .35s ease; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ---- Intro ---- */
+.intro-card { padding: 28px 26px; margin-bottom: 20px; }
+.intro-note { display: flex; gap: 12px; padding: 16px 18px; background: var(--tool-soft); border-radius: 12px; margin: 22px 0; }
+.intro-note svg { flex-shrink: 0; color: var(--tool); margin-top: 2px; }
+.intro-note p { font-size: 13.5px; color: var(--tool-ink); }
+.legend { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.legend-pill { display: inline-flex; align-items: center; gap: 7px; padding: 7px 13px; border-radius: 999px; font-size: 12.5px; font-weight: 500; }
+.legend-pill .dot { width: 9px; height: 9px; border-radius: 50%; }
+
+/* ---- Juego ---- */
+.hud { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; gap: 16px; flex-wrap: wrap; }
+.progress-wrap { flex: 1; min-width: 160px; }
+.progress-label { font-size: 12px; color: var(--ink-muted); margin-bottom: 6px; font-weight: 500; }
+.progress-bar { height: 8px; border-radius: 999px; background: var(--line-soft); overflow: hidden; }
+.progress-fill { height: 100%; background: var(--tool); border-radius: 999px; transition: width .35s ease; }
+.attempts { font-size: 12.5px; color: var(--ink-muted); white-space: nowrap; }
+
+.board { display: grid; grid-template-columns: 1.3fr 1fr; gap: 28px; align-items: start; }
+@media (max-width: 720px) { .board { grid-template-columns: 1fr; } }
+
+.col-title { font-size: 11px; font-weight: 600; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
+
+.casos-list { display: flex; flex-direction: column; gap: 10px; }
+.caso-card {
+  padding: 16px 18px; border-radius: 14px; border: 1.5px solid var(--line); background: var(--surface);
+  cursor: pointer; transition: all .18s ease; position: relative;
+}
+.caso-card:hover:not(.matched) { border-color: var(--tool); }
+.caso-card.selected { border-color: var(--tool); background: var(--tool-soft); box-shadow: 0 0 0 2px var(--tool) inset; }
+.caso-card.matched { cursor: default; opacity: .55; }
+.caso-card.wrong { animation: shake .32s ease; }
+@keyframes shake { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-5px);} 75%{transform:translateX(5px);} }
+
+.caso-nombre { font-family: 'Fraunces', Georgia, serif; font-size: 17px; margin-bottom: 3px; }
+.caso-rol { font-size: 11.5px; color: var(--ink-muted); font-weight: 500; text-transform: uppercase; letter-spacing: .6px; margin-bottom: 8px; }
+.caso-texto { font-size: 13.5px; color: var(--ink-soft); line-height: 1.55; }
+
+.caso-matched-tag {
+  display: inline-flex; align-items: center; gap: 6px; margin-top: 10px; padding: 5px 11px;
+  border-radius: 999px; font-size: 11.5px; font-weight: 600;
+}
+.caso-explicacion {
+  font-size: 12.5px; color: var(--ink-soft); line-height: 1.55; margin-top: 9px;
+  padding-top: 9px; border-top: 1px dashed var(--line);
+}
+
+.hint-btn {
+  margin-top: 10px; font-size: 11.5px; color: var(--tool); background: none; border: none;
+  cursor: pointer; font-weight: 600; padding: 0; font-family: 'Inter', sans-serif;
+}
+.hint-btn:hover { text-decoration: underline; }
+.hint-text { font-size: 12.5px; color: var(--ink-muted); font-style: italic; margin-top: 6px; display: none; }
+.hint-text.show { display: block; }
+
+.patologias-list { display: flex; flex-direction: column; gap: 10px; }
+.pat-pill {
+  padding: 14px 16px; border-radius: 14px; border: 1.5px solid var(--line); background: var(--surface);
+  cursor: pointer; transition: all .18s ease; font-weight: 600; font-size: 14px;
+  display: flex; align-items: center; gap: 10px;
+}
+.pat-pill .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.pat-pill:hover:not(.matched) { transform: translateX(2px); }
+.pat-pill.matched { cursor: default; opacity: .45; }
+.pat-pill.wrong { animation: shake .32s ease; }
+.pat-pill.hint-glow { box-shadow: 0 0 0 2px var(--tool); }
+
+.feedback-toast {
+  position: fixed; bottom: 26px; left: 50%; transform: translateX(-50%) translateY(20px);
+  padding: 12px 22px; border-radius: 999px; font-size: 13.5px; font-weight: 600;
+  opacity: 0; pointer-events: none; transition: all .25s ease; z-index: 50;
+  box-shadow: 0 8px 24px rgba(0,0,0,.14);
+}
+.feedback-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.feedback-toast.ok { background: var(--ok-deep); color: #fff; }
+.feedback-toast.ko { background: var(--ko-deep); color: #fff; }
+
+/* ---- Resumen ---- */
+.resumen-header { text-align: center; margin-bottom: 8px; }
+.resumen-stat { font-family: 'Fraunces', Georgia, serif; font-size: 46px; color: var(--tool); }
+.resumen-list { display: flex; flex-direction: column; gap: 14px; margin-top: 24px; }
+.resumen-item { padding: 18px 20px; border-radius: 14px; border-left: 5px solid; background: var(--surface); border: 1.5px solid var(--line); }
+.resumen-item-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; flex-wrap: wrap; }
+.resumen-pat { font-family: 'Fraunces', Georgia, serif; font-size: 17px; }
+.resumen-caso { font-size: 12.5px; color: var(--ink-muted); font-weight: 500; }
+.resumen-def { font-size: 13.5px; color: var(--ink-soft); line-height: 1.55; }
+
+.actions-row { display: flex; gap: 10px; margin-top: 30px; flex-wrap: wrap; }
+
+footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--line-soft); font-size: 12px; color: var(--ink-muted); }
+
+@media (max-width: 560px) {
+  .container { padding: 36px 18px 70px; }
+  h1.display { font-size: 32px; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ============ SCREEN: INTRO ============ -->
+  <div class="screen active" id="screen-intro">
+    <div class="eyebrow-line"><span class="eyebrow">IPE I · Prevención de riesgos laborales</span></div>
+    <h1 class="display">Diagnóstico de <em>patologías inespecíficas</em></h1>
+    <p class="prose-italic" style="margin-top:14px; font-size:17px;">Seis casos, seis patologías. Léelos y decide cuál corresponde a cada uno.</p>
+
+    <div class="card intro-card">
+      <p style="font-size: 14px; color: var(--ink-soft); line-height: 1.7;">
+        Recuerda: son patologías <strong>relacionadas con la actividad laboral</strong>, pero en las que también han influido <strong>factores no laborales</strong> — la situación personal de cada trabajador, su carácter, etc. Por eso no aparecen en ningún cuadro legal cerrado (a diferencia de las enfermedades profesionales del RD 1299/2006): se identifican por sus síntomas y su origen.
+      </p>
+
+      <div class="intro-note">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <p>Selecciona primero un <strong>caso</strong> de la columna izquierda y después la <strong>patología</strong> que le corresponda a la derecha. Puedes volver a intentarlo si fallas, pero cada fallo resta puntos a ese caso — y pedir la pista también tiene un coste. Varios casos se parecen mucho entre sí a propósito: lee bien antes de decidir.</p>
+      </div>
+
+      <div class="legend" id="legend"></div>
+    </div>
+
+    <button class="btn btn-primary" onclick="go('screen-juego')">Empezar diagnóstico →</button>
+  </div>
+
+  <!-- ============ SCREEN: JUEGO ============ -->
+  <div class="screen" id="screen-juego">
+    <button class="btn-back" onclick="go('screen-intro')">← Volver a las instrucciones</button>
+    <div class="eyebrow-line"><span class="eyebrow">Diagnóstico en curso</span></div>
+    <h1 class="display" style="font-size:32px;">Empareja cada caso con su patología</h1>
+
+    <div class="hud">
+      <div class="progress-wrap">
+        <div class="progress-label"><span id="matched-count">0</span> de 6 emparejados</div>
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+      </div>
+      <div class="attempts">Intentos: <strong id="attempts-count">0</strong> · Puntos: <strong id="score-count">0</strong>/180</div>
+    </div>
+
+    <div class="board">
+      <div>
+        <div class="col-title">Casos</div>
+        <div class="casos-list" id="casos-list"></div>
+      </div>
+      <div>
+        <div class="col-title">Patologías</div>
+        <div class="patologias-list" id="patologias-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ SCREEN: RESUMEN ============ -->
+  <div class="screen" id="screen-resumen">
+    <div class="resumen-header">
+      <div class="eyebrow-line" style="justify-content:center;"><span class="eyebrow">Diagnóstico completo</span></div>
+      <div class="resumen-stat" id="resumen-score">0/180</div>
+      <p class="prose-italic" style="font-size:15px;"><span id="resumen-valoracion">—</span> · <span id="resumen-attempts-text">0</span> intentos en total</p>
+    </div>
+
+    <div class="resumen-list" id="resumen-list"></div>
+
+    <div class="actions-row">
+      <button class="btn btn-primary" onclick="reiniciar()">Reiniciar con otro orden</button>
+      <button class="btn btn-ghost" onclick="go('screen-intro')">Volver al inicio</button>
+    </div>
+
+    <footer>Educa Tools · IPE Toolkit — herramienta didáctica basada en la UD1 de Prevención de Riesgos Laborales (IPE I). El listado de patologías inespecíficas es orientativo y no constituye un cuadro legal cerrado.</footer>
+  </div>
+
+</div>
+
+<div class="feedback-toast" id="toast"></div>
+
+<script>
+const PATOLOGIAS = {
+  fatiga:        { nombre: "Fatiga profesional",        fam: "t",  def: "Agotamiento físico o mental de la persona trabajadora, causado por realizar tareas de forma continuada sin efectuar un descanso adecuado al esfuerzo realizado." },
+  insatisfaccion:{ nombre: "Insatisfacción laboral",     fam: "e2", def: "Se produce cuando las expectativas del trabajador —en salario o en cualquier otra condición de trabajo: responsabilidad, horario, ascensos...— no se cumplen, generando así insatisfacción." },
+  estres:        { nombre: "Estrés laboral",             fam: "s",  def: "Se genera por situaciones en las que las tareas a realizar en el trabajo, tanto en cantidad como en calidad, superan las capacidades de la persona trabajadora." },
+  envejecimiento:{ nombre: "Envejecimiento prematuro",   fam: "p",  def: "Aceleración en el ritmo de envejecimiento de la persona trabajadora, a causa del esfuerzo físico o psicológico vinculado al desempeño de su puesto de trabajo." },
+  mobbing:       { nombre: "Mobbing / acoso laboral",    fam: "l",  def: "Se produce cuando la persona trabajadora sufre, dentro de su propio entorno de trabajo, violencia psicológica de forma continuada por parte de otra persona o grupo de personas." },
+  quemado:       { nombre: "Síndrome del quemado (burnout)", fam: "e1", def: "Estrés laboral cronificado, vinculado a profesiones que mantienen un trato constante y directo con el público. La persona trabajadora se siente poco motivada y agotada emocionalmente." },
+};
+
+const CASOS = [
+  { id:'ruben', patologia:'quemado', confundible:'estres', nombre:'Rubén', rol:'Teleoperador de atención al cliente',
+    texto:'Domina su trabajo perfectamente y nunca ha tenido problemas para resolver una llamada. Pero pasa toda su jornada atendiendo a clientes que le gritan, y desde hace meses ya no siente ninguna motivación: describe sentirse "vacío" y agotado emocionalmente, día tras día.',
+    hint:'No es que las llamadas le queden grandes técnicamente. ¿Qué es lo que se ha ido agotando entonces?',
+    explicacion:'Es síndrome del quemado (burnout). No es que las tareas le superen técnicamente —las domina perfectamente, eso descartaría el estrés— es el desgaste emocional cronificado de mantener trato constante y directo con público hostil, día tras día.' },
+
+  { id:'alba', patologia:'mobbing', confundible:'insatisfaccion', nombre:'Alba', rol:'Recepcionista',
+    texto:'Desde hace meses, su responsable de turno la ignora sistemáticamente en las reuniones, le asigna siempre las peores tareas y hace comentarios despectivos sobre ella delante de sus compañeros. Alba siente que, haga lo que haga, nunca es suficiente para esa persona.',
+    hint:'Fíjate en quién provoca la situación y durante cuánto tiempo se repite exactamente igual.',
+    explicacion:'Es mobbing o acoso laboral. No es un trato injusto puntual ni una simple frustración con sus condiciones: es la misma persona quien repite el mismo patrón —ningunearla, asignarle las peores tareas, humillarla— de forma sostenida durante meses.' },
+
+  { id:'fermin', patologia:'envejecimiento', confundible:'fatiga', nombre:'Fermín', rol:'Camionero de larga distancia',
+    texto:'Lleva veinte años al volante, con horarios irregulares y esfuerzo físico constante. No se trata de una mala racha: aunque coge sus vacaciones y descansa entre rutas con normalidad, su médico observa año tras año un deterioro de su salud más acelerado de lo esperable para su edad.',
+    hint:'¿Es un cansancio que se le pasaría en un par de días libres, o algo que se ha ido acumulando durante años?',
+    explicacion:'Es envejecimiento prematuro. No es un cansancio puntual que se resuelva descansando —de hecho descansa con normalidad— sino un deterioro que se ha ido acumulando a lo largo de veinte años de esfuerzo físico y ritmos irregulares.' },
+
+  { id:'nerea', patologia:'estres', confundible:'fatiga', nombre:'Nerea', rol:'Community manager',
+    texto:'Gestiona sola ocho cuentas de redes sociales con plazos que se solapan constantemente. Duerme sus ocho horas y desconecta los fines de semana, pero aun así no consigue sacar adelante todo lo que se le pide dentro de su jornada.',
+    hint:'¿Es que no descansa lo suficiente, o que le piden más de lo que puede abarcar aunque descanse bien?',
+    explicacion:'Es estrés laboral. El problema no es la falta de descanso —de hecho descansa bien— sino que el volumen y la exigencia de las tareas asignadas superan lo que puede sacar adelante en su jornada, por bien organizada que esté.' },
+
+  { id:'iago', patologia:'insatisfaccion', confundible:'mobbing', nombre:'Iago', rol:'Técnico de control de calidad',
+    texto:'Lleva más de dos años cumpliendo con rigor los estándares exigidos. Tras un desacuerdo puntual con su supervisora sobre un informe, esta le hizo algún comentario fuera de tono delante del equipo. Iago siente que su trabajo no se valora como esperaba y empieza a mirar otras ofertas.',
+    hint:'¿Es algo que se ha repetido en el tiempo por parte de esa persona, o un episodio aislado?',
+    explicacion:'Es insatisfacción laboral. Lo que falla son sus expectativas de reconocimiento, no una violencia sostenida contra él: al ser un episodio puntual —no un patrón que se repite por parte de la misma persona—, no llega a constituir mobbing.' },
+
+  { id:'marcos', patologia:'fatiga', confundible:'estres', nombre:'Marcos', rol:'Reponedor en un supermercado',
+    texto:'Lleva ocho años en el mismo puesto y podría hacerlo con los ojos cerrados. El problema es la campaña de Navidad: turnos de diez horas varios días seguidos, con muy poco margen entre uno y otro. Ya no llega descansado a ningún turno.',
+    hint:'Piensa en qué le falta en su rutina, no en si el trabajo en sí le queda grande.',
+    explicacion:'Es fatiga profesional. Marcos domina de sobra su tarea — no es que el trabajo le supere, eso sería estrés — lo que le falta es un descanso proporcional al esfuerzo que repite turno tras turno.' },
+];
+
+let state = { selectedCase: null, matched: new Set(), attempts: 0, score: 0, wrongTries: {}, hintUsed: new Set(), caseScores: {} };
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function go(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function renderLegend() {
+  const el = document.getElementById('legend');
+  el.innerHTML = Object.values(PATOLOGIAS).map(p =>
+    `<span class="legend-pill" style="background:var(--${p.fam}-soft); color:var(--${p.fam}-ink);"><span class="dot" style="background:var(--${p.fam}-deep);"></span>${p.nombre}</span>`
+  ).join('');
+}
+
+function renderBoard() {
+  const casosShuffled = shuffle(CASOS);
+  const patKeysShuffled = shuffle(Object.keys(PATOLOGIAS));
+
+  document.getElementById('casos-list').innerHTML = casosShuffled.map(c => `
+    <div class="caso-card" data-id="${c.id}" onclick="selectCaso('${c.id}')">
+      <div class="caso-nombre">${c.nombre}</div>
+      <div class="caso-rol">${c.rol}</div>
+      <div class="caso-texto">${c.texto}</div>
+      <div class="caso-extra" id="extra-${c.id}">
+        <button class="hint-btn" id="hintbtn-${c.id}" onclick="event.stopPropagation(); toggleHint('${c.id}')">💡 Pedir pista (−10 pts)</button>
+        <div class="hint-text" id="hint-${c.id}">${c.hint}</div>
+      </div>
+    </div>
+  `).join('');
+
+  document.getElementById('patologias-list').innerHTML = patKeysShuffled.map(key => {
+    const p = PATOLOGIAS[key];
+    return `
+      <div class="pat-pill" data-key="${key}" onclick="selectPatologia('${key}')">
+        <span class="dot" style="background:var(--${p.fam}-deep);"></span>${p.nombre}
+      </div>
+    `;
+  }).join('');
+
+  updateHUD();
+}
+
+function toggleHint(id) {
+  const hintEl = document.getElementById('hint-' + id);
+  const wasHidden = !hintEl.classList.contains('show');
+  hintEl.classList.toggle('show');
+  if (wasHidden && !state.hintUsed.has(id)) {
+    state.hintUsed.add(id);
+    const btn = document.getElementById('hintbtn-' + id);
+    if (btn) { btn.textContent = 'Pista usada (−10 pts aplicados)'; btn.disabled = true; btn.style.opacity = '.6'; btn.style.cursor = 'default'; }
+  }
+}
+
+function selectCaso(id) {
+  if (state.matched.has(id)) return;
+  document.querySelectorAll('.caso-card').forEach(el => el.classList.remove('selected'));
+  if (state.selectedCase === id) { state.selectedCase = null; return; }
+  state.selectedCase = id;
+  document.querySelector(`.caso-card[data-id="${id}"]`).classList.add('selected');
+}
+
+function selectPatologia(key) {
+  if (!state.selectedCase) {
+    showToast('Selecciona antes un caso de la izquierda', 'ko');
+    return;
+  }
+  const patPill = document.querySelector(`.pat-pill[data-key="${key}"]`);
+  if (patPill.classList.contains('matched')) return;
+
+  const caso = CASOS.find(c => c.id === state.selectedCase);
+  const casoEl = document.querySelector(`.caso-card[data-id="${caso.id}"]`);
+  state.attempts++;
+
+  if (caso.patologia === key) {
+    const fam = PATOLOGIAS[key].fam;
+    casoEl.classList.add('matched');
+    casoEl.classList.remove('selected');
+    patPill.classList.add('matched');
+
+    const wrong = state.wrongTries[caso.id] || 0;
+    const usedHint = state.hintUsed.has(caso.id);
+    const caseScore = Math.max(0, 30 - wrong * 10 - (usedHint ? 10 : 0));
+    state.score += caseScore;
+    state.caseScores[caso.id] = caseScore;
+
+    const extra = document.getElementById('extra-' + caso.id);
+    extra.innerHTML = `
+      <div class="caso-matched-tag" style="background:var(--${fam}-soft); color:var(--${fam}-ink);">✓ ${PATOLOGIAS[key].nombre} · +${caseScore} pts</div>
+      <div class="caso-explicacion">${caso.explicacion}</div>
+    `;
+    state.matched.add(caso.id);
+    state.selectedCase = null;
+    showToast(`¡Correcto! +${caseScore} pts`, 'ok');
+  } else {
+    state.wrongTries[caso.id] = (state.wrongTries[caso.id] || 0) + 1;
+    casoEl.classList.add('wrong');
+    patPill.classList.add('wrong');
+    setTimeout(() => { casoEl.classList.remove('wrong'); patPill.classList.remove('wrong'); }, 350);
+    showToast('No es esa — pierdes puntos en este caso. Vuelve a intentarlo', 'ko');
+  }
+  updateHUD();
+
+  if (state.matched.size === CASOS.length) {
+    setTimeout(renderResumen, 900);
+  }
+}
+
+function updateHUD() {
+  document.getElementById('matched-count').textContent = state.matched.size;
+  document.getElementById('attempts-count').textContent = state.attempts;
+  document.getElementById('score-count').textContent = state.score;
+  document.getElementById('progress-fill').style.width = (state.matched.size / CASOS.length * 100) + '%';
+}
+
+let toastTimer;
+function showToast(msg, kind) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'feedback-toast show ' + kind;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 1400);
+}
+
+function renderResumen() {
+  document.getElementById('resumen-attempts-text').textContent = state.attempts;
+  document.getElementById('resumen-score').textContent = state.score + '/180';
+
+  let valoracion = 'Diagnóstico correcto';
+  if (state.score >= 170) valoracion = 'Diagnóstico impecable';
+  else if (state.score >= 130) valoracion = 'Buen ojo clínico';
+  else if (state.score >= 90) valoracion = 'Diagnóstico correcto, con dudas por el camino';
+  else valoracion = 'Se te han colado algunas confusiones';
+  document.getElementById('resumen-valoracion').textContent = valoracion;
+
+  document.getElementById('resumen-list').innerHTML = CASOS.map(c => {
+    const p = PATOLOGIAS[c.patologia];
+    const pts = state.caseScores[c.id] ?? 0;
+    return `
+      <div class="resumen-item" style="border-left-color: var(--${p.fam}-deep);">
+        <div class="resumen-item-head">
+          <span class="resumen-pat">${p.nombre}</span>
+          <span class="resumen-caso">— caso de ${c.nombre}, ${c.rol.toLowerCase()}</span>
+          <span class="resumen-caso" style="margin-left:auto; font-weight:600;">${pts} pts</span>
+        </div>
+        <div class="resumen-def">${c.explicacion}</div>
+      </div>
+    `;
+  }).join('');
+  go('screen-resumen');
+}
+
+function reiniciar() {
+  state = { selectedCase: null, matched: new Set(), attempts: 0, score: 0, wrongTries: {}, hintUsed: new Set(), caseScores: {} };
+  renderBoard();
+  go('screen-juego');
+}
+
+renderLegend();
+renderBoard();
+</script>
+
+</body>
+</html>
