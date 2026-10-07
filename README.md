@@ -5,27 +5,29 @@ Web publicada: https://educa-tools.github.io/ipe-toolkit/
 
 ## Cómo está organizado
 
-- `index.html` — la portada. No hace falta tocarla para añadir contenido.
-- `data/estructura.json` — **todo el contenido**: módulos, unidades y los recursos de cada unidad.
+- `index.html` — la portada. No hace falta tocarla para añadir herramientas.
+- `data/estructura.json` — **todo el contenido**, en tres bloques:
+  - `herramientas`: el catálogo. Cada herramienta tiene un identificador corto y sus datos.
+  - `modulos`: IPE 2 e IPE 1, con sus unidades y la lista de herramientas de cada una (por identificador, en el orden en que deben aparecer).
+  - `etiquetas`: las temáticas del "Explorar por temática", también con su lista de herramientas.
 - El resto de `.html` — cada herramienta interactiva, independiente.
 
-## Añadir un recurso a una unidad
+## Añadir una herramienta nueva
 
-1. Abre `data/estructura.json` (desde la app de GitHub: el archivo → lápiz de editar).
-2. Busca la unidad (por su `"titulo"`).
-3. Dentro de la pestaña que toque (`"herramientas"`, `"teoria"`, `"presentaciones"` o `"fichas"`), añade un bloque:
+1. Sube el archivo `.html` al repo (minúsculas, sin espacios).
+2. En `data/estructura.json`, dentro de `"herramientas"`, añade una línea:
 
 ```json
-{ "titulo": "Nombre del recurso", "descripcion": "Una frase sobre qué es.", "url": "archivo.html" }
+"miid": { "titulo": "Nombre", "descripcion": "Una frase sobre qué hace.", "url": "archivo.html", "color": "#3E5778" },
 ```
 
-- `url` puede ser un archivo del repo (`pestel.html`) o un enlace externo (`https://…`, se abre en pestaña nueva).
-- `descripcion` y `color` (por ejemplo `"#3E5778"`) son opcionales.
-- Si ya hay otro bloque en esa lista, sepáralos con una **coma**. Sin coma después del último.
-
+3. Añade `"miid"` a la lista `"herramientas"` de su unidad (en `modulos`) y de su temática (en `etiquetas`).
 4. Guarda (commit). En uno o dos minutos está en la web.
 
-Si la sección de módulos sale con un aviso de error, casi siempre es una coma o una llave de más o de menos en el JSON.
+Notas:
+- Una unidad con la lista vacía `[]` aparece como "En construcción".
+- Una temática sin herramientas no se muestra.
+- Separa los elementos con **comas**, sin coma después del último. Si la web muestra un aviso de error, casi siempre es eso.
 
 ## Nombres de archivo
 

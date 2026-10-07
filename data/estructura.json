@@ -1,167 +1,52 @@
 {
+  "herramientas": {
+    "generador":   { "titulo": "Generador de ideas de negocio", "descripcion": "Encuentra y afina una idea de negocio a partir de tus intereses.", "url": "generador.html", "color": "#6B7028" },
+    "fichaidea":   { "titulo": "Ficha inicial de la idea", "descripcion": "Describe tu idea en una ficha clara: qué, para quién y por qué.", "url": "fichaidea.html", "color": "#4B4F1D" },
+    "estrella":    { "titulo": "Matriz Estrella", "descripcion": "Evalúa tu idea de negocio y detecta sus puntos fuertes y débiles.", "url": "estrella.html", "color": "#557A35" },
+    "canvas":      { "titulo": "Modelo Canvas", "descripcion": "Construye tu modelo de negocio bloque a bloque, listo para imprimir.", "url": "modelocanvas.html", "color": "#7A3244" },
+    "pestel":      { "titulo": "Análisis PESTEL", "descripcion": "Mapa de impacto de los factores del entorno general, con dossier imprimible.", "url": "pestel.html", "color": "#3E5778" },
+    "porter":      { "titulo": "Análisis PORTER", "descripcion": "Las cinco fuerzas que marcan la competencia en tu sector.", "url": "porter.html", "color": "#2F6670" },
+    "buyer":       { "titulo": "Buyer Persona", "descripcion": "Da forma a tu cliente ideal: quién es, qué necesita y cómo llegar a él.", "url": "buyerpersona.html", "color": "#B03A78" },
+
+    "patologias":  { "titulo": "Diagnóstico de patologías inespecíficas", "descripcion": "Empareja seis casos con su patología: fatiga, estrés, burnout, mobbing…", "url": "patologias.html", "color": "#2E4B8B" },
+    "ruta22":      { "titulo": "Ruta al Artículo 22", "descripcion": "Repaso exprés de los arts. 17 a 21 de la LPRL en formato de niveles con estrellas.", "url": "rutaarticulo22.html", "color": "#6A3FA0" },
+    "simuladorprl":{ "titulo": "Simulador de expedientes PRL", "descripcion": "Resuelve casos reales y justifica cada respuesta con su artículo de la LPRL.", "url": "simuladorprl.html", "color": "#2B2E4A" },
+
+    "piramide":    { "titulo": "Pirámide de la jerarquía normativa", "descripcion": "Los ocho niveles de las fuentes del Derecho laboral, con definición y ejemplo.", "url": "piramide.html", "color": "#5D3D66" },
+    "mapaue":      { "titulo": "Mapa interactivo de la Unión Europea", "descripcion": "Estados miembro, euro y espacio Schengen, país a país.", "url": "mapaeuropa.html", "color": "#5D3D66" },
+    "contingencias":{ "titulo": "Wizard de determinación de contingencias", "descripcion": "Recorre el procedimiento: calificación, EVI, INSS, reclamación previa y vía judicial.", "url": "determinacioncontingencias.html", "color": "#2D6A6A" }
+  },
+
   "modulos": [
     {
-      "id": "ipe1",
-      "tag": "IPE I",
-      "nombre": "Itinerario Personal para la Empleabilidad I",
-      "descripcion": "Prevención de riesgos, derecho del trabajo, Seguridad Social y búsqueda de empleo.",
+      "id": "ipe2",
+      "tag": "IPE 2",
+      "nombre": "Itinerario Personal para la Empleabilidad II",
+      "descripcion": "Emprendimiento, análisis del entorno, viabilidad e inserción laboral.",
       "unidades": [
-        {
-          "n": 1,
-          "titulo": "Conceptos básicos sobre Prevención de Riesgos Laborales",
-          "icono": "shield",
-          "herramientas": [
-            { "titulo": "Diagnóstico de patologías inespecíficas", "descripcion": "Empareja seis casos con su patología: fatiga, estrés, burnout, mobbing…", "url": "patologias.html", "color": "#2E4B8B" }
-          ],
-          "teoria": [],
-          "presentaciones": [],
-          "fichas": []
-        },
-        {
-          "n": 2,
-          "titulo": "El análisis de los riesgos profesionales",
-          "icono": "warning",
-          "herramientas": [
-            { "titulo": "Buscador de enfermedades profesionales", "descripcion": "Busca un oficio y descubre su grupo del RD 1299/2006, el agente y las enfermedades asociadas.", "url": "enfermedadesprofesionales.html", "color": "#A8452E" }
-          ],
-          "teoria": [],
-          "presentaciones": [],
-          "fichas": []
-        },
-        {
-          "n": 3,
-          "titulo": "Organización y gestión preventiva dentro de la empresa",
-          "icono": "org",
-          "herramientas": [
-            { "titulo": "Ruta al Artículo 22", "descripcion": "Repaso exprés de los arts. 17 a 21 de la LPRL en formato de niveles con estrellas.", "url": "rutaarticulo22.html", "color": "#6A3FA0" },
-            { "titulo": "Simulador de expedientes PRL", "descripcion": "Resuelve casos reales y justifica cada respuesta con su artículo de la LPRL.", "url": "simuladorprl.html", "color": "#2B2E4A" }
-          ],
-          "teoria": [],
-          "presentaciones": [],
-          "fichas": []
-        },
-        {
-          "n": 4,
-          "titulo": "El derecho del trabajo y la relación laboral",
-          "icono": "scale",
-          "herramientas": [
-            { "titulo": "Pirámide de la jerarquía normativa", "descripcion": "Los ocho niveles de las fuentes del Derecho laboral, con definición y ejemplo.", "url": "piramide.html", "color": "#5D3D66" },
-            { "titulo": "Mapa interactivo de la Unión Europea", "descripcion": "Estados miembro, euro y espacio Schengen, país a país.", "url": "mapaeuropa.html", "color": "#5D3D66" }
-          ],
-          "teoria": [],
-          "presentaciones": [],
-          "fichas": []
-        },
-        {
-          "n": 5,
-          "titulo": "El contrato de trabajo: de la firma a la extinción",
-          "icono": "document",
-          "herramientas": [],
-          "teoria": [],
-          "presentaciones": [],
-          "fichas": []
-        },
-        {
-          "n": 6,
-          "titulo": "El tiempo de trabajo y el entorno laboral",
-          "icono": "clock",
-          "herramientas": [],
-          "teoria": [],
-          "presentaciones": [],
-          "fichas": []
-        },
-        {
-          "n": 7,
-          "titulo": "El salario y la Seguridad Social",
-          "icono": "coin",
-          "herramientas": [
-            { "titulo": "Wizard de determinación de contingencias", "descripcion": "Recorre el procedimiento: calificación, EVI, INSS, reclamación previa y vía judicial.", "url": "determinacioncontingencias.html", "color": "#2D6A6A" }
-          ],
-          "teoria": [],
-          "presentaciones": [],
-          "fichas": []
-        },
-        {
-          "n": 8,
-          "titulo": "Autoconocimiento y objetivo profesional",
-          "icono": "target",
-          "herramientas": [],
-          "teoria": [],
-          "presentaciones": [],
-          "fichas": []
-        },
-        {
-          "n": 9,
-          "titulo": "El mercado de trabajo y la búsqueda de empleo",
-          "icono": "briefcase",
-          "herramientas": [],
-          "teoria": [],
-          "presentaciones": [],
-          "fichas": []
-        }
+        { "n": 1, "titulo": "Emprendimiento, innovación y sostenibilidad", "icono": "bulb",        "herramientas": ["generador", "fichaidea", "estrella", "canvas"] },
+        { "n": 2, "titulo": "Análisis del entorno, sector y mercado",     "icono": "chart",       "herramientas": ["pestel", "porter", "buyer"] },
+        { "n": 3, "titulo": "La viabilidad del proyecto emprendedor",     "icono": "checkshield", "herramientas": [] },
+        { "n": 4, "titulo": "Empleabilidad e inserción laboral",          "icono": "compass",     "herramientas": [] }
       ]
     },
     {
-      "id": "ipe2",
-      "tag": "IPE II",
-      "nombre": "Itinerario Personal para la Empleabilidad II",
-      "descripcion": "Emprendimiento, análisis del entorno, viabilidad y estrategias de inserción laboral.",
+      "id": "ipe1",
+      "tag": "IPE 1",
+      "nombre": "Itinerario Personal para la Empleabilidad I",
+      "descripcion": "Prevención de riesgos, derecho del trabajo, Seguridad Social e itinerario profesional.",
       "unidades": [
-        {
-          "n": 1,
-          "titulo": "Emprendimiento, innovación y sostenibilidad",
-          "icono": "bulb",
-          "herramientas": [
-            { "titulo": "Generador de ideas de negocio", "descripcion": "Encuentra y afina una idea de negocio a partir de tus intereses.", "url": "generador.html", "color": "#6B7028" },
-            { "titulo": "Matriz Estrella", "descripcion": "Evalúa tu idea de negocio y detecta sus puntos fuertes y débiles.", "url": "estrella.html", "color": "#557A35" }
-          ],
-          "teoria": [],
-          "presentaciones": [],
-          "fichas": []
-        },
-        {
-          "n": 2,
-          "titulo": "Análisis del entorno, sector y mercado",
-          "icono": "chart",
-          "herramientas": [
-            { "titulo": "Análisis PESTEL", "descripcion": "Mapa de impacto de los factores del entorno general, con dossier imprimible.", "url": "pestel.html", "color": "#3E5778" },
-            { "titulo": "DAFO + CAME", "descripcion": "Matriz DAFO con cruce estratégico y dossier A4.", "url": "dafocame.html", "color": "#454B78" }
-          ],
-          "teoria": [],
-          "presentaciones": [],
-          "fichas": []
-        },
-        {
-          "n": 3,
-          "titulo": "La viabilidad del proyecto emprendedor",
-          "icono": "checkshield",
-          "herramientas": [
-            { "titulo": "Selector de forma jurídica", "descripcion": "Responde unas preguntas y descubre qué forma jurídica encaja con tu proyecto.", "url": "selector_forma_juridica.html", "color": "#8B6430" },
-            { "titulo": "Modelo Canvas", "descripcion": "Construye tu modelo de negocio bloque a bloque, listo para imprimir.", "url": "modelocanvas.html", "color": "#7A3244" }
-          ],
-          "teoria": [],
-          "presentaciones": [],
-          "fichas": []
-        },
-        {
-          "n": 4,
-          "titulo": "Competencias para la empleabilidad",
-          "icono": "puzzle",
-          "herramientas": [],
-          "teoria": [],
-          "presentaciones": [],
-          "fichas": []
-        },
-        {
-          "n": 5,
-          "titulo": "Estrategias para la inserción laboral",
-          "icono": "compass",
-          "herramientas": [],
-          "teoria": [],
-          "presentaciones": [],
-          "fichas": []
-        }
+        { "n": 1, "titulo": "Prevención de Riesgos Laborales",           "icono": "shield", "herramientas": ["patologias", "ruta22", "simuladorprl"] },
+        { "n": 2, "titulo": "Derecho del trabajo y Seguridad Social",    "icono": "scale",  "herramientas": ["piramide", "mapaue", "contingencias"] },
+        { "n": 3, "titulo": "Autoconocimiento e itinerario profesional", "icono": "target", "herramientas": [] }
       ]
     }
+  ],
+
+  "etiquetas": [
+    { "id": "idea",      "nombre": "Idea de negocio",            "icono": "bulb",   "herramientas": ["generador", "fichaidea", "estrella", "canvas"] },
+    { "id": "mercado",   "nombre": "Análisis del mercado",       "icono": "chart",  "herramientas": ["pestel", "porter", "buyer"] },
+    { "id": "prl",       "nombre": "Prevención de riesgos",      "icono": "shield", "herramientas": ["patologias", "ruta22", "simuladorprl"] },
+    { "id": "laboral",   "nombre": "Laboral y Seguridad Social", "icono": "scale",  "herramientas": ["piramide", "mapaue", "contingencias"] }
   ]
 }

@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Generador de ideas de negocio · Educa Tools</title>
+</head>
+<body style="margin:0;background:#FAF7F2;">
+<div style="max-width:820px;margin:0 auto;padding:1.5rem 1rem 3rem;">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -215,6 +224,55 @@
   }
   .biz-validation.is-visible { display: block; animation: shake 0.4s ease; }
   @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+
+  /* ===== Fichas enriquecidas (Comercio y Marketing) ===== */
+  .biz-note { display: none; max-width: 620px; margin: 14px auto 0; font-size: 13px; line-height: 1.55; color: var(--ink-muted); background: var(--amber-soft); border: 0.5px solid #E5CF9D; border-radius: 10px; padding: 10px 14px; text-align: left; }
+  .biz-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 14px; }
+  .biz-chip { font-size: 12px; font-weight: 500; padding: 4px 10px; border-radius: 999px; background: var(--lime-soft); color: var(--olive-deep); border: 0.5px solid var(--line-strong); line-height: 1.4; }
+  .biz-chip.warn { background: var(--amber-soft); color: #7A5418; border-color: #E5CF9D; }
+
+  .biz-quote { margin: 18px 0 0; padding: 4px 0 4px 16px; border-left: 3px solid var(--olive-mid); font-family: var(--font-display); font-style: italic; font-size: 17px; line-height: 1.5; color: var(--ink); }
+  .biz-quote-label { display: block; font-family: var(--font-body); font-style: normal; font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--olive-deep); margin-bottom: 4px; }
+
+  .biz-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+  .biz-box { background: var(--canvas); border: 0.5px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+  .biz-box .biz-section-label { margin-bottom: 8px; }
+
+  .biz-meta.four { grid-template-columns: repeat(4, 1fr); }
+  .biz-meta-sub { font-size: 11px; color: var(--ink-muted); margin-top: 4px; font-weight: 400; line-height: 1.35; }
+
+  .biz-more { margin-top: 12px; border: 0.5px solid var(--line); border-radius: 12px; background: var(--surface); overflow: hidden; }
+  .biz-more > summary { cursor: pointer; list-style: none; padding: 13px 16px; font-size: 14px; font-weight: 600; color: var(--ink-soft); display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .biz-more > summary::-webkit-details-marker { display: none; }
+  .biz-more > summary::after { content: '+'; font-size: 20px; font-weight: 400; color: var(--olive-deep); line-height: 1; }
+  .biz-more[open] > summary::after { content: '–'; }
+  .biz-more[open] > summary { background: var(--lime-soft); }
+  .biz-more > summary:hover { background: var(--lime-soft); }
+  .biz-more .inner { padding: 14px 16px 16px; }
+  .biz-plan { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  .biz-plan li { font-size: 14px; line-height: 1.6; color: var(--ink-soft); padding: 10px 14px; background: var(--canvas); border-radius: 10px; border: 0.5px solid var(--line); }
+
+  .biz-alt-heading { font-family: var(--font-display); font-size: 24px; font-weight: 500; margin: 2.5rem 0 6px; color: var(--ink); text-align: center; letter-spacing: -0.4px; }
+  .biz-alt-help { text-align: center; font-size: 14px; color: var(--ink-muted); margin: 0 0 1.25rem; }
+  .biz-alt { background: var(--surface); border: 0.5px solid var(--line); border-radius: 14px; margin-bottom: 10px; overflow: hidden; }
+  .biz-alt > summary { cursor: pointer; list-style: none; padding: 14px 18px; display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; align-items: center; }
+  .biz-alt > summary::-webkit-details-marker { display: none; }
+  .biz-alt > summary:hover { background: var(--lime-soft); }
+  .biz-alt[open] > summary { background: var(--lime-soft); }
+  .biz-alt-tag { grid-row: 1 / span 2; font-size: 10px; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; padding: 5px 10px; border-radius: 999px; background: var(--olive-soft); color: var(--ink-soft); }
+  .biz-alt-title-txt { font-family: var(--font-display); font-size: 17px; font-weight: 500; color: var(--ink); line-height: 1.3; }
+  .biz-alt-sub { font-size: 12px; color: var(--ink-muted); }
+  .biz-alt-body { padding: 4px 18px 20px; }
+
+  .biz-restart .biz-btn { margin: 4px 6px; }
+
+  @media (max-width: 640px) {
+    .biz-2col { grid-template-columns: 1fr; }
+    .biz-meta.four { grid-template-columns: 1fr 1fr; }
+    .biz-idea { padding: 1.5rem 1.25rem; }
+    .biz-idea-title { font-size: 21px; }
+    .biz-quote { font-size: 16px; }
+  }
 </style>
 
 <div class="biz-tool">
@@ -473,9 +531,12 @@
       <span class="biz-results-eyebrow">Resultado personalizado</span>
       <h2 class="biz-results-title">Tres líneas de negocio para ti</h2>
       <p class="biz-results-summary" id="biz-summary"></p>
+      <p class="biz-note" id="biz-note"><strong>Cifras orientativas.</strong> Los precios, inversiones y comisiones son órdenes de magnitud para empezar a investigar: parte del trabajo es contrastarlos con datos reales de tu zona.</p>
     </div>
     <div id="biz-cards"></div>
+    <div id="biz-alt"></div>
     <div class="biz-restart">
+      <button class="biz-btn biz-btn-primary" id="biz-reroll" type="button" style="display: none;">Dame otras tres ideas</button>
       <button class="biz-btn" id="biz-restart" type="button">Empezar de nuevo</button>
     </div>
   </div>
@@ -1762,6 +1823,7 @@
       clearInterval(iv);
 
       const d = state.data;
+      if (d.familia === 'comercio') { renderComercio(d, false); return; }
       const ideas = [];
 
       const ideaSector = pickIdeaSector(d);
@@ -1905,6 +1967,1381 @@
     $('biz-cards').innerHTML = cards;
   }
 
+  // ===========================================================
+  // COMERCIO Y MARKETING · MOTOR ENRIQUECIDO
+  // Banco de ideas específico por ciclo + modelos de negocio
+  // ===========================================================
+  const COM = [];
+
+  // Claves de ciclo: ci = Comercio Internacional · gv = Gestión de Ventas y Espacios Comerciales
+  // mp = Marketing y Publicidad · tl = Transporte y Logística · med = Actividades Comerciales (medio)
+  // bas = Servicios Comerciales (básico)
+  const CICLO_KEY = {
+    'Comercio Internacional': 'ci',
+    'Gestión de Ventas y Espacios Comerciales': 'gv',
+    'Marketing y Publicidad': 'mp',
+    'Transporte y Logística': 'tl',
+    'Actividades Comerciales': 'med',
+    'Servicios Comerciales': 'bas'
+  };
+
+  // Cada modelo genera: cómo se gana dinero, plan de 30 días y preguntas de validación.
+  // Los textos se personalizan con el cliente ideal (cli), el problema (pb) y la zona (loc).
+  const MODELOS = {
+    cuota: {
+      label: 'Servicio con cuota recurrente',
+      ing: 'Cuota mensual por cliente más extras por trabajos puntuales. Tu cuenta clave: nº de clientes × cuota − costes fijos. Con 8-12 clientes ya se ve si es viable.',
+      plan: (i, loc) => [
+        `Semana 1 · Investiga: entrevista a 5 ${i.cli} de ${loc} y anota cómo resuelven hoy ${i.pb} y cuánto pagan por ello.`,
+        `Semana 2 · Diseña la oferta: dos paquetes cerrados (básico y completo) con precio mensual y un resultado medible.`,
+        `Semana 3 · Prueba piloto: ofrece el servicio gratis o a mitad de precio a 2 clientes a cambio de datos reales y un testimonio.`,
+        `Semana 4 · Vende: contacta con 15 clientes potenciales con un mensaje corto y tu caso piloto. Objetivo: 2 contratos de pago.`
+      ],
+      q: (i) => [
+        `¿Cómo gestionas hoy ${i.pb} y qué es lo que más te molesta?`,
+        `¿Cuánto tiempo y dinero le dedicas al mes?`,
+        `Si te propongo una cuota fija con resultados claros, ¿qué tendría que incluir para que dijeras sí?`
+      ]
+    },
+    proyecto: {
+      label: 'Proyectos cerrados a medida',
+      ing: 'Precio cerrado por proyecto (con anticipo del 30-50%). Tu cuenta clave: horas reales por proyecto × tu precio/hora deseado. Cuidado: hay que vender siempre el siguiente.',
+      plan: (i, loc) => [
+        `Semana 1 · Investiga: mira qué ofrecen 5 competidores de ${loc} (precios, alcance, reseñas) y detecta qué no cubren.`,
+        `Semana 2 · Empaqueta: define 2-3 proyectos tipo con alcance, plazo y precio cerrado. Nada de presupuestos en blanco.`,
+        `Semana 3 · Porfolio: realiza un proyecto de muestra (propio o para un conocido) y documéntalo con antes/después.`,
+        `Semana 4 · Vende: presenta tu oferta a 10 ${i.cli} con el caso de muestra. Objetivo: 1 proyecto con anticipo cobrado.`
+      ],
+      q: (i) => [
+        `¿Cuándo fue la última vez que contrataste algo así y cómo elegiste al proveedor?`,
+        `¿Qué te frenó o qué salió mal con proveedores anteriores en ${i.pb}?`,
+        `¿Qué presupuesto tendrías para resolverlo bien y cuándo lo necesitarías?`
+      ]
+    },
+    comision: {
+      label: 'Comisión por resultados',
+      ing: 'Comisión sobre ventas u operaciones cerradas, a veces con fijo mínimo. Tu cuenta clave: ticket medio × comisión × nº de operaciones al mes. Ojo al ciclo de cobro.',
+      plan: (i, loc) => [
+        `Semana 1 · Investiga: entrevista a 5 ${i.cli} para entender cuánto vale una venta o una operación y quién decide.`,
+        `Semana 2 · Define el acuerdo: comisión, zona, exclusividad y forma de reporte. Redáctalo en un contrato de una página (agencia o intermediación).`,
+        `Semana 3 · Prospección: haz una lista de 30 contactos de ${loc} o de tu mercado objetivo y contacta con 10.`,
+        `Semana 4 · Primer cierre: consigue una operación de prueba, aunque sea pequeña, y calcula tu margen real tras gastos.`
+      ],
+      q: (i) => [
+        `¿Cuánto vale para ti una venta o cliente nuevo?`,
+        `¿Trabajas ya con intermediarios o agentes? ¿Qué te gusta y qué no?`,
+        `¿Prefieres pagar solo por resultados o una cuota fija más una comisión menor?`
+      ]
+    },
+    producto: {
+      label: 'Venta de producto (tienda / e-commerce)',
+      ing: 'Margen sobre el producto vendido. Tu cuenta clave: PVP − coste − envío − comisiones − publicidad = margen neto por unidad. Calcúlalo ANTES de comprar stock.',
+      plan: (i, loc) => [
+        `Semana 1 · Investiga: mira 10 competidores directos y anota precios, envíos, reseñas y qué se queja la gente.`,
+        `Semana 2 · Producto y margen: elige 5-10 referencias, pide muestras y calcula el margen neto real de cada una.`,
+        `Semana 3 · Validación barata: lanza una preventa, una landing con lista de espera o un puesto en un mercadillo de ${loc}.`,
+        `Semana 4 · Primeras ventas: mueve 20 mensajes/DMs a ${i.cli} y mide qué porcentaje convierte. Decide qué compras de stock hacer.`
+      ],
+      q: (i) => [
+        `¿Dónde compras hoy ${i.pb} y qué te falta o te sobra de esa opción?`,
+        `¿Cuánto pagarías por esto y qué te haría dudar antes de comprarlo?`,
+        `¿A quién se lo recomendarías o regalarías?`
+      ]
+    },
+    suscripcion: {
+      label: 'Suscripción / compra recurrente',
+      ing: 'Cuota periódica (mensual/trimestral) por un producto o acceso. Tu cuenta clave: nº de suscriptores × cuota − coste de producto/envío − coste de captación. Vigila la tasa de bajas.',
+      plan: (i, loc) => [
+        `Semana 1 · Investiga: identifica 5 suscripciones parecidas y anota precio, frecuencia y qué reseñas negativas reciben.`,
+        `Semana 2 · Diseña la caja o el plan: qué incluye, cada cuánto y a qué precio. Calcula el coste real de la primera entrega.`,
+        `Semana 3 · Preventa: abre una lista de espera y consigue 10 personas que prometan pagar el primer mes.`,
+        `Semana 4 · Piloto: entrega a los primeros suscriptores, pide feedback por WhatsApp y mide cuántos repetirían.`
+      ],
+      q: (i) => [
+        `¿Comprarías ${i.pb} de forma recurrente? ¿Cada cuánto?`,
+        `¿Qué precio mensual te parecería justo y cuál excesivo?`,
+        `¿Qué te haría cancelar la suscripción?`
+      ]
+    },
+    formacion: {
+      label: 'Formación, talleres y contenido de pago',
+      ing: 'Venta de cursos, talleres o mentorías por plaza o suscripción. Tu cuenta clave: plazas × precio − coste de captación. Empieza en pequeño (grupo de 6-10) antes de grabar nada.',
+      plan: (i, loc) => [
+        `Semana 1 · Investiga: pregunta a 5 ${i.cli} qué les gustaría aprender exactamente y en qué formato (presencial, online, corto).`,
+        `Semana 2 · Programa: diseña un taller de 2-3 horas con un resultado concreto al final ("saldrás sabiendo hacer X").`,
+        `Semana 3 · Preventa: abre 8-10 plazas con precio de lanzamiento y consigue las primeras inscripciones.`,
+        `Semana 4 · Impartición piloto: hazlo, pide valoración y testimonio y decide si conviertes el taller en curso o en serie.`
+      ],
+      q: (i) => [
+        `¿Qué te cuesta más de ${i.pb} y en qué te gustaría mejorar?`,
+        `¿Has pagado alguna vez por aprender esto? ¿Qué te gustó o no?`,
+        `¿Qué formato preferirías (presencial, online, en directo) y cuánto pagarías?`
+      ]
+    },
+    plataforma: {
+      label: 'Plataforma / marketplace',
+      ing: 'Comisión por transacción o cuota de acceso. Tu cuenta clave: nº de transacciones × comisión. Necesita masa crítica en los dos lados (oferta y demanda), por eso se valida a mano antes de programar nada.',
+      plan: (i, loc) => [
+        `Semana 1 · Investiga: entrevista a 5 personas de cada lado (quien ofrece y quien demanda) sobre cómo se encuentran hoy.`,
+        `Semana 2 · Prototipo sin código: monta un formulario + hoja de cálculo o una landing sencilla que conecte a ambos lados.`,
+        `Semana 3 · Oferta primero: consigue 10 proveedores de ${loc} dispuestos a estar en la plataforma.`,
+        `Semana 4 · Demanda: trae a 20 clientes potenciales, haz 3 conexiones a mano y mide cuántas acaban en operación real.`
+      ],
+      q: (i) => [
+        `¿Cómo encuentras hoy a ${i.pb} y qué es lo peor de ese proceso?`,
+        `¿Te fiarías de una plataforma para esto? ¿Qué garantías necesitarías?`,
+        `¿Pagarías una comisión o cuota por que te lo dieran resuelto?`
+      ]
+    },
+    experiencia: {
+      label: 'Experiencia, evento o espacio físico',
+      ing: 'Entradas, reservas, ventas en el espacio y patrocinios. Tu cuenta clave: aforo × ocupación × ticket medio − alquiler y personal. Prueba primero en formato pop-up antes de firmar un alquiler largo.',
+      plan: (i, loc) => [
+        `Semana 1 · Investiga: visita 3 espacios o eventos similares en ${loc}, cuenta el público y anota cuánto gasta cada persona.`,
+        `Semana 2 · Diseña el formato: qué se vive, cuánto dura, aforo y precio. Busca un local o espacio cedido para un día de prueba.`,
+        `Semana 3 · Promoción: lanza una campaña con 3 canales (Instagram, cartelería en el barrio, alianzas con comercios) y abre reservas.`,
+        `Semana 4 · Prueba real: organiza un evento o pop-up de un día, mide asistencia, gasto medio y cuántos volverían.`
+      ],
+      q: (i) => [
+        `¿Qué haces hoy los fines de semana en relación con ${i.pb}?`,
+        `¿Cuánto has gastado en algo parecido en el último año?`,
+        `¿A quién llevarías y qué tendría que tener para que repitieras?`
+      ]
+    }
+  };
+
+  // ---------- COMERCIO INTERNACIONAL (Grado Superior) ----------
+  const A = (o) => COM.push(o);
+
+  A({ id:'ci1', tp:'sector', cics:['ci'], t:'Departamento de exportación externalizado para pymes productoras', n:'Agente de exportación',
+    d:'Te conviertes en el departamento de exportación de 3-5 pequeñas empresas productoras de tu zona (conservas, vino, queso, cosmética, madera…) que quieren vender fuera pero no tienen a nadie que lo haga. Eliges mercados con datos (Portugal, Francia, Alemania, Países Bajos), preparas catálogos y tarifas de exportación, localizas importadores y gestionas ofertas hasta el cierre. Modelo: retainer de 300-800 €/mes por empresa + 3-8 % de comisión sobre las ventas que consigas.',
+    m:'comision', cli:'bodegas, conserveras, queserías y obradores de tu zona sin departamento de exportación', pb:'la búsqueda de importadores y la preparación de ofertas de exportación',
+    val:'Vendes fuera sin contratar a un responsable de exportación: pagas una cuota y una comisión solo si hay ventas.',
+    inv:[500,2000], ar:'2-3 meses', r:2, e:['online','local'], h:2, am:5, tg:['gastronomia','sostenibilidad'], k:['idiomas','marketing','ventas'], s:['ventas','idiomas','organizacion'],
+    why:'En tu ciclo trabajas Marketing internacional, Negociación internacional y Sistema de información de mercados: elegir el mercado con datos (Trade Map, Eurostat, TARIC) y cerrar con un importador es exactamente tu módulo, no una improvisación.',
+    reto:'Los ciclos de venta internacional son largos (6-12 meses). Por eso el retainer mensual es clave: sin él, cobrarías solo por comisión y tardarías meses en ingresar.',
+    paso:'Elige un producto de tu zona, busca en Trade Map los 3 países que más lo importan y localiza en LinkedIn 10 importadores o distribuidores de ese producto.',
+    vr:'Especialízate en un solo país (p. ej. Portugal o Francia) y un solo sector: ser «el que conoce ese mercado» permite cobrar más y captar por recomendación.' });
+
+  A({ id:'ci2', tp:'sector', cics:['ci'], t:'Diagnóstico «Export Ready» para pymes que quieren dar el salto', n:'Consultoría de primera exportación',
+    d:'Un servicio cerrado en dos fases: diagnóstico de 2-3 horas (¿está lista tu empresa para exportar?) y plan de exportación a 12 meses con mercados prioritarios, precios en destino (con Incoterms y costes logísticos), documentación necesaria y ayudas disponibles de ICEX, cámaras de comercio y tu comunidad autónoma. Modelo: diagnóstico 400-900 € + plan 1.500-3.000 €, con seguimiento opcional mensual.',
+    m:'proyecto', cli:'pymes con producto propio que nunca han exportado', pb:'la decisión de si exportar y a dónde',
+    val:'En dos semanas sabes si exportar te compensa, a dónde y con qué precio, sin gastar en ferias a ciegas.',
+    inv:[300,1200], ar:'1-2 meses', r:1, e:['online','local'], h:1, am:4, tg:[], k:['ofimatica','idiomas'], s:['organizacion','personas','resolucion'],
+    why:'Es la aplicación directa de Gestión administrativa del comercio internacional + Financiación internacional + Marketing internacional: sabes qué papeles, qué costes y qué riesgos de cobro tiene cada operación.',
+    reto:'Las pymes recelan de pagar consultoría a alguien sin trayectoria. Empieza con 2 diagnósticos gratis o a precio simbólico para conseguir casos y testimonios.',
+    paso:'Diseña una hoja de diagnóstico de 15 preguntas (producto, capacidad, certificaciones, precio, idiomas) y pásasela a una pyme conocida para probarla.',
+    vr:'Vende el diagnóstico a través de cámaras de comercio, asociaciones empresariales o polígonos industriales: te dan acceso a decenas de pymes a la vez.' });
+
+  A({ id:'ci3', tp:'sector', cics:['ci'], t:'Agente de sourcing internacional para tiendas online y marcas pequeñas', n:'Aprovisionamiento internacional',
+    d:'Buscas, comparas y verificas proveedores fuera de España (Portugal, Turquía, India, China…) para tiendas online y marcas D2C que quieren fabricar o comprar más barato: pides muestras, negocias precios y mínimos, coordinas inspecciones de calidad y logística. Modelo: 5-8 % del pedido o tarifa por búsqueda (300-800 €) + gestión del pedido.',
+    m:'comision', cli:'dueños de tiendas online y marcas pequeñas que quieren producir o comprar fuera', pb:'encontrar y verificar proveedores fiables en el extranjero',
+    val:'Compras fuera sin miedo a estafas ni a mercancía defectuosa: alguien que habla el idioma del proveedor lo verifica por ti.',
+    inv:[500,2000], ar:'2 meses', r:2, e:['online'], h:2, am:4, tg:['moda','tecnologia','diy'], k:['idiomas','ventas'], s:['idiomas','resolucion','organizacion'],
+    why:'Dominas Incoterms, medios de pago internacionales y transporte internacional: sabes calcular el coste real puesto en destino (landed cost) y proteger al cliente en el pago.',
+    reto:'Riesgo de calidad y de reclamaciones. Se resuelve con inspecciones de terceros antes del envío, pagos escalonados y contratos claros de responsabilidades.',
+    paso:'Elige un producto de moda o hogar, encuentra 5 proveedores en un país y calcula en Excel su landed cost completo (precio + transporte + arancel + IVA + margen).',
+    vr:'Especialízate en un producto (ropa deportiva, cerámica, packaging…) para dominar precios, certificaciones y proveedores de ese nicho.' });
+
+  A({ id:'ci4', tp:'sector', cics:['ci','tl'], t:'Gestión documental y logística internacional para pymes', n:'Gestoría de comercio exterior',
+    d:'Llevas la papelería y la coordinación de las operaciones de exportación e importación de pymes que no tienen departamento propio: factura comercial, packing list, certificados de origen, EUR.1, comparación de tarifas de transitarios, seguimiento del envío y cobro documentario. Colaboras con una agencia de aduanas para el DUA. Modelo: 45-120 € por expediente o cuota de 150-400 €/mes según volumen.',
+    m:'cuota', cli:'pymes con 5-30 operaciones internacionales al año', pb:'los trámites documentales y aduaneros de sus envíos',
+    val:'Tus envíos no se quedan parados en aduana por un papel mal hecho, y pagas una tarifa fija por operación.',
+    inv:[500,1500], ar:'1-2 meses', r:1, e:['online'], h:2, am:4, tg:[], k:['ofimatica','contabilidad'], s:['organizacion','resolucion'],
+    why:'Es tu ciclo casi al pie de la letra: Gestión administrativa del comercio internacional y Transporte internacional de mercancías. Aquí un error de un dato cuesta dinero y tú sabes por qué.',
+    reto:'Un error documental puede retener mercancía y costar caro. Doble revisión de cada expediente y un seguro de responsabilidad civil son imprescindibles. Firmar el DUA por cuenta de terceros exige ser representante aduanero: empieza como colaborador de una agencia de aduanas.',
+    paso:'Simula un expediente completo de exportación con tu producto favorito (Incoterm, factura, packing list, certificado de origen) y cronometra cuánto tardas.',
+    vr:'Ofrece el servicio solo para importación de e-commerce (marcas que compran a Asia): es el flujo más repetitivo y estandarizable.' });
+
+  A({ id:'ci5', tp:'sector', cics:['ci'], t:'Gestor de ventas cross-border en marketplaces europeos', n:'Comercio digital internacional',
+    d:'Llevas la venta internacional de marcas españolas en Amazon (varios países de la UE), eBay, Etsy o Zalando: alta de cuentas, traducción y optimización de fichas, gestión del IVA de venta a distancia, logística y publicidad interna. Modelo: cuota de 300-900 €/mes + 5-10 % sobre las ventas incrementales que generes.',
+    m:'cuota', cli:'marcas y tiendas españolas con producto propio que venden solo en España', pb:'vender en otros países de la UE a través de marketplaces',
+    val:'Tu marca aparece en Alemania, Francia e Italia en semanas, sin montar delegaciones ni aprender cada plataforma.',
+    inv:[500,1500], ar:'1-2 meses', r:2, e:['online'], h:2, am:5, tg:['tecnologia','moda'], k:['marketing','idiomas','ofimatica'], s:['digital','idiomas','organizacion'],
+    why:'Comercio digital internacional, Marketing internacional y el IVA en operaciones intracomunitarias son módulos tuyos: vendes fuera con la parte fiscal y de logística bien hecha desde el primer pedido.',
+    reto:'Dependes de las reglas y comisiones de las plataformas, que cambian. Diversifica: no dejes que un cliente dependa de un único marketplace.',
+    paso:'Elige un producto de una marca local, busca su equivalente en Amazon.de y Amazon.fr y anota precio, reseñas y palabras clave de las 5 fichas mejor posicionadas.',
+    vr:'Céntrate en un país (Alemania o Francia) y conviértete en el «gestor de Amazon.de para marcas españolas».' });
+
+  A({ id:'ci6', tp:'sector', cics:['ci'], t:'Distribución exclusiva en España de una marca extranjera de nicho', n:'Importador-distribuidor',
+    d:'Consigues la representación de una marca extranjera que aún no está en España (café de especialidad, cosmética asiática, herramientas de nicho, vinos o conservas portuguesas…) y la distribuyes a tiendas y online. Compras en volumen, gestionas el stock y vendes a comercios y a tu propia web. Modelo: margen del 30-50 % sobre el precio de compra, con pedidos mínimos y exclusividad territorial.',
+    m:'producto', cli:'tiendas especializadas y consumidores de nicho interesados en marcas que no encuentran en España', pb:'acceder a marcas extranjeras de calidad que no tienen distribuidor en España',
+    val:'Traes a España un producto de calidad que la gente busca y hoy no encuentra, con soporte y stock local.',
+    inv:[5000,20000], ar:'4-6 meses', r:3, e:['online','local'], h:3, am:4, tg:['gastronomia','moda','sostenibilidad'], k:['idiomas','ventas'], s:['ventas','idiomas','organizacion'],
+    why:'Negociación internacional, Financiación internacional y cálculo de costes de importación (arancel, IVA, transporte): es el negocio donde tu ciclo tiene más peso porque el margen se gana o se pierde en esos números.',
+    reto:'Capital inmovilizado en stock y riesgo de que no rote. Negocia pedidos mínimos bajos al principio, exclusividad por escrito y pruébalo antes con una preventa.',
+    paso:'Elige 3 marcas extranjeras sin distribuidor en España, escribe a cada una pidiendo catálogo y condiciones de distribución y calcula el landed cost de una referencia.',
+    vr:'Empieza como agente comercial de la marca (sin comprar stock, solo comisión) y pasa a distribuidor cuando tengas ventas demostradas.' });
+
+  A({ id:'ci7', tp:'sector', cics:['ci'], t:'Estudios de mercado exterior por encargo', n:'Inteligencia de mercados',
+    d:'Elaboras informes a medida de 15-25 páginas sobre un mercado de destino para pymes que quieren exportar: demanda, competidores, precios, canales de distribución, aranceles, normativa y contactos clave. Precio: 350-900 € por informe según profundidad. Empieza con datos públicos (Trade Map, Eurostat, ICEX) y añade entrevistas a distribuidores locales.',
+    m:'proyecto', cli:'pymes que estudian su primera exportación o un nuevo mercado', pb:'saber si un mercado extranjero compensa antes de invertir',
+    val:'Antes de gastar 5.000 € en una feria, sabes si hay demanda y a qué precio se vende en ese país.',
+    inv:[300,800], ar:'1 mes', r:1, e:['online'], h:1, am:5, tg:[], k:['idiomas','ofimatica'], s:['organizacion','resolucion','idiomas'],
+    why:'Sistema de información de mercados y Marketing internacional son la base de tu ciclo: buscar y filtrar datos fiables de un mercado es una competencia que muy poca gente domina.',
+    reto:'Se compite con informes gratuitos. Lo que se paga es lo adaptado a su producto y con recomendaciones concretas, no los datos genéricos.',
+    paso:'Haz un mini-informe de una página sobre un mercado (p. ej., conservas en Alemania) con demanda, 3 competidores y precio medio. Será tu muestra.',
+    vr:'Conviértelo en suscripción trimestral: actualizas el informe y avisas de oportunidades (licitaciones, ferias, cambios arancelarios).' });
+
+  A({ id:'ci8', tp:'sector', cics:['ci'], t:'Organizadora de agenda B2B para ferias y misiones comerciales', n:'Servicios para ferias internacionales',
+    d:'Acompañas a pymes a ferias internacionales (Alemania, Francia, Países Bajos): preparas su agenda de reuniones antes del evento, actúas como intérprete comercial, das seguimiento post-feria y gestionas el contacto con los leads. Modelo: 600-1.500 € por feria + comisión opcional por acuerdos cerrados. Se cobra por adelantado.',
+    m:'proyecto', cli:'pymes que acuden a ferias sin agenda ni idiomas suficientes', pb:'aprovechar de verdad una feria internacional',
+    val:'Vuelves de la feria con reuniones cerradas y contactos trabajados, no con una bolsa de tarjetas.',
+    inv:[1000,3000], ar:'2-3 meses', r:2, e:['online','local'], h:2, am:5, tg:['viajes'], k:['idiomas','ventas'], s:['idiomas','personas','organizacion'],
+    why:'Negociación internacional, protocolo comercial y gestión de la relación con clientes extranjeros: convierte tu formación en una ventaja directa el día de la feria.',
+    reto:'Estacionalidad (las ferias se concentran en pocos meses) y adelantar gastos de viaje. Se resuelve cobrando por adelantado y cerrando el calendario anual con antelación.',
+    paso:'Elige una feria del calendario de tu sector y prepara un plan de agenda ficticio: 10 empresas objetivo, argumentario y correo de contacto previo.',
+    vr:'Especialízate en un sector concreto (alimentación, náutico, moda…) y vende tus servicios a toda la delegación de tu comunidad en cada feria.' });
+
+  A({ id:'ci9', tp:'sector', cics:['ci'], t:'Tienda online de producto español para la diáspora en el extranjero', n:'E-commerce cross-border de nicho',
+    d:'Tienda online que envía productos de tu región (embutidos, conservas, dulces, licores, artesanía) a personas de tu comunidad que viven en el extranjero, empezando por países de la UE para evitar aduanas. Modelo: margen del 35-50 % con ticket medio de 40-70 € y campañas en fechas señaladas (Navidad, fiestas patronales). Captación vía grupos y asociaciones de emigrantes y redes sociales.',
+    m:'producto', cli:'personas de tu región que viven fuera y echan de menos sus productos', pb:'conseguir productos de su tierra estando en otro país',
+    val:'Un trozo de casa en tu puerta en 3-5 días, con un packaging que se puede regalar.',
+    inv:[2000,6000], ar:'3-4 meses', r:2, e:['online'], h:2, am:5, tg:['gastronomia','viajes'], k:['marketing','idiomas'], s:['digital','ventas'],
+    why:'Combina comercio digital internacional con logística de envíos y cálculo de costes con IVA: tu ciclo te permite fijar precios con los gastos de envío internacionales y el IVA de venta a distancia bien resueltos.',
+    reto:'Los envíos de alimentos fuera de la UE tienen requisitos sanitarios y aduaneros estrictos. Empieza solo con países UE y valida antes de ampliar.',
+    paso:'Busca 3 asociaciones o grupos de emigrantes de tu comunidad en un país de la UE y pregunta a 5 miembros qué producto echan más de menos y cuánto pagarían.',
+    vr:'Convierte la tienda en cesta trimestral de suscripción con producto de temporada y la caja como regalo corporativo para fechas señaladas.' });
+
+  // ---------- GESTIÓN DE VENTAS Y ESPACIOS COMERCIALES (Grado Superior) ----------
+  A({ id:'gv1', tp:'sector', cics:['gv'], t:'Escaparatismo y visual merchandising por temporadas para comercios locales', n:'Diseño de espacios comerciales',
+    d:'Diseñas y montas los escaparates y la ambientación de tiendas de calle (moda, regalo, óptica, floristería, joyería) siguiendo el calendario comercial: rebajas, Día de la Madre, vuelta al cole, Navidad. Cada cambio incluye concepto, atrezzo, montaje y foto para redes. Modelo: 150-450 € por escaparate suelto o contrato anual de 800-2.500 € con 4-6 cambios y ambientación.',
+    m:'cuota', cli:'comercios de calle que cambian poco su escaparate y pierden tráfico', pb:'renovar escaparates y ambientación de la tienda cada temporada',
+    val:'Un escaparate que hace parar a la gente, listo en un día y con foto profesional para redes.',
+    inv:[300,1500], ar:'1 mes', r:1, e:['local','domicilio'], h:1, am:2, tg:['arte','moda','diy'], k:['diseno','fotovideo'], s:['creatividad','tecnica','personas'],
+    why:'Escaparatismo y diseño de espacios comerciales es un módulo de tu ciclo: sabes de composición, iluminación, zonas calientes y frías y elaboración de propuestas de implantación, que el comerciante hace por intuición.',
+    reto:'Es un servicio estacional y muchos comercios lo hacen ellos mismos por ahorrar. Lo que hace que te contraten es el contrato anual y el antes/después con impacto medible (tráfico y ventas).',
+    paso:'Haz fotos a 10 escaparates de tu barrio, puntúalos (1-5) con un criterio propio y prepara una propuesta de mejora en una página para el que peor puntuación tenga.',
+    vr:'Especialízate en un sector (moda infantil, joyería, floristería) o en una campaña concreta (Navidad) para convertirte en el referente de ese nicho.' });
+
+  A({ id:'gv2', tp:'sector', cics:['gv'], t:'Consultoría de implantación y layout para tiendas de 50-300 m²', n:'Retail: rediseño de tienda',
+    d:'Analizas cómo se mueve el cliente en la tienda (recorrido, zonas calientes, tiempo de permanencia), rediseñas lineales, planograma y cartelería, y propones cambios medibles. Incluye medición antes/después de ticket medio y ventas por m². Modelo: proyecto de 400-1.200 € por tienda + revisión trimestral opcional a 80-150 €/mes.',
+    m:'proyecto', cli:'tiendas de 50-300 m² (moda, ferretería, papelería, supermercados de barrio, tiendas de deporte)', pb:'organizar la tienda para que venda más por metro cuadrado',
+    val:'Vendes más sin ampliar el local: cada metro cuadrado trabaja mejor y el cliente encuentra lo que busca.',
+    inv:[300,1000], ar:'1-2 meses', r:1, e:['local'], h:1, am:2, tg:[], k:['ofimatica'], s:['organizacion','resolucion','tecnica'],
+    why:'Gestión de productos y promociones en el punto de venta, layout y merchandising: usas los mismos criterios que las grandes cadenas (ratio de ventas por m², rotación, ubicación del lineal) a escala de pequeño comercio.',
+    reto:'El dueño teme el coste y el cambio. Demuestra el resultado con un piloto de una sección (una estantería, un escaparate) y mide antes de pedir el proyecto completo.',
+    paso:'Visita una tienda de tu barrio y dibuja en un plano el recorrido de 10 clientes durante 30 minutos. Ya tienes tu primer «mapa de calor» casero.',
+    vr:'Añade análisis de conversión con contador de personas barato y ofrécelo como informe mensual de rendimiento de tienda.' });
+
+  A({ id:'gv3', tp:'sector', cics:['gv'], t:'Tienda pop-up rotativa: concept store de marcas online y artesanos', n:'Retail temporal',
+    d:'Alquilas un local en zona comercial y lo cedes por días o semanas a marcas online, artesanos y creadores que quieren probar el canal físico sin firmar un alquiler. Tú pones espacio, imagen, caja, atención y promoción; ellos ponen producto. Modelo: 150-400 € por semana por marca + 10-20 % de comisión sobre ventas + eventos y talleres de pago.',
+    m:'experiencia', cli:'marcas online, diseñadores y artesanos que quieren vender en físico sin compromiso de alquiler', pb:'probar la venta en una tienda física sin asumir un alquiler largo',
+    val:'Estás en una tienda física en una zona con tráfico durante una semana, sin contrato y con alguien que atiende por ti.',
+    inv:[3000,10000], ar:'3-4 meses', r:3, e:['local'], h:3, am:1, tg:['arte','moda','diy','sostenibilidad'], k:['marketing','rrss'], s:['organizacion','ventas','personas'],
+    why:'Reúne casi todo tu ciclo: diseño del espacio, escaparatismo, gestión de productos en el punto de venta, políticas de precio y promoción, gestión de caja y equipo de ventas.',
+    reto:'Alquiler fijo mientras la ocupación varía. Se reduce con contratos de local por temporadas, ocupación garantizada con marcas antes de abrir y comisiones por ventas.',
+    paso:'Localiza 3 locales vacíos en zonas comerciales de tu ciudad, pregunta por alquiler de corta duración y contacta con 10 marcas locales para ver cuántas pagarían por probar.',
+    vr:'Empieza en formato «mercadillo curado» de fin de semana en un local cedido, y solo abre local propio cuando tengas ocupación demostrada.' });
+
+  A({ id:'gv4', tp:'sector', cics:['gv','med'], t:'Equipo comercial externo por comisión para marcas pequeñas', n:'Agente comercial multimarca',
+    d:'Eres el equipo comercial de 2-4 marcas pequeñas (alimentación, bebidas, cosmética profesional, herramientas) que no pueden contratar comerciales propios. Visitas hostelería, tiendas y distribuidores de tu zona, tomas pedidos, llevas la relación posterior y reportas ventas. Modelo: comisión del 8-15 % sobre ventas con contrato de agencia mercantil (Ley 12/1992).',
+    m:'comision', cli:'marcas pequeñas de alimentación, bebidas y productos de consumo que quieren entrar en tiendas y hostelería de tu zona', pb:'llegar a tiendas y hostelería de una zona sin un comercial propio',
+    val:'Tienes presencia comercial en toda la zona sin pagar sueldo, seguridad social ni coche: solo comisión sobre lo que se venda.',
+    inv:[500,1500], ar:'1-2 meses', r:2, e:['local','domicilio'], h:2, am:3, tg:['gastronomia'], k:['ventas'], s:['ventas','personas','organizacion'],
+    why:'Técnicas de venta y negociación y Organización de equipos de ventas: sabes preparar una visita, gestionar objeciones, cerrar y hacer seguimiento con un CRM, y planificar rutas y objetivos por zona.',
+    reto:'Al principio cobras poco y a comisión. Firma con 3-4 marcas complementarias (que no compitan entre sí) para diversificar ingresos y aprovechar cada visita.',
+    paso:'Haz una lista de 20 marcas locales de alimentación o bebidas que no tengan distribuidor en tu zona y escribe a 5 proponiéndoles una reunión para presentarles tu propuesta de representación.',
+    vr:'Especialízate en un canal (hostelería/HORECA o tiendas gourmet) y gana autoridad ante los compradores de ese canal.' });
+
+  A({ id:'gv5', tp:'sector', cics:['gv','med'], t:'Auditorías de experiencia de cliente con cliente misterioso', n:'Mystery shopping',
+    d:'Visitas tiendas, restaurantes y hoteles como cliente anónimo con una plantilla de evaluación (atención, imagen, procesos, upselling) y entregas un informe con puntuación, fotos y recomendaciones. Modelo: 60-150 € por visita, packs mensuales para cadenas y franquicias, y talleres de mejora posteriores.',
+    m:'cuota', cli:'franquicias, cadenas pequeñas y comercios que quieren medir cómo atiende su equipo', pb:'saber cómo atiende de verdad su equipo cuando el jefe no está',
+    val:'Ves tu negocio con los ojos del cliente: sabes qué se hace bien y qué se pierde en la venta.',
+    inv:[200,800], ar:'1 mes', r:1, e:['local','domicilio'], h:1, am:3, tg:[], k:['atencion_cliente','ofimatica'], s:['personas','organizacion','resolucion'],
+    why:'Atención al cliente, calidad del servicio y técnicas de venta: sabes qué criterios objetivos evaluar (saludo, sondeo de necesidades, argumentación, cierre) y cómo redactar una recomendación útil.',
+    reto:'Tarifa por visita baja, hace falta volumen. Pasa de visitas sueltas a contratos con cadenas y complementa con formación posterior.',
+    paso:'Diseña una hoja de evaluación de 20 criterios, visita una tienda como cliente y rellénala. Eso es tu primer informe de muestra.',
+    vr:'Conviértelo en servicio de «auditoría + taller»: el informe detecta el problema y el taller lo corrige con el equipo.' });
+
+  A({ id:'gv6', tp:'sector', cics:['gv','med'], t:'Talleres de venta consultiva para comercios de proximidad', n:'Formación en ventas',
+    d:'Imparte talleres prácticos de 3-4 horas para equipos de comercio local: técnicas de venta, sondeo de necesidades, venta cruzada, gestión de reclamaciones y venta por WhatsApp/Instagram. Modelo: 250-600 € por taller para grupos de 5-15 personas o paquetes trimestrales con seguimiento. Alianzas con asociaciones de comerciantes y cámaras de comercio.',
+    m:'formacion', cli:'asociaciones de comerciantes y equipos de tiendas, hoteles y concesionarios', pb:'mejorar cómo vende y atiende su equipo',
+    val:'Tu equipo vende más y mejor tras un taller práctico de media jornada, con ejemplos de tu propio negocio.',
+    inv:[200,800], ar:'1 mes', r:1, e:['local','online'], h:1, am:3, tg:[], k:['ventas','atencion_cliente'], s:['personas','liderazgo','ventas'],
+    why:'Procesos de venta y Técnicas de venta y negociación: no improvisas, aplicas un método (sondeo, argumentación, cierre) que has trabajado con role-plays y casos reales en el ciclo.',
+    reto:'Formar exige otra habilidad distinta a saber vender: dinamiza, usa role-plays y casos reales y mide el resultado con un pre/post-test para demostrar que funciona.',
+    paso:'Escribe el guion de un taller de 90 minutos con 3 dinámicas prácticas y pruébalo con 5 amigos o compañeros que trabajen de cara al público.',
+    vr:'Empaqueta el taller en formato «Academia de venta para el pequeño comercio» con módulos online cortos y una comunidad de WhatsApp de seguimiento.' });
+
+  A({ id:'gv7', tp:'sector', cics:['gv'], t:'Tienda de nicho con zona de comunidad: juegos de mesa, TCG o cómics', n:'Retail experiencial',
+    d:'Tienda especializada de juegos de mesa, cartas coleccionables o cómics con zona de juego, torneos semanales y alquiler de mesas por horas. Ingresos: venta de producto (margen 30-40 %), cuotas de torneo, alquiler de mesas y eventos privados. La comunidad hace de prescriptor y de fidelización.',
+    m:'experiencia', cli:'aficionados de 14 a 40 años a los juegos de mesa, cartas y cómics', pb:'encontrar un sitio donde comprar y jugar con más gente',
+    val:'No es solo una tienda: es el sitio donde queda la gente que comparte tu afición, con novedades y torneos cada semana.',
+    inv:[8000,20000], ar:'4-6 meses', r:3, e:['local'], h:4, am:1, tg:['tecnologia','arte'], k:['rrss','marketing'], s:['ventas','personas','creatividad'],
+    why:'Gestión de compras, surtido y rotación, políticas de precio y promoción, diseño del espacio y organización de eventos: todo lo que sostiene un retail de nicho está en tu ciclo.',
+    reto:'Alquiler y stock son las dos amenazas. Empieza con venta online + torneos en un local cedido (bar, asociación) y abre tienda solo con comunidad ya activa.',
+    paso:'Crea un grupo de WhatsApp o Discord, organiza una quedada de prueba en un espacio cedido y cuenta cuántos vienen y cuánto gastan en juegos o consumiciones.',
+    vr:'Combina tienda y cafetería en un formato «café de juegos» con consumición mínima y alquiler de mesa, con un margen de hostelería.' });
+
+  A({ id:'gv8', tp:'sector', cics:['gv','med'], t:'Digitalización omnicanal del comercio de barrio', n:'Comercio local conectado',
+    d:'Ayudas a tiendas de proximidad a vender también online sin cambiar su forma de trabajar: ficha de Google Business optimizada, catálogo en WhatsApp Business, click & collect, TPV conectado a una web sencilla y reparto local. Modelo: implantación de 400-1.000 € + cuota de 60-150 €/mes de mantenimiento y campañas locales.',
+    m:'cuota', cli:'tiendas de barrio y pequeño comercio de proximidad', pb:'vender online y aparecer en Google sin perder tiempo ni tener conocimientos técnicos',
+    val:'Tu tienda aparece cuando la gente busca y vende también fuera de horario, sin que tú tengas que aprender tecnología.',
+    inv:[300,1000], ar:'1 mes', r:1, e:['local','online'], h:1, am:2, tg:['tecnologia'], k:['marketing','ofimatica'], s:['digital','personas','resolucion'],
+    why:'Marketing digital, Procesos de venta y Gestión económica y financiera: sabes integrar lo digital con la operativa real de la tienda (stock, caja, márgenes) sin que la digitalización sea un gasto sin retorno.',
+    reto:'Muchos comercios de proximidad son reacios a la tecnología. Vende resultados («7 llamadas nuevas al mes desde Google»), no herramientas.',
+    paso:'Mira la ficha de Google de 10 comercios de tu zona y puntúala (fotos, horario, reseñas, respuesta). Prepara un informe de mejora de una página para el peor.',
+    vr:'Céntrate en un tipo de comercio (peluquerías, ferreterías, floristerías) y crea una plantilla replicable para escalar más rápido.' });
+
+  A({ id:'gv9', tp:'sector', cics:['gv','med','bas','tl'], t:'Vending inteligente de nicho en ubicaciones estratégicas', n:'Micro-retail automatizado',
+    d:'Instalas máquinas de vending de nicho (proteína y snacks saludables en gimnasios, material de papelería en universidades, suministros y accesorios en coworkings) con pago por tarjeta y control remoto de stock. Modelo: margen del 35-50 % por producto, acuerdo con el titular del local (comisión del 5-10 %) y reposición semanal.',
+    m:'producto', cli:'gimnasios, coworkings, residencias y centros educativos con tráfico constante', pb:'tener una opción de compra rápida en un sitio donde no hay tienda cerca',
+    val:'Productos útiles justo donde se necesitan, sin cola ni horario, y sin coste ni trabajo para el local que aloja la máquina.',
+    inv:[4000,12000], ar:'2-3 meses', r:2, e:['local'], h:1, am:2, tg:['deporte','tecnologia'], k:['ofimatica'], s:['organizacion','resolucion'],
+    why:'Gestión de compras, aprovisionamiento y rotación de stock y análisis de márgenes: todo el negocio es logística de reposición y elegir bien qué vender y dónde ponerlo.',
+    reto:'Depende de la ubicación (sin flujo de gente no hay ventas) y de la reposición constante. Negocia un periodo de prueba y mide ventas por semana antes de invertir en más máquinas.',
+    paso:'Visita 5 ubicaciones posibles (gimnasio, coworking, centro FP), cuenta cuánta gente pasa en una hora y pregunta al responsable en qué condiciones cederían un metro cuadrado.',
+    vr:'Empieza con una máquina en alquiler (renting) o con un «mini-kiosco de autoservicio» para reducir la inversión y validar la ubicación.' });
+
+  // ---------- MARKETING Y PUBLICIDAD (Grado Superior) ----------
+  A({ id:'mp1', tp:'sector', cics:['mp','gv','med'], t:'Gestión de redes sociales y contenido para negocios locales', n:'Social media para pymes',
+    d:'Llevas Instagram, TikTok y Google Business de 5-8 negocios locales (restaurantes, clínicas, gimnasios, comercios): calendario mensual, 12-16 publicaciones y 4-6 reels/vídeos, respuesta a comentarios y informe de resultados. Modelo: paquete mensual de 250-700 € según volumen; ampliable con producción en local de contenido (sesión de fotos y vídeo mensual).',
+    m:'cuota', cli:'restaurantes, clínicas, gimnasios y comercios de tu zona con redes abandonadas', pb:'mantener las redes sociales al día y que traigan clientes',
+    val:'Tus redes están activas, cuidadas y traen clientes, sin que tengas que dedicarle una hora al día.',
+    inv:[300,1500], ar:'1 mes', r:1, e:['online','local'], h:2, am:3, tg:['gastronomia','deporte','moda','viajes'], k:['rrss','fotovideo','diseno'], s:['digital','creatividad','organizacion'],
+    why:'Marketing digital, Medios y soportes de comunicación y Diseño de material de comunicación: sabes planificar una estrategia, elegir canal según público, medir con KPI y no solo publicar «porque sí».',
+    reto:'Es un mercado saturado de freelance baratos. Lo que diferencia a un profesional es un informe de resultados mensual (alcance, leads, reservas) y la especialización en un sector.',
+    paso:'Elige un negocio local con redes flojas, haz un análisis de 1 página (frecuencia, formato, engagement, 3 mejoras) y envíaselo por mensaje como muestra.',
+    vr:'Especialízate en un sector (restauración, clínicas, gimnasios) con plantillas, calendarios y reels propios de ese sector: ganas velocidad y precio.' });
+
+  A({ id:'mp2', tp:'sector', cics:['mp'], t:'Publicidad de pago por rendimiento (Meta Ads y Google Ads) para pymes y e-commerce', n:'Performance marketing',
+    d:'Diseñas, lanzas y optimizas campañas en Meta y Google para pymes y tiendas online: estructura de campañas, creatividades, píxel y conversiones, informes con ROAS y coste por lead. Modelo: tarifa de gestión de 300-800 €/mes o 10-15 % de la inversión publicitaria, con un mínimo, más setup inicial de 250-500 €.',
+    m:'cuota', cli:'tiendas online y pymes que invierten en publicidad sin controlar el retorno', pb:'invertir en publicidad online sin saber si les está dando retorno',
+    val:'Cada euro de publicidad medido: sabes cuánto cuesta un cliente y cuánto te devuelve.',
+    inv:[300,1200], ar:'1-2 meses', r:2, e:['online'], h:2, am:5, tg:['tecnologia','moda'], k:['marketing','ofimatica'], s:['digital','resolucion','organizacion'],
+    why:'Marketing digital, Políticas de marketing e Investigación comercial: defines público, mensaje y oferta antes de lanzar, y mides con un embudo de conversión, no solo con «clics».',
+    reto:'Cuando la publicidad no da resultado, el cliente culpa al gestor aunque el problema sea el producto o la web. Exige un diagnóstico previo y objetivos por escrito antes de empezar.',
+    paso:'Analiza 5 anuncios de tu sector en la Biblioteca de anuncios de Meta y anota oferta, formato y llamada a la acción. Monta tu primera campaña de prueba con un presupuesto de 30 € para un conocido.',
+    vr:'Céntrate en un nicho de e-commerce (moda infantil, suplementos, mascotas) y ofrece un informe de auditoría gratuita de sus campañas actuales como puerta de entrada.' });
+
+  A({ id:'mp3', tp:'sector', cics:['mp','gv'], t:'SEO local y Google Business para servicios de proximidad', n:'Posicionamiento local',
+    d:'Consigues que clínicas, talleres, reformistas y despachos aparezcan en los primeros resultados de Google Maps y búsquedas locales: optimización de la ficha, reseñas, páginas por servicio y zona, y enlaces locales. Modelo: implantación de 350-800 € + cuota de 150-400 €/mes con informe mensual de posiciones, llamadas y visitas.',
+    m:'cuota', cli:'clínicas, talleres, reformistas, cerrajeros, despachos y otros servicios de proximidad', pb:'aparecer en Google cuando alguien busca su servicio en su zona',
+    val:'Cuando alguien busca lo que haces en tu zona, sales tú; las llamadas llegan sin pagar anuncios cada mes.',
+    inv:[300,1000], ar:'1-2 meses', r:1, e:['online'], h:1, am:3, tg:[], k:['marketing'], s:['digital','resolucion','organizacion'],
+    why:'Marketing digital y análisis de datos: el posicionamiento local es medible (posiciones, llamadas, rutas) y tu formación te permite convertir métricas en decisiones.',
+    reto:'Los resultados llegan a los 3-4 meses: necesitas cuota recurrente y educar al cliente sobre plazos. No prometas «primera posición» porque no depende solo de ti.',
+    paso:'Busca «cerrajero + tu ciudad» y analiza cómo salen los 5 primeros (reseñas, fotos, categorías, web). Prepara un informe de una página para uno que salga peor.',
+    vr:'Especialízate en un solo sector (clínicas veterinarias, talleres, reformas): las plantillas y textos se reutilizan y ganas velocidad.' });
+
+  A({ id:'mp4', tp:'sector', cics:['mp'], t:'Creación de contenido UGC en vídeo para marcas', n:'Contenido UGC',
+    d:'Grabas vídeos de producto con estilo «usuario real» (unboxing, reseña, tutorial, «GRWM») para marcas de e-commerce que los usan como anuncios en TikTok y Meta. Modelo: 50-150 € por vídeo, packs de 5-10 vídeos a 300-900 € y retainer mensual con marcas fijas. Sin necesidad de tener seguidores.',
+    m:'proyecto', cli:'marcas de moda, cosmética, tecnología y alimentación que anuncian en TikTok y Meta', pb:'conseguir vídeos de producto con apariencia natural para sus anuncios',
+    val:'Vídeos que parecen de un cliente real y convierten mejor que un anuncio de estudio, entregados en 3 días.',
+    inv:[200,800], ar:'1 mes', r:1, e:['online'], h:1, am:5, tg:['moda','tecnologia','gastronomia','arte'], k:['fotovideo','rrss'], s:['creatividad','digital'],
+    why:'Diseño y elaboración de material de comunicación y Marketing digital: entiendes qué hace que un anuncio convierta (gancho en 3 segundos, prueba social, llamada a la acción) y puedes explicárselo al cliente.',
+    reto:'Mucha competencia y precios bajos si no te especializas. Ofrece «pack de anuncios listos» (guion + vídeo + variantes de gancho) y no solo la grabación.',
+    paso:'Graba 3 vídeos de muestra de productos que ya tengas en casa (formato vertical, 20-30 s) y súbelos a un porfolio para enseñar a marcas pequeñas.',
+    vr:'Monta un «estudio UGC»: coordina a 3-5 creadores y véndeles el servicio a marcas con un pack mensual. Tú pasas de creador a agencia.' });
+
+  A({ id:'mp5', tp:'sector', cics:['mp'], t:'Agencia local de microinfluencers', n:'Influencer marketing local',
+    d:'Conectas negocios de tu ciudad con microinfluencers locales (1.000-30.000 seguidores) para campañas de apertura, menú nuevo, colecciones o eventos. Gestionas selección, briefing, contenido, cumplimiento de la normativa de publicidad identificada e informe de resultados. Modelo: 15-25 % de comisión sobre el presupuesto de la campaña o tarifa por gestión (400-1.200 €).',
+    m:'comision', cli:'restaurantes, tiendas y marcas locales que quieren visibilidad en su ciudad', pb:'encontrar y gestionar creadores locales sin perder el control ni el presupuesto',
+    val:'Una campaña con creadores reales de tu ciudad, sin buscar uno por uno y con la publicidad bien identificada.',
+    inv:[500,2000], ar:'2 meses', r:2, e:['online','local'], h:2, am:3, tg:['moda','gastronomia','viajes','deporte'], k:['rrss','marketing'], s:['personas','organizacion','digital'],
+    why:'Relaciones públicas, Medios y soportes de comunicación y Lanzamiento de productos: preparas un briefing con objetivo, KPI y mensaje, y controlas que la publicidad sea transparente conforme a las normas del sector.',
+    reto:'Riesgo de perfiles con seguidores falsos o poco engagement real. Verifica siempre métricas reales (alcance, tasa de interacción) y prueba con campañas pequeñas antes de escalar.',
+    paso:'Haz un directorio de 20 microinfluencers de tu ciudad con nicho, seguidores, engagement y forma de contacto. Es tu activo principal.',
+    vr:'Especialízate en un nicho (gastronomía o deporte local) y monta una red de creadores que sea tu «cartera de talento».' });
+
+  A({ id:'mp6', tp:'sector', cics:['mp','gv','ci'], t:'Estudios de mercado y trabajo de campo para pymes y ayuntamientos', n:'Investigación comercial',
+    d:'Diseñas y realizas encuestas, entrevistas, focus groups y observación en punto de venta para responder preguntas concretas: ¿qué precio aceptaría el cliente? ¿qué opinan del local? ¿qué demanda tiene el producto en la zona? Modelo: proyecto de 400-1.500 € con informe, gráficos y conclusiones accionables.',
+    m:'proyecto', cli:'pymes, asociaciones y ayuntamientos que necesitan tomar una decisión con datos', pb:'saber qué piensan sus clientes potenciales antes de invertir',
+    val:'Decides con datos de clientes reales de tu zona, no con intuiciones ni con un informe genérico de internet.',
+    inv:[200,800], ar:'1 mes', r:1, e:['local','online'], h:1, am:3, tg:['social'], k:['ofimatica'], s:['organizacion','personas','resolucion'],
+    why:'Investigación comercial y Trabajo de campo en la investigación comercial son módulos de tu ciclo: diseño de muestra, cuestionarios, tabulación y presentación de resultados con rigor.',
+    reto:'Hay que demostrar rigor (tamaño de muestra, sesgos). Un estudio mal hecho es peor que ninguno; enseña un ejemplo real y una metodología clara.',
+    paso:'Diseña una encuesta de 8 preguntas sobre un problema real de tu barrio o de un comercio y pásala a 30 personas. Tienes tu primer caso de estudio.',
+    vr:'Ofrece «estudios de apertura de local»: análisis de zona, flujo de peatones y competencia para quien piensa abrir un negocio.' });
+
+  A({ id:'mp7', tp:'sector', cics:['mp','gv'], t:'Email marketing y automatización de CRM para e-commerce', n:'Retención de clientes',
+    d:'Montas los flujos automáticos de correo y SMS de una tienda online: bienvenida, carrito abandonado, postcompra, recuperación de inactivos y campañas segmentadas. Modelo: implantación de 400-1.000 € + cuota de 250-600 €/mes; muchas veces se paga por sí solo con el aumento de recompra.',
+    m:'cuota', cli:'tiendas online que ya tienen tráfico y clientes pero no venden a quien ya compró', pb:'conseguir que sus clientes vuelvan a comprar',
+    val:'El 20-30 % de tus ventas online vienen de clientes que ya tienes, con mensajes automáticos que funcionan mientras duermes.',
+    inv:[300,800], ar:'1 mes', r:1, e:['online'], h:1, am:5, tg:['tecnologia'], k:['marketing','ofimatica'], s:['digital','organizacion','resolucion'],
+    why:'Políticas de marketing (fidelización) y Marketing digital: sabes segmentar por valor de cliente y diseñar el embudo de recompra, no solo enviar newsletters.',
+    reto:'Cumplir con RGPD y consentimientos es obligatorio. Y necesitas base de datos: si la tienda no tiene clientes, no hay con qué trabajar. Filtra bien a los clientes antes de aceptar.',
+    paso:'Diseña en papel un flujo de carrito abandonado en 3 correos (a 1 h, 24 h y 72 h) con asunto, mensaje y llamada a la acción para una tienda que conozcas.',
+    vr:'Céntrate en una plataforma (Shopify o WooCommerce) y un sector para plantillas listas que reduzcan el tiempo de implantación.' });
+
+  A({ id:'mp8', tp:'sector', cics:['mp'], t:'Eventos y activaciones de marca en la calle', n:'Marketing experiencial (BTL)',
+    d:'Diseñas y produces acciones de marca presenciales: lanzamientos, promociones en la calle, stands en ferias, sampling en centros comerciales y eventos con influencers. Tú coordinas concepto, permisos, proveedores, personal y medición de resultados. Modelo: proyectos de 800-4.000 € por acción con margen de gestión del 20-30 %.',
+    m:'proyecto', cli:'marcas locales, restaurantes, inmobiliarias y comercios que quieren presencia física', pb:'organizar acciones de marca en la calle o en eventos',
+    val:'Tu marca se vive, se prueba y se comparte: una acción memorable con permisos y personal resueltos.',
+    inv:[500,3000], ar:'2 meses', r:2, e:['local'], h:2, am:3, tg:['musica','deporte','moda'], k:['fotovideo','rrss'], s:['personas','organizacion','creatividad'],
+    why:'Relaciones públicas y organización de eventos de marketing: sabes planificar, presupuestar, coordinar proveedores y medir el retorno de una acción (asistentes, leads, menciones).',
+    reto:'Picos de trabajo y adelantar costes. Cobra un anticipo del 50 % y mide siempre resultados para justificar el evento siguiente.',
+    paso:'Diseña una acción de marca de 1 día para un negocio local: objetivo, público, lugar, presupuesto y cómo medir el éxito. Te sirve de porfolio.',
+    vr:'Especialízate en «activaciones para restauración y ocio nocturno» o en «acciones de marca para universidades y centros FP».' });
+
+  A({ id:'mp9', tp:'sector', cics:['mp','gv'], t:'Branding y plan de lanzamiento para emprendedores', n:'Mini-agencia de lanzamiento',
+    d:'Acompañas a quienes abren un negocio: nombre, identidad visual, web sencilla, redes y plan de lanzamiento de 90 días. Paquete cerrado de 1.500-4.000 € con entregables claros (manual de marca, materiales, calendario, campaña de apertura). Cliente natural: emprendedores y autónomos recién creados.',
+    m:'proyecto', cli:'emprendedores y autónomos que abren negocio y necesitan imagen y plan de lanzamiento', pb:'lanzar un negocio nuevo con una imagen profesional y un plan de captación',
+    val:'Abres con marca, web y plan de captación listos, sin contratar a tres proveedores distintos ni improvisar.',
+    inv:[500,2000], ar:'2 meses', r:2, e:['online','local'], h:2, am:3, tg:['arte','diy','sostenibilidad'], k:['diseno','fotovideo'], s:['creatividad','organizacion','resolucion'],
+    why:'Lanzamiento de productos y servicios, Políticas de marketing y Diseño de material de comunicación: es tu ciclo aplicado de principio a fin, desde el análisis hasta las piezas y el calendario.',
+    reto:'Los emprendedores tienen poco presupuesto y muchas expectativas. Define alcance cerrado por escrito y ofrece paquetes escalonados (básico/estándar/premium) para no ceder en el precio.',
+    paso:'Elige un negocio inventado (o real de tu entorno) y monta un mini-caso de branding de 5 láminas (marca, colores, tono, redes, plan de 90 días). Es tu porfolio.',
+    vr:'Especialízate en un tipo de emprendedor (hostelería, estética, deporte) y ofrece un pack «abre tu negocio» con alianzas con gestorías.' });
+
+  A({ id:'mp10', tp:'sector', cics:['mp'], t:'Marketing especializado para clínicas de salud, estética y veterinarias', n:'Agencia vertical sanitaria',
+    d:'Te especializas en el marketing de centros de salud privados (dentales, fisioterapia, estética, veterinarias): captación de pacientes por Google y redes, gestión de reseñas, contenido educativo y web con reservas online. Modelo: cuota de 500-1.500 €/mes según servicios. La publicidad sanitaria está regulada: sin promesas de curación ni «antes y después» que induzcan a error.',
+    m:'cuota', cli:'clínicas privadas de salud, estética y veterinarias', pb:'captar pacientes y gestionar su reputación online sin incumplir la normativa',
+    val:'Más pacientes nuevos cada mes, con un marketing que respeta la normativa sanitaria y genera confianza.',
+    inv:[500,1500], ar:'2 meses', r:2, e:['online'], h:2, am:4, tg:['animales','deporte','moda'], k:['marketing','fotovideo'], s:['digital','personas','organizacion'],
+    why:'Marketing digital, Investigación comercial y Atención al cliente: entiendes que el paciente decide por confianza y reseñas, y sabes construir un embudo de captación que respete las reglas del sector.',
+    reto:'Publicidad sanitaria limitada y clientes exigentes con el ROI. Pide siempre un responsable sanitario que valide los contenidos y trabaja con KPI acordados por escrito.',
+    paso:'Analiza la web y las reseñas de 5 clínicas de tu ciudad y detecta 5 fallos de captación (reservas, fotos, respuesta a reseñas). Envía el informe a una de ellas.',
+    vr:'Elige un solo tipo de clínica (solo veterinarias o solo dentales) y crea un paquete cerrado con plantillas y protocolos propios del sector.' });
+
+  // ---------- TRANSPORTE Y LOGÍSTICA (Grado Superior) ----------
+  A({ id:'tl1', tp:'sector', cics:['tl'], t:'Reparto de última milla urbano en bicicleta de carga o vehículo eléctrico', n:'Logística urbana sostenible',
+    d:'Servicio de reparto en zona urbana y centro histórico (zonas de bajas emisiones) para comercios, restaurantes y tiendas online: recogidas programadas, entregas en 2-4 horas y devoluciones. Modelo: 4-9 € por entrega, contratos mensuales de 400-1.500 € con comercios y rutas fijas para tiendas gourmet. Operas con bici de carga o furgoneta eléctrica.',
+    m:'cuota', cli:'comercios de centro urbano, restaurantes y tiendas online locales que necesitan entregas rápidas', pb:'entregar pedidos en el mismo día en el centro de la ciudad',
+    val:'Tus pedidos llegan en 2-4 horas por el centro urbano, sin depender de las grandes plataformas ni de sus comisiones.',
+    inv:[3000,9000], ar:'2-3 meses', r:2, e:['local','domicilio'], h:3, am:1, tg:['sostenibilidad','deporte','motor'], k:['ofimatica'], s:['organizacion','resolucion','tecnica'],
+    why:'Organización del transporte de mercancías y Logística de aprovisionamiento: planificas rutas y ventanas horarias, calculas coste por entrega y sabes qué hay que optimizar para que salga rentable.',
+    reto:'Margen ajustado por entrega. La clave es la densidad de rutas: concentra clientes en las mismas zonas y horas y prioriza contratos recurrentes frente a entregas sueltas.',
+    paso:'Haz una lista de 15 comercios de una misma zona y pregunta a 5 cuánto pagan hoy por entregas y cuántas hacen al mes. Calcula si con esas rutas te compensa.',
+    vr:'Empieza con recogidas a domicilio de comercios para agencias de transporte (consolidación local) y añade el reparto directo a medida que crezcan las rutas.' });
+
+  A({ id:'tl2', tp:'sector', cics:['tl','gv'], t:'Fulfillment y microalmacén para tiendas online pequeñas', n:'Operador logístico ligero (3PL)',
+    d:'Almacenas el stock de pequeñas tiendas online y te encargas de recepción, control, picking, embalaje y envío con la agencia de transporte. Modelo: 2-4 € por pedido + 0,5-1,5 €/palet-mes de almacenamiento + cuota fija mínima de 80-200 €/mes. Con 8-10 clientes se cubre local, personal y sistemas.',
+    m:'cuota', cli:'tiendas online con 20-300 pedidos al mes que envían desde casa o desde su tienda', pb:'preparar y enviar pedidos sin ocupar el salón de casa ni su tiempo',
+    val:'Dejas de empaquetar pedidos: tu producto sale a tiempo, bien embalado y con seguimiento, y pagas por pedido.',
+    inv:[3000,10000], ar:'2-3 meses', r:2, e:['local'], h:3, am:4, tg:['tecnologia'], k:['ofimatica'], s:['organizacion','resolucion','tecnica'],
+    why:'Logística de almacenamiento y de aprovisionamiento: sabes distribuir el almacén por rotación, controlar stock, planificar pedidos y elegir agencias de transporte según tarifa y plazo.',
+    reto:'Requiere espacio y un software de gestión de almacén sencillo. Empieza con 2-3 clientes pequeños en un local modesto y amplía cuando la ocupación lo justifique.',
+    paso:'Pide tarifas a 3 agencias de transporte para un paquete de 2 kg a distintos destinos y calcula tu coste por pedido (embalaje + mano de obra + envío) para poner precio.',
+    vr:'Especialízate en un nicho (ropa, cosmética, alimentación gourmet) con packaging, etiquetado y procesos propios del sector.' });
+
+  A({ id:'tl3', tp:'sector', cics:['tl','gv','med'], t:'Consultoría de optimización de almacén y gestión de stock para pymes', n:'Consultoría logística',
+    d:'Analizas el almacén de una pyme (distribución, rotaciones, roturas de stock, pérdidas) y propones mejoras: clasificación ABC, ubicaciones, puntos de pedido, indicadores y procedimientos. Modelo: proyecto de 500-2.000 € con informe y plan de implantación + acompañamiento mensual opcional de 100-250 €.',
+    m:'proyecto', cli:'pymes con almacén propio (distribución, ferretería, alimentación, industria ligera) que sufren roturas y sobrestock', pb:'controlar el stock y ordenar su almacén',
+    val:'Menos dinero parado en stock y menos roturas: sabes qué pedir, cuánto y cuándo, y encuentras todo en menos tiempo.',
+    inv:[300,1000], ar:'1-2 meses', r:1, e:['local','online'], h:1, am:3, tg:[], k:['ofimatica'], s:['organizacion','resolucion'],
+    why:'Logística de almacenamiento y Logística de aprovisionamiento: aplicas clasificación ABC, stock de seguridad, punto de pedido y cálculo de costes de almacenaje, herramientas que el propietario de una pyme normalmente no ha visto.',
+    reto:'Hay que demostrar ahorros concretos. Empieza con un piloto en una sola sección o familia de producto y documenta el antes y el después en euros.',
+    paso:'Pide un listado de existencias de una tienda o taller conocido y clasifícalo por ABC en una hoja de cálculo: verás rápido qué productos concentran el valor.',
+    vr:'Ofrece una auditoría exprés de medio día con informe de 5 mejoras rápidas a bajo coste (ideal para captar clientes).' });
+
+  A({ id:'tl4', tp:'sector', cics:['tl','ci'], t:'Intermediación de transporte: comparador y consolidador de cargas para pymes', n:'Agencia de transporte',
+    d:'Actúas como intermediario entre pymes que envían mercancía y transportistas: comparas tarifas, consolidas cargas parciales y gestionas seguimiento, incidencias y documentación. Modelo: margen del 8-15 % sobre el precio del transporte. Ejercer como agencia de transporte requiere autorización y seguro específicos: compruébalo con tu comunidad autónoma.',
+    m:'comision', cli:'pymes que envían palés o cargas parciales y pagan tarifas altas por no consolidar', pb:'encontrar transporte fiable y económico para cargas parciales',
+    val:'Te ahorras el 10-20 % en transporte sin negociar con cada transportista ni gestionar incidencias.',
+    inv:[1500,5000], ar:'2-3 meses', r:2, e:['online'], h:2, am:4, tg:[], k:['idiomas','ofimatica','ventas'], s:['ventas','organizacion','resolucion'],
+    why:'Comercialización del transporte y la logística y Gestión administrativa del transporte: conoces tarifas, condiciones de contratación, seguros, CMR y responsabilidad del porteador, la base para intermediar sin problemas.',
+    reto:'Si un transportista falla, el problema es tuyo ante el cliente. Trabaja con transportistas fiables, seguro de mercancías y contrato claro de responsabilidades.',
+    paso:'Pide tarifas de 5 transportistas para una misma ruta de 1 palé (origen-destino) y calcula cuánto podrías ganar con un margen del 10 %. Compara con precios de mercado.',
+    vr:'Especialízate en una ruta o nicho (por ejemplo, España-Portugal, transporte de vino o mueble) para conocer a los mejores transportistas y captar por recomendación.' });
+
+  A({ id:'tl5', tp:'sector', cics:['tl'], t:'Gestor de transporte externalizado para empresas con flota propia', n:'Gestión de flotas y rutas',
+    d:'Llevas la parte administrativa y de planificación de empresas con 3-15 vehículos: rutas, costes por km, tiempos de conducción y descanso, documentación de vehículos, seguros, subvenciones y cumplimiento normativo. Modelo: cuota mensual de 300-900 €. El ejercicio como gestor de transporte exige la capacitación profesional de transportista: comprueba en tu comunidad si tu título te convalida.',
+    m:'cuota', cli:'empresas con flota propia de 3-15 vehículos (reparto, construcción, alimentación, servicios)', pb:'planificar rutas y controlar el coste real de su flota',
+    val:'Sabes cuánto cuesta cada kilómetro, cada ruta y cada vehículo, y cumples con la normativa sin perder tiempo en papeles.',
+    inv:[500,2000], ar:'2 meses', r:1, e:['online','local'], h:2, am:3, tg:[], k:['ofimatica','contabilidad'], s:['organizacion','resolucion'],
+    why:'Organización del transporte de mercancías y Gestión económica y financiera: calculas costes directos e indirectos por vehículo y ruta y fijas tarifas que cubran costes y dejen margen.',
+    reto:'Requiere conocer a fondo la normativa de transporte por carretera (tiempos de conducción, tacógrafo, autorizaciones), que cambia y tiene sanciones importantes. Empieza con una empresa piloto y formación específica.',
+    paso:'Busca los costes reales de un camión o furgoneta (combustible, seguro, amortización, neumáticos, conductor) y calcula su coste por km para una ruta habitual.',
+    vr:'Ofrece «auditoría de costes de flota» como servicio de entrada y convierte la mejor conclusión en contrato mensual.' });
+
+  A({ id:'tl6', tp:'sector', cics:['tl','gv'], t:'Logística inversa y gestión de devoluciones para e-commerce', n:'Economía circular en logística',
+    d:'Recibes las devoluciones de tiendas online (moda, calzado, electrónica), las inspeccionas, clasificas, reacondicionas y decides su destino: reventa como outlet, reenvío al stock, donación o reciclaje. Modelo: 3-6 € por devolución tramitada + margen sobre reventa en tu propio outlet.',
+    m:'cuota', cli:'tiendas online de moda, calzado y electrónica con muchas devoluciones', pb:'gestionar devoluciones sin perder dinero ni acumular producto en stock muerto',
+    val:'Las devoluciones dejan de ser pérdida: recuperas producto para venderlo de nuevo o darle un segundo uso.',
+    inv:[2000,8000], ar:'2-3 meses', r:2, e:['local','online'], h:2, am:3, tg:['sostenibilidad','moda','tecnologia'], k:['ofimatica','marketing'], s:['organizacion','resolucion','ventas'],
+    why:'Logística de almacenamiento y gestión de flujos inversos: sabes diseñar el proceso de recepción, control de calidad y reubicación y calcular el valor recuperable de cada devolución.',
+    reto:'Volumen y espacio para clasificar. Empieza con 1-2 marcas y define criterios de inspección claros para que el cliente confíe en tu decisión sobre cada producto.',
+    paso:'Pregunta a 5 tiendas online de moda qué porcentaje de pedidos devuelven y qué hacen con esos productos: es tu estudio de mercado.',
+    vr:'Abre un outlet online propio con lo que recuperas: pasas de servicio B2B a doble ingreso (servicio + reventa).' });
+
+  A({ id:'tl7', tp:'sector', cics:['tl'], t:'Mudanzas y guardamuebles con reserva online y precio cerrado', n:'Pequeñas mudanzas urbanas',
+    d:'Servicio de mudanzas para pisos y estudiantes con reserva online, precio cerrado, seguro y opción de guardamuebles por semanas. Modelo: 120-450 € por mudanza según volumen, con picos en septiembre y en fin de curso. Necesitas furgoneta, carretilla, mantas y personal por horas. Comprueba la autorización de transporte según el tonelaje del vehículo.',
+    m:'proyecto', cli:'estudiantes, jóvenes y familias que se mudan de piso, y pequeñas oficinas', pb:'mudarse sin sorpresas de precio ni improvisar transporte',
+    val:'Precio cerrado antes de mudarte, seguro incluido y reserva en 2 minutos, sin sorpresas ni horas extras.',
+    inv:[4000,12000], ar:'2-3 meses', r:2, e:['domicilio','local'], h:3, am:2, tg:[], k:['ofimatica'], s:['tecnica','personas','organizacion'],
+    why:'Organización del transporte, cálculo de costes y comercialización del servicio: sabes fijar precio cerrado por volumen y distancia y gestionar picos de demanda y rutas para no perder margen.',
+    reto:'Muy estacional y físico. Planifica captación en septiembre y junio y crea servicios complementarios (guardamuebles, embalaje) para aguantar en temporada baja.',
+    paso:'Diseña una calculadora de presupuesto por número de bultos, planta y distancia y comprueba el precio con 3 mudanzas ficticias para ver márgenes.',
+    vr:'Especialízate en «mudanzas de estudiantes» con acuerdos con residencias y agencias inmobiliarias universitarias.' });
+
+  A({ id:'tl8', tp:'sector', cics:['tl','mp','gv'], t:'Logística para eventos y ferias: stands, materiales y montaje', n:'Logística de eventos',
+    d:'Te encargas de transportar, montar, almacenar y desmontar el material de eventos y ferias: stands, mobiliario, decoración y merchandising. Modelo: proyectos de 500-3.000 € por evento con calendario cerrado y contratos anuales con organizadores y agencias de eventos. Coordinas también recepción y devolución de material.',
+    m:'proyecto', cli:'agencias de eventos, organizadores de ferias y empresas expositoras', pb:'que el material del evento llegue, se monte y se recoja a tiempo',
+    val:'El material llega, se monta y se recoge a tiempo, y no tienes que pensar en furgonetas ni horarios de carga.',
+    inv:[1500,5000], ar:'2-3 meses', r:2, e:['local'], h:2, am:3, tg:['musica','arte','viajes'], k:['ofimatica'], s:['organizacion','resolucion','personas'],
+    why:'Organización del transporte de mercancías y planificación logística: coordinas ventanas de carga y descarga, transportistas y equipos con un calendario ajustado.',
+    reto:'Muchos eventos se concentran en pocas fechas y los plazos no perdonan. Firma contratos anuales y cuenta con proveedores de refuerzo para picos.',
+    paso:'Consigue el calendario de ferias y eventos de tu ciudad del próximo año y pregunta a 3 organizadores cómo resuelven hoy la logística de material.',
+    vr:'Céntrate en un tipo de evento (bodas, festivales, congresos) y crea packs cerrados con proveedores asociados.' });
+
+  A({ id:'tl9', tp:'sector', cics:['tl','ci'], t:'Distribución de proximidad de producto fresco de pequeños productores', n:'Logística de km 0',
+    d:'Recoges producto fresco de pequeños productores (huerta, queso, pan, carne, pescado) y lo distribuyes en rutas semanales a restaurantes, tiendas y grupos de consumo. Modelo: 12-18 % de margen de intermediación o cuota por ruta. Necesitas vehículo con frío o cajas isotermas y cumplir los requisitos de registro sanitario para el transporte de alimentos (consulta los de tu comunidad).',
+    m:'cuota', cli:'pequeños productores y restaurantes y tiendas que compran producto local', pb:'llevar producto fresco de pequeños productores a restaurantes y tiendas sin cadena de frío propia',
+    val:'Producto local fresco llega a tu cocina o tienda sin que tengas que visitar cada productor.',
+    inv:[4000,12000], ar:'3-4 meses', r:2, e:['local','domicilio'], h:3, am:2, tg:['gastronomia','sostenibilidad','naturaleza'], k:['ofimatica'], s:['organizacion','tecnica','personas'],
+    why:'Organización del transporte y cadena logística de mercancías con condiciones especiales (temperatura controlada, trazabilidad): sabes planificar rutas, tiempos de recogida y documentación.',
+    reto:'Cumplir la cadena de frío y la trazabilidad es obligatorio y exigente. Empieza con producto de larga conservación (quesos, conservas) y amplía a fresco cuando domines el proceso.',
+    paso:'Visita a 3 productores locales y pregunta cómo distribuyen hoy y qué pagan; visita a 3 restaurantes y pregunta a cuántos proveedores compran a la semana.',
+    vr:'Conviértelo en tienda online de producto local con reparto semanal en ruta fija (suscripción): pasas de intermediario a marca propia.' });
+
+  // ---------- COMERCIO · Grado Medio y Básico (y transversales) ----------
+  A({ id:'cg1', tp:'sector', cics:['med','bas','gv','mp'], t:'Tienda online de nicho con selección cuidada de producto', n:'E-commerce de nicho',
+    d:'Tienda online (Shopify o WooCommerce) especializada en un nicho concreto (mascotas, deporte, hogar, café, regalos personalizados) con 20-40 productos seleccionados con criterio, buenas fotos y contenido útil. Modelo: margen del 35-50 % sobre PVP, captación con Instagram, TikTok y Google Ads locales. Empieza con dropshipping o pedidos bajo demanda para no inmovilizar stock.',
+    m:'producto', cli:'personas apasionadas de un nicho que no encuentran buena selección en tiendas generalistas', pb:'encontrar productos de calidad para su afición sin perder horas comparando',
+    val:'Todo lo que necesitas de tu afición, elegido por alguien que sabe del tema y con envío rápido.',
+    inv:[500,3000], ar:'2-3 meses', r:2, e:['online'], h:2, am:4, tg:['deporte','animales','tecnologia','diy'], k:['marketing','fotovideo','rrss'], s:['digital','creatividad','ventas'],
+    why:'Comercio electrónico, Marketing en la actividad comercial y Gestión de compras: sabes elegir surtido, calcular márgenes, montar una tienda y atender pedidos y devoluciones.',
+    reto:'Mucha competencia y dependencia de la publicidad. Elige un nicho estrecho donde puedas ser referente y crea contenido útil antes de gastar en anuncios.',
+    paso:'Elige un nicho, encuentra 10 productos con proveedor y calcula el margen neto de cada uno (PVP − coste − envío − comisiones − publicidad) en una hoja de cálculo.',
+    vr:'Empieza en Instagram con un «catálogo por mensaje» (sin web) para validar demanda antes de invertir en la tienda.' });
+
+  A({ id:'cg2', tp:'sector', cics:['med','bas','gv'], t:'Puesto en mercadillos y ferias de artesanía con producto curado', n:'Venta ambulante y ferias',
+    d:'Vendes producto seleccionado (artesanía, decoración, regalos, segunda mano curada) en mercadillos, ferias y mercados de temporada. Con 4-6 fines de semana al mes y un ticket medio de 15-40 € puedes generar ingresos reales con muy poca inversión. Uso de redes sociales para anunciar en qué mercados estarás y captar clientes recurrentes.',
+    m:'producto', cli:'público de ferias y mercados que busca regalos y productos diferentes', pb:'encontrar productos únicos y diferentes que no venden las tiendas de siempre',
+    val:'Encontrar cosas bonitas y distintas, a buen precio y con historia detrás, sin tener que comprar por internet.',
+    inv:[500,2000], ar:'1-2 meses', r:1, e:['local'], h:1, am:2, tg:['arte','diy','sostenibilidad','moda'], k:['rrss'], s:['ventas','personas','creatividad'],
+    why:'Dinamización del punto de venta y Técnicas de venta: sabes montar un puesto atractivo, atender al cliente y cerrar la venta cara a cara, y llevar una caja y un stock sencillos.',
+    reto:'Dependes del calendario y del tiempo. Compensa con venta online o por encargo entre ferias y una lista de clientes por WhatsApp o newsletter.',
+    paso:'Consulta el calendario de mercados y ferias de tu zona, elige 3 y calcula cuánto cuesta el puesto y cuántas unidades tendrías que vender para salir a cuenta.',
+    vr:'Une el puesto a un «club de clientes» por WhatsApp para vender por encargo entre mercados y avisar de novedades.' });
+
+  A({ id:'cg3', tp:'sector', cics:['med','bas','tl'], t:'Reposición y merchandising externalizado en supermercados y tiendas', n:'Servicios al retail',
+    d:'Repones producto, colocas lineales y cuidas la imagen del punto de venta para marcas que no tienen personal propio en tienda: producto de alimentación, bebidas y cosmética. Modelo: contratos por visita (25-45 €) o por horas para 2-5 marcas, con informes fotográficos. Es una entrada rápida al mercado laboral y a un negocio propio.',
+    m:'cuota', cli:'marcas de alimentación, bebidas y cosmética que quieren cuidar su presencia en el lineal', pb:'mantener su producto bien colocado y sin roturas en tiendas',
+    val:'Tu producto siempre está en el lineal, bien colocado y con precio correcto, sin depender de que la tienda lo haga.',
+    inv:[300,1000], ar:'1 mes', r:1, e:['local','domicilio'], h:2, am:2, tg:[], k:['ofimatica'], s:['organizacion','tecnica','personas'],
+    why:'Preparación de pedidos, técnicas de almacén y Dinamización del punto de venta: sabes cómo se organiza un lineal, cómo se rota producto y qué exige una buena presentación.',
+    reto:'Es un servicio con margen ajustado. Crece con más marcas en la misma ruta y añade visitas de merchandising con informe fotográfico como extra.',
+    paso:'Haz una ruta por 5 tiendas de tu zona, fotografía el lineal de una categoría (café, galletas, cosmética) y anota roturas, precios y fallos de colocación.',
+    vr:'Especialízate en una categoría (bebidas, cosmética) o en un tipo de tienda (parafarmacias, gasolineras) para dominar sus reglas.' });
+
+  A({ id:'cg4', tp:'sector', cics:['med','bas','gv','mp'], t:'Atención comercial y gestión de pedidos por WhatsApp para pequeños negocios', n:'Asistente comercial virtual',
+    d:'Llevas la atención al cliente y la gestión de pedidos de pequeños negocios (tiendas, talleres, restaurantes, clínicas): respondes mensajes de WhatsApp, Instagram y correo, confirmas pedidos, gestionas reservas y haces seguimiento. Modelo: cuota mensual de 150-450 € según volumen, con horario acordado.',
+    m:'cuota', cli:'pequeños negocios con muchos mensajes y pocas manos para atenderlos', pb:'atender mensajes y pedidos a tiempo sin dejar de trabajar',
+    val:'Ningún cliente se queda sin respuesta: atendemos, confirmamos y hacemos seguimiento mientras tú trabajas.',
+    inv:[200,600], ar:'1 mes', r:1, e:['online'], h:1, am:3, tg:[], k:['atencion_cliente','ofimatica'], s:['personas','organizacion','digital'],
+    why:'Servicios de atención comercial y Aplicaciones informáticas para el comercio: sabes atender, tramitar reclamaciones y registrar pedidos con orden y rapidez.',
+    reto:'Riesgo de saturarte con muchos clientes pequeños. Fija horarios y protocolos de respuesta y sube la cuota en cuanto aumente el volumen.',
+    paso:'Pregunta a 5 negocios que conozcas cuántos mensajes reciben al día y cuántos se quedan sin responder. Propón una prueba gratuita de una semana.',
+    vr:'Céntrate en un tipo de negocio (clínicas, peluquerías, talleres) y prepara guiones de respuesta y flujos ya listos para ese sector.' });
+
+  A({ id:'cg5', tp:'sector', cics:['med','bas','gv','mp','ci'], t:'Personal shopper y regalos corporativos a medida', n:'Regalos y compras a medida',
+    d:'Buscas y gestionas regalos personalizados para empresas en fechas clave (Navidad, aniversarios, incentivos) y para particulares que no tienen tiempo. Catálogo por presupuestos (30 €, 100 €, 300 €), packaging cuidado y entrega. Modelo: margen del 25-40 % sobre producto + fee de gestión de 100-300 € por campaña.',
+    m:'proyecto', cli:'pymes que hacen regalos a empleados y clientes, y particulares sin tiempo para buscar', pb:'elegir y gestionar regalos que quedan bien sin perder horas',
+    val:'Tu regalo elegido, envuelto y entregado sin que pierdas ni una hora buscando, y con detalle personalizado.',
+    inv:[500,2000], ar:'1-2 meses', r:1, e:['online','local'], h:1, am:3, tg:['arte','diy','gastronomia','sostenibilidad'], k:['ventas','rrss'], s:['personas','ventas','organizacion'],
+    why:'Gestión de compras, negociación con proveedores y atención personalizada: sabes elegir producto, pedir condiciones y entregar a tiempo y con margen.',
+    reto:'Estacionalidad muy marcada (noviembre-diciembre). Crea packs para otras fechas (Día de la Madre, bodas, cumpleaños de empresa) y contratos de suministro anuales.',
+    paso:'Prepara un catálogo de 12 regalos en 3 rangos de precio con proveedor y margen para cada uno y envíalo a 10 empresas de tu zona con un correo de una línea.',
+    vr:'Crea «cajas regalo temáticas» con productores locales y véndelas online todo el año, no solo en campaña.' });
+
+  A({ id:'cg6', tp:'sector', cics:['med','bas','gv','mp'], t:'Compraventa de segunda mano curada en Wallapop, Vinted y eBay', n:'Reventa selectiva',
+    d:'Compras selectivamente (liquidaciones, herencias, mercadillos, outlets) y revendes con buen margen por Wallapop, Vinted, eBay o tu propia tienda: ropa vintage, electrónica, muebles pequeños, coleccionismo. Modelo: margen del 40-100 % por artículo. Con 60-100 artículos al mes se puede obtener un ingreso complementario real.',
+    m:'producto', cli:'compradores que buscan calidad a buen precio y piezas únicas', pb:'comprar productos de calidad a buen precio sin pasar horas rastreando',
+    val:'Piezas seleccionadas, fotografiadas y descritas con honestidad, a un precio que compensa frente a la tienda nueva.',
+    inv:[300,1500], ar:'1 mes', r:1, e:['online'], h:1, am:4, tg:['moda','sostenibilidad','tecnologia','diy'], k:['fotovideo','rrss'], s:['ventas','digital','creatividad'],
+    why:'Gestión de compras, cálculo de márgenes y venta electrónica: aplicas la lógica del escandallo (coste + reparación + envío + comisión) y sabes qué producto rota y cuál se queda parado.',
+    reto:'Consume tiempo (fotos, descripciones, envíos). Especialízate en una categoría y estandariza tus fotos y textos para no perder horas.',
+    paso:'Compra 5 artículos por menos de 60 € en un mercadillo o tienda solidaria, revéndelos en una semana y calcula margen neto y horas dedicadas.',
+    vr:'Cuando tengas 50 ventas, monta tu propia tienda online con tu marca y usa las plataformas solo como escaparate.' });
+
+  A({ id:'cg7', tp:'sector', cics:['med','bas','gv'], t:'Compra y recados a domicilio para personas mayores', n:'Servicios de proximidad',
+    d:'Haces la compra, gestionas pedidos en tiendas y mercados y entregas a domicilio a personas mayores o con movilidad reducida de tu barrio, con trato cercano y horarios fijos. Modelo: bono de 8 servicios a 60-90 € o cuota mensual de 70-120 € con visitas semanales. Clientela fiel y boca a boca.',
+    m:'cuota', cli:'personas mayores y familias que viven lejos de sus padres', pb:'hacer la compra y los recados sin salir de casa',
+    val:'Tranquilidad para toda la familia: la compra llega cuando toca, de forma segura y con la misma persona de confianza.',
+    inv:[300,1000], ar:'1 mes', r:1, e:['domicilio','local'], h:2, am:1, tg:['social'], k:['atencion_cliente'], s:['personas','organizacion'],
+    why:'Atención al cliente, preparación de pedidos y gestión de la compra: sabes tratar con personas mayores y organizar pedidos con precisión y sin errores.',
+    reto:'Escala limitada por horas: mejora el margen con rutas por zonas concretas y clientes a cuota fija, y ofrece servicios complementarios (paquetería, gestiones sencillas).',
+    paso:'Visita el centro de mayores o asociación de tu barrio, pregunta a 5 personas qué gestiones les cuestan más y calcula cuántas horas al mes tendría un servicio así.',
+    vr:'Alíate con comercios y farmacias del barrio para que te deriven pedidos y tú les traigas nuevos clientes.' });
+
+  A({ id:'cg8', tp:'sector', cics:['med','bas','gv','mp'], t:'Tienda de productos personalizados con impresión bajo demanda', n:'Personalización de producto',
+    d:'Creas una marca de camisetas, tazas, tote bags o pósters con diseños propios y los produces bajo demanda con proveedores de impresión: sin stock, sin riesgo. Modelo: margen del 30-45 % por producto con ticket medio de 25-45 €. Captación con Instagram, TikTok y mercadillos, y ventas B2B a clubes y eventos.',
+    m:'producto', cli:'público de un nicho concreto (fans de un deporte, comunidad de gaming, clubes y peñas) que busca merchandising propio', pb:'conseguir prendas y objetos con diseños de su comunidad',
+    val:'Ropa y objetos con diseños que te representan, hechos bajo pedido y sin cantidades mínimas.',
+    inv:[300,1500], ar:'1-2 meses', r:1, e:['online'], h:1, am:4, tg:['arte','tecnologia','deporte','diy'], k:['diseno','rrss'], s:['creatividad','digital','ventas'],
+    why:'Comercio electrónico y Marketing en la actividad comercial: sabes calcular precio y margen, elegir canal de venta y hacer una campaña de lanzamiento con presupuesto mínimo.',
+    reto:'Margen ajustado en cada unidad y mucha competencia. Diferénciate con diseños de un nicho concreto y vende también a colectivos (clubes, peñas, eventos) para ganar volumen.',
+    paso:'Diseña 3 estampados para un nicho que conozcas (tu deporte, tu juego), publica una encuesta en un grupo de esa comunidad y pregunta cuál compraría y a qué precio.',
+    vr:'Cambia a «marca de comunidad»: colaboraciones con creadores del nicho y ediciones limitadas por temporada.' });
+
+  A({ id:'cg9', tp:'sector', cics:['med','bas','gv','mp'], t:'Mercadillo temático mensual: dinamización comercial de un barrio', n:'Dinamización comercial',
+    d:'Organizas un mercadillo temático mensual (vintage, artesanía, gastronomía, plantas) en un espacio público o privado. Ingresos: cuota por puesto (20-50 €), patrocinios, bar y actividades. Convenios con asociaciones de comerciantes y ayuntamiento para permisos y difusión. Un buen formato crea comunidad y fideliza público y vendedores.',
+    m:'experiencia', cli:'artesanos, creadores y pequeños productores que buscan dónde vender, y vecinos que buscan planes', pb:'encontrar espacios donde vender y planes de fin de semana en el barrio',
+    val:'Un plan de fin de semana con productos distintos y gente de tu barrio, con permisos y difusión ya resueltos.',
+    inv:[500,2000], ar:'2 meses', r:1, e:['local'], h:1, am:1, tg:['arte','diy','gastronomia','sostenibilidad'], k:['rrss','marketing'], s:['organizacion','personas','creatividad'],
+    why:'Dinamización del punto de venta y Marketing en la actividad comercial: sabes atraer tráfico, diseñar un espacio comercial temporal y comunicar una acción con poco presupuesto.',
+    reto:'Depende de permisos, del tiempo y de captar vendedores y público a la vez. Empieza con formato pequeño (15-20 puestos) en un espacio cedido y mide asistencia.',
+    paso:'Contacta con 10 artesanos de tu zona, pregunta si pagarían 30 € por un puesto en un mercadillo mensual y consulta con una asociación de comerciantes qué espacio y permisos necesitarías.',
+    vr:'Monta ediciones especiales por temporada (Navidad, primavera) y alianzas con bares y cafeterías del entorno para llenar de vida el espacio.' });
+
+  // ---------- HÍBRIDAS: negocio (tu ciclo) + afición (tu interés) ----------
+  const ALL = ['ci','gv','mp','tl','med','bas'];
+  const H = (o) => COM.push(Object.assign({ tp:'hibrido', cics: ALL }, o));
+
+  // DEPORTE
+  H({ id:'h_dep1', pref:['gv','med'], t:'Tienda especializada de un deporte de nicho con presencia en torneos y eventos', n:'Retail deportivo de nicho',
+    d:'Tienda online (y puesto en torneos y eventos) para un deporte concreto que conoces desde dentro: jiu-jitsu y artes marciales, escalada, running de montaña, pádel o ciclismo gravel. Producto seleccionado por practicantes, asesoramiento real y presencia en torneos, carreras y quedadas. Modelo: margen del 30-45 %, ticket medio 60-120 €, comunidad fiel que recomienda.',
+    m:'producto', cli:'practicantes de un deporte concreto que compran material especializado', pb:'encontrar material especializado y asesoramiento real de alguien que practica el deporte',
+    val:'Material elegido por quien lo usa, con consejo real y sin tener que comprar a ciegas en un catálogo genérico.',
+    inv:[2000,8000], ar:'3-4 meses', r:2, e:['online','local'], h:2, am:4, tg:['deporte'], k:['ventas','rrss'], s:['ventas','personas','digital'],
+    why:'Tu afición te da credibilidad y acceso a la comunidad; tu ciclo (compras, surtido, márgenes y venta en punto de venta) convierte esa credibilidad en un negocio rentable.',
+    reto:'Stock inmovilizado y tallas. Empieza con preventa y stock mínimo de las 10 referencias que más pide tu comunidad.',
+    paso:'Pregunta en 3 grupos o clubes de tu deporte qué material compran, dónde y qué les falta. Anota 10 productos con más demanda.',
+    vr:'Organiza tú un torneo o quedada anual con marca propia: es a la vez evento, comunidad y canal de venta.' });
+
+  H({ id:'h_dep2', pref:['mp'], t:'Marketing para gimnasios, boxes, academias de artes marciales y clubes', n:'Captación de socios en el deporte',
+    d:'Captación de socios y llenado de clases para centros deportivos independientes: campañas locales de matrícula, contenido con alumnos reales, ficha de Google optimizada, sistema de reseñas y seguimiento de bajas. Modelo: cuota de 300-800 €/mes por centro, más campañas puntuales de septiembre y enero. Nicho con picos claros y alto valor por alumno.',
+    m:'cuota', cli:'gimnasios, boxes de crossfit, academias de artes marciales y clubes deportivos independientes', pb:'captar y retener socios sin depender solo del boca a boca',
+    val:'Más socios nuevos en septiembre y enero y menos bajas durante el año, con campañas hechas por alguien que entiende el sector.',
+    inv:[300,1200], ar:'1-2 meses', r:1, e:['online','local'], h:2, am:3, tg:['deporte'], k:['marketing','rrss','fotovideo'], s:['digital','creatividad','personas'],
+    why:'Entiendes cómo es el alumno de un gimnasio o academia y qué le hace apuntarse; tu ciclo pone el método: segmentación, oferta, seguimiento y medición del coste por alumno.',
+    reto:'Estacionalidad (septiembre y enero concentran las altas). Vende un plan anual de contenido y campañas repartidas para no depender de dos meses al año.',
+    paso:'Analiza la web, Google y redes de 5 centros de tu zona y anota 5 fallos de captación (horarios, precios, reseñas, primera clase gratis).',
+    vr:'Especialízate en un tipo de centro (solo artes marciales o solo crossfit) y crea un método propio de captación replicable.' });
+
+  // TECNOLOGÍA / GAMING
+  H({ id:'h_tec1', pref:['gv','med'], t:'Reacondicionado y venta de tecnología gaming con garantía', n:'Retail de tecnología reacondicionada',
+    d:'Compras consolas, portátiles gaming, periféricos y coleccionismo retro, los revisas, limpias y vendes con garantía de 6-12 meses. Modelo: margen del 30-50 % por unidad con ticket medio de 80-300 €. Venta en Wallapop, eBay, tienda propia y ferias de coleccionismo. Servicio adicional de reparación y limpieza.',
+    m:'producto', cli:'jugadores y coleccionistas que buscan equipo a buen precio con garantía', pb:'comprar equipo gaming a buen precio con garantía y sin riesgo de estafa',
+    val:'Equipo gaming revisado, con garantía real y a mitad de precio de nuevo, sin los riesgos de comprar a un particular.',
+    inv:[1500,6000], ar:'2-3 meses', r:2, e:['online','local'], h:2, am:4, tg:['tecnologia','sostenibilidad'], k:['programacion','rrss','fotovideo'], s:['ventas','resolucion','digital'],
+    why:'Tu afición te da criterio para tasar y detectar buen producto; tu ciclo pone lo demás: gestión de compras, cálculo del margen tras reparación y garantía, y venta online y en feria.',
+    reto:'Garantía y devoluciones pueden comerse el margen. Define un protocolo de revisión y una política de garantía clara antes de vender.',
+    paso:'Compra 3 productos usados por debajo de su precio de mercado, revísalos y publícalos. Calcula tu margen real tras horas y gastos.',
+    vr:'Especialízate en una categoría (retro, portátiles gaming, periféricos) para ser referente y tasar más rápido.' });
+
+  H({ id:'h_tec2', pref:['mp'], t:'Marketing y comunidad para estudios indie, clubes de eSports y creadores', n:'Marketing del ecosistema gaming',
+    d:'Servicios de lanzamiento, comunidad y contenido para pequeños estudios de videojuegos, clubes de eSports y streamers: páginas de Steam optimizadas, tráilers, Discord, campañas con creadores y notas de prensa. Modelo: proyecto de lanzamiento de 800-3.000 € o cuota mensual de comunidad de 300-800 €.',
+    m:'proyecto', cli:'estudios indie, clubes de eSports y streamers que necesitan visibilidad', pb:'dar a conocer un juego o un canal sin presupuesto de agencia',
+    val:'Tu juego o canal llega a su público con comunidad activa y estrategia, sin gastar como una gran agencia.',
+    inv:[300,1500], ar:'1-2 meses', r:2, e:['online'], h:2, am:5, tg:['tecnologia'], k:['marketing','rrss','diseno'], s:['digital','creatividad','idiomas'],
+    why:'Conoces cómo se habla en las comunidades gaming y cómo se decide una compra; tu ciclo aporta la estrategia: público, mensaje, canal y medición del lanzamiento.',
+    reto:'Presupuestos pequeños y resultados difíciles de garantizar. Fija objetivos realistas (wishlists, seguidores, comunidad) y cobra parte por adelantado.',
+    paso:'Elige un juego indie reciente, analiza su página de Steam y su comunidad de Discord y escribe 5 mejoras concretas. Envíaselo al desarrollador.',
+    vr:'Crea un «pack de lanzamiento indie» cerrado y repetible (página, tráiler, prensa, comunidad) con precio fijo.' });
+
+  // ARTE
+  H({ id:'h_art1', pref:['gv','mp'], t:'Galería y tienda online de arte asequible de artistas locales', n:'Comercialización de arte',
+    d:'Plataforma de venta de láminas, ilustraciones y objetos de artistas y diseñadores locales con selección propia, packaging cuidado y envío. Modelo: comisión del 30-40 % sobre cada venta, con exposiciones y eventos que llenan la agenda. Ticket medio de 30-120 € con temporadas fuertes en Navidad y regalos.',
+    m:'comision', cli:'compradores de arte asequible y artistas locales sin canal de venta', pb:'vender obra y encontrar arte asequible de artistas de su zona',
+    val:'Arte de artistas de tu zona a precios accesibles, con selección y envío cuidado y sin pasar por una galería tradicional.',
+    inv:[800,3000], ar:'2-3 meses', r:1, e:['online','local'], h:1, am:3, tg:['arte','diy'], k:['diseno','fotovideo','rrss'], s:['creatividad','ventas','organizacion'],
+    why:'Tu sensibilidad artística te permite curar y hablar con artistas; tu ciclo pone la parte comercial (política de precios y comisiones, escaparatismo, promoción y venta).',
+    reto:'Captar artistas con obra de calidad y compradores a la vez. Empieza con 5-8 artistas y una exposición o mercadillo para probar.',
+    paso:'Contacta con 5 artistas locales y pregunta cómo venden hoy su obra, cuánta comisión pagan y qué echan en falta en una galería.',
+    vr:'Añade una suscripción trimestral de «obra original» a un precio accesible: ingresos recurrentes para artistas y para ti.' });
+
+  H({ id:'h_art2', pref:['mp'], t:'Marketing y comunicación para artistas, galerías y espacios culturales', n:'Comunicación cultural',
+    d:'Ayudas a artistas, galerías, teatros y centros culturales a comunicar su programación y vender más: calendario de contenidos, notas de prensa, campañas de inauguración, newsletter y captación de público. Modelo: cuota mensual de 250-600 € o proyectos de 400-1.500 € por exposición o temporada.',
+    m:'cuota', cli:'artistas, galerías y espacios culturales con poca capacidad de comunicación', pb:'dar a conocer una exposición o un espectáculo y llenar la sala',
+    val:'Tu exposición o espectáculo llega a más público y se llena la inauguración, con comunicación cuidada y a tu presupuesto.',
+    inv:[300,1000], ar:'1 mes', r:1, e:['online','local'], h:1, am:3, tg:['arte','musica'], k:['diseno','rrss','fotovideo'], s:['creatividad','digital','personas'],
+    why:'Sabes hablar el lenguaje del sector cultural y crear el relato de una exposición; tu ciclo aporta el plan de comunicación, el calendario y la medición.',
+    reto:'Presupuestos ajustados y clientes que cambian cada temporada. Contratos anuales con espacios estables y paquetes cerrados por exposición.',
+    paso:'Elige una exposición de tu ciudad, escribe una nota de prensa y un plan de 5 publicaciones para su inauguración y envíalo al espacio como muestra.',
+    vr:'Ofrece un servicio de «programación cultural» completo para un ayuntamiento o centro cívico pequeño.' });
+
+  // NATURALEZA
+  H({ id:'h_nat1', pref:['gv','tl','med'], t:'Tienda y alquiler de material outdoor de temporada y segunda mano', n:'Retail outdoor',
+    d:'Tienda pequeña o punto de venta online de material de montaña, camping y acuáticos: venta de segunda mano seleccionada, alquiler de equipos por fin de semana (tienda de campaña, mochilas, esquís) y asesoramiento para rutas. Modelo: margen del 35-50 % en venta y 15-35 € por alquiler. Gran atractivo por su alto ticket y reutilización.',
+    m:'producto', cli:'aficionados al senderismo, camping y deportes de naturaleza que no quieren comprar todo nuevo', pb:'conseguir material de montaña sin gastar una fortuna por uso ocasional',
+    val:'Material de calidad para tu escapada, comprado a buen precio o alquilado solo el fin de semana que lo necesitas.',
+    inv:[2000,6000], ar:'2-3 meses', r:2, e:['local','online'], h:2, am:3, tg:['naturaleza','deporte','sostenibilidad'], k:['fotovideo','rrss'], s:['ventas','organizacion','tecnica'],
+    why:'Conoces el material y el uso real que tiene; tu ciclo pone gestión de compras, control de stock y de alquileres, logística de recogida y devolución y marketing local.',
+    reto:'Mantenimiento y reposición del material alquilado. Calcula la amortización por alquiler y pon fianza para no perder margen por desperfectos.',
+    paso:'Haz una lista de 10 productos outdoor que se usan pocas veces al año, calcula su precio de alquiler para que salga a cuenta y pregunta a 10 aficionados si lo pagarían.',
+    vr:'Empieza solo con alquiler (sin tienda) en un local cedido o en casa y pasa a tienda física cuando tengas demanda demostrada.' });
+
+  H({ id:'h_nat2', pref:['mp'], t:'Marketing y reservas online para turismo activo y alojamientos rurales', n:'Marketing de turismo de naturaleza',
+    d:'Llevas la presencia online de empresas de aventura, casas rurales y refugios: web con reservas, ficha de Google y plataformas (Booking, Airbnb), contenido de calidad y campañas de temporada. Modelo: cuota de 250-700 €/mes + comisión sobre reservas directas. Trabajo estacional con picos en Semana Santa y verano.',
+    m:'cuota', cli:'casas rurales, empresas de turismo activo y alojamientos pequeños que dependen de intermediarios', pb:'conseguir reservas directas sin pagar comisiones altas a plataformas',
+    val:'Más reservas directas sin pagar tanta comisión a plataformas, con una web y unas redes que transmiten la experiencia.',
+    inv:[300,1200], ar:'1-2 meses', r:1, e:['online'], h:2, am:4, tg:['naturaleza','viajes'], k:['marketing','fotovideo','idiomas'], s:['digital','creatividad','idiomas'],
+    why:'Conoces el producto y el público de turismo de naturaleza; tu ciclo pone la estrategia comercial: canales directos frente a intermediarios, campañas por temporada y medición.',
+    reto:'Estacionalidad. Contrata todo el año con un plan de contenido de baja temporada y campañas de captación anticipada para el verano siguiente.',
+    paso:'Analiza la web de 5 alojamientos rurales de tu zona (reserva directa, fotos, idiomas, reseñas) y crea una lista de mejoras. Envíaselo al peor.',
+    vr:'Crea un «pack para casas rurales» con web, motor de reservas, contenido y newsletter a precio cerrado.' });
+
+  // GASTRONOMÍA
+  H({ id:'h_gas1', pref:['ci','gv'], t:'Cajas y experiencias de producto gourmet de proximidad por suscripción', n:'Gourmet por suscripción',
+    d:'Selección mensual de producto gourmet de productores locales (conservas, quesos, embutidos, vino, dulces) en caja de suscripción con historia de cada productor. Modelo: 35-70 €/mes por suscriptor, con packs regalo y cajas corporativas en Navidad. Puedes incluir catas y visitas a productores como experiencias premium.',
+    m:'suscripcion', cli:'aficionados a la gastronomía y empresas que buscan regalos con identidad local', pb:'descubrir producto gourmet local sin recorrer productores uno por uno',
+    val:'Cada mes descubres productores de tu tierra con historia, en una caja bien presentada que también sirve como regalo.',
+    inv:[1500,5000], ar:'2-3 meses', r:2, e:['online'], h:2, am:4, tg:['gastronomia','viajes'], k:['marketing','rrss','fotovideo'], s:['ventas','creatividad','organizacion'],
+    why:'Sabes de producto y de cultura gastronómica; tu ciclo pone compras, escandallo, logística de envío y también la opción de vender fuera de España con el IVA y los envíos bien calculados.',
+    reto:'Coste de envío y de producto frágil. Calcula el escandallo completo por caja y empieza con producto de larga conservación.',
+    paso:'Selecciona 8 productos locales, pide precios a los productores y calcula el coste completo de una caja de 5 productos con embalaje y envío.',
+    vr:'Vende la misma caja como regalo corporativo con tarjeta personalizada y contratos anuales con empresas.' });
+
+  H({ id:'h_gas2', pref:['mp','gv'], t:'Fidelización, reservas y menú digital para bares y restaurantes', n:'Marketing de hostelería',
+    d:'Implantas en bares y restaurantes un sistema completo de captación y fidelización: carta digital con QR, reservas directas, ficha de Google, programa de puntos por WhatsApp y campañas para clientes inactivos. Modelo: implantación de 300-800 € + cuota de 100-300 €/mes con informe mensual.',
+    m:'cuota', cli:'bares y restaurantes independientes que dependen del boca a boca', pb:'hacer que los clientes vuelvan y reservar sin llamadas ni intermediarios',
+    val:'Más mesas llenas entre semana y clientes que repiten, con un sistema sencillo que funciona sin que tengas que pensar en ello.',
+    inv:[300,1000], ar:'1 mes', r:1, e:['online','local'], h:1, am:3, tg:['gastronomia'], k:['marketing','ofimatica'], s:['digital','personas','organizacion'],
+    why:'Entiendes cómo funciona un restaurante (rotación, ticket medio, horas valle); tu ciclo pone el sistema de fidelización, la política de precios y la medición del retorno.',
+    reto:'Los hosteleros tienen poco tiempo y desconfían. Ofrece prueba de 30 días, resultados medibles (reservas, mesas) y contrato flexible.',
+    paso:'Visita 5 restaurantes en hora valle, pregunta cómo captan clientes y cuántas reservas gestionan por teléfono. Prepara una propuesta para el que más pierda.',
+    vr:'Céntrate en un tipo de local (cafeterías de especialidad, restaurantes de menú) y crea plantillas y campañas para ese formato.' });
+
+  // MOTOR
+  H({ id:'h_mot1', pref:['gv','tl','ci'], t:'Accesorios y recambios de nicho para motos, coches clásicos o bicicletas', n:'Retail de motor y movilidad',
+    d:'Tienda online de accesorios, recambios y equipamiento para un nicho concreto (motos custom, coches clásicos, ciclismo urbano o gravel) con asesoramiento técnico y compatibilidad garantizada. Modelo: margen del 25-40 %, ticket medio 60-200 €. Cliente fiel, comunidad activa y compras frecuentes.',
+    m:'producto', cli:'aficionados al motor y a la movilidad que buscan piezas específicas', pb:'encontrar la pieza o accesorio exacto para su vehículo sin perder horas buscando',
+    val:'La pieza que necesitas, con compatibilidad garantizada y consejo de alguien que sabe, sin comprar a ciegas.',
+    inv:[2000,8000], ar:'3-4 meses', r:2, e:['online'], h:2, am:4, tg:['motor','deporte'], k:['marketing','idiomas'], s:['ventas','resolucion','digital'],
+    why:'Tu afición te da conocimiento del producto y la comunidad; tu ciclo aporta compras a proveedores (incluso internacionales), Incoterms y cálculo de costes de importación de recambios.',
+    reto:'Devoluciones por incompatibilidad. Crea un buscador o formulario de compatibilidad y confirma cada pedido con datos del vehículo antes de enviar.',
+    paso:'Elige un modelo de moto o coche clásico, identifica 10 accesorios con demanda en foros y calcula margen si los importas de un proveedor extranjero.',
+    vr:'Añade una comunidad y contenido técnico (tutoriales de montaje) para convertir la tienda en referente del nicho.' });
+
+  H({ id:'h_mot2', pref:['mp'], t:'Comunicación y eventos para talleres, concesionarios independientes y clubs de motor', n:'Marketing del sector motor',
+    d:'Campañas de captación para talleres y concesionarios independientes (revisiones, neumáticos, pre-ITV), y organización de concentraciones y eventos de clubs. Modelo: cuota de 250-700 €/mes por taller o proyecto de evento de 800-3.000 €. Comunicación con contenido técnico y ofertas de temporada.',
+    m:'cuota', cli:'talleres, concesionarios independientes y clubs de motor', pb:'llenar la agenda del taller y organizar eventos rentables',
+    val:'El taller lleno de citas todo el año, y los clubs con eventos que se financian solos con patrocinios.',
+    inv:[300,1200], ar:'1-2 meses', r:1, e:['online','local'], h:2, am:3, tg:['motor'], k:['marketing','fotovideo','rrss'], s:['digital','personas','organizacion'],
+    why:'Entiendes cómo piensa un aficionado al motor y qué mueve la confianza en un taller; tu ciclo aporta plan de captación, promociones por temporada y organización de eventos.',
+    reto:'Sector conservador con poca inversión en marketing. Empieza demostrando resultados con una campaña pequeña (revisión previa a la ITV, cambio de neumáticos de temporada).',
+    paso:'Visita 5 talleres de tu zona, pregunta cómo captan clientes y qué pasa con la agenda entre semana. Propón una campaña de una semana como prueba.',
+    vr:'Organiza una concentración anual de tu nicho con marca propia y consigue patrocinio de talleres y marcas.' });
+
+  // MODA
+  H({ id:'h_mod1', pref:['gv','ci'], t:'Multimarca online de diseñadores emergentes con showroom', n:'Retail de moda de autor',
+    d:'Tienda online que reúne 8-15 marcas de diseñadores emergentes y showroom temporal en pop-ups o ferias. Selección con criterio propio, fotografía cuidada y storytelling de cada marca. Modelo: comisión del 30-40 % por venta o compra en firme con margen del 45-55 %. Ticket medio 50-150 €.',
+    m:'comision', cli:'compradoras y compradores de moda de autor y marcas emergentes sin canal de venta', pb:'descubrir moda distinta de diseñadores locales y vender la propia sin montar una tienda',
+    val:'Marcas emergentes que no encuentras en la calle, con selección y showroom en un solo sitio.',
+    inv:[2000,8000], ar:'3-4 meses', r:2, e:['online','local'], h:2, am:4, tg:['moda','arte','sostenibilidad'], k:['fotovideo','rrss','diseno'], s:['creatividad','ventas','organizacion'],
+    why:'Tienes ojo para la moda y acceso a marcas emergentes; tu ciclo aporta compras, política de precios y comisiones, escaparatismo y venta de producto con márgenes bien calculados.',
+    reto:'Captar marcas con producto y precio consistentes. Empieza con 5-6 marcas y un pop-up de prueba antes de una web completa.',
+    paso:'Haz una lista de 10 marcas emergentes de moda de tu región, escribe a 5 con una propuesta de comisión y anota condiciones y calendario de producción.',
+    vr:'Especialízate en un tipo de moda (sostenible, streetwear, moda infantil) para tener una identidad clara de tienda.' });
+
+  H({ id:'h_mod2', pref:['mp'], t:'Estilismo, contenido y lanzamiento para marcas de moda pequeñas', n:'Marketing de moda',
+    d:'Producción de lookbooks, contenido para redes, campañas de lanzamiento de colección y colaboraciones con microinfluencers para marcas de moda pequeñas. Modelo: proyecto por colección de 800-2.500 € o cuota mensual de 300-800 €. Combina estilismo, dirección creativa y estrategia de lanzamiento.',
+    m:'proyecto', cli:'marcas de moda pequeñas y diseñadores que lanzan colecciones sin equipo de marketing', pb:'lanzar una colección con imagen profesional y presupuesto ajustado',
+    val:'Tu colección con imagen cuidada, calendario de lanzamiento y comunidad, sin contratar a una agencia grande.',
+    inv:[300,1500], ar:'1-2 meses', r:2, e:['online','local'], h:2, am:4, tg:['moda','arte'], k:['fotovideo','diseno','rrss'], s:['creatividad','digital','organizacion'],
+    why:'Conoces las tendencias, el lenguaje de la moda y cómo se comunica una colección; tu ciclo aporta el plan de lanzamiento, el calendario y la medición.',
+    reto:'Presupuestos cambiantes y plazos ajustados por temporada. Cierra alcance por escrito y cobra anticipo antes de empezar cada colección.',
+    paso:'Elige una marca pequeña, analiza su web y redes y prepara un plan de lanzamiento de una colección ficticia en 4 semanas. Es tu porfolio.',
+    vr:'Empaqueta un «lanzamiento de colección» con precio cerrado (contenido, prensa, microinfluencers) y véndelo por temporadas.' });
+
+  // MÚSICA
+  H({ id:'h_mus1', pref:['gv','tl','med'], t:'Merchandising y tienda para bandas, salas y festivales', n:'Merch musical',
+    d:'Diseñas, produces y vendes merchandising para bandas y salas de conciertos (camisetas, vinilos, pósters) y gestionas la venta en concierto y online. Modelo: margen del 30-45 % por producto o comisión del 15-25 % en modo agencia. Trabajas con varias bandas para diversificar y con festivales para volumen.',
+    m:'comision', cli:'bandas, salas de conciertos y festivales sin tiempo ni estructura para vender merchandising', pb:'vender merchandising en conciertos y online sin ocuparse de producción y logística',
+    val:'La banda se dedica a tocar y tú te encargas del merch: diseño, producción, venta y envío con reparto de beneficios.',
+    inv:[500,2500], ar:'1-2 meses', r:1, e:['online','local'], h:1, am:3, tg:['musica','arte','moda'], k:['diseno','rrss'], s:['ventas','organizacion','creatividad'],
+    why:'Conoces la escena y cómo se compra merch; tu ciclo aporta compras, cálculo de costes y precios, control de stock, venta en punto de venta temporal (concierto) y logística de envíos.',
+    reto:'Ingresos irregulares vinculados a la agenda de conciertos. Trabaja con varias bandas y con ventas online para tener actividad todo el año.',
+    paso:'Contacta con 5 bandas locales, pregunta cuánto merch venden por concierto y qué pagan por producirlo. Calcula tu margen con un pedido de 50 camisetas.',
+    vr:'Amplía a «servicio de tienda online para bandas» con reparto de ingresos y envíos incluidos.' });
+
+  H({ id:'h_mus2', pref:['mp'], t:'Promoción y campañas de lanzamiento para artistas emergentes y salas', n:'Marketing musical',
+    d:'Lanzamiento de sencillos, EP y giras de artistas emergentes: estrategia de contenido, campañas de pago segmentadas, contacto con prensa y playlists, y captación de público para salas. Modelo: proyecto de 500-2.000 € por lanzamiento o cuota mensual de 250-600 € para salas de conciertos.',
+    m:'proyecto', cli:'artistas emergentes, sellos independientes y salas de conciertos pequeñas', pb:'dar a conocer un lanzamiento y llenar la sala con poco presupuesto',
+    val:'Tu lanzamiento llega a su público con estrategia, sin depender de que se haga viral por casualidad.',
+    inv:[300,1200], ar:'1-2 meses', r:2, e:['online','local'], h:2, am:5, tg:['musica','arte'], k:['marketing','rrss','fotovideo'], s:['creatividad','digital','personas'],
+    why:'Conoces cómo se descubre música hoy y qué público responde; tu ciclo aporta el plan (objetivos, público, calendario, KPI) y la medición de resultados.',
+    reto:'Presupuestos ajustados y resultados difíciles de garantizar. Define objetivos medibles (oyentes mensuales, entradas vendidas) y cobra parte por adelantado.',
+    paso:'Elige un artista local, analiza su presencia online y prepara un plan de lanzamiento de 4 semanas para su próximo sencillo. Enséñaselo.',
+    vr:'Crea un «pack de lanzamiento independiente» con precio cerrado para varios artistas del mismo sello o colectivo.' });
+
+  // ANIMALES
+  H({ id:'h_ani1', pref:['gv','tl','med'], t:'Tienda online de producto natural y accesorios para mascotas con suscripción', n:'Retail de mascotas',
+    d:'Tienda especializada en alimentación natural, snacks y accesorios de calidad para perros y gatos, con suscripción mensual de comida y snacks. Modelo: margen del 30-45 %, suscripción de 30-70 €/mes por mascota. Recompra muy alta, comunidad fiel y venta cruzada (juguetes, cuidado).',
+    m:'suscripcion', cli:'propietarios de perros y gatos que buscan producto de calidad y comodidad', pb:'comprar comida y accesorios de calidad para su mascota sin salir de casa',
+    val:'La comida y los snacks de tu mascota llegan solos cada mes, con producto de calidad y sin quedarte sin stock.',
+    inv:[1500,5000], ar:'2-3 meses', r:2, e:['online'], h:2, am:4, tg:['animales','sostenibilidad'], k:['rrss','fotovideo'], s:['ventas','digital','personas'],
+    why:'Tu cariño por los animales te hace elegir buen producto y hablar con credibilidad; tu ciclo aporta compras, cálculo de recurrencia (suscripción) y logística de envío periódico.',
+    reto:'Competencia de grandes tiendas y marketplaces. Diferénciate por especialización (alimentación natural, razas concretas) y atención muy personal.',
+    paso:'Pregunta a 10 propietarios de mascotas cuánto gastan al mes y dónde compran. Identifica 5 productos que les cuesta encontrar.',
+    vr:'Añade «cajas de bienvenida para cachorros» y colaboraciones con veterinarias y adiestradores.' });
+
+  H({ id:'h_ani2', pref:['mp'], t:'Marketing y captación para clínicas veterinarias, peluquerías y residencias de mascotas', n:'Marketing del sector mascotas',
+    d:'Captación y fidelización de clientes para negocios del mundo animal: ficha de Google y reseñas, redes con contenido de alta interacción, recordatorios de vacunas y revisiones por WhatsApp y campañas de temporada. Modelo: cuota de 250-700 €/mes por negocio. El sector de mascotas tiene alto engagement y clientes muy fieles.',
+    m:'cuota', cli:'clínicas veterinarias, peluquerías caninas, residencias y tiendas de mascotas', pb:'captar clientes nuevos y que los actuales vuelvan a revisiones y servicios',
+    val:'Más clientes nuevos cada mes y más recurrencia gracias a recordatorios y reseñas, con contenido que enamora.',
+    inv:[300,1000], ar:'1 mes', r:1, e:['online','local'], h:1, am:3, tg:['animales'], k:['marketing','fotovideo','rrss'], s:['digital','creatividad','personas'],
+    why:'Entiendes la emoción del dueño de una mascota y el contenido que funciona; tu ciclo aporta la estrategia de fidelización, el calendario y la medición.',
+    reto:'Si es clínica veterinaria, la publicidad sanitaria está regulada. Pide validación de los contenidos a un profesional colegiado y evita promesas médicas.',
+    paso:'Analiza la ficha de Google y las redes de 5 negocios de mascotas de tu ciudad y anota 5 mejoras. Envíaselo a uno de ellos como prueba.',
+    vr:'Crea un «programa de fidelización» con recordatorios automáticos que puedas ofrecer a todos tus clientes del sector.' });
+
+  // SOSTENIBILIDAD
+  H({ id:'h_sos1', pref:['gv','tl','med'], t:'Tienda a granel y zero waste con recarga y reparto', n:'Retail sostenible',
+    d:'Tienda de productos a granel (alimentación, limpieza, higiene) donde el cliente trae su propio envase, con recarga a domicilio y suscripción de reparto en envases retornables. Modelo: margen del 30-45 %, ticket medio de 15-35 €. Clientela fiel y consciente; ideal como comercio de barrio.',
+    m:'producto', cli:'vecinos y familias que quieren reducir residuos y comprar producto de proximidad', pb:'comprar sin envases y con producto de proximidad',
+    val:'Compras solo lo que necesitas, sin envases desechables, con producto de calidad y de tu zona.',
+    inv:[3000,10000], ar:'3-4 meses', r:2, e:['local','domicilio'], h:3, am:1, tg:['sostenibilidad','gastronomia'], k:['rrss'], s:['personas','organizacion','ventas'],
+    why:'Tu compromiso te da la coherencia que exige este público; tu ciclo aporta compras a proveedores, control de stock a granel, layout de la tienda y logística de reparto retornable.',
+    reto:'Coste de instalación (dispensadores, higiene) y normativa alimentaria. Empieza con productos secos y de limpieza y amplía a otros con experiencia.',
+    paso:'Visita una tienda a granel, apunta 10 productos estrella con precio por kg y pregunta a 10 vecinos cuánto pagarían por recarga a domicilio.',
+    vr:'Arranca con un puesto en mercado o un servicio de recarga a domicilio en bicicleta antes de abrir local fijo.' });
+
+  H({ id:'h_sos2', pref:['mp','ci'], t:'Comunicación de sostenibilidad para pymes, sin greenwashing', n:'Marketing responsable',
+    d:'Ayudas a pymes a comunicar de forma honesta y verificable lo que hacen en sostenibilidad: memoria sencilla, etiquetado, certificados y contenido con datos reales. Modelo: proyecto de 600-2.000 € o cuota de 250-600 €/mes. Cada vez más empresas necesitan explicar su impacto ante clientes y grandes compradores.',
+    m:'proyecto', cli:'pymes con prácticas sostenibles que no saben comunicarlas o quieren evitar el greenwashing', pb:'comunicar su sostenibilidad de forma creíble y verificable',
+    val:'Tu sostenibilidad contada con datos y sin exageraciones, lista para clientes, licitaciones y redes.',
+    inv:[300,1000], ar:'1-2 meses', r:2, e:['online','local'], h:1, am:4, tg:['sostenibilidad'], k:['marketing','diseno'], s:['creatividad','organizacion','resolucion'],
+    why:'Tu compromiso con la sostenibilidad te da criterio para distinguir qué es real y qué es marketing; tu ciclo aporta la estrategia y el diseño de mensajes con datos.',
+    reto:'Evitar afirmaciones ambientales no demostradas: hay normas sobre publicidad engañosa. Comunica solo lo que se puede probar y con datos verificables.',
+    paso:'Revisa la web de 3 empresas que se dicen sostenibles y anota qué afirmaciones no están respaldadas con datos. Prepara mejoras de mensaje.',
+    vr:'Ofrece «informe de sostenibilidad exprés» de 10 páginas para pymes que lo piden en licitaciones o grandes clientes.' });
+
+  // IMPACTO SOCIAL
+  H({ id:'h_soc1', pref:['ci','gv','med'], t:'Tienda online de comercio justo con producto de cooperativas y talleres de inserción', n:'Comercio justo y economía social',
+    d:'Tienda que vende producto de cooperativas, talleres de inserción y proyectos de economía social (café, artesanía, textil, cosmética) con trazabilidad e historia. Modelo: margen del 30-40 % y campañas de regalos corporativos con compras responsables. Ticket medio 25-60 € y alianzas con ONG y empresas con políticas de RSC.',
+    m:'comision', cli:'consumidores conscientes y empresas con políticas de responsabilidad social', pb:'comprar y regalar producto con impacto social real y garantías',
+    val:'Compras con historia y con impacto: cada producto ayuda a una cooperativa o proyecto de inserción y sabes exactamente cuál.',
+    inv:[1500,5000], ar:'3-4 meses', r:2, e:['online'], h:2, am:4, tg:['social','sostenibilidad','gastronomia'], k:['marketing','idiomas'], s:['personas','ventas','organizacion'],
+    why:'Tu vocación social te da acceso a proyectos y credibilidad; tu ciclo aporta la compra internacional o nacional a cooperativas, cálculo de costes, márgenes y venta online.',
+    reto:'Costes de producto y envío elevados frente a lo convencional. La clave es explicar el porqué, con transparencia, y apostar por campañas corporativas.',
+    paso:'Haz una lista de 10 cooperativas o talleres de inserción de tu región, pide catálogo y condiciones de venta a 3 y calcula qué margen dejaría.',
+    vr:'Especialízate en «regalos corporativos con impacto social» y contrata con empresas que necesitan cumplir con políticas de RSC.' });
+
+  H({ id:'h_soc2', pref:['mp'], t:'Marketing y captación de fondos para asociaciones y ONG locales', n:'Marketing social',
+    d:'Ayudas a asociaciones y ONG pequeñas a comunicar su labor y captar socios, voluntarios y donaciones: campañas de crowdfunding, eventos solidarios, newsletter y presencia en redes. Modelo: proyecto de 400-1.500 € por campaña o cuota de 200-500 €/mes con tarifa reducida para entidades sin ánimo de lucro.',
+    m:'proyecto', cli:'asociaciones, fundaciones y ONG locales con poca capacidad de comunicación', pb:'captar socios, voluntarios y donaciones con presupuesto casi nulo',
+    val:'Tu causa llega a más gente y consigue más apoyos con una comunicación profesional y adaptada a tu presupuesto.',
+    inv:[200,800], ar:'1 mes', r:1, e:['online','local'], h:1, am:3, tg:['social'], k:['marketing','rrss','diseno'], s:['personas','creatividad','organizacion'],
+    why:'Tu vocación te da empatía con la causa; tu ciclo aporta campañas, planificación, medición y un buen uso del presupuesto limitado que tienen estas entidades.',
+    reto:'Presupuestos muy bajos. Combínalo con clientes de pago normales y con ayudas para entidades sociales (contratos con administraciones y fundaciones).',
+    paso:'Elige una asociación de tu zona, revisa su web y redes y prepara un plan de campaña de captación de socios de 4 semanas. Ofrécelo como voluntariado profesional de prueba.',
+    vr:'Especialízate en campañas de crowdfunding para proyectos sociales, con plantillas propias y comisión por éxito.' });
+
+  // DIY / MANUALIDADES
+  H({ id:'h_diy1', pref:['gv','med','bas'], t:'Kits DIY y cajas de manualidades por suscripción', n:'Cajas creativas',
+    d:'Cajas mensuales o kits sueltos con todo lo necesario para hacer un proyecto creativo (cerámica, bordado, macramé, velas, terrarios) con vídeo paso a paso. Modelo: 25-45 € por caja con margen del 40-55 %, suscripción mensual o packs de regalo. Público adulto que busca desconectar y regalar planes distintos.',
+    m:'suscripcion', cli:'adultos que buscan un plan creativo y desconectar, y quienes buscan regalos originales', pb:'hacer una manualidad sin comprar todo el material por separado',
+    val:'Un plan creativo en casa con todo el material, vídeo paso a paso y resultado que puedes regalar o poner en tu salón.',
+    inv:[1500,5000], ar:'2-3 meses', r:2, e:['online'], h:2, am:4, tg:['diy','arte','sostenibilidad'], k:['diseno','fotovideo','rrss'], s:['creatividad','organizacion','ventas'],
+    why:'Tu gusto por las manualidades te da criterio para diseñar buenos proyectos; tu ciclo aporta compras, escandallo por caja, embalaje, logística de envío recurrente y marketing de lanzamiento.',
+    reto:'Coste de montaje manual y envío. Estandariza cada caja, compra en volumen y prepara producción por lotes para reducir tiempo y coste unitario.',
+    paso:'Diseña un kit de muestra, pruébalo con 5 personas y pregunta cuánto pagarían y qué cambiarían. Anota el coste completo por unidad.',
+    vr:'Vende el mismo kit para talleres de empresa, cumpleaños y despedidas de soltero/a (alto ticket).' });
+
+  H({ id:'h_diy2', pref:['mp','gv'], t:'Curso y consultoría de venta online para artesanos y creadores', n:'Formación para creadores',
+    d:'Enseñas a artesanos y creadores a vender su producto: fotografía, fichas de producto, Etsy, tienda propia, precios y redes. Modelo: curso de 2-3 semanas a 80-180 €, mentoría individual a 60-90 €/h y packs de tienda «llave en mano» de 500-1.200 €. Público creciente de personas que quieren vivir de su creatividad.',
+    m:'formacion', cli:'artesanos, ilustradores y creadores que hacen buen producto pero no saben venderlo', pb:'vender online lo que hacen y ponerle precio adecuado',
+    val:'Aprendes a vender tu producto sin regalarlo: fotos, precio y canales que funcionan, con ejemplos reales.',
+    inv:[300,1000], ar:'1-2 meses', r:1, e:['online','local'], h:1, am:4, tg:['diy','arte'], k:['marketing','fotovideo','rrss'], s:['personas','creatividad','ventas'],
+    why:'Conoces el mundo del hobby y sus problemas; tu ciclo aporta comercio electrónico, cálculo de precios y márgenes y venta, justo lo que un artesano suele saltarse.',
+    reto:'Formar es otra habilidad distinta a saber vender: empieza con un taller piloto de 2 horas con grupo pequeño y mejora con feedback antes de crear un curso más largo.',
+    paso:'Pregunta a 5 artesanos qué les cuesta más de vender online y cuánto pagarían por resolverlo. Diseña un taller de 2 horas con ese resultado.',
+    vr:'Crea una comunidad de pago para creadores con casos, plantillas y revisiones mensuales de sus tiendas.' });
+
+  // VIAJES / TURISMO
+  H({ id:'h_via1', pref:['gv','ci','med'], t:'Tienda de producto local y souvenirs con diseño propio para el turismo', n:'Retail turístico',
+    d:'Tienda física y online de productos locales y souvenirs con diseño propio (peregrinos del Camino, turismo de ciudad o de costa): mapas ilustrados, cerámica, alimentación envasada y textil. Modelo: margen del 50-65 % en producto propio, ticket medio 15-35 %. Puesto o local en zonas de paso y presencia en Google Maps y plataformas de experiencias.',
+    m:'producto', cli:'turistas y peregrinos que buscan un recuerdo auténtico y de calidad', pb:'encontrar un recuerdo auténtico, de calidad y con diseño, no el típico souvenir',
+    val:'Un recuerdo auténtico de tu viaje, con diseño y producto local, no el souvenir de fábrica que vale para cualquier ciudad.',
+    inv:[2000,8000], ar:'3-4 meses', r:2, e:['local','online'], h:2, am:3, tg:['viajes','arte','diy'], k:['diseno','fotovideo','idiomas'], s:['creatividad','ventas','idiomas'],
+    why:'Tu afición te da criterio para elegir y contar lo local; tu ciclo aporta compras, política de precios, escaparatismo, atención en varios idiomas y venta a clientes internacionales.',
+    reto:'Estacionalidad turística y alquileres altos en zonas de paso. Complementa con venta online y con pedidos a empresas y hoteles.',
+    paso:'Cuenta cuántos turistas pasan por 3 zonas de tu ciudad en una hora de fin de semana y visita 5 tiendas de souvenirs anotando qué venden y a qué precio.',
+    vr:'Empieza con puesto en mercados y eventos de temporada y con venta online a agencias y alojamientos como regalo de bienvenida.' });
+
+  H({ id:'h_via2', pref:['mp','ci'], t:'Marketing, reservas directas y reseñas para alojamientos y experiencias turísticas', n:'Marketing turístico',
+    d:'Aumentas las reservas directas de apartamentos turísticos, hostales y empresas de experiencias: web con reservas, ficha de Google, gestión de reseñas, contenido en varios idiomas y campañas de temporada. Modelo: cuota de 250-700 €/mes o comisión sobre reservas directas nuevas.',
+    m:'cuota', cli:'apartamentos turísticos, hostales, agencias locales y empresas de experiencias', pb:'conseguir reservas directas y mejores reseñas sin depender de las comisiones de las plataformas',
+    val:'Más reservas directas y mejores reseñas, con contenido en varios idiomas y sin pagar tanta comisión a plataformas.',
+    inv:[300,1200], ar:'1-2 meses', r:1, e:['online'], h:2, am:4, tg:['viajes'], k:['marketing','idiomas','fotovideo'], s:['digital','idiomas','organizacion'],
+    why:'Entiendes cómo elige alojamiento un viajero y qué opinan en las reseñas; tu ciclo aporta estrategia de canales, marketing digital, atención al cliente y comunicación en varios idiomas.',
+    reto:'Estacionalidad y clientes exigentes con resultados. Pide objetivos concretos (reservas directas, porcentaje sobre el total) y cobra por meses fijos.',
+    paso:'Analiza 5 apartamentos turísticos de tu ciudad (web, reservas, reseñas, idiomas) y crea un informe de una página con 5 mejoras. Envíalo al propietario del peor.',
+    vr:'Especialízate en un tipo de turismo (peregrinos, rutas de vino, turismo activo) y crea una oferta específica.' });
+
+  // ---------- INNOVADORAS: vías emergentes ----------
+  const N = (o) => COM.push(Object.assign({ tp:'innovadora', cics: ALL }, o));
+
+  N({ id:'n1', t:'Venta en directo (live shopping) para marcas y comercios locales', n:'Live commerce',
+    d:'Organizas y presentas sesiones de venta en directo en TikTok, Instagram o YouTube para comercios y marcas que quieren vender producto en tiempo real: guion, escaparate virtual, dinámicas de venta y gestión de pedidos. Modelo: comisión del 10-20 % sobre las ventas del directo + tarifa fija por sesión de 150-400 €. Formato en auge en Asia y Europa, todavía casi sin competencia local.',
+    m:'comision', cli:'comercios y marcas con producto visual y con comunidad activa en redes', pb:'vender en directo a su comunidad sin saber presentar ni gestionar la logística del directo',
+    val:'Tu producto se vende en directo con presentador, ofertas y pedidos gestionados: ventas en horas, no en semanas.',
+    inv:[500,2500], ar:'2-3 meses', r:3, e:['online','local'], h:2, am:4, tg:['moda','tecnologia','gastronomia'], k:['rrss','fotovideo'], s:['digital','personas','ventas'],
+    why:'Combina técnicas de venta con marketing digital y logística de pedidos: sabes crear el guion, animar la venta y gestionar el flujo de pedidos e incidencias.',
+    reto:'Formato nuevo con comunidad pequeña al empezar. Prueba con 3 directos gratuitos a una marca local y mide ventas por minuto antes de cobrar.',
+    paso:'Mira 5 directos de venta en TikTok o Instagram, apunta cómo estructuran (apertura, ofertas, cierre) y prepara un guion propio de 30 minutos para un producto conocido.',
+    vr:'Especialízate en un nicho (moda vintage, plantas, coleccionismo) donde el directo tenga más tirón y la comunidad ya exista.' });
+
+  N({ id:'n2', t:'Automatización con IA para comercios y agencias pequeñas', n:'IA aplicada al comercio',
+    d:'Implantas soluciones sencillas con IA y automatización para pequeños comercios y agencias: chatbot de WhatsApp para atención y pedidos, fichas de producto generadas y revisadas, respuestas a reseñas, informes automáticos de ventas. Modelo: proyecto de 500-2.000 € + mantenimiento de 80-200 €/mes. Mucha demanda, poca oferta que entienda el negocio y no solo la herramienta.',
+    m:'proyecto', cli:'pequeños comercios, tiendas online y agencias con procesos repetitivos', pb:'ahorrar horas en tareas repetitivas de atención, catálogo y reporting',
+    val:'Recuperas horas cada semana: los mensajes, fichas y reportes repetitivos los hace un sistema revisado por una persona.',
+    inv:[300,1500], ar:'1-2 meses', r:2, e:['online'], h:2, am:5, tg:['tecnologia'], k:['programacion','marketing','ofimatica'], s:['digital','resolucion','organizacion'],
+    why:'Entiendes los procesos comerciales (pedidos, atención, catálogo, reporting) y sabes dónde se pierde tiempo; eso te hace mejor consultor de IA que quien solo sabe la herramienta.',
+    reto:'Las herramientas cambian rápido y los clientes esperan «magia». Define alcance realista, revisa siempre las respuestas automáticas y cumple RGPD.',
+    paso:'Elige un proceso repetitivo de una tienda que conozcas (responder a las 10 preguntas más frecuentes) y automatízalo con una herramienta gratuita. Cronometra el tiempo ahorrado.',
+    vr:'Empaqueta una solución para un tipo de negocio (peluquerías, clínicas, tiendas) con plantillas listas y precio fijo.' });
+
+  N({ id:'n3', t:'Marketplace local de un nicho: conecta oferta y demanda de tu ciudad', n:'Plataforma local',
+    d:'Plataforma web sencilla que conecta a profesionales y clientes de un nicho concreto de tu ciudad (fotógrafos de eventos, alquiler de equipos, clases particulares, reformas pequeñas) con reservas y pago integrado. Modelo: comisión del 10-15 % por operación. Se valida primero a mano con formularios y WhatsApp antes de programar nada.',
+    m:'plataforma', cli:'profesionales autónomos de un nicho y clientes que no saben dónde encontrarlos', pb:'encontrar y contratar a profesionales de confianza en su ciudad',
+    val:'Encuentras al profesional adecuado en tu ciudad, con precio claro, reseñas y pago seguro en un único sitio.',
+    inv:[1000,6000], ar:'4-6 meses', r:3, e:['online'], h:3, am:3, tg:['tecnologia'], k:['marketing','programacion'], s:['digital','ventas','organizacion'],
+    why:'Combina marketing (captar los dos lados), política de comisiones y gestión de la operativa; tu ciclo te da la visión comercial que muchos proyectos tecnológicos no tienen.',
+    reto:'Es el modelo más difícil: sin masa crítica en los dos lados no funciona. Valida a mano con 10 profesionales y 20 clientes antes de invertir en desarrollo.',
+    paso:'Elige un nicho, entrevista a 5 profesionales y 5 clientes y prueba a conectar 3 operaciones a mano con WhatsApp y una hoja de cálculo.',
+    vr:'Empieza como «directorio con reserva» (sin pago) y añade comisión cuando el volumen de contactos lo justifique.' });
+
+  N({ id:'n4', t:'Marca propia de producto físico con venta directa al consumidor (D2C)', n:'Marca D2C',
+    d:'Creas una marca propia con producto que fabrica un tercero (café, cosmética, textil, artículos para mascotas, packaging) y lo vendes directamente online, sin intermediarios. Modelo: margen bruto del 55-70 % con ticket medio de 25-60 €, publicidad de pago y comunidad propia. Requiere marca, producto y validación previa con preventas o crowdfunding.',
+    m:'producto', cli:'consumidores de un nicho que se identifican con la marca y su propuesta', pb:'encontrar un producto de calidad con identidad clara para su estilo de vida',
+    val:'Un producto de calidad con identidad clara, directamente del fabricante y sin marcas de siempre.',
+    inv:[3000,15000], ar:'4-6 meses', r:3, e:['online'], h:3, am:5, tg:['moda','gastronomia','sostenibilidad','deporte'], k:['marketing','diseno','fotovideo'], s:['creatividad','digital','ventas'],
+    why:'Combina todo tu ciclo: investigación de mercado, política de producto y precio, marketing digital, logística y comercio electrónico, y si vendes fuera, comercio internacional.',
+    reto:'Capital en producto y publicidad, y márgenes que se erosionan por competencia. Valida con preventa o lista de espera antes de fabricar stock.',
+    paso:'Diseña una landing con producto, precio y botón de «avisarme cuando salga». Lleva 100 visitas y mide cuántas personas se apuntan.',
+    vr:'Lanza primero una edición limitada de 50-100 unidades para probar demanda y pulir el producto antes de pedir más.' });
+
+  N({ id:'n5', t:'Comunidad de pago para profesionales del comercio y el marketing de tu zona', n:'Comunidad y networking',
+    d:'Creas una comunidad de pago (Discord, Skool o WhatsApp) para autónomos y pymes de tu ciudad con formación mensual, casos, ofertas conjuntas y networking presencial. Modelo: cuota de 20-45 €/mes por miembro, patrocinios de proveedores y eventos. Objetivo realista: 80-150 miembros activos = 2.000-6.000 €/mes.',
+    m:'suscripcion', cli:'autónomos y pymes de tu zona que quieren aprender, conectar y compartir recursos', pb:'aprender y conectar con otros negocios de su zona',
+    val:'Aprendes, consigues clientes y compartes recursos con otros negocios de tu zona por una cuota mensual pequeña.',
+    inv:[200,1200], ar:'2-3 meses', r:2, e:['online','local'], h:2, am:3, tg:['social'], k:['rrss','marketing'], s:['personas','organizacion','liderazgo'],
+    why:'Sabes de venta, marketing y gestión y puedes aportar contenido y casos reales; tu ciclo te da la autoridad para dinamizar sin ser un gurú.',
+    reto:'La fase de 0 a 30 miembros es la más dura. Arranca con un grupo cerrado y gratuito de 20 personas, valida qué valoran más y después cobra.',
+    paso:'Crea un grupo piloto de 15-20 autónomos de tu zona, organiza una quedada y una sesión formativa de 1 hora y mide asistencia e interés en seguir.',
+    vr:'Combina la comunidad con eventos mensuales de networking con patrocinio de bancos, gestorías y proveedores.' });
+
+  N({ id:'n6', t:'Alquiler en vez de compra: renting de equipos y productos por uso', n:'Economía colaborativa',
+    d:'Alquilas productos que se usan poco (equipo de fotografía, herramientas, material de camping, disfraces, mobiliario para eventos) con reserva online, entrega y fianza. Modelo: 8-15 % del valor del producto por alquiler; se amortiza en 6-10 alquileres. Ideal para consumidores que no quieren comprar y para pequeñas empresas.',
+    m:'plataforma', cli:'particulares y pequeñas empresas que necesitan un equipo puntualmente', pb:'usar un equipo caro unos días sin comprarlo',
+    val:'Usas el equipo que necesitas unos días, con entrega, sin comprar y sin cargar con él después.',
+    inv:[2000,8000], ar:'2-3 meses', r:2, e:['online','local'], h:2, am:2, tg:['sostenibilidad','naturaleza','deporte','tecnologia'], k:['ofimatica'], s:['organizacion','resolucion','personas'],
+    why:'Gestión de inventario, logística de entrega y recogida, y política de precios por tiempo de uso: tu ciclo te da los conceptos para controlar rotación y amortización de cada producto.',
+    reto:'Desgaste, daños y fianzas. Calcula la amortización por alquiler, añade seguro o fianza y revisa cada devolución.',
+    paso:'Elige 10 productos con precio alto y uso ocasional, calcula cuántos alquileres necesitas para amortizar cada uno y pregunta a 10 personas si lo alquilarían.',
+    vr:'Empieza con 3-5 productos propios en un solo nicho y amplía cuando tengas reservas constantes.' });
+
+  N({ id:'n7', t:'Compra colectiva de barrio: agrupa pedidos a productores locales', n:'Consumo colaborativo',
+    d:'Agrupas pedidos de vecinos y oficinas para comprar directamente a productores locales (verdura, huevos, carne, pan, lácteos) y organizas entregas semanales en puntos de recogida. Modelo: 12-20 % de margen o cuota fija de 5-8 € por pedido. Sin tienda física, con pedidos cerrados por semana y sin desperdicio.',
+    m:'comision', cli:'familias, oficinas y comunidades de vecinos que quieren producto local sin ir a cada productor', pb:'comprar producto local sin ir a cada productor ni depender de un supermercado',
+    val:'Producto local fresco directo del productor, con pedido cerrado a la semana y recogida en tu barrio.',
+    inv:[500,3000], ar:'2 meses', r:2, e:['online','local','domicilio'], h:2, am:2, tg:['sostenibilidad','gastronomia','naturaleza','social'], k:['ofimatica'], s:['organizacion','personas','resolucion'],
+    why:'Compras, logística de aprovisionamiento y distribución: agrupar demanda, cerrar pedidos y coordinar recogidas es lo que sabes hacer, aplicado a un modelo de barrio.',
+    reto:'Coordinación semanal exigente y normativa alimentaria (transporte y conservación). Empieza con producto de larga conservación y pocos puntos de recogida.',
+    paso:'Reúne a 10 vecinos en un grupo de WhatsApp, pregunta qué productos comprarían y contacta con 2 productores para pedir precio por volumen.',
+    vr:'Crea puntos de recogida en comercios de barrio (cafeterías, tiendas) que ganan tráfico con cada entrega.' });
+
+  N({ id:'n8', t:'Productos digitales de nicho para pymes: plantillas, kits y guías', n:'Productos digitales',
+    d:'Creas y vendes plantillas y kits (calendarios de contenido, hojas de escandallo, cuadros de mando, guiones de venta, contratos de agencia) para pymes y freelancers de tu nicho. Modelo: precio de 9-49 € por producto con ventas recurrentes y sin stock. Se promociona con contenido gratuito en LinkedIn e Instagram.',
+    m:'producto', cli:'autónomos y pymes que quieren herramientas listas para usar sin contratar a un consultor', pb:'tener plantillas y herramientas de trabajo listas sin empezar desde cero',
+    val:'Herramientas listas para usar, hechas por alguien del sector y con ejemplos reales, por una fracción de lo que costaría un consultor.',
+    inv:[100,800], ar:'1 mes', r:1, e:['online'], h:1, am:5, tg:['tecnologia','diy'], k:['ofimatica','diseno','marketing'], s:['organizacion','digital','creatividad'],
+    why:'Tienes conocimiento sectorial de comercio y marketing y sabes convertirlo en herramientas (hojas de escandallo, planes de contenido, KPI) con precisión.',
+    reto:'Muchas plantillas gratuitas compiten. Diferénciate por especialización (un sector concreto) y por incluir casos y guías de uso.',
+    paso:'Crea una plantilla de escandallo o calendario de contenido, ofrécela gratis a 20 personas y pregunta qué cambiarían y cuánto pagarían por una versión mejor.',
+    vr:'Reúne varias plantillas en un pack o suscripción anual con actualizaciones y una comunidad de soporte.' });
+
+  N({ id:'n9', t:'Cuadros de mando y reporting de ventas para pymes', n:'Inteligencia de negocio',
+    d:'Conectas las ventas, la publicidad y las redes de un comercio o agencia en un cuadro de mando claro (Looker Studio, Power BI o Sheets): ventas por producto, margen, coste por cliente, rentabilidad por canal. Modelo: implantación de 300-900 € + cuota de 80-200 €/mes con informe mensual y recomendaciones.',
+    m:'cuota', cli:'comercios, tiendas online y agencias que toman decisiones a ojo', pb:'saber qué productos y canales dejan margen y cuáles pierden dinero',
+    val:'Ves de un vistazo qué vende, qué deja margen y dónde se va tu dinero, sin perderte en hojas de cálculo.',
+    inv:[200,800], ar:'1-2 meses', r:1, e:['online'], h:1, am:5, tg:['tecnologia'], k:['ofimatica','programacion','contabilidad'], s:['resolucion','organizacion','digital'],
+    why:'Entiendes qué indicadores importan en comercio (margen, rotación, ticket medio, ROAS) y sabes convertirlos en un tablero comprensible para el dueño del negocio.',
+    reto:'Datos desordenados y cada cliente con su sistema. Limita el alcance a 2-3 fuentes de datos y estandariza tu plantilla.',
+    paso:'Descarga datos de ventas (o usa un ejemplo público) y monta un tablero de 5 indicadores en Looker Studio o Sheets. Será tu demo.',
+    vr:'Especialízate en un tipo de negocio (restauración, e-commerce de moda) con un tablero estándar y métricas propias del sector.' });
+
+  N({ id:'n10', t:'Rutas y experiencias de compras: tours de comercio y producto local', n:'Turismo experiencial de comercio',
+    d:'Organizas rutas guiadas por comercios, obradores y talleres locales (rutas gastronómicas, de artesanía, de tiendas con historia) para turistas y locales, con degustaciones y compras. Modelo: 25-45 € por persona con grupos de 6-12 + comisión de los comercios. Refuerza el comercio de proximidad y el turismo.',
+    m:'experiencia', cli:'turistas y vecinos que buscan planes auténticos y comercios locales que quieren visibilidad', pb:'descubrir el comercio y la gastronomía auténtica de su zona',
+    val:'Descubres los rincones auténticos de la ciudad con alguien que te lleva y cuenta su historia, y compras lo que te gusta.',
+    inv:[500,2500], ar:'2 meses', r:2, e:['local'], h:2, am:1, tg:['gastronomia','viajes','arte'], k:['idiomas','rrss'], s:['personas','organizacion','idiomas'],
+    why:'Dinamización comercial y marketing de destinos: sabes montar una ruta que genere ventas para los comercios y diseñar la oferta para el turista.',
+    reto:'Estacionalidad y guías con conocimientos. Ofrece rutas en varios idiomas y cerradas por temática para diversificar público.',
+    paso:'Diseña una ruta de 2 horas con 5 paradas y pídeles a 5 comercios sus condiciones para recibir grupos. Pruébala con 6 amigos.',
+    vr:'Vende la ruta como actividad de empresa (team building) y como experiencia regalo con tarjeta.' });
+
+  N({ id:'n11', t:'Tienda móvil itinerante: pop-up sobre ruedas', n:'Retail móvil',
+    d:'Furgoneta o remolque convertido en tienda móvil que recorre mercados, eventos, polígonos y pueblos sin comercio: producto de nicho, lanzamientos de marcas y showroom itinerante. Modelo: margen de producto + cuota de alquiler a marcas que quieren visibilidad. Calendario semanal de ubicaciones y comunicación en redes.',
+    m:'experiencia', cli:'público de mercados, eventos y zonas sin comercio cercano, y marcas que buscan visibilidad', pb:'comprar en zonas sin tienda cerca o descubrir marcas nuevas en la calle',
+    val:'La tienda llega a ti: producto seleccionado y marcas nuevas sin desplazarte a la ciudad.',
+    inv:[5000,15000], ar:'3-5 meses', r:3, e:['local'], h:3, am:3, tg:['moda','arte','diy','viajes'], k:['rrss','diseno'], s:['creatividad','ventas','tecnica'],
+    why:'Escaparatismo y diseño de un espacio comercial reducido, gestión de rutas y de stock: reúne la tienda, la logística y el marketing local en un mismo proyecto.',
+    reto:'Permisos de venta ambulante y coste del vehículo. Consulta la normativa municipal y valida con un puesto en 3 mercados antes de comprar la furgoneta.',
+    paso:'Consulta el calendario de ferias, mercados y eventos de tu comarca, calcula cuántos días al mes podrías estar en cada uno y qué coste tiene cada puesto.',
+    vr:'Empieza con un remolque pequeño o un stand plegable y cámbialo a furgoneta cuando el calendario esté completo.' });
+
+  // ===========================================================
+  // MOTOR DE RECOMENDACIÓN · COMERCIO Y MARKETING
+  // Puntúa cada idea con TODAS las respuestas, elige de forma ponderada
+  // (para que perfiles parecidos no reciban lo mismo) y garantiza variedad.
+  // ===========================================================
+  const norm = (s) => (s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+  const joinY = (arr) => arr.length <= 1 ? (arr[0] || '') : arr.slice(0, -1).join(', ') + ' y ' + arr[arr.length - 1];
+  const fmtEur = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+  const CAP_MAX = { muy_bajo: 1000, bajo: 5000, medio: 15000, alto: 40000 };
+  const CAP_LABEL = { muy_bajo: 'menos de 1.000 €', bajo: '1.000-5.000 €', medio: '5.000-15.000 €', alto: 'más de 15.000 €' };
+  const TIEMPO_LVL = { poco: 1, medio: 2, alto: 3, completo: 4 };
+  const AMB_LVL = { local: 1, provincial: 2, autonomico: 3, nacional: 4, internacional: 5 };
+  const AMB_LABEL = { 1: 'local', 2: 'provincial', 3: 'autonómico', 4: 'nacional', 5: 'internacional' };
+  const RIESGO_LVL = { bajo: 1, medio: 2, alto: 3 };
+  const RIESGO_TXT = { 1: 'Bajo', 2: 'Medio', 3: 'Alto' };
+  const HORAS_TXT = { 1: 'Menos de 10 h/sem', 2: '10-20 h/sem', 3: '20-40 h/sem', 4: 'Casi completa' };
+  const CICLO_LABEL = { ci: 'Comercio Internacional', gv: 'Gestión de Ventas y Espacios Comerciales', mp: 'Marketing y Publicidad', tl: 'Transporte y Logística', med: 'Actividades Comerciales', bas: 'Servicios Comerciales' };
+
+  const TAG_DESC = { deporte: 'el deporte y el fitness', tecnologia: 'la tecnología y el gaming', arte: 'el arte y el diseño', naturaleza: 'la naturaleza y el aire libre', gastronomia: 'la gastronomía', motor: 'el mundo del motor', moda: 'la moda y la belleza', musica: 'la música y lo audiovisual', animales: 'los animales y las mascotas', sostenibilidad: 'la sostenibilidad', social: 'el impacto social', diy: 'las manualidades y el DIY', viajes: 'los viajes y el turismo' };
+  const TAG_CHIP = { deporte: 'deporte', tecnologia: 'tecnología / gaming', arte: 'arte y diseño', naturaleza: 'naturaleza', gastronomia: 'gastronomía', motor: 'motor', moda: 'moda y belleza', musica: 'música', animales: 'mascotas', sostenibilidad: 'sostenibilidad', social: 'impacto social', diy: 'DIY', viajes: 'viajes' };
+  const CONOC_DESC = { idiomas: 'idiomas', ofimatica: 'ofimática avanzada', contabilidad: 'contabilidad y fiscalidad', marketing: 'marketing digital', diseno: 'diseño gráfico', fotovideo: 'foto y vídeo', programacion: 'programación', otro_oficio: 'tu otro oficio técnico', ventas: 'ventas y negociación', rrss: 'redes sociales y creación de contenido', gestion_personas: 'gestión de personas', atencion_cliente: 'atención al cliente' };
+  const HAB_DESC = { tecnica: 'lo técnico y manual', personas: 'el trato con personas', creatividad: 'la creatividad', organizacion: 'la organización', ventas: 'las ventas', digital: 'la tecnología y las redes', liderazgo: 'el liderazgo', resolucion: 'resolver problemas', idiomas: 'los idiomas' };
+
+  // Lo que el alumno escribe con sus palabras también cuenta.
+  const KW_TAGS = {
+    deporte: /deport|gimnas|fitness|crossfit|jiu|bjj|judo|boxeo|artes marciales|running|correr|escalada|ciclismo|padel|futbol|baloncesto|yoga|entren/,
+    tecnologia: /videojuego|gaming|gamer|esport|streamer|twitch|consola|tecnolog|programa|informatic|inteligencia artificial|\bia\b|robot|movil|gadget/,
+    arte: /\barte\b|dibuj|ilustr|pintur|fotograf|dise(n|ñ)o|artesan|cine|teatro|museo|creativ/,
+    naturaleza: /naturaleza|monta(n|ñ)|senderismo|camping|excursion|aire libre|surf|playa|bosque|rutas|pesca/,
+    gastronomia: /cocina|gastronom|receta|vino|cafe|cerveza|reposteria|restaurante|comida|comer|cocinar/,
+    motor: /coche|moto\b|motos|motor|tuning|clasico|circuito|formula|bici|bicicleta|mecanica/,
+    moda: /\bmoda\b|ropa|maquill|belleza|estilismo|peluquer|vintage|zapatilla|sneaker|tendencia/,
+    musica: /music|guitarra|concierto|banda|\bdj\b|festival|bateria|canto|podcast|audiovisual/,
+    animales: /animal|perro|gato|mascota|caballo|veterinari|adiestr/,
+    sostenibilidad: /sostenib|reciclaj|ecolog|zero waste|medio ambiente|segunda mano|vegano|clima/,
+    social: /voluntari|\bong\b|social|solidari|inclusi|igualdad|mayores|infancia|ayudar/,
+    diy: /manualidad|bricolaje|costura|crochet|ganchillo|ceramica|madera|diy|hacer cosas/,
+    viajes: /viaj|turism|mochil|erasmus|paises|camino de santiago|vuelos|conocer mundo/
+  };
+  const KW_CONOC = {
+    idiomas: /ingles|\bb2\b|\bc1\b|frances|aleman|portugues|italiano|idioma|toefl|cambridge/,
+    ofimatica: /excel|office|word|ofimatic|power ?point/,
+    contabilidad: /contabilid|fiscal|factur|gestoria|nominas/,
+    marketing: /marketing|\bseo\b|google ads|meta ads|publicidad|community|posicionamiento/,
+    diseno: /photoshop|illustrator|canva|figma|dise(n|ñ)o gr/,
+    fotovideo: /fotograf|video|edicion|premiere|dron|reels/,
+    programacion: /programa|python|javascript|\bhtml\b|\bsql\b|desarrollo web|wordpress/,
+    ventas: /venta|comercial|vendedor|dependiente|negociaci/,
+    rrss: /instagram|tiktok|redes|youtube|contenido|twitch|creador/,
+    gestion_personas: /equipo|coordin|encargad|gerente|responsable de/,
+    atencion_cliente: /atencion al cliente|camarer|dependient|cajer|call center|recepcion|hosteler/
+  };
+
+  const FUENTES = {
+    ci: 'ICEX, Trade Map, Eurostat (Comext), la base TARIC y tu cámara de comercio',
+    gv: 'tu cámara de comercio, las asociaciones de comerciantes y los informes de tendencias del comercio minorista',
+    mp: 'IAB Spain, Google Trends, la Biblioteca de anuncios de Meta y las normas de publicidad (Autocontrol)',
+    tl: 'el Ministerio de Transportes, las asociaciones del sector y tarifas reales de transitarios y paquetería',
+    med: 'tu cámara de comercio, las asociaciones de comerciantes y los mercados y ferias de tu zona',
+    bas: 'tu cámara de comercio, las asociaciones de comerciantes y los mercados y ferias de tu zona'
+  };
+
+  const comState = { shown: new Set(), adhocShown: false, lastAdhocText: '' };
+
+  function perfilComercio(d) {
+    const ck = CICLO_KEY[d.cicloTexto] || (d.nivel === 'basico' ? 'bas' : d.nivel === 'medio' ? 'med' : 'gv');
+    const tInt = norm(d.intereses), tForm = norm(d.formacionExtra), tProb = norm(d.problema);
+    const tags = new Set(d.tags), tagsInf = new Set();
+    Object.keys(KW_TAGS).forEach(t => { if (!tags.has(t) && (KW_TAGS[t].test(tInt) || KW_TAGS[t].test(tProb))) tagsInf.add(t); });
+    const conoc = new Set(d.conocimientos.filter(x => x !== 'ninguno'));
+    Object.keys(KW_CONOC).forEach(k => { if (KW_CONOC[k].test(tForm)) conoc.add(k); });
+    const loc = (d.localidad || '').trim();
+    return {
+      ck, ciclo: d.cicloTexto || CICLO_LABEL[ck], nivel: d.nivel,
+      tags: [...tags], tagsInf: [...tagsInf], conoc: [...conoc], hab: d.habilidades.slice(),
+      r: RIESGO_LVL[d.riesgo] || 2, riesgo: d.riesgo,
+      capKey: d.capital, capMax: CAP_MAX[d.capital] || 5000,
+      tLvl: TIEMPO_LVL[d.tiempo] || 2, aLvl: AMB_LVL[d.ambito] || 2,
+      entorno: d.entorno, loc: loc, locTxt: loc || 'tu zona',
+      problema: (d.problema || '').trim(), problemaNorm: tProb
+    };
+  }
+
+  function puntuar(idea, P, tipo) {
+    let s = 0; const chips = [];
+    // ---- ciclo
+    if (tipo === 'sector') {
+      if (idea.cics[0] === P.ck || (P.ck === 'bas' && idea.cics[0] === 'med')) { s += 3.5; chips.push({ txt: 'Tu ciclo' }); }
+      else { s += 1; chips.push({ txt: 'Aprovecha tu ciclo' }); }
+    } else if (idea.pref && idea.pref.indexOf(P.ck) > -1) { s += 1.5; }
+    // ---- intereses (marcados y deducidos de tu texto)
+    const th = idea.tg.filter(t => P.tags.indexOf(t) > -1);
+    const thi = idea.tg.filter(t => P.tags.indexOf(t) < 0 && P.tagsInf.indexOf(t) > -1);
+    s += th.length * 3 + thi.length * 1.6;
+    th.concat(thi).slice(0, 2).forEach(t => chips.push({ txt: 'Afición: ' + TAG_CHIP[t] }));
+    // ---- conocimientos y habilidades
+    const kh = idea.k.filter(k => P.conoc.indexOf(k) > -1);
+    s += kh.length * 1.4;
+    kh.slice(0, 2).forEach(k => chips.push({ txt: 'Sabes de ' + CONOC_DESC[k] }));
+    const sh = idea.s.filter(x => P.hab.indexOf(x) > -1);
+    s += sh.length * 1.1;
+    if (sh.length) chips.push({ txt: 'Punto fuerte: ' + HAB_DESC[sh[0]] });
+    // ---- entorno
+    if (P.entorno === 'mixto') { s += 0.6; }
+    else if (P.entorno && idea.e.indexOf(P.entorno) > -1) { s += 2.2; chips.push({ txt: 'Entorno: ' + ({ online: '100 % online', local: 'local físico', domicilio: 'a domicilio' }[P.entorno]) }); }
+    else if (P.entorno) { s -= 3; }
+    // ---- capital
+    if (idea.inv[0] > P.capMax) { s -= 3.5 + Math.min(3, (idea.inv[0] / P.capMax - 1) * 1.5); chips.push({ txt: 'Inversión por encima de tu capital', warn: true }); }
+    else if (idea.inv[1] <= P.capMax) { s += 1.2; chips.push({ txt: 'Capital ajustado' }); }
+    else { s += 0.4; }
+    // ---- tiempo
+    if (idea.h > P.tLvl) { s -= 2.8 * (idea.h - P.tLvl); chips.push({ txt: 'Pide más horas de las que indicas', warn: true }); }
+    else { s += 0.3; }
+    // ---- ámbito
+    if (idea.am < P.aLvl) { s -= 1.6 * (P.aLvl - idea.am); chips.push({ txt: 'Alcance realista: ' + AMB_LABEL[idea.am], warn: true }); }
+    else { s += 0.3; }
+    // ---- riesgo
+    if (idea.r > P.r) s -= 1.8 * (idea.r - P.r);
+    else if (idea.r < P.r) s -= 0.4 * (P.r - idea.r);
+    // ---- tu propio problema (coincidencia de palabras)
+    if (P.problemaNorm.length > 15) {
+      const words = P.problemaNorm.split(/[^a-z0-9]+/).filter(w => w.length > 4);
+      const hay = norm(idea.t + ' ' + idea.pb + ' ' + idea.n);
+      let hits = 0; words.forEach(w => { if (hay.indexOf(w) > -1) hits++; });
+      s += Math.min(2, hits * 0.7);
+    }
+    return { s: s, chips: chips };
+  }
+
+  function candidatos(tipo, P) {
+    return COM.filter(i => i.tp === tipo && i.cics.indexOf(P.ck) > -1)
+      .map(i => { const r = puntuar(i, P, tipo); return { idea: i, s: r.s, chips: r.chips, tipo: tipo }; });
+  }
+
+  function elegirPonderado(lista, k, temp) {
+    if (!lista.length) return null;
+    const top = lista.slice().sort((a, b) => b.s - a.s).slice(0, k || 6);
+    const max = top[0].s;
+    const w = top.map(x => Math.exp((x.s - max) / (temp || 1.3)));
+    const sum = w.reduce((a, b) => a + b, 0);
+    let r = Math.random() * sum;
+    for (let i = 0; i < top.length; i++) { r -= w[i]; if (r <= 0) return top[i]; }
+    return top[0];
+  }
+
+  // Si no hay ideas sin mostrar en una categoría, se reinicia ese cupo.
+  function sinMostrar(lista) {
+    const libres = lista.filter(x => !comState.shown.has(x.idea.id));
+    return libres.length ? libres : lista;
+  }
+
+  // ---------- Idea a partir del problema que detectó el alumno ----------
+  function crearAdHoc(P) {
+    const raw = P.problema;
+    const p = raw.length > 160 ? raw.slice(0, 157).trim() + '…' : raw;
+    const t = P.problemaNorm;
+    let m;
+    if (/entreg|reparto|envio|pedido|transporte|logistic|reparar|arregl|servicio|tarda|atencion|gestion|tramit|asesor|mantenimiento|cita|captar|clientes|marketing|redes|ventas|visibilidad/.test(t)) m = 'cuota';
+    else if (/no encuentro|echo de menos|no existe (un|una) (producto|tienda)|no hay (un |una )?(producto|tienda)|no se vende/.test(t)) m = 'producto';
+    else if (P.r >= 2 && /encontrar|conectar|buscar|comparar|no se donde|no saben donde/.test(t)) m = 'plataforma';
+    else m = 'proyecto';
+    const nombres = { cuota: 'un servicio con cuota recurrente', producto: 'un producto o una pequeña marca propia', plataforma: 'una plataforma que conecte oferta y demanda', proyecto: 'un servicio a medida por proyectos cerrados' };
+    const otros = ['cuota', 'producto', 'plataforma', 'proyecto'].filter(x => x !== m).slice(0, 2);
+    const invMap = { muy_bajo: [200, 800], bajo: [800, 3500], medio: [2500, 9000], alto: [6000, 20000] };
+    const env = P.entorno === 'mixto' || !P.entorno ? ['online', 'local'] : [P.entorno];
+    return {
+      id: 'adhoc', tp: 'innovadora', cics: ALL, adhoc: true,
+      t: 'Una solución propia al problema que has detectado', n: 'Oportunidad detectada por ti',
+      d: 'Tú mismo has detectado este problema: «' + p + '». Convertirlo en negocio significa ofrecer una solución que hoy no existe o no funciona bien. Por lo que cuentas, el camino más natural es ' + nombres[m] + ', aunque conviene contrastarlo. Si el problema es real para ti, probablemente lo sea para más gente, pero el primer paso indispensable es validarlo hablando con 5-10 personas afectadas antes de invertir un solo euro.',
+      m: m, cli: 'las personas o negocios que sufren ese mismo problema', pb: 'este problema',
+      val: 'Resuelves un problema real que has vivido en primera persona, con una solución pensada por y para quien lo sufre.',
+      inv: invMap[P.capKey] || [800, 3500], ar: '2-4 meses', r: m === 'plataforma' ? 3 : 2, e: env, h: 2, am: 3,
+      tg: [], k: [], s: [],
+      why: 'Parte de un problema real que tú mismo has detectado: eso aporta motivación auténtica y conocimiento del cliente que muchos emprendedores no tienen al empezar. Tu ciclo pone lo demás: investigar el mercado, fijar precio y llegar al cliente.',
+      reto: 'Confundir tu intuición con un mercado real. Si no consigues que 5 personas afectadas digan que pagarían por resolverlo, no avances.',
+      paso: 'entrevista a 5 personas que sufran ese mismo problema y pregúntales cómo lo resuelven hoy y cuánto pagarían por solucionarlo. Sin esa validación, no avances.',
+      vr: 'Explora otros dos caminos para el mismo problema: ' + nombres[otros[0]] + ' y ' + nombres[otros[1]] + '. Prueba las tres vías con una encuesta corta y quédate con la que más gente diga que pagaría.'
+    };
+  }
+
+  // ---------- Selección: sector + híbrida + innovadora, con variedad ----------
+  function seleccionarComercio(P) {
+    const mods = [];
+    // 1) Línea de sector
+    let cs = sinMostrar(candidatos('sector', P));
+    const sector = elegirPonderado(cs, 8, 2.1);
+    if (sector) mods.push(sector.idea.m);
+    // 2) Híbrida (aficiones + ciclo)
+    const hayTags = P.tags.length + P.tagsInf.length > 0;
+    let ch = candidatos('hibrido', P).map(x => {
+      if (sector && x.idea.m === sector.idea.m) x.s -= 1.2;
+      const hit = x.idea.tg.some(t => P.tags.indexOf(t) > -1 || P.tagsInf.indexOf(t) > -1);
+      if (hayTags && !hit) x.s -= 4;
+      return x;
+    });
+    ch = sinMostrar(ch);
+    const hib = elegirPonderado(ch, 8, 2.1);
+    if (hib) mods.push(hib.idea.m);
+    // 3) Innovadora (o tu propio problema)
+    let innov = null;
+    if (P.problema.length >= 20 && !comState.adhocShown) {
+      const a = crearAdHoc(P);
+      const r = puntuar(a, P, 'innovadora');
+      innov = { idea: a, s: r.s, chips: [{ txt: 'Nace de tu propio problema' }].concat(r.chips.filter(c => c.warn)), tipo: 'innovadora' };
+      comState.adhocShown = true;
+    } else {
+      let ci = candidatos('innovadora', P).map(x => {
+        if (mods.indexOf(x.idea.m) > -1) x.s -= 1.5;
+        return x;
+      });
+      ci = sinMostrar(ci);
+      innov = elegirPonderado(ci, 8, 2.1);
+    }
+    const principales = [sector, hib, innov].filter(Boolean);
+    principales.forEach(x => comState.shown.add(x.idea.id));
+
+    // 4) Alternativas: las siguientes mejor puntuadas de cada tipo
+    const idsP = new Set(principales.map(x => x.idea.id));
+    const alt = [];
+    const mejores = (tipo, n) => {
+      const lista = candidatos(tipo, P).filter(x => !idsP.has(x.idea.id) && !comState.shown.has(x.idea.id));
+      return lista.sort((a, b) => b.s - a.s).slice(0, n);
+    };
+    mejores('sector', 2).forEach(x => alt.push(x));
+    mejores('hibrido', 2).forEach(x => alt.push(x));
+    mejores('innovadora', 1).forEach(x => alt.push(x));
+    alt.forEach(x => comState.shown.add(x.idea.id));
+    return { principales: principales, alternativas: alt };
+  }
+
+  // ---------- Textos personalizados ----------
+  const capital1 = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+  const localiza = (txt, P) => P.loc ? txt.replace(/\btu zona\b/g, P.loc) : txt;
+
+  function porQueEncaja(it, P) {
+    const i = it.idea, partes = [];
+    if (i.tp === 'sector' && i.cics[0] !== P.ck && !(P.ck === 'bas' && i.cics[0] === 'med')) {
+      partes.push('Esta idea nace de ' + CICLO_LABEL[i.cics[0]] + ', pero se puede aprovechar desde tu ciclo de ' + P.ciclo + ': ' + i.why.charAt(0).toLowerCase() + i.why.slice(1));
+    } else {
+      partes.push(i.why);
+    }
+    const th = i.tg.filter(t => P.tags.indexOf(t) > -1 || P.tagsInf.indexOf(t) > -1);
+    if (th.length) partes.push('Tu interés por ' + TAG_DESC[th[0]] + ' te da el lenguaje, la credibilidad y el acceso al cliente desde el primer día.');
+    const kh = i.k.filter(k => P.conoc.indexOf(k) > -1);
+    if (kh.length) partes.push('Además, tus conocimientos de ' + joinY(kh.slice(0, 2).map(k => CONOC_DESC[k])) + ' te ahorran subcontratar una parte importante del trabajo.');
+    const sh = i.s.filter(x => P.hab.indexOf(x) > -1);
+    if (sh.length) partes.push('Tu punto fuerte en ' + joinY(sh.slice(0, 2).map(x => HAB_DESC[x])) + ' es justo lo que más pesa en este modelo.');
+    // Ajuste a tus recursos
+    const ajustes = [];
+    if (i.inv[0] > P.capMax) ajustes.push('la inversión mínima estimada (' + fmtEur(i.inv[0]) + ' €) supera tu capital (' + CAP_LABEL[P.capKey] + '): empieza con una versión piloto reducida, busca un socio o estudia financiación y ayudas al emprendimiento');
+    else ajustes.push('la inversión estimada encaja con tu capital (' + CAP_LABEL[P.capKey] + ')');
+    if (i.h > P.tLvl) ajustes.push('necesita más horas semanales de las que indicas (' + HORAS_TXT[i.h] + ' para arrancar), así que plantéala por fases o como proyecto paralelo al principio');
+    if (i.am < P.aLvl) ajustes.push('su alcance realista es ' + AMB_LABEL[i.am] + ' y tú quieres operar a nivel ' + AMB_LABEL[P.aLvl] + ': tendrías que ampliar en una segunda fase');
+    if (P.entorno && P.entorno !== 'mixto' && i.e.indexOf(P.entorno) < 0) ajustes.push('está pensada para un entorno distinto al que prefieres, por lo que habría que adaptar la forma de prestarla');
+    partes.push('En cuanto a tus recursos: ' + ajustes.join('; ') + '.');
+    if (i.r > P.r) partes.push('Ojo: su riesgo es ' + RIESGO_TXT[i.r].toLowerCase() + ' y tu perfil es más prudente; conviene validarla con un piloto barato antes de comprometer dinero.');
+    return partes.join(' ');
+  }
+
+  // ---------- Dibujo de una ficha ----------
+  const tipoLabels2 = { sector: 'Alineada con tu sector', hibrido: 'Híbrido: tu ciclo + tu afición', innovadora: 'Oportunidad emergente' };
+  const esc = escapeHtml;
+
+  function cuerpoIdea(it, P) {
+    const i = it.idea, mod = MODELOS[i.m];
+    const inv = fmtEur(i.inv[0]) + '-' + fmtEur(i.inv[1]) + ' €';
+    const invSub = i.inv[0] > P.capMax ? 'Por encima de tu capital' : 'Encaja con tu capital';
+    const hSub = i.h > P.tLvl ? 'Más de lo que indicas' : 'Compatible contigo';
+    const plan = mod.plan(i, P.locTxt);
+    const qs = mod.q(i);
+    const chips = it.chips.slice(0, 7).map(c => '<span class="biz-chip' + (c.warn ? ' warn' : '') + '">' + esc(c.txt) + '</span>').join('');
+    return `
+      ${chips ? '<div class="biz-chips">' + chips + '</div>' : ''}
+      <p class="biz-idea-desc">${esc(localiza(i.d, P))}</p>
+      <blockquote class="biz-quote"><span class="biz-quote-label">Propuesta de valor</span>${esc(i.val)}</blockquote>
+
+      <div class="biz-2col">
+        <div class="biz-box"><p class="biz-section-label">Cliente ideal</p><p class="biz-section-text">${esc(capital1(i.cli))}.</p></div>
+        <div class="biz-box"><p class="biz-section-label">Cómo ganas dinero · ${esc(mod.label)}</p><p class="biz-section-text">${esc(mod.ing)}</p></div>
+      </div>
+
+      <div class="biz-section">
+        <p class="biz-section-label">Por qué encaja contigo</p>
+        <p class="biz-section-text">${esc(porQueEncaja(it, P))}</p>
+      </div>
+
+      <div class="biz-meta four">
+        <div class="biz-meta-item"><div class="biz-meta-label">Inversión</div><div class="biz-meta-value">${esc(inv)}</div><div class="biz-meta-sub">${invSub}</div></div>
+        <div class="biz-meta-item"><div class="biz-meta-label">Arranque</div><div class="biz-meta-value">${esc(i.ar)}</div><div class="biz-meta-sub">hasta el primer cliente</div></div>
+        <div class="biz-meta-item"><div class="biz-meta-label">Riesgo</div><div class="biz-meta-value">${RIESGO_TXT[i.r]}</div><div class="biz-meta-sub">${i.r > P.r ? 'Más alto que tu perfil' : 'Acorde a tu perfil'}</div></div>
+        <div class="biz-meta-item"><div class="biz-meta-label">Dedicación</div><div class="biz-meta-value">${HORAS_TXT[i.h]}</div><div class="biz-meta-sub">${hSub}</div></div>
+      </div>
+
+      <div class="biz-step-action">
+        <p class="biz-section-label">Primer paso esta semana</p>
+        <p class="biz-section-text">Esta semana: ${esc(localiza(i.paso, P).replace(/^Esta semana:\s*/i, ''))}</p>
+      </div>
+
+      <details class="biz-more"><summary>Plan de arranque en 30 días</summary>
+        <div class="inner"><ul class="biz-plan">${plan.map(x => '<li>' + esc(x) + '</li>').join('')}</ul></div>
+      </details>
+      <details class="biz-more"><summary>Valida antes de invertir: 3 preguntas para clientes reales</summary>
+        <div class="inner"><ul class="biz-feature-list">${qs.map(x => '<li>' + esc(x) + '</li>').join('')}</ul>
+        <p class="biz-info-search">Pregúntalas a 5-10 personas que encajen con el cliente ideal. Escucha más de lo que hablas y apunta sus palabras exactas.</p></div>
+      </details>
+      <details class="biz-more"><summary>Lo que puede salir mal (y cómo reducirlo)</summary>
+        <div class="inner"><p class="biz-section-text">${esc(i.reto)}</p></div>
+      </details>
+      <details class="biz-more"><summary>Variante para probar</summary>
+        <div class="inner"><p class="biz-section-text">${esc(i.vr)}</p></div>
+      </details>
+      <details class="biz-more"><summary>Dónde investigar más</summary>
+        <div class="inner"><p class="biz-section-text">Fuentes útiles para este sector: ${esc(FUENTES[P.ck] || FUENTES.gv)}.</p>
+        <p class="biz-info-search"><span class="biz-info-search-label">Búsqueda sugerida:</span> <code>${esc(i.n.toLowerCase())} ${esc(P.locTxt)} precios competidores</code></p></div>
+      </details>`;
+  }
+
+  function tarjetaPrincipal(it, n, P) {
+    const i = it.idea;
+    return `
+      <article class="biz-idea" data-tipo="${esc(it.tipo)}">
+        <span class="biz-idea-tag">${tipoLabels2[it.tipo]}</span>
+        <h3 class="biz-idea-title"><span class="biz-idea-num">0${n}</span> ${esc(i.t)}</h3>
+        <p class="biz-idea-nicho">${esc(i.n)}</p>
+        ${cuerpoIdea(it, P)}
+      </article>`;
+  }
+
+  function tarjetaAlternativa(it, P) {
+    const i = it.idea;
+    return `
+      <details class="biz-alt" data-tipo="${esc(it.tipo)}">
+        <summary><span class="biz-alt-tag">${esc({ sector: 'Sector', hibrido: 'Híbrida', innovadora: 'Emergente' }[it.tipo])}</span>
+          <span class="biz-alt-title-txt">${esc(i.t)}</span>
+          <span class="biz-alt-sub">${esc(i.n)} · ${fmtEur(i.inv[0])}-${fmtEur(i.inv[1])} €</span></summary>
+        <div class="biz-alt-body">${cuerpoIdea(it, P)}</div>
+      </details>`;
+  }
+
+  function resumenComercio(P) {
+    const partes = [P.r === 1 ? 'un perfil prudente' : P.r === 3 ? 'un perfil con apetito de riesgo' : 'un perfil equilibrado'];
+    if (P.capKey === 'muy_bajo' || P.capKey === 'bajo') partes.push('recursos contenidos');
+    else if (P.capKey === 'alto') partes.push('buena base de capital');
+    const tg = P.tags.concat(P.tagsInf).slice(0, 3).map(t => TAG_DESC[t]);
+    if (tg.length) partes.push('interés por ' + joinY(tg));
+    return 'Con tu ciclo de ' + P.ciclo + ', ' + joinY(partes) + ', estas tres líneas combinan negocio de tu sector, tu afición y una apuesta más ambiciosa.';
+  }
+
+  function renderComercio(d, esReroll) {
+    const P = perfilComercio(d);
+    const sel = seleccionarComercio(P);
+    $('biz-loading').style.display = 'none';
+    $('biz-results').style.display = 'block';
+    $('biz-summary').textContent = resumenComercio(P);
+    $('biz-note').style.display = 'block';
+    $('biz-cards').innerHTML = sel.principales.map((it, k) => tarjetaPrincipal(it, k + 1, P)).join('');
+    $('biz-alt').innerHTML = sel.alternativas.length
+      ? '<h3 class="biz-alt-heading">Otras ideas que también encajan contigo</h3><p class="biz-alt-help">Toca una para ver su ficha completa. Si ninguna te convence, pide otras tres.</p>' + sel.alternativas.map(it => tarjetaAlternativa(it, P)).join('')
+      : '';
+    $('biz-reroll').style.display = 'inline-block';
+    if (esReroll) { const r = $('biz-results'); if (r.scrollIntoView) r.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  }
+
+  $('biz-reroll').addEventListener('click', () => {
+    $('biz-results').style.display = 'none';
+    $('biz-loading').style.display = 'block';
+    $('biz-loading-text').textContent = 'Buscando otras tres líneas para ti...';
+    setTimeout(() => renderComercio(state.data, true), 900);
+  });
+
   showStep(1);
 })();
 </script>
+
+</div>
+</body>
+</html>

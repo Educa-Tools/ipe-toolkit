@@ -289,6 +289,38 @@
 
   .reveal{opacity:1;transform:none;transition:opacity .6s ease, transform .6s ease;}
 
+
+  /* Explorer modes, tags and tool cards */
+  .modes{display:inline-flex;gap:4px;padding:5px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-pill);margin-bottom:22px;flex-wrap:wrap;}
+  .mode{border:none;background:none;cursor:pointer;font-weight:700;font-size:.9rem;color:var(--ink-soft);padding:10px 18px;border-radius:var(--radius-pill);transition:background .15s ease,color .15s ease;}
+  .mode:hover{color:var(--olive-ink);background:var(--lime-soft);}
+  .mode.active{background:var(--olive-deep);color:#fff;}
+  .unit-meta{font-size:.78rem;font-weight:700;color:var(--olive-deep);text-transform:uppercase;letter-spacing:.06em;}
+  .unit-card.soon{background:var(--surface-alt);border-style:dashed;}
+  .unit-card.soon .unit-meta{color:var(--ink-muted);}
+  .unit-card.soon .unit-icon{background:var(--line-soft);color:var(--ink-muted);}
+  .tag-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px;}
+  .tag-pill{display:inline-flex;align-items:center;gap:8px;cursor:pointer;background:var(--surface);border:1px solid var(--line);color:var(--ink);font-weight:700;font-size:.92rem;padding:10px 16px;border-radius:var(--radius-pill);transition:transform .15s ease,border-color .15s ease,background .15s ease;}
+  .tag-pill svg{width:17px;height:17px;color:var(--olive-deep);}
+  .tag-pill em{font-style:normal;font-size:.75rem;background:var(--lime-soft);color:var(--olive-ink);border-radius:var(--radius-pill);padding:1px 8px;}
+  .tag-pill:hover{transform:translateY(-2px);border-color:var(--olive-mid);}
+  .tag-pill.active{background:var(--olive-deep);border-color:var(--olive-deep);color:#fff;}
+  .tag-pill.active svg{color:var(--lime-mid);}
+  .tag-pill.active em{background:rgba(255,255,255,.18);color:#fff;}
+  .tool-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;}
+  .tool-card{position:relative;overflow:hidden;display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px 20px 18px;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;}
+  .tool-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--c);}
+  .tool-card:hover{transform:translateY(-4px);border-color:var(--c);box-shadow:0 16px 28px -18px rgba(63,67,24,.5);}
+  .tc-top{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:18px;}
+  .tc-dot{width:12px;height:12px;border-radius:50%;background:var(--c);box-shadow:0 0 0 4px color-mix(in srgb,var(--c) 18%,transparent);}
+  .tc-where{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-muted);}
+  .tool-card b{font-family:var(--font-display);font-size:1.15rem;line-height:1.2;margin-top:6px;}
+  .tool-card small{color:var(--ink-soft);font-size:.88rem;line-height:1.45;}
+  .tc-go{margin-top:auto;padding-top:10px;display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:.85rem;color:var(--c);}
+  .tc-go svg{width:15px;height:15px;transition:transform .15s ease;}
+  .tool-card:hover .tc-go svg{transform:translateX(4px);}
+  .stage .empty{background:var(--surface);border:1px dashed var(--line);border-radius:20px;padding:34px 20px;}
+  @media (max-width:520px){.modes{display:grid;grid-template-columns:1fr 1fr;width:100%;border-radius:18px;}.mode{padding:11px 8px;font-size:.82rem;border-radius:14px;}}
   @media (prefers-reduced-motion: reduce){
     *,*::before,*::after{animation:none!important;transition:none!important;}
     html{scroll-behavior:auto;}
@@ -314,19 +346,13 @@
   <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
   <div class="wrap hero-grid">
     <div>
-      <span class="status-pill"><span class="pulse"></span>Proyecto en construcción · curso 2026/27</span>
-      <h1>Aprender empleabilidad <em>haciendo</em>, no solo leyendo.</h1>
-      <p class="hero-lede">Herramientas interactivas, teoría, presentaciones y fichas para Itinerario Personal para la Empleabilidad I y II, organizadas por unidad didáctica y listas para usar en el aula.</p>
+      <h1>Aprender <em>haciendo</em>, no solo leyendo.</h1>
+      <p class="hero-lede">Educa Tools nace y se desarrolla dentro del aula con un objetivo fundamental: que el alumnado trabaje los contenidos de forma interactiva, probando, equivocándose y aprendiendo por el camino.</p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="#explorar">Explorar módulos
+        <a class="btn btn-primary" href="#explorar">Explorar herramientas
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
         <a class="btn btn-ghost" href="#proyecto">Sobre el proyecto</a>
-      </div>
-      <div class="stats">
-        <div class="stat"><b data-stat="mods">2</b><span>Módulos</span></div>
-        <div class="stat"><b data-stat="units">14</b><span>Unidades</span></div>
-        <div class="stat"><b data-stat="tools">13</b><span>Herramientas</span></div>
       </div>
     </div>
 
@@ -356,34 +382,26 @@
         <p class="eyebrow"><svg viewBox="0 0 40 40"><path fill="currentColor" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg>El proyecto</p>
         <h2 class="sec-title">Un aula que se <em>construye</em> curso a curso.</h2>
       </div>
-      <p class="sec-lede">Educa Tools nace en el aula de FP con una idea sencilla: que el alumnado trabaje los contenidos de IPE tocando, probando y equivocándose. Es a la vez un banco de herramientas digitales y un repositorio de recursos que crece con cada unidad.</p>
     </div>
 
     <div class="pillars">
       <article class="pillar reveal">
         <div class="pillar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><path d="M17 13v8M13 17h8"/></svg></div>
         <h3>Herramientas interactivas</h3>
-        <p>Simuladores, wizards, mapas y juegos de repaso: PESTEL, DAFO, contingencias, PRL… Entregables visuales que el alumnado genera él mismo.</p>
-      </article>
-      <article class="pillar reveal">
-        <div class="pillar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6c-1.6-1.3-3.6-2-6-2v13c2.4 0 4.4.7 6 2 1.6-1.3 3.6-2 6-2V4c-2.4 0-4.4.7-6 2Z"/><line x1="12" y1="6" x2="12" y2="19"/></svg></div>
-        <h3>Repositorio de recursos</h3>
-        <p>Teoría, presentaciones y fichas de trabajo ordenadas por módulo y unidad didáctica. Todo en un mismo sitio, a un clic.</p>
+        <p>Simuladores, wizards, mapas y juegos de repaso vinculados a productos visuales que el alumnado genera de forma interactiva.</p>
       </article>
       <article class="pillar reveal">
         <div class="pillar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z"/><path d="m5.6 5.6 2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></svg></div>
         <h3>Tecnología al servicio del aula</h3>
         <p>Diseño asistido por IA, metodologías activas y gamificación para acompañar el proceso de aprendizaje, no para sustituirlo.</p>
       </article>
+      <article class="pillar reveal">
+        <div class="pillar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 0 0-14.8-4.2L4 8"/><polyline points="4 3 4 8 9 8"/><path d="M4 13a8 8 0 0 0 14.8 4.2L20 16"/><polyline points="20 21 20 16 15 16"/></svg></div>
+        <h3>Cambio constante</h3>
+        <p>Repositorio de herramientas en construcción. El proyecto nace durante el curso 2026/27 con la intención de incorporar más herramientas de forma progresiva.</p>
+      </article>
     </div>
 
-    <div class="roadmap reveal">
-      <span class="roadmap-label">Estado:</span>
-      <span class="chip done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg>Primeras herramientas</span>
-      <span class="chip done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12 10 17 19 7"/></svg>Estructura por unidades</span>
-      <span class="chip now">Cargando recursos por unidad</span>
-      <span class="chip">Nuevas herramientas IPE I</span>
-    </div>
   </div>
 </section>
 
@@ -392,9 +410,13 @@
     <div class="explorer-head reveal">
       <div>
         <p class="eyebrow"><svg viewBox="0 0 40 40"><path fill="currentColor" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg>Explorar</p>
-        <h2 class="sec-title">Elige tu <em>itinerario</em>.</h2>
-        <p class="sec-lede">Módulo, unidad y tipo de recurso. Tres clics y estás dentro.</p>
+        <h2 class="sec-title">Encuentra tu <em>herramienta</em>.</h2>
+        <p class="sec-lede">Por módulo y unidad didáctica, o por temática si no conoces los módulos de IPE.</p>
       </div>
+    </div>
+    <div class="modes" role="tablist" aria-label="Forma de explorar">
+      <button class="mode active" role="tab" aria-selected="true" data-mode="modulos">Explorar por módulos</button>
+      <button class="mode" role="tab" aria-selected="false" data-mode="tematica">Explorar por temática</button>
     </div>
     <div class="crumbs" id="crumbs"></div>
     <div id="stage"></div>
@@ -465,121 +487,107 @@ const ICONS = {
 const icon = n => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">'+(ICONS[n]||'')+'</svg>';
 const star = cls => '<svg class="'+(cls||'')+'" viewBox="0 0 40 40" aria-hidden="true">'+STAR+'</svg>';
 
-const TABS = [
-  {id:'herramientas', label:'Herramientas', icon:'tool', empty:'Las herramientas interactivas de esta unidad están en camino.'},
-  {id:'teoria', label:'Teoría', icon:'book', empty:'Los apuntes de esta unidad se publicarán pronto.'},
-  {id:'presentaciones', label:'Presentaciones', icon:'slides', empty:'Las presentaciones de esta unidad se están preparando.'},
-  {id:'fichas', label:'Fichas', icon:'clipboard', empty:'Las fichas de trabajo de esta unidad llegarán en breve.'}
-];
-
-let DATA = {};
-function normalize(json){
-  const out = {};
-  (json.modulos||[]).forEach((m,i)=>{
-    out[m.id] = {
-      id:m.id, tag:m.tag, cls: i===0 ? 'm1' : 'm2', name:m.nombre, desc:m.descripcion,
-      units:(m.unidades||[]).map(u=>{
-        const unit = {n:u.n, title:u.titulo, icon:u.icono||'book'};
-        TABS.forEach(t=>{ unit[t.id] = Array.isArray(u[t.id]) ? u[t.id] : []; });
-        return unit;
-      })
-    };
-  });
-  return out;
-}
-let S = {mod:null, unit:null, tab:'herramientas'};
+let DB = {tools:{}, mods:[], tags:[]};
+let S = {mode:'modulos', mod:null, unit:null, tag:null};
 const stage = document.getElementById('stage');
 const crumbs = document.getElementById('crumbs');
 const sep = '<span class="crumb-sep">/</span>';
+const pad = n => String(n).padStart(2,'0');
 
-function go(mod, unit, tab){
-  S.mod = mod; S.unit = unit; if(tab) S.tab = tab;
-  render();
+function load(json){
+  DB.tools = json.herramientas || {};
+  DB.mods = (json.modulos||[]).map((m,i)=>({...m, cls: i===0 ? 'm1' : 'm2'}));
+  DB.tags = (json.etiquetas||[]).filter(t=>(t.herramientas||[]).some(id=>DB.tools[id]));
+  // where each tool lives (module + unit), for the badge in the topic view
+  DB.where = {};
+  DB.mods.forEach(m=>m.unidades.forEach(u=>(u.herramientas||[]).forEach(id=>{ if(!DB.where[id]) DB.where[id] = m.tag+' · UD'+u.n; })));
+  S.tag = DB.tags.length ? DB.tags[0].id : null;
 }
+const toolsOf = ids => (ids||[]).map(id=>({id, ...DB.tools[id]})).filter(t=>t.url);
+
+function toolCards(list, showWhere){
+  if(!list.length) return `<div class="empty"><div class="empty-art">${icon('tool')}${star('mini')}</div><b>En construcción</b><p>Las herramientas de esta unidad están en camino.</p></div>`;
+  return '<div class="tool-grid">' + list.map(t=>{
+    const ext = /^https?:/.test(t.url);
+    return `<a class="tool-card" style="--c:${t.color||'var(--olive-deep)'}" href="${t.url}"${ext?' target="_blank" rel="noopener"':''}>
+      <span class="tc-top"><span class="tc-dot"></span>${showWhere && DB.where[t.id] ? `<span class="tc-where">${DB.where[t.id]}</span>` : ''}</span>
+      <b>${t.titulo}</b>
+      ${t.descripcion ? `<small>${t.descripcion}</small>` : ''}
+      <span class="tc-go">Abrir ${icon('arrow')}</span>
+    </a>`;}).join('') + '</div>';
+}
+
+function go(patch){ Object.assign(S, patch); render(); }
 function scrollToExplorer(){
   const top = document.getElementById('explorar').getBoundingClientRect().top + window.scrollY - 70;
   if(Math.abs(window.scrollY - top) > 200) window.scrollTo({top, behavior:'smooth'});
 }
 
-function render(){
-  // breadcrumbs
-  let c = `<button class="crumb ${!S.mod?'current':''}" data-go="home">Módulos</button>`;
-  if(S.mod){ c += sep + `<button class="crumb ${S.unit===null?'current':''}" data-go="mod">${DATA[S.mod].tag}</button>`; }
-  if(S.unit!==null){ c += sep + `<button class="crumb current">Unidad ${DATA[S.mod].units[S.unit].n}</button>`; }
-  crumbs.innerHTML = c;
-  crumbs.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{
-    if(b.classList.contains('current')) return;
-    if(b.dataset.go==='home') go(null,null); else go(S.mod,null);
-    scrollToExplorer();
-  });
+document.querySelectorAll('.mode').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.mode').forEach(x=>{x.classList.toggle('active',x===b);x.setAttribute('aria-selected',x===b);});
+  go({mode:b.dataset.mode, mod:null, unit:null});
+});
 
-  let html = '';
-  if(!S.mod){
-    html = '<div class="module-grid">' + Object.values(DATA).map(m=>`
-      <button class="module-card ${m.cls}" data-mod="${m.id}">
-        ${star('bg-star')}
-        <span class="module-tag">${m.tag}</span>
-        <span class="module-name">${m.name}</span>
-        <span class="module-desc">${m.desc}</span>
-        <span class="module-foot"><span class="count">${m.units.length} unidades</span><span class="arrow-circle">${icon('arrow')}</span></span>
-      </button>`).join('') + '</div>';
-  } else if(S.unit===null){
-    const m = DATA[S.mod];
-    html = '<div class="unit-grid">' + m.units.map((u,i)=>{
-      const dots = TABS.map(t=>`<i class="${u[t.id].length?'on':''}" title="${t.label}"></i>`).join('');
-      return `<button class="unit-card" data-unit="${i}">
-        <span class="unit-num">${String(u.n).padStart(2,'0')}</span>
-        <span class="unit-body"><p class="unit-title">${u.title}</p><span class="dots">${dots}</span></span>
-        <span class="unit-icon">${icon(u.icon)}</span>
-      </button>`;}).join('') + '</div>';
+function render(){
+  let html = '', c = '';
+  if(S.mode==='modulos'){
+    const m = DB.mods.find(x=>x.id===S.mod);
+    if(m){
+      c = `<button class="crumb" data-go="home">Módulos</button>` + sep +
+          `<button class="crumb ${S.unit===null?'current':''}" data-go="mod">${m.tag}</button>` +
+          (S.unit!==null ? sep + `<button class="crumb current">UD${m.unidades[S.unit].n}</button>` : '');
+    }
+    if(!m){
+      html = '<div class="module-grid">' + DB.mods.map(m=>`
+        <button class="module-card ${m.cls}" data-mod="${m.id}">
+          ${star('bg-star')}
+          <span class="module-tag">${m.tag}</span>
+          <span class="module-name">${m.nombre}</span>
+          <span class="module-desc">${m.descripcion||''}</span>
+          <span class="module-foot"><span class="count">${m.unidades.length} unidades</span><span class="arrow-circle">${icon('arrow')}</span></span>
+        </button>`).join('') + '</div>';
+    } else if(S.unit===null){
+      html = '<div class="unit-grid">' + m.unidades.map((u,i)=>{
+        const n = toolsOf(u.herramientas).length;
+        return `<button class="unit-card ${n?'':'soon'}" data-unit="${i}">
+          <span class="unit-num">${pad(u.n)}</span>
+          <span class="unit-body"><p class="unit-title">${u.titulo}</p><span class="unit-meta">${n ? n+(n>1?' herramientas':' herramienta') : 'En construcción'}</span></span>
+          <span class="unit-icon">${icon(u.icono||'book')}</span>
+        </button>`;}).join('') + '</div>';
+    } else {
+      const u = m.unidades[S.unit];
+      html = `<div class="unit-hero">${star('deco')}<span class="big-num">${pad(u.n)}</span>
+        <div style="position:relative;"><span class="mod">${m.tag} · Unidad didáctica ${u.n}</span><h3>${u.titulo}</h3></div></div>
+        ${toolCards(toolsOf(u.herramientas), false)}`;
+    }
   } else {
-    const m = DATA[S.mod], u = m.units[S.unit];
-    const tabs = TABS.map(t=>{
-      const n = u[t.id].length;
-      return `<button class="res-tab ${S.tab===t.id?'active':''}" data-tab="${t.id}">
-        <span class="ri">${icon(t.icon)}</span><b>${t.label}</b><small>${n?n+' recurso'+(n>1?'s':''):'Próximamente'}</small>
-      </button>`;}).join('');
-    const tab = TABS.find(t=>t.id===S.tab), items = u[tab.id];
-    const panel = items.length
-      ? '<div class="res-list">'+items.map(it=>{ const ext=/^https?:/.test(it.url); const c=it.color||'var(--olive-deep)'; return `<a class="res-item" style="--c:${c}" href="${it.url}"${ext?' target="_blank" rel="noopener"':''}><span class="res-ic">${icon(tab.icon)}</span><span class="res-tx"><b>${it.titulo}</b>${it.descripcion?`<small>${it.descripcion}</small>`:''}</span><span class="res-go">${icon('arrow')}</span></a>`;}).join('')+'</div>'
-      : `<div class="empty"><div class="empty-art">${icon(tab.icon)}${star('mini')}</div><b>En preparación</b><p>${tab.empty}</p></div>`;
-    html = `
-      <div class="unit-hero">
-        ${star('deco')}
-        <span class="big-num">${String(u.n).padStart(2,'0')}</span>
-        <div style="position:relative;"><span class="mod">${m.tag} · Unidad didáctica</span><h3>${u.title}</h3></div>
-      </div>
-      <div class="res-tabs">${tabs}</div>
-      <div class="res-panel">${panel}</div>`;
+    const t = DB.tags.find(x=>x.id===S.tag);
+    html = '<div class="tag-row">' + DB.tags.map(x=>`
+      <button class="tag-pill ${x.id===S.tag?'active':''}" data-tag="${x.id}">${icon(x.icono||'tool')}<span>${x.nombre}</span><em>${toolsOf(x.herramientas).length}</em></button>`).join('') + '</div>' +
+      (t ? toolCards(toolsOf(t.herramientas), true) : '');
   }
+  crumbs.innerHTML = c;
+  crumbs.hidden = !c;
   stage.innerHTML = '<div class="stage">'+html+'</div>';
 
-  stage.querySelectorAll('[data-mod]').forEach(b=>b.onclick=()=>{go(b.dataset.mod,null);scrollToExplorer();});
-  stage.querySelectorAll('[data-unit]').forEach(b=>b.onclick=()=>{go(S.mod,+b.dataset.unit,'herramientas');scrollToExplorer();});
-  stage.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>go(S.mod,S.unit,b.dataset.tab));
+  crumbs.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{
+    if(b.classList.contains('current')) return;
+    go(b.dataset.go==='home' ? {mod:null, unit:null} : {unit:null}); scrollToExplorer();
+  });
+  stage.querySelectorAll('[data-mod]').forEach(b=>b.onclick=()=>{go({mod:b.dataset.mod, unit:null});scrollToExplorer();});
+  stage.querySelectorAll('[data-unit]').forEach(b=>b.onclick=()=>{go({unit:+b.dataset.unit});scrollToExplorer();});
+  stage.querySelectorAll('[data-tag]').forEach(b=>b.onclick=()=>go({tag:b.dataset.tag}));
 }
+
 fetch('data/estructura.json', {cache:'no-store'})
   .then(r=>{ if(!r.ok) throw new Error(r.status); return r.json(); })
-  .then(json=>{ DATA = normalize(json); render(); updateStats(); })
+  .then(json=>{ load(json); render(); })
   .catch(()=>{
-    stage.innerHTML = '<div class="load-msg"><b>No se han podido cargar los contenidos.</b><br>Revisa que <code>data/estructura.json</code> existe y no tiene errores de formato (comas o llaves de más).</div>';
+    stage.innerHTML = '<div class="load-msg"><b>No se han podido cargar las herramientas.</b><br>Revisa que <code>data/estructura.json</code> existe y no tiene errores de formato (comas o llaves de más).</div>';
   });
-
-function updateStats(){
-  const mods = Object.values(DATA);
-  const units = mods.reduce((a,m)=>a+m.units.length,0);
-  const tools = new Set(); mods.forEach(m=>m.units.forEach(u=>u.herramientas.forEach(h=>tools.add(h.url))));
-  const vals = {mods:mods.length, units, tools:tools.size};
-  document.querySelectorAll('[data-stat]').forEach(el=>{
-    const end = vals[el.dataset.stat];
-    if(matchMedia('(prefers-reduced-motion: reduce)').matches){ el.textContent=end; return; }
-    let v=0; const step=Math.max(1,Math.ceil(end/20));
-    const t=setInterval(()=>{v=Math.min(end,v+step);el.textContent=v;if(v>=end)clearInterval(t);},45);
-  });
-}
 
 // Ticker
-const words = ['Herramientas interactivas','Teoría','Presentaciones','Fichas de trabajo','Gamificación','Prevención de riesgos','Emprendimiento','Empleabilidad'];
+const words = ['Herramientas interactivas','Idea de negocio','Análisis del mercado','Prevención de riesgos','Laboral y Seguridad Social','Gamificación','Aprender haciendo'];
 const chunk = words.map(w=>`<span>${w}<svg viewBox="0 0 40 40">${STAR}</svg></span>`).join('');
 document.getElementById('tickerTrack').innerHTML = chunk + chunk;
 

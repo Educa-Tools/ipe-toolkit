@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buyer Persona Creator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Diseño: creador de personajes. Columna izquierda = ficha en vivo (sticky); derecha = 6 pasos en dos perfiles; final = ficha imprimible.
+     Identidad Educa Tools (tema claro, Fraunces + Inter). Acento propio de la herramienta: orquídea #B03A78.
+     Perfil sociodemográfico = familia teal (t). Perfil psicosocial = familia gold (e1). */
+  :root{
+    color-scheme: light;
+    --bg:#FBFCEF; --surface:#FFFFFF; --surface-alt:#F5F6E4;
+    --ink:#1E1C1A; --ink-soft:#4A463F; --ink-muted:#7A736A;
+    --line:#E8E1D6; --line-soft:#EEEFD8;
+    --olive-deep:#6B7028; --olive-mid:#A8AD5C;
+
+    --tool:#B03A78; --tool-bg:#F6E3EE; --tool-line:#E3B5CD;
+
+    --soc-soft:#E5EFEC; --soc-mid:#7FAA9D; --soc-deep:#3D6B5C; --soc-ink:#244238;
+    --psi-soft:#F2EDDB; --psi-mid:#C9B073; --psi-deep:#8B6F2A; --psi-ink:#5A4818;
+    --warn:#A8452E; --warn-bg:#F6E6DF; --warn-line:#E3B9AA;
+
+    --font-display:'Fraunces', Georgia, serif;
+    --font-ui:'Inter', -apple-system, 'Segoe UI', sans-serif;
+    --radius-card:18px; --radius-pill:999px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;}
+  body{background:var(--bg);color:var(--ink);font-family:var(--font-ui);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;}
+  h1,h2,h3,h4{font-family:var(--font-display);font-weight:700;letter-spacing:-0.01em;margin:0;text-wrap:balance;}
+  p{margin:0;}
+  button{font-family:inherit;color:inherit;}
+  [hidden]{display:none !important;}
+  .wrap{max-width:1080px;margin:0 auto;padding-inline:16px;padding-block:24px 56px;}
+
+  /* ── Comunes ── */
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--tool);background:var(--tool-bg);padding:6px 14px;border-radius:var(--radius-pill);}
+  .eyebrow svg{width:12px;height:12px;}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-card);padding:26px 24px;box-shadow:0 14px 34px -26px rgba(30,28,26,.35);}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:600;font-size:15px;padding:13px 22px;border-radius:var(--radius-pill);border:1.5px solid transparent;cursor:pointer;transition:opacity .15s ease,transform .1s ease,border-color .15s ease;}
+  .btn:active{transform:scale(.98);}
+  .btn:focus-visible,.chip:focus-visible,.sw:focus-visible,.seg:focus-visible,.link-btn:focus-visible,.intro-avatar:focus-visible{outline:3px solid var(--tool-line);outline-offset:2px;}
+  .btn-primary{background:var(--ink);color:#fff;}
+  .btn-primary:disabled{opacity:.3;cursor:not-allowed;}
+  .btn-ghost{background:var(--surface);color:var(--ink-soft);border-color:var(--line);}
+  .btn-ghost:hover{border-color:var(--ink-muted);}
+  .link-btn{background:none;border:none;padding:0;font-size:13px;font-weight:600;color:var(--ink-muted);cursor:pointer;text-decoration:underline;text-underline-offset:3px;}
+  .link-btn:hover{color:var(--ink);}
+
+  /* ── Intro ── */
+  .intro{max-width:760px;margin:0 auto;}
+  .app-header{text-align:center;margin-bottom:18px;display:flex;flex-direction:column;align-items:center;gap:10px;}
+  .intro-avatar{width:150px;height:150px;border-radius:50%;border:0;padding:0;background:none;cursor:pointer;transition:transform .2s ease;}
+  .intro-avatar:hover{transform:rotate(-3deg) scale(1.03);}
+  .intro-avatar svg{width:100%;height:100%;display:block;}
+  .app-header h1{font-size:clamp(30px,6vw,46px);line-height:1.08;}
+  .app-header h1 em{font-style:italic;color:var(--tool);}
+  .subtitle{color:var(--ink-soft);font-size:15.5px;max-width:560px;}
+  .tiny{font-size:12px;color:var(--ink-muted);}
+  .what{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:4px 0 20px;}
+  .what div{border:1px solid var(--line);background:var(--surface-alt);border-radius:14px;padding:12px 14px;}
+  .what strong{display:block;font-family:var(--font-display);font-size:16px;line-height:1.2;margin-bottom:2px;}
+  .what span{font-size:13.5px;color:var(--ink-soft);}
+  .two-profiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:22px;}
+  .tp{border-radius:14px;padding:14px 16px;}
+  .tp b{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;}
+  .tp span{font-size:13.5px;}
+  .tp.soc{background:var(--soc-soft);color:var(--soc-ink);} .tp.soc b{color:var(--soc-deep);}
+  .tp.psi{background:var(--psi-soft);color:var(--psi-ink);} .tp.psi b{color:var(--psi-deep);}
+  .fields{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:20px;}
+  @media (min-width:600px){.fields.two{grid-template-columns:1fr 1.6fr;}}
+  .field{display:flex;flex-direction:column;min-width:0;}
+  .field > label,.lbl{display:block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:6px;}
+  .lbl em{font-style:normal;font-weight:500;text-transform:none;letter-spacing:0;color:var(--ink-muted);}
+  input[type=text],input[type=number],textarea{width:100%;font:inherit;font-size:15px;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);}
+  textarea{resize:vertical;min-height:92px;line-height:1.45;}
+  input:focus,textarea:focus{outline:none;border-color:var(--tool);box-shadow:0 0 0 3px var(--tool-bg);}
+  .count{font-size:11.5px;color:var(--ink-muted);align-self:flex-end;margin-top:4px;}
+  .saved{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--tool-bg);border:1px solid var(--tool-line);border-radius:14px;padding:12px 14px;margin-bottom:16px;font-size:14px;}
+  .saved div{display:flex;gap:14px;align-items:center;}
+  .intro-actions{display:flex;flex-direction:column;align-items:center;gap:14px;}
+  details.loader{font-size:13px;color:var(--ink-soft);width:100%;}
+  details.loader summary{cursor:pointer;text-align:center;color:var(--tool);font-weight:600;}
+  details.loader .lo{display:grid;gap:8px;margin-top:10px;}
+  details.loader textarea{min-height:64px;font-size:12.5px;font-family:ui-monospace,Menlo,monospace;}
+
+  /* ── Layout de la app ── */
+  .layout{display:grid;grid-template-columns:320px minmax(0,1fr);gap:24px;align-items:start;}
+  .char-card{position:sticky;top:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-card);padding:20px;box-shadow:0 14px 34px -26px rgba(30,28,26,.35);display:flex;flex-direction:column;gap:12px;}
+  .char-avatar{width:100%;max-width:220px;aspect-ratio:1;margin:0 auto;}
+  .char-avatar svg{width:100%;height:100%;display:block;}
+  .lvl{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
+  .lvl .name{color:var(--tool);display:inline-flex;align-items:center;gap:6px;}
+  .lvl .name svg{width:11px;height:11px;}
+  .lvl .xp{color:var(--ink-muted);font-variant-numeric:tabular-nums;}
+  .xp-track,.bar-track{height:7px;border-radius:99px;background:var(--line-soft);overflow:hidden;}
+  .xp-track i,.bar-track i{display:block;height:100%;border-radius:99px;width:0;transition:width .4s ease;}
+  .xp-track i{background:var(--tool);}
+  .char-name{font-size:25px;line-height:1.1;text-align:center;margin-top:2px;}
+  .char-name.empty{color:var(--ink-muted);font-weight:600;font-style:italic;}
+  .char-line{text-align:center;font-size:13.5px;color:var(--ink-soft);min-height:20px;}
+  .bars{display:grid;gap:10px;margin-top:2px;}
+  .bar-top{display:flex;justify-content:space-between;font-size:12px;font-weight:600;margin-bottom:4px;}
+  .bar-top b{font-variant-numeric:tabular-nums;}
+  .b-soc .bar-top{color:var(--soc-deep);} .b-soc i{background:var(--soc-deep);}
+  .b-psi .bar-top{color:var(--psi-deep);} .b-psi i{background:var(--psi-deep);}
+  .char-tags{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;}
+  .pill{display:inline-block;font-size:12px;font-weight:600;padding:4px 10px;border-radius:var(--radius-pill);background:var(--psi-soft);color:var(--psi-ink);border:1px solid var(--psi-mid);}
+  .pill.soc{background:var(--soc-soft);color:var(--soc-ink);border-color:var(--soc-mid);}
+  .pill.tool{background:var(--tool-bg);color:var(--tool);border-color:var(--tool-line);}
+
+  /* ── Stepper ── */
+  .stepper{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-card);padding:14px 16px 12px;margin-bottom:14px;}
+  .groups{display:grid;grid-template-columns:3fr 3fr 1fr;gap:6px;margin-bottom:6px;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
+  .groups span:nth-child(1){color:var(--soc-deep);} .groups span:nth-child(2){color:var(--psi-deep);} .groups span:nth-child(3){color:var(--tool);text-align:right;}
+  .segs{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}
+  .seg{--c:var(--ink-muted);height:34px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);font-weight:700;font-size:13px;cursor:pointer;color:var(--ink-muted);transition:all .15s ease;display:grid;place-items:center;}
+  .seg.g1{--c:var(--soc-deep);--cs:var(--soc-soft);} .seg.g2{--c:var(--psi-deep);--cs:var(--psi-soft);} .seg.g3{--c:var(--tool);--cs:var(--tool-bg);}
+  .seg.done{background:var(--cs);border-color:var(--c);color:var(--c);}
+  .seg.current{background:var(--c);border-color:var(--c);color:#fff;}
+  .seg:disabled{opacity:.4;cursor:not-allowed;}
+  .step-label{margin-top:10px;font-size:12.5px;color:var(--ink-muted);}
+  .step-label b{color:var(--ink-soft);}
+
+  /* ── Pasos ── */
+  .step{--c:var(--soc-deep);--cs:var(--soc-soft);--cm:var(--soc-mid);--ci:var(--soc-ink);border-top:4px solid var(--c);}
+  .step.psi{--c:var(--psi-deep);--cs:var(--psi-soft);--cm:var(--psi-mid);--ci:var(--psi-ink);}
+  .kicker{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c);margin-bottom:4px;}
+  .step-title{font-size:27px;line-height:1.15;}
+  .step-desc{color:var(--ink-soft);margin:8px 0 18px;max-width:62ch;}
+  .block{margin-top:20px;padding-top:18px;border-top:1px dashed var(--line);}
+  .block:first-of-type{margin-top:0;padding-top:0;border-top:none;}
+  .block h3{font-size:18px;margin-bottom:12px;}
+  .row{display:grid;gap:14px;grid-template-columns:1fr;}
+  @media (min-width:640px){.row.two{grid-template-columns:1fr 1fr;}.row.age{grid-template-columns:130px 1fr;}}
+  .group{margin-top:14px;}
+  .group:first-child{margin-top:0;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{font-size:13.5px;font-weight:500;padding:8px 14px;border-radius:var(--radius-pill);border:1.5px solid var(--line);background:var(--surface);cursor:pointer;color:var(--ink-soft);transition:all .12s ease;}
+  .chip:hover{border-color:var(--cm);}
+  .chip[aria-pressed=true]{background:var(--cs);border-color:var(--c);color:var(--ci);font-weight:600;}
+  .swatches{display:flex;flex-wrap:wrap;gap:10px;}
+  .sw{width:34px;height:34px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 1.5px var(--line);cursor:pointer;padding:0;transition:transform .1s ease;}
+  .sw:hover{transform:scale(1.08);}
+  .sw[aria-pressed=true]{box-shadow:0 0 0 3px var(--c);}
+  .note{font-size:12.5px;color:var(--ink-muted);margin-top:8px;}
+  .tip{display:flex;gap:10px;align-items:flex-start;background:var(--surface-alt);border:1px solid var(--line-soft);border-radius:14px;padding:12px 14px;font-size:13.5px;color:var(--ink-soft);margin-top:18px;}
+  .tip svg{flex:0 0 16px;width:16px;height:16px;margin-top:3px;color:var(--olive-deep);}
+  .tip b{color:var(--ink);}
+  .dice{margin-top:12px;}
+
+  .tags-list{display:flex;flex-wrap:wrap;gap:6px;min-height:6px;margin-bottom:8px;}
+  .tagpill{display:inline-flex;align-items:center;gap:6px;background:var(--c);color:#fff;font-size:13px;font-weight:600;padding:5px 6px 5px 12px;border-radius:var(--radius-pill);}
+  .tagpill button{border:0;background:rgba(255,255,255,.25);color:#fff;width:20px;height:20px;border-radius:50%;cursor:pointer;line-height:1;font-size:14px;padding:0;}
+  .tag-entry{display:flex;gap:8px;}
+  .tag-entry input{flex:1;min-width:0;}
+  .tag-entry .btn{padding:10px 16px;}
+  .sugg-label{font-size:11.5px;color:var(--ink-muted);margin:10px 0 6px;font-weight:600;}
+  .chips.small .chip{font-size:12.5px;padding:5px 11px;}
+
+  .slider{display:grid;gap:4px;margin-bottom:14px;}
+  .slider-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  .slider-top b{font-size:13px;}
+  .slider-top span{font-size:12px;color:var(--c);font-weight:700;}
+  .slider-ends{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-muted);}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:26px;background:transparent;margin:0;}
+  input[type=range]::-webkit-slider-runnable-track{height:8px;border-radius:99px;background:linear-gradient(90deg,var(--cs),var(--cm));}
+  input[type=range]::-moz-range-track{height:8px;border-radius:99px;background:linear-gradient(90deg,var(--cs),var(--cm));}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:#fff;border:4px solid var(--c);margin-top:-7px;cursor:grab;}
+  input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:#fff;border:4px solid var(--c);cursor:grab;}
+  input[type=range]:focus-visible{outline:3px solid var(--tool-line);outline-offset:2px;border-radius:8px;}
+
+  .biz{background:var(--tool-bg);border:1px solid var(--tool-line);border-radius:14px;padding:10px 14px;font-size:13.5px;margin-bottom:16px;color:var(--ink);}
+  .biz b{color:var(--tool);}
+
+  .alerts{margin-top:16px;display:grid;gap:8px;}
+  .alert{background:var(--warn-bg);border:1px solid var(--warn-line);color:#5C2417;border-radius:14px;padding:10px 14px;font-size:13.5px;}
+  .alert b{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--warn);margin-bottom:2px;}
+
+  .app-nav{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px;}
+  .nav-sub{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:10px;min-height:22px;}
+  .hint{font-size:12.5px;color:var(--ink-muted);}
+
+  /* ── Ficha final ── */
+  .result{max-width:900px;margin:0 auto;border-top:5px solid var(--tool);}
+  .rep-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:20px;}
+  .rep-kicker{font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--tool);margin-bottom:4px;}
+  .rep-title{font-size:24px;line-height:1.2;}
+  .rep-meta{font-size:12.5px;color:var(--ink-muted);text-align:right;}
+  .rep-meta strong{display:block;color:var(--ink-soft);font-size:13.5px;}
+  .hero{display:grid;grid-template-columns:150px 1fr;gap:22px;align-items:center;margin-bottom:22px;}
+  .hero .res-avatar svg{width:100%;height:auto;display:block;}
+  .hero h2{font-size:clamp(30px,5vw,42px);line-height:1.05;}
+  .hero .sub{color:var(--ink-soft);margin-top:4px;}
+  .hero .lvl{margin-top:12px;max-width:340px;}
+  .hero .xp-track{margin-top:6px;max-width:340px;}
+  .quote{font-family:var(--font-display);font-style:italic;font-size:18px;line-height:1.35;margin-top:12px;color:var(--ink);}
+  .res-grid{display:grid;grid-template-columns:1fr;gap:14px;}
+  .cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 22px;}
+  @media (max-width:760px){.cols{grid-template-columns:1fr;}}
+  .mot{margin-top:14px;padding-top:12px;border-top:1px solid var(--cm);}
+  .mot h4{font-family:var(--font-ui);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--c);margin-bottom:6px;}
+  .mot .txt{font-size:13.5px;line-height:1.5;}
+  .attrs-sub{margin-top:16px;padding-top:12px;border-top:1px solid var(--cm);--c:var(--psi-deep);}
+  .attrs-sub h4{font-family:var(--font-ui);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--c);margin-bottom:8px;}
+  .panel{border-radius:16px;padding:18px 18px 16px;border:1px solid var(--cm);background:var(--cs);color:var(--ci);}
+  .panel.soc{--cs:var(--soc-soft);--cm:var(--soc-mid);--ci:var(--soc-ink);--c:var(--soc-deep);}
+  .panel.psi{--cs:var(--psi-soft);--cm:var(--psi-mid);--ci:var(--psi-ink);--c:var(--psi-deep);}
+  .panel > h3{font-size:19px;color:var(--c);padding-bottom:8px;border-bottom:2px solid var(--c);margin-bottom:12px;}
+  .grp{margin-bottom:14px;}
+  .grp:last-child{margin-bottom:0;}
+  .grp h4{font-family:var(--font-ui);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--c);margin-bottom:6px;}
+  dl{margin:0;display:grid;gap:5px;}
+  .kv{display:grid;grid-template-columns:minmax(78px,38%) 1fr;gap:8px;font-size:13.5px;}
+  .kv dt{font-weight:600;opacity:.8;}
+  .kv dd{margin:0;overflow-wrap:anywhere;}
+  .kv dd.none{opacity:.45;font-style:italic;}
+  .panel p.txt{font-size:13.5px;line-height:1.5;}
+  .panel .pills{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px;}
+  .panel .pill{background:#fff;}
+  .attr{display:grid;grid-template-columns:1fr;gap:1px;margin-top:8px;}
+  .attr .tr{position:relative;height:6px;border-radius:99px;background:rgba(255,255,255,.75);margin:3px 0;}
+  .attr .tr i{position:absolute;top:50%;width:14px;height:14px;border-radius:50%;background:var(--c);border:2px solid #fff;transform:translate(-50%,-50%);}
+  .attr .ends{display:flex;justify-content:space-between;font-size:11px;opacity:.75;}
+  .attr .desc{font-size:12px;font-weight:700;color:var(--c);}
+  .attr .top{display:flex;justify-content:space-between;font-size:12.5px;gap:8px;}
+
+  .summary{margin:0 0 16px;padding:14px 18px;border-radius:14px;background:var(--tool-bg);border:1px solid var(--tool-line);font-size:15px;line-height:1.55;color:var(--ink);}
+  .summary .sum-k{display:block;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--tool);margin-bottom:4px;}
+  .attrs{--c:var(--psi-deep);margin-top:16px;border-radius:16px;padding:16px 18px;background:var(--psi-soft);border:1px solid var(--psi-mid);color:var(--psi-ink);}
+  .attrs h3{font-size:19px;color:var(--psi-deep);padding-bottom:8px;border-bottom:2px solid var(--psi-deep);margin-bottom:10px;}
+  .attrs-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px 18px;}
+  @media (max-width:760px){.attrs-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+  @media (max-width:420px){.attrs-grid{grid-template-columns:1fr;}}
+  .res-alerts{margin-top:16px;}
+
+
+
+
+
+  .result-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;}
+  .result-actions .btn{flex:1 1 180px;}
+  footer.credit{text-align:center;font-size:12px;color:var(--ink-muted);margin-top:26px;}
+  .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:var(--radius-pill);font-size:13.5px;font-weight:600;z-index:50;max-width:calc(100vw - 32px);text-align:center;}
+
+  @media (max-width:899px){
+    .layout{grid-template-columns:1fr;gap:14px;}
+    .char-card{position:static;display:grid;grid-template-columns:92px 1fr;column-gap:14px;row-gap:8px;padding:14px;}
+    .char-avatar{grid-row:1 / span 3;width:92px;margin:0;}
+    .char-name{text-align:left;font-size:21px;}
+    .char-line{text-align:left;min-height:0;}
+    .lvl,.xp-track{grid-column:2;}
+    .bars,.char-tags{grid-column:1 / -1;}
+    .char-tags{justify-content:flex-start;}
+    .char-name{grid-column:2;} .char-line{grid-column:2;}
+  }
+  @media (max-width:640px){
+    .card{padding:22px 16px;}
+    .two-profiles{grid-template-columns:1fr;}
+    .hero{grid-template-columns:96px 1fr;gap:14px;}
+    .rep-meta{text-align:left;}
+    .segs{gap:4px;} .seg{height:32px;}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none !important;}}
+
+  /* ── Impresión: hoja A4 independiente, escalada a medida para que quepa siempre en una página ── */
+  #print-sheet{position:fixed;left:-10000px;top:0;width:188mm;background:#fff;color:var(--ink);font-size:9.5pt;line-height:1.45;border-top:5px solid var(--tool);padding-top:10px;}
+  #print-sheet .rep-head{display:flex !important;flex-wrap:nowrap !important;justify-content:space-between;align-items:flex-end;margin-bottom:10px;padding-bottom:8px;}
+  #print-sheet .rep-meta{text-align:right !important;white-space:nowrap;}
+  #print-sheet .rep-title{font-size:16pt;}
+  #print-sheet .hero{display:grid !important;grid-template-columns:26mm 1fr !important;gap:14px !important;margin-bottom:8px;align-items:center;}
+  #print-sheet .hero h2{font-size:22pt;}
+  #print-sheet .hero .lvl{margin-top:8px;}
+  #print-sheet .quote{font-size:11pt;margin-top:6px;}
+  #print-sheet .summary{font-size:9.5pt;line-height:1.45;padding:8px 12px;margin:0 0 10px;}
+  #print-sheet .summary .sum-k{font-size:7.5pt;margin-bottom:2px;}
+  #print-sheet .res-grid{gap:9px;}
+  #print-sheet .panel{padding:9px 13px 10px;}
+  #print-sheet .panel > h3{font-size:12.5pt;margin-bottom:7px;padding-bottom:5px;}
+  #print-sheet .cols{grid-template-columns:repeat(3,minmax(0,1fr)) !important;gap:6px 16px;}
+  #print-sheet .grp{margin-bottom:0;}
+  #print-sheet .grp h4,#print-sheet .mot h4,#print-sheet .attrs-sub h4{font-size:7.5pt;margin-bottom:4px;}
+  #print-sheet dl{gap:3px;}
+  #print-sheet .kv{grid-template-columns:22mm 1fr !important;font-size:8.5pt;gap:6px;}
+  #print-sheet .panel p.txt,#print-sheet .mot .txt{font-size:8.5pt;line-height:1.4;}
+  #print-sheet .panel .pill{font-size:8.5pt;padding:2px 8px;}
+  #print-sheet .mot{margin-top:8px;padding-top:6px;}
+  #print-sheet .attrs-sub{margin-top:8px;padding-top:6px;}
+  #print-sheet .attrs-grid{grid-template-columns:repeat(5,minmax(0,1fr)) !important;gap:4px 12px;}
+  #print-sheet .attr .top{display:block;font-size:8pt;} #print-sheet .attr .top span{display:block;} #print-sheet .attr .desc{font-size:8pt;} #print-sheet .attr .ends{display:none;}
+  #print-sheet .ps-credit{text-align:center;font-size:8pt;color:var(--ink-muted);margin-top:8px;}
+  @media print{
+    @page{size:A4;margin:10mm 11mm;}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    html,body{background:#fff;}
+    .wrap{max-width:none;padding:0;}
+    .wrap > *:not(#print-sheet),.toast{display:none !important;}
+    #print-sheet{position:static;left:auto;margin:0 auto;}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- ═════════ INTRO ═════════ -->
+  <section id="screen-intro" class="intro">
+    <header class="app-header">
+      <span class="eyebrow"><svg viewBox="0 0 40 40" aria-hidden="true"><path fill="currentColor" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg>IPE · Tu cliente ideal</span>
+      <button type="button" class="intro-avatar" id="intro-avatar" aria-label="Cambiar de personaje al azar" title="Pulsa para sacar otro personaje"></button>
+      <h1>Forja a tu <em>cliente ideal</em></h1>
+      <p class="subtitle">Diseña a tu buyer persona como el personaje de un videojuego: primero su aspecto y sus datos, luego su carácter y lo que le hace comprar. Al final tendrás una ficha con sus dos perfiles.</p>
+    </header>
+
+    <div class="card">
+      <h2 style="font-size:24px;margin-bottom:12px;">¿Qué es un buyer persona?</h2>
+      <div class="what">
+        <div><strong>Un cliente semificticio</strong><span>Representa al consumidor final de tu producto o servicio. No es «todo el mundo».</span></div>
+        <div><strong>Con datos reales detrás</strong><span>Sale de estadísticas, entrevistas y otras fuentes. Piensa en una persona que existe.</span></div>
+        <div><strong>Con nombre y atributos</strong><span>Si tiene nombre y características concretas, empiezas a tomar decisiones concretas.</span></div>
+      </div>
+      <div class="two-profiles">
+        <div class="tp soc"><b>Perfil sociodemográfico</b><span>Quién es: edad, género, estudios, trabajo, ingresos, familia y dónde vive.</span></div>
+        <div class="tp psi"><b>Perfil psicosocial</b><span>Cómo es: carácter, estilo de vida, aficiones, inquietudes y qué le empuja a comprar.</span></div>
+      </div>
+
+      <div class="saved" id="saved-banner" hidden>
+        <span>Tienes un personaje guardado en este dispositivo: <b id="saved-name"></b>.</span>
+        <div><button type="button" class="btn btn-primary" id="btn-continue" style="padding:9px 16px;font-size:14px;">Continuar</button><button type="button" class="link-btn" id="btn-discard">Empezar de cero</button></div>
+      </div>
+
+      <div class="fields two">
+        <div class="field"><label for="in-alumno">Tu nombre</label><input id="in-alumno" type="text" autocomplete="name" placeholder="Nombre y apellidos" data-f="alumno"></div>
+        <div class="field"><label for="in-negocio">Tu negocio o producto</label><input id="in-negocio" type="text" placeholder="Ej: Muebles a medida con madera reciclada" data-f="negocio"></div>
+      </div>
+      <div class="intro-actions">
+        <button type="button" class="btn btn-primary" id="btn-start" style="width:100%;padding:15px;">Crear mi personaje →</button>
+        <details class="loader">
+          <summary>¿Tienes un personaje guardado? Cárgalo</summary>
+          <div class="lo">
+            <input type="file" id="file-load" accept="application/json,.json" aria-label="Cargar archivo .json">
+            <textarea id="paste-load" placeholder="…o pega aquí el código que copiaste al guardarlo" aria-label="Pegar código de personaje"></textarea>
+            <button type="button" class="btn btn-ghost" id="btn-paste-load" style="padding:10px;">Cargar código pegado</button>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════ APP ═════════ -->
+  <section id="screen-app" hidden>
+    <div class="layout">
+      <aside class="char-card" aria-label="Ficha del personaje en vivo">
+        <div class="char-avatar" id="card-avatar"></div>
+        <div class="lvl"><span class="name"><svg viewBox="0 0 40 40" aria-hidden="true"><path fill="currentColor" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg><span id="lvl-name">Boceto a lápiz</span></span><span class="xp" id="xp-txt">0 / 170 XP</span></div>
+        <div class="xp-track"><i id="xp-bar"></i></div>
+        <h2 class="char-name empty" id="card-name">Sin nombre aún</h2>
+        <p class="char-line" id="card-line"></p>
+        <div class="bars">
+          <div class="bar b-soc"><div class="bar-top"><span>Perfil sociodemográfico</span><b id="bar-soc-n">0/10</b></div><div class="bar-track"><i id="bar-soc"></i></div></div>
+          <div class="bar b-psi"><div class="bar-top"><span>Perfil psicosocial</span><b id="bar-psi-n">0/7</b></div><div class="bar-track"><i id="bar-psi"></i></div></div>
+        </div>
+        <div class="char-tags" id="card-tags"></div>
+      </aside>
+
+      <main style="min-width:0;">
+        <div class="stepper">
+          <div class="groups"><span>Perfil sociodemográfico</span><span>Perfil psicosocial</span><span>Ficha</span></div>
+          <div class="segs" id="segs" role="group" aria-label="Pasos">
+            <button type="button" class="seg g1" data-step="1" aria-label="Paso 1">1</button>
+            <button type="button" class="seg g1" data-step="2" aria-label="Paso 2">2</button>
+            <button type="button" class="seg g1" data-step="3" aria-label="Paso 3">3</button>
+            <button type="button" class="seg g2" data-step="4" aria-label="Paso 4">4</button>
+            <button type="button" class="seg g2" data-step="5" aria-label="Paso 5">5</button>
+            <button type="button" class="seg g2" data-step="6" aria-label="Paso 6">6</button>
+            <button type="button" class="seg g3" data-step="7" aria-label="Ficha final">★</button>
+          </div>
+          <p class="step-label" id="step-label"></p>
+        </div>
+
+        <!-- Paso 1 -->
+        <section class="card step" id="step-1" hidden>
+          <p class="kicker">Perfil sociodemográfico · 1 de 3</p>
+          <h2 class="step-title">Identidad y aspecto</h2>
+          <p class="step-desc">Todo buyer persona empieza por ponerle cara y nombre. Dale uno y deja de ser «el público en general».</p>
+
+          <div class="block">
+            <h3>Aspecto</h3>
+            <div class="group"><span class="lbl">Piel</span><div class="swatches" data-sw="av.skin" data-list="SKINS"></div></div>
+            <div class="group"><span class="lbl">Peinado</span><div class="chips" data-path="av.hs" data-mode="single" data-req="1" data-list="HAIRS"></div></div>
+            <div class="group"><span class="lbl">Color de pelo</span><div class="swatches" data-sw="av.hc" data-list="HAIRC"></div></div>
+            <div class="group"><span class="lbl">Ropa</span><div class="swatches" data-sw="av.outfit" data-list="OUTF"></div></div>
+            <div class="group"><span class="lbl">Extra</span><div class="chips" data-path="av.extra" data-mode="single" data-req="1" data-list="EXTRAS"></div></div>
+            <button type="button" class="btn btn-ghost dice" id="btn-dice">Aspecto al azar</button>
+          </div>
+
+          <div class="block">
+            <h3>Datos básicos</h3>
+            <div class="row age">
+              <div class="field"><label for="f-edad">Edad</label><input id="f-edad" type="number" inputmode="numeric" min="12" max="99" placeholder="34" data-f="soc.edad"></div>
+              <div class="field"><label for="f-nombre">Nombre</label><input id="f-nombre" type="text" maxlength="40" placeholder="Ej: Marta Castro" data-f="soc.nombre" autocomplete="off"></div>
+            </div>
+            <div class="group"><span class="lbl">Género</span><div class="chips" data-path="soc.genero" data-mode="single" data-list="GENEROS"></div></div>
+            <div class="group"><div class="field"><label for="f-nac">Nacionalidad</label><input id="f-nac" type="text" maxlength="40" list="dl-nac" placeholder="Ej: Española" data-f="soc.nacionalidad" autocomplete="off"><datalist id="dl-nac"><option value="Española"><option value="Portuguesa"><option value="Francesa"><option value="Italiana"><option value="Marroquí"><option value="Rumana"><option value="Colombiana"><option value="Venezolana"><option value="Argentina"><option value="Ucraniana"></datalist></div></div>
+          </div>
+          <div class="tip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg><span><b>Pista:</b> «Marta, 34 años» te obliga a pensar más que «mujeres jóvenes». Cuanto más concreto, más útil.</span></div>
+        </section>
+
+        <!-- Paso 2 -->
+        <section class="card step" id="step-2" hidden>
+          <p class="kicker">Perfil sociodemográfico · 2 de 3</p>
+          <h2 class="step-title">Formación y economía</h2>
+          <p class="step-desc">Qué ha estudiado, en qué trabaja y cuánto dinero maneja. Aquí se decide si puede pagar lo que vendes.</p>
+          <div class="block">
+            <div class="group"><span class="lbl">Nivel educativo</span><div class="chips" data-path="soc.estudios" data-mode="single" data-list="ESTUDIOS"></div></div>
+            <div class="group"><div class="field"><label for="f-trabajo">Trabajo actual</label><input id="f-trabajo" type="text" maxlength="70" placeholder="Ej: Técnica de laboratorio en un hospital" data-f="soc.trabajo" autocomplete="off"></div></div>
+          </div>
+          <div class="block">
+            <div class="group"><span class="lbl">Rango de ingresos mensuales</span><div class="chips" data-path="soc.ingM" data-mode="single" data-list="ING_M"></div></div>
+            <div class="group"><span class="lbl">Rango de ingresos anuales</span><div class="chips" data-path="soc.ingA" data-mode="single" data-list="ING_A"></div>
+              <p class="note" id="note-inga">Al elegir el mensual, el anual se rellena solo (×12). Cámbialo si cobra pagas extra o ingresos variables.</p></div>
+          </div>
+          <div class="tip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg><span><b>Pista:</b> busca sueldos medios de ese puesto en tu zona (INE, portales de empleo). Un dato real vale más que una intuición.</span></div>
+        </section>
+
+        <!-- Paso 3 -->
+        <section class="card step" id="step-3" hidden>
+          <p class="kicker">Perfil sociodemográfico · 3 de 3</p>
+          <h2 class="step-title">Entorno vital</h2>
+          <p class="step-desc">Con quién vive y dónde. Cambia cuánto tiempo y dinero tiene, y por dónde le llegas.</p>
+          <div class="block">
+            <div class="group"><span class="lbl">Situación familiar</span><div class="chips" data-path="soc.familia" data-mode="single" data-list="FAMILIA"></div></div>
+            <div class="group"><div class="field"><label for="f-famdet">Detalle <em>(opcional)</em></label><input id="f-famdet" type="text" maxlength="70" placeholder="Ej: Una hija de 4 años" data-f="soc.familiaDet" autocomplete="off"></div></div>
+          </div>
+          <div class="block">
+            <div class="group"><div class="field"><label for="f-res">Lugar de residencia</label><input id="f-res" type="text" maxlength="60" placeholder="Ej: Santiago de Compostela, barrio de Conxo" data-f="soc.residencia" autocomplete="off"></div></div>
+            <div class="group"><span class="lbl">Tipo de entorno <em>(opcional)</em></span><div class="chips" data-path="soc.entorno" data-mode="single" data-list="ENTORNO"></div></div>
+          </div>
+          <div class="tip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg><span><b>Misión cumplida:</b> con este paso terminas el perfil sociodemográfico. Ahora toca meterte en su cabeza.</span></div>
+        </section>
+
+        <!-- Paso 4 -->
+        <section class="card step psi" id="step-4" hidden>
+          <p class="kicker">Perfil psicosocial · 1 de 3</p>
+          <h2 class="step-title">Carácter</h2>
+          <p class="step-desc">Dos clientes con la misma edad y el mismo sueldo pueden comprar de forma opuesta. Aquí está la diferencia.</p>
+          <div class="block">
+            <h3>Descripción básica de la personalidad</h3>
+            <div class="field"><label class="lbl" for="f-desc" style="margin-bottom:6px;">Cómo es, en pocas líneas</label><textarea id="f-desc" maxlength="240" placeholder="Ej: Práctica y curiosa. Planifica casi todo y odia perder el tiempo, pero se deja aconsejar por gente de confianza." data-f="psi.descripcion"></textarea><span class="count" id="cnt-desc">0 / 240</span></div>
+            <div class="group"><span class="lbl">Rasgos clave <em>(hasta 3)</em></span><div class="chips" data-path="psi.rasgos" data-mode="multi" data-max="3" data-list="RASGOS"></div></div>
+          </div>
+          <div class="block">
+            <h3>Atributos</h3>
+            <p class="note" style="margin:-4px 0 12px;">Como las estadísticas de un personaje. Mueve cada barra hacia donde se parezca más.</p>
+            <div id="sliders"></div>
+          </div>
+        </section>
+
+        <!-- Paso 5 -->
+        <section class="card step psi" id="step-5" hidden>
+          <p class="kicker">Perfil psicosocial · 2 de 3</p>
+          <h2 class="step-title">Estilo de vida</h2>
+          <p class="step-desc">Cómo es su día a día, qué hace en su tiempo libre y qué le quita el sueño.</p>
+          <div class="block">
+            <div class="group"><span class="lbl">Estilo de vida <em>(hasta 2)</em></span><div class="chips" data-path="psi.estilo" data-mode="multi" data-max="2" data-list="ESTILOS"></div></div>
+          </div>
+          <div class="block">
+            <h3>Aficiones <em style="font-family:var(--font-ui);font-size:13px;font-weight:500;color:var(--ink-muted);">hasta 5</em></h3>
+            <div class="tags" data-path="psi.aficiones" data-max="5" data-list="AFIC" data-ph="Escribe una afición y pulsa Intro"></div>
+          </div>
+          <div class="block">
+            <h3>Inquietudes <em style="font-family:var(--font-ui);font-size:13px;font-weight:500;color:var(--ink-muted);">hasta 4</em></h3>
+            <div class="tags" data-path="psi.inquietudes" data-max="4" data-list="INQ" data-ph="Escribe una inquietud y pulsa Intro"></div>
+          </div>
+        </section>
+
+        <!-- Paso 6 -->
+        <section class="card step psi" id="step-6" hidden>
+          <p class="kicker">Perfil psicosocial · 3 de 3</p>
+          <h2 class="step-title">Motivación de compra</h2>
+          <p class="step-desc">La misión de tu personaje: qué necesidad o problema tiene y por qué necesita resolverlo ahora.</p>
+          <div class="biz" id="biz-box" hidden>Tu negocio: <b id="biz-name"></b></div>
+          <div class="block">
+            <div class="group"><span class="lbl">¿Qué le empuja a comprar? <em>(hasta 2)</em></span><div class="chips" data-path="psi.motor" data-mode="multi" data-max="2" data-list="MOTORES"></div></div>
+            <div class="group"><div class="field"><label for="f-nec">¿Qué necesidad o problema quiere solucionar?</label><textarea id="f-nec" maxlength="320" placeholder="Ej: Vive en un piso pequeño y no encuentra muebles que aprovechen el espacio sin costarle una fortuna." data-f="psi.necesidad"></textarea><span class="count" id="cnt-nec">0 / 320</span></div></div>
+          </div>
+          <div class="block">
+            <div class="group"><div class="field"><label for="f-sol">¿Cómo lo resuelve tu producto o servicio? <em style="text-transform:none;letter-spacing:0;font-weight:500;">(opcional)</em></label><textarea id="f-sol" maxlength="240" placeholder="Ej: Diseñamos el mueble a su medida y se lo montamos en casa en una semana." data-f="psi.solucion" style="min-height:76px;"></textarea></div></div>
+            <div class="group"><div class="field"><label for="f-frase">Su frase típica <em style="text-transform:none;letter-spacing:0;font-weight:500;">(opcional)</em></label><input id="f-frase" type="text" maxlength="110" placeholder="Ej: «No tengo tiempo, solo quiero que funcione.»" data-f="psi.frase" autocomplete="off"></div></div>
+          </div>
+        </section>
+
+        <div class="alerts" id="alerts-box" hidden></div>
+
+        <div class="app-nav" id="app-nav">
+          <button type="button" class="btn btn-ghost" id="btn-prev">← Anterior</button>
+          <button type="button" class="btn btn-primary" id="btn-next">Siguiente →</button>
+        </div>
+        <div class="nav-sub"><p class="hint" id="hint"></p><button type="button" class="link-btn" id="btn-restart">Reiniciar</button></div>
+      </main>
+    </div>
+  </section>
+
+  <!-- ═════════ FICHA ═════════ -->
+  <section id="screen-result" hidden>
+    <div class="card result">
+      <div class="rep-head">
+        <div><p class="rep-kicker">Ficha · Buyer persona</p><h2 class="rep-title" id="rep-title">Tu negocio</h2></div>
+        <div class="rep-meta"><strong id="rep-alumno"></strong><span id="rep-date"></span></div>
+      </div>
+      <div class="hero">
+        <div class="res-avatar" id="res-avatar"></div>
+        <div>
+          <h2 id="res-name"></h2>
+          <p class="sub" id="res-sub"></p>
+          <div class="lvl"><span class="name"><svg viewBox="0 0 40 40" aria-hidden="true"><path fill="currentColor" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg><span id="res-lvl"></span></span><span class="xp" id="res-xp"></span></div>
+          <div class="xp-track"><i id="res-xpbar"></i></div>
+          <p class="quote" id="res-quote" hidden></p>
+        </div>
+      </div>
+      <div class="summary" id="res-summary"></div>
+      <div class="res-grid" id="res-grid"></div>
+      <div class="res-alerts alerts no-print" id="res-alerts" hidden></div>
+
+
+      <div class="result-actions no-print">
+        <button type="button" class="btn btn-primary only-standalone" id="btn-print">Imprimir / Guardar en PDF</button>
+        <button type="button" class="btn btn-primary only-artifact" id="btn-copytext">Copiar ficha como texto</button>
+        <button type="button" class="btn btn-ghost only-standalone" id="btn-copytext-2">Copiar como texto</button>
+        <button type="button" class="btn btn-ghost" id="btn-copyjson">Copiar código para guardar</button>
+        <button type="button" class="btn btn-ghost only-standalone" id="btn-download">Descargar .json</button>
+        <button type="button" class="btn btn-ghost" id="btn-edit">← Seguir editando</button>
+        <button type="button" class="btn btn-ghost" id="btn-restart-2">Crear otro personaje</button>
+      </div>
+    </div>
+  </section>
+
+  <div id="print-sheet" aria-hidden="true"></div>
+  <footer class="credit">Educa Tools · IPE Toolkit · Buyer Persona Creator. Basado en la plantilla de buyer personas de HubSpot.</footer>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+(function () {
+  'use strict';
+  var STANDALONE = true;
+  var KEY = 'educatools_buyer_persona_v1';
+
+  /* ───────── Listas ───────── */
+  var L = {
+    SKINS: ['#F6D5BD', '#EBBE98', '#D9A074', '#B97A52', '#8D5A3B', '#5E3A26'],
+    HAIRC: ['#1E1C1A', '#4A2E1F', '#8B5A2B', '#D9B26A', '#B5472E', '#A8A8A8'],
+    OUTF:  ['#3E5778', '#557A35', '#7A3244', '#8B6F2A', '#3D6B5C', '#5D3D66', '#1E1C1A', '#B03A78'],
+    HAIRS: [{v:'corto',l:'Corto'},{v:'largo',l:'Largo'},{v:'rizado',l:'Rizado'},{v:'mono',l:'Moño'},{v:'rapado',l:'Rapado'},{v:'calvo',l:'Calvo'}],
+    EXTRAS:[{v:'none',l:'Nada'},{v:'gafas',l:'Gafas'},{v:'gorra',l:'Gorra'},{v:'auri',l:'Auriculares'},{v:'barba',l:'Barba'}],
+    GENEROS: ['Mujer','Hombre','No binario','Otro'],
+    ESTUDIOS: ['Sin estudios formales','ESO','Bachillerato','FP Grado Medio','FP Grado Superior','Grado universitario','Máster / Posgrado'],
+    ING_M: ['Sin ingresos propios','Menos de 1.000 €','1.000 – 1.500 €','1.500 – 2.000 €','2.000 – 3.000 €','3.000 – 4.500 €','Más de 4.500 €'],
+    ING_A: ['Sin ingresos propios','Menos de 12.000 €','12.000 – 18.000 €','18.000 – 24.000 €','24.000 – 36.000 €','36.000 – 54.000 €','Más de 54.000 €'],
+    FAMILIA: ['Vive solo/a','En pareja, sin hijos','En pareja, con hijos','Familia monoparental','Con sus padres','Comparte piso'],
+    ENTORNO: ['Gran ciudad','Ciudad mediana','Pueblo o zona rural','Zona costera o turística'],
+    RASGOS: ['Curioso/a','Prudente','Ambicioso/a','Sociable','Reservado/a','Perfeccionista','Creativo/a','Competitivo/a','Solidario/a','Impaciente','Tradicional','Aventurero/a','Organizado/a','Escéptico/a','Optimista','Detallista'],
+    ESTILOS: ['Activo y deportista','Casero/a','Social y de salir','Minimalista','Muy familiar','Nómada digital','Sin tiempo para nada','Ahorrador/a consciente'],
+    AFIC: ['Videojuegos','Gimnasio','Cine y series','Viajar','Cocinar','Conciertos','Senderismo','Lectura','Redes sociales','Bricolaje','Deportes de combate'],
+    INQ: ['Llegar a fin de mes','Sostenibilidad','Ahorrar tiempo','Estabilidad laboral','Salud mental','Crecer profesionalmente','Acceso a la vivienda','Privacidad'],
+    MOTORES: ['Ahorrar dinero','Ahorrar tiempo','Cuidar su imagen','Cuidar su salud','Sentirse seguro/a','Divertirse','Sentirse parte de una comunidad','Aprender']
+  };
+  var SLIDERS = [
+    {k:'intro', n:'Energía social', l:'Reservado/a', r:'Sociable'},
+    {k:'plan',  n:'Forma de gastar', l:'Planificador/a', r:'Impulsivo/a'},
+    {k:'innov', n:'Ante las novedades', l:'Tradicional', r:'Innovador/a'},
+    {k:'razon', n:'Al decidir', l:'Racional', r:'Emocional'},
+    {k:'precio',n:'Qué valora más', l:'El precio', r:'La calidad'}
+  ];
+  var STEPS = ['Identidad y aspecto','Formación y economía','Entorno vital','Carácter','Estilo de vida','Motivación de compra'];
+  var LEVELS = [[0,'Boceto a lápiz'],[25,'Silueta'],[50,'Retrato robot'],[75,'Casi de carne y hueso'],[100,'Persona real']];
+
+  function blank() {
+    return {
+      alumno:'', negocio:'',
+      av:{skin:1, hs:'corto', hc:1, outfit:0, extra:'none'},
+      soc:{nombre:'',edad:'',genero:'',nacionalidad:'',estudios:'',trabajo:'',ingM:'',ingA:'',ingAauto:false,familia:'',familiaDet:'',residencia:'',entorno:''},
+      psi:{descripcion:'',rasgos:[],sl:{intro:50,plan:50,innov:50,razon:50,precio:50},estilo:[],aficiones:[],inquietudes:[],motor:[],necesidad:'',solucion:'',frase:''}
+    };
+  }
+  var state = blank();
+  var step = 0;
+
+  /* ───────── Utilidades ───────── */
+  function $(id) { return document.getElementById(id); }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]; }); }
+  function get(p) { return p.split('.').reduce(function (o, k) { return o == null ? o : o[k]; }, state); }
+  function set(p, v) { var ks = p.split('.'), o = state; for (var i = 0; i < ks.length - 1; i++) o = o[ks[i]]; o[ks[ks.length - 1]] = v; }
+  function norm(a) { return a.map(function (x) { return typeof x === 'string' ? {v:x,l:x} : x; }); }
+  function pick(a) { return a[Math.floor(Math.random() * a.length)]; }
+  function shade(hex, p) {
+    var n = parseInt(hex.slice(1), 16), r = n >> 16, g = (n >> 8) & 255, b = n & 255;
+    function f(c) { return Math.max(0, Math.min(255, Math.round(c * (1 + p)))); }
+    return '#' + ((1 << 24) + (f(r) << 16) + (f(g) << 8) + f(b)).toString(16).slice(1);
+  }
+  var toastT;
+  function toast(msg) { var t = $('toast'); t.textContent = msg; t.hidden = false; clearTimeout(toastT); toastT = setTimeout(function () { t.hidden = true; }, 2600); }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+  function readSaved() { try { var s = localStorage.getItem(KEY); return s ? JSON.parse(s) : null; } catch (e) { return null; } }
+  function clearSaved() { try { localStorage.removeItem(KEY); } catch (e) {} }
+
+  /* ───────── Avatar SVG ───────── */
+  var avUid = 0;
+  function avatarSVG(av) {
+    var uid = 'av' + (++avUid);
+    var skin = L.SKINS[av.skin] || L.SKINS[1], sh = shade(skin, -0.14);
+    var hair = L.HAIRC[av.hc] || L.HAIRC[1], out = L.OUTF[av.outfit] || L.OUTF[0];
+    var cap = '<path d="M62 96 C58 52 82 40 100 40 C124 40 144 54 138 96 C132 80 120 70 100 69 C80 70 68 80 62 96 Z" fill="' + hair + '"/>';
+    var s = '<svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Aspecto del buyer persona">';
+    s += '<defs><clipPath id="' + uid + '"><circle cx="100" cy="110" r="100"/></clipPath></defs>';
+    s += '<circle cx="100" cy="110" r="100" fill="#F6E3EE"/><g clip-path="url(#' + uid + ')">';
+    if (av.hs === 'largo') s += '<path d="M56 104 C44 56 68 34 100 34 C132 34 156 56 144 104 L150 196 L50 196 Z" fill="' + hair + '"/>';
+    s += '<rect x="87" y="128" width="26" height="42" rx="11" fill="' + sh + '"/>';
+    s += '<path d="M24 224 C24 184 58 164 100 164 C142 164 176 184 176 224 Z" fill="' + out + '"/>';
+    s += '<path d="M80 166 L100 192 L120 166 Z" fill="' + sh + '"/>';
+    s += '<circle cx="63" cy="101" r="7.5" fill="' + skin + '"/><circle cx="137" cy="101" r="7.5" fill="' + skin + '"/>';
+    s += '<ellipse cx="100" cy="98" rx="37" ry="42" fill="' + skin + '"/>';
+    if (av.extra === 'barba') s += '<path d="M64 104 C64 142 80 152 100 152 C120 152 136 142 136 104 C130 124 118 129 100 129 C82 129 70 124 64 104 Z" fill="' + hair + '"/>';
+    s += '<circle cx="78" cy="114" r="5.5" fill="#E58F8F" opacity=".22"/><circle cx="122" cy="114" r="5.5" fill="#E58F8F" opacity=".22"/>';
+    s += '<circle cx="86" cy="101" r="3.6" fill="#1E1C1A"/><circle cx="114" cy="101" r="3.6" fill="#1E1C1A"/>';
+    s += '<path d="M78 92 Q86 88 94 92 M106 92 Q114 88 122 92" stroke="#1E1C1A" stroke-opacity=".7" stroke-width="2.4" fill="none" stroke-linecap="round"/>';
+    s += '<path d="M100 104 Q95 115 101 116" stroke="' + sh + '" stroke-width="2.2" fill="none" stroke-linecap="round"/>';
+    s += '<path d="M91 121 Q100 129 109 121" stroke="#7A3A3A" stroke-width="2.6" fill="none" stroke-linecap="round"/>';
+    switch (av.hs) {
+      case 'corto': s += cap; break;
+      case 'largo': s += cap + '<path d="M62 96 C56 124 56 152 60 176 L73 176 C70 146 70 118 70 96 Z M138 96 C144 124 144 152 140 176 L127 176 C130 146 130 118 130 96 Z" fill="' + hair + '"/>'; break;
+      case 'mono': s += cap + '<circle cx="100" cy="32" r="15" fill="' + hair + '"/>'; break;
+      case 'rapado': s += '<g opacity=".32">' + cap + '</g>'; break;
+      case 'rizado':
+        [[64,84,15],[70,64,16],[86,50,17],[104,46,17],[122,52,17],[134,66,16],[138,86,14],[100,64,18],[82,70,14],[120,72,14]].forEach(function (c) { s += '<circle cx="' + c[0] + '" cy="' + c[1] + '" r="' + c[2] + '" fill="' + hair + '"/>'; });
+        break;
+    }
+    if (av.extra === 'gafas') s += '<g fill="#fff" fill-opacity=".3" stroke="#1E1C1A" stroke-width="2.4"><circle cx="86" cy="101" r="12.5"/><circle cx="114" cy="101" r="12.5"/></g><path d="M98.5 100 L101.5 100 M73.5 99 L66 98 M126.5 99 L134 98" stroke="#1E1C1A" stroke-width="2.4" fill="none" stroke-linecap="round"/>';
+    if (av.extra === 'gorra') s += '<path d="M60 86 C58 46 80 35 100 35 C122 35 142 46 140 86 Z" fill="#3E5778"/><rect x="54" y="83" width="92" height="9" rx="4.5" fill="#2C4059"/>';
+    if (av.extra === 'auri') s += '<path d="M60 100 C56 38 144 38 140 100" stroke="#1E1C1A" stroke-width="6" fill="none" stroke-linecap="round"/><rect x="51" y="92" width="15" height="28" rx="7" fill="#B03A78"/><rect x="134" y="92" width="15" height="28" rx="7" fill="#B03A78"/>';
+    s += '</g></svg>';
+    return s;
+  }
+  function paintAvatars() {
+    ['card-avatar', 'intro-avatar', 'res-avatar'].forEach(function (id) { $(id).innerHTML = avatarSVG(state.av); });
+  }
+
+  /* ───────── Progreso ───────── */
+  function has(v) { return v != null && String(v).trim() !== ''; }
+  var SOC_F = ['nombre','edad','genero','nacionalidad','estudios','trabajo','ingM','ingA','familia','residencia'];
+  function socDone() { return SOC_F.filter(function (k) { return has(state.soc[k]); }).length; }
+  function psiChecks() { var p = state.psi; return [has(p.descripcion), p.rasgos.length > 0, p.estilo.length > 0, p.aficiones.length > 0, p.inquietudes.length > 0, p.motor.length > 0, has(p.necesidad)]; }
+  function psiDone() { return psiChecks().filter(Boolean).length; }
+  function stepDone(n) {
+    var s = state.soc, p = state.psi;
+    switch (n) {
+      case 1: return has(s.nombre) && has(s.edad) && has(s.genero) && has(s.nacionalidad);
+      case 2: return has(s.estudios) && has(s.trabajo) && has(s.ingM) && has(s.ingA);
+      case 3: return has(s.familia) && has(s.residencia);
+      case 4: return has(p.descripcion) && p.rasgos.length > 0;
+      case 5: return p.estilo.length > 0 && p.aficiones.length > 0 && p.inquietudes.length > 0;
+      case 6: return p.motor.length > 0 && has(p.necesidad);
+    }
+    return false;
+  }
+  function missing() {
+    var s = state.soc, p = state.psi, m = [];
+    if (!has(s.nombre)) m.push('nombre');
+    if (!has(s.edad)) m.push('edad');
+    if (!has(s.genero)) m.push('género');
+    if (!has(s.trabajo)) m.push('trabajo actual');
+    if (!has(s.residencia)) m.push('lugar de residencia');
+    if (!has(p.descripcion)) m.push('descripción de su personalidad');
+    if (!has(p.necesidad)) m.push('necesidad o problema');
+    return m;
+  }
+  function level(pct) { var r = LEVELS[0][1]; LEVELS.forEach(function (l) { if (pct >= l[0]) r = l[1]; }); return r; }
+
+  /* ───────── Coherencia ───────── */
+  function alerts() {
+    var s = state.soc, a = [], age = parseInt(s.edad, 10);
+    var ei = L.ESTUDIOS.indexOf(s.estudios), im = L.ING_M.indexOf(s.ingM), ia = L.ING_A.indexOf(s.ingA);
+    var tr = s.trabajo || '';
+    var noJob = /estudiant|jubilad|pensionist|parad|desemplead|hogar|ama de casa|sin empleo/i;
+    if (age) {
+      if (age < 16 && has(tr) && !noJob.test(tr)) a.push('Tiene ' + age + ' años y un trabajo. A esa edad no es lo habitual. Si compra menor de edad, ¿quién paga: él o ella, o su familia?');
+      if (age < 18 && ei >= 4) a.push('Con ' + age + ' años es difícil tener «' + s.estudios + '». Revisa la edad o el nivel educativo.');
+      else if (age < 23 && ei === 6) a.push('Un máster a los ' + age + ' años es poco probable. Revisa la edad o el nivel educativo.');
+      if (age < 18 && im >= 4) a.push('Esos ingresos mensuales son muy altos para alguien de ' + age + ' años.');
+    }
+    if (im > -1 && ia > -1 && Math.abs(im - ia) > 1) a.push('Los ingresos mensuales y anuales no cuadran. Recuerda: anual ≈ mensual × 12.');
+    if (im === 0 && has(tr) && !noJob.test(tr)) a.push('Dices que no tiene ingresos propios, pero tiene un trabajo. ¿Es un trabajo sin remunerar o hay que ajustar los ingresos?');
+    return a;
+  }
+
+  /* ───────── Pintado ───────── */
+  function renderSliders() {
+    $('sliders').innerHTML = SLIDERS.map(function (s) {
+      return '<div class="slider"><div class="slider-top"><b>' + esc(s.n) + '</b><span data-out="' + s.k + '"></span></div>' +
+        '<input type="range" min="0" max="100" step="5" id="sl-' + s.k + '" data-slider="' + s.k + '" aria-label="' + esc(s.n) + '">' +
+        '<div class="slider-ends"><span>' + esc(s.l) + '</span><span>' + esc(s.r) + '</span></div></div>';
+    }).join('');
+  }
+  function sliderLabel(s, v) {
+    if (v >= 40 && v <= 60) return 'Equilibrado/a';
+    var left = v < 40, st = Math.abs(v - 50);
+    return (st >= 35 ? 'Muy ' : 'Más bien ') + (left ? s.l : s.r).toLowerCase();
+  }
+  function buildControls() {
+    document.querySelectorAll('[data-list]').forEach(function (el) {
+      var list = norm(L[el.getAttribute('data-list')]);
+      if (el.hasAttribute('data-sw')) {
+        el.innerHTML = list.map(function (it, i) { return '<button type="button" class="sw" data-i="' + i + '" style="background:' + it.v + '" aria-pressed="false" aria-label="Opción ' + (i + 1) + '"></button>'; }).join('');
+      } else if (el.classList.contains('tags')) {
+        el.innerHTML = '<div class="tags-list"></div><div class="tag-entry"><input type="text" maxlength="28" placeholder="' + esc(el.getAttribute('data-ph')) + '" aria-label="' + esc(el.getAttribute('data-ph')) + '"><button type="button" class="btn btn-ghost tag-add">Añadir</button></div><p class="sugg-label">Ideas para empezar</p><div class="chips small sugg"></div>';
+        el.querySelector('.sugg').innerHTML = list.map(function (it) { return '<button type="button" class="chip" data-val="' + esc(it.v) + '" aria-pressed="false">' + esc(it.l) + '</button>'; }).join('');
+      } else {
+        el.innerHTML = list.map(function (it) { return '<button type="button" class="chip" data-val="' + esc(it.v) + '" aria-pressed="false">' + esc(it.l) + '</button>'; }).join('');
+      }
+    });
+  }
+  function syncControls() {
+    document.querySelectorAll('[data-path][data-mode]').forEach(function (box) {
+      var path = box.getAttribute('data-path'), val = get(path), multi = box.getAttribute('data-mode') === 'multi';
+      box.querySelectorAll('.chip').forEach(function (c) {
+        var on = multi ? val.indexOf(c.getAttribute('data-val')) > -1 : String(val) === c.getAttribute('data-val');
+        c.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+    });
+    document.querySelectorAll('[data-sw]').forEach(function (box) {
+      var v = get(box.getAttribute('data-sw'));
+      box.querySelectorAll('.sw').forEach(function (b) { b.setAttribute('aria-pressed', Number(b.getAttribute('data-i')) === v ? 'true' : 'false'); });
+    });
+    document.querySelectorAll('.tags').forEach(function (box) {
+      var path = box.getAttribute('data-path'), arr = get(path);
+      box.querySelector('.tags-list').innerHTML = arr.map(function (t, i) { return '<span class="tagpill">' + esc(t) + '<button type="button" data-rm="' + i + '" aria-label="Quitar ' + esc(t) + '">×</button></span>'; }).join('');
+      box.querySelectorAll('.sugg .chip').forEach(function (c) { c.setAttribute('aria-pressed', arr.indexOf(c.getAttribute('data-val')) > -1 ? 'true' : 'false'); });
+    });
+    SLIDERS.forEach(function (s) {
+      var inp = $('sl-' + s.k), v = state.psi.sl[s.k];
+      if (document.activeElement !== inp) inp.value = v;
+      document.querySelector('[data-out="' + s.k + '"]').textContent = sliderLabel(s, v);
+    });
+    var note = $('note-inga');
+    note.textContent = state.soc.ingAauto ? 'Rellenado solo a partir del mensual (×12). Cámbialo si cobra pagas extra o ingresos variables.' : 'Al elegir el mensual, el anual se rellena solo (×12). Cámbialo si cobra pagas extra o ingresos variables.';
+    $('cnt-desc').textContent = state.psi.descripcion.length + ' / 240';
+    $('cnt-nec').textContent = state.psi.necesidad.length + ' / 320';
+  }
+  function syncInputs() {
+    document.querySelectorAll('[data-f]').forEach(function (el) { el.value = get(el.getAttribute('data-f')) || ''; });
+  }
+  function refreshCard() {
+    var s = state.soc, sd = socDone(), pd = psiDone(), total = sd + pd, pct = Math.round(total / 17 * 100);
+    var nm = $('card-name');
+    nm.textContent = has(s.nombre) ? s.nombre : 'Sin nombre aún';
+    nm.classList.toggle('empty', !has(s.nombre));
+    var line = [has(s.edad) ? s.edad + ' años' : '', s.genero, s.trabajo].filter(has).join(' · ');
+    $('card-line').textContent = line || 'Tu cliente ideal está por definir';
+    $('lvl-name').textContent = level(pct);
+    $('xp-txt').textContent = total * 10 + ' / 170 XP';
+    $('xp-bar').style.width = pct + '%';
+    $('bar-soc-n').textContent = sd + '/10'; $('bar-soc').style.width = sd * 10 + '%';
+    $('bar-psi-n').textContent = pd + '/7'; $('bar-psi').style.width = Math.round(pd / 7 * 100) + '%';
+    $('card-tags').innerHTML = state.psi.rasgos.map(function (r) { return '<span class="pill">' + esc(r) + '</span>'; }).join('');
+    paintAvatars();
+  }
+  function renderAlertsInto(el) {
+    var a = alerts();
+    el.hidden = a.length === 0;
+    el.innerHTML = a.map(function (t) { return '<div class="alert"><b>Ojo con la coherencia</b>' + esc(t) + '</div>'; }).join('');
+  }
+  function refreshStepper() {
+    document.querySelectorAll('.seg').forEach(function (b) {
+      var n = Number(b.getAttribute('data-step'));
+      b.classList.toggle('current', n === step);
+      b.classList.toggle('done', n < 7 && n !== step && stepDone(n));
+      b.disabled = (n === 7 && missing().length > 0);
+    });
+    if (step >= 1 && step <= 6) $('step-label').innerHTML = 'Paso <b>' + step + ' de 6</b> · ' + esc(STEPS[step - 1]);
+    var next = $('btn-next'), hint = $('hint'), miss = missing();
+    $('btn-prev').style.visibility = step <= 1 ? 'hidden' : 'visible';
+    if (step === 6) {
+      next.textContent = 'Generar ficha →';
+      next.disabled = miss.length > 0;
+      hint.textContent = miss.length ? 'Falta: ' + miss.join(', ') + '.' : '';
+    } else { next.textContent = 'Siguiente →'; next.disabled = false; hint.textContent = ''; }
+  }
+  function refresh() {
+    syncControls();
+    refreshCard();
+    refreshStepper();
+    renderAlertsInto($('alerts-box'));
+    var biz = has(state.negocio);
+    $('biz-box').hidden = !biz; $('biz-name').textContent = state.negocio;
+    save();
+  }
+
+  /* ───────── Navegación ───────── */
+  function show(id, on) { $(id).hidden = !on; }
+  function goTo(n) {
+    if (n === 7 && missing().length) { toast('Completa los datos obligatorios para generar la ficha.'); return; }
+    step = n;
+    show('screen-intro', n === 0);
+    show('screen-app', n >= 1 && n <= 6);
+    show('screen-result', n === 7);
+    for (var i = 1; i <= 6; i++) show('step-' + i, i === n);
+    if (n === 7) renderResult();
+    else if (n >= 1) refresh();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /* ───────── Ficha final ───────── */
+  function kv(label, val) { return '<div class="kv"><dt>' + esc(label) + '</dt>' + (has(val) ? '<dd>' + esc(val) + '</dd>' : '<dd class="none">Sin definir</dd>') + '</div>'; }
+  function pills(arr, cls) { return arr.length ? '<div class="pills">' + arr.map(function (t) { return '<span class="pill ' + (cls || '') + '">' + esc(t) + '</span>'; }).join('') + '</div>' : '<p class="txt" style="opacity:.5;font-style:italic;">Sin definir</p>'; }
+
+  function gend(t) {
+    var g = state.soc.genero;
+    if (g === 'Mujer') return String(t).replace(/o\/a\b/g, 'a').replace(/([^o])\/a\b/g, '$1a');
+    if (g === 'Hombre') return String(t).replace(/\/a\b/g, '');
+    return t;
+  }
+  function lc(t) { return String(t).charAt(0).toLowerCase() + String(t).slice(1); }
+  function joinEs(a) { return a.length < 2 ? a.join('') : a.slice(0, -1).join(', ') + ' y ' + a[a.length - 1]; }
+  function summaryParas() {
+    var s = state.soc, p = state.psi, nm = has(s.nombre) ? s.nombre.trim() : 'Tu cliente';
+    var noun = s.genero === 'Mujer' ? 'una mujer' : s.genero === 'Hombre' ? 'un hombre' : 'una persona';
+    var a = nm + ' es ' + noun + (has(s.edad) ? ' de ' + s.edad + ' años' : '') + (has(s.nacionalidad) ? ' y de nacionalidad ' + lc(s.nacionalidad.trim()) : '');
+    var tail = [];
+    if (has(s.residencia)) tail.push('vive en ' + s.residencia.trim() + (has(s.familia) ? ' (' + lc(s.familia) + ')' : ''));
+    if (has(s.trabajo)) tail.push('su ocupación actual es ' + lc(s.trabajo.trim()));
+    if (tail.length === 2) a += ', que ' + tail[0] + ' y cuya ocupación actual es ' + lc(s.trabajo.trim());
+    else if (tail.length === 1) a += ', que ' + tail[0].replace('su ocupación actual es', 'tiene como ocupación actual');
+    a += '.';
+    var parts = [];
+    if (p.rasgos.length) parts.push('se define como ' + joinEs(p.rasgos.map(function (r) { return lc(gend(r)); })));
+    if (p.motor.length) parts.push((parts.length ? 'y ' : '') + 'le mueve ' + joinEs(p.motor.map(function (r) { return lc(gend(r)); })));
+    if (!parts.length) return a;
+    var b = parts.join(' ');
+    return a + ' ' + b.charAt(0).toUpperCase() + b.slice(1) + '.';
+  }
+  function renderResult() {
+    var s = state.soc, p = state.psi, total = socDone() + psiDone(), pct = Math.round(total / 17 * 100);
+    $('rep-title').textContent = has(state.negocio) ? state.negocio : 'Mi negocio';
+    $('rep-alumno').textContent = state.alumno;
+    $('rep-date').textContent = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+    $('res-name').textContent = s.nombre;
+    $('res-sub').textContent = [has(s.edad) ? s.edad + ' años' : '', s.genero, s.nacionalidad, s.residencia].filter(has).join(' · ');
+    $('res-lvl').textContent = level(pct);
+    $('res-xp').textContent = total * 10 + ' / 170 XP';
+    $('res-xpbar').style.width = pct + '%';
+    var q = $('res-quote'); q.hidden = !has(p.frase); q.textContent = has(p.frase) ? '«' + p.frase.replace(/^[«"“]+|[»"”]+$/g, '') + '»' : '';
+    paintAvatars();
+
+    var fam = [s.familia, s.familiaDet].filter(has).join('. ');
+    var res = [s.residencia, s.entorno].filter(has).join(' · ');
+    $('res-summary').innerHTML = '<span class="sum-k">En resumen</span>' + esc(summaryParas());
+    var socH = '<section class="panel soc"><h3>Perfil sociodemográfico</h3><div class="cols">' +
+      '<div class="grp"><h4>Identidad</h4><dl>' + kv('Edad', has(s.edad) ? s.edad + ' años' : '') + kv('Género', s.genero) + kv('Nacionalidad', s.nacionalidad) + '</dl></div>' +
+      '<div class="grp"><h4>Formación y trabajo</h4><dl>' + kv('Nivel educativo', s.estudios) + kv('Trabajo actual', s.trabajo) + kv('Ingresos / mes', s.ingM) + kv('Ingresos / año', s.ingA) + '</dl></div>' +
+      '<div class="grp"><h4>Entorno vital</h4><dl>' + kv('Situación familiar', fam) + kv('Residencia', res) + '</dl></div></div></section>';
+    var attrs = SLIDERS.map(function (sl) {
+      var v = p.sl[sl.k];
+      return '<div class="attr"><div class="top"><span>' + esc(sl.n) + '</span><span class="desc">' + esc(sliderLabel(sl, v)) + '</span></div><div class="tr"><i style="left:' + v + '%"></i></div><div class="ends"><span>' + esc(sl.l) + '</span><span>' + esc(sl.r) + '</span></div></div>';
+    }).join('');
+    var psiH = '<section class="panel psi"><h3>Perfil psicosocial</h3><div class="cols">' +
+      '<div class="grp"><h4>Personalidad</h4><p class="txt">' + (has(p.descripcion) ? esc(p.descripcion) : '<i style="opacity:.5">Sin definir</i>') + '</p>' + pills(p.rasgos.map(gend)) + '</div>' +
+      '<div class="grp"><h4>Estilo de vida</h4>' + pills(p.estilo.map(gend)) + '<h4 style="margin-top:10px;">Aficiones</h4>' + pills(p.aficiones) + '</div>' +
+      '<div class="grp"><h4>Inquietudes</h4>' + pills(p.inquietudes) + '</div></div>' +
+      '<div class="mot"><h4>Motivación de compra</h4>' + (p.motor.length ? pills(p.motor.map(gend), 'tool') : '') +
+      '<p class="txt" style="margin-top:6px;"><b>Necesidad o problema:</b> ' + (has(p.necesidad) ? esc(p.necesidad) : '<i style="opacity:.5">Sin definir</i>') + '</p>' +
+      (has(p.solucion) ? '<p class="txt" style="margin-top:4px;"><b>Nuestra respuesta:</b> ' + esc(p.solucion) + '</p>' : '') + '</div>' +
+      '<div class="attrs-sub"><h4>Atributos del personaje</h4><div class="attrs-grid">' + attrs + '</div></div></section>';
+    $('res-grid').innerHTML = socH + psiH;
+    renderAlertsInto($('res-alerts'));
+    save();
+  }
+  function fitPrint() {
+    var sheet = $('print-sheet');
+    sheet.style.zoom = 1; sheet.innerHTML = '';
+    if (step !== 7) return;
+    ['.rep-head', '.hero', '.summary', '.res-grid'].forEach(function (sel) {
+      var n = document.querySelector('#screen-result ' + sel);
+      if (n) sheet.appendChild(n.cloneNode(true));
+    });
+    sheet.querySelectorAll('[id]').forEach(function (e) { e.removeAttribute('id'); });
+    var cr = document.createElement('div'); cr.className = 'ps-credit'; cr.textContent = 'Educa Tools · IPE Toolkit · Buyer Persona Creator'; sheet.appendChild(cr);
+    var avail = Math.floor(276 / 25.4 * 96);
+    var h = sheet.getBoundingClientRect().height;
+    sheet.style.zoom = h > avail ? (avail / h) : 1;
+  }
+  window.addEventListener('beforeprint', fitPrint);
+  if (window.matchMedia) { var mq = window.matchMedia('print'); if (mq.addEventListener) mq.addEventListener('change', function (e) { if (e.matches) fitPrint(); }); }
+  function summaryText() {
+    var s = state.soc, p = state.psi;
+    function list(a) { return a.length ? a.join(', ') : 'Sin definir'; }
+    var t = 'BUYER PERSONA: ' + s.nombre + '\n';
+    if (has(state.negocio)) t += 'Negocio: ' + state.negocio + '\n';
+    t += '\nRESUMEN\n' + summaryParas() + '\n';
+    t += '\nPERFIL SOCIODEMOGRÁFICO\n';
+    t += '- Edad: ' + s.edad + ' años\n- Género: ' + s.genero + '\n- Nacionalidad: ' + (s.nacionalidad || 'Sin definir') + '\n';
+    t += '- Nivel educativo: ' + (s.estudios || 'Sin definir') + '\n- Trabajo actual: ' + s.trabajo + '\n- Ingresos mensuales: ' + (s.ingM || 'Sin definir') + '\n- Ingresos anuales: ' + (s.ingA || 'Sin definir') + '\n';
+    t += '- Situación familiar: ' + ([s.familia, s.familiaDet].filter(has).join('. ') || 'Sin definir') + '\n- Lugar de residencia: ' + s.residencia + '\n';
+    t += '\nPERFIL PSICOSOCIAL\n';
+    t += '- Personalidad: ' + p.descripcion + '\n- Rasgos: ' + list(p.rasgos) + '\n';
+    SLIDERS.forEach(function (sl) { t += '- ' + sl.n + ': ' + sliderLabel(sl, p.sl[sl.k]) + '\n'; });
+    t += '- Estilo de vida: ' + list(p.estilo) + '\n- Aficiones: ' + list(p.aficiones) + '\n- Inquietudes: ' + list(p.inquietudes) + '\n';
+    t += '- Motivación de compra: ' + list(p.motor) + '\n- Necesidad o problema: ' + p.necesidad + '\n';
+    if (has(p.solucion)) t += '- Cómo lo resuelve nuestro negocio: ' + p.solucion + '\n';
+    if (has(p.frase)) t += '- Frase típica: ' + p.frase + '\n';
+    return t;
+  }
+  function copy(text, okMsg) {
+    function fallback() {
+      var ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      var ok = false; try { ok = document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+      toast(ok ? okMsg : 'No se pudo copiar. Selecciona el texto y cópialo a mano.');
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(function () { toast(okMsg); }, fallback);
+    else fallback();
+  }
+  function payload() { return JSON.stringify({ herramienta: 'Buyer Persona', version: 1, timestamp: new Date().toISOString(), state: state }); }
+  function slug(x) { return (x || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40); }
+  function mergeDeep(base, src) {
+    Object.keys(base).forEach(function (k) {
+      if (src == null || src[k] === undefined) return;
+      if (base[k] && typeof base[k] === 'object' && !Array.isArray(base[k])) mergeDeep(base[k], src[k]);
+      else if (Array.isArray(base[k])) { if (Array.isArray(src[k])) base[k] = src[k].slice(); }
+      else if (typeof base[k] === typeof src[k]) base[k] = src[k];
+      else if (typeof base[k] === 'string' && typeof src[k] === 'number') base[k] = String(src[k]);
+    });
+  }
+  function loadData(obj) {
+    if (!obj || obj.herramienta !== 'Buyer Persona' || !obj.state) throw new Error('formato');
+    var b = blank(); mergeDeep(b, obj.state); state = b;
+    syncInputs(); goTo(missing().length ? 1 : 7);
+    toast('Personaje cargado.');
+  }
+  function resetAll() { state = blank(); clearSaved(); syncInputs(); paintAvatars(); goTo(0); }
+
+  /* ───────── Eventos ───────── */
+  function afterChange(path) {
+    if (path === 'soc.ingM') {
+      var i = L.ING_M.indexOf(state.soc.ingM);
+      if (i > -1 && (!has(state.soc.ingA) || state.soc.ingAauto)) { state.soc.ingA = L.ING_A[i]; state.soc.ingAauto = true; }
+    }
+    if (path === 'soc.ingA') state.soc.ingAauto = false;
+  }
+  function addTag(box) {
+    var path = box.getAttribute('data-path'), max = Number(box.getAttribute('data-max')), inp = box.querySelector('input'), v = inp.value.trim();
+    if (!v) return;
+    var arr = get(path);
+    if (arr.length >= max) { toast('Máximo ' + max + '. Quita alguna para añadir otra.'); return; }
+    if (arr.some(function (x) { return x.toLowerCase() === v.toLowerCase(); })) { inp.value = ''; return; }
+    arr.push(v); inp.value = ''; refresh();
+  }
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    var chip = t.closest('.chip');
+    if (chip) {
+      var box = chip.closest('[data-path]');
+      if (!box) return;
+      var path = box.getAttribute('data-path'), val = chip.getAttribute('data-val');
+      if (box.classList.contains('tags') || box.getAttribute('data-mode') === 'multi') {
+        var arr = get(path), max = Number(box.getAttribute('data-max')), idx = arr.indexOf(val);
+        if (idx > -1) arr.splice(idx, 1);
+        else if (arr.length >= max) { toast('Máximo ' + max + '. Quita alguna para elegir otra.'); return; }
+        else arr.push(val);
+      } else {
+        if (String(get(path)) === val && !box.hasAttribute('data-req')) set(path, ''); else set(path, val);
+        afterChange(path);
+      }
+      refresh(); return;
+    }
+    var sw = t.closest('.sw');
+    if (sw) { set(sw.closest('[data-sw]').getAttribute('data-sw'), Number(sw.getAttribute('data-i'))); refresh(); return; }
+    var rm = t.closest('[data-rm]');
+    if (rm) { var b = rm.closest('.tags'); get(b.getAttribute('data-path')).splice(Number(rm.getAttribute('data-rm')), 1); refresh(); return; }
+    if (t.closest('.tag-add')) { addTag(t.closest('.tags')); return; }
+    var seg = t.closest('.seg');
+    if (seg) { goTo(Number(seg.getAttribute('data-step'))); return; }
+  });
+  document.addEventListener('input', function (e) {
+    var t = e.target;
+    if (t.hasAttribute('data-f')) {
+      var p = t.getAttribute('data-f'); set(p, t.value); afterChange(p);
+      if (step >= 1 && step <= 6) refresh(); else save();
+    } else if (t.hasAttribute('data-slider')) {
+      state.psi.sl[t.getAttribute('data-slider')] = Number(t.value); refresh();
+    }
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && e.target.closest('.tag-entry')) { e.preventDefault(); addTag(e.target.closest('.tags')); }
+  });
+
+  function randomAv() {
+    state.av = { skin: Math.floor(Math.random() * L.SKINS.length), hs: pick(L.HAIRS).v, hc: Math.floor(Math.random() * L.HAIRC.length), outfit: Math.floor(Math.random() * L.OUTF.length), extra: pick(L.EXTRAS).v };
+    paintAvatars(); if (step >= 1) refresh(); else save();
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    buildControls(); renderSliders();
+    if (!STANDALONE) document.querySelectorAll('.only-standalone').forEach(function (el) { el.remove(); });
+    else document.querySelectorAll('.only-artifact').forEach(function (el) { el.remove(); });
+    var saved = readSaved();
+    if (saved && saved.state === undefined && (has(saved.alumno) || has(saved.negocio) || (saved.soc && has(saved.soc.nombre)))) {
+      var b = blank(); mergeDeep(b, saved);
+      $('saved-banner').hidden = false; $('saved-name').textContent = has(b.soc.nombre) ? b.soc.nombre : (has(b.negocio) ? b.negocio : 'sin nombre');
+      $('btn-continue').addEventListener('click', function () { state = b; syncInputs(); goTo(missing().length ? 1 : 7); });
+      $('btn-discard').addEventListener('click', function () { clearSaved(); $('saved-banner').hidden = true; });
+    }
+    syncInputs(); paintAvatars(); syncControls();
+
+    $('intro-avatar').addEventListener('click', randomAv);
+    $('btn-dice').addEventListener('click', randomAv);
+    $('btn-start').addEventListener('click', function () { goTo(1); });
+    $('btn-prev').addEventListener('click', function () { goTo(Math.max(1, step - 1)); });
+    $('btn-next').addEventListener('click', function () { goTo(step + 1); });
+    $('btn-restart').addEventListener('click', function () {
+      var b = $('btn-restart');
+      if (b.getAttribute('data-sure') === '1') { b.removeAttribute('data-sure'); b.textContent = 'Reiniciar'; resetAll(); }
+      else { b.setAttribute('data-sure', '1'); b.textContent = 'Pulsa otra vez para borrar todo'; setTimeout(function () { b.removeAttribute('data-sure'); b.textContent = 'Reiniciar'; }, 3500); }
+    });
+    $('btn-restart-2').addEventListener('click', function () {
+      var b = $('btn-restart-2');
+      if (b.getAttribute('data-sure') === '1') { b.removeAttribute('data-sure'); b.textContent = 'Crear otro personaje'; resetAll(); }
+      else { b.setAttribute('data-sure', '1'); b.textContent = 'Pulsa otra vez: se borra este'; setTimeout(function () { b.removeAttribute('data-sure'); b.textContent = 'Crear otro personaje'; }, 3500); }
+    });
+    $('btn-edit').addEventListener('click', function () { goTo(1); });
+    var pr = $('btn-print'); if (pr) pr.addEventListener('click', function () { window.print(); });
+    ['btn-copytext', 'btn-copytext-2'].forEach(function (id) { var b = $(id); if (b) b.addEventListener('click', function () { copy(summaryText(), 'Ficha copiada. Pégala en tu plan de empresa.'); }); });
+    $('btn-copyjson').addEventListener('click', function () { copy(payload(), 'Código copiado. Guárdalo para cargar el personaje más tarde.'); });
+    var dl = $('btn-download');
+    if (dl) dl.addEventListener('click', function () {
+      var blob = new Blob([payload()], { type: 'application/json' }), url = URL.createObjectURL(blob), a = document.createElement('a');
+      a.href = url; a.download = 'buyer-persona' + (slug(state.soc.nombre) ? '-' + slug(state.soc.nombre) : '') + '.json';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+    });
+    $('file-load').addEventListener('change', function (e) {
+      var f = e.target.files[0]; if (!f) return;
+      var r = new FileReader();
+      r.onload = function (ev) { try { loadData(JSON.parse(ev.target.result)); } catch (err) { toast('No se pudo leer el archivo. Usa uno guardado desde esta herramienta.'); } e.target.value = ''; };
+      r.readAsText(f);
+    });
+    $('btn-paste-load').addEventListener('click', function () {
+      try { loadData(JSON.parse($('paste-load').value)); $('paste-load').value = ''; } catch (err) { toast('El código no es válido. Cópialo completo.'); }
+    });
+    goTo(0);
+  });
+})();
+</script>
+</body>
+</html>

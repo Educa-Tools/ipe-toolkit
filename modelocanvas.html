@@ -26,6 +26,28 @@
     --accent-tint:#F2E1E6;
     --shadow: 0 1px 0 rgba(30,28,26,.08), 0 8px 24px -12px rgba(30,28,26,.25);
   }
+  /* ---- Paletas del entregable (se cambian con data-theme en <html>) ---- */
+  :root[data-theme="burdeos"]{--accent:#7A3244;--accent-tint:#F2E1E6;--surface-alt:#F5F6E4}
+  :root[data-theme="oliva"]{--accent:#6B7028;--accent-tint:#E8EDC4;--surface-alt:#F5F6E4}
+  :root[data-theme="petroleo"]{--accent:#1F5F6B;--accent-tint:#DCEBEE;--surface-alt:#EAF2F3}
+  :root[data-theme="terracota"]{--accent:#B5532F;--accent-tint:#F8E3D8;--surface-alt:#FBF0E9}
+  :root[data-theme="grafito"]{--accent:#2B2B2B;--accent-tint:#E9E7E3;--surface-alt:#F2F0EC}
+
+  /* Selector de paleta (diálogo de impresión) */
+  .theme-picker{display:flex;gap:12px;flex-wrap:wrap;margin:0 0 22px}
+  .theme-opt{
+    display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;
+    background:none;border:1px solid transparent;padding:8px 10px;font-family:'Inter',sans-serif;
+    font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);
+    transition:all .2s;
+  }
+  .theme-opt:hover{border-color:rgba(30,28,26,.3)}
+  .theme-opt.active{border-color:var(--ink);color:var(--ink)}
+  .theme-opt .sw{
+    width:44px;height:44px;border-radius:50%;border:1px solid rgba(30,28,26,.25);
+    display:block;position:relative;overflow:hidden;
+  }
+  .theme-opt .sw i{position:absolute;left:0;right:0;bottom:0;height:45%}
   *{box-sizing:border-box}
   html,body{margin:0;padding:0;background:var(--canvas);color:var(--ink);font-family:'Inter',sans-serif;font-weight:400;-webkit-font-smoothing:antialiased}
   body{
@@ -272,7 +294,7 @@
     }
     .canvas-intro > div:first-child{flex:1}
     .canvas-intro h1{
-      font-size:13pt !important;
+      font-size:15pt !important;
       line-height:1 !important;
       margin:0 !important;
       letter-spacing:-.01em !important;
@@ -281,7 +303,7 @@
     .canvas-intro h1 em{color:var(--accent) !important}
     .canvas-intro::after{
       content:'IPE · Modelo Canvas' !important;
-      font-size:7.5pt !important;
+      font-size:8.5pt !important;
       letter-spacing:.25em !important;
       text-transform:uppercase !important;
       color:var(--ink-soft) !important;
@@ -298,7 +320,7 @@
     .canvas-grid{
       display:grid !important;
       grid-template-columns: repeat(10, 1fr) !important;
-      grid-template-rows: 72mm 72mm 36mm !important;
+      grid-template-rows: 66mm 66mm 48mm !important;
       gap: 1.5mm !important;
       width: 100% !important;
       height: auto !important;
@@ -355,7 +377,7 @@
     }
     .block-title{
       font-family:'Fraunces',serif !important;
-      font-size:8pt !important;
+      font-size:9.5pt !important;
       margin: 0 0 1.5mm 0 !important;
       padding-bottom:1mm !important;
       border-bottom: 0.4pt solid rgba(30,28,26,.25) !important;
@@ -366,7 +388,7 @@
       color: var(--ink) !important;
     }
     .b-propuesta .block-title{
-      font-size:9pt !important;
+      font-size:10.5pt !important;
       color: var(--accent) !important;
       border-bottom-color: var(--accent) !important;
     }
@@ -374,35 +396,35 @@
     /* Contenido */
     .block-content{
       margin-top:0 !important;
-      font-size:7.5pt !important;
-      line-height:1.35 !important;
+      font-size:9pt !important;
+      line-height:1.4 !important;
       font-family:'Inter',sans-serif !important;
       flex: 1 !important;
     }
     .block-content ul{
-      font-size:7.5pt !important;
-      line-height:1.35 !important;
+      font-size:9pt !important;
+      line-height:1.4 !important;
       padding-left: 0 !important;
       margin:0 !important;
       list-style: none !important;
     }
     .block-content li{
-      margin-bottom: 1.2mm !important;
-      padding-left: 3mm !important;
+      margin-bottom: 1.6mm !important;
+      padding-left: 3.4mm !important;
       position:relative !important;
     }
     .block-content li::before{
       content: '' !important;
       position:absolute !important;
       left: 0 !important;
-      top: 1.3mm !important;
+      top: 1.5mm !important;
       width: 1.2mm !important;
       height: 1.2mm !important;
       background: var(--accent) !important;
       border-radius: 50% !important;
     }
-    .b-propuesta .block-content{font-size:8pt !important}
-    .b-propuesta .block-content li{font-size:8pt !important}
+    .b-propuesta .block-content{font-size:10pt !important}
+    .b-propuesta .block-content li{font-size:10pt !important}
 
     .block.filled::after{display:none !important}
 
@@ -748,6 +770,31 @@ function resetCanvas(){
   showToast('Canvas reiniciado');
 }
 
+// ============ TONO DEL ENTREGABLE ============
+const THEMES = [
+  { key:'burdeos',   name:'Burdeos',   accent:'#7A3244', tint:'#F2E1E6' },
+  { key:'oliva',     name:'Oliva',     accent:'#6B7028', tint:'#E8EDC4' },
+  { key:'petroleo',  name:'Petróleo',  accent:'#1F5F6B', tint:'#DCEBEE' },
+  { key:'terracota', name:'Terracota', accent:'#B5532F', tint:'#F8E3D8' },
+  { key:'grafito',   name:'Grafito',   accent:'#2B2B2B', tint:'#E9E7E3' }
+];
+let currentTheme = 'burdeos';
+
+function setTheme(key){
+  currentTheme = key;
+  document.documentElement.setAttribute('data-theme', key);
+}
+
+function themePickerHTML(){
+  return THEMES.map(t => `
+    <button type="button" class="theme-opt${t.key===currentTheme?' active':''}" data-theme="${t.key}">
+      <span class="sw" style="background:${t.tint}"><i style="background:${t.accent}"></i></span>
+      ${t.name}
+    </button>`).join('');
+}
+
+setTheme(currentTheme);
+
 // ============ IMPRIMIR ============
 function printCanvas(){
   // Mostrar instrucciones claras antes de imprimir
@@ -764,6 +811,8 @@ function printCanvas(){
         <button class="modal-close" onclick="this.closest('.modal-backdrop').remove()" aria-label="Cerrar">×</button>
       </div>
       <div class="modal-body">
+        <div class="label" style="font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:10px">Tono del entregable</div>
+        <div class="theme-picker" id="themePicker">${themePickerHTML()}</div>
         <p style="font-family:'Fraunces',serif;font-size:16px;line-height:1.4;margin:0 0 18px;color:var(--ink)">
           Para que el Canvas se imprima en <em style="color:var(--accent)">una sola página</em>, en el diálogo del navegador asegúrate de:
         </p>
@@ -786,6 +835,13 @@ function printCanvas(){
     </div>
   `;
   document.body.appendChild(dialog);
+
+  dialog.querySelectorAll('.theme-opt').forEach(btn => {
+    btn.addEventListener('click', () => {
+      setTheme(btn.dataset.theme);
+      dialog.querySelectorAll('.theme-opt').forEach(b => b.classList.toggle('active', b === btn));
+    });
+  });
 
   document.getElementById('confirmPrint').addEventListener('click', () => {
     dialog.remove();

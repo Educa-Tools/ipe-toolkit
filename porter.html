@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modelo de Porter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Educa Tools · Modelo de Porter (versión profesional). Tema claro por decisión de marca.
+   Layout: flujo de pantallas (intro → mapa de 5 fuerzas → detalle por fuerza → análisis → informe). */
+:root {
+  --bg: #FBFCEF; --surface: #FFFFFF; --surface-alt: #F5F6E4;
+  --ink: #1E1C1A; --ink-soft: #4A463F; --ink-muted: #8B847A;
+  --line: #E8E1D6; --line-soft: #EEEFD8;
+  --olive-deep: #6B7028; --olive-mid: #A8AD5C; --lime-soft: #E8EDC4;
+  --tool-soft: #E1EDEF; --tool-mid: #6FA3AA; --tool-deep: #2F6670;
+  /* niveles de presión en escala 0–10: 0 muy bajo · 1 bajo · 2 medio · 3 alto */
+  --l0-soft:#E5EDDB; --l0-mid:#A8C485; --l0-deep:#557A35; --l0-ink:#354B22;
+  --l1-soft:#EEF1D0; --l1-mid:#C5CD78; --l1-deep:#6B7028; --l1-ink:#434718;
+  --l2-soft:#F2EDDB; --l2-mid:#C9B073; --l2-deep:#8B6F2A; --l2-ink:#5A4818;
+  --l3-soft:#F4E5E5; --l3-mid:#C58A8A; --l3-deep:#8B3A3A; --l3-ink:#5E2424;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--ink); font-family: 'Inter', system-ui, sans-serif; font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+.container { max-width: 760px; margin: 0 auto; padding: 44px 20px 80px; }
+.screen { display: none; } .screen.active { display: block; }
+.serif { font-family: 'Fraunces', Georgia, serif; }
+h1.display { font-family: 'Fraunces', Georgia, serif; font-size: 48px; line-height: 1.06; font-weight: 400; letter-spacing: -0.02em; text-wrap: balance; }
+h1.display em { font-style: italic; font-weight: 300; color: var(--tool-deep); }
+h2.title { font-family: 'Fraunces', Georgia, serif; font-size: 27px; line-height: 1.2; font-weight: 400; letter-spacing: -0.01em; text-wrap: balance; }
+h3.subtitle { font-family: 'Fraunces', Georgia, serif; font-size: 18px; line-height: 1.3; font-weight: 500; }
+.prose { font-family: 'Fraunces', Georgia, serif; font-size: 15.5px; line-height: 1.65; font-weight: 300; color: var(--ink-soft); }
+.prose b { font-weight: 500; color: var(--ink); }
+.prose-italic { font-family: 'Fraunces', Georgia, serif; font-style: italic; font-weight: 300; line-height: 1.6; color: var(--ink-soft); }
+.eyebrow { font-size: 11px; font-weight: 500; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 2px; }
+.eyebrow-line { display: flex; align-items: center; gap: 12px; margin-bottom: 22px; }
+.eyebrow-line::before { content: ''; width: 40px; height: 1px; background: var(--ink-muted); }
+.label-form { font-size: 12.5px; font-weight: 500; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 1.5px; display: block; margin-bottom: 10px; }
+.opt-tag { font-size: 10.5px; font-weight: 500; letter-spacing: 1px; color: var(--ink-muted); text-transform: none; margin-left: 6px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 24px; border-radius: 999px; font: 500 14px 'Inter', sans-serif; cursor: pointer; transition: all .2s ease; border: none; }
+.btn:focus-visible, .sg:focus-visible, .chip:focus-visible, .node:focus-visible, .btn-back:focus-visible { outline: 2px solid var(--tool-deep); outline-offset: 2px; }
+.btn-primary { background: var(--ink); color: var(--bg); }
+.btn-primary:hover:not(:disabled) { background: #2D3220; transform: translateY(-1px); }
+.btn-primary:disabled { background: var(--line); color: var(--ink-muted); cursor: not-allowed; }
+.btn-ghost { background: transparent; color: var(--ink-soft); border: 1px solid var(--line); }
+.btn-ghost:hover { background: var(--surface); border-color: var(--ink-muted); }
+.btn-back { display: inline-flex; align-items: center; gap: 6px; background: none; border: none; font: 13px 'Inter', sans-serif; color: var(--ink-muted); cursor: pointer; padding: 4px 0; margin-bottom: 20px; }
+.btn-back:hover { color: var(--ink); }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; }
+.text-input { width: 100%; border: 1.5px solid var(--line); border-radius: 12px; padding: 14px 16px; font: 300 16px/1.6 'Fraunces', Georgia, serif; color: var(--ink); background: var(--surface); resize: vertical; outline: none; transition: border-color .2s; }
+.text-input:focus { border-color: var(--ink); }
+.field-hint { font-size: 12px; color: var(--ink-muted); margin-top: 6px; }
+.top-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; gap: 10px; flex-wrap: wrap; }
+.dots { display: flex; gap: 6px; }
+.dot { height: 8px; width: 8px; border-radius: 4px; background: var(--line); transition: all .3s; }
+.dot.active { background: var(--ink); width: 24px; } .dot.done { background: var(--tool-deep); }
+.stepnum { border-radius: 50%; width: 22px; height: 22px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: var(--ink); color: var(--surface); font-size: 11px; font-weight: 600; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.fade { animation: fadeUp .45s ease; }
+@media (prefers-reduced-motion: reduce) { .fade { animation: none; } .btn, .dot { transition: none; } }
+
+/* niveles */
+.l0 { --s: var(--l0-soft); --m: var(--l0-mid); --d: var(--l0-deep); --k: var(--l0-ink); }
+.l1 { --s: var(--l1-soft); --m: var(--l1-mid); --d: var(--l1-deep); --k: var(--l1-ink); }
+.l2 { --s: var(--l2-soft); --m: var(--l2-mid); --d: var(--l2-deep); --k: var(--l2-ink); }
+.l3 { --s: var(--l3-soft); --m: var(--l3-mid); --d: var(--l3-deep); --k: var(--l3-ink); }
+.pill { display: inline-flex; align-items: center; font-size: 10.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.2px; padding: 3px 11px; border-radius: 999px; background: var(--s); color: var(--k); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+/* medidor 0–10 */
+.gauge-wrap { position: relative; padding-top: 4px; }
+.gauge { height: 12px; border-radius: 999px; display: flex; overflow: hidden; }
+.gauge i { display: block; height: 100%; }
+.gauge i:nth-child(1) { width: 35%; background: var(--l0-mid); } .gauge i:nth-child(2) { width: 20%; background: var(--l1-mid); }
+.gauge i:nth-child(3) { width: 20%; background: var(--l2-mid); } .gauge i:nth-child(4) { width: 25%; background: var(--l3-mid); }
+.marker { position: absolute; top: 0; width: 4px; height: 20px; margin-left: -2px; border-radius: 2px; background: var(--ink); }
+.ticks { position: relative; height: 18px; margin-top: 6px; font-size: 11px; color: var(--ink-muted); font-variant-numeric: tabular-nums; }
+.ticks span { position: absolute; transform: translateX(-50%); }
+.ticks span:first-child { transform: none; } .ticks span:last-child { transform: translateX(-100%); }
+.gauge-wrap.off .gauge { opacity: .35; } .gauge-wrap.off .marker { display: none; }
+
+/* resumen + mapa */
+.hero-score { padding: 22px 24px; border-radius: 18px; margin-bottom: 22px; background: var(--surface-alt); border: 1.5px solid var(--line); }
+.hero-score.done { background: var(--s); border-color: var(--m); }
+.hero-top { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin-bottom: 14px; }
+.big-num { font: 400 54px/1 'Fraunces', Georgia, serif; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; color: var(--d, var(--ink-muted)); }
+.big-num small { font: 400 20px 'Fraunces', Georgia, serif; color: var(--ink-muted); letter-spacing: 0; }
+.progress-line { font-size: 12.5px; color: var(--ink-muted); }
+.map { display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-areas: "E C0 C" "S C0 P"; gap: 18px 34px; margin-bottom: 28px; }
+.node { position: relative; text-align: left; font: inherit; color: inherit; cursor: pointer; background: var(--surface); border: 1.5px dashed var(--line); border-radius: 16px; padding: 16px 16px 15px; min-width: 0; transition: all .2s ease; }
+.node:hover { border-color: var(--ink-muted); transform: translateY(-2px); box-shadow: 0 12px 28px -14px rgba(31,36,23,.18); }
+.node.done { border: 1.5px solid var(--m); background: var(--s); }
+.node-name { font: 500 16px/1.25 'Fraunces', Georgia, serif; margin-bottom: 8px; color: var(--ink); }
+.node.done .node-name { color: var(--k); }
+.node-foot { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.node-idx { font: 500 26px/1 'Fraunces', Georgia, serif; font-variant-numeric: tabular-nums; color: var(--d, var(--ink-muted)); }
+.node-sub { font-size: 11.5px; color: var(--ink-muted); text-align: right; }
+.node.done .node-sub { color: var(--k); }
+.node::after { position: absolute; top: 50%; margin-top: -12px; font-size: 22px; color: var(--ink-muted); line-height: 24px; }
+.node.left::after { content: '→'; right: -28px; } .node.right::after { content: '←'; left: -28px; }
+.nE { grid-area: E; } .nS { grid-area: S; } .nC { grid-area: C; } .nP { grid-area: P; }
+.nR { grid-area: C0; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 22px 14px; border-radius: 28px 60px 28px 60px; background: var(--surface-alt); border: 1.5px solid var(--line); }
+.nR.done { background: var(--s); border-color: var(--m); }
+.nR .node-name { font-size: 17px; text-wrap: balance; }
+.nR .node-foot { flex-direction: column; align-items: center; gap: 6px; }
+.nR .node-idx { font-size: 44px; font-weight: 400; letter-spacing: -0.03em; }
+.nR .node-sub { text-align: center; }
+.nR::after { display: none; }
+@media (max-width: 640px) {
+  .map { grid-template-columns: 1fr; grid-template-areas: "E" "S" "P" "C" "C0"; gap: 12px; }
+  .node::after { display: none; }
+  h1.display { font-size: 34px; } .container { padding: 32px 16px 60px; }
+  .big-num { font-size: 44px; }
+}
+
+/* detalle */
+.force-head { padding: 24px 26px; border-radius: 18px; background: var(--tool-soft); margin-bottom: 20px; }
+.factor { padding: 20px 22px; margin-bottom: 14px; }
+.factor-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 4px; flex-wrap: wrap; }
+.factor-tag { font-size: 11px; color: var(--tool-deep); font-weight: 500; margin-top: 2px; }
+.factor-help { font-size: 13px; line-height: 1.55; color: var(--ink-muted); margin: 6px 0 14px; max-width: 64ch; }
+.factor-ask { font: 400 16px/1.4 'Fraunces', Georgia, serif; margin-bottom: 12px; }
+.seg { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 10px; }
+.sg { font: 600 16px 'Inter', sans-serif; font-variant-numeric: tabular-nums; height: 46px; color: var(--ink-soft); background: var(--surface); border: 1.5px solid var(--line); border-radius: 12px; cursor: pointer; transition: all .15s ease; }
+.sg:hover { border-color: var(--ink-muted); }
+.sg[aria-pressed="true"] { background: var(--s); border-color: var(--d); color: var(--k); }
+.legend { display: flex; flex-direction: column; gap: 3px; font-size: 12.5px; line-height: 1.45; color: var(--ink-muted); }
+.legend div { display: flex; gap: 8px; } .legend b { width: 12px; flex-shrink: 0; font-weight: 600; }
+.legend div.on { color: var(--ink); }
+.chips { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line-soft); }
+.chips .lab { font-size: 11px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink-muted); margin-right: 4px; }
+.chip { font: 500 12px 'Inter', sans-serif; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink-soft); cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+.live { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+.live-idx { font: 400 40px/1 'Fraunces', Georgia, serif; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+
+/* análisis */
+.recap { padding: 18px 20px; border-radius: 14px; margin-bottom: 14px; background: var(--s); color: var(--k); }
+.recap ul { list-style: none; display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+.recap li { font: 400 14px/1.45 'Fraunces', Georgia, serif; padding-left: 14px; position: relative; }
+.recap li::before { content: ''; position: absolute; left: 0; top: 9px; width: 5px; height: 5px; border-radius: 50%; background: currentColor; opacity: .55; }
+.recap li small { font: 400 12px 'Inter', sans-serif; opacity: .75; }
+
+/* niveles (intro e informe) */
+.levels { display: flex; flex-direction: column; }
+.lvl-row { display: grid; grid-template-columns: 138px 1fr; gap: 6px 16px; padding: 12px 10px; border-top: 1px solid var(--line-soft); align-items: start; }
+.lvl-row:first-child { border-top: none; }
+.lvl-row.on { background: var(--s); border-radius: 10px; border-top-color: transparent; }
+.lvl-row .pill { justify-self: start; }
+.lvl-name { font: 500 15px 'Fraunces', Georgia, serif; margin-top: 5px; }
+.lvl-desc { font-size: 13.5px; line-height: 1.55; color: var(--ink-soft); }
+.lvl-desc b { color: var(--ink); font-weight: 600; }
+@media (max-width: 560px) { .lvl-row { grid-template-columns: 1fr; } }
+
+/* informe */
+.report { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 44px 44px 36px; margin-bottom: 20px; }
+.report .sec { font-size: 10.5px; font-weight: 600; color: var(--tool-deep); text-transform: uppercase; letter-spacing: 2.2px; padding-bottom: 8px; border-bottom: 1px solid var(--line); margin: 38px 0 16px; display: block; }
+.rep-meta { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; font-size: 11.5px; color: var(--ink-muted); letter-spacing: .5px; }
+.rep-title { font: 400 30px/1.2 'Fraunces', Georgia, serif; letter-spacing: -0.015em; text-wrap: balance; margin: 14px 0 22px; }
+.summary { background: var(--tool-soft); border-left: 3px solid var(--tool-deep); border-radius: 0 8px 8px 0; padding: 18px 22px; }
+.score-row { display: grid; grid-template-columns: auto 1fr; gap: 10px 28px; align-items: center; margin-bottom: 18px; }
+.viz { display: grid; grid-template-columns: 1.1fr 1fr; gap: 20px; align-items: center; }
+.rank { display: flex; flex-direction: column; gap: 12px; }
+.rank-row .rk { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px; gap: 8px; }
+.rank-row .rk span:first-child { font-family: 'Fraunces', Georgia, serif; }
+.rank-row .rk span:last-child { font-variant-numeric: tabular-nums; font-weight: 600; }
+.bar { height: 8px; border-radius: 999px; background: var(--line-soft); overflow: hidden; } .bar i { display: block; height: 100%; background: var(--m); border-radius: 999px; }
+.rep-force { margin-bottom: 30px; }
+.rep-force-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 6px; }
+.reading { font: italic 300 14.5px/1.6 'Fraunces', Georgia, serif; color: var(--ink-soft); margin-bottom: 8px; }
+.frow { display: grid; grid-template-columns: 1.25fr 1fr auto; gap: 6px 14px; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--line-soft); font-size: 13.5px; }
+.frow .fl { font-family: 'Fraunces', Georgia, serif; min-width: 0; } .frow .fc { color: var(--ink-muted); font-size: 12.5px; min-width: 0; }
+.quote { font: italic 300 15px/1.65 'Fraunces', Georgia, serif; color: var(--ink-soft); margin-top: 10px; padding-left: 14px; border-left: 2px solid var(--line); }
+.crit { padding: 14px 0; border-bottom: 1px solid var(--line-soft); }
+.crit-top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
+.crit-top b { font: 500 15px 'Fraunces', Georgia, serif; }
+.crit p { font-size: 13.5px; color: var(--ink-soft); line-height: 1.55; }
+.crit small { font-size: 11.5px; color: var(--ink-muted); }
+.method { font-size: 12.5px; line-height: 1.65; color: var(--ink-soft); }
+.actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; margin-bottom: 18px; }
+.toast { font-size: 13px; color: var(--l0-deep); font-weight: 500; align-self: center; }
+@media (max-width: 700px) { .viz { grid-template-columns: 1fr; } .score-row { grid-template-columns: 1fr; } }
+@media (max-width: 640px) { .report { padding: 28px 18px; } .frow { grid-template-columns: 1fr auto; } .frow .fc { grid-column: 1 / -1; order: 3; } .rep-title { font-size: 24px; } }
+</style>
+</head>
+<body>
+<!-- INTRO -->
+<div id="screen-intro" class="screen active">
+  <div class="container">
+    <div class="eyebrow-line fade"><span class="eyebrow">IPE 2 · Análisis del microentorno</span></div>
+    <h1 class="display fade" style="margin-bottom:22px;">El modelo de <em>Porter</em></h1>
+    <p class="prose-italic fade" style="font-size:18px; margin-bottom:34px;">Mide con rigor la presión competitiva de tu sector: quién puede entrar, qué te puede sustituir, cuánto poder tienen proveedores y clientes y cómo compiten ya las empresas actuales.</p>
+
+    <div class="card fade" style="padding:24px 26px; margin-bottom:18px;">
+      <h3 class="subtitle" style="margin-bottom:14px;">Cómo funciona</h3>
+      <ol style="list-style:none; display:flex; flex-direction:column; gap:12px;">
+        <li style="display:flex; gap:14px; align-items:flex-start;"><span class="stepnum">1</span><span class="prose" style="font-size:14.5px;">Describe tu <b>idea de negocio</b> y el sector en el que va a competir.</span></li>
+        <li style="display:flex; gap:14px; align-items:flex-start;"><span class="stepnum">2</span><span class="prose" style="font-size:14.5px;">Valora <b>25 factores</b> repartidos en las 5 fuerzas, de 1 a 5, con una descripción para cada nivel. Si un factor pesa más o menos en tu sector, puedes ajustarlo.</span></li>
+        <li style="display:flex; gap:14px; align-items:flex-start;"><span class="stepnum">3</span><span class="prose" style="font-size:14.5px;">Obtén tu <b>nivel de rivalidad de 0 a 10</b>, un mapa de presión por fuerza, los factores críticos y una respuesta estratégica para cada uno.</span></li>
+      </ol>
+    </div>
+
+    <div class="card fade" style="padding:22px 24px; margin-bottom:18px; background:var(--tool-soft); border-color:var(--tool-mid);">
+      <p class="eyebrow" style="color:var(--tool-deep); margin-bottom:8px; font-weight:600;">Cómo se mide</p>
+      <p class="prose" style="font-size:14.5px;">Cada valoración de 1 a 5 se convierte en una <b>puntuación de presión de 0 a 10</b>: cuanto más alta, más presión recibe tu negocio. Algunos factores actúan como barrera (por ejemplo, el capital inicial necesario): ahí un valor alto <b>reduce</b> la presión, y la herramienta lo tiene en cuenta. La puntuación de cada fuerza es la media ponderada de sus factores, y el nivel de rivalidad del sector es la media de las cinco fuerzas.</p>
+    </div>
+
+    <div class="card fade" style="padding:20px 24px; margin-bottom:30px;">
+      <p class="eyebrow" style="margin-bottom:6px; font-weight:600;">Qué significa cada nivel de rivalidad</p>
+      <div id="levels-intro" class="levels"></div>
+    </div>
+
+    <div class="fade" style="margin-bottom:22px;">
+      <label class="label-form" for="idea-input">Tu idea de negocio y su sector</label>
+      <textarea id="idea-input" class="text-input" rows="4" style="min-height:104px;" placeholder="Ej: Taller de carpintería a medida para mobiliario de pequeños comercios y hostelería del barrio."></textarea>
+    </div>
+    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+      <button id="btn-start" class="btn btn-primary" style="flex:1; min-width:220px; padding:16px; font-size:15px;" disabled>Comenzar el análisis →</button>
+      <button id="btn-example" class="btn btn-ghost" style="padding:16px 22px;">Ver un ejemplo resuelto</button>
+    </div>
+  </div>
+</div>
+
+<!-- MAPA -->
+<div id="screen-map" class="screen">
+  <div class="container">
+    <button class="btn-back" data-go="intro">← Volver</button>
+    <span class="eyebrow" style="display:block; margin-bottom:10px;">Analizando</span>
+    <p id="idea-map" class="serif" style="font-size:24px; line-height:1.3; font-weight:300; letter-spacing:-0.01em; margin-bottom:24px;"></p>
+    <div id="hero-score" class="hero-score"></div>
+    <h3 class="subtitle" style="margin-bottom:6px;">Las cinco fuerzas</h3>
+    <p class="prose" style="font-size:13.5px; margin-bottom:22px; color:var(--ink-muted);">Entra en cada fuerza y valora sus cinco factores. El resultado global se actualiza al terminar cada una.</p>
+    <div id="map" class="map"></div>
+    <button id="btn-to-analysis" class="btn btn-primary" style="width:100%; padding:16px; font-size:15px;" disabled></button>
+  </div>
+</div>
+
+<!-- DETALLE -->
+<div id="screen-force" class="screen">
+  <div class="container">
+    <div class="top-bar">
+      <button class="btn-back" data-go="map" style="margin:0;">← Mapa de fuerzas</button>
+      <div id="force-dots" class="dots"></div>
+    </div>
+    <div id="force-head" class="force-head fade"></div>
+    <div class="card" style="padding:20px 24px; margin-bottom:16px;">
+      <div class="live"><span class="label-form" style="margin:0;">Puntuación de esta fuerza</span><span id="live-idx" class="live-idx">—</span></div>
+      <div id="live-gauge"></div>
+      <p id="live-lvl" class="prose-italic" style="font-size:14px; margin-top:6px;"></p>
+    </div>
+    <div id="factors"></div>
+    <div style="margin:20px 0;">
+      <label class="label-form" for="force-note">Justifica tu valoración<span class="opt-tag">· opcional</span></label>
+      <textarea id="force-note" class="text-input" rows="3" style="min-height:90px;" placeholder="Si quieres, anota los datos o ejemplos de tu sector en los que te has basado (competidores, proveedores, clientes concretos...)."></textarea>
+    </div>
+    <div style="display:flex; gap:10px;">
+      <button class="btn btn-ghost" data-go="map">← Mapa</button>
+      <button id="btn-save-force" class="btn btn-primary" style="flex:1;" disabled>Guardar y volver al mapa</button>
+    </div>
+  </div>
+</div>
+
+<!-- ANÁLISIS -->
+<div id="screen-analysis" class="screen">
+  <div class="container">
+    <button class="btn-back" data-go="map">← Mapa de fuerzas</button>
+    <span class="eyebrow" style="display:block; margin-bottom:10px;">Análisis de resultado</span>
+    <h2 class="title" style="margin-bottom:10px;">¿Qué dicen tus <em style="color:var(--tool-deep);">números</em>?</h2>
+    <p class="prose" style="font-size:14.5px; margin-bottom:22px;">Estos son los factores que mejor y peor te han salido. Úsalos como punto de partida para reflexionar con tus propias palabras. Las dos respuestas son obligatorias.</p>
+    <div id="recap"></div>
+    <div style="margin:22px 0 8px;">
+      <label class="label-form" for="ref-pos" style="text-transform:none; letter-spacing:0; font:400 16px/1.4 'Fraunces',Georgia,serif; color:var(--ink);">¿Qué aspectos presentan una valoración más positiva? ¿Cómo pueden afectar a nuestra idea de negocio?</label>
+      <textarea id="ref-pos" class="text-input" rows="4" style="min-height:110px;"></textarea>
+      <p id="hint-pos" class="field-hint"></p>
+    </div>
+    <div style="margin:22px 0 26px;">
+      <label class="label-form" for="ref-neg" style="text-transform:none; letter-spacing:0; font:400 16px/1.4 'Fraunces',Georgia,serif; color:var(--ink);">¿Qué aspectos presentan una valoración más negativa? ¿Cómo pueden afectar a nuestra idea de negocio?</label>
+      <textarea id="ref-neg" class="text-input" rows="4" style="min-height:110px;"></textarea>
+      <p id="hint-neg" class="field-hint"></p>
+    </div>
+    <button id="btn-report" class="btn btn-primary" style="width:100%; padding:16px; font-size:15px;" disabled>Generar informe</button>
+  </div>
+</div>
+
+<!-- INFORME -->
+<div id="screen-report" class="screen">
+  <div class="container" style="max-width:880px;">
+    <div class="actions">
+      <span id="toast" class="toast"></span>
+      <button class="btn btn-ghost" data-go="analysis">Editar</button>
+      <button class="btn btn-ghost" id="btn-reset">Nueva idea</button>
+      <button class="btn btn-primary" id="btn-copy">Copiar informe</button>
+    </div>
+    <article id="report" class="report fade"></article>
+    <textarea id="copy-fallback" class="text-input" rows="8" hidden aria-label="Informe en texto para copiar"></textarea>
+  </div>
+</div>
+
+<script>
+// ═════════ DATOS ═════════
+// Cada factor se valora de 1 a 5 con anclajes en 1, 3 y 5. inv=true: valor alto = barrera/amortiguador (reduce la presión).
+const INCLUIR_RIVALIDAD_INTERNA = true; // true: el nivel global es la media de las 5 fuerzas; false: solo las 4 primeras (plantilla original)
+const FORCES = [
+  { id:'E', short:'Nuevos competidores', rad:'Nuevos entrantes', name:'Amenaza de nuevos competidores', ask:'¿Cómo de probable es que aparezca otra empresa parecida a la tuya?',
+    def:'Otras empresas pueden entrar en el mercado y quitarte clientela. Las barreras de entrada determinan lo fácil o difícil que resulta que lo hagan.',
+    read:[ 'Las barreras de entrada son altas: es poco probable que surjan competidores nuevos a corto plazo, lo que protege tus márgenes.',
+           'Las barreras son moderadas: pueden aparecer entrantes si el sector resulta atractivo, por lo que conviene reforzar tu diferenciación.',
+           'Entrar es fácil: es previsible que aparezcan competidores que repliquen tu idea. La ventaja deberá venir de la rapidez, la marca y la fidelización.' ],
+    factors:[
+      { id:'E1', label:'Restricciones legales o licencias', inv:true, ask:'¿Qué nivel de exigencia legal hay para operar en tu sector?',
+        help:'Permisos, certificaciones y normas (sanidad, medio ambiente, seguridad) encarecen y retrasan la entrada. A más trabas, menos aspirantes.',
+        a:['Casi sin requisitos: se puede abrir en días','Varios permisos y trámites habituales','Licencias escasas o normativa muy exigente'],
+        tip:'Si las trabas son pocas, cualquiera puede copiarte: apóyate en certificaciones voluntarias, calidad acreditada o contratos que eleven el listón.' },
+      { id:'E2', label:'Capital inicial necesario', inv:true, ask:'¿Cuánta inversión inicial exige competir en condiciones?',
+        help:'Maquinaria, local, stock o tecnología costosos filtran a los entrantes. Si basta con un ordenador y poco capital, la competencia puede multiplicarse.',
+        a:['Muy poca: basta con un ordenador','Inversión moderada y financiable','Inversión alta en maquinaria, local o stock'],
+        tip:'Con poco capital de entrada, la defensa pasa por crecer rápido, fidelizar y construir activos difíciles de replicar: clientes, datos y marca.' },
+      { id:'E3', label:'Economías de escala', inv:true, ask:'¿Cuánto abarata los costes producir o comprar en volumen?',
+        help:'Si las grandes empresas producen más y a menor coste, un entrante pequeño parte con desventaja de precio.',
+        a:['Apenas: el coste unitario no baja con el volumen','Hay ventaja de coste, pero moderada','Fuerte: los grandes tienen costes muy inferiores'],
+        tip:'Sin economías de escala el entrante compite de igual a igual: evita la guerra de precios y compite en servicio, especialización o cercanía.' },
+      { id:'E4', label:'Existencia de empresas reputadas', inv:true, ask:'¿Pesan las marcas consolidadas y la fidelidad de los clientes?',
+        help:'Las marcas con buena imagen y clientes fieles actúan como barrera psicológica: el consumidor tiende a elegir «lo conocido».',
+        a:['No hay marcas de referencia ni fidelidad','Hay marcas conocidas, pero se cambia con facilidad','Dominan marcas muy fuertes y fidelizadas'],
+        tip:'Frente a marcas débiles, otro puede ocupar su lugar: construye reputación pronto con reseñas, casos de éxito y garantías visibles.' },
+      { id:'E5', label:'Acceso a canales de distribución', inv:true, ask:'¿Es difícil llegar al cliente por los canales habituales?',
+        help:'Si los canales de venta o distribución están copados o controlados por los actuales operadores, el entrante lo tiene más difícil.',
+        a:['Canales abiertos y baratos (web, redes, marketplaces)','Canales disponibles, con coste o acuerdos','Canales controlados por los operadores actuales'],
+        tip:'Si llegar al cliente es fácil, también lo es para otros: crea un canal propio (comunidad, suscripción, alianzas) que sea difícil de copiar.' } ] },
+  { id:'S', short:'Productos sustitutivos', rad:'Sustitutivos', name:'Amenaza de productos sustitutivos', ask:'¿Pueden los clientes resolver su necesidad con algo distinto a tu producto?',
+    def:'Un sustitutivo no es un competidor directo: es una forma diferente de resolver el mismo problema. Cuantos más sustitutos haya, y más baratos, más difícil será encontrar tu hueco.',
+    read:[ 'Existen pocos sustitutos creíbles: tu propuesta ocupa un hueco claro.',
+           'Hay alternativas parciales que limitan tus precios en una parte del mercado.',
+           'Hay sustitutos cercanos, baratos o tecnológicamente emergentes que ponen techo a tus precios y pueden erosionar tu demanda.' ],
+    factors:[
+      { id:'S1', label:'Disponibilidad de sustitutivos cercanos', ask:'¿Hay otras formas de resolver la misma necesidad del cliente?',
+        help:'Un sustitutivo resuelve el mismo problema de otra manera: por ejemplo, una videollamada frente a un viaje de negocios.',
+        a:['Ninguna alternativa real','Alguna alternativa parcial','Muchas alternativas que cubren la misma necesidad'],
+        tip:'Define qué necesidad resuelves mejor que el sustituto y comunícalo: tu propuesta debe ganar en el criterio que más valora el cliente.' },
+      { id:'S2', label:'Relación calidad-precio del sustitutivo', ask:'¿Ofrece el sustitutivo un rendimiento similar a menor precio?',
+        help:'Cuanto mejor es la relación calidad-precio del sustitutivo, más limita tus precios y más clientes puede atraer.',
+        a:['Peor que el tuyo y no más barato','Equivalente en precio y prestaciones','Similar o mejor y claramente más barato'],
+        tip:'Refuerza el valor diferencial (calidad, durabilidad, servicio) o crea una gama de entrada para no perder a los clientes sensibles al precio.' },
+      { id:'S3', label:'Dinamismo del sector', ask:'¿Cuánto cambian los gustos y las modas en tu sector?',
+        help:'Cuanto más cambian las modas, los gustos o las tecnologías, más fácil es que aparezcan productos que sustituyan al tuyo. Un sector «inquieto» implica más amenaza.',
+        a:['Sector estable, gustos que cambian poco','Cambios graduales','Sector muy cambiante, con modas y tendencias rápidas'],
+        tip:'Vigila las tendencias y diseña una oferta que puedas actualizar con rapidez, para que el cambio de gustos juegue a tu favor.' },
+      { id:'S4', label:'Cambio tecnológico', ask:'¿Qué ritmo de innovación tecnológica hay en tu sector?',
+        help:'Si la tecnología avanza rápido, pueden surgir soluciones nuevas que cubran la misma necesidad de forma más eficiente, como las plataformas digitales frente a los servicios presenciales.',
+        a:['Tecnología madura y estable','Innovación gradual','Disrupción tecnológica constante'],
+        tip:'Incorpora a tu propia oferta la tecnología que te amenaza (por ejemplo, digitalizar parte del servicio) antes de que lo haga otro.' },
+      { id:'S5', label:'Simplicidad de la necesidad que satisfacemos', ask:'¿Qué tan general es la necesidad que cubres?',
+        help:'Cuanto más específica y única es la necesidad que cubres, más difícil es sustituirte. Si es muy general («comer», «divertirse»), hay más sustitutos posibles.',
+        a:['Muy específica y difícil de cubrir de otra forma','Intermedia','Muy general y fácil de cubrir de otras formas'],
+        tip:'Especialízate: cuanto más concreto sea el problema que resuelves, y para quién, menos sustitutos compiten contigo.' } ] },
+  { id:'P', short:'Poder de proveedores', rad:'Proveedores', name:'Poder de negociación de los proveedores', ask:'¿Tienen los proveedores el poder de fijar las condiciones de tus compras?',
+    def:'Cuanto más poder tengan los proveedores, más podrán condicionar tu proceso de compra: precios, pedidos mínimos, plazos o calidad. Con pocos proveedores eres más vulnerable.',
+    read:[ 'Tienes margen para negociar: hay alternativas y cambiar de proveedor es viable.',
+           'La relación con los proveedores es equilibrada, pero hay puntos de dependencia que gestionar.',
+           'Los proveedores condicionan precios, plazos y calidad: tu coste de aprovisionamiento es vulnerable.' ],
+    factors:[
+      { id:'P1', label:'Escasez de proveedores', ask:'¿Cuántos proveedores alternativos pueden suministrarte lo esencial?',
+        help:'Si hay pocos proveedores, ellos controlan precios y condiciones. Con muchos, puedes comparar y elegir.',
+        a:['Muchos proveedores equivalentes','Un número reducido','Muy pocos o uno solo'],
+        tip:'Homologa al menos un segundo proveedor y negocia contratos marco para no depender de uno solo.' },
+      { id:'P2', label:'Organización de los proveedores', ask:'¿Cómo de grandes y organizados son?',
+        help:'Los proveedores grandes y bien organizados (estructura comercial, catálogos, control de stock) suelen imponer condiciones. Los pequeños o informales tienen menos poder.',
+        a:['Pequeños, dispersos o informales','Tamaño medio','Grandes, concentrados y bien organizados'],
+        tip:'Frente a proveedores grandes, agrupa compras (centrales de compra, cooperativas) para ganar capacidad de negociación.' },
+      { id:'P3', label:'Dificultad de cambio de proveedor', ask:'¿Cuánto te costaría cambiar de proveedor?',
+        help:'Si cambiar implica costes, demoras o riesgos de calidad, estás «atado» y tu dependencia aumenta. Cuanto más fácil sustituirlos, más poder tienes tú.',
+        a:['Cambiar es fácil, rápido y barato','Supone algún coste o demora','Muy costoso, lento o arriesgado'],
+        tip:'Reduce tu dependencia: estandariza materiales, evita exclusividades y mantén alternativas ya probadas.' },
+      { id:'P4', label:'Diferenciación del producto del proveedor', ask:'¿Es único o difícil de reemplazar lo que te suministran?',
+        help:'Si el insumo es diferenciado, patentado o de marca, el proveedor tiene más poder que si vende una materia prima intercambiable.',
+        a:['Producto estándar e intercambiable','Algo diferenciado','Único, patentado o imprescindible'],
+        tip:'Busca insumos equivalentes o rediseña el producto para poder usar materiales estándar.' },
+      { id:'P5', label:'Peso de tu negocio para el proveedor', ask:'¿Qué importancia tienes como cliente para tus proveedores?',
+        help:'Si representas poco para el proveedor, tiene poco que perder contigo y más margen para imponerte condiciones.',
+        a:['Soy un cliente clave: no pueden perderme','Cliente relevante, pero no clave','Cliente marginal: pierden poco si me voy'],
+        tip:'Concentra tus compras en pocos proveedores para ganar peso, o trabaja con proveedores locales para los que sí seas importante.' } ] },
+  { id:'C', short:'Poder de clientes', rad:'Clientes', name:'Poder de negociación de los clientes', ask:'¿Tienen los clientes el poder de exigir, comparar y apretarte los precios?',
+    def:'Cuanto más poder tengan los compradores, más podrán exigirte descuentos, mejores condiciones o cambiar de proveedor. Las empresas que venden a pocos clientes están más expuestas.',
+    read:[ 'Tus clientes tienen poca capacidad de presión: puedes sostener precios y condiciones.',
+           'Los clientes negocian en algunos aspectos; conviene fidelizar y diversificar la cartera.',
+           'Los clientes pueden imponer precio y condiciones y cambiarse con facilidad: el margen está en riesgo.' ],
+    factors:[
+      { id:'C1', label:'Escasez de clientes (concentración)', ask:'¿Dependes de pocos clientes que concentran tus ventas?',
+        help:'Si pocos clientes compran mucho, pueden exigir descuentos y condiciones. Con muchos clientes pequeños y variados, tu poder de negociación aumenta.',
+        a:['Muchos clientes pequeños; ninguno supera el 10 % de las ventas','Cartera intermedia con algunos clientes relevantes','Pocos clientes concentran la mayor parte de las ventas'],
+        tip:'Diversifica la cartera: fija un tope de dependencia por cliente y abre nuevos segmentos.' },
+      { id:'C2', label:'Organización e información de los clientes', ask:'¿Cuánto saben y cómo se organizan al comprar?',
+        help:'Hoy los clientes comparan precios online y leen reseñas. Cuanta más información tengan, o más organizados estén (compras agrupadas, centrales), más fácil les resulta negociar.',
+        a:['Poco informados; compran de forma individual','Se informan y comparan de vez en cuando','Muy informados, comparan siempre o compran en grupo'],
+        tip:'Aporta transparencia con valor: publica casos, garantías y reseñas, y justifica tu precio con datos para que la comparación juegue a tu favor.' },
+      { id:'C3', label:'Facilidad de cambio para el cliente', ask:'¿Cuánto le cuesta al cliente irse a la competencia?',
+        help:'Cuando hay muchas empresas ofreciendo lo mismo y cambiar es fácil, el cliente puede elegir sin coste. Eso reduce tu capacidad de mantener precios o fidelizar.',
+        a:['Cambiar le cuesta mucho (contratos, hábitos, costes)','Cambiar le supone algo de esfuerzo','Cambia sin coste ni esfuerzo'],
+        tip:'Crea costes de cambio positivos: programas de fidelización, servicio posventa, integración con sus procesos o contratos recurrentes.' },
+      { id:'C4', label:'Sensibilidad al precio', ask:'¿Cuánto influye el precio en la decisión de compra?',
+        help:'Si el producto supone un gasto importante para el cliente, o es indiferenciado, el precio decide y su poder aumenta.',
+        a:['Compran por calidad, marca o servicio','El precio pesa, junto a otros criterios','El precio es el criterio principal'],
+        tip:'Desplaza la conversación del precio al valor: ofrece paquetes, garantías y resultados medibles.' },
+      { id:'C5', label:'Capacidad de hacerlo por su cuenta', ask:'¿Podría el cliente resolverlo internamente en lugar de comprártelo?',
+        help:'Si el cliente puede fabricar o resolver por sí mismo lo que le vendes, tiene una amenaza creíble para negociar.',
+        a:['Imposible o muy poco rentable','Posible, pero poco probable','Fácil y rentable hacerlo por su cuenta'],
+        tip:'Aporta conocimiento, escala o rapidez que al cliente le resulte caro igualar, para que internalizarte no compense.' } ] },
+  { id:'R', short:'Rivalidad entre competidores actuales', rad:'Rivalidad actual', name:'Rivalidad entre competidores actuales', ask:'¿Con qué intensidad compiten ya las empresas del sector?',
+    def:'Es la fuerza central: la intensidad con la que los competidores actuales se disputan a los clientes con precios, promociones, servicio o innovación. Las otras cuatro fuerzas la alimentan.',
+    read:[ 'La competencia actual es llevadera: el mercado deja espacio para crecer sin guerras de precios.',
+           'Hay competencia activa: te exigirá una diferenciación clara y un buen control de costes.',
+           'La competencia es intensa: es probable que haya presión continua sobre precios y promociones.' ],
+    factors:[
+      { id:'R1', label:'Número y equilibrio de competidores', ask:'¿Cuántos competidores hay y de qué tamaño?',
+        help:'Muchos competidores de tamaño parecido y sin líder claro compiten con más dureza. Un líder dominante suele disciplinar el mercado.',
+        a:['Pocos, o con un líder claro','Varios, con cierto equilibrio','Muchos y de tamaño similar, sin líder'],
+        tip:'Evita el choque frontal: elige un segmento o una zona donde puedas ser la referencia.' },
+      { id:'R2', label:'Crecimiento del mercado', inv:true, ask:'¿A qué ritmo crece la demanda?',
+        help:'Con la demanda en expansión hay clientes para todos. En mercados estancados o en declive, ganar cuota significa quitársela a otro.',
+        a:['Estancado o en declive','Crecimiento moderado','Crecimiento rápido'],
+        tip:'En mercados que no crecen, la cuota se gana a costa de otros: diferénciate y fideliza para no depender de guerras de precio.' },
+      { id:'R3', label:'Costes fijos y exceso de capacidad', ask:'¿Pesan mucho los costes fijos o la capacidad sin usar?',
+        help:'Con costes fijos altos, las empresas necesitan vender volumen y recortan precios para llenar su capacidad.',
+        a:['Costes casi todos variables, fáciles de ajustar','Mezcla de costes fijos y variables','Costes fijos altos y capacidad difícil de ajustar'],
+        tip:'Flexibiliza tu estructura (subcontratación, alquiler, pago por uso) para aguantar los periodos flojos sin bajar precios.' },
+      { id:'R4', label:'Diferenciación de la oferta', inv:true, ask:'¿Cuánto se diferencian entre sí los productos o servicios del sector?',
+        help:'Cuando la oferta es parecida, el cliente decide por precio y la rivalidad se intensifica. La diferenciación y la fidelidad la amortiguan.',
+        a:['Oferta casi idéntica entre competidores','Diferencias apreciables, pero copiables','Oferta muy diferenciada y difícil de copiar'],
+        tip:'Construye una propuesta de valor propia (especialización, diseño, servicio) que el cliente no pueda comparar solo por precio.' },
+      { id:'R5', label:'Barreras de salida', ask:'¿Les cuesta mucho a las empresas abandonar el sector?',
+        help:'Activos especializados, contratos largos o vínculos emocionales hacen que empresas poco rentables sigan compitiendo y mantengan la presión.',
+        a:['Salir es fácil: activos vendibles y sin ataduras','Salir tiene costes moderados','Salir es muy costoso: activos especializados o contratos largos'],
+        tip:'Evita al inicio inversiones muy especializadas e irrecuperables y apuesta por modelos ligeros en activos.' } ] },
+];
+const FORCE_LVL = ['Muy baja','Baja','Media','Alta'];
+const FACT_LBL = ['Favorable','Aceptable','A vigilar','Crítico'];
+const RIVALIDAD = [
+  { rango:'0 a 3,5',  n:'Muy baja rivalidad', t:'sector poco hostil: hay hueco para entrar y mantener márgenes.', riesgo:'El riesgo es confiarse y no reforzar la diferenciación.', acc:'Entrar con decisión y construir marca desde el inicio.' },
+  { rango:'3,5 a 5,5', n:'Baja rivalidad',     t:'entorno favorable, con presiones puntuales.', riesgo:'Conviene identificar la fuerza más débil y blindarla.', acc:'Entrar, protegiendo la fuerza que más presiona.' },
+  { rango:'5,5 a 7,5', n:'Rivalidad media',    t:'sector exigente: se puede competir, pero con una propuesta de valor clara, control de costes y gestión activa de clientes y proveedores.', riesgo:'Los márgenes dependen de cómo te diferencies.', acc:'Entrar solo con una diferenciación demostrable y un plan de costes.' },
+  { rango:'7,5 a 10', n:'Alta rivalidad',     t:'sector muy hostil: la rentabilidad media suele ser baja.', riesgo:'Solo se justifica entrar con un nicho defendible, una ventaja en costes o un modelo claramente distinto.', acc:'Replantear nicho o modelo de negocio antes de invertir.' },
+];
+const PESOS = [0.5, 1, 1.5], PESO_LBL = ['Menor','Normal','Mayor'];
+const MIN_REF = 30;
+
+// ═════════ ESTADO ═════════
+const state = { idea:'', vals:{}, w:{}, notes:{E:'',S:'',P:'',C:'',R:''}, refPos:'', refNeg:'', cur:'E' };
+const $ = id => document.getElementById(id);
+const esc = s => { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; };
+const fmt = x => x.toLocaleString('es-ES', { minimumFractionDigits:1, maximumFractionDigits:1 });
+const force = id => FORCES.find(f => f.id === id);
+const allFactors = () => FORCES.flatMap(F => F.factors.map(f => ({ ...f, F })));
+const weight = f => state.w[f.id] || 1;
+
+// ═════════ CÁLCULO ═════════
+const raw = v => (v - 1) * 2.5;                       // 1..5 → 0..10
+const threat = (f, v) => f.inv ? 10 - raw(v) : raw(v); // puntuación de presión 0..10
+const lv = x => x <= 3.5 ? 0 : x <= 5.5 ? 1 : x <= 7.5 ? 2 : 3;
+function partialScore(F) {
+  const rows = F.factors.filter(f => state.vals[f.id] !== undefined);
+  if (!rows.length) return null;
+  const sw = rows.reduce((a, f) => a + weight(f), 0);
+  return rows.reduce((a, f) => a + weight(f) * threat(f, state.vals[f.id]), 0) / sw;
+}
+const forceScore = F => F.factors.every(f => state.vals[f.id] !== undefined) ? partialScore(F) : null;
+const forceDone = F => forceScore(F) !== null;
+const used = () => INCLUIR_RIVALIDAD_INTERNA ? FORCES : FORCES.filter(F => F.id !== 'R');
+function overall() { const v = used().map(forceScore); return v.every(x => x !== null) ? v.reduce((a, b) => a + b, 0) / v.length : null; }
+const allDone = () => used().every(forceDone);
+const readOf = (F, s) => F.read[lv(s) <= 1 ? 0 : lv(s) === 2 ? 1 : 2];
+
+// ═════════ COMPONENTES ═════════
+const TICKS = [[0,'0'],[35,'3,5'],[55,'5,5'],[75,'7,5'],[100,'10']];
+function gaugeHTML(score) {
+  return `<div class="gauge-wrap ${score === null ? 'off' : ''}"><div class="gauge"><i></i><i></i><i></i><i></i></div>${score === null ? '' : `<div class="marker" style="left:${score * 10}%"></div>`}</div>
+    <div class="ticks">${TICKS.map(t => `<span style="left:${t[0]}%">${t[1]}</span>`).join('')}</div>`;
+}
+function levelsHTML(active) {
+  return RIVALIDAD.map((r, i) => `<div class="lvl-row l${i} ${active === i ? 'on' : ''}"><div><span class="pill">${r.rango}</span><div class="lvl-name">${r.n}</div></div>
+    <div class="lvl-desc">${r.t[0].toUpperCase() + r.t.slice(1)} ${r.riesgo} <b>Recomendación:</b> ${r.acc}</div></div>`).join('');
+}
+$('levels-intro').innerHTML = levelsHTML(-1);
+
+// ═════════ NAVEGACIÓN ═════════
+function go(s) {
+  document.querySelectorAll('.screen').forEach(e => e.classList.remove('active'));
+  $('screen-' + s).classList.add('active');
+  window.scrollTo({ top:0 });
+  if (s === 'map') renderMap();
+  if (s === 'force') renderForce();
+  if (s === 'analysis') renderAnalysis();
+  if (s === 'report') renderReport();
+}
+document.addEventListener('click', e => { const b = e.target.closest('[data-go]'); if (b) go(b.dataset.go); });
+
+// ═════════ INTRO ═════════
+$('idea-input').addEventListener('input', e => { state.idea = e.target.value; $('btn-start').disabled = state.idea.trim().length < 15; });
+$('btn-start').addEventListener('click', () => go('map'));
+$('btn-example').addEventListener('click', () => {
+  state.idea = 'Taller de carpintería a medida para mobiliario de pequeños comercios y hostelería del barrio, con servicio de instalación incluido.';
+  Object.assign(state.vals, { E1:3, E2:4, E3:3, E4:3, E5:2,  S1:3, S2:2, S3:2, S4:2, S5:1,  P1:1, P2:3, P3:2, P4:2, P5:4,  C1:2, C2:5, C3:3, C4:4, C5:1,  R1:4, R2:2, R3:3, R4:3, R5:3 });
+  state.w = { E5:1.5, C2:1.5 };
+  state.notes = { E:'Montar un taller exige maquinaria cara y local, pero los canales para captar clientes (web, redes, boca a boca) están abiertos para cualquiera.', S:'', P:'Hay varios aserraderos y distribuidores de tablero en la comarca, aunque como taller pequeño pesamos poco para ellos.', C:'', R:'' };
+  state.refPos = 'La necesidad tan específica que cubrimos y la facilidad para cambiar de proveedor nos dan margen. Podemos competir en calidad y trato personal, no solo en precio.';
+  state.refNeg = 'Los clientes están muy informados y comparan presupuestos con facilidad, y el mercado local crece poco. Habrá que fidelizarlos con instalación y mantenimiento para no competir solo por precio.';
+  $('idea-input').value = state.idea; $('btn-start').disabled = false;
+  go('map');
+});
+
+// ═════════ MAPA ═════════
+function renderMap() {
+  $('idea-map').innerHTML = esc(state.idea);
+  const o = overall(), n = FORCES.filter(forceDone).length, nf = allFactors().filter(f => state.vals[f.id] !== undefined).length;
+  const hs = $('hero-score');
+  hs.className = 'hero-score' + (o !== null ? ' done l' + lv(o) : '');
+  hs.innerHTML = `<div class="hero-top"><div><span class="eyebrow" style="font-weight:600;">Nivel de rivalidad del sector</span>
+      <div class="serif" style="font-size:19px; margin-top:4px; color:${o !== null ? 'var(--k)' : 'var(--ink-muted)'};">${o !== null ? RIVALIDAD[lv(o)].n : 'Pendiente de valorar'}</div></div>
+      <div class="big-num">${o !== null ? fmt(o) : '—'}<small> / 10</small></div></div>
+    ${gaugeHTML(o)}<p class="progress-line" style="margin-top:8px;">${n} de ${FORCES.length} fuerzas completas · ${nf} de ${allFactors().length} factores valorados</p>`;
+  const pos = { E:'left', S:'left', C:'right', P:'right', R:'' };
+  $('map').innerHTML = FORCES.map(F => {
+    const s = forceScore(F), done = s !== null;
+    const answered = F.factors.filter(f => state.vals[f.id] !== undefined).length;
+    return `<button type="button" class="node n${F.id} ${pos[F.id]} ${done ? 'done l' + lv(s) : ''}" data-force="${F.id}">
+      <div class="node-name">${F.short}</div>
+      <div class="node-foot"><span class="node-idx">${done ? fmt(s) : '—'}</span>
+      <span class="node-sub">${done ? 'Presión ' + FORCE_LVL[lv(s)].toLowerCase() : answered + ' de 5 factores'}</span></div></button>`;
+  }).join('');
+  document.querySelectorAll('.node').forEach(b => b.addEventListener('click', () => { state.cur = b.dataset.force; go('force'); }));
+  const ok = allDone();
+  $('btn-to-analysis').disabled = !ok;
+  $('btn-to-analysis').textContent = ok ? 'Continuar al análisis de resultado →' : `Completa las ${used().filter(F => !forceDone(F)).length} fuerzas restantes`;
+  $('btn-to-analysis').onclick = () => go('analysis');
+}
+
+// ═════════ DETALLE DE FUERZA ═════════
+function renderForce() {
+  const F = force(state.cur);
+  $('force-head').innerHTML = `<span class="eyebrow" style="color:var(--tool-deep); font-weight:600; display:block; margin-bottom:8px;">Fuerza ${FORCES.indexOf(F) + 1} de ${FORCES.length}</span>
+    <h2 class="title" style="color:var(--tool-deep); margin-bottom:10px;">${F.name}</h2>
+    <p class="serif" style="font-size:17px; margin-bottom:10px;">${F.ask}</p>
+    <p class="prose-italic" style="font-size:14.5px;">${F.def}</p>`;
+  $('force-dots').innerHTML = FORCES.map(x => `<div class="dot ${x.id === F.id ? 'active' : forceDone(x) ? 'done' : ''}"></div>`).join('');
+  $('factors').innerHTML = F.factors.map(f => {
+    const v = state.vals[f.id];
+    const pill = v === undefined ? '' : (() => { const t = threat(f, v); return `<span class="pill l${lv(t)}">${FACT_LBL[lv(t)]} · ${fmt(t)}</span>`; })();
+    const seg = [1, 2, 3, 4, 5].map(i => `<button type="button" class="sg l${lv(threat(f, i))}" aria-pressed="${v === i}" aria-label="Valor ${i} de 5" data-f="${f.id}" data-v="${i}">${i}</button>`).join('');
+    const on = r => v !== undefined && (r === v || (v % 2 === 0 && Math.abs(r - v) === 1));
+    const legend = [1, 3, 5].map((r, k) => `<div class="${on(r) ? 'on' : ''}"><b>${r}</b><span>${f.a[k]}</span></div>`).join('');
+    const chips = PESOS.map((p, i) => `<button type="button" class="chip" aria-pressed="${weight(f) === p}" data-wf="${f.id}" data-w="${p}">${PESO_LBL[i]}</button>`).join('');
+    return `<div class="card factor"><div class="factor-top"><div><h3 class="subtitle">${f.label}</h3>${f.inv ? '<div class="factor-tag">Valor alto = barrera: reduce la presión</div>' : ''}</div>${pill}</div>
+      <p class="factor-help">${f.help}</p><p class="factor-ask">${f.ask}</p>
+      <div class="seg" role="group" aria-label="${f.label}">${seg}</div><div class="legend">${legend}</div>
+      <div class="chips"><span class="lab">Peso en tu sector</span>${chips}</div></div>`;
+  }).join('');
+  document.querySelectorAll('.sg').forEach(b => b.addEventListener('click', () => { state.vals[b.dataset.f] = parseInt(b.dataset.v, 10); renderForce(); }));
+  document.querySelectorAll('.chip').forEach(b => b.addEventListener('click', () => { state.w[b.dataset.wf] = parseFloat(b.dataset.w); renderForce(); }));
+  $('force-note').value = state.notes[F.id];
+  updateLive();
+}
+function updateLive() {
+  const F = force(state.cur), s = partialScore(F);
+  const n = F.factors.filter(f => state.vals[f.id] !== undefined).length;
+  $('live-idx').innerHTML = s === null ? '—' : `${fmt(s)}<small style="font-size:16px; color:var(--ink-muted);"> / 10</small>`;
+  $('live-idx').style.color = s === null ? '' : `var(--l${lv(s)}-deep)`;
+  $('live-gauge').innerHTML = gaugeHTML(s);
+  $('live-lvl').textContent = s === null ? 'Valora los factores para ver la puntuación.' : (n < 5 ? `Provisional con ${n} de 5 factores. ` : '') + `Presión ${FORCE_LVL[lv(s)].toLowerCase()}.`;
+  $('btn-save-force').disabled = !forceDone(F);
+}
+$('force-note').addEventListener('input', e => { state.notes[state.cur] = e.target.value; });
+$('btn-save-force').addEventListener('click', () => go('map'));
+
+// ═════════ ANÁLISIS ═════════
+function ranked() { return allFactors().map(f => ({ ...f, t:threat(f, state.vals[f.id]) })).sort((a, b) => b.t - a.t); }
+function renderAnalysis() {
+  const r = ranked(), des = r.slice(0, 3), fav = r.slice(-3).reverse();
+  const list = rows => rows.map(x => `<li>${x.label} · <b>${fmt(x.t)}</b> <small>· ${x.F.short}</small></li>`).join('');
+  $('recap').innerHTML = `
+    <div class="recap l0"><span class="eyebrow" style="color:var(--d); font-weight:600;">Los tres factores más favorables</span><ul>${list(fav)}</ul></div>
+    <div class="recap l3"><span class="eyebrow" style="color:var(--d); font-weight:600;">Los tres factores que más presionan</span><ul>${list(des)}</ul></div>`;
+  $('ref-pos').value = state.refPos; $('ref-neg').value = state.refNeg;
+  updateRefs();
+}
+function updateRefs() {
+  $('hint-pos').textContent = `Obligatorio · mínimo ${MIN_REF} caracteres · ${state.refPos.trim().length} escritos`;
+  $('hint-neg').textContent = `Obligatorio · mínimo ${MIN_REF} caracteres · ${state.refNeg.trim().length} escritos`;
+  $('btn-report').disabled = state.refPos.trim().length < MIN_REF || state.refNeg.trim().length < MIN_REF;
+}
+$('ref-pos').addEventListener('input', e => { state.refPos = e.target.value; updateRefs(); });
+$('ref-neg').addEventListener('input', e => { state.refNeg = e.target.value; updateRefs(); });
+$('btn-report').addEventListener('click', () => go('report'));
+
+// ═════════ INFORME ═════════
+function radarSVG() {
+  const cx = 230, cy = 165, R = 105, n = FORCES.length;
+  const pt = (i, s) => { const a = -Math.PI / 2 + i * 2 * Math.PI / n; return [cx + R * s / 10 * Math.cos(a), cy + R * s / 10 * Math.sin(a), Math.cos(a), Math.sin(a)]; };
+  const ring = s => FORCES.map((_, i) => pt(i, s).slice(0, 2).map(v => v.toFixed(1)).join(',')).join(' ');
+  const rings = [2.5, 5, 7.5, 10].map(s => `<polygon points="${ring(s)}" style="fill:none; stroke:var(--line)" stroke-width="1"/>`).join('');
+  const axes = FORCES.map((_, i) => { const p = pt(i, 10); return `<line x1="${cx}" y1="${cy}" x2="${p[0].toFixed(1)}" y2="${p[1].toFixed(1)}" style="stroke:var(--line)"/>`; }).join('');
+  const sc = FORCES.map(forceScore);
+  const poly = FORCES.map((_, i) => pt(i, sc[i]).slice(0, 2).map(v => v.toFixed(1)).join(',')).join(' ');
+  const dots = FORCES.map((_, i) => { const p = pt(i, sc[i]); return `<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="4.5" style="fill:var(--tool-deep)"/>`; }).join('');
+  const labels = FORCES.map((F, i) => {
+    const p = pt(i, 10), lx = cx + (R + 14) * p[2], ly = cy + (R + 14) * p[3];
+    const anchor = p[2] > 0.3 ? 'start' : p[2] < -0.3 ? 'end' : 'middle';
+    const y = p[3] < -0.5 ? ly - 14 : p[3] > 0.5 ? ly + 6 : ly - 4;
+    return `<text x="${lx.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="${anchor}" style="fill:var(--ink-soft); font:500 12px Inter,sans-serif">${F.rad}</text>
+      <text x="${lx.toFixed(1)}" y="${(y + 15).toFixed(1)}" text-anchor="${anchor}" style="fill:var(--ink); font:600 13px Inter,sans-serif">${fmt(sc[i])}</text>`;
+  }).join('');
+  return `<svg viewBox="0 0 460 340" width="100%" role="img" aria-label="Gráfico radar de las cinco fuerzas" style="max-width:460px; display:block; margin:0 auto;">${rings}${axes}<polygon points="${poly}" style="fill:var(--tool-soft); fill-opacity:.75; stroke:var(--tool-deep)" stroke-width="2" stroke-linejoin="round"/>${dots}${labels}</svg>`;
+}
+function renderReport() {
+  const o = overall(), L = lv(o), r = ranked();
+  const sorted = FORCES.map(F => ({ F, s:forceScore(F) })).sort((a, b) => b.s - a.s);
+  const top = sorted[0], low = sorted[sorted.length - 1];
+  const critN = r.filter(x => x.t > 7.5).length;
+  const fecha = new Date().toLocaleDateString('es-ES', { day:'numeric', month:'long', year:'numeric' });
+  const rank = sorted.map(({ F, s }) => `<div class="rank-row l${lv(s)}"><div class="rk"><span>${F.short}</span><span style="color:var(--d)">${fmt(s)}</span></div><div class="bar"><i style="width:${s * 10}%"></i></div></div>`).join('');
+  const forces = FORCES.map(F => {
+    const s = forceScore(F);
+    const rows = F.factors.map(f => {
+      const v = state.vals[f.id], t = threat(f, v), w = weight(f);
+      return `<div class="frow"><span class="fl">${f.label}</span><span class="fc">${v} de 5${f.inv ? ' · barrera' : ''}${w !== 1 ? ' · peso ×' + String(w).replace('.', ',') : ''}</span><span class="pill l${lv(t)}">${FACT_LBL[lv(t)]} · ${fmt(t)}</span></div>`;
+    }).join('');
+    const note = state.notes[F.id].trim();
+    return `<div class="rep-force"><div class="rep-force-head"><h3 class="subtitle">${F.name}</h3><span class="pill l${lv(s)}">${fmt(s)} / 10 · ${FORCE_LVL[lv(s)]}</span></div>
+      <p class="reading">${readOf(F, s)}</p>${rows}${note ? `<p class="quote">${esc(note)}</p>` : ''}</div>`;
+  }).join('');
+  const watch = r[0].t >= 5.5 ? r.filter(x => x.t > 7.5).slice(0, 6) : [];
+  const watchFinal = watch.length ? watch : r.filter(x => x.t >= 5.5).slice(0, 3);
+  const critHTML = watchFinal.length
+    ? watchFinal.map(x => `<div class="crit l${lv(x.t)}"><div class="crit-top"><b>${x.label}</b><span class="pill">${FACT_LBL[lv(x.t)]} · ${fmt(x.t)}</span></div><small>${x.F.name}</small><p style="margin-top:6px;"><b style="font-weight:600; color:var(--ink);">Respuesta recomendada:</b> ${x.tip}</p></div>`).join('')
+    : '<p class="prose" style="font-size:14.5px;">Ningún factor alcanza un nivel de presión medio o alto. El entorno es favorable en todos los frentes; el reto es mantener esa posición.</p>';
+  $('report').innerHTML = `
+    <div class="rep-meta"><span class="eyebrow" style="color:var(--tool-deep); font-weight:600;">Informe de análisis competitivo · Modelo de Porter</span><span>${fecha}</span></div>
+    <h1 class="rep-title">${esc(state.idea)}</h1>
+    <div class="summary prose" style="color:var(--ink);">El nivel de rivalidad del sector es <b>${fmt(o)} sobre 10</b>: <b>${RIVALIDAD[L].n.toLowerCase()}</b>, un ${RIVALIDAD[L].t} La fuerza que más presiona es <b>${top.F.name.toLowerCase()}</b> (${fmt(top.s)}) y la más favorable, <b>${low.F.name.toLowerCase()}</b> (${fmt(low.s)}). ${critN ? `${critN} de ${r.length} factores alcanzan un nivel crítico.` : 'Ningún factor alcanza un nivel crítico.'}</div>
+    <span class="sec">Resultado global</span>
+    <div class="score-row l${L}"><div class="big-num">${fmt(o)}<small> / 10</small></div><div style="min-width:0;">${gaugeHTML(o)}</div></div>
+    <div class="viz"><div>${radarSVG()}</div><div class="rank">${rank}</div></div>
+    <span class="sec">Qué significa cada nivel</span>
+    <div class="levels">${levelsHTML(L)}</div>
+    <span class="sec">Detalle por fuerza</span>${forces}
+    <span class="sec">Factores críticos y respuesta estratégica</span>${critHTML}
+    <span class="sec">Análisis de resultado</span>
+    <h3 class="subtitle" style="margin-bottom:4px;">Aspectos más positivos</h3><p class="prose" style="margin-bottom:18px;">${esc(state.refPos)}</p>
+    <h3 class="subtitle" style="margin-bottom:4px;">Aspectos más negativos</h3><p class="prose">${esc(state.refNeg)}</p>
+    <span class="sec">Metodología</span>
+    <p class="method">Cada factor se valora de 1 a 5 con descripciones para los niveles 1, 3 y 5, y se convierte en una puntuación de presión de 0 a 10. Los factores que actúan como barrera (barreras de entrada, crecimiento del mercado y diferenciación de la oferta) se invierten: un valor alto reduce la presión. La puntuación de cada fuerza es la media ponderada de sus cinco factores (peso Menor ×0,5, Normal ×1, Mayor ×1,5) y el nivel de rivalidad del sector es la media de ${INCLUIR_RIVALIDAD_INTERNA ? 'las cinco fuerzas' : 'las cuatro primeras fuerzas'}. Umbrales: hasta 3,5 muy baja; hasta 5,5 baja; hasta 7,5 media; por encima, alta. Marco teórico: M. E. Porter, <i>Estrategia competitiva</i>.</p>
+    <p class="eyebrow" style="margin-top:30px; text-align:center;">Modelo de Porter · Toolkit IPE</p>`;
+}
+function reportText() {
+  const o = overall(), L = lv(o);
+  const out = ['INFORME DE ANÁLISIS COMPETITIVO · MODELO DE PORTER', state.idea, '', `Nivel de rivalidad del sector: ${fmt(o)} / 10 (${RIVALIDAD[L].n})`, ''];
+  FORCES.forEach(F => {
+    const s = forceScore(F);
+    out.push(`${F.name.toUpperCase()} · ${fmt(s)} / 10 (${FORCE_LVL[lv(s)]})`, readOf(F, s));
+    F.factors.forEach(f => { const v = state.vals[f.id], t = threat(f, v); out.push(`- ${f.label}: ${v} de 5${weight(f) !== 1 ? ' (peso ×' + String(weight(f)).replace('.', ',') + ')' : ''} → ${FACT_LBL[lv(t)]} (${fmt(t)})`); });
+    if (state.notes[F.id].trim()) out.push(`Justificación: ${state.notes[F.id].trim()}`);
+    out.push('');
+  });
+  const r = ranked().filter(x => x.t > 7.5).slice(0, 6);
+  if (r.length) { out.push('FACTORES CRÍTICOS Y RESPUESTA'); r.forEach(x => out.push(`- ${x.label} (${fmt(x.t)}): ${x.tip}`)); out.push(''); }
+  out.push('ANÁLISIS DE RESULTADO', `Aspectos más positivos: ${state.refPos.trim()}`, `Aspectos más negativos: ${state.refNeg.trim()}`);
+  return out.join('\n');
+}
+function toast(msg) { $('toast').textContent = msg; setTimeout(() => { $('toast').textContent = ''; }, 2500); }
+$('btn-copy').addEventListener('click', async () => {
+  const txt = reportText();
+  try { await navigator.clipboard.writeText(txt); toast('Informe copiado'); }
+  catch (_) { const ta = $('copy-fallback'); ta.hidden = false; ta.value = txt; ta.select(); toast('Selecciona el texto y cópialo'); }
+});
+$('btn-reset').addEventListener('click', () => {
+  Object.assign(state, { idea:'', vals:{}, w:{}, notes:{E:'',S:'',P:'',C:'',R:''}, refPos:'', refNeg:'', cur:'E' });
+  $('idea-input').value = ''; $('btn-start').disabled = true; $('copy-fallback').hidden = true;
+  go('intro');
+});
+</script>
+</body>
+</html>

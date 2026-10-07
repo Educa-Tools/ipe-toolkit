@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ficha de Idea</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap');
+
+  :root{
+    --bg: #FBFCEF;
+    --card: #FFFFFF;
+    --card-alt: #F5F6E4;
+    --card-line: #E8E1D6;
+    --line-soft: #EEEFD8;
+    --ink: #1E1C1A;
+    --ink-soft: #4A463F;
+    --ink-faint: #8B847A;
+    --accent: #6B7028;
+    --accent-soft: #E8EDC4;
+    --accent-mid: #A8AD5C;
+    --accent-ink: #4B4F1D;
+    --danger: #A6432F;
+    --shadow: rgba(30,28,26,0.08);
+    --radius-card: 18px;
+    --radius-pill: 999px;
+    color-scheme: light;
+  }
+
+  *{ box-sizing: border-box; }
+  body{
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', system-ui, sans-serif;
+    padding-inline: 16px;
+    padding-block: 28px 48px;
+    min-height: 100%;
+  }
+  .wrap{ max-width: 620px; margin-inline: auto; display:flex; flex-direction:column; gap: 18px; }
+
+  /* header */
+  .masthead{ display:flex; flex-direction:column; gap:4px; }
+  .eyebrow{
+    font-family:'Inter', sans-serif; font-weight: 600;
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  h1{
+    font-family:'Fraunces', Georgia, serif;
+    font-weight: 700;
+    font-size: clamp(28px, 6vw, 36px);
+    margin: 0; letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  .sub{ font-size: 14px; color: var(--ink-soft); max-width: 46ch; line-height:1.5; }
+
+  /* progress */
+  .progress{ display:flex; align-items:center; gap: 6px; flex-wrap: wrap; }
+  .dot{
+    width: 10px; height:10px; border-radius: 50%;
+    background: var(--card-line);
+    flex: 0 0 auto;
+    transition: background .2s, transform .2s;
+  }
+  .dot[data-state="done"]{ background: var(--accent); }
+  .dot[data-state="current"]{ background: var(--accent-mid); transform: scale(1.35); }
+  .progress-label{
+    font-family:'Inter', sans-serif; font-weight: 500; font-size: 11px; color: var(--ink-faint);
+    margin-inline-start: 4px; letter-spacing: 0.02em;
+  }
+
+  /* card */
+  .card{
+    background: var(--card);
+    border: 1px solid var(--card-line);
+    border-radius: var(--radius-card);
+    padding: 28px 26px 24px;
+    box-shadow: 0 12px 28px -18px var(--shadow), 0 2px 8px -4px var(--shadow);
+    position: relative;
+  }
+  .card-tab{
+    font-family:'Inter', sans-serif; font-weight: 600; font-size: 11px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--accent-ink); background: var(--accent-soft);
+    display:inline-flex; padding: 4px 10px; border-radius: var(--radius-pill);
+    margin-bottom: 16px;
+  }
+  .question{
+    font-family:'Fraunces', Georgia, serif;
+    font-weight: 600; font-size: clamp(19px, 4.4vw, 23px);
+    line-height: 1.35; margin: 0 0 6px; text-wrap: balance;
+  }
+  .helper{ font-size: 13.5px; color: var(--ink-soft); margin: 0 0 16px; line-height:1.5; }
+
+  input[type="text"], textarea{
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+    font-size: 15.5px;
+    color: var(--ink);
+    background: transparent;
+    border: none;
+    border-bottom: 1.5px solid var(--card-line);
+    padding: 8px 2px 10px;
+    resize: vertical;
+    line-height: 1.5;
+  }
+  input[type="text"]:focus, textarea:focus{
+    outline: none; border-bottom-color: var(--accent);
+  }
+  textarea{ min-height: 84px; }
+  ::placeholder{ color: var(--ink-faint); }
+
+  .field-foot{
+    display:flex; justify-content: flex-end; align-items:baseline;
+    margin-top: 6px; font-family:'Inter', sans-serif; font-size: 10.5px;
+    color: var(--ink-faint);
+  }
+  .field-foot.over{ color: var(--danger); }
+  .field-group + .field-group{ margin-top: 16px; }
+
+  .chips{ display:flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+  .chip{
+    font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500;
+    padding: 7px 12px; border-radius: var(--radius-pill);
+    border: 1.5px solid var(--card-line); background: transparent; color: var(--ink-soft);
+    cursor: pointer; transition: all .15s;
+  }
+  .chip:hover{ border-color: var(--accent); }
+  .chip[aria-pressed="true"]{
+    background: var(--accent); border-color: var(--accent); color: #fff;
+  }
+
+  .team-row{ display:flex; flex-direction:column; gap: 16px; }
+
+  /* nav */
+  .nav{ display:flex; justify-content: space-between; align-items:center; gap: 10px; margin-top: 20px; }
+  button{ font-family: 'Inter', sans-serif; cursor:pointer; }
+  .btn{
+    font-size: 14px; font-weight: 600; padding: 10px 20px; border-radius: var(--radius-pill);
+    border: 1.5px solid var(--accent); background: var(--accent); color: #fff;
+    transition: opacity .15s, transform .1s;
+  }
+  .btn:active{ transform: translateY(1px); }
+  .btn[disabled]{ opacity: .35; cursor: not-allowed; }
+  .btn.ghost{ background: transparent; color: var(--ink-soft); border-color: var(--card-line); }
+  .btn.ghost:hover{ border-color: var(--ink-soft); color: var(--ink); }
+  .btn.wide{ width: 100%; }
+
+  .keyhint{ font-family:'Inter', sans-serif; font-weight: 500; font-size: 10.5px; color: var(--ink-faint); }
+
+  /* review */
+  .review-grid{ display:flex; flex-direction:column; gap: 14px; }
+  .review-item{
+    border-bottom: 1px dashed var(--card-line); padding-bottom: 12px;
+    display:flex; flex-direction:column; gap: 3px;
+  }
+  .review-item:last-child{ border-bottom:none; padding-bottom:0; }
+  .review-label{
+    font-family:'Inter', sans-serif; font-weight: 600; font-size: 10.5px;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-ink);
+    display:flex; justify-content: space-between; gap: 8px;
+  }
+  .review-label button{
+    font-family: inherit; font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em;
+    background:none; border:none; color: var(--ink-faint); text-decoration: underline;
+    padding:0;
+  }
+  .review-label button:hover{ color: var(--accent); }
+  .review-value{ font-size: 14.5px; line-height: 1.5; white-space: pre-wrap; }
+  .review-value.empty{ color: var(--ink-faint); font-style: italic; }
+
+  .review-actions{ display:flex; flex-direction:column; gap:10px; margin-top: 20px; }
+  .status-line{
+    font-family:'Inter', sans-serif; font-size: 11.5px; color: var(--ink-soft);
+    text-align:center; min-height: 14px;
+  }
+  .status-line.err{ color: var(--danger); }
+
+  @media (max-width: 420px){
+    .card{ padding: 22px 18px 20px; }
+    .nav{ flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="masthead">
+    <span class="eyebrow">Fase 3 · Brainstorming de idea de negocio</span>
+    <h1>Ficha de Idea</h1>
+    <p class="sub">Rellenad una ficha por idea. Si una respuesta no se entiende de un vistazo, aún está borrosa: afinadla.</p>
+  </header>
+
+  <div class="progress" id="progress" role="list" aria-label="Progreso del formulario"></div>
+
+  <main class="card" id="card"></main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+(function(){
+  "use strict";
+
+  var STORAGE_KEY = "ficha-idea-draft-v1";
+
+  var STEPS = [
+    { id: "team", kind: "team", tab: "Equipo" },
+    { id: "nombre", kind: "text", tab: "01 · Nombre",
+      q: "¿Cómo se llama (de momento) vuestra idea?",
+      helper: "Un nombre provisional vale. Ya le daréis vueltas más adelante.",
+      placeholder: "Ej. EcoRuta, Fixly, TallerVerde…", min: 2, max: 60 },
+    { id: "problema", kind: "textarea", tab: "02 · Problema",
+      q: "¿Qué problema o necesidad resuelve?",
+      helper: "En una frase: qué falla, qué falta o qué molesta hoy en día.",
+      placeholder: "Escribid el problema tal cual lo viviría vuestro cliente…", min: 15, max: 220 },
+    { id: "cliente", kind: "textarea", tab: "03 · Cliente",
+      q: "¿Quién tiene ese problema?",
+      helper: "Describid a una persona concreta, no “todo el mundo”: edad, contexto, hábitos.",
+      placeholder: "Ej. Estudiantes de FP que se mueven en transporte público y llegan tarde…", min: 15, max: 220 },
+    { id: "oferta", kind: "textarea", tab: "04 · Oferta",
+      q: "¿Qué ofrecéis exactamente?",
+      helper: "Producto o servicio, en una frase clara.",
+      placeholder: "Ofrecemos…", min: 10, max: 220 },
+    { id: "competencia", kind: "textarea", tab: "05 · Competencia",
+      q: "¿Cómo se resuelve hoy ese problema?",
+      helper: "Alternativas o competidores que ya existen, aunque sea “apañárselas como se puede”.",
+      placeholder: "Hoy en día la gente…", min: 10, max: 220 },
+    { id: "novedad", kind: "chips", tab: "06 · Novedad",
+      q: "¿Qué tiene de nuevo o diferente?",
+      helper: "Elegid la vía de innovación que mejor encaje y explicadla en una frase.",
+      options: ["Producto nuevo", "Proceso mejor", "Modelo de negocio nuevo", "Nuevo mercado", "Combinación de varias"],
+      placeholder: "En qué consiste esa novedad, en concreto…", max: 220 },
+    { id: "equipo2", kind: "textarea", tab: "07 · Equipo",
+      q: "¿Por qué vosotros?",
+      helper: "Formación, contactos, habilidades o experiencia que ya tenéis.",
+      placeholder: "Nuestro equipo aporta…", min: 10, max: 220 },
+    { id: "viabilidad", kind: "double", tab: "08 · Viabilidad",
+      q: "Primera impresión de viabilidad",
+      helper: "Sin miedo: cuanto antes salga la duda, antes se resuelve.",
+      fields: [
+        { key: "necesita", label: "¿Qué necesitaríais para arrancar?", placeholder: "Dinero, permisos, un local, herramientas…" },
+        { key: "riesgo", label: "¿Cuál es vuestra mayor duda o riesgo?", placeholder: "Lo que más os preocupa de esta idea…" }
+      ], min: 8, max: 180 }
+  ];
+
+  var TOTAL = STEPS.length + 1; // + review screen
+  var data = {
+    equipo: "", integrantes: "",
+    nombre: "", problema: "", cliente: "", oferta: "", competencia: "",
+    novedadTipo: "", novedadTexto: "",
+    equipo2: "",
+    viabilidadNecesita: "", viabilidadRiesgo: ""
+  };
+  var step = 0;
+
+  function loadDraft(){
+    try{
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if(!raw) return;
+      var parsed = JSON.parse(raw);
+      if(parsed && typeof parsed === "object"){
+        Object.assign(data, parsed.data || {});
+        if(typeof parsed.step === "number") step = Math.min(parsed.step, TOTAL - 1);
+      }
+    }catch(e){ /* ignore, start fresh */ }
+  }
+  function saveDraft(){
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify({ data: data, step: step })); }
+    catch(e){ /* storage unavailable, continue without persistence */ }
+  }
+
+  var progressEl = document.getElementById("progress");
+  var cardEl = document.getElementById("card");
+
+  function renderProgress(){
+    progressEl.innerHTML = "";
+    for(var i = 0; i < TOTAL; i++){
+      var dot = document.createElement("span");
+      dot.className = "dot";
+      dot.setAttribute("role", "listitem");
+      dot.dataset.state = i < step ? "done" : (i === step ? "current" : "upcoming");
+      progressEl.appendChild(dot);
+    }
+    var label = document.createElement("span");
+    label.className = "progress-label";
+    label.textContent = step < STEPS.length
+      ? (step + 1) + " / " + STEPS.length
+      : "Revisión final";
+    progressEl.appendChild(label);
+  }
+
+  function isStepValid(s){
+    if(s.kind === "team") return (data.equipo || "").trim().length >= 2;
+    if(s.kind === "text") return (data[s.id] || "").trim().length >= s.min;
+    if(s.kind === "textarea") return (data[s.id] || "").trim().length >= s.min;
+    if(s.kind === "chips") return !!data.novedadTipo && (data.novedadTexto || "").trim().length >= 8;
+    if(s.kind === "double") return s.fields.every(function(f){
+      var key = "viabilidad" + f.key.charAt(0).toUpperCase() + f.key.slice(1);
+      return (data[key] || "").trim().length >= s.min;
+    });
+    return true;
+  }
+
+  function renderStep(){
+    renderProgress();
+    cardEl.innerHTML = "";
+
+    if(step >= STEPS.length){
+      renderReview();
+      return;
+    }
+
+    var s = STEPS[step];
+    var tab = document.createElement("span");
+    tab.className = "card-tab";
+    tab.textContent = s.tab;
+    cardEl.appendChild(tab);
+
+    var q = document.createElement("h2");
+    q.className = "question";
+    q.textContent = s.q;
+    cardEl.appendChild(q);
+
+    var helper = document.createElement("p");
+    helper.className = "helper";
+    helper.textContent = s.helper;
+    cardEl.appendChild(helper);
+
+    if(s.kind === "team"){
+      var row = document.createElement("div");
+      row.className = "team-row";
+      row.appendChild(makeField({
+        tag: "input", id: "equipo", value: data.equipo,
+        placeholder: "Nombre del equipo", max: 40
+      }));
+      row.appendChild(makeField({
+        tag: "textarea", id: "integrantes", value: data.integrantes,
+        placeholder: "Integrantes del equipo (opcional)", max: 160, optional: true
+      }));
+      cardEl.appendChild(row);
+    } else if(s.kind === "text"){
+      cardEl.appendChild(makeField({ tag: "input", id: s.id, value: data[s.id], placeholder: s.placeholder, max: s.max }));
+    } else if(s.kind === "textarea"){
+      cardEl.appendChild(makeField({ tag: "textarea", id: s.id, value: data[s.id], placeholder: s.placeholder, max: s.max }));
+    } else if(s.kind === "chips"){
+      var chips = document.createElement("div");
+      chips.className = "chips";
+      s.options.forEach(function(opt){
+        var chip = document.createElement("button");
+        chip.type = "button";
+        chip.className = "chip";
+        chip.textContent = opt;
+        chip.setAttribute("aria-pressed", data.novedadTipo === opt ? "true" : "false");
+        chip.addEventListener("click", function(){
+          data.novedadTipo = opt;
+          saveDraft();
+          renderStep();
+        });
+        chips.appendChild(chip);
+      });
+      cardEl.appendChild(chips);
+      cardEl.appendChild(makeField({ tag: "textarea", id: "novedadTexto", value: data.novedadTexto, placeholder: s.placeholder, max: s.max }));
+    } else if(s.kind === "double"){
+      s.fields.forEach(function(f, idx){
+        var key = "viabilidad" + f.key.charAt(0).toUpperCase() + f.key.slice(1);
+        var group = document.createElement("div");
+        group.className = "field-group";
+        var label = document.createElement("p");
+        label.className = "helper";
+        label.style.marginBottom = "8px";
+        label.style.fontWeight = "600";
+        label.style.color = "var(--ink)";
+        label.textContent = f.label;
+        group.appendChild(label);
+        group.appendChild(makeField({ tag: "textarea", id: key, value: data[key], placeholder: f.placeholder, max: s.max }));
+        cardEl.appendChild(group);
+      });
+    }
+
+    var nav = document.createElement("div");
+    nav.className = "nav";
+
+    var back = document.createElement("button");
+    back.className = "btn ghost";
+    back.textContent = "← Atrás";
+    back.disabled = step === 0;
+    back.addEventListener("click", function(){ step = Math.max(0, step - 1); saveDraft(); renderStep(); });
+    nav.appendChild(back);
+
+    var right = document.createElement("div");
+    right.style.display = "flex";
+    right.style.alignItems = "center";
+    right.style.gap = "10px";
+
+    var hint = document.createElement("span");
+    hint.className = "keyhint";
+    hint.textContent = "Enter ↵";
+    right.appendChild(hint);
+
+    var next = document.createElement("button");
+    next.className = "btn";
+    next.textContent = step === STEPS.length - 1 ? "Revisar ficha →" : "Siguiente →";
+    next.disabled = !isStepValid(s);
+    next.addEventListener("click", function(){ step++; saveDraft(); renderStep(); });
+    right.appendChild(next);
+
+    nav.appendChild(right);
+    cardEl.appendChild(nav);
+
+    var firstInput = cardEl.querySelector("input, textarea, .chip");
+    if(firstInput && (step > 0 || s.kind !== "team")) {
+      var toFocus = cardEl.querySelector("input[type=text], textarea");
+      if(toFocus) toFocus.focus();
+    }
+  }
+
+  function makeField(opts){
+    var wrap = document.createElement("div");
+    wrap.className = "field-group";
+    var el = document.createElement(opts.tag);
+    el.id = "f-" + opts.id;
+    el.placeholder = opts.placeholder;
+    if(opts.max) el.maxLength = opts.max;
+    if(opts.tag === "input") el.type = "text";
+    el.value = opts.value || "";
+    el.addEventListener("input", function(){
+      data[opts.id] = el.value;
+      saveDraft();
+      updateFoot(foot, el.value, opts.max, opts.optional);
+      updateNextState();
+    });
+    el.addEventListener("keydown", function(e){
+      if(opts.tag === "input" && e.key === "Enter"){
+        e.preventDefault();
+        var next = cardEl.querySelector(".nav .btn:not(.ghost)");
+        if(next && !next.disabled) next.click();
+      }
+    });
+    wrap.appendChild(el);
+
+    var foot = document.createElement("div");
+    foot.className = "field-foot";
+    wrap.appendChild(foot);
+    updateFoot(foot, el.value, opts.max, opts.optional);
+
+    return wrap;
+  }
+
+  function updateFoot(foot, value, max, optional){
+    var len = (value || "").length;
+    foot.innerHTML = "";
+    if(optional){
+      var left = document.createElement("span");
+      left.textContent = "opcional";
+      left.style.marginInlineEnd = "auto";
+      foot.appendChild(left);
+    }
+    var right = document.createElement("span");
+    right.textContent = len + (max ? " / " + max : "");
+    foot.appendChild(right);
+    foot.classList.toggle("over", !!max && len >= max);
+  }
+
+  function updateNextState(){
+    var s = STEPS[step];
+    if(!s) return;
+    var next = cardEl.querySelector(".nav .btn:not(.ghost)");
+    if(next) next.disabled = !isStepValid(s);
+  }
+
+  function reviewRow(label, value, jumpIndex){
+    var item = document.createElement("div");
+    item.className = "review-item";
+    var lab = document.createElement("div");
+    lab.className = "review-label";
+    var labText = document.createElement("span");
+    labText.textContent = label;
+    lab.appendChild(labText);
+    var edit = document.createElement("button");
+    edit.type = "button";
+    edit.textContent = "editar";
+    edit.addEventListener("click", function(){ step = jumpIndex; saveDraft(); renderStep(); });
+    lab.appendChild(edit);
+    item.appendChild(lab);
+    var val = document.createElement("div");
+    val.className = "review-value" + (value ? "" : " empty");
+    val.textContent = value || "— sin completar —";
+    item.appendChild(val);
+    return item;
+  }
+
+  function renderReview(){
+    var tab = document.createElement("span");
+    tab.className = "card-tab";
+    tab.textContent = "Revisión";
+    cardEl.appendChild(tab);
+
+    var q = document.createElement("h2");
+    q.className = "question";
+    q.textContent = data.equipo ? "Ficha de " + data.equipo : "Vuestra ficha de idea";
+    cardEl.appendChild(q);
+
+    var helper = document.createElement("p");
+    helper.className = "helper";
+    helper.textContent = "Revisadla con calma antes de descargarla. Si algo no se entiende a la primera, afinadlo.";
+    cardEl.appendChild(helper);
+
+    var grid = document.createElement("div");
+    grid.className = "review-grid";
+    grid.appendChild(reviewRow("Idea", data.nombre, 1));
+    grid.appendChild(reviewRow("Problema", data.problema, 2));
+    grid.appendChild(reviewRow("Cliente", data.cliente, 3));
+    grid.appendChild(reviewRow("Oferta", data.oferta, 4));
+    grid.appendChild(reviewRow("Competencia", data.competencia, 5));
+    grid.appendChild(reviewRow("Novedad", data.novedadTipo ? (data.novedadTipo + " — " + data.novedadTexto) : "", 6));
+    grid.appendChild(reviewRow("Por qué vosotros", data.equipo2, 7));
+    grid.appendChild(reviewRow("Para arrancar", data.viabilidadNecesita, 8));
+    grid.appendChild(reviewRow("Mayor riesgo", data.viabilidadRiesgo, 8));
+    cardEl.appendChild(grid);
+
+    var actions = document.createElement("div");
+    actions.className = "review-actions";
+
+    var dlBtn = document.createElement("button");
+    dlBtn.className = "btn wide";
+    dlBtn.textContent = "Descargar ficha en PDF";
+    dlBtn.addEventListener("click", function(){ handleDownload(dlBtn, status); });
+    actions.appendChild(dlBtn);
+
+    var backBtn = document.createElement("button");
+    backBtn.className = "btn ghost wide";
+    backBtn.textContent = "← Seguir editando";
+    backBtn.addEventListener("click", function(){ step = STEPS.length - 1; saveDraft(); renderStep(); });
+    actions.appendChild(backBtn);
+
+    var resetBtn = document.createElement("button");
+    resetBtn.className = "btn ghost wide";
+    resetBtn.textContent = "Empezar una ficha nueva";
+    resetBtn.addEventListener("click", function(){
+      if(!confirmReset()) return;
+      resetAll();
+    });
+    actions.appendChild(resetBtn);
+
+    var status = document.createElement("div");
+    status.className = "status-line";
+    actions.appendChild(status);
+
+    cardEl.appendChild(actions);
+  }
+
+  var pendingReset = false;
+  function confirmReset(){
+    // page-native confirmation (browser confirm() is unavailable in this view)
+    if(pendingReset) { pendingReset = false; return true; }
+    pendingReset = true;
+    var status = cardEl.querySelector(".status-line");
+    if(status){
+      status.textContent = "Pulsa otra vez para confirmar: se borrará todo.";
+      status.classList.remove("err");
+    }
+    setTimeout(function(){ pendingReset = false; }, 3500);
+    return false;
+  }
+
+  function resetAll(){
+    Object.keys(data).forEach(function(k){ data[k] = ""; });
+    step = 0;
+    saveDraft();
+    renderStep();
+  }
+
+  function setStatus(msg, isErr){
+    var status = cardEl.querySelector(".status-line");
+    if(!status) return;
+    status.textContent = msg;
+    status.classList.toggle("err", !!isErr);
+  }
+
+  function slug(text){
+    return (text || "ficha")
+      .toLowerCase()
+      .normalize("NFD").replace(/[̀-ͯ]/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)/g, "") || "ficha";
+  }
+
+  function handleDownload(btn, status){
+    if(typeof window.jspdf === "undefined"){
+      setStatus("No se pudo cargar el generador de PDF. Probad a recargar la página.", true);
+      return;
+    }
+    btn.disabled = true;
+    var originalText = btn.textContent;
+    btn.textContent = "Generando…";
+    setStatus("");
+
+    try{
+      var blob = buildPDF(data);
+      offerDownload(blob, slug(data.equipo) + "-" + slug(data.nombre) + ".pdf", btn, originalText);
+    }catch(err){
+      setStatus("Algo falló generando el PDF. Probad de nuevo.", true);
+      btn.disabled = false;
+      btn.textContent = originalText;
+    }
+  }
+
+  function buildPDF(d){
+    var jsPDF = window.jspdf.jsPDF;
+    var doc = new jsPDF({ unit: "mm", format: "a4" });
+    var pageW = doc.internal.pageSize.getWidth();
+    var marginX = 20;
+    var contentW = pageW - marginX * 2;
+    var y = 24;
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(9);
+    doc.setTextColor(139, 132, 122);
+    doc.text("FICHA DE IDEA DE NEGOCIO", marginX, y);
+    doc.text("IPE · PROYECTO DE EMPRESA", pageW - marginX, y, { align: "right" });
+    y += 5;
+    doc.setDrawColor(232, 225, 214);
+    doc.setLineWidth(0.3);
+    doc.line(marginX, y, pageW - marginX, y);
+    y += 10;
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(24);
+    doc.setTextColor(30, 28, 26);
+    var titleLines = doc.splitTextToSize(d.nombre || "Idea sin nombre", contentW);
+    doc.text(titleLines, marginX, y);
+    y += titleLines.length * 9 + 2;
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10.5);
+    doc.setTextColor(74, 70, 63);
+    var teamLine = (d.equipo || "Equipo sin nombre") + (d.integrantes ? "  ·  " + d.integrantes : "");
+    var teamLines = doc.splitTextToSize(teamLine, contentW);
+    doc.text(teamLines, marginX, y);
+    y += teamLines.length * 5;
+
+    var today = new Date();
+    var dateStr = String(today.getDate()).padStart(2, "0") + "/" + String(today.getMonth() + 1).padStart(2, "0") + "/" + today.getFullYear();
+    doc.setFontSize(9.5);
+    doc.text(dateStr, marginX, y + 5);
+    y += 12;
+
+    doc.setDrawColor(232, 225, 214);
+    doc.line(marginX, y, pageW - marginX, y);
+    y += 10;
+
+    var sections = [
+      { label: "PROBLEMA QUE RESUELVE", value: d.problema },
+      { label: "CLIENTE OBJETIVO", value: d.cliente },
+      { label: "QUÉ OFRECEMOS", value: d.oferta },
+      { label: "CÓMO SE RESUELVE HOY", value: d.competencia },
+      { label: "QUÉ TIENE DE NUEVO", value: (d.novedadTipo ? d.novedadTipo + " — " : "") + (d.novedadTexto || "") },
+      { label: "POR QUÉ NOSOTROS", value: d.equipo2 },
+      { label: "PARA ARRANCAR NECESITAMOS", value: d.viabilidadNecesita },
+      { label: "MAYOR RIESGO O DUDA", value: d.viabilidadRiesgo }
+    ];
+
+    var pageH = doc.internal.pageSize.getHeight();
+    var bottomLimit = pageH - 22;
+
+    sections.forEach(function(sec){
+      var text = (sec.value || "—").trim() || "—";
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(8.5);
+      doc.setTextColor(107, 112, 40);
+      var labelH = 5;
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(11.5);
+      doc.setTextColor(30, 28, 26);
+      var bodyLines = doc.splitTextToSize(text, contentW);
+      var blockH = labelH + bodyLines.length * 5.2 + 7;
+
+      if(y + blockH > bottomLimit){
+        doc.addPage();
+        y = 24;
+      }
+
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(8.5);
+      doc.setTextColor(107, 112, 40);
+      doc.text(sec.label, marginX, y);
+      y += labelH + 1;
+
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(11.5);
+      doc.setTextColor(30, 28, 26);
+      doc.text(bodyLines, marginX, y);
+      y += bodyLines.length * 5.2 + 7;
+    });
+
+    var pageCount = doc.internal.getNumberOfPages();
+    for(var p = 1; p <= pageCount; p++){
+      doc.setPage(p);
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(8);
+      doc.setTextColor(139, 132, 122);
+      doc.text("Itinerario Personal para la Empleabilidad", marginX, pageH - 12);
+      doc.text(String(p) + " / " + pageCount, pageW - marginX, pageH - 12, { align: "right" });
+    }
+
+    return doc.output("blob");
+  }
+
+  function offerDownload(blob, filename, btn, originalText){
+    if(window.claude && window.claude.use){
+      window.claude.use("downloads").then(function(downloads){
+        if(!downloads){ fallbackDownload(blob, filename, btn, originalText); return; }
+        downloads.save({ filename: filename, data: blob }).then(function(){
+          setStatus("Ficha descargada. ¡A por la matriz estrella!", false);
+          btn.disabled = false;
+          btn.textContent = originalText;
+        }).catch(function(err){
+          if(err && err.code === "declined"){
+            setStatus("Descarga cancelada.", false);
+          } else {
+            setStatus("No se pudo guardar el PDF. Probad de nuevo.", true);
+          }
+          btn.disabled = false;
+          btn.textContent = originalText;
+        });
+      }).catch(function(){
+        fallbackDownload(blob, filename, btn, originalText);
+      });
+    } else {
+      fallbackDownload(blob, filename, btn, originalText);
+    }
+  }
+
+  function fallbackDownload(blob, filename, btn, originalText){
+    try{
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
+      setStatus("Ficha descargada. ¡A por la matriz estrella!", false);
+    }catch(e){
+      setStatus("No se pudo generar la descarga en esta vista.", true);
+    }
+    btn.disabled = false;
+    btn.textContent = originalText;
+  }
+
+  loadDraft();
+  renderStep();
+})();
+</script>
+</body>
+</html>
