@@ -145,166 +145,124 @@ h3.subtitle{font-family:'Fraunces',Georgia,serif;font-size:20px;line-height:1.25
   box-shadow:0 4px 24px rgba(31,36,23,.06);
   display:flex;flex-direction:column;
 }
-.page-header{display:flex;align-items:center;justify-content:space-between;padding-bottom:18px;border-bottom:1px solid var(--line);margin-bottom:32px;}
+.page-header{display:flex;align-items:center;justify-content:space-between;padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:22px;}
 .page-mark{display:flex;align-items:center;gap:10px;}
 .page-mark-line{width:24px;height:1px;background:var(--olive-deep);}
 .page-num{font-family:'Inter',sans-serif;font-size:11px;font-weight:500;color:var(--ink-muted);letter-spacing:1.5px;}
 
-.dossier-title{font-family:'Fraunces',Georgia,serif;font-size:32px;line-height:1.2;font-weight:400;letter-spacing:-.015em;color:var(--ink);margin:0;hyphens:auto;}
+.dossier-title{font-family:'Fraunces',Georgia,serif;font-size:27px;line-height:1.2;font-weight:400;letter-spacing:-.015em;color:var(--ink);margin:0;hyphens:auto;}
 .dossier-section-label{font-family:'Inter',sans-serif;font-size:10px;font-weight:600;color:var(--olive-deep);text-transform:uppercase;letter-spacing:2.5px;margin:0 0 14px;padding-bottom:8px;border-bottom:1px solid var(--line);display:block;}
 
-.dossier-summary-block{background:var(--lime-soft);border-left:3px solid var(--olive-deep);border-radius:0 6px 6px 0;padding:22px 26px;margin-bottom:36px;}
+.dossier-summary-block{background:var(--lime-soft);border-left:3px solid var(--olive-deep);border-radius:0 6px 6px 0;padding:16px 22px;margin-bottom:22px;}
 .dossier-summary{font-family:'Fraunces',Georgia,serif;font-size:15px;line-height:1.75;font-weight:350;color:var(--ink);text-align:justify;hyphens:auto;margin:0;}
 .dossier-summary .keyword{font-weight:500;color:var(--olive-deep);}
 
 /* ── MAPA 3×3 ── */
-.map-wrap{margin-bottom:36px;}
-/* Mapa 3x3 — layout explícito sin grid automático */
-.map-outer{width:100%;display:flex;flex-direction:column;}
-.map-col-heads{
-  display:grid;grid-template-columns:88px 1fr 1fr 1fr;
-  gap:6px;margin-bottom:4px;
-}
-.map-col-head{
-  font-family:'Inter',sans-serif;font-size:9px;font-weight:600;
-  color:var(--ink-muted);text-transform:uppercase;letter-spacing:1.5px;
-  text-align:center;padding:4px 0;
-}
-.map-body{display:flex;gap:0;}
-.map-axis-y-wrap{
-  width:20px;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  margin-right:4px;
-}
-.map-axis-y{
-  font-family:'Inter',sans-serif;font-size:9px;font-weight:600;
-  color:var(--ink-muted);text-transform:uppercase;letter-spacing:1.5px;
-  writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;
-}
-.map-rows{flex:1;display:flex;flex-direction:column;gap:6px;}
-.map-row{display:grid;grid-template-columns:64px 1fr 1fr 1fr;gap:6px;align-items:stretch;}
-.map-row-label{
-  font-family:'Inter',sans-serif;font-size:8.5px;font-weight:600;
-  color:var(--ink-muted);text-transform:uppercase;letter-spacing:1px;
-  display:flex;align-items:center;justify-content:flex-end;
-  padding-right:6px;
-}
+.map-wrap{margin-bottom:18px;}
+.map{display:grid;grid-template-columns:22px 1fr;grid-template-rows:auto auto;column-gap:8px;row-gap:6px;}
+.map-yaxis{grid-column:1;grid-row:1;display:flex;flex-direction:column;align-items:center;gap:6px;padding:4px 0 26px;}
+.map-yaxis svg{flex:1;width:10px;}
+.map-yaxis span,.map-xaxis span{font-family:'Inter',sans-serif;font-size:9px;font-weight:700;letter-spacing:2.2px;text-transform:uppercase;color:var(--ink-soft);white-space:nowrap;}
+.map-yaxis span{writing-mode:vertical-rl;transform:rotate(180deg);}
+.map-grid{grid-column:2;grid-row:1;display:grid;grid-template-columns:44px repeat(3,1fr);gap:6px;}
+.map-xaxis{grid-column:2;grid-row:2;display:flex;align-items:center;gap:8px;padding-left:50px;}
+.map-xaxis svg{flex:1;height:10px;}
+.map-row-label,.map-col-label{font-family:'Inter',sans-serif;font-size:9px;font-weight:600;color:var(--ink-muted);text-transform:uppercase;letter-spacing:1px;}
+.map-row-label{display:flex;align-items:center;justify-content:flex-end;padding-right:4px;}
+.map-col-label{text-align:center;padding-top:2px;}
 .map-cell{
-  border-radius:8px;padding:10px 8px 8px;
-  min-height:88px;
-  display:flex;flex-direction:column;
-  border:1px solid transparent;
+  --zc:var(--ink-muted);--zs:var(--line-soft);
+  position:relative;border-radius:12px;padding:9px 9px 8px;min-height:66px;
+  background:var(--zs);border:1px solid transparent;
+  display:flex;flex-direction:column;gap:8px;
 }
-.map-cell-label{
-  font-family:'Inter',sans-serif;font-size:8px;font-weight:700;
-  text-transform:uppercase;letter-spacing:1.5px;
-  margin-bottom:6px;opacity:.75;
+.map-cell.has{border-color:color-mix(in srgb,var(--zc) 38%,transparent);box-shadow:inset 0 0 0 1px rgba(255,255,255,.6);}
+.map-cell-label{display:flex;align-items:center;gap:5px;font-family:'Inter',sans-serif;font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:1.4px;color:var(--zc);opacity:.5;}
+.map-cell.has .map-cell-label{opacity:1;}
+.map-cell-label svg{width:11px;height:11px;flex-shrink:0;}
+.map-cell-chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:auto;}
+.chip{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:2px 9px 2px 2px;border-radius:999px;
+  background:#fff;border:1px solid color-mix(in srgb,var(--fc) 30%,transparent);
+  font-family:'Inter',sans-serif;font-size:10px;font-weight:600;color:var(--fc);line-height:1;
+  box-shadow:0 1px 2px rgba(31,36,23,.06);
 }
-.map-cell-dots{display:flex;flex-wrap:wrap;gap:4px;margin-top:auto;}
-.map-x-labels{
-  display:grid;grid-template-columns:64px 1fr 1fr 1fr;gap:6px;
-  margin-top:4px;margin-left:24px;
+.chip b{width:19px;height:19px;border-radius:50%;background:var(--fc);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-family:'Fraunces',Georgia,serif;font-size:11px;font-weight:500;}
+
+/* colores de zona (cascada por clase) */
+.z-planificar{--zc:var(--zona-planificar);--zs:var(--zona-planificar-soft);}
+.z-monitorear{--zc:var(--zona-monitorear);--zs:var(--zona-monitorear-soft);}
+.z-vigilar{--zc:var(--zona-vigilar);--zs:var(--zona-vigilar-soft);}
+.z-investigar{--zc:var(--zona-investigar);--zs:var(--zona-investigar-soft);}
+.z-ignorar{--zc:var(--zona-ignorar);--zs:var(--zona-ignorar-soft);}
+
+/* ── ZONAS ACCIÓN — portada (filas compactas) ── */
+.zona-cards{display:flex;flex-direction:column;gap:6px;margin-top:auto;}
+.zona-card{
+  display:grid;grid-template-columns:30px 158px 1fr auto;align-items:center;gap:12px;
+  padding:9px 14px 9px 12px;border-radius:10px;background:#fff;
+  border:1px solid var(--line);border-left:4px solid var(--zc);
 }
-.map-x-label{
-  font-family:'Inter',sans-serif;font-size:8.5px;font-weight:600;
-  color:var(--ink-muted);text-transform:uppercase;letter-spacing:1px;
-  text-align:center;
+.zona-card-icon{width:30px;height:30px;border-radius:9px;background:var(--zs);color:var(--zc);display:flex;align-items:center;justify-content:center;}
+.zona-card-icon svg{width:15px;height:15px;}
+.zona-card-name{font-family:'Fraunces',Georgia,serif;font-size:15px;font-weight:500;color:var(--zc);line-height:1.15;}
+.zona-card-meaning{font-family:'Inter',sans-serif;font-size:8px;font-weight:600;color:var(--ink-muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px;line-height:1.35;}
+.zona-card-desc{font-family:'Fraunces',Georgia,serif;font-size:11.8px;line-height:1.45;font-weight:350;color:var(--ink-soft);}
+.zona-card-chips{display:flex;flex-wrap:wrap;gap:4px;justify-content:flex-end;max-width:190px;}
+
+/* ── PÁGINAS DE FICHAS (3 factores por página) ── */
+.fx-list{flex:1;display:flex;flex-direction:column;gap:12px;}
+.fx{
+  flex:1;position:relative;overflow:hidden;
+  border:1px solid var(--line);border-radius:14px;
+  padding:14px 18px 14px 22px;background:#fff;
+  display:flex;flex-direction:column;gap:10px;
 }
-.factor-bubble{
-  width:28px;height:28px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Fraunces',Georgia,serif;font-size:13px;font-weight:500;
-  color:#fff;cursor:default;
-  box-shadow:0 2px 6px rgba(0,0,0,.15);
-  transition:transform .15s ease;
-}
-.factor-bubble:hover{transform:scale(1.12);}
-
-/* colores de celdas */
-.cell-planificar{background:var(--zona-planificar-soft);border-color:rgba(168,69,57,.2);}
-.cell-planificar .map-cell-label{color:var(--zona-planificar);}
-.cell-monitorear{background:var(--zona-monitorear-soft);border-color:rgba(62,87,120,.2);}
-.cell-monitorear .map-cell-label{color:var(--zona-monitorear);}
-.cell-vigilar{background:var(--zona-vigilar-soft);border-color:rgba(184,133,52,.2);}
-.cell-vigilar .map-cell-label{color:var(--zona-vigilar);}
-.cell-investigar{background:var(--zona-investigar-soft);border-color:rgba(85,122,53,.2);}
-.cell-investigar .map-cell-label{color:var(--zona-investigar);}
-.cell-ignorar{background:var(--line-soft);border-color:rgba(138,139,106,.15);}
-.cell-ignorar .map-cell-label{color:var(--zona-ignorar);}
-
-/* ── LEYENDA DEL MAPA ── */
-.map-legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;justify-content:center;}
-.map-legend-item{display:flex;align-items:center;gap:6px;}
-.legend-dot-factor{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:10px;font-weight:500;color:#fff;}
-.legend-txt{font-family:'Inter',sans-serif;font-size:11px;font-weight:500;color:var(--ink);}
-
-/* ── ZONAS ACCIÓN — página del mapa ── */
-.zona-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:auto;}
-.zona-card{padding:16px 18px;border-radius:8px;border:1px solid transparent;}
-.zona-card-head{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
-.zona-card-icon{width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;background:var(--surface);}
-.zona-card-name{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;}
-.zona-card-desc{font-family:'Fraunces',Georgia,serif;font-size:12px;line-height:1.65;font-weight:350;color:var(--ink-soft);text-align:justify;hyphens:auto;}
-
-/* ── PÁGINAS DE FACTOR ── */
-.factor-page-hero{display:flex;align-items:flex-start;gap:22px;padding-bottom:24px;border-bottom:1px solid var(--line);margin-bottom:24px;}
-.factor-page-letter{width:72px;height:72px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',Georgia,serif;font-size:42px;font-weight:400;flex-shrink:0;}
-.factor-page-meta{flex:1;}
-.factor-page-eyebrow{font-family:'Inter',sans-serif;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:2px;margin-bottom:4px;}
-.factor-page-title{font-family:'Fraunces',Georgia,serif;font-size:24px;line-height:1.2;font-weight:400;letter-spacing:-.01em;margin:0 0 8px;color:var(--ink);}
-.factor-zona-pill{display:inline-flex;align-items:center;gap:5px;font-family:'Inter',sans-serif;font-size:10px;font-weight:700;padding:4px 11px;border-radius:999px;text-transform:uppercase;letter-spacing:1.5px;}
-
-.factor-scores-row{display:flex;gap:16px;margin-bottom:24px;}
-.factor-score-box{flex:1;padding:14px 16px;border-radius:8px;border:1px solid var(--line);}
-.factor-score-label{font-family:'Inter',sans-serif;font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--ink-muted);margin-bottom:4px;}
-.factor-score-val{font-family:'Fraunces',Georgia,serif;font-size:28px;font-weight:400;line-height:1;}
-.factor-score-sub{font-family:'Inter',sans-serif;font-size:10px;color:var(--ink-muted);margin-top:3px;}
-
-.factor-bar-wrap{height:4px;background:var(--line);border-radius:2px;margin-top:8px;overflow:hidden;}
-.factor-bar-fill{height:100%;border-radius:2px;}
-
-.factor-analysis{font-family:'Fraunces',Georgia,serif;font-size:14px;line-height:1.8;font-weight:350;color:var(--ink);text-align:justify;hyphens:auto;margin:0;}
-.factor-analysis .keyword{font-weight:500;}
-
-.factor-insights{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0;}
-.insight-block{padding:14px 16px;border-radius:8px;}
-.insight-block.key{background:var(--canvas);border:1px solid var(--line);}
-.insight-label{font-family:'Inter',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.8px;margin-bottom:6px;display:block;}
-.insight-label.key-lbl{color:var(--ink);}
-.insight-text{font-family:'Fraunces',Georgia,serif;font-size:12.5px;line-height:1.7;font-weight:350;color:var(--ink);margin:0;text-align:justify;hyphens:auto;}
-
-.factor-preguntas-block{margin-top:auto;padding-top:20px;border-top:1px solid var(--line);}
-.factor-preguntas-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 20px;margin-top:10px;}
-.factor-pregunta-item{font-family:'Fraunces',Georgia,serif;font-size:11.5px;line-height:1.5;color:var(--ink-soft);font-weight:350;padding-left:12px;position:relative;}
-.factor-pregunta-item::before{content:'';position:absolute;left:0;top:8px;width:4px;height:4px;border-radius:50%;background:var(--olive-mid);}
-.factor-pregunta-item .pregunta-resp{font-weight:500;color:var(--ink);}
-
-/* conclusión */
-.conclusion-block{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px 20px;}
-.conclusion-prose{font-family:'Fraunces',Georgia,serif;font-size:18px;line-height:1.75;font-weight:350;font-style:italic;color:var(--ink);max-width:540px;margin:18px 0 28px;}
-.conclusion-prose .keyword{font-weight:500;font-style:normal;}
-.conclusion-mark{width:40px;height:1px;background:var(--olive-deep);margin:0 auto 18px;}
-.conclusion-footer{font-family:'Inter',sans-serif;font-size:11px;font-weight:500;color:var(--ink-muted);text-transform:uppercase;letter-spacing:2px;}
+.fx::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--fc);}
+.fx-head{display:flex;align-items:center;gap:14px;}
+.fx-letter{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',Georgia,serif;font-size:24px;font-weight:500;flex-shrink:0;}
+.fx-title{flex:1;min-width:0;}
+.fx-name{font-family:'Fraunces',Georgia,serif;font-size:19px;font-weight:400;line-height:1.15;color:var(--ink);letter-spacing:-.01em;}
+.fx-sub{font-family:'Inter',sans-serif;font-size:10.5px;color:var(--ink-muted);margin-top:2px;}
+.fx-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.fx-metric{border-radius:10px;padding:9px 12px 10px;background:var(--canvas);border:1px solid var(--line-soft);}
+.fx-metric-label{font-family:'Inter',sans-serif;font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--ink-muted);}
+.fx-metric-val{font-family:'Fraunces',Georgia,serif;font-size:19px;font-weight:400;line-height:1.15;margin:2px 0 6px;display:flex;align-items:center;gap:6px;}
+.fx-metric-val svg{width:16px;height:16px;flex-shrink:0;}
+.fx-metric-sub{font-family:'Inter',sans-serif;font-size:10px;color:var(--ink-soft);}
+.meter{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;}
+.meter i{height:4px;border-radius:2px;background:var(--line);}
+.fx-metric.action{background:var(--zs);border-color:color-mix(in srgb,var(--zc) 25%,transparent);}
+.fx-metric.action .fx-metric-val{color:var(--zc);}
+.fx-read{font-family:'Fraunces',Georgia,serif;font-size:12.5px;line-height:1.6;font-weight:350;color:var(--ink);text-align:justify;hyphens:auto;}
+.fx-read .keyword{font-weight:500;}
+.fx-insights{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:auto;}
+.fx-box{border-radius:10px;padding:10px 12px;}
+.fx-box.key{background:var(--canvas);border:1px solid var(--line);}
+.fx-box.rec{background:var(--zs);}
+.fx-box-label{display:block;font-family:'Inter',sans-serif;font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:1.6px;margin-bottom:4px;color:var(--ink);}
+.fx-box.rec .fx-box-label{color:var(--zc);}
+.fx-box p{font-family:'Fraunces',Georgia,serif;font-size:11.8px;line-height:1.5;font-weight:350;color:var(--ink);}
 
 @media print{
   @page{size:A4;margin:0;}
-  body{background:white;}
+  body{background:white;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
   .dossier-wrap{padding:0;max-width:none;}
   .dossier-actions,.top-bar{display:none !important;}
   .fade,.fade-1,.fade-2,.fade-3{animation:none !important;transform:none !important;opacity:1 !important;}
-  .page-a4{width:210mm;min-height:297mm;height:297mm;margin:0;padding:18mm 20mm;border:none;box-shadow:none;border-radius:0;page-break-after:always;page-break-inside:avoid;overflow:hidden;}
-  .page-a4:last-child{page-break-after:auto;}
+  .page-a4{width:210mm;min-height:297mm;height:297mm;margin:0;padding:16mm 18mm;border:none;box-shadow:none;border-radius:0;page-break-after:always;break-after:page;page-break-inside:avoid;overflow:hidden;}
+  .page-a4.is-last{page-break-after:auto;break-after:auto;}
+  .dossier-title{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
 }
 /* ── TABLET ── */
-@media(max-width:820px){
+@media screen and (max-width:820px){
   .page-a4{padding:36px 28px;min-height:auto;}
   .dossier-title{font-size:26px;}
-  .zona-cards,.factor-insights,.factor-preguntas-grid{grid-template-columns:1fr;}
-  .factor-scores-row{flex-direction:column;}
 }
 
 /* ── MOVIL ── */
-@media(max-width:600px){
+@media screen and (max-width:600px){
   h1.display{font-size:34px;line-height:1.1;}
   .container{padding:24px 16px 72px;}
   .prose-italic{font-size:16px !important;}
@@ -329,47 +287,19 @@ h3.subtitle{font-family:'Fraunces',Georgia,serif;font-size:20px;line-height:1.25
 
   /* mapa — scroll horizontal para no aplastar */
   .map-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px;}
-  .map-outer{min-width:460px;}
-  .map-cell{min-height:68px;padding:7px 6px 6px;}
-  .map-cell-label{font-size:7px;letter-spacing:1px;}
-  .factor-bubble{width:24px;height:24px;font-size:11px;}
-  .map-col-head{font-size:7.5px;letter-spacing:0.8px;}
-  .map-row-label{font-size:7.5px;padding-right:4px;}
-  .map-x-label{font-size:7.5px;}
-  .map-legend{gap:8px;}
-  .legend-txt{font-size:10px;}
+  .map{min-width:480px;}
+  .map-cell{min-height:76px;padding:8px 7px 7px;}
 
   /* zona cards */
-  .zona-cards{grid-template-columns:1fr;gap:8px;margin-top:16px;}
-  .zona-card{padding:12px 14px;}
-  .zona-card-desc{font-size:11px;}
+  .zona-cards{gap:8px;margin-top:16px;}
+  .zona-card{grid-template-columns:30px 1fr;padding:12px 13px;}
+  .zona-card-desc,.zona-card-chips{grid-column:1/-1;justify-content:flex-start;max-width:none;}
+  .zona-card-desc{font-size:12px;}
 
-  /* factor page hero */
-  .factor-page-hero{gap:12px;padding-bottom:14px;margin-bottom:14px;flex-wrap:wrap;}
-  .factor-page-letter{width:50px;height:50px;font-size:28px;}
-  .factor-page-title{font-size:18px;}
-
-  /* scores */
-  .factor-scores-row{flex-direction:column;gap:8px;margin-bottom:14px;}
-  .factor-score-val{font-size:22px;}
-  .factor-score-box{padding:10px 12px;}
-
-  /* analisis */
-  .factor-analysis{font-size:13px;line-height:1.7;}
-
-  /* insights */
-  .factor-insights{grid-template-columns:1fr;gap:8px;margin:12px 0;}
-  .insight-text{font-size:12px;}
-  .insight-block{padding:12px 14px;}
-
-  /* preguntas */
-  .factor-preguntas-block{padding-top:14px;}
-  .factor-preguntas-grid{grid-template-columns:1fr;gap:4px;}
-  .factor-pregunta-item{font-size:10.5px;}
-
-  /* conclusion */
-  .conclusion-block{padding:24px 12px;}
-  .conclusion-prose{font-size:15px;margin:12px 0 18px;}
+  /* fichas */
+  .fx{padding:14px 14px 14px 18px;}
+  .fx-metrics,.fx-insights{grid-template-columns:1fr;}
+  .fx-name{font-size:17px;}
 }
 
 /* zonas intro grid — responsive */
@@ -489,10 +419,10 @@ h3.subtitle{font-family:'Fraunces',Georgia,serif;font-size:20px;line-height:1.25
     <article class="page-a4 fade">
       <header class="page-header">
         <div class="page-mark"><div class="page-mark-line"></div><span class="eyebrow">Informe PESTEL · Mapa de impacto</span></div>
-        <span class="page-num">01 / <span class="total-pages-ref">08</span></span>
+        <span class="page-num">01 / 03</span>
       </header>
-      <div style="margin-bottom:24px;">
-        <span class="eyebrow" style="color:var(--olive-deep);margin-bottom:12px;display:block;">Análisis estratégico</span>
+      <div style="margin-bottom:18px;">
+        <span class="eyebrow" style="color:var(--olive-deep);margin-bottom:8px;display:block;">Análisis estratégico</span>
         <h1 id="idea-display-results" class="dossier-title"></h1>
       </div>
       <div class="dossier-summary-block">
@@ -506,22 +436,7 @@ h3.subtitle{font-family:'Fraunces',Georgia,serif;font-size:20px;line-height:1.25
       <div class="zona-cards" id="zona-cards-portada"></div>
     </article>
 
-    <!-- PÁGINAS 2–7 — FACTORES -->
-    <div id="results-factors"></div>
-
-    <!-- PÁGINA FINAL -->
-    <article class="page-a4 fade">
-      <header class="page-header">
-        <div class="page-mark"><div class="page-mark-line"></div><span class="eyebrow">Reflexión final</span></div>
-        <span class="page-num" id="final-page-num">08 / 08</span>
-      </header>
-      <div class="conclusion-block">
-        <p class="dossier-section-label" style="border:none;text-align:center;">Lectura estratégica</p>
-        <p id="conclusion-text" class="conclusion-prose"></p>
-        <div class="conclusion-mark"></div>
-        <p class="conclusion-footer">Análisis PESTEL · Mapa de impacto · IPE 2</p>
-      </div>
-    </article>
+    <!-- PÁGINAS 2–3 — FICHAS P·E·S y T·E·L (se generan en renderResults) -->
   </div>
 </div>
 
@@ -662,17 +577,37 @@ const ZONA_MAP = {
   '2-1':'ignorar',   '2-2':'vigilar',   '2-3':'investigar',
   '1-1':'ignorar',   '1-2':'ignorar',   '1-3':'investigar',
 };
+// Iconos de línea (mismo estilo que la landing: 24×24, stroke 1.7)
+const ZONA_ICON = {
+  planificar:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg>',
+  monitorear:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>',
+  vigilar:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>',
+  investigar:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>',
+  ignorar:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',
+};
 const ZONAS = {
-  planificar:{ name:'Planificar', color:'var(--zona-planificar)', soft:'var(--zona-planificar-soft)', icon:'🎯',
-    desc:'Alto impacto, alta incertidumbre. Requiere planificación estratégica activa, diseño de escenarios y planes de contingencia.' },
-  monitorear:{ name:'Monitorear', color:'var(--zona-monitorear)', soft:'var(--zona-monitorear-soft)', icon:'👁️',
-    desc:'Alto impacto, baja incertidumbre. El factor es relevante y predecible: incorpora su gestión en el plan de negocio.' },
-  vigilar:{ name:'Vigilar', color:'var(--zona-vigilar)', soft:'var(--zona-vigilar-soft)', icon:'⚠️',
-    desc:'Impacto medio e incertidumbre media. Mantén seguimiento periódico: puede desplazarse hacia zonas de mayor prioridad.' },
-  investigar:{ name:'Investigar', color:'var(--zona-investigar)', soft:'var(--zona-investigar-soft)', icon:'🔍',
-    desc:'Bajo impacto, alta incertidumbre. Profundiza en el conocimiento del factor antes de decidir si merece más atención.' },
-  ignorar:{ name:'Ignorar', color:'var(--zona-ignorar)', soft:'var(--zona-ignorar-soft)', icon:'✓',
-    desc:'Bajo impacto, baja incertidumbre. No requiere atención estratégica prioritaria en este momento.' },
+  planificar:{ name:'Planificar', color:'var(--zona-planificar)', soft:'var(--zona-planificar-soft)',
+    meaning:'Alto impacto · incertidumbre media o alta', sub:'Planificar escenarios',
+    desc:'Aquí se juega la viabilidad del proyecto. Diseña escenarios alternativos y un plan de contingencia para cada factor.' },
+  monitorear:{ name:'Monitorear', color:'var(--zona-monitorear)', soft:'var(--zona-monitorear-soft)',
+    meaning:'Alto impacto · baja incertidumbre', sub:'Seguimiento activo',
+    desc:'Pesa mucho pero es previsible. Intégralo en tu plan de negocio y sigue sus indicadores clave.' },
+  vigilar:{ name:'Vigilar', color:'var(--zona-vigilar)', soft:'var(--zona-vigilar-soft)',
+    meaning:'Impacto medio · incertidumbre media', sub:'Vigilancia periódica',
+    desc:'Revísalo cada cierto tiempo: si cambia el entorno, puede subir a una zona prioritaria.' },
+  investigar:{ name:'Investigar', color:'var(--zona-investigar)', soft:'var(--zona-investigar-soft)',
+    meaning:'Alta incertidumbre · impacto bajo o medio', sub:'Profundizar análisis',
+    desc:'Te falta información. Investiga antes de decidir si merece tiempo y recursos.' },
+  ignorar:{ name:'Ignorar', color:'var(--zona-ignorar)', soft:'var(--zona-ignorar-soft)',
+    meaning:'Impacto limitado · entorno previsible', sub:'Sin prioridad estratégica',
+    desc:'No requiere atención prioritaria ahora. Revisa su posición en tu próximo análisis del entorno.' },
+};
+const ACCION = {
+  planificar:'Diseña al menos dos escenarios alternativos para este factor y asigna un responsable de seguimiento.',
+  monitorear:'Incorpora los indicadores clave de este factor en tu cuadro de mando mensual.',
+  vigilar:'Establece una revisión semestral de este factor y define el umbral que lo elevaría a zona de planificación.',
+  investigar:'Dedica tiempo a investigar este factor en profundidad antes de tu próxima revisión estratégica.',
+  ignorar:'No requiere acción inmediata. Revisa su posición en tu próxima revisión anual del entorno.',
 };
 
 const ANALISIS = {
@@ -931,237 +866,152 @@ document.getElementById('btn-save-factor').addEventListener('click',()=>go('dash
 // ═══════════════════════════════════════════════════════════════
 // MAPA 3×3
 // ═══════════════════════════════════════════════════════════════
-function renderMap(){
-  const factorColors={
-    politico:'#3E5778',economico:'#8B6F2A',social:'#8B3A3A',
-    tecnologico:'#3D6B5C',ecologico:'#557A35',legal:'#5D3D66'
-  };
+const FACTOR_COLORS={
+  politico:'#3E5778',economico:'#8B6F2A',social:'#8B3A3A',
+  tecnologico:'#3D6B5C',ecologico:'#557A35',legal:'#5D3D66'
+};
+const LEVEL_COLOR=['','var(--green)','var(--amber)','var(--red)'];
 
+function chip(f){
+  return `<span class="chip" style="--fc:${FACTOR_COLORS[f.id]};" title="${f.label}"><b>${f.letter}</b>${f.labelShort}</span>`;
+}
+
+function renderMap(){
   // Asignar cada factor a su celda (impacto 1-3, incertidumbre 1-3)
   const cellFactors={};
-  ['3-1','3-2','3-3','2-1','2-2','2-3','1-1','1-2','1-3'].forEach(k=>{ cellFactors[k]=[]; });
+  Object.keys(ZONA_MAP).forEach(k=>{ cellFactors[k]=[]; });
   FACTORS.forEach(f=>{
     const key=`${getEjeScore(f,'impacto')}-${getEjeScore(f,'incertidumbre')}`;
     if(cellFactors[key]) cellFactors[key].push(f);
   });
 
-  const bubble=(f)=>`<div class="factor-bubble" style="background:${factorColors[f.id]};" title="${f.label}">${f.letter}</div>`;
   const cell=(imp,unc)=>{
-    const zona=ZONA_MAP[`${imp}-${unc}`];
-    const zd=ZONAS[zona];
-    const dots=(cellFactors[`${imp}-${unc}`]||[]).map(bubble).join('');
-    return `<div class="map-cell cell-${zona}"><div class="map-cell-label">${zd.name}</div><div class="map-cell-dots">${dots}</div></div>`;
+    const key=`${imp}-${unc}`;
+    const zona=ZONA_MAP[key];
+    const fs=cellFactors[key]||[];
+    return `<div class="map-cell z-${zona}${fs.length?' has':''}">
+      <div class="map-cell-label">${ZONA_ICON[zona]}${ZONAS[zona].name}</div>
+      <div class="map-cell-chips">${fs.map(chip).join('')}</div>
+    </div>`;
   };
+  const row=(imp,label)=>`<div class="map-row-label">${label}</div>${cell(imp,1)}${cell(imp,2)}${cell(imp,3)}`;
 
-  // Cabeceras de columna (alineadas con map-row que tiene 64px + 3×1fr)
-  let html=`<div class="map-outer">
-    <div class="map-col-heads">
-      <div></div>
-      <div class="map-col-head">Baja incertidumbre</div>
-      <div class="map-col-head">Media incertidumbre</div>
-      <div class="map-col-head">Alta incertidumbre</div>
+  return `<div class="map">
+    <div class="map-yaxis">
+      <svg viewBox="0 0 10 100" preserveAspectRatio="none" aria-hidden="true"><path d="M5 100V2M1 8l4-6 4 6" fill="none" stroke="#8A8B6A" stroke-width="1.2" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Impacto</span>
     </div>
-    <div class="map-body">
-      <div class="map-axis-y-wrap"><span class="map-axis-y">← Impacto →</span></div>
-      <div class="map-rows">
-        <div class="map-row">
-          <div class="map-row-label">Alto</div>
-          ${cell(3,1)}${cell(3,2)}${cell(3,3)}
-        </div>
-        <div class="map-row">
-          <div class="map-row-label">Medio</div>
-          ${cell(2,1)}${cell(2,2)}${cell(2,3)}
-        </div>
-        <div class="map-row">
-          <div class="map-row-label">Bajo</div>
-          ${cell(1,1)}${cell(1,2)}${cell(1,3)}
-        </div>
-      </div>
-    </div>
-    <div class="map-x-labels">
+    <div class="map-grid">
+      ${row(3,'Alto')}${row(2,'Medio')}${row(1,'Bajo')}
       <div></div>
-      <div class="map-x-label">Baja</div>
-      <div class="map-x-label">Media</div>
-      <div class="map-x-label">Alta</div>
+      <div class="map-col-label">Baja</div><div class="map-col-label">Media</div><div class="map-col-label">Alta</div>
+    </div>
+    <div class="map-xaxis">
+      <span>Incertidumbre</span>
+      <svg viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true"><path d="M0 5h98M92 1l6 4-6 4" fill="none" stroke="#8A8B6A" stroke-width="1.2" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </div>
   </div>`;
+}
 
-  // Leyenda factores
-  html+=`<div class="map-legend">`;
-  FACTORS.forEach(f=>{
-    html+=`<div class="map-legend-item">
-      <div class="legend-dot-factor" style="background:${factorColors[f.id]};">${f.letter}</div>
-      <span class="legend-txt">${f.labelShort}</span>
-    </div>`;
-  });
-  html+=`</div>`;
+function meter(v){
+  return `<div class="meter">${[1,2,3].map(n=>`<i style="${n<=v?`background:${LEVEL_COLOR[v]};`:''}"></i>`).join('')}</div>`;
+}
 
-  return html;
+function fichaFactor(f){
+  const zona=getZona(f);
+  const zd=ZONAS[zona];
+  const imp=getEjeScore(f,'impacto');
+  const inc=getEjeScore(f,'incertidumbre');
+  return `<section class="fx z-${zona}" style="--fc:${FACTOR_COLORS[f.id]};">
+    <div class="fx-head">
+      <div class="fx-letter" style="background:${cv(f.color,'soft')};color:${FACTOR_COLORS[f.id]};">${f.letter}</div>
+      <div class="fx-title">
+        <div class="fx-name">${f.label}</div>
+        <div class="fx-sub">${f.subtitle}</div>
+      </div>
+    </div>
+    <div class="fx-metrics">
+      <div class="fx-metric">
+        <div class="fx-metric-label">Impacto</div>
+        <div class="fx-metric-val" style="color:${LEVEL_COLOR[imp]};">${getScoreLabel(imp)}</div>
+        ${meter(imp)}
+      </div>
+      <div class="fx-metric">
+        <div class="fx-metric-label">Incertidumbre</div>
+        <div class="fx-metric-val" style="color:${LEVEL_COLOR[inc]};">${getScoreLabel(inc)}</div>
+        ${meter(inc)}
+      </div>
+      <div class="fx-metric action">
+        <div class="fx-metric-label">Acción estratégica</div>
+        <div class="fx-metric-val">${ZONA_ICON[zona]}${zd.name}</div>
+        <div class="fx-metric-sub">${zd.sub}</div>
+      </div>
+    </div>
+    <p class="fx-read">${highlightKeywords(ANALISIS[f.id][zona])}</p>
+    <div class="fx-insights">
+      <div class="fx-box key"><span class="fx-box-label">Punto clave</span><p>${PUNTO_CLAVE[f.id][zona]}</p></div>
+      <div class="fx-box rec"><span class="fx-box-label">Acción recomendada</span><p>${ACCION[zona]}</p></div>
+    </div>
+  </section>`;
 }
 
 // ═══════════════════════════════════════════════════════════════
-// RESULTADOS
+// RESULTADOS — 3 páginas: portada + P·E·S + T·E·L
 // ═══════════════════════════════════════════════════════════════
 function renderResults(){
-  // Mapa
   document.getElementById('map-mount').innerHTML=renderMap();
-
-  // Idea
   document.getElementById('idea-display-results').textContent=state.idea;
 
-  // Síntesis
+  // Síntesis: zona dominante + prioridades concretas
+  const porZona=z=>FACTORS.filter(f=>getZona(f)===z);
+  const lista=fs=>{
+    const n=fs.map(f=>f.labelShort.toLowerCase());
+    return n.length>1?`${n.slice(0,-1).join(', ')} y ${n[n.length-1]}`:n[0];
+  };
   const zonaCounts={planificar:0,monitorear:0,vigilar:0,investigar:0,ignorar:0};
   FACTORS.forEach(f=>{ zonaCounts[getZona(f)]++; });
   const topZona=Object.entries(zonaCounts).sort((a,b)=>b[1]-a[1])[0][0];
-  const resumen=`El análisis del macroentorno de tu idea revela que la mayoría de los factores externos se concentran en la zona de "${ZONAS[topZona].name.toLowerCase()}". ${
+  const plan=porZona('planificar'), mon=porZona('monitorear');
+  let resumen=`El análisis del macroentorno de tu idea revela que la mayoría de los factores externos se concentran en la zona de "${ZONAS[topZona].name.toLowerCase()}". ${
     topZona==='planificar'?'El entorno presenta alta incertidumbre con elevado impacto potencial: la planificación estratégica por escenarios es prioritaria.':
     topZona==='monitorear'?'Los factores externos más relevantes son predecibles: incorpóralos activamente en tu plan de negocio.':
     topZona==='vigilar'?'El entorno presenta impacto e incertidumbre moderados: mantén un seguimiento periódico y ajusta según evolucione.':
     topZona==='investigar'?'La alta incertidumbre en factores de bajo impacto actual aconseja profundizar en el análisis antes de comprometer recursos.':
     'El entorno externo presenta bajo impacto e incertidumbre contenida: las condiciones son favorables para centrarse en la ejecución.'
   }`;
+  if(plan.length) resumen+=` Prioridad inmediata: ${plan.length>1?'los factores':'el factor'} ${lista(plan)} ${plan.length>1?'exigen':'exige'} planificar escenarios.`;
+  if(mon.length) resumen+=` ${mon.length>1?'Los factores':'El factor'} ${lista(mon)} ${mon.length>1?'son tus palancas más predecibles':'es tu palanca más predecible'}.`;
   document.getElementById('resumen-general').innerHTML=highlightKeywords(resumen);
 
-  // Cards de zonas en portada
-  const zonasPresentes=[...new Set(FACTORS.map(f=>getZona(f)))];
-  const portadaCards=document.getElementById('zona-cards-portada');
-  portadaCards.innerHTML='';
-  zonasPresentes.forEach(z=>{
-    const zd=ZONAS[z];
-    const factoresZona=FACTORS.filter(f=>getZona(f)===z);
-    const card=document.createElement('div');
-    card.className='zona-card';
-    card.style.cssText=`background:${zd.soft};border-color:${zd.color}33;`;
-    card.innerHTML=`<div class="zona-card-head">
-      <div class="zona-card-icon">${zd.icon}</div>
-      <span class="zona-card-name" style="color:${zd.color};">${zd.name}</span>
-    </div>
-    <p class="zona-card-desc">${zd.desc}</p>
-    <p style="font-family:'Inter',sans-serif;font-size:10px;font-weight:600;color:${zd.color};margin-top:8px;text-transform:uppercase;letter-spacing:1px;">
-      ${factoresZona.map(f=>f.labelShort).join(' · ')}
-    </p>`;
-    portadaCards.appendChild(card);
-  });
-
-  // Páginas de factor
-  const totalPages=FACTORS.length+2;
-  document.querySelectorAll('.total-pages-ref').forEach(el=>el.textContent=String(totalPages).padStart(2,'0'));
-  document.getElementById('final-page-num').textContent=`${String(totalPages).padStart(2,'0')} / ${String(totalPages).padStart(2,'0')}`;
-
-  const factorColors={
-    politico:'#3E5778',economico:'#8B6F2A',social:'#8B3A3A',
-    tecnologico:'#3D6B5C',ecologico:'#557A35',legal:'#5D3D66'
-  };
-
-  const container=document.getElementById('results-factors');
-  container.innerHTML='';
-
-  FACTORS.forEach((f,i)=>{
-    const zona=getZona(f);
-    const zd=ZONAS[zona];
-    const impacto=getEjeScore(f,'impacto');
-    const incert=getEjeScore(f,'incertidumbre');
-    const analisis=ANALISIS[f.id][zona];
-    const puntoClave=PUNTO_CLAVE[f.id][zona];
-    const pageNum=i+2;
-    const fColor=factorColors[f.id];
-
-    // Resumen de respuestas
-    const preguntasHTML=f.preguntas.map(p=>{
-      const v=state.respuestas[p.id];
-      const opt=p.opts.find(o=>o.v==v);
-      const ejeTag=p.eje==='impacto'?'Impacto':'Incert.';
-      return `<div class="factor-pregunta-item">
-        <span style="font-family:'Inter',sans-serif;font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:${p.eje==='impacto'?fColor:'var(--ink-muted)'};">${ejeTag}</span>
-        ${p.texto.substring(0,55)}… <span class="pregunta-resp">→ ${opt?opt.t.split('—')[0].trim():''}</span>
+  // Tarjetas de zona (solo las presentes, en orden de prioridad)
+  const orden=['planificar','monitorear','vigilar','investigar','ignorar'];
+  document.getElementById('zona-cards-portada').innerHTML=orden
+    .filter(z=>zonaCounts[z]>0)
+    .map(z=>{
+      const zd=ZONAS[z];
+      return `<div class="zona-card z-${z}">
+        <div class="zona-card-icon">${ZONA_ICON[z]}</div>
+        <div><div class="zona-card-name">${zd.name}</div><div class="zona-card-meaning">${zd.meaning}</div></div>
+        <p class="zona-card-desc">${zd.desc}</p>
+        <div class="zona-card-chips">${porZona(z).map(chip).join('')}</div>
       </div>`;
     }).join('');
 
+  // Páginas 2 y 3 — tres fichas por página
+  const wrap=document.querySelector('#screen-results .dossier-wrap');
+  wrap.querySelectorAll('.page-fichas').forEach(p=>p.remove());
+  [[0,1,2],[3,4,5]].forEach((grupo,gi)=>{
+    const fs=grupo.map(i=>FACTORS[i]);
     const page=document.createElement('article');
-    page.className='page-a4 fade';
+    page.className='page-a4 page-fichas fade'+(gi===1?' is-last':'');
     page.innerHTML=`
       <header class="page-header">
-        <div class="page-mark">
-          <div class="page-mark-line" style="background:${fColor};"></div>
-          <span class="eyebrow" style="color:${fColor};">Factor ${i+1} · ${f.labelShort}</span>
-        </div>
-        <span class="page-num">${String(pageNum).padStart(2,'0')} / ${String(totalPages).padStart(2,'0')}</span>
+        <div class="page-mark"><div class="page-mark-line"></div><span class="eyebrow">Fichas de factores · ${fs.map(f=>f.letter).join(' · ')}</span></div>
+        <span class="page-num">0${gi+2} / 03</span>
       </header>
-
-      <div class="factor-page-hero">
-        <div class="factor-page-letter" style="background:${cv(f.color,'soft')};color:${fColor};">${f.letter}</div>
-        <div class="factor-page-meta">
-          <span class="factor-page-eyebrow" style="color:${fColor};">Análisis del factor</span>
-          <h2 class="factor-page-title">${f.label}</h2>
-          <span class="factor-zona-pill" style="background:${zd.soft};color:${zd.color};">${zd.icon} ${zd.name}</span>
-        </div>
-      </div>
-
-      <div class="factor-scores-row">
-        <div class="factor-score-box" style="background:${impacto===3?'var(--red-soft)':impacto===2?'var(--amber-soft)':'var(--green-soft)'};border-color:${impacto===3?'rgba(168,69,57,.2)':impacto===2?'rgba(184,133,52,.2)':'rgba(74,112,40,.2)'};">
-          <div class="factor-score-label">Impacto</div>
-          <div class="factor-score-val" style="color:${getScoreColor('impacto',impacto)};">${getScoreLabel(impacto)}</div>
-          <div class="factor-bar-wrap"><div class="factor-bar-fill" style="width:${(impacto/3)*100}%;background:${getScoreColor('impacto',impacto)};"></div></div>
-        </div>
-        <div class="factor-score-box" style="background:${incert===3?'var(--red-soft)':incert===2?'var(--amber-soft)':'var(--green-soft)'};border-color:${incert===3?'rgba(168,69,57,.2)':incert===2?'rgba(184,133,52,.2)':'rgba(74,112,40,.2)'};">
-          <div class="factor-score-label">Incertidumbre</div>
-          <div class="factor-score-val" style="color:${getScoreColor('incertidumbre',incert)};">${getScoreLabel(incert)}</div>
-          <div class="factor-bar-wrap"><div class="factor-bar-fill" style="width:${(incert/3)*100}%;background:${getScoreColor('incertidumbre',incert)};"></div></div>
-        </div>
-        <div class="factor-score-box" style="background:${zd.soft};">
-          <div class="factor-score-label">Acción estratégica</div>
-          <div style="font-family:'Fraunces',Georgia,serif;font-size:20px;font-weight:500;color:${zd.color};line-height:1.2;">${zd.icon} ${zd.name}</div>
-          <div class="factor-score-sub">${
-            zona==='planificar'?'Planificar escenarios':
-            zona==='monitorear'?'Seguimiento activo':
-            zona==='vigilar'?'Vigilancia periódica':
-            zona==='investigar'?'Profundizar análisis':'Sin prioridad estratégica'
-          }</div>
-        </div>
-      </div>
-
-      <div style="margin-bottom:20px;">
-        <span class="dossier-section-label" style="color:${fColor};">Lectura del factor</span>
-        <p class="factor-analysis">${highlightKeywords(analisis)}</p>
-      </div>
-
-      <div class="factor-insights">
-        <div class="insight-block key">
-          <span class="insight-label key-lbl">Punto clave</span>
-          <p class="insight-text">${puntoClave}</p>
-        </div>
-        <div class="insight-block" style="background:${zd.soft};">
-          <span class="insight-label" style="color:${zd.color};">Acción recomendada</span>
-          <p class="insight-text" style="color:${cv(f.color,'ink')};">
-            ${zona==='planificar'?'Diseña al menos dos escenarios alternativos para este factor y asigna un responsable de seguimiento.':
-              zona==='monitorear'?'Incorpora los indicadores clave de este factor en tu cuadro de mando mensual.':
-              zona==='vigilar'?'Establece una revisión semestral de este factor y define el umbral que lo elevaría a zona de planificación.':
-              zona==='investigar'?'Dedica tiempo a investigar este factor en profundidad antes de tu próxima revisión estratégica.':
-              'No requiere acción inmediata. Revisa su posición en tu próxima revisión anual del entorno.'}
-          </p>
-        </div>
-      </div>
-
-      <div class="factor-preguntas-block">
-        <span class="dossier-section-label" style="color:${fColor};border:none;padding:0;">Respuestas del análisis</span>
-        <div class="factor-preguntas-grid">${preguntasHTML}</div>
-      </div>`;
-    container.appendChild(page);
+      <div class="fx-list">${fs.map(fichaFactor).join('')}</div>`;
+    wrap.appendChild(page);
   });
-
-  // Conclusión
-  const planificarF=FACTORS.filter(f=>getZona(f)==='planificar');
-  const monitorearF=FACTORS.filter(f=>getZona(f)==='monitorear');
-  const conclusion=`El mapa PESTEL de tu idea muestra un entorno ${
-    planificarF.length>=3?'con alta carga de incertidumbre e impacto: la planificación estratégica por escenarios es la herramienta central para navegar el macroentorno':
-    monitorearF.length>=3?'con factores de alto impacto bien identificados y predecibles: tienes visibilidad suficiente para tomar decisiones estratégicas con confianza':
-    'equilibrado, con una combinación de factores que requieren acciones diferenciadas según su posición en el mapa'
-  }. ${
-    planificarF.length>0?`Los factores ${planificarF.map(f=>f.labelShort.toLowerCase()).join(' y ')} exigen mayor atención estratégica inmediata. `:''}${
-    monitorearF.length>0?`Los factores ${monitorearF.map(f=>f.labelShort.toLowerCase()).join(' y ')} son tus palancas más predecibles.`:''
-  } Usa este análisis como punto de partida vivo: revísalo cada vez que el entorno cambie.`;
-
-  document.getElementById('conclusion-text').innerHTML=highlightKeywords(conclusion);
 }
 
 // ═══════════════════════════════════════════════════════════════
