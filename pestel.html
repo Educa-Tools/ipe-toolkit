@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Análisis PESTEL · Mapa de impacto</title>
+<script>try{var __t=localStorage.getItem('educa:theme');if(__t)document.documentElement.setAttribute('data-theme',__t);}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -305,6 +306,35 @@ h3.subtitle{font-family:'Fraunces',Georgia,serif;font-size:20px;line-height:1.25
 /* zonas intro grid — responsive */
 .zonas-intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
 @media(max-width:600px){.zonas-intro-grid{grid-template-columns:1fr;}}
+
+/* ── TEMAS (paleta Educa Tools; los colores semánticos de zona/nivel no cambian) ── */
+html[data-theme="pizarra"]{--olive-deep:#3E5778;--olive-mid:#8B9CB5;--lime-soft:#E4E8F0;--olive-soft:#C9D2E0;}
+html[data-theme="ambar"]{--olive-deep:#8B6430;--olive-mid:#C9A56E;--lime-soft:#F2E8D9;--olive-soft:#E4D3B6;}
+html[data-theme="bosque"]{--olive-deep:#557A35;--olive-mid:#A8C485;--lime-soft:#E5EDDB;--olive-soft:#CBDDB8;}
+html[data-theme="vino"]{--olive-deep:#7A3244;--olive-mid:#C58A9A;--lime-soft:#F2E1E6;--olive-soft:#E4C3CD;}
+html[data-theme="indigo"]{--olive-deep:#454B78;--olive-mid:#9498C4;--lime-soft:#E6E7F3;--olive-soft:#CDD0E8;}
+
+/* ── Guardado / tema ── */
+.btn-sm{padding:8px 14px;font-size:12.5px;}
+.link-btn{background:none;border:none;padding:0;font-family:'Inter',sans-serif;font-size:12.5px;color:var(--ink-soft);text-decoration:underline;text-underline-offset:3px;cursor:pointer;}
+.link-btn:hover{color:var(--olive-deep);}
+.link-btn.danger.armed{color:var(--red);font-weight:600;}
+.resume-card{display:none;margin-bottom:24px;padding:16px 18px;border-radius:14px;background:var(--lime-soft);border:1px solid var(--olive-soft);border-left:4px solid var(--olive-deep);}
+.resume-card.show{display:block;}
+.resume-title{font-family:'Fraunces',Georgia,serif;font-size:17px;color:var(--ink);margin-bottom:2px;}
+.resume-meta{font-family:'Inter',sans-serif;font-size:12.5px;color:var(--ink-soft);margin-bottom:12px;}
+.resume-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center;}
+.save-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin:-18px 0 26px;font-family:'Inter',sans-serif;font-size:12px;color:var(--ink-muted);}
+.save-bar .dot{width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block;margin-right:6px;}
+.save-bar.off .dot{background:var(--amber);}
+.intro-tools{display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:center;margin-top:16px;}
+.theme-picker{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-bottom:12px;font-family:'Inter',sans-serif;font-size:12px;color:var(--ink-soft);}
+.swatches{display:flex;gap:8px;}
+.swatch{width:26px;height:26px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px var(--line);cursor:pointer;padding:0;background:var(--sw);}
+.swatch[aria-pressed="true"]{box-shadow:0 0 0 2px var(--ink);}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);opacity:0;pointer-events:none;background:var(--ink);color:#fff;font-family:'Inter',sans-serif;font-size:13px;padding:10px 18px;border-radius:999px;transition:all .25s;z-index:99;max-width:90vw;text-align:center;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+@media print{.theme-picker,.save-bar,.resume-card,.toast{display:none !important;}}
 </style>
 </head>
 <body>
@@ -344,6 +374,14 @@ h3.subtitle{font-family:'Fraunces',Georgia,serif;font-size:20px;line-height:1.25
         <div style="display:flex;align-items:center;gap:8px;"><div style="width:10px;height:10px;border-radius:50%;background:var(--zona-ignorar);flex-shrink:0;"></div><span style="font-family:'Inter',sans-serif;font-size:12px;color:var(--ink-soft);"><b style="color:var(--zona-ignorar);">Ignorar</b> — bajo impacto, baja incertidumbre</span></div>
       </div>
     </div>
+    <div id="resume-card" class="resume-card" role="status">
+      <div class="resume-title">Tienes un análisis a medias</div>
+      <div class="resume-meta" id="resume-meta"></div>
+      <div class="resume-actions">
+        <button type="button" class="btn btn-primary btn-sm" id="btn-resume">Continuar donde lo dejé</button>
+        <button type="button" class="link-btn danger" id="btn-discard">Empezar de cero</button>
+      </div>
+    </div>
     <div class="fade-3" style="margin-bottom:28px;">
       <label class="label-form">Tu idea de negocio</label>
       <textarea id="idea-input" class="text-input serif-input" rows="4"
@@ -354,6 +392,9 @@ h3.subtitle{font-family:'Fraunces',Georgia,serif;font-size:20px;line-height:1.25
       <span>Comenzar el análisis</span>
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
     </button>
+    <div class="intro-tools">
+      <button type="button" class="link-btn" id="btn-load-intro">Cargar progreso desde un archivo</button>
+    </div>
   </div>
 </div>
 
@@ -367,6 +408,11 @@ h3.subtitle{font-family:'Fraunces',Georgia,serif;font-size:20px;line-height:1.25
     <span class="eyebrow" style="display:block;margin-bottom:10px;">Analizando</span>
     <p id="idea-display-dashboard" class="idea-display" style="margin-bottom:8px;"></p>
     <p id="progress-text" class="sans" style="font-size:13px;color:var(--ink-soft);margin-bottom:36px;"></p>
+    <div class="save-bar" id="save-bar">
+      <span id="save-status"><i class="dot"></i>Guardado automático en este navegador</span>
+      <button type="button" class="link-btn" id="btn-download">Descargar mi progreso</button>
+      <button type="button" class="link-btn danger" id="btn-clear">Borrar mi progreso</button>
+    </div>
     <div id="factors-list" style="display:flex;flex-direction:column;gap:12px;margin-bottom:32px;"></div>
     <button id="btn-generate" class="btn btn-primary" style="width:100%;padding:16px;font-size:15px;" disabled>
       <span id="btn-generate-text">Completa los factores restantes</span>
@@ -410,6 +456,7 @@ h3.subtitle{font-family:'Fraunces',Georgia,serif;font-size:20px;line-height:1.25
 <!-- ═══ RESULTADOS ═══ -->
 <div id="screen-results" class="screen">
   <div class="dossier-wrap">
+    <div class="theme-picker"><span>Color del informe</span><div class="swatches" id="swatches"></div></div>
     <div class="dossier-actions">
       <button class="btn btn-ghost" onclick="reset()">Nueva idea</button>
       <button class="btn btn-primary" onclick="window.print()">Imprimir informe</button>
@@ -439,6 +486,9 @@ h3.subtitle{font-family:'Fraunces',Georgia,serif;font-size:20px;line-height:1.25
     <!-- PÁGINAS 2–3 — FICHAS P·E·S y T·E·L (se generan en renderResults) -->
   </div>
 </div>
+
+<input type="file" id="file-load" accept=".json,application/json" hidden>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
 // ═══════════════════════════════════════════════════════════════
@@ -714,6 +764,8 @@ function go(screen){
   if(screen==='dashboard') renderDashboard();
   if(screen==='factor') renderFactor();
   if(screen==='results') renderResults();
+  if(screen==='dashboard'||screen==='factor') updateSaveStatus();
+  saveProgress();
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -722,8 +774,9 @@ function go(screen){
 document.getElementById('idea-input').addEventListener('input',e=>{
   state.idea=e.target.value;
   document.getElementById('btn-start').disabled=state.idea.trim().length<15;
+  saveProgress();
 });
-document.getElementById('btn-start').addEventListener('click',()=>go('dashboard'));
+document.getElementById('btn-start').addEventListener('click',()=>{ resolvePending(); go('dashboard'); });
 
 // ═══════════════════════════════════════════════════════════════
 // DASHBOARD
@@ -849,6 +902,7 @@ function renderFactor(){
   qc.querySelectorAll('.opt-btn').forEach(el=>{
     el.onclick=()=>{
       state.respuestas[el.dataset.qid]=Number(el.dataset.val);
+      saveProgress();
       updateSaveButton();
       renderFactor();
     };
@@ -1019,10 +1073,171 @@ function renderResults(){
 // ═══════════════════════════════════════════════════════════════
 function reset(){
   state.idea=''; state.respuestas={}; state.currentFactor=0;
+  clearSaved();
   document.getElementById('idea-input').value='';
   document.getElementById('btn-start').disabled=true;
   go('intro');
 }
+
+// ═══════════════════════════════════════════════════════════════
+// PERSISTENCIA · autoguardado, archivo de progreso y tema
+// ═══════════════════════════════════════════════════════════════
+const STORE_KEY='educa:pestel:v1';
+const THEME_KEY='educa:theme';
+const THEMES=[
+  {id:'oliva',name:'Oliva',c:'#6B7028'},{id:'pizarra',name:'Pizarra',c:'#3E5778'},
+  {id:'ambar',name:'Ámbar',c:'#8B6430'},{id:'bosque',name:'Bosque',c:'#557A35'},
+  {id:'vino',name:'Vino',c:'#7A3244'},{id:'indigo',name:'Índigo',c:'#454B78'}
+];
+const VALID_IDS=new Set(FACTORS.flatMap(f=>f.preguntas.map(q=>q.id)));
+let pendingResume=false;
+
+const storageOK=(()=>{try{const k='__t';localStorage.setItem(k,'1');localStorage.removeItem(k);return true;}catch(e){return false;}})();
+
+function snapshot(){
+  return {app:'educa-pestel',v:1,savedAt:Date.now(),idea:state.idea,respuestas:state.respuestas,currentFactor:state.currentFactor};
+}
+function sanitize(d){
+  if(!d||typeof d!=='object'||d.app!=='educa-pestel') return null;
+  const idea=typeof d.idea==='string'?d.idea.slice(0,800):'';
+  const resp={};
+  if(d.respuestas&&typeof d.respuestas==='object'){
+    for(const id of VALID_IDS){
+      const v=Number(d.respuestas[id]);
+      if(v===1||v===2||v===3) resp[id]=v;
+    }
+  }
+  let cf=Number(d.currentFactor);
+  if(!Number.isInteger(cf)||cf<0||cf>=FACTORS.length) cf=0;
+  const savedAt=Number(d.savedAt)||0;
+  return {idea,respuestas:resp,currentFactor:cf,savedAt};
+}
+function hasContent(d){return d&&(d.idea.trim().length>0||Object.keys(d.respuestas).length>0);}
+
+function saveProgress(){
+  if(!storageOK||pendingResume) return;
+  if(!state.idea.trim()&&!Object.keys(state.respuestas).length) return;
+  try{localStorage.setItem(STORE_KEY,JSON.stringify(snapshot()));}catch(e){}
+  updateSaveStatus();
+}
+function loadSaved(){
+  if(!storageOK) return null;
+  try{const raw=localStorage.getItem(STORE_KEY);return raw?sanitize(JSON.parse(raw)):null;}catch(e){return null;}
+}
+function clearSaved(){
+  pendingResume=false;
+  if(storageOK){try{localStorage.removeItem(STORE_KEY);}catch(e){}}
+  document.getElementById('resume-card').classList.remove('show');
+}
+function resolvePending(){ if(pendingResume){pendingResume=false;} }
+
+function timeAgo(ts){
+  if(!ts) return '';
+  const m=Math.round((Date.now()-ts)/60000);
+  if(m<1) return 'hace un momento';
+  if(m<60) return `hace ${m} min`;
+  const h=Math.round(m/60);
+  if(h<24) return `hace ${h} h`;
+  const d=Math.round(h/24);
+  return `hace ${d} ${d===1?'día':'días'}`;
+}
+function renderResume(){
+  const d=loadSaved();
+  const card=document.getElementById('resume-card');
+  if(!hasContent(d)){card.classList.remove('show');pendingResume=false;return;}
+  const done=FACTORS.filter(f=>f.preguntas.every(q=>d.respuestas[q.id]!=null)).length;
+  const idea=d.idea.trim();
+  document.getElementById('resume-meta').textContent=
+    `${done} de ${FACTORS.length} factores analizados · guardado ${timeAgo(d.savedAt)}`+(idea?` · «${idea.slice(0,60)}${idea.length>60?'…':''}»`:'');
+  card.classList.add('show');
+  pendingResume=true;
+}
+function applyState(d,target){
+  state.idea=d.idea; state.respuestas=d.respuestas; state.currentFactor=d.currentFactor;
+  const inp=document.getElementById('idea-input');
+  inp.value=d.idea;
+  document.getElementById('btn-start').disabled=d.idea.trim().length<15;
+  pendingResume=false;
+  document.getElementById('resume-card').classList.remove('show');
+  go(target||'dashboard');
+}
+
+function twoStep(btn,label,armedLabel,action){
+  let t;
+  btn.onclick=()=>{
+    if(btn.classList.contains('armed')){clearTimeout(t);btn.classList.remove('armed');btn.textContent=label;action();return;}
+    btn.classList.add('armed');btn.textContent=armedLabel;
+    t=setTimeout(()=>{btn.classList.remove('armed');btn.textContent=label;},4000);
+  };
+}
+function toast(msg){
+  const el=document.getElementById('toast');
+  el.textContent=msg;el.classList.add('show');
+  clearTimeout(toast._t);toast._t=setTimeout(()=>el.classList.remove('show'),3200);
+}
+function updateSaveStatus(){
+  const st=document.getElementById('save-status');
+  const bar=document.getElementById('save-bar');
+  if(!st) return;
+  if(storageOK){bar.classList.remove('off');st.innerHTML='<i class="dot"></i>Guardado automático en este navegador';}
+  else{bar.classList.add('off');st.innerHTML='<i class="dot"></i>Este navegador no permite guardar: descarga tu progreso';}
+}
+
+function downloadProgress(){
+  const blob=new Blob([JSON.stringify(snapshot(),null,1)],{type:'application/json'});
+  const a=document.createElement('a');
+  const fecha=new Date().toISOString().slice(0,10);
+  a.href=URL.createObjectURL(blob);
+  a.download=`pestel-progreso-${fecha}.json`;
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+  toast('Progreso descargado. Guárdalo donde lo encuentres.');
+}
+document.getElementById('btn-download').addEventListener('click',downloadProgress);
+const fileInput=document.getElementById('file-load');
+document.getElementById('btn-load-intro').addEventListener('click',()=>fileInput.click());
+fileInput.addEventListener('change',()=>{
+  const file=fileInput.files&&fileInput.files[0];
+  fileInput.value='';
+  if(!file) return;
+  if(file.size>200*1024){toast('Ese archivo es demasiado grande para ser un progreso de PESTEL.');return;}
+  const r=new FileReader();
+  r.onload=()=>{
+    let d=null;
+    try{d=sanitize(JSON.parse(String(r.result)));}catch(e){}
+    if(!hasContent(d)){toast('Archivo no válido: no es un progreso de PESTEL.');return;}
+    applyState(d,'dashboard');
+    saveProgress();
+    toast('Progreso cargado correctamente.');
+  };
+  r.onerror=()=>toast('No se ha podido leer el archivo.');
+  r.readAsText(file);
+});
+twoStep(document.getElementById('btn-clear'),'Borrar mi progreso','¿Seguro? Pulsa otra vez',()=>{reset();toast('Progreso borrado.');});
+document.getElementById('btn-resume').addEventListener('click',()=>{
+  const d=loadSaved(); if(d) applyState(d,'dashboard');
+});
+twoStep(document.getElementById('btn-discard'),'Empezar de cero','¿Seguro? Pulsa otra vez',()=>{clearSaved();toast('Empiezas de cero.');});
+
+// Tema
+function setTheme(id){
+  const root=document.documentElement;
+  if(id==='oliva') root.removeAttribute('data-theme'); else root.setAttribute('data-theme',id);
+  try{localStorage.setItem(THEME_KEY,id);}catch(e){}
+  renderThemePicker();
+}
+function currentTheme(){return document.documentElement.getAttribute('data-theme')||'oliva';}
+function renderThemePicker(){
+  const cur=currentTheme();
+  document.getElementById('swatches').innerHTML=THEMES.map(t=>
+    `<button type="button" class="swatch" style="--sw:${t.c}" title="${t.name}" aria-label="Tema ${t.name}" aria-pressed="${t.id===cur}" data-theme-id="${t.id}"></button>`).join('');
+}
+document.getElementById('swatches').addEventListener('click',e=>{
+  const b=e.target.closest('[data-theme-id]'); if(b) setTheme(b.dataset.themeId);
+});
+renderThemePicker();
+updateSaveStatus();
+renderResume();
 </script>
 </body>
 </html>
