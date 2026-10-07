@@ -101,7 +101,7 @@
     letter-spacing:-1.2px;margin:18px 0 16px;text-wrap:balance;
   }
   .hero h1 em{font-style:italic;font-weight:500;color:var(--olive-deep);}
-  .hero-lede{font-size:1.1rem;color:var(--ink-soft);max-width:48ch;margin:0 0 28px;text-align:justify;hyphens:auto;-webkit-hyphens:auto;}
+  .hero-lede{font-size:1.1rem;color:var(--ink-soft);max-width:50ch;margin:0 0 28px;text-align:justify;hyphens:manual;}
   .cta-row{display:flex;flex-wrap:wrap;gap:12px;}
   .btn{
     display:inline-flex;align-items:center;gap:8px;text-decoration:none;cursor:pointer;border:none;
@@ -147,7 +147,7 @@
   .pillar-icon{width:48px;height:48px;border-radius:14px;background:var(--lime-soft);color:var(--olive-deep);display:flex;align-items:center;justify-content:center;margin-bottom:18px;}
   .pillar-icon svg{width:24px;height:24px;}
   .pillar h3{font-family:var(--font-display);font-size:clamp(1.05rem,1.55vw,1.25rem);font-weight:700;margin:0 0 8px;white-space:nowrap;}
-  .pillar p{margin:0;color:var(--ink-soft);font-size:0.95rem;text-align:justify;hyphens:auto;-webkit-hyphens:auto;}
+  .pillar p{margin:0;color:var(--ink-soft);font-size:0.95rem;text-align:justify;hyphens:manual;}
 
   .roadmap{margin-top:36px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;}
   .roadmap-label{font-size:0.8rem;font-weight:700;color:var(--ink-muted);margin-right:6px;}
@@ -321,6 +321,7 @@
   .tool-card:hover .tc-go svg{transform:translateX(4px);}
   .stage .empty{background:var(--surface);border:1px dashed var(--line);border-radius:20px;padding:34px 20px;}
   @media (max-width:520px){.modes{display:grid;grid-template-columns:1fr 1fr;width:100%;border-radius:18px;}.mode{padding:11px 8px;font-size:.82rem;border-radius:14px;}}
+  @media (max-width:1099px){.hero-lede,.pillar p{text-align:left;}}
   @media (prefers-reduced-motion: reduce){
     *,*::before,*::after{animation:none!important;transition:none!important;}
     html{scroll-behavior:auto;}
@@ -347,7 +348,7 @@
   <div class="wrap hero-grid">
     <div>
       <h1>Aprender <em>haciendo</em>, no escuchando.</h1>
-      <p class="hero-lede">Educa Tools nace y se de&shy;sa&shy;rro&shy;lla dentro del aula con un objetivo fun&shy;da&shy;men&shy;tal: que el alum&shy;na&shy;do trabaje los con&shy;te&shy;ni&shy;dos de forma in&shy;te&shy;rac&shy;ti&shy;va, probando, equi&shy;vo&shy;cán&shy;do&shy;se y apren&shy;dien&shy;do por el camino.</p>
+      <p class="hero-lede">Educa Tools nace y se desarrolla dentro del aula con un objetivo claro: que el alumnado trabaje los contenidos de forma interactiva, probando, equivocándose y aprendiendo por el camino.</p>
       <div class="cta-row">
         <a class="btn btn-primary" href="#explorar">Explorar herramientas
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
@@ -388,17 +389,17 @@
       <article class="pillar reveal">
         <div class="pillar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><path d="M17 13v8M13 17h8"/></svg></div>
         <h3>Herramientas interactivas</h3>
-        <p>Simuladores, wizards, mapas y juegos de repaso vin&shy;cu&shy;la&shy;dos a pro&shy;duc&shy;tos vi&shy;sua&shy;les que el alum&shy;na&shy;do genera de forma in&shy;te&shy;rac&shy;ti&shy;va.</p>
+        <p>Simuladores, wizards, mapas y juegos de repaso conectados con productos visuales que el alumnado genera de forma interactiva.</p>
       </article>
       <article class="pillar reveal">
         <div class="pillar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z"/><path d="m5.6 5.6 2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></svg></div>
         <h3>Tecnología en el aula</h3>
-        <p>Diseño asis&shy;ti&shy;do por IA, me&shy;to&shy;do&shy;lo&shy;gías activas y ga&shy;mi&shy;fi&shy;ca&shy;ción para acom&shy;pa&shy;ñar el pro&shy;ce&shy;so de apren&shy;di&shy;za&shy;je, no para sus&shy;ti&shy;tuirlo.</p>
+        <p>Diseño asistido por IA, metodologías activas y gamificación pensados para acompañar el proceso de aprendizaje, no para sustituirlo.</p>
       </article>
       <article class="pillar reveal">
         <div class="pillar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 0 0-14.8-4.2L4 8"/><polyline points="4 3 4 8 9 8"/><path d="M4 13a8 8 0 0 0 14.8 4.2L20 16"/><polyline points="20 21 20 16 15 16"/></svg></div>
         <h3>Cambio constante</h3>
-        <p>Repositorio de he&shy;rra&shy;mien&shy;tas en cons&shy;truc&shy;ción. El pro&shy;yec&shy;to nace durante el curso 2026/27 con la in&shy;ten&shy;ción de in&shy;cor&shy;po&shy;rar más he&shy;rra&shy;mien&shy;tas de forma pro&shy;gre&shy;si&shy;va.</p>
+        <p>El proyecto nace en el curso 2026/27 con la intención de incorporar nuevas herramientas de manera progresiva.</p>
       </article>
     </div>
 
