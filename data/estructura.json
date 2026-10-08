@@ -36,6 +36,7 @@
     {
       "id": "ipe1",
       "tag": "IPE 1",
+      "nomUnidad": { "sing": "Bloque", "plural": "bloques", "abrev": "B", "este": "este" },
       "nombre": "Itinerario Personal para la Empleabilidad I",
       "descripcion": "Prevención de riesgos, derecho del trabajo, Seguridad Social e itinerario profesional.",
       "unidades": [

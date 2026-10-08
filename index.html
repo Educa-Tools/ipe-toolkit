@@ -501,13 +501,15 @@ function load(json){
   DB.tags = (json.etiquetas||[]).filter(t=>(t.herramientas||[]).some(id=>DB.tools[id]));
   // where each tool lives (module + unit), for the badge in the topic view
   DB.where = {};
-  DB.mods.forEach(m=>m.unidades.forEach(u=>(u.herramientas||[]).forEach(id=>{ if(!DB.where[id]) DB.where[id] = m.tag+' · UD'+u.n; })));
+  DB.mods.forEach(m=>m.unidades.forEach(u=>(u.herramientas||[]).forEach(id=>{ if(!DB.where[id]) DB.where[id] = m.tag+' · '+unitWord(m).abrev+u.n; })));
   S.tag = DB.tags.length ? DB.tags[0].id : null;
 }
+const UNIT_DEF = {sing:'Unidad didáctica', plural:'unidades', abrev:'UD', este:'esta'};
+const unitWord = m => ({...UNIT_DEF, ...(m && m.nomUnidad || {})});
 const toolsOf = ids => (ids||[]).map(id=>({id, ...DB.tools[id]})).filter(t=>t.url);
 
-function toolCards(list, showWhere){
-  if(!list.length) return `<div class="empty"><div class="empty-art">${icon('tool')}${star('mini')}</div><b>En construcción</b><p>Las herramientas de esta unidad están en camino.</p></div>`;
+function toolCards(list, showWhere, esta){
+  if(!list.length) return `<div class="empty"><div class="empty-art">${icon('tool')}${star('mini')}</div><b>En construcción</b><p>Las herramientas de ${esta||'esta unidad'} están en camino.</p></div>`;
   return '<div class="tool-grid">' + list.map(t=>{
     const ext = /^https?:/.test(t.url);
     return `<a class="tool-card" style="--c:${t.color||'var(--olive-deep)'}" href="${t.url}"${ext?' target="_blank" rel="noopener"':''}>
@@ -536,7 +538,7 @@ function render(){
     if(m){
       c = `<button class="crumb" data-go="home">Módulos</button>` + sep +
           `<button class="crumb ${S.unit===null?'current':''}" data-go="mod">${m.tag}</button>` +
-          (S.unit!==null ? sep + `<button class="crumb current">UD${m.unidades[S.unit].n}</button>` : '');
+          (S.unit!==null ? sep + `<button class="crumb current">${unitWord(m).abrev}${m.unidades[S.unit].n}</button>` : '');
     }
     if(!m){
       html = '<div class="module-grid">' + DB.mods.map(m=>`
@@ -545,7 +547,7 @@ function render(){
           <span class="module-tag">${m.tag}</span>
           <span class="module-name">${m.nombre}</span>
           <span class="module-desc">${m.descripcion||''}</span>
-          <span class="module-foot"><span class="count">${m.unidades.length} unidades</span><span class="arrow-circle">${icon('arrow')}</span></span>
+          <span class="module-foot"><span class="count">${m.unidades.length} ${unitWord(m).plural}</span><span class="arrow-circle">${icon('arrow')}</span></span>
         </button>`).join('') + '</div>';
     } else if(S.unit===null){
       html = '<div class="unit-grid">' + m.unidades.map((u,i)=>{
@@ -558,8 +560,8 @@ function render(){
     } else {
       const u = m.unidades[S.unit];
       html = `<div class="unit-hero">${star('deco')}<span class="big-num">${pad(u.n)}</span>
-        <div style="position:relative;"><span class="mod">${m.tag} · Unidad didáctica ${u.n}</span><h3>${u.titulo}</h3></div></div>
-        ${toolCards(toolsOf(u.herramientas), false)}`;
+        <div style="position:relative;"><span class="mod">${m.tag} · ${unitWord(m).sing} ${u.n}</span><h3>${u.titulo}</h3></div></div>
+        ${toolCards(toolsOf(u.herramientas), false, unitWord(m).este+' '+unitWord(m).sing.toLowerCase())}`;
     }
   } else {
     const t = DB.tags.find(x=>x.id===S.tag);
