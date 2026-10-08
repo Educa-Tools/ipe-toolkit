@@ -335,6 +335,7 @@ html[data-theme="indigo"]{--olive-deep:#454B78;--olive-mid:#9498C4;--lime-soft:#
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);opacity:0;pointer-events:none;background:var(--ink);color:#fff;font-family:'Inter',sans-serif;font-size:13px;padding:10px 18px;border-radius:999px;transition:all .25s;z-index:99;max-width:90vw;text-align:center;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 @media print{.theme-picker,.save-bar,.resume-card,.toast{display:none !important;}}
+.q-hint{display:block;margin-top:6px;font-family:'Inter',sans-serif;font-size:12px;font-weight:400;line-height:1.5;color:var(--ink-muted);}
 </style>
 </head>
 <body>
@@ -829,6 +830,33 @@ document.getElementById('btn-generate').addEventListener('click',()=>go('results
 // ═══════════════════════════════════════════════════════════════
 // FACTOR SCREEN
 // ═══════════════════════════════════════════════════════════════
+// Aclaraciones breves (concepto + ejemplo) para términos que cuestan al alumnado
+const AYUDA={
+ "p_i2": "subvenciones: dinero público que no se devuelve; incentivos fiscales: descuentos en impuestos, p. ej. por contratar a jóvenes",
+ "p_u2": "políticas públicas: lo que decide la administración para el territorio, como ayudas, planes de empleo o impuestos",
+ "p_u3": "regulación: las reglas que el Estado impone a tu actividad, como licencias, requisitos o normas de seguridad",
+ "e_i1": "poder adquisitivo: lo que tus clientes pueden comprar con su sueldo; si los precios suben y los salarios no, compran menos",
+ "e_i2": "inflación: subida general de precios; si la luz o el aceite suben, tu margen se reduce",
+ "e_u3": "materias primas: lo básico que necesitas para producir, como madera, trigo o petróleo; divisas: monedas extranjeras, si compras en dólares y el dólar sube, te sale más caro",
+ "s_i1": "tendencias sociales: cambios de hábitos que se van extendiendo, como la vida saludable, el teletrabajo o el consumo local",
+ "s_i2": "perfil demográfico: características de un grupo de población, como edad, estudios, nivel de renta o dónde vive; p. ej. universitarios de 18-25 años",
+ "s_i3": "valores: lo que le importa a la gente, p. ej. lo sostenible, el precio o lo local",
+ "s_u1": "cliente objetivo: tu cliente tipo, con su edad, ingresos y estilo de vida",
+ "s_u2": "consolidada: ya es mayoritaria, como comprar online; emergente: está empezando, como usar IA a diario",
+ "s_u3": "cambio cultural: p. ej. el descenso del consumo de alcohol entre los jóvenes",
+ "t_i2": "automatización: máquinas o software que hacen tareas sin intervención humana; plataformas digitales: apps que conectan oferta y demanda, como Glovo o Wallapop",
+ "t_i3": "tecnología disruptiva: innovación que cambia las reglas del sector, como Netflix con los videoclubs",
+ "t_u2": "adopción tecnológica: cuánta gente usa una tecnología, p. ej. pagar con el móvil",
+ "t_u3": "ventaja competitiva: lo que te hace mejor que tu competencia; obsoleta: que ya no sirve",
+ "ec_i1": "normativa medioambiental: leyes sobre residuos, emisiones o ruido, p. ej. cómo gestionar los residuos de un taller",
+ "ec_u1": "endurecimiento: normas cada vez más exigentes, como la prohibición del plástico de un solo uso",
+ "ec_u3": "transición ecológica: paso hacia energías limpias y menos contaminación; economía circular: reutilizar y reciclar en vez de usar y tirar; cadena de valor: todos los pasos desde la materia prima hasta el cliente",
+ "l_i1": "normativa específica: las leyes propias de tu sector, como sanidad, licencias o prevención de riesgos",
+ "l_i3": "datos personales: los de tus clientes, como nombre o correo (RGPD); propiedad intelectual: marcas, patentes y derechos de autor",
+ "l_u1": "marco legal: el conjunto de leyes que te afectan; procesos legislativos: leyes que se están tramitando ahora",
+ "l_u3": "armonización de normativas: unificar las reglas de varios países para que sean iguales, p. ej. una norma europea que sustituye a la de cada país"
+};
+
 function renderFactor(){
   const i=state.currentFactor;
   const f=FACTORS[i];
@@ -891,7 +919,7 @@ function renderFactor(){
       div.innerHTML=`
         <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:12px;">
           <div style="width:24px;height:24px;border-radius:50%;background:${cv(f.color,'soft')};color:${cv(f.color,'deep')};display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px;font-family:'Inter',sans-serif;">${qi+1}</div>
-          <p class="serif" style="font-size:15px;font-weight:400;color:var(--ink);margin:0;line-height:1.45;">${q.texto}</p>
+          <p class="serif" style="font-size:15px;font-weight:400;color:var(--ink);margin:0;line-height:1.45;">${q.texto}${AYUDA[q.id]?`<span class="q-hint">(${AYUDA[q.id]})</span>`:''}</p>
         </div>
         <div style="padding-left:36px;">${optsHTML}</div>`;
       qc.appendChild(div);
