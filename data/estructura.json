@@ -8,7 +8,7 @@
     "porter":      { "titulo": "Análisis PORTER", "descripcion": "Las cinco fuerzas que marcan la competencia en tu sector.", "url": "porter.html", "color": "#2F6670" },
     "buyer":       { "titulo": "Buyer Persona", "descripcion": "Da forma a tu cliente ideal: quién es, qué necesita y cómo llegar a él.", "url": "buyerpersona.html", "color": "#B03A78" },
     "dafocame":    { "titulo": "DAFO y CAME", "descripcion": "Diagnostica tu proyecto con el DAFO y cruza los resultados con el CAME para decidir qué hacer.", "url": "dafocame.html", "color": "#8A5A2B" },
-    "formajuridica":{ "titulo": "Selector de forma jurídica", "descripcion": "Responde unas preguntas y descubre qué forma jurídica encaja mejor con tu proyecto.", "url": "selector_forma_juridica.html", "color": "#B0612E" },
+    "formajuridica":{ "titulo": "Selector de forma jurídica", "descripcion": "Responde unas preguntas y descubre qué forma jurídica encaja mejor con tu proyecto.", "url": "selector_forma_juridica.html", "color": "#8B6430" },
 
     "patologias":  { "titulo": "Diagnóstico de patologías inespecíficas", "descripcion": "Empareja seis casos con su patología: fatiga, estrés, burnout, mobbing…", "url": "patologias.html", "color": "#2E4B8B" },
     "ruta22":      { "titulo": "Ruta al Artículo 22", "descripcion": "Repaso exprés de los arts. 17 a 21 de la LPRL en formato de niveles con estrellas.", "url": "rutaarticulo22.html", "color": "#6A3FA0" },
