@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Casos prácticos de nóminas · Educa Tools</title>
+<meta name="description" content="Cinco casos prácticos guiados sobre la nómina con la normativa de 2026: clasificar percepciones, comprobar el SMI, calcular bases, cuotas y líquido, y encontrar errores en un recibo de salarios.">
+<meta name="theme-color" content="#557A35">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath fill='%236B7028' d='M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Tokens del kit de marca (branding/brand-kit-especificacion.md) */
+  :root{
+    --bg:#FBFCEF; --surface:#FFFFFF; --surface-alt:#F5F6E4;
+    --ink:#1E1C1A; --ink-soft:#4A463F; --ink-muted:#8B847A;
+    --line:#E8E1D6; --line-soft:#EEEFD8;
+    --olive-deep:#6B7028; --olive-mid:#A8AD5C; --lime-soft:#E8EDC4; --lime-mid:#C5CD78;
+    /* Acento de esta herramienta: forest green del kit y su fondo de icono */
+    --c:#557A35; --c-soft:#E5EDDB;
+    /* Respuesta incorrecta: color ya usado en el catálogo */
+    --bad:#8B3A3A;
+    --font-display:'Fraunces',Georgia,serif;
+    --font-ui:'Inter',-apple-system,'Segoe UI',sans-serif;
+    --radius-card:18px; --radius-pill:999px;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-ui);font-size:16px;line-height:1.6;}
+  [hidden]{display:none!important;}
+  .wrap{max-width:1080px;margin-inline:auto;padding-inline:20px;}
+  button,input,select{font-family:inherit;font-size:inherit;}
+  a{color:var(--c);font-weight:600;}
+  :focus-visible{outline:3px solid var(--ink);outline-offset:3px;}
+  h1,h2,h3{font-family:var(--font-display);font-weight:700;line-height:1.15;text-wrap:balance;margin:0;}
+  p{margin:0 0 12px;}
+
+  /* ---------- Barra superior ---------- */
+  .top{position:sticky;top:0;z-index:20;background:rgba(251,252,239,.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
+  .top-in{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:60px;}
+  .brand{display:inline-flex;align-items:center;gap:8px;min-height:44px;text-decoration:none;color:var(--ink);}
+  .brand svg{width:20px;height:20px;}
+  .brand b{font-family:var(--font-display);font-weight:700;font-size:1rem;}
+  .brand b span{color:var(--olive-mid);}
+  .top-nav{display:flex;gap:4px;}
+  .nbtn{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px;border:none;background:none;border-radius:var(--radius-pill);color:var(--ink-soft);font-weight:600;font-size:.9rem;cursor:pointer;text-decoration:none;}
+  .nbtn:hover{background:var(--c-soft);color:var(--ink);}
+  .nbtn[aria-current="page"]{background:var(--c);color:#fff;}
+  @media (max-width:560px){.brand b{display:none;}.nbtn{padding:0 11px;font-size:.85rem;}}
+
+  main{padding-block:28px 64px;}
+  .crumb{display:inline-flex;align-items:center;gap:6px;min-height:44px;margin-bottom:6px;color:var(--ink-soft);font-weight:600;text-decoration:none;font-size:.92rem;}
+  .crumb:hover{color:var(--c);}
+
+  /* ---------- Inicio ---------- */
+  .hero{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--c);border-radius:var(--radius-card);padding:30px 28px;margin-bottom:26px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;}
+  @media (max-width:760px){.hero{grid-template-columns:1fr;}.hero svg{display:none;}}
+  .hero h1{font-size:clamp(1.9rem,4.6vw,2.8rem);letter-spacing:-.6px;margin-bottom:12px;}
+  .hero h1 em{font-style:italic;font-weight:600;color:var(--c);}
+  .hero p{color:var(--ink-soft);font-size:1.06rem;max-width:62ch;margin:0;}
+  .meter{display:flex;align-items:center;gap:12px;margin-top:18px;flex-wrap:wrap;}
+  .bar{flex:1;min-width:180px;max-width:360px;height:10px;border-radius:99px;background:var(--surface-alt);border:1px solid var(--line);overflow:hidden;}
+  .bar i{display:block;height:100%;background:var(--c);border-radius:99px;transition:width .5s ease;}
+  .meter b{font-size:.92rem;}
+  .cases{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  @media (max-width:900px){.cases{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:600px){.cases{grid-template-columns:1fr;}}
+  .cbtn{position:relative;overflow:hidden;display:flex;flex-direction:column;gap:8px;text-align:left;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-card);padding:22px 20px 18px;min-height:230px;transition:border-color .15s ease,transform .15s ease;}
+  .cbtn::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:var(--c);}
+  .cbtn:hover{border-color:var(--c);transform:translateY(-2px);}
+  .cbtn .n{position:absolute;right:16px;top:6px;font-family:var(--font-display);font-weight:700;font-size:4rem;line-height:1;color:var(--c-soft);}
+  .pico{width:48px;height:48px;border-radius:50%;background:var(--c-soft);color:var(--c);display:flex;align-items:center;justify-content:center;position:relative;}
+  .pico svg{width:24px;height:24px;}
+  .cbtn h3{font-size:1.25rem;margin-top:4px;position:relative;}
+  .cbtn p{color:var(--ink-soft);font-size:.93rem;margin:0;}
+  .cbtn .go{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:8px;font-weight:700;color:var(--c);font-size:.9rem;}
+  .chip{display:inline-flex;align-items:center;gap:4px;font-size:.78rem;font-weight:600;padding:3px 10px;border-radius:var(--radius-pill);background:var(--surface-alt);color:var(--ink-soft);border:1px solid var(--line);}
+  .chip.ok{background:var(--lime-soft);border-color:var(--lime-mid);color:var(--ink);}
+  .tips{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px;}
+  @media (max-width:760px){.tips{grid-template-columns:1fr;}}
+  .tip{background:var(--c-soft);border-radius:var(--radius-card);padding:14px 16px;font-size:.92rem;}
+  .tip b{display:block;font-family:var(--font-display);font-size:1.05rem;}
+
+  /* ---------- Vista de caso ---------- */
+  .case{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.25fr);gap:24px;align-items:start;}
+  @media (max-width:860px){.case{grid-template-columns:1fr;}}
+  .enun{position:sticky;top:76px;background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--c);border-radius:var(--radius-card);padding:22px;}
+  @media (max-width:860px){.enun{position:static;}}
+  .enun .kick{font-size:.82rem;font-weight:700;color:var(--c);text-transform:uppercase;letter-spacing:.06em;}
+  .enun h1{font-size:clamp(1.6rem,3.6vw,2.1rem);margin:4px 0 12px;}
+  .enun p{color:var(--ink-soft);}
+  .who{display:flex;gap:14px;align-items:center;margin-bottom:12px;}
+  .who .pico{flex:none;width:56px;height:56px;}
+  .data{width:100%;border-collapse:collapse;font-size:.95rem;margin:6px 0 12px;}
+  .data td{padding:8px 10px;border-bottom:1px solid var(--line);}
+  .data td.n{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;white-space:nowrap;}
+  .data tr:last-child td{border-bottom:none;}
+  .rates{background:var(--surface-alt);border-radius:12px;padding:12px 14px;font-size:.88rem;color:var(--ink-soft);}
+  .rates b{color:var(--ink);}
+
+  .steps{display:flex;flex-direction:column;gap:14px;}
+  .step{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-card);padding:20px;transition:border-color .2s;}
+  .step.done{border-color:var(--lime-mid);}
+  .step.locked{opacity:.55;}
+  .shead{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px;}
+  .snum{flex:none;width:32px;height:32px;border-radius:50%;background:var(--c-soft);color:var(--c);font-weight:700;display:flex;align-items:center;justify-content:center;}
+  .step.done .snum{background:var(--c);color:#fff;}
+  .shead h3{font-family:var(--font-ui);font-size:1.02rem;font-weight:700;line-height:1.4;margin-top:4px;}
+  .pts{margin-left:auto;flex:none;}
+  .ans{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:10px 0;}
+  .num{display:inline-flex;align-items:center;border:1px solid var(--ink-muted);border-radius:12px;background:var(--surface);overflow:hidden;}
+  .num input{width:150px;min-height:46px;padding:0 12px;border:none;background:none;font-size:1.05rem;font-weight:600;text-align:right;font-variant-numeric:tabular-nums;}
+  .num span{padding:0 12px;color:var(--ink-soft);font-weight:600;}
+  .num.ok{border-color:var(--c);background:var(--c-soft);}
+  .num.ko{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 7%,var(--surface));}
+  .opts{display:grid;gap:8px;margin:10px 0;}
+  .opt{display:flex;align-items:flex-start;gap:10px;min-height:48px;text-align:left;padding:11px 14px;border:1px solid var(--line);border-radius:12px;background:var(--surface);cursor:pointer;color:var(--ink);font-weight:500;line-height:1.45;}
+  .opt:hover:not(:disabled){border-color:var(--c);background:var(--c-soft);}
+  .opt .lt{flex:none;width:24px;height:24px;border-radius:50%;background:var(--c-soft);color:var(--c);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:.8rem;}
+  .opt[aria-pressed="true"]{border-color:var(--c);background:var(--c-soft);}
+  .opt.good{border-color:var(--olive-deep);background:var(--lime-soft);}
+  .opt.good .lt{background:var(--olive-deep);color:#fff;}
+  .opt.bad{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 8%,var(--surface));}
+  .opt.bad .lt{background:var(--bad);color:#fff;}
+  .opt:disabled{cursor:default;}
+  .cls{width:100%;border-collapse:collapse;font-size:.95rem;}
+  .cls td{padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:middle;}
+  .cls td:first-child{font-weight:600;}
+  .seg{display:inline-flex;flex-wrap:wrap;gap:4px;}
+  .seg button{min-height:38px;padding:0 12px;border:1px solid var(--line);border-radius:var(--radius-pill);background:var(--surface);cursor:pointer;font-weight:600;font-size:.85rem;color:var(--ink-soft);}
+  .seg button:hover:not(:disabled){border-color:var(--c);}
+  .seg button[aria-pressed="true"]{background:var(--c);border-color:var(--c);color:#fff;}
+  .seg button.good{background:var(--olive-deep);border-color:var(--olive-deep);color:#fff;}
+  .seg button.bad{background:var(--bad);border-color:var(--bad);color:#fff;}
+  tr.rowko td:first-child{color:var(--bad);}
+  .grid-in{display:grid;grid-template-columns:1fr auto;gap:8px 12px;align-items:center;margin:10px 0;}
+  .grid-in label{font-weight:600;font-size:.95rem;}
+  .grid-in .num input{width:130px;min-height:42px;}
+  .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:var(--radius-pill);border:1px solid transparent;font-weight:700;font-size:.92rem;cursor:pointer;text-decoration:none;}
+  .btn-p{background:var(--c);color:#fff;}
+  .btn-p:hover{background:var(--ink);}
+  .btn-g{background:var(--surface);color:var(--ink);border-color:var(--line);}
+  .btn-g:hover{border-color:var(--c);}
+  .btn:disabled{opacity:.5;cursor:default;}
+  .fb{margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--surface-alt);font-size:.95rem;}
+  .fb.ok{background:var(--lime-soft);}
+  .fb.ko{background:color-mix(in srgb,var(--bad) 8%,var(--surface));}
+  .fb.hint{background:var(--c-soft);}
+  .fb b{display:block;margin-bottom:2px;}
+  .fb p{margin:4px 0 0;}
+
+  /* nómina del detective */
+  .slip{font-family:ui-monospace,'Cascadia Mono',Consolas,monospace;font-size:.9rem;border:2px solid var(--ink);border-radius:8px;overflow:hidden;background:#fff;}
+  .slip .sh{padding:8px 12px;border-bottom:2px solid var(--ink);background:var(--surface-alt);line-height:1.4;}
+  .slip .sec{padding:4px 12px;font-weight:700;background:var(--line-soft);border-bottom:1px solid var(--line);font-size:.8rem;letter-spacing:.06em;}
+  .sline{display:grid;grid-template-columns:1fr auto;gap:10px;width:100%;text-align:left;padding:8px 12px;border:none;border-bottom:1px dashed var(--line);background:#fff;cursor:pointer;font:inherit;color:var(--ink);}
+  .sline:hover:not(:disabled){background:var(--c-soft);}
+  .sline[aria-pressed="true"]{background:color-mix(in srgb,var(--bad) 10%,#fff);box-shadow:inset 4px 0 0 var(--bad);}
+  .sline.found{background:var(--lime-soft);box-shadow:inset 4px 0 0 var(--olive-deep);}
+  .sline.miss{background:color-mix(in srgb,var(--bad) 14%,#fff);box-shadow:inset 4px 0 0 var(--bad);}
+  .sline.false{background:var(--surface-alt);box-shadow:inset 4px 0 0 var(--ink-muted);text-decoration:line-through;}
+  .sline span:last-child{font-weight:700;font-variant-numeric:tabular-nums;}
+  .sline small{display:block;font-family:var(--font-ui);font-size:.82rem;color:var(--ink-soft);margin-top:2px;}
+
+  /* resumen */
+  .sumbox{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--c);border-radius:var(--radius-card);padding:24px;}
+  .sum-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:18px;}
+  .score{font-family:var(--font-display);font-size:2.2rem;font-weight:700;color:var(--c);line-height:1;}
+  .field{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;max-width:420px;}
+  .field label{font-weight:700;font-size:.93rem;}
+  .field input{min-height:46px;padding:0 14px;border:1px solid var(--ink-muted);border-radius:12px;background:var(--surface);}
+  .tbl{width:100%;border-collapse:collapse;font-size:.95rem;}
+  .tbl th,.tbl td{text-align:left;padding:10px;border-bottom:1px solid var(--line);}
+  .tbl th{background:var(--c-soft);}
+  .tbl td.n{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;}
+  .print-only{display:none;}
+
+  footer{border-top:1px solid var(--line);padding-block:24px 40px;color:var(--ink-soft);font-size:.88rem;}
+  footer p{max-width:80ch;}
+  .pop{animation:pop .4s ease;}
+  @keyframes pop{0%{transform:scale(.97)}60%{transform:scale(1.01)}100%{transform:none}}
+  .shake{animation:shake .35s ease;}
+  @keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+  @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important;}html{scroll-behavior:auto;}}
+
+  @media print{
+    @page{margin:16mm;}
+    body{background:#fff;font-size:11pt;}
+    .top,.no-print,footer,.crumb{display:none!important;}
+    .print-only{display:block;}
+    main{padding:0;}
+    .sumbox{border-color:#bbb;}
+    .tbl th{background:#eee;}
+  }
+</style>
+</head>
+<body>
+
+<header class="top no-print">
+  <div class="wrap top-in">
+    <a class="brand" href="index.html" aria-label="Educa Tools, volver al catálogo">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><path fill="#6B7028" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg>
+      <b><span>Educa</span> Tools</b>
+    </a>
+    <nav class="top-nav" aria-label="Herramienta">
+      <a class="nbtn" href="#/" data-nav="home">Casos</a>
+      <a class="nbtn" href="#/resumen" data-nav="resumen">Mi resumen</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap" tabindex="-1"></main>
+
+<footer class="wrap">
+  <p><strong>Datos vigentes en 2026.</strong> Fuentes: Estatuto de los Trabajadores (arts. 26 a 35), <a href="https://www.boe.es/eli/es/rd/2026/02/18/126/con" target="_blank" rel="noopener">RD 126/2026</a> (SMI: 1.221 €/mes, 17.094 €/año), Orden PJC/297/2026 (bases y tipos de cotización), art. 147 LGSS y art. 9 del Reglamento del IRPF (dietas: 26,67 €/día sin pernocta y 53,34 € con pernocta en España).</p>
+  <p>Herramienta educativa: los casos son ficticios y los cálculos, orientativos. Tu progreso se guarda solo en este navegador.</p>
+</footer>
+
+<script>
+'use strict';
+/* =========================================================
+   DATOS 2026 (una sola vez: de aquí salen enunciados y soluciones)
+   ========================================================= */
+const SMI={mes:1221,anual:17094};
+const T={cc:4.70,mei:0.15,desI:1.55,desT:1.60,fp:0.10,he:4.70,heFM:2.00};
+const DIETA={sin:26.67,con:53.34};
+const r2=x=>Math.round((x+Number.EPSILON)*100)/100;
+const fmt=(x,d=2)=>{const [e,f]=Math.abs(x).toFixed(d).split('.');return (x<0?'−':'')+e.replace(/\B(?=(\d{3})+(?!\d))/g,'.')+(f?','+f:'')};
+const eur=(x,d=2)=>fmt(x,d)+' €';
+const pc=x=>fmt(x,2)+' %';
+
+/* ---------- Caso 1 · Lucía ---------- */
+const LU={dias:2,dieta:30};
+const LU_ROWS=[ // [concepto, importe, tipo S/E, cotiza: 0 Sí · 1 No · 2 Solo el exceso]
+  ['Salario base',1150,'S',0],
+  ['Plus de convenio',120,'S',0],
+  ['Comisión por ventas',90,'S',0],
+  ['Horas extraordinarias',45,'S',0],
+  ['Plus de transporte',60,'E',0],
+  [`Dietas (${LU.dias} días × ${LU.dieta} €, sin pernocta)`,LU.dias*LU.dieta,'E',2]];
+const LU_EXC=r2(LU.dias*Math.max(0,LU.dieta-DIETA.sin));
+const LU_DEV=LU_ROWS.reduce((a,r)=>a+r[1],0);
+
+/* ---------- Caso 2 · Ahmed ---------- */
+const AH={base:1050,pagas:14,turn:60,tr:50};
+const AH_ANUAL=AH.base*AH.pagas+AH.turn*12;
+const AH_DIF=Math.max(0,SMI.anual-AH_ANUAL);
+
+/* ---------- Caso 3 · Daniel ---------- */
+const DA={base:1300,noct:150,tr:70,he:120,npagas:2,paga:1300};
+const DA_PRO=r2(DA.npagas*DA.paga/12);
+const DA_DEV=r2(DA.base+DA.noct+DA.tr+DA.he+DA_PRO);
+const DA_BCCC=r2(DA.base+DA.noct+DA.tr+DA_PRO);
+const DA_BCCP=r2(DA_BCCC+DA.he);
+const DA_BIRPF=r2(DA.base+DA.noct+DA.tr+DA.he+DA_PRO);
+
+/* ---------- Caso 4 · Sara ---------- */
+const SA={dev:1750,bccc:1650,he:100,irpf:8};
+SA.bccp=r2(SA.bccc+SA.he);SA.birpf=SA.dev;
+const SA_Q={cc:r2(SA.bccc*T.cc/100),mei:r2(SA.bccc*T.mei/100),des:r2(SA.bccp*T.desT/100),fp:r2(SA.bccp*T.fp/100),he:r2(SA.he*T.he/100)};
+const SA_SS=r2(Object.values(SA_Q).reduce((a,b)=>a+b,0));
+const SA_IRPF=r2(SA.birpf*SA.irpf/100);
+const SA_LIQ=r2(SA.dev-SA_SS-SA_IRPF);
+
+/* ---------- Caso 5 · Andrea (detective) ---------- */
+const AN={base:1400,conv:100,pagaExtra:1500,tr:60,dias:3,dieta:20,irpf:12};
+AN.pro=r2(2*AN.pagaExtra/12);
+AN.bcccMal=r2(AN.base+AN.conv+AN.pro);          // error: deja fuera el plus de transporte
+AN.bcccBien=r2(AN.bcccMal+AN.tr);
+const AN_LINES=[ // [sección, texto, importe, ¿error?, explicación]
+  ['DEVENGOS','*Salario base',AN.base,false,'Correcto: es la parte fija que marca el convenio.'],
+  ['DEVENGOS','*Plus de convenio',AN.conv,false,'Correcto: percepción salarial, cotiza.'],
+  ['DEVENGOS','*Prorrata de pagas extra (2 × 1.500 € ÷ 12)',AN.pro,false,'Correcto: 3.000 ÷ 12 = 250 €.'],
+  ['DEVENGOS','-Plus de transporte (no cotiza)',AN.tr,true,'Error: desde 2013 el plus de transporte cotiza y tributa entero. Debería ir con asterisco.'],
+  ['DEVENGOS',`-Dietas (${AN.dias} días × ${AN.dieta} €, sin pernocta)`,AN.dias*AN.dieta,false,'Correcto: 20 €/día no supera 26,67 €, así que están exentas.'],
+  ['BASES','BCCC (contingencias comunes)',AN.bcccMal,true,`Error: le falta el plus de transporte. La BCCC correcta es ${eur(AN.bcccBien)}.`],
+  ['DEDUCCIONES','Contingencias comunes 4,70 %',r2(AN.bcccMal*T.cc/100),false,'El tipo es correcto (4,70 %), aunque se aplica sobre una base mal calculada.'],
+  ['DEDUCCIONES','MEI 0,15 %',r2(AN.bcccMal*T.mei/100),false,'Tipo correcto para 2026: 0,15 % a cargo del trabajador.'],
+  ['DEDUCCIONES','Desempleo 1,60 %',r2(AN.bcccMal*T.desT/100),true,'Error: Andrea es indefinida. Su tipo de desempleo es el 1,55 %; el 1,60 % es para contratos temporales.'],
+  ['DEDUCCIONES','Formación profesional 0,10 %',r2(AN.bcccMal*T.fp/100),false,'Correcto: 0,10 % sobre la BCCP.'],
+  ['DEDUCCIONES','Accidentes de trabajo (AT/EP) 1,50 %',r2(AN.bcccMal*1.5/100),true,'Error: las contingencias profesionales las paga solo la empresa. Nunca se descuentan al trabajador.'],
+  ['DEDUCCIONES','Retención IRPF 12 %',r2((AN.base+AN.conv+AN.pro+AN.tr)*AN.irpf/100),false,'No se puede dar por erróneo: el porcentaje de IRPF es personal y lo calcula la empresa con el modelo 145.']];
+const AN_SS=(()=>{const b=AN.bcccBien;return r2(r2(b*T.cc/100)+r2(b*T.mei/100)+r2(b*T.desI/100)+r2(b*T.fp/100))})();
+
+/* =========================================================
+   CASOS
+   ========================================================= */
+const ICO={
+  shop:'<path d="M4 8h16l-1.2 11.2a2 2 0 0 1-2 1.8H7.2a2 2 0 0 1-2-1.8z"/><path d="M8.5 8V6.5a3.5 3.5 0 0 1 7 0V8"/>',
+  box:'<path d="M3 7.5 12 3l9 4.5v9L12 21l-9-4.5z"/><path d="M3 7.5 12 12l9-4.5M12 12v9"/>',
+  chef:'<path d="M7 14v6h10v-6"/><path d="M7 14a4 4 0 1 1 1.5-7.7A4 4 0 0 1 15.5 6.3 4 4 0 1 1 17 14z"/>',
+  fork:'<path d="M5 18h10M5 18V8h7l3 5v5M15 13h4v5h-4M3 21h18"/><circle cx="8" cy="21" r=".5"/>',
+  search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/>',
+  check:'<path d="m5 12 5 5 9-10"/>'
+};
+const ico=k=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICO[k]}</svg>`;
+
+const CASES=[
+ {id:'lucia',ico:'shop',titulo:'Las percepciones de Lucía',sub:'Clasificar y decidir qué cotiza',
+  quien:'Lucía es <b>dependienta</b> en una tienda de moda de un centro comercial, con contrato indefinido. Este mes ha ido dos días a otra ciudad para hacer inventario en otra tienda de la cadena, sin dormir fuera.',
+  datos:LU_ROWS.map(r=>[r[0],r[1]]),
+  steps:[
+   {type:'classify',q:'Clasifica cada percepción: ¿salarial o extrasalarial?',opts:['Salarial','Extrasalarial'],rows:LU_ROWS.map(r=>r[0]),ans:LU_ROWS.map(r=>r[2]==='S'?0:1),
+    hint:'Pregúntate: ¿retribuye el trabajo o compensa un gasto? Las comisiones y las horas extra pagan trabajo.',
+    expl:'Salariales: base, plus de convenio, comisión y horas extra. Extrasalariales: plus de transporte y dietas (compensan gastos).'},
+   {type:'classify',q:'¿Qué cotiza a la Seguridad Social?',opts:['Sí','No','Solo el exceso'],rows:LU_ROWS.map(r=>r[0]),ans:LU_ROWS.map(r=>r[3]),
+    hint:'Ojo con el plus de transporte: desde 2013 ya no está exento. Y las dietas tienen un límite diario.',
+    expl:'Todo lo salarial cotiza. El plus de transporte, aunque es extrasalarial, cotiza entero. Las dietas solo cotizan por lo que supere 26,67 €/día.'},
+   {type:'num',q:'¿Qué parte de las dietas cotiza este mes?',ans:LU_EXC,
+    hint:`El límite sin pernocta en España es de ${eur(DIETA.sin)} al día. Calcula el exceso de un día y multiplícalo por ${LU.dias}.`,
+    expl:`(${LU.dieta} − ${fmt(DIETA.sin)}) × ${LU.dias} = ${eur(LU_EXC)}.`},
+   {type:'num',q:'¿Cuál es el total devengado de Lucía?',ans:LU_DEV,
+    hint:'El total devengado suma todo lo que cobra en bruto, salarial y extrasalarial.',
+    expl:`${LU_ROWS.map(r=>fmt(r[1],0)).join(' + ')} = ${eur(LU_DEV)}.`}]},
+
+ {id:'ahmed',ico:'box',titulo:'¿Cobra Ahmed el SMI?',sub:'El salario mínimo en cómputo anual',
+  quien:`Ahmed es <b>mozo de almacén</b> en un operador logístico del puerto, a jornada completa. Su convenio le paga:`,
+  datos:[['Salario base (14 pagas)',AH.base],['Plus de turnicidad (12 meses)',AH.turn],['Plus de transporte (12 meses)',AH.tr]],
+  nota:`SMI 2026: ${eur(SMI.mes,0)} al mes en 14 pagas, ${eur(SMI.anual,0)} al año.`,
+  steps:[
+   {type:'choice',q:'Para comprobar si cumple el SMI, ¿qué conceptos se suman?',opts:['Base, turnicidad y transporte: todo lo que cobra','Base y turnicidad: solo las percepciones salariales','Solo el salario base'],ans:1,
+    hint:'El SMI garantiza un salario mínimo. ¿El plus de transporte es salario?',
+    expl:'Se suman las percepciones salariales (base y complementos). El plus de transporte es extrasalarial: compensa un gasto, así que no cuenta para el SMI.'},
+   {type:'num',q:'¿Cuánto suma Ahmed en cómputo anual?',ans:AH_ANUAL,
+    hint:'El base se cobra 14 veces al año; el plus de turnicidad, 12.',
+    expl:`${fmt(AH.base,0)} × 14 + ${AH.turn} × 12 = ${eur(AH_ANUAL,0)}.`},
+   {type:'choice',q:'¿Cumple el SMI 2026?',opts:['Sí','No'],ans:AH_ANUAL>=SMI.anual?0:1,
+    hint:`Compara con ${eur(SMI.anual,0)}.`,
+    expl:`${eur(AH_ANUAL,0)} ${AH_ANUAL>=SMI.anual?'≥':'<'} ${eur(SMI.anual,0)}: ${AH_ANUAL>=SMI.anual?'cumple':'no cumple'}. La empresa tiene que completar la diferencia.`},
+   {type:'num',q:'¿Cuánto tiene que subirle la empresa, como mínimo, al año?',ans:AH_DIF,
+    hint:'Resta lo que cobra en cómputo anual al SMI anual.',
+    expl:`${fmt(SMI.anual,0)} − ${fmt(AH_ANUAL,0)} = ${eur(AH_DIF,0)} al año.`},
+   {type:'num',q:'Si la subida se reparte en las 14 pagas, ¿cuánto más por paga?',ans:r2(AH_DIF/14),
+    hint:'Divide la diferencia anual entre 14.',
+    expl:`${fmt(AH_DIF,0)} ÷ 14 = ${eur(r2(AH_DIF/14))} por paga.`}]},
+
+ {id:'daniel',ico:'chef',titulo:'Las bases de Daniel',sub:'Prorrata, BCCC, BCCP y BIRPF',
+  quien:'Daniel es <b>cocinero</b> en un hotel, con contrato temporal. Este mes (30 días) cobra lo siguiente. Sus dos pagas extra son de 1.300 € cada una y se cobran <b>prorrateadas</b> en la nómina.',
+  datos:[['Salario base',DA.base],['Plus de nocturnidad',DA.noct],['Plus de transporte',DA.tr],['Horas extraordinarias (no de fuerza mayor)',DA.he]],
+  steps:[
+   {type:'num',q:'¿Cuál es la prorrata mensual de las pagas extra?',ans:DA_PRO,
+    hint:'Importe de cada paga × número de pagas ÷ 12.',
+    expl:`2 × 1.300 ÷ 12 = ${eur(DA_PRO)}.`},
+   {type:'num',q:'¿Cuál es el total devengado?',ans:DA_DEV,
+    hint:'Como las pagas están prorrateadas, la prorrata se cobra este mes: súmala.',
+    expl:`${fmt(DA.base,0)} + ${DA.noct} + ${DA.tr} + ${DA.he} + ${fmt(DA_PRO)} = ${eur(DA_DEV)}.`},
+   {type:'num',q:'Calcula la BCCC (base de contingencias comunes).',ans:DA_BCCC,
+    hint:'Salariales del mes sin horas extra + prorrata + plus de transporte.',
+    expl:`${fmt(DA.base,0)} + ${DA.noct} + ${DA.tr} + ${fmt(DA_PRO)} = ${eur(DA_BCCC)}. Las horas extra no entran.`},
+   {type:'num',q:'Calcula la BCCP (base de contingencias profesionales).',ans:DA_BCCP,
+    hint:'BCCP = BCCC + horas extra.',
+    expl:`${fmt(DA_BCCC)} + ${DA.he} = ${eur(DA_BCCP)}.`},
+   {type:'num',q:'Calcula la base de IRPF (BIRPF).',ans:DA_BIRPF,
+    hint:'Todo lo que tributa y se cobra este mes. ¿Cobra la prorrata? ¿Y las horas extra?',
+    expl:`Incluye horas extra, plus de transporte y la prorrata, porque se cobra: ${eur(DA_BIRPF)}.`}]},
+
+ {id:'sara',ico:'fork',titulo:'Cuotas y líquido de Sara',sub:'Base × tipo = cuota',
+  quien:'Sara es <b>carretillera</b> en un almacén de distribución, con <b>contrato temporal</b>. Sus pagas extra van prorrateadas. Estos son los datos de su nómina:',
+  datos:[['Total devengado',SA.dev],['BCCC',SA.bccc],['Horas extra (no de fuerza mayor)',SA.he],['BCCP',SA.bccp],['BIRPF',SA.birpf]],
+  nota:`Retención de IRPF comunicada por la empresa: ${SA.irpf} %.`,
+  rates:true,
+  steps:[
+   {type:'multi',q:'Calcula cada cuota del trabajador.',cells:[['Contingencias comunes (4,70 % s/ BCCC)',SA_Q.cc],['MEI (0,15 % s/ BCCC)',SA_Q.mei],['Desempleo (1,60 % s/ BCCP)',SA_Q.des],['Formación profesional (0,10 % s/ BCCP)',SA_Q.fp],['Horas extra (4,70 % s/ su importe)',SA_Q.he]],
+    hint:'Base × tipo ÷ 100. Como el contrato es temporal, el desempleo es el 1,60 %.',
+    expl:`CC ${eur(SA_Q.cc)} · MEI ${eur(SA_Q.mei)} · Desempleo ${eur(SA_Q.des)} · FP ${eur(SA_Q.fp)} · Horas extra ${eur(SA_Q.he)}.`},
+   {type:'num',q:'¿Cuánto paga en total a la Seguridad Social?',ans:SA_SS,
+    hint:'Suma las cinco cuotas anteriores.',
+    expl:`Total SS: ${eur(SA_SS)}.`},
+   {type:'num',q:'¿Cuánto le retienen de IRPF?',ans:SA_IRPF,
+    hint:`BIRPF × ${SA.irpf} %.`,
+    expl:`${fmt(SA.birpf,0)} × ${SA.irpf} % = ${eur(SA_IRPF)}.`},
+   {type:'num',q:'¿Cuál es el líquido a percibir?',ans:SA_LIQ,
+    hint:'Total devengado − (Seguridad Social + IRPF).',
+    expl:`${fmt(SA.dev,0)} − ${fmt(SA_SS)} − ${fmt(SA_IRPF)} = ${eur(SA_LIQ)}.`},
+   {type:'choice',q:'¿Cuánto le descuentan a Sara por accidentes de trabajo (AT/EP)?',opts:['El 1,50 % de la BCCP','El 0,10 %, igual que la formación','Nada: lo paga solo la empresa'],ans:2,
+    hint:'Repasa quién paga las contingencias profesionales.',
+    expl:'Las contingencias profesionales (AT/EP) y el FOGASA los paga solo la empresa.'}]},
+
+ {id:'andrea',ico:'search',titulo:'Detective de nóminas',sub:'Encuentra los errores',
+  quien:`Andrea es <b>administrativa</b> en una transitaria, con <b>contrato indefinido</b>. Tiene dos pagas extra de 1.500 € prorrateadas y este mes ha viajado ${AN.dias} días a otra provincia, sin dormir fuera. Su gestoría le ha mandado esta nómina… y tiene <b>errores</b>.`,
+  datos:null,
+  steps:[
+   {type:'hunt',q:'Pulsa las líneas que creas que están mal y después comprueba.',lines:AN_LINES,
+    hint:'Hay 4 errores. Revisa qué cotiza, qué tipo de desempleo corresponde a un contrato indefinido y qué paga solo la empresa.',
+    expl:'Errores: plus de transporte como no cotizable, BCCC sin el plus de transporte, desempleo al 1,60 % y descuento de AT/EP al trabajador.'},
+   {type:'num',q:'¿Cuál es la BCCC correcta?',ans:AN.bcccBien,
+    hint:'Suma el plus de transporte a la BCCC de la nómina.',
+    expl:`${fmt(AN.bcccMal)} + ${AN.tr} = ${eur(AN.bcccBien)}.`},
+   {type:'num',q:'Con la base correcta, ¿cuánto debería pagar Andrea en total a la Seguridad Social?',ans:AN_SS,
+    hint:'CC 4,70 % + MEI 0,15 % + desempleo 1,55 % + FP 0,10 % sobre la BCCC correcta (no tiene horas extra, así que BCCP = BCCC).',
+    expl:`${fmt(AN.bcccBien)} × (4,70 + 0,15 + 1,55 + 0,10) % ≈ ${eur(AN_SS)} (redondeando cada cuota).`}]}
+];
+
+/* =========================================================
+   ESTADO (se guarda en este navegador)
+   ========================================================= */
+const KEY='educa-casosnomina-v1';
+let ST={name:'',c:{}};
+try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s&&s.c)ST=s}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(ST))}catch(e){}};
+const cs=id=>ST.c[id]||(ST.c[id]={s:{}});
+const ss=(id,i)=>{const c=cs(id);return c.s[i]||(c.s[i]={tries:0,ok:false,shown:false,val:null})};
+const pts=s=>s.shown?0:s.ok?(s.tries<=1?2:1):0;
+const caseScore=c=>c.steps.reduce((a,_,i)=>a+pts(ss(c.id,i)),0);
+const caseDone=c=>c.steps.filter((_,i)=>{const s=ss(c.id,i);return s.ok||s.shown}).length;
+const totalMax=CASES.reduce((a,c)=>a+c.steps.length*2,0);
+
+/* número escrito por el alumnado: 1.596,67 · 1596,67 · 1596.67 */
+function parseNum(v){
+  if(v==null)return NaN;let s=String(v).replace(/[€\s]/g,'');if(!s)return NaN;
+  if(s.includes(','))s=s.replace(/\./g,'').replace(',','.');
+  else if(/^\d{1,3}(\.\d{3})+$/.test(s))s=s.replace(/\./g,'');
+  return Number(s);
+}
+const close=(a,b,tol=0.05)=>Math.abs(a-b)<=tol;
+
+/* =========================================================
+   VISTAS
+   ========================================================= */
+const main=document.getElementById('main');
+function nav(cur){document.querySelectorAll('[data-nav]').forEach(a=>{if(a.dataset.nav===cur)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')})}
+
+function home(){
+  nav('home');
+  const tot=CASES.reduce((a,c)=>a+caseScore(c),0);
+  main.innerHTML=`
+  <section class="hero">
+    <div>
+      <h1>Casos prácticos de <em>nóminas</em></h1>
+      <p>Cinco casos para aplicar lo aprendido sobre el salario y la nómina con los datos de 2026. Resuélvelos paso a paso: si fallas, tienes una pista y una segunda oportunidad.</p>
+      <div class="meter"><div class="bar"><i style="width:${Math.round(tot/totalMax*100)}%"></i></div><b>${tot} / ${totalMax} puntos</b></div>
+    </div>
+    <svg width="190" height="170" viewBox="0 0 190 170" aria-hidden="true"><rect x="30" y="10" width="130" height="150" rx="12" fill="#fff" stroke="#1E1C1A" stroke-width="2.5"/><rect x="30" y="10" width="130" height="30" rx="12" fill="#557A35"/><rect x="30" y="28" width="130" height="12" fill="#557A35"/><g fill="#C5CD78"><rect x="44" y="54" width="80" height="8" rx="4"/><rect x="44" y="70" width="100" height="8" rx="4"/><rect x="44" y="86" width="64" height="8" rx="4"/></g><g fill="#E8E1D6"><rect x="44" y="104" width="90" height="8" rx="4"/><rect x="44" y="120" width="70" height="8" rx="4"/></g><circle cx="150" cy="128" r="26" fill="#E5EDDB" stroke="#557A35" stroke-width="3"/><path d="m138 128 8 8 16-17" fill="none" stroke="#557A35" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </section>
+  <section class="cases">${CASES.map((c,k)=>{const d=caseDone(c),n=c.steps.length;return `
+    <a class="cbtn" href="#/caso/${c.id}"><span class="n">${k+1}</span><span class="pico">${ico(c.ico)}</span><h3>${c.titulo}</h3><p>${c.sub}</p>
+      <span class="go"><span>${d===n?'Repasar':d?'Continuar':'Empezar'} →</span><span class="chip${d===n?' ok':''}">${d}/${n} pasos · ${caseScore(c)}/${n*2} pt</span></span></a>`}).join('')}
+    <a class="cbtn" href="#/resumen" style="background:var(--c-soft)"><span class="pico" style="background:#fff">${ico('check')}</span><h3>Mi resumen</h3><p>Tu puntuación caso a caso, lista para imprimir o guardar en PDF y entregar.</p><span class="go">Ver resumen →</span></a>
+  </section>
+  <section class="tips">
+    <div class="tip"><b>2 puntos</b>si aciertas a la primera; 1 si aciertas después de fallar.</div>
+    <div class="tip"><b>Pista y solución</b>Tras un fallo aparece una pista; tras dos, puedes ver la solución (ese paso valdrá 0).</div>
+    <div class="tip"><b>Decimales</b>Escribe los importes con coma: 1.596,67. Se admite una diferencia de 5 céntimos por redondeo.</div>
+  </section>`;
+}
+
+function caseView(id){
+  const c=CASES.find(x=>x.id===id);if(!c)return home();
+  nav('');
+  const k=CASES.indexOf(c);
+  const datos=c.datos?`<table class="data">${c.datos.map(d=>`<tr><td>${d[0]}</td><td class="n">${eur(d[1],d[1]%1?2:0)}</td></tr>`).join('')}</table>`:slipHTML(c);
+  main.innerHTML=`
+  <a class="crumb no-print" href="#/">← Todos los casos</a>
+  <div class="case">
+    <aside class="enun">
+      <div class="who"><span class="pico">${ico(c.ico)}</span><div><span class="kick">Caso ${k+1} de ${CASES.length}</span><h1>${c.titulo}</h1></div></div>
+      <p>${c.quien}</p>
+      ${c.datos?datos:''}
+      ${c.nota?`<p class="rates">${c.nota}</p>`:''}
+      ${c.rates?`<p class="rates"><b>Tipos 2026 del trabajador:</b> CC 4,70 % · MEI 0,15 % · desempleo 1,55 % (indefinido) o 1,60 % (temporal) · FP 0,10 % · horas extra 4,70 % (2 % si son de fuerza mayor).</p>`:''}
+      <div class="row no-print"><button class="btn btn-g" id="resetCase">Reiniciar este caso</button>${k<CASES.length-1?`<a class="btn btn-g" href="#/caso/${CASES[k+1].id}">Siguiente caso →</a>`:`<a class="btn btn-g" href="#/resumen">Ver mi resumen →</a>`}</div>
+    </aside>
+    <section class="steps" id="steps"></section>
+  </div>`;
+  document.getElementById('resetCase').onclick=()=>{if(confirm('¿Borrar tus respuestas de este caso?')){delete ST.c[c.id];save();caseView(c.id)}};
+  renderSteps(c);
+}
+
+function slipHTML(){
+  let sec='',h=`<div class="slip"><div class="sh">TRANSITARIA · Andrea (administrativa)<br>Contrato indefinido · Periodo: 30 días</div>`;
+  AN_LINES.forEach((l,i)=>{if(l[0]!==sec){sec=l[0];h+=`<div class="sec">${sec}</div>`}
+    h+=`<button type="button" class="sline" data-l="${i}" aria-pressed="false"><span>${l[1]}<small hidden></small></span><span>${fmt(l[2])}</span></button>`});
+  return h+'</div>';
+}
+
+function renderSteps(c){
+  const box=document.getElementById('steps');
+  box.innerHTML=c.steps.map((st,i)=>{
+    const s=ss(c.id,i),prevOk=i===0||(()=>{const p=ss(c.id,i-1);return p.ok||p.shown})();
+    const done=s.ok||s.shown;
+    return `<article class="step${done?' done':''}${!prevOk&&!done?' locked':''}" id="st${i}">
+      <div class="shead"><span class="snum">${i+1}</span><h3>${st.q}</h3>${done?`<span class="chip pts${pts(s)?' ok':''}">${pts(s)} pt</span>`:''}</div>
+      ${!prevOk&&!done?'<p style="color:var(--ink-soft);font-size:.9rem;margin:0">Resuelve antes el paso anterior.</p>':stepBody(c,st,i,s)}
+    </article>`}).join('');
+  c.steps.forEach((st,i)=>wire(c,st,i));
+}
+
+function stepBody(c,st,i,s){
+  const done=s.ok||s.shown, dis=done?'disabled':'';
+  let ui='';
+  if(st.type==='num'){
+    const v=s.val??'';ui=`<div class="ans"><span class="num ${s.ok?'ok':''}"><input inputmode="decimal" id="in${i}" value="${done?fmt(st.ans):v}" ${dis} aria-label="Respuesta en euros" placeholder="0,00"><span>€</span></span></div>`;
+  }else if(st.type==='choice'){
+    ui=`<div class="opts">${st.opts.map((o,j)=>`<button type="button" class="opt${done&&j===st.ans?' good':''}" data-o="${j}" aria-pressed="${s.val===j}" ${dis}><span class="lt">${'ABCD'[j]}</span><span>${o}</span></button>`).join('')}</div>`;
+  }else if(st.type==='classify'){
+    const v=s.val||[];ui=`<table class="cls">${st.rows.map((r,j)=>`<tr data-r="${j}"><td>${r}</td><td><span class="seg">${st.opts.map((o,q)=>`<button type="button" data-r="${j}" data-q="${q}" aria-pressed="${done?q===st.ans[j]:v[j]===q}" class="${done&&q===st.ans[j]?'good':''}" ${dis}>${o}</button>`).join('')}</span></td></tr>`).join('')}</table>`;
+  }else if(st.type==='multi'){
+    const v=s.val||[];ui=`<div class="grid-in">${st.cells.map((cl,j)=>`<label for="m${i}_${j}">${cl[0]}</label><span class="num ${done?'ok':''}"><input inputmode="decimal" id="m${i}_${j}" value="${done?fmt(cl[1]):(v[j]??'')}" ${dis} placeholder="0,00"><span>€</span></span>`).join('')}</div>`;
+  }else if(st.type==='hunt'){
+    ui=`<div id="slipBox">${slipHTML()}</div>`;
+  }
+  const fb=done?`<div class="fb ok"><b>${s.shown?'Solución':'¡Correcto!'}</b>${st.expl}</div>`:(s.tries>0?`<div class="fb hint"><b>Pista</b>${st.hint}</div>`:'');
+  return ui+(done?'':`<div class="row" style="margin-top:6px"><button class="btn btn-p" data-check="${i}">Comprobar</button>${s.tries>=2?`<button class="btn btn-g" data-show="${i}">Ver la solución</button>`:''}</div>`)+`<div id="fb${i}" aria-live="polite">${fb}</div>`;
+}
+
+function wire(c,st,i){
+  const el=document.getElementById('st'+i);if(!el)return;const s=ss(c.id,i);
+  if(st.type==='choice')el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{s.val=+b.dataset.o;save();el.querySelectorAll('.opt').forEach(x=>x.setAttribute('aria-pressed',String(x===b)))});
+  if(st.type==='classify')el.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>{const r=+b.dataset.r;s.val=s.val||[];s.val[r]=+b.dataset.q;save();el.querySelectorAll(`.seg button[data-r="${r}"]`).forEach(x=>{x.setAttribute('aria-pressed',String(x===b));x.classList.remove('bad')});el.querySelector(`tr[data-r="${r}"]`).classList.remove('rowko')});
+  if(st.type==='num'){const inp=el.querySelector('input');if(inp){inp.oninput=()=>{s.val=inp.value;save()};inp.onkeydown=e=>{if(e.key==='Enter')check(c,i)}}}
+  if(st.type==='multi')el.querySelectorAll('input').forEach((inp,j)=>{inp.oninput=()=>{s.val=s.val||[];s.val[j]=inp.value;save()}});
+  if(st.type==='hunt'){
+    const done=s.ok||s.shown;s.val=s.val||[];
+    el.querySelectorAll('.sline').forEach(b=>{const l=+b.dataset.l;
+      if(done){b.disabled=true;markLine(b,l,true);return}
+      b.setAttribute('aria-pressed',String(s.val.includes(l)));
+      b.onclick=()=>{const k=s.val.indexOf(l);if(k>=0)s.val.splice(k,1);else s.val.push(l);save();b.setAttribute('aria-pressed',String(k<0));b.classList.remove('miss','false','found')}});
+  }
+  const cb=el.querySelector('[data-check]');if(cb)cb.onclick=()=>check(c,i);
+  const sb=el.querySelector('[data-show]');if(sb)sb.onclick=()=>{s.shown=true;save();renderSteps(c);document.getElementById('st'+i).classList.add('pop')};
+}
+function markLine(b,l,reveal){
+  const err=AN_LINES[l][3],sel=(ss('andrea',0).val||[]).includes(l);const sm=b.querySelector('small');
+  b.classList.remove('found','miss','false');
+  if(err&&(sel||reveal))b.classList.add(sel?'found':'miss');else if(!err&&sel)b.classList.add('false');
+  if(reveal||err&&sel||!err&&sel){sm.hidden=false;sm.textContent=AN_LINES[l][4]}
+}
+
+function check(c,i){
+  const st=c.steps[i],s=ss(c.id,i),el=document.getElementById('st'+i),fb=document.getElementById('fb'+i);
+  let ok=false,msg='';
+  if(st.type==='num'){
+    const v=parseNum(el.querySelector('input').value);
+    if(isNaN(v)){fb.innerHTML='<div class="fb">Escribe un número, por ejemplo 1.596,67.</div>';return}
+    ok=close(v,st.ans);el.querySelector('.num').classList.toggle('ko',!ok);
+  }else if(st.type==='choice'){
+    if(s.val==null){fb.innerHTML='<div class="fb">Elige una opción.</div>';return}
+    ok=s.val===st.ans;if(!ok)el.querySelector(`.opt[data-o="${s.val}"]`).classList.add('bad');
+  }else if(st.type==='classify'){
+    const v=s.val||[];if(st.rows.some((_,j)=>v[j]==null)){fb.innerHTML='<div class="fb">Responde todas las filas.</div>';return}
+    let bad=0;st.rows.forEach((_,j)=>{const w=v[j]!==st.ans[j];if(w){bad++;el.querySelector(`.seg button[data-r="${j}"][data-q="${v[j]}"]`).classList.add('bad');el.querySelector(`tr[data-r="${j}"]`).classList.add('rowko')}});
+    ok=bad===0;msg=ok?'':`Tienes ${bad} fila${bad>1?'s':''} mal (marcada${bad>1?'s':''} en rojo).`;
+  }else if(st.type==='multi'){
+    let bad=0;st.cells.forEach((cl,j)=>{const inp=document.getElementById(`m${i}_${j}`),v=parseNum(inp.value),w=isNaN(v)||!close(v,cl[1]);inp.parentElement.classList.toggle('ko',w);inp.parentElement.classList.toggle('ok',!w);if(w)bad++});
+    ok=bad===0;msg=ok?'':`Revisa ${bad} cuota${bad>1?'s':''} (en rojo).`;
+  }else if(st.type==='hunt'){
+    const v=s.val||[],errs=AN_LINES.map((l,j)=>l[3]?j:-1).filter(j=>j>=0);
+    const found=errs.filter(j=>v.includes(j)).length,fals=v.filter(j=>!AN_LINES[j][3]).length;
+    el.querySelectorAll('.sline').forEach(b=>markLine(b,+b.dataset.l,false));
+    ok=found===errs.length&&fals===0;msg=ok?'':`Has encontrado ${found} de ${errs.length} errores${fals?` y has marcado ${fals} línea${fals>1?'s':''} que está${fals>1?'n':''} bien (tachada${fals>1?'s':''})`:''}.`;
+  }
+  s.tries++;
+  if(ok){s.ok=true;save();renderSteps(c);const n=document.getElementById('st'+i);n.classList.add('pop');const nx=document.getElementById('st'+(i+1));if(nx)nx.scrollIntoView({behavior:'smooth',block:'nearest'});return}
+  save();el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake');
+  fb.innerHTML=`<div class="fb ko"><b>Todavía no.</b>${msg?`<p>${msg}</p>`:''}</div><div class="fb hint"><b>Pista</b>${st.hint}</div>`;
+  if(s.tries>=2&&!el.querySelector('[data-show]')){const b=document.createElement('button');b.className='btn btn-g';b.dataset.show=i;b.textContent='Ver la solución';el.querySelector('[data-check]').after(b);b.onclick=()=>{s.shown=true;save();renderSteps(c)}}
+}
+
+function summary(){
+  nav('resumen');
+  const tot=CASES.reduce((a,c)=>a+caseScore(c),0);
+  main.innerHTML=`
+  <a class="crumb no-print" href="#/">← Todos los casos</a>
+  <section class="sumbox">
+    <p class="print-only"><b>Educa Tools · Casos prácticos de nóminas · IPE 1</b></p>
+    <div class="sum-head"><div><h1 style="font-size:clamp(1.7rem,4vw,2.3rem)">Mi resumen</h1><p style="color:var(--ink-soft);margin:6px 0 0">Imprime o guarda en PDF esta página para entregarla.</p></div><div style="text-align:right"><div class="score">${tot} / ${totalMax}</div><span style="color:var(--ink-soft);font-size:.9rem">puntos</span></div></div>
+    <div class="field no-print"><label for="nm">Tu nombre</label><input id="nm" value="${(ST.name||'').replace(/"/g,'&quot;')}" placeholder="Nombre y apellidos"></div>
+    <p class="print-only">Nombre: <b id="nmP">${ST.name||'________________________'}</b> · Fecha: ${new Date().toLocaleDateString('es-ES')}</p>
+    <table class="tbl"><tr><th>Caso</th><th>Pasos resueltos</th><th>Soluciones vistas</th><th style="text-align:right">Puntos</th></tr>
+    ${CASES.map((c,k)=>{const n=c.steps.length,sh=c.steps.filter((_,i)=>ss(c.id,i).shown).length;return `<tr><td>${k+1}. ${c.titulo}</td><td>${caseDone(c)} de ${n}</td><td>${sh}</td><td class="n">${caseScore(c)} / ${n*2}</td></tr>`}).join('')}
+    <tr><td colspan="3"><b>Total</b></td><td class="n">${tot} / ${totalMax}</td></tr></table>
+    <div class="row no-print" style="margin-top:18px"><button class="btn btn-p" id="pr">Imprimir o guardar en PDF</button><button class="btn btn-g" id="rs">Empezar de cero</button></div>
+  </section>`;
+  const nm=document.getElementById('nm');nm.oninput=()=>{ST.name=nm.value;save();document.getElementById('nmP').textContent=nm.value||'________________________'};
+  document.getElementById('pr').onclick=()=>window.print();
+  document.getElementById('rs').onclick=()=>{if(confirm('¿Borrar todo tu progreso en los cinco casos?')){ST={name:ST.name,c:{}};save();summary()}};
+}
+
+function route(){
+  const h=location.hash.replace(/^#\/?/,'');
+  if(h.startsWith('caso/'))caseView(h.slice(5));else if(h==='resumen')summary();else home();
+  window.scrollTo(0,0);main.focus({preventScroll:true});
+}
+addEventListener('hashchange',route);route();
+</script>
+</body>
+</html>
