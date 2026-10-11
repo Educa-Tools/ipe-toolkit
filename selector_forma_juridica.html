@@ -484,7 +484,7 @@ textarea#ideaText.filled { border-color: var(--deep); background: var(--soft); }
 }
 .rpt-form-name {
   font-family: 'Fraunces', serif;
-  font-size: 44px;
+  font-size: 40px;
   font-weight: 400;
   color: var(--accent-ink);
   line-height: 1.05;
@@ -782,7 +782,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
 @media (max-width:640px){ .kit-save{ display:none !important; } .kit-bar small{ font-size:13.5px; } }
 
 /* ══ Informe de 3 páginas (forma jurídica) ══ */
-@media screen and (min-width:821px){ .page-a4{ height:1123px; min-height:0; overflow:hidden; display:flex; flex-direction:column; padding:48px 56px; } }
+@media screen and (min-width:821px){ .page-a4{ height:1123px; min-height:0; overflow:hidden; display:flex; flex-direction:column; padding:40px 52px; } }
 .fitbox{ flex:1; min-height:0; display:flex; flex-direction:column; }
 .fitbox > *{ flex-shrink:0; }
 .page-a4 .rpt-header{ margin-bottom:14px !important; padding-bottom:10px !important; }
@@ -826,6 +826,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
 .page-a4 .section-title{ font-size:13px; color:var(--ink); }
 .page-a4 .section-title .kicker{ font-size:13.5px; }
 .page-a4 .reason-text{ font-size:15px; }
+.page-a4 .reasons-list{ margin-bottom:0; }
 .page-a4 .two-col h4{ font-size:13px; color:var(--ink); }
 .page-a4 .two-col li{ font-size:14.5px; }
 .warn-list{ list-style:none; }
@@ -835,8 +836,8 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
 .warn-list li.ok::before{ content:'✓'; background:var(--green); }
 .warn-list b{ color:var(--ink); font-weight:600; }
 
-.rank-list{ display:grid; gap:7px; }
-.rank-row{ display:grid; grid-template-columns:230px 1fr 52px; align-items:center; gap:12px; font-size:14px; color:var(--ink-soft); }
+.rank-list{ display:grid; grid-template-columns:1fr 1fr; grid-auto-flow:column; grid-template-rows:repeat(5,auto); gap:8px 36px; }
+.rank-row{ display:grid; grid-template-columns:150px 1fr 46px; align-items:center; gap:10px; font-size:13.5px; color:var(--ink-soft); line-height:1.25; }
 .rank-row.top{ color:var(--ink); font-weight:600; }
 .rank-track{ height:10px; background:var(--line-soft); border-radius:999px; overflow:hidden; }
 .rank-fill{ height:100%; background:var(--line); border-radius:999px; }
@@ -844,6 +845,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
 .rank-row.win .rank-fill{ background:var(--deep); opacity:1; }
 .rank-pct{ text-align:right; font-family:'Fraunces',serif; font-size:15px; }
 .page-a4 .compare-table{ font-size:13px; margin-top:20px; margin-bottom:14px; }
+.page-a4 .compare-table thead th{ padding-top:18px !important; }
 .page-a4 .compare-table td.criterion{ font-size:11.5px; color:var(--ink); }
 .meter{ display:inline-flex; gap:3px; vertical-align:middle; margin-left:6px; }
 .meter i{ width:9px; height:9px; border-radius:999px; background:var(--line); display:inline-block; }
@@ -855,43 +857,47 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
 .alt-card p{ font-size:14px; color:var(--ink-soft); line-height:1.55; }
 .alt-card p + p{ margin-top:6px; }
 
-.kpi-row{ display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:4px; }
-.kpi{ background:var(--soft); border-radius:12px; padding:12px 14px; }
+.kpi-row{ display:grid; gap:10px; margin-bottom:4px; }
+.kpi{ background:var(--soft); border-radius:12px; padding:8px 14px; }
 .kpi .k{ font-size:11.5px; font-weight:600; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-soft); margin-bottom:4px; }
 .kpi .v{ font-family:'Fraunces',serif; font-size:20px; color:var(--accent-ink); font-weight:500; line-height:1.15; }
 .kpi .s{ font-size:12px; color:var(--ink-soft); margin-top:3px; line-height:1.35; }
-.gantt-row, .gantt-axis{ display:grid; grid-template-columns:200px 1fr; gap:12px; align-items:center; }
-.gantt-row{ height:23px; font-size:12.5px; }
-.gantt-lab{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:var(--ink-soft); }
-.gantt-track{ position:relative; height:100%; border-left:1px solid var(--line); }
-.gantt-bar{ position:absolute; top:6px; height:11px; border-radius:999px; }
+.kpi-row{ grid-template-columns:repeat(4,1fr); }
+.tl-head, .tl-row{ display:grid; grid-template-columns:28px minmax(0,1fr) 190px; gap:0 14px; }
+.tl-head{ font-size:11px; color:var(--ink-soft); margin-bottom:2px; }
+.tl-ticks{ position:relative; height:16px; border-bottom:1px solid var(--line); }
+.tl-ticks span{ position:absolute; top:0; transform:translateX(-50%); white-space:nowrap; }
+.tl-ticks span:first-child{ transform:none; }
+.tl-row{ padding:7px 0; border-bottom:1px solid var(--line-soft); align-items:start; }
+.tl-n{ width:26px; height:26px; border-radius:999px; border:2px solid var(--deep); color:var(--deep); font-family:'Fraunces',serif; font-size:13px; font-weight:600; display:flex; align-items:center; justify-content:center; }
+.tl-main h5{ font-family:'Fraunces',serif; font-size:15px; font-weight:600; color:var(--ink); line-height:1.25; margin-bottom:2px; }
+.tl-main p{ font-size:13px; color:var(--ink-soft); line-height:1.45; }
+.tl-track{ position:relative; height:12px; margin:5px 0 7px; background:repeating-linear-gradient(to right, var(--line-soft) 0 1px, transparent 1px var(--wk,20%)); border-radius:2px; }
+.gantt-bar{ position:absolute; top:0; height:12px; border-radius:999px; }
 .gantt-bar.max{ background:var(--soft); border:1px solid #C9D6E1; }
 .gantt-bar.min{ background:var(--deep); }
-.gantt-axis{ font-size:11px; color:var(--ink-soft); margin-top:4px; }
-.gantt-ticks{ position:relative; height:14px; border-top:1px solid var(--line); }
-.gantt-ticks span{ position:absolute; top:2px; transform:translateX(-50%); white-space:nowrap; }
-.gantt-legend{ display:flex; gap:16px; font-size:12px; color:var(--ink-soft); margin-top:6px; }
+.gantt-legend{ display:flex; flex-wrap:wrap; gap:16px; font-size:12px; color:var(--ink-soft); margin-top:8px; }
 .gantt-legend i{ display:inline-block; width:18px; height:9px; border-radius:999px; vertical-align:middle; margin-right:5px; }
-.steps-detail{ display:grid; grid-template-columns:1fr 1fr; gap:9px 12px; }
-.sd{ border:1px solid var(--line); border-radius:12px; padding:10px 12px 10px 48px; position:relative; background:var(--surface); }
-.sd-n{ position:absolute; left:12px; top:10px; width:26px; height:26px; border-radius:999px; border:2px solid var(--deep); color:var(--deep); font-family:'Fraunces',serif; font-size:13px; font-weight:600; display:flex; align-items:center; justify-content:center; }
-.sd h5{ font-family:'Fraunces',serif; font-size:15px; font-weight:600; color:var(--ink); margin-bottom:3px; line-height:1.25; }
-.sd p{ font-size:12.5px; color:var(--ink-soft); line-height:1.45; margin-bottom:6px; }
-.sd-meta{ display:flex; flex-wrap:wrap; gap:5px; }
-.sd-meta span{ font-size:11px; font-weight:600; background:var(--line-soft); color:var(--ink-soft); padding:2px 8px; border-radius:999px; }
-.sd-meta span.where{ background:#F2E8D9; color:var(--accent-2); }
-.box-2{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.sd-meta{ display:flex; flex-wrap:wrap; gap:4px; }
+.sd-meta span{ font-size:11px; font-weight:600; background:var(--line-soft); color:var(--ink-soft); padding:2px 7px; border-radius:999px; line-height:1.4; }
+.tl-main .where{ font-size:12px; font-weight:600; color:var(--accent-2); white-space:nowrap; }.box-2{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
 .info-box{ border-radius:12px; padding:12px 16px; background:var(--canvas); border:1px solid var(--line); }
 .info-box h5{ font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--ink); margin-bottom:8px; }
 .info-box ul{ list-style:none; }
-.info-box li{ font-size:13px; line-height:1.5; color:var(--ink-soft); padding-left:14px; position:relative; margin-bottom:5px; }
+.info-box ul.cols-2{ columns:2; column-gap:24px; }
+.info-box ul.cols-2 li{ break-inside:avoid; }
+.info-box li{ font-size:12.5px; line-height:1.5; color:var(--ink-soft); padding-left:14px; position:relative; margin-bottom:5px; }
 .info-box li::before{ content:''; position:absolute; left:0; top:8px; width:6px; height:6px; border-radius:999px; background:var(--accent-2); }
 .rpt-note{ font-size:12px; color:var(--ink-soft); font-style:italic; margin-top:10px; line-height:1.45; }
 @media (max-width:720px){
   .kpi-row{ grid-template-columns:1fr 1fr; }
-  .steps-detail, .box-2, .alt-grid{ grid-template-columns:1fr; }
+  .rank-list{ grid-template-columns:1fr; grid-auto-flow:row; grid-template-rows:none; }
+  .box-2, .alt-grid{ grid-template-columns:1fr; }
+  .info-box ul.cols-2{ columns:1; }
+  .tl-head, .tl-row{ grid-template-columns:28px minmax(0,1fr); }
+  .tl-head > :last-child{ display:none; }
+  .tl-side{ grid-column:2; }
   .rank-row{ grid-template-columns:1fr 70px 44px; font-size:13px; }
-  .gantt-row, .gantt-axis{ grid-template-columns:110px 1fr; }
 }
 </style>
 </head>
@@ -1077,16 +1083,10 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
 
     <div class="kpi-row" id="rptKpis"></div>
 
-    <div class="section-title">Calendario orientativo <span class="kicker">en semanas desde que empiezas</span></div>
-    <div id="rptGantt"></div>
+    <div class="section-title">Paso a paso y calendario <span class="kicker">qué es, dónde se hace, cuánto tarda y cuánto cuesta</span></div>
+    <div id="rptSteps"></div>
 
-    <div class="section-title">Paso a paso <span class="kicker">qué es, dónde se hace, cuánto tarda y cuánto cuesta</span></div>
-    <div class="steps-detail" id="rptSteps"></div>
-
-    <div class="box-2" style="margin-top:14px">
-      <div class="info-box"><h5>Gastos fijos del primer año</h5><ul id="rptAnual"></ul></div>
-      <div class="info-box"><h5>Consejos para ahorrar tiempo y dinero</h5><ul id="rptTips"></ul></div>
-    </div>
+    <div class="info-box" style="margin-top:12px"><h5>Y una vez en marcha: gastos fijos del primer año</h5><ul id="rptAnual" class="cols-2"></ul></div>
     <p class="rpt-note">Plazos y costes orientativos para 2026: varían según la comunidad autónoma, el ayuntamiento, la notaría y la complejidad de cada caso. Consulta siempre las fuentes oficiales o un Punto de Atención al Emprendedor (PAE).</p>
 
     <div class="rpt-footer">
@@ -1328,14 +1328,6 @@ var FORMS = {
 
 var TIEBREAK_ORDER = ['aut','sl','slu','erl','coop','sll','sc','cb','sa','colectiva'];
 
-var EJES = [
-  { id: 'coste',       name: 'Coste',        desc: 'facilidad de constitución económica' },
-  { id: 'agilidad',    name: 'Agilidad', desc: 'rapidez del proceso administrativo' },
-  { id: 'proteccion',  name: 'Protección', desc: 'límite de responsabilidad patrimonial' },
-  { id: 'imagen',      name: 'Imagen',   desc: 'solidez empresarial ante terceros' },
-  { id: 'fiscalidad',  name: 'Fiscalidad',           desc: 'régimen tributario aplicable' },
-  { id: 'crecimiento', name: 'Escalabilidad',        desc: 'capacidad de crecer y captar socios' }
-];
 
 /* =========================================================
    2. PREGUNTAS + MATRIZ DE PUNTOS (13 preguntas)
@@ -1744,45 +1736,328 @@ function computeResult() {
   renderReport(ranking, contributions);
 }
 
+/* =========================================================
+   GLOSARIO: conceptos explicados sin tecnicismos
+   ========================================================= */
+var GLOSARIO = {
+  promotor:     { t: 'Promotor', d: 'Persona que impulsa y pone en marcha el proyecto: aporta la idea, dinero, trabajo o todo a la vez.' },
+  inversor:     { t: 'Socio inversor', d: 'Pone dinero a cambio de una parte de la empresa, pero no trabaja en ella. Espera recuperar la inversión con beneficios.' },
+  personalidad: { t: 'Personalidad jurídica', d: 'Que la empresa sea "alguien" distinto de sus socios: puede firmar contratos y tener bienes y deudas a su nombre.' },
+  resp_ilim:    { t: 'Responsabilidad ilimitada', d: 'Si el negocio no puede pagar sus deudas, los acreedores pueden cobrarse con tus bienes personales (ahorros, coche, vivienda), presentes y futuros.' },
+  resp_lim:     { t: 'Responsabilidad limitada', d: 'Solo arriesgas lo que has aportado a la empresa. Tu patrimonio personal queda a salvo, salvo que firmes avales personales.' },
+  vivienda:     { t: 'Vivienda habitual (ERL)', d: 'La casa donde vives. Como Emprendedor de Responsabilidad Limitada puedes protegerla de las deudas del negocio si su valor no supera ciertos límites (en general, 300.000 €) y lo inscribes en el Registro.' },
+  solidaria:    { t: 'Responsabilidad solidaria', d: 'Un acreedor puede reclamar toda la deuda a uno solo de los socios, que después tendrá que pedir a los demás su parte.' },
+  capital:      { t: 'Capital social', d: 'Dinero o bienes que los socios aportan al crear una sociedad. No es un gasto: sigue siendo de la empresa y sirve de garantía ante terceros.' },
+  financiacion: { t: 'Financiación externa', d: 'Dinero que no sale de tu bolsillo: préstamos bancarios, inversores, microcréditos o subvenciones.' },
+  no_dinerarias:{ t: 'Aportación no dineraria', d: 'Aportar a la empresa algo que no es dinero: un local, una furgoneta, maquinaria... Hay que valorarlo por escrito y suele exigir escritura ante notario.' },
+  knowhow:      { t: 'Know-how', d: 'El "saber hacer": conocimientos, experiencia, contactos o técnicas propias que una persona aporta al proyecto.' },
+  autoempleo:   { t: 'Autoempleo colectivo', d: 'Varias personas crean su propia empresa para darse trabajo a sí mismas. Es la idea de las cooperativas y las sociedades laborales.' },
+  reta:         { t: 'RETA', d: 'Régimen Especial de Trabajadores Autónomos: la "Seguridad Social de los autónomos". Pagas tú una cuota mensual según tus ingresos reales. Cubre jubilación, bajas o nacimiento, en general con prestaciones algo menores.' },
+  rg:           { t: 'Régimen General', d: 'El de quienes trabajan con nómina. La mayor parte de la cotización la paga la empresa y da las coberturas más completas, incluido el paro.' },
+  prestaciones: { t: 'Prestaciones', d: 'Lo que te paga la Seguridad Social cuando no puedes trabajar: baja por enfermedad, nacimiento, desempleo o jubilación.' },
+  autsoc:       { t: 'Autónomo societario', d: 'Socio que trabaja en su propia sociedad y la controla (por ejemplo, con un tercio o más del capital). Cotiza en el RETA, con una base mínima algo más alta.' },
+  facturacion:  { t: 'Facturación', d: 'Todo lo que cobras por ventas o servicios en un periodo, antes de restar gastos. No es lo mismo que beneficio.' },
+  irpf:         { t: 'IRPF', d: 'Impuesto sobre la Renta de las Personas Físicas. Lo pagan los autónomos por sus beneficios y es progresivo: cuanto más ganas, mayor porcentaje.' },
+  is:           { t: 'Impuesto de Sociedades', d: 'Impuesto que pagan las sociedades por sus beneficios: un porcentaje fijo (en general el 25 %, menos para empresas nuevas o pequeñas).' },
+  ampliacion:   { t: 'Ampliación de capital', d: 'Meter más dinero en la sociedad creando nuevas participaciones o acciones, por ejemplo para dar entrada a un inversor.' },
+  bolsa:        { t: 'Salida a bolsa', d: 'Vender acciones de la empresa en un mercado público de valores. Solo pueden hacerlo las sociedades anónimas.' },
+  regulada:     { t: 'Actividad regulada', d: 'Sector en el que la ley pone requisitos especiales para trabajar: licencias, seguros obligatorios, capital mínimo o una forma jurídica concreta. Ej.: transporte, seguros, agencias de viajes.' },
+  colegiada:    { t: 'Actividad colegiada', d: 'Profesión en la que hay que inscribirse en un colegio profesional para ejercer: abogacía, medicina, arquitectura, psicología...' },
+  mercantil:    { t: 'Actividad mercantil', d: 'La que busca beneficio comprando, vendiendo, fabricando o prestando servicios en el mercado. Es la actividad típica de una empresa.' },
+  econsocial:   { t: 'Economía social', d: 'Empresas que ponen a las personas por delante del capital, como cooperativas y sociedades laborales: deciden de forma democrática y reinvierten parte del beneficio.' },
+  tramites:     { t: 'Trámites de constitución', d: 'Pasos administrativos para que tu empresa exista legalmente: alta en Hacienda y Seguridad Social, registro de la sociedad, licencias...' },
+  notario:      { t: 'Trámites notariales', d: 'Firmar ante notario la escritura pública que crea la sociedad, con sus estatutos. El notario da fe de que todo es legal. Tiene un coste y requiere cita.' },
+  estatutos:    { t: 'Estatutos', d: 'Las "normas de la casa" de una sociedad: nombre, actividad, domicilio, capital y cómo se toman las decisiones.' },
+  registro:     { t: 'Registro Mercantil', d: 'Registro público donde se inscriben las sociedades. Con la inscripción, la sociedad "nace" oficialmente y tiene personalidad jurídica.' },
+  altacensal:   { t: 'Alta censal (036/037)', d: 'Comunicar a Hacienda que empiezas una actividad: qué haces, dónde y cómo vas a tributar.' }
+};
+
+var Q_TERMS = {
+  q1: ['promotor', 'inversor', 'personalidad'],
+  q2: ['resp_ilim', 'resp_lim', 'vivienda'],
+  q3: ['capital', 'financiacion'],
+  q4: ['no_dinerarias', 'knowhow', 'capital'],
+  q5: ['autoempleo', 'inversor'],
+  q6: ['reta', 'rg', 'prestaciones', 'autsoc'],
+  q7: ['facturacion', 'irpf', 'is'],
+  q8: ['financiacion', 'ampliacion', 'inversor'],
+  q9: ['regulada', 'colegiada', 'mercantil'],
+  q10: ['tramites', 'notario', 'estatutos', 'registro'],
+  q11: ['mercantil', 'econsocial', 'colegiada'],
+  q12: ['solidaria', 'resp_lim'],
+  q13: ['ampliacion', 'bolsa']
+};
+
+/* Aclaraciones breves bajo algunas opciones (clave: pregunta + opción) */
+var OPT_NOTES = {
+  q2a: 'Responsabilidad ilimitada: si el negocio debe dinero, pueden reclamártelo con tus bienes.',
+  q2b: 'Responsabilidad limitada: como máximo pierdes lo que hayas invertido en la empresa.',
+  q4b: 'Son aportaciones no dinerarias: hay que valorarlas por escrito.',
+  q4c: 'Know-how: el "saber hacer" (experiencia, técnicas, contactos) que aporta cada socio.',
+  q6a: 'RETA: la Seguridad Social de los autónomos. Tú eliges y pagas tu cuota cada mes.',
+  q6b: 'Régimen general: el de quien trabaja con nómina. Mejores coberturas, incluido el paro.',
+  q9b: 'Muchas son profesiones colegiadas: hay que estar inscrito en un colegio profesional.',
+  q9d: 'Sectores en los que la ley exige requisitos especiales: licencias, seguros, capital...',
+  q10b: 'Estatutos: las normas internas de la sociedad (nombre, capital, cómo se decide).',
+  q10c: 'Firmar la escritura ante notario e inscribir la sociedad en el Registro Mercantil.',
+  q11a: 'Mercantil: el objetivo principal es obtener beneficio vendiendo en el mercado.',
+  q11b: 'Economía social: cooperativas y sociedades laborales, con gestión democrática.',
+  q11c: 'Colegiada: profesión que exige inscribirse en un colegio profesional para ejercer.',
+  q12a: 'Solidario: cualquiera de los socios puede tener que pagar las deudas de todos.',
+  q13c: 'Salir a bolsa: vender acciones de la empresa en un mercado público.'
+};
+
+var glosAllOpen = false;
+function renderGlosario(qId) {
+  var aside = document.getElementById('glosAside');
+  if (!aside) return;
+  var ids = Q_TERMS[qId] || [];
+  var html = '<div class="glos-head"><span class="glos-ico">?</span>Palabras clave</div>' +
+    '<p class="glos-intro">Conceptos que aparecen en esta pregunta, explicados en pocas palabras.</p>';
+  ids.forEach(function (id) {
+    var g = GLOSARIO[id];
+    if (g) html += '<dl class="glos-card"><dt>' + g.t + '</dt><dd>' + g.d + '</dd></dl>';
+  });
+  var all = Object.keys(GLOSARIO).map(function (k) { return GLOSARIO[k]; })
+    .sort(function (a, b) { return a.t.localeCompare(b.t, 'es'); });
+  html += '<details class="glos-all"' + (glosAllOpen ? ' open' : '') + '><summary>Glosario completo (' + all.length + ' conceptos)</summary><dl>' +
+    all.map(function (g) { return '<dt>' + g.t + '</dt><dd>' + g.d + '</dd>'; }).join('') + '</dl></details>';
+  aside.innerHTML = html;
+  aside.querySelector('details').addEventListener('toggle', function () { glosAllOpen = this.open; });
+}
+document.getElementById('statGlos').textContent = Object.keys(GLOSARIO).length;
+
+/* =========================================================
+   DATOS DEL INFORME: consejo, alternativa, gastos y trámites
+   ========================================================= */
+var EXTRA = {
+  aut: {
+    consejo: 'Es la forma ideal para empezar a probar tu idea con poco dinero y casi sin papeleo. Vigila dos cosas: respondes de las deudas con todos tus bienes (un seguro de responsabilidad civil es buena idea) y, si el beneficio crece mucho (a partir de unos 40.000-50.000 € al año), pasar a sociedad limitada suele salir más a cuenta en impuestos.',
+    cuando: 'si quieres empezar ya, con el mínimo coste, y el riesgo económico del negocio es bajo.',
+    capital: ['No se exige', 'Sin capital mínimo']
+  },
+  erl: {
+    consejo: 'Mantienes la sencillez del autónomo y añades un escudo para tu casa. Para que funcione tienes que inscribirte como ERL, cumplir los requisitos sobre el valor de la vivienda y depositar tus cuentas cada año en el Registro. El resto de tus bienes sigue respondiendo de las deudas.',
+    cuando: 'si emprendes solo, quieres pocos trámites, pero te preocupa proteger tu vivienda.',
+    capital: ['No se exige', 'Sin capital mínimo']
+  },
+  cb: {
+    consejo: 'Es perfecta para arrancar entre pocas personas, con mucha confianza y poco dinero. Dejad por escrito en el contrato cuánto aporta cada uno, cómo os repartís beneficios y pérdidas y qué pasa si alguien se va: es la principal fuente de conflictos en las comunidades de bienes.',
+    cuando: 'si sois pocas personas de total confianza, con poco capital, y queréis empezar rápido sin notario.',
+    capital: ['No se exige', 'Lo que se pacte']
+  },
+  sc: {
+    consejo: 'Encaja con profesionales que se asocian para trabajar juntos. Si vuestra profesión es colegiada, comprobad si debéis constituiros como sociedad profesional. Pactad por escrito el reparto de beneficios y la salida de socios.',
+    cuando: 'si sois profesionales que os asociáis para trabajar juntos y queréis flexibilidad en el reparto.',
+    capital: ['No se exige', 'Lo que se pacte']
+  },
+  sl: {
+    consejo: 'Es la opción equilibrada: proteges tu patrimonio, das buena imagen a bancos y clientes y puedes crecer o incorporar socios. A cambio hay más trámites y una contabilidad formal, así que contad con una asesoría. Además de los estatutos, firmad un pacto de socios.',
+    cuando: 'si quieres proteger tu patrimonio, dar imagen de solidez y tienes previsto crecer.',
+    capital: ['Desde 1 €', 'Aconsejable 3.000 €']
+  },
+  slu: {
+    consejo: 'Te permite emprender en solitario con la protección de una sociedad. Debe constar en el Registro que es unipersonal y, como socio y administrador, cotizarás como autónomo societario. Si más adelante entra un socio, basta con dejar de ser unipersonal: no hay que cambiar de forma jurídica.',
+    cuando: 'si emprendes solo pero quieres proteger tu patrimonio personal desde el principio.',
+    capital: ['Desde 1 €', 'Aconsejable 3.000 €']
+  },
+  sa: {
+    consejo: 'Está pensada para proyectos grandes. Asegúrate de que de verdad necesitas sus ventajas (inversores, acciones, posible salida a bolsa): si no, una sociedad limitada te da la misma protección con mucho menos capital, coste y trámites.',
+    cuando: 'si el proyecto necesita mucho capital, varios inversores o una posible salida a bolsa.',
+    capital: ['60.000 €', '15.000 € al crearla']
+  },
+  coop: {
+    consejo: 'Encaja con un proyecto colectivo y democrático. Revisad la ley de cooperativas de vuestra comunidad autónoma (número mínimo de socios, fondos obligatorios) y buscad las ayudas a la economía social, que suelen ser interesantes.',
+    cuando: 'si sois un grupo que quiere gestionar la empresa de forma democrática y con vocación social.',
+    capital: ['Según estatutos', 'Lo fijan los socios']
+  },
+  sll: {
+    consejo: 'Es ideal si sois trabajadores que queréis ser dueños de vuestra empresa. La mayoría del capital debe estar en manos de los socios trabajadores y, salvo excepciones, nadie puede tener más de un tercio. Cada año hay que guardar parte del beneficio en una reserva especial.',
+    cuando: 'si la mayoría de los socios van a trabajar en la empresa y queréis cotizar en el régimen general.',
+    capital: ['Desde 1 €', 'Aconsejable 3.000 €']
+  },
+  colectiva: {
+    consejo: 'Hoy es una forma casi en desuso: ofrece pocas ventajas frente a una sociedad limitada y todos respondéis de todas las deudas. Si os encaja, comparadla antes con la SL (página 2).',
+    cuando: 'si existe confianza absoluta entre los socios y aceptáis responder de forma solidaria.',
+    capital: ['No se exige', 'Lo que se pacte']
+  }
+};
+
+var ANUAL = {
+  autonomo: [
+    'Cuota de autónomos: tarifa plana de 80 €/mes el primer año (cuantía actual); después, según tus rendimientos (≈ 200-600 €/mes).',
+    'Gestoría opcional: ≈ 40-80 €/mes para impuestos trimestrales y renta.',
+    'IVA e IRPF cada trimestre y declaración de la renta anual.'
+  ],
+  comunidad: [
+    'Cuota de autónomos de cada socio que trabaje: tarifa plana de 80 €/mes el primer año; después, según rendimientos.',
+    'Gestoría: ≈ 50-100 €/mes.',
+    'IVA trimestral, declaración informativa anual de la entidad (modelo 184) y renta de cada socio.'
+  ],
+  sociedad: [
+    'Cotización de los socios trabajadores: autónomo societario si controlan la sociedad; régimen general el resto.',
+    'Asesoría contable y fiscal: ≈ 80-200 €/mes.',
+    'Legalizar libros y depositar las cuentas anuales en el Registro: ≈ 60-120 €/año.',
+    'Impuesto de Sociedades anual, pagos a cuenta e IVA trimestral.'
+  ]
+};
+function anualFor(id) {
+  if (id === 'aut' || id === 'erl') {
+    var a = ANUAL.autonomo.slice();
+    if (id === 'erl') a.push('Depositar tus cuentas cada año en el Registro Mercantil para conservar la protección de la vivienda.');
+    return a;
+  }
+  if (id === 'cb' || id === 'sc') return ANUAL.comunidad;
+  var s = ANUAL.sociedad.slice();
+  if (id === 'colectiva') s[0] = 'Cuota de autónomos de todos los socios que trabajen en la sociedad.';
+  if (id === 'sll') { s[0] = 'Cotización de los socios trabajadores en el régimen general.'; s.push('Reserva especial: el 10 % del beneficio hasta llegar, al menos, al doble del capital.'); }
+  if (id === 'coop') { s[0] = 'Cotización de los socios trabajadores en el régimen elegido en los estatutos (general o RETA).'; s[2] = 'Depositar las cuentas en el Registro de Cooperativas y dotar los fondos obligatorios (reserva y formación).'; }
+  if (id === 'sa') s.push('Si la empresa supera cierto tamaño, auditoría de cuentas obligatoria.');
+  return s;
+}
+
+/* Pasos de constitución. dur = [mín, máx] días · coste = [mín, máx] € */
+function S(t, d, donde, dur, coste) { return { t: t, d: d, donde: donde, dur: dur, coste: coste }; }
+var P = {
+  cert: S('Certificado digital o Cl@ve', 'Tu firma electrónica para hacer los trámites por internet, sin colas ni citas. Se pide online y se acredita la identidad una vez.', 'FNMT + oficina de acreditación', [1, 5], [0, 0]),
+  denom: S('Certificado de denominación', 'Compruebas que nadie usa el nombre de la sociedad y lo reservas (puedes pedir hasta cinco, por orden de preferencia).', 'Registro Mercantil Central (online)', [1, 3], [15, 25]),
+  nifSoc: S('NIF provisional y alta en Hacienda', 'La sociedad pide su NIF y se da de alta en Hacienda (modelo 036). La escritura se presenta en la Hacienda autonómica (modelo 600, exento).', 'Agencia Tributaria + Hacienda autonómica', [1, 5], [0, 0]),
+  alta036: S('Alta censal en Hacienda (036/037)', 'Comunicas qué actividad vas a hacer (epígrafe del IAE), desde cuándo y cómo vas a tributar en IRPF e IVA.', 'Agencia Tributaria (online)', [1, 2], [0, 0]),
+  licencia: S('Licencia o declaración responsable', 'Si abres un local al público, el ayuntamiento autoriza la actividad: a veces basta una declaración responsable; otras, licencia con proyecto técnico. Solo online, quizá no haga falta.', 'Ayuntamiento', [7, 30], [100, 600])
+};
+function cuenta(d) { return S('Cuenta bancaria y depósito del capital', d, 'Banco', [1, 3], [0, 0]); }
+function escritura(d, coste) { return S('Escritura pública ante notario', d, 'Notaría', [2, 10], coste); }
+function regMerc(coste) { return S('Inscripción en el Registro Mercantil', 'La sociedad "nace" oficialmente y adquiere personalidad jurídica. Después se pide el NIF definitivo.', 'Registro Mercantil provincial', [5, 15], coste); }
+function reta(quien) { return S('Alta en el RETA', quien + ' como máximo el día en que empieza la actividad (o hasta 60 días antes), eligiendo la base de cotización según los ingresos previstos.', 'Seguridad Social (Import@ss)', [1, 2], [0, 0]); }
+function ssSoc(d) { return S('Alta en la Seguridad Social', d, 'Seguridad Social (Import@ss)', [1, 3], [0, 0]); }
+
+var ROADMAPS = {
+  aut: [P.cert, P.alta036, reta('Te das de alta como autónomo'), P.licencia],
+  erl: [P.cert, P.alta036, reta('Te das de alta como autónomo'),
+    S('Inscripción como ERL', 'Te inscribes como Emprendedor de Responsabilidad Limitada en el Registro Mercantil y se anota en el Registro de la Propiedad que tu vivienda habitual queda protegida.', 'Registro Mercantil + Registro de la Propiedad', [7, 15], [40, 120]),
+    P.licencia],
+  cb: [P.cert,
+    S('Contrato de comunidad de bienes', 'Documento privado donde fijáis qué aporta cada comunero, cómo se reparten beneficios y pérdidas y qué pasa si alguien se va. Si se aportan inmuebles, hace falta escritura pública.', 'Entre los comuneros (modelo en el PAE)', [1, 5], [0, 60]),
+    S('NIF de la comunidad y alta en Hacienda', 'La comunidad pide su propio NIF y se da de alta en el censo (modelo 036). El contrato se presenta en la Hacienda autonómica (modelo 600), normalmente exento.', 'Agencia Tributaria + Hacienda autonómica', [1, 7], [0, 0]),
+    reta('Cada comunero que trabaje en el negocio se da de alta'), P.licencia],
+  sc: [P.cert,
+    S('Contrato de sociedad civil', 'Contrato entre los socios con la actividad, las aportaciones y el reparto de beneficios. Puede ser privado; hace falta escritura si se aportan inmuebles.', 'Entre los socios o en notaría', [2, 10], [0, 300]),
+    S('NIF de la sociedad y alta en Hacienda', 'La sociedad civil pide su NIF y se da de alta en el censo (modelo 036). El contrato se presenta en la Hacienda autonómica (modelo 600), normalmente exento.', 'Agencia Tributaria + Hacienda autonómica', [1, 7], [0, 0]),
+    reta('Cada socio que trabaje en la actividad se da de alta'), P.licencia],
+  sl: [P.cert, P.denom,
+    cuenta('Cuenta a nombre de la sociedad "en constitución" donde ingresas el capital (desde 1 €; aconsejable 3.000 €). El banco da un certificado para el notario.'),
+    escritura('Firmáis la escritura de constitución y los estatutos. Con estatutos tipo y tramitación telemática (CIRCE) es más rápido y barato.', [150, 350]),
+    P.nifSoc, regMerc([100, 200]),
+    ssSoc('RETA (autónomo societario) para los socios que controlan y trabajan en la sociedad; régimen general para el resto y para los empleados.'),
+    P.licencia],
+  slu: [P.cert, P.denom,
+    cuenta('Abres una cuenta a nombre de la sociedad "en constitución" e ingresas el capital como socio único (desde 1 €; aconsejable 3.000 €).'),
+    escritura('Firmas la escritura de constitución y los estatutos, declarando que la sociedad es unipersonal.', [150, 350]),
+    P.nifSoc, regMerc([100, 200]),
+    ssSoc('Como socio único y administrador te das de alta en el RETA como autónomo societario.'),
+    P.licencia],
+  sa: [P.cert, P.denom,
+    cuenta('Se ingresa al menos el 25 % del capital mínimo de 60.000 € (15.000 €) y el banco emite el certificado para el notario.'),
+    escritura('Escritura con estatutos más complejos: acciones, junta general y órgano de administración.', [400, 900]),
+    P.nifSoc, regMerc([200, 450]),
+    ssSoc('Alta de la empresa como empleadora y de directivos y trabajadores en el régimen general; los consejeros con control efectivo, en el RETA.'),
+    P.licencia],
+  coop: [P.cert,
+    S('Certificado de denominación', 'Se comprueba que el nombre de la cooperativa está libre, en este caso en el Registro de Cooperativas.', 'Registro de Cooperativas', [3, 10], [0, 30]),
+    S('Asamblea constituyente y estatutos', 'Los socios fundadores aprueban los estatutos según la ley de cooperativas aplicable y eligen el Consejo Rector.', 'Entre los socios (apoyo de una federación de cooperativas)', [7, 15], [0, 0]),
+    cuenta('Cada socio ingresa su aportación obligatoria al capital, en la cuantía que fijen los estatutos.'),
+    escritura('Escritura de constitución con los estatutos y el acta de la asamblea.', [150, 350]),
+    P.nifSoc,
+    S('Inscripción en el Registro de Cooperativas', 'La inscripción da a la cooperativa personalidad jurídica. Tasas y plazos dependen de cada comunidad autónoma.', 'Registro de Cooperativas', [15, 30], [0, 100]),
+    ssSoc('Alta de los socios trabajadores en el régimen que elijan los estatutos: general o RETA.'),
+    P.licencia],
+  sll: [P.cert, P.denom,
+    cuenta('Se ingresa el capital: la mayoría debe ser de socios trabajadores y nadie puede tener más de un tercio (salvo excepciones).'),
+    escritura('Escritura de constitución como sociedad limitada laboral, con los estatutos.', [150, 350]),
+    P.nifSoc,
+    S('Calificación como sociedad laboral', 'La comunidad autónoma comprueba que cumplís los requisitos y os inscribe en su Registro de Sociedades Laborales.', 'Registro de Sociedades Laborales', [15, 30], [0, 50]),
+    regMerc([100, 200]),
+    ssSoc('Alta de la empresa y de los socios trabajadores en el régimen general.'),
+    P.licencia],
+  colectiva: [P.cert, P.denom,
+    escritura('Escritura de constitución con los pactos entre los socios colectivos.', [150, 300]),
+    P.nifSoc, regMerc([100, 200]),
+    reta('Todos los socios que trabajan en la sociedad se dan de alta'), P.licencia]
+};
+
+var LIMITED = { sl: 1, slu: 1, sa: 1, coop: 1, sll: 1 };
+var NOTARY = { sl: 1, slu: 1, sa: 1, coop: 1, sll: 1, colectiva: 1 };
+var SOLO = { aut: 1, erl: 1, slu: 1 };
+var RETA_FORMS = { aut: 1, erl: 1, slu: 1, cb: 1, sc: 1, colectiva: 1 };
+
+/* =========================================================
+   UTILIDADES DEL INFORME
+   ========================================================= */
+function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+function shortName(id) { return FORMS[id].name.split(' (')[0]; }
+function withArt(id, short) { return ((id === 'aut' || id === 'erl') ? 'el ' : 'la ') + (short ? shortName(id) : FORMS[id].name); }
+function fmtEuro(n) { return n.toLocaleString('es-ES') + ' €'; }
+function fmtCoste(c) {
+  if (!c || (c[0] === 0 && c[1] === 0)) return 'Gratis';
+  if (c[0] === c[1]) return '≈ ' + fmtEuro(c[0]);
+  return (c[0] === 0 ? 'Hasta ' + fmtEuro(c[1]) : '≈ ' + c[0].toLocaleString('es-ES') + '-' + fmtEuro(c[1]));
+}
+function fmtDur(min, max) {
+  if (max <= 1) return '1 día';
+  if (max <= 12) return min + '-' + max + ' días';
+  return Math.max(1, Math.round(min / 7)) + '-' + Math.ceil(max / 7) + ' semanas';
+}
+function totals(id) {
+  var r = { dmin: 0, dmax: 0, cmin: 0, cmax: 0 };
+  ROADMAPS[id].forEach(function (s) { r.dmin += s.dur[0]; r.dmax += s.dur[1]; r.cmin += s.coste[0]; r.cmax += s.coste[1]; });
+  return r;
+}
+/* % de encaje: posición de la puntuación entre la peor y la mejor posible para esa forma */
+function fitPct(id, score) {
+  var mx = 0, mn = 0;
+  QUESTIONS.forEach(function (q) {
+    var vals = q.options.map(function (o) { return o.points[id] || 0; });
+    mx += Math.max.apply(null, vals); mn += Math.min.apply(null, vals);
+  });
+  return Math.max(0, Math.min(100, Math.round((score - mn) / Math.max(mx - mn, 1) * 100)));
+}
+
+/* =========================================================
+   INFORME · 3 PÁGINAS
+   ========================================================= */
 function renderReport(ranking, contributions) {
   var winnerId = ranking[0].id;
-  var runnerUpId = ranking[1].id;
-  var thirdId = ranking[2].id;
   var winner = FORMS[winnerId];
+  var A = state.answers;
 
-  // Idea + cabeceras
-  document.getElementById('rptIdea').textContent = '"' + state.ideaText + '"';
-  document.getElementById('rptIdea2').textContent = '"' + state.ideaText + '"';
-  document.getElementById('rptIdea3').textContent = '"' + state.ideaText + '"';
+  // % de encaje: la recomendada según su puntuación posible; el resto, en proporción a sus puntos
+  var wp = fitPct(winnerId, ranking[0].score);
+  var base = ranking[ranking.length - 1].score, top = ranking[0].score;
+  ranking.forEach(function (r) {
+    r.pct = top === base ? wp : Math.round(wp * (0.15 + 0.85 * (r.score - base) / (top - base)));
+  });
 
+  document.querySelectorAll('.rpt-idea-x').forEach(function (el) { el.textContent = '"' + state.ideaText + '"'; });
   document.getElementById('rptFormName').textContent = winner.name;
   document.getElementById('rptFormSub').textContent = winner.sub;
+  document.getElementById('rptMatchScore').textContent = ranking[0].pct + '%';
 
-  // Score de idoneidad (normalización)
-  var maxScore = ranking[0].score;
-  var minScore = ranking[ranking.length - 1].score;
-  var range = Math.max(maxScore - minScore, 1);
-  var idoneidad = Math.round(((maxScore - minScore) / range) * 40 + 60);
-  if (maxScore <= 0) idoneidad = 60;
-  document.getElementById('rptMatchScore').textContent = idoneidad + '%';
+  /* ---------- Página 1 ---------- */
+  var gap = ranking[0].pct - ranking[1].pct;
+  var gapTxt = gap <= 5 ? 'La diferencia es muy pequeña: las dos son opciones válidas y conviene compararlas con calma en la página 2.'
+    : gap <= 15 ? 'La ventaja es clara, aunque merece la pena repasar la alternativa.'
+    : 'La ventaja es amplia: tus respuestas apuntan con claridad a esta forma.';
+  document.getElementById('rptSynth').innerHTML =
+    '<p class="rpt-p">Para tu proyecto, <i>«' + esc(state.ideaText) + '»</i>, la forma jurídica que mejor encaja con tus respuestas es ' +
+    withArt(winnerId) .replace(/^(el |la )(.*)$/, '$1<b>$2</b>') + ', con un <b>' + ranking[0].pct + ' %</b> de idoneidad. ' +
+    'La segunda opción es ' + withArt(ranking[1].id, true) + ' (' + ranking[1].pct + ' %). ' + gapTxt + '</p>' +
+    '<p class="rpt-p">' + EXTRA[winnerId].consejo + '</p>';
 
-  // Síntesis
-  var synth = 'Según tus respuestas, la <span class="kw">' + winner.name + '</span> es la forma jurídica que mejor se ajusta a tu proyecto. ' +
-    'Combina el nivel de <span class="kw">responsabilidad patrimonial</span> que has indicado con el número de socios, el capital disponible, el régimen de <span class="kw">Seguridad Social</span> preferido y el carácter del negocio que describes. ' +
-    'A continuación tienes el radar de idoneidad, las razones concretas, una comparativa con las dos mejores alternativas y una hoja de ruta con los trámites de constitución.';
-  document.getElementById('rptSynth').innerHTML = synth;
-
-  // Radar chart
-  renderRadar(winner.ejes);
-  renderRadarLegend(winner.ejes);
-
-  // Razones (top 5)
+  // Motivos (top 5)
   var winnerContribs = contributions
     .filter(function (c) { return c.formId === winnerId && c.value > 0; })
     .sort(function (a, b) { return b.value - a.value; });
-
-  var seenQ = {};
-  var reasons = [];
+  var seenQ = {}, reasons = [];
   winnerContribs.forEach(function (c) {
     if (seenQ[c.qId]) return;
     seenQ[c.qId] = true;
@@ -1791,148 +2066,73 @@ function renderReport(ranking, contributions) {
   });
   reasons = reasons.slice(0, 5);
   if (reasons.length === 0) reasons.push('tus respuestas en conjunto encajan mejor con esta forma jurídica que con el resto de opciones');
-
-  var reasonsHtml = '';
-  reasons.forEach(function (r, i) {
-    reasonsHtml += '<div class="reason-item"><div class="reason-num">' + (i + 1).toString().padStart(2, '0') + '</div>' +
+  document.getElementById('rptReasons').innerHTML = reasons.map(function (r, i) {
+    return '<div class="reason-item"><div class="reason-num">' + (i + 1).toString().padStart(2, '0') + '</div>' +
       '<div class="reason-body"><div class="reason-text">Porque ' + r + '.</div></div></div>';
-  });
-  document.getElementById('rptReasons').innerHTML = reasonsHtml;
+  }).join('');
 
-  // Ficha técnica
-  var fichaHtml =
-    '<div class="ficha-item"><div class="fl">Nº de socios</div><div class="fv">' + winner.socios + '</div></div>' +
-    '<div class="ficha-item"><div class="fl">Responsabilidad</div><div class="fv">' + winner.responsabilidad + '</div></div>' +
-    '<div class="ficha-item"><div class="fl">Capital mínimo</div><div class="fv">' + winner.capital + '</div></div>' +
-    '<div class="ficha-item"><div class="fl">Fiscalidad</div><div class="fv">' + winner.fiscalidad + '</div></div>' +
-    '<div class="ficha-item full"><div class="fl">Régimen de Seguridad Social</div><div class="fv">' + winner.ss + '</div></div>' +
-    '<div class="ficha-item full"><div class="fl">Trámites principales</div><div class="fv">' + winner.tramites + '</div></div>';
-  document.getElementById('rptFicha').innerHTML = fichaHtml;
+  // Puntos de atención: contradicciones entre respuestas y forma elegida
+  var altLimited = ranking.filter(function (r) { return LIMITED[r.id]; })[0];
+  var w = [];
+  if ((A.q2 === 'b' || A.q2 === 'c') && !LIMITED[winnerId] && !(A.q2 === 'c' && winnerId === 'erl'))
+    w.push('Has dicho que quieres <b>proteger tu patrimonio</b>, pero esta forma tiene responsabilidad ilimitada. Valora ' + withArt(altLimited.id, true) + ' (' + altLimited.pct + ' %).');
+  if (A.q6 === 'b' && RETA_FORMS[winnerId])
+    w.push('Prefieres el <b>régimen general</b>, pero con esta forma cotizarás en el <b>RETA</b>, con prestaciones algo menores. Puedes compensarlo con mejores bases de cotización o seguros privados.');
+  if (A.q6 === 'a' && winnerId === 'sll')
+    w.push('Prefieres el <b>RETA</b>, pero en una sociedad laboral los socios trabajadores suelen cotizar en el régimen general.');
+  if (A.q1 === 'a' && !SOLO[winnerId] && winnerId !== 'sa')
+    w.push('Vas a emprender <b>en solitario</b>, pero esta forma exige al menos dos socios. Necesitarías encontrar socios o elegir otra opción.');
+  if (A.q1 && A.q1 !== 'a' && SOLO[winnerId])
+    w.push('Habéis indicado <b>varios promotores</b>, pero esta forma es para una sola persona. Revisad si todos seréis realmente socios.');
+  if (A.q3 === 'a' && winnerId === 'sa')
+    w.push('Tu capital inicial es bajo y la sociedad anónima exige <b>60.000 €</b> de capital mínimo.');
+  if (A.q8 === 'c' && !LIMITED[winnerId])
+    w.push('Quieres <b>atraer inversores</b>: con esta forma es difícil. Más adelante podríais transformaros en sociedad limitada.');
+  if (A.q7 === 'c' && (winnerId === 'aut' || winnerId === 'erl'))
+    w.push('Con una <b>facturación alta</b>, el IRPF puede salir caro. Vigila el beneficio: a partir de cierto nivel compensa pasar a sociedad.');
+  if (A.q10 === 'a' && NOTARY[winnerId])
+    w.push('Querías <b>pocos trámites</b>, pero esta forma exige notario y registro. La constitución telemática (CIRCE) acorta mucho el proceso.');
+  if (A.q11 === 'c' && winnerId !== 'sc' && !SOLO[winnerId])
+    w.push('Si vuestra profesión es <b>colegiada</b>, puede que debáis constituir una sociedad profesional: consultadlo con el colegio.');
+  if (A.q2 === 'c' && winnerId !== 'erl' && LIMITED[winnerId])
+    w.push('Querías proteger sobre todo tu <b>vivienda</b>: esta forma protege todo tu patrimonio, no solo la casa, aunque los bancos suelen pedir avales personales.');
+  if (gap <= 5)
+    w.push('La segunda opción está <b>muy cerca</b>: lee la comparativa de la página 2 antes de decidir.');
+  document.getElementById('rptWarn').innerHTML = w.length
+    ? w.slice(0, 3).map(function (t) { return '<li>' + t + '</li>'; }).join('')
+    : '<li class="ok">Tus respuestas son <b>coherentes</b> con esta forma: no hemos detectado contradicciones importantes.</li>';
 
-  // Pros / cons
   document.getElementById('rptPros').innerHTML = winner.pros.map(function (p) { return '<li>' + p + '</li>'; }).join('');
   document.getElementById('rptCons').innerHTML = winner.cons.map(function (c) { return '<li>' + c + '</li>'; }).join('');
 
-  // Comparativa top 3
-  renderCompareTable([winnerId, runnerUpId, thirdId], ranking);
+  /* ---------- Página 2 ---------- */
+  document.getElementById('rptRanking').innerHTML = ranking.map(function (r, i) {
+    return '<div class="rank-row' + (i < 3 ? ' top' : '') + (i === 0 ? ' win' : '') + '">' +
+      '<div>' + (r.id === 'erl' ? 'Emprendedor de Resp. Limitada' : shortName(r.id)) + '</div>' +
+      '<div class="rank-track"><div class="rank-fill" style="width:' + Math.max(r.pct, 2) + '%"></div></div>' +
+      '<div class="rank-pct">' + r.pct + ' %</div></div>';
+  }).join('');
+  renderCompareTable(ranking.slice(0, 3));
+  document.getElementById('rptAlts').innerHTML = ranking.slice(1, 3).map(function (r) {
+    var d = [];
+    if (!!LIMITED[r.id] !== !!LIMITED[winnerId]) d.push(LIMITED[r.id] ? 'protege tu patrimonio personal (responsabilidad limitada)' : 'no protege tu patrimonio personal (responsabilidad ilimitada)');
+    if (!!NOTARY[r.id] !== !!NOTARY[winnerId]) d.push(NOTARY[r.id] ? 'exige notario y registro: más trámites y coste' : 'no necesita notario: más rápida y barata de crear');
+    if (!!RETA_FORMS[r.id] !== !!RETA_FORMS[winnerId]) d.push(RETA_FORMS[r.id] ? 'los socios trabajadores cotizan en el RETA' : 'permite cotizar en el régimen general');
+    if (!!SOLO[r.id] !== !!SOLO[winnerId]) d.push(SOLO[r.id] ? 'es para una sola persona' : 'necesita varios socios');
+    var t = totals(r.id);
+    return '<div class="alt-card"><h5>' + shortName(r.id) + ' · ' + r.pct + ' %</h5>' +
+      '<p>Te convendría más ' + EXTRA[r.id].cuando + '</p>' +
+      (d.length ? '<p><b>Frente a la recomendada:</b> ' + d.join('; ') + '.</p>' : '') +
+      '<p><b>Constitución:</b> ' + fmtDur(t.dmin, t.dmax) + ' · ' + fmtCoste([t.cmin, t.cmax]) + '.</p></div>';
+  }).join('');
 
-  // Hoja de ruta
-  renderRoadmap(winner.roadmap);
-
-  // Cita final
-  document.getElementById('finalQuote').textContent = '"' + winner.quote + '"';
+  /* ---------- Página 3 ---------- */
+  renderTramites(winnerId);
 }
 
-/* =========================================================
-   8. RADAR CHART (SVG)
-   ========================================================= */
-function renderRadar(ejes) {
-  var svg = document.getElementById('radarSvg');
-  svg.innerHTML = '';
-  var cx = 160, cy = 160, maxR = 100;
-  var n = EJES.length;
-
-  // rejilla concéntrica
-  var levels = [0.25, 0.5, 0.75, 1];
-  levels.forEach(function (lvl) {
-    var pts = [];
-    for (var i = 0; i < n; i++) {
-      var ang = (Math.PI * 2 * i) / n - Math.PI / 2;
-      var r = maxR * lvl;
-      pts.push((cx + r * Math.cos(ang)) + ',' + (cy + r * Math.sin(ang)));
-    }
-    var poly = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-    poly.setAttribute('points', pts.join(' '));
-    poly.setAttribute('fill', 'none');
-    poly.setAttribute('stroke', '#E8E1D6');
-    poly.setAttribute('stroke-width', '1');
-    svg.appendChild(poly);
-  });
-
-  // ejes
-  for (var i = 0; i < n; i++) {
-    var ang = (Math.PI * 2 * i) / n - Math.PI / 2;
-    var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-    line.setAttribute('x1', cx);
-    line.setAttribute('y1', cy);
-    line.setAttribute('x2', cx + maxR * Math.cos(ang));
-    line.setAttribute('y2', cy + maxR * Math.sin(ang));
-    line.setAttribute('stroke', '#E8E1D6');
-    line.setAttribute('stroke-width', '1');
-    svg.appendChild(line);
-  }
-
-  // polígono de valores
-  var pts = [];
-  var pointCoords = [];
-  for (var i = 0; i < n; i++) {
-    var ang = (Math.PI * 2 * i) / n - Math.PI / 2;
-    var val = ejes[EJES[i].id] || 0;
-    var r = maxR * (val / 10);
-    var x = cx + r * Math.cos(ang);
-    var y = cy + r * Math.sin(ang);
-    pts.push(x + ',' + y);
-    pointCoords.push({x:x, y:y});
-  }
-  var poly = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-  poly.setAttribute('points', pts.join(' '));
-  poly.setAttribute('fill', 'rgba(46, 79, 107, 0.18)');
-  poly.setAttribute('stroke', '#2E4F6B');
-  poly.setAttribute('stroke-width', '2');
-  poly.setAttribute('stroke-linejoin', 'round');
-  svg.appendChild(poly);
-
-  // puntos
-  pointCoords.forEach(function (p) {
-    var c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    c.setAttribute('cx', p.x);
-    c.setAttribute('cy', p.y);
-    c.setAttribute('r', '3.5');
-    c.setAttribute('fill', '#2E4F6B');
-    c.setAttribute('stroke', 'white');
-    c.setAttribute('stroke-width', '1.5');
-    svg.appendChild(c);
-  });
-
-  // etiquetas
-  for (var i = 0; i < n; i++) {
-    var ang = (Math.PI * 2 * i) / n - Math.PI / 2;
-    var lr = maxR + 22;
-    var lx = cx + lr * Math.cos(ang);
-    var ly = cy + lr * Math.sin(ang);
-    var t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-    t.setAttribute('x', lx);
-    t.setAttribute('y', ly);
-    t.setAttribute('text-anchor', 'middle');
-    t.setAttribute('dominant-baseline', 'middle');
-    t.setAttribute('fill', '#4A463F');
-    t.setAttribute('font-family', 'Inter, sans-serif');
-    t.setAttribute('font-size', '10');
-    t.setAttribute('font-weight', '600');
-    t.textContent = EJES[i].name;
-    svg.appendChild(t);
-  }
-}
-
-function renderRadarLegend(ejes) {
-  var html = '';
-  EJES.forEach(function (e) {
-    var val = ejes[e.id] || 0;
-    html += '<div class="radar-legend-item">' +
-      '<div class="radar-legend-label">' +
-        '<div class="radar-legend-name">' + e.name + '</div>' +
-        '<div class="radar-legend-desc">' + e.desc + '</div>' +
-      '</div>' +
-      '<div class="radar-legend-score">' + val + '<span style="font-size:14.5px;color:var(--ink-muted);font-weight:400"> /10</span></div>' +
-    '</div>';
-  });
-  document.getElementById('radarLegend').innerHTML = html;
-}
-
-/* =========================================================
-   9. TABLA COMPARATIVA TOP 3
-   ========================================================= */
-function renderCompareTable(topIds, ranking) {
+/* Tabla comparativa de las 3 mejores */
+function cellShort(t) { return t.split(' — ')[0].split(' (')[0].replace(/^Mínimo legal: /, ''); }
+function renderCompareTable(top) {
   var criterios = [
     { label: 'Nº socios', key: 'socios' },
     { label: 'Responsabilidad', key: 'responsabilidad' },
@@ -1940,92 +2140,67 @@ function renderCompareTable(topIds, ranking) {
     { label: 'Fiscalidad', key: 'fiscalidad' },
     { label: 'Seguridad Social', key: 'ss' }
   ];
-
-  var scoreMap = {};
-  ranking.forEach(function(r){ scoreMap[r.id] = r.score; });
-
+  function meter(v) { var n = Math.round(v / 2), h = ''; for (var i = 0; i < 5; i++) h += '<i' + (i < n ? ' class="on"' : '') + '></i>'; return '<span class="meter">' + h + '</span>'; }
   var html = '<thead><tr><th></th>';
-  topIds.forEach(function (id, i) {
-    var f = FORMS[id];
-    html += '<th class="' + (i === 0 ? 'winner-col' : '') + '">' +
-      '<span class="form-name">' + f.name.split(' (')[0] + '</span>' +
-      '<span class="form-score">' + scoreMap[id] + ' pts</span>' +
-    '</th>';
+  top.forEach(function (r, i) {
+    html += '<th class="' + (i === 0 ? 'winner-col' : '') + '"><span class="form-name">' + shortName(r.id) + '</span>' +
+      '<span class="form-score">' + r.pct + ' % de encaje</span></th>';
   });
   html += '</tr></thead><tbody>';
-
   criterios.forEach(function (c) {
     html += '<tr><td class="criterion">' + c.label + '</td>';
-    topIds.forEach(function (id, i) {
-      var f = FORMS[id];
-      html += '<td class="' + (i === 0 ? 'winner-cell' : '') + '"><div class="cell-content">' + f[c.key] + '</div></td>';
-    });
+    top.forEach(function (r, i) { html += '<td class="' + (i === 0 ? 'winner-cell' : '') + '"><div class="cell-content">' + cellShort(FORMS[r.id][c.key]) + '</div></td>'; });
     html += '</tr>';
   });
-
-  html += '</tbody>';
+  html += '<tr><td class="criterion">Constitución</td>';
+  top.forEach(function (r, i) { var t = totals(r.id); html += '<td class="' + (i === 0 ? 'winner-cell' : '') + '"><div class="cell-content">' + fmtDur(t.dmin, t.dmax) + '<br>' + fmtCoste([t.cmin, t.cmax]) + '</div></td>'; });
+  html += '</tr><tr><td class="criterion">Valoración rápida</td>';
+  top.forEach(function (r, i) {
+    var e = FORMS[r.id].ejes;
+    html += '<td class="' + (i === 0 ? 'winner-cell' : '') + '">' +
+      '<div class="meter-row">Protección' + meter(e.proteccion) + '</div>' +
+      '<div class="meter-row">Sencillez' + meter((e.coste + e.agilidad) / 2) + '</div>' +
+      '<div class="meter-row">Imagen' + meter(e.imagen) + '</div>' +
+      '<div class="meter-row">Crecimiento' + meter(e.crecimiento) + '</div></td>';
+  });
+  html += '</tr></tbody>';
   document.getElementById('rptCompareTable').innerHTML = html;
 }
 
-/* =========================================================
-   10. HOJA DE RUTA
-   ========================================================= */
-function renderRoadmap(steps) {
-  var html = '';
-  steps.forEach(function (s, i) {
-    html += '<div class="roadmap-step">' +
-      '<div class="roadmap-marker">' + (i+1) + '</div>' +
-      '<div class="roadmap-title">' + s.t + '</div>' +
-      '<div class="roadmap-desc">' + s.d + '</div>' +
-      '<div class="roadmap-meta"><span>Plazo: ' + s.plazo + '</span><span>Coste: ' + s.coste + '</span></div>' +
-    '</div>';
-  });
-  document.getElementById('rptRoadmap').innerHTML = html;
+/* Página 3: indicadores, calendario y pasos detallados */
+function renderTramites(id) {
+  var steps = ROADMAPS[id], t = totals(id), cap = EXTRA[id].capital;
+  document.getElementById('rptP3Sub').textContent = 'Cómo poner en marcha ' + withArt(id, true);
+  document.getElementById('rptKpis').innerHTML =
+    '<div class="kpi"><div class="k">Pasos</div><div class="v">' + steps.length + '</div><div class="s">trámites</div></div>' +
+    '<div class="kpi"><div class="k">Plazo total</div><div class="v">' + fmtDur(t.dmin, t.dmax) + '</div><div class="s">de principio a fin</div></div>' +
+    '<div class="kpi"><div class="k">Coste de constitución</div><div class="v">' + fmtCoste([t.cmin, t.cmax]) + '</div><div class="s">sin contar el capital</div></div>' +
+    '<div class="kpi"><div class="k">Capital social</div><div class="v">' + cap[0] + '</div><div class="s">' + cap[1] + '</div></div>';
 
-  // Resumen
-  var totalPasos = steps.length;
-  // Estimar plazo total y coste total
-  var totalPlazo = estimatePlazo(steps);
-  var totalCoste = estimateCoste(steps);
-  var summaryHtml =
-    '<div class="roadmap-summary-item"><div class="rs-label">Pasos totales</div><div class="rs-value">' + totalPasos + '</div></div>' +
-    '<div class="roadmap-summary-item"><div class="rs-label">Plazo estimado</div><div class="rs-value">' + totalPlazo + '</div></div>' +
-    '<div class="roadmap-summary-item"><div class="rs-label">Coste orientativo</div><div class="rs-value">' + totalCoste + '</div></div>';
-  document.getElementById('rptRoadmapSummary').innerHTML = summaryHtml;
-}
-
-function estimatePlazo(steps) {
-  // extraer días máximos aproximados de cada paso
-  var totalDias = 0;
+  // Pasos con calendario: cada paso empieza cuando suele acabar el anterior
+  var start = 0, rows = [], end = 0;
   steps.forEach(function (s) {
-    var match = s.plazo.match(/(\d+)(?:-(\d+))?\s*(día|semana)/);
-    if (match) {
-      var max = parseInt(match[2] || match[1]);
-      if (match[3] === 'semana') max *= 7;
-      totalDias += max;
-    }
+    rows.push({ s: s, a: start });
+    end = Math.max(end, start + s.dur[1]);
+    start += (s.dur[0] + s.dur[1]) / 2;
   });
-  if (totalDias < 14) return totalDias + ' días';
-  var semanas = Math.ceil(totalDias / 7);
-  if (semanas < 8) return semanas + ' semanas';
-  return Math.ceil(semanas / 4) + '-' + (Math.ceil(semanas / 4) + 1) + ' meses';
-}
-
-function estimateCoste(steps) {
-  var minTotal = 0, maxTotal = 0, hasVariable = false;
-  steps.forEach(function (s) {
-    if (s.coste === 'Gratuito' || s.coste === 'Bajo') { minTotal += 0; maxTotal += 30; return; }
-    if (s.coste === 'Variable') { hasVariable = true; return; }
-    var match = s.coste.match(/(\d+)(?:-(\d+))?/);
-    if (match) {
-      minTotal += parseInt(match[1]);
-      maxTotal += parseInt(match[2] || match[1]);
-    }
+  var weeks = Math.max(1, Math.ceil(end / 7)), span = weeks * 7;
+  var every = weeks > 6 ? 2 : 1;
+  var ticks = '';
+  for (var wk = 0; wk <= weeks; wk += every) ticks += '<span style="left:' + (wk / weeks * 100) + '%">' + wk + (wk + every > weeks ? ' sem.' : '') + '</span>';
+  var g = '<div class="tl-head"><div></div><div></div><div class="tl-ticks">' + ticks + '</div></div>';
+  rows.forEach(function (r, i) {
+    var s = r.s, l = r.a / span * 100;
+    g += '<div class="tl-row"><div class="tl-n">' + (i + 1) + '</div>' +
+      '<div class="tl-main"><h5>' + s.t + '</h5><p>' + s.d + ' <span class="where">Dónde: ' + s.donde + '</span></p></div>' +
+      '<div class="tl-side"><div class="tl-track" style="--wk:' + (100 / weeks) + '%">' +
+        '<div class="gantt-bar max" style="left:' + l + '%;width:' + Math.max(s.dur[1] / span * 100, 2) + '%"></div>' +
+        '<div class="gantt-bar min" style="left:' + l + '%;width:' + Math.max(s.dur[0] / span * 100, 2) + '%"></div></div>' +
+        '<div class="sd-meta"><span>' + fmtDur(s.dur[0], s.dur[1]) + '</span><span>' + fmtCoste(s.coste) + '</span></div></div></div>';
   });
-  if (minTotal === 0 && maxTotal === 0 && !hasVariable) return 'Muy bajo';
-  if (minTotal === 0 && maxTotal < 100) return 'Bajo';
-  var range = minTotal + '-' + maxTotal + ' €';
-  return hasVariable ? range + '+' : range;
+  g += '<div class="gantt-legend"><span><i style="background:var(--deep)"></i>Plazo si todo va rápido</span><span><i style="background:var(--soft);border:1px solid #C9D6E1"></i>Plazo si hay esperas</span></div>';
+  document.getElementById('rptSteps').innerHTML = g;
+  document.getElementById('rptAnual').innerHTML = anualFor(id).map(function (x) { return '<li>' + x + '</li>'; }).join('');
 }
 
 /* =========================================================
@@ -2045,7 +2220,7 @@ document.getElementById('printBtn').addEventListener('click', function () {
 });
 
 /* =========================================================
-   AJUSTE A 2 PÁGINAS Y GUARDADO AUTOMÁTICO
+   AJUSTE A 3 PÁGINAS Y GUARDADO AUTOMÁTICO
    ========================================================= */
 function fitPages() {
   document.querySelectorAll('#screen-result .page-a4').forEach(function (p) {
