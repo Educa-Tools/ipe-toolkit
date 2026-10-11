@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Prestaciones de la Seguridad Social · Educa Tools</title>
+<meta name="description" content="Guía interactiva de las prestaciones de la Seguridad Social: incapacidad temporal, nacimiento y cuidado de menor y desempleo. Con comprobador de requisitos, calculadora, casos prácticos y glosario.">
+<meta name="theme-color" content="#3E5778">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath fill='%236B7028' d='M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Tokens del kit de marca (branding/brand-kit-especificacion.md) */
+  :root{
+    --bg:#FBFCEF; --surface:#FFFFFF; --surface-alt:#F5F6E4;
+    --ink:#1E1C1A; --ink-soft:#4A463F; --ink-muted:#8B847A;
+    --line:#E8E1D6; --line-soft:#EEEFD8;
+    --olive-deep:#6B7028; --olive-mid:#A8AD5C; --lime-soft:#E8EDC4; --lime-mid:#C5CD78;
+    /* Acento de esta herramienta: slate-blue del kit y su fondo de icono */
+    --c:#3E5778; --c-soft:#E4E8F0;
+    /* Respuesta incorrecta: color ya usado en el catálogo (Buscador de enfermedades profesionales) */
+    --bad:#8B3A3A;
+    --font-display:'Fraunces',Georgia,serif;
+    --font-ui:'Inter',-apple-system,'Segoe UI',sans-serif;
+    --radius-card:18px; --radius-pill:999px;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-ui);font-size:16px;line-height:1.6;}
+  [hidden]{display:none!important;}
+  .wrap{max-width:960px;margin-inline:auto;padding-inline:20px;}
+  button,input,select{font-family:inherit;font-size:inherit;}
+  a{color:var(--c);font-weight:600;}
+  :focus-visible{outline:3px solid var(--ink);outline-offset:3px;}
+  .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+  h1,h2,h3{font-family:var(--font-display);font-weight:700;line-height:1.15;text-wrap:balance;margin:0;}
+  p{margin:0 0 12px;}
+
+  /* ---------- Barra superior ---------- */
+  .top{position:sticky;top:0;z-index:20;background:rgba(251,252,239,.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
+  .top-in{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:60px;}
+  .brand{display:inline-flex;align-items:center;gap:8px;min-height:44px;text-decoration:none;color:var(--ink);}
+  .brand svg{width:20px;height:20px;}
+  .brand b{font-family:var(--font-display);font-weight:700;font-size:1rem;}
+  .brand b span{color:var(--olive-mid);}
+  .top-nav{display:flex;gap:4px;}
+  .nbtn{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px;border:none;background:none;border-radius:var(--radius-pill);color:var(--ink-soft);font-weight:600;font-size:.9rem;cursor:pointer;text-decoration:none;}
+  .nbtn:hover{background:var(--c-soft);color:var(--ink);}
+  .nbtn[aria-current="page"]{background:var(--c);color:#fff;}
+  .nbtn svg{width:18px;height:18px;}
+  @media (max-width:560px){.brand b{display:none;}.nbtn{padding:0 11px;font-size:.85rem;}}
+
+  main{padding-block:32px 64px;}
+  .crumb{display:inline-flex;align-items:center;gap:6px;min-height:44px;margin-bottom:8px;color:var(--ink-soft);font-weight:600;text-decoration:none;font-size:.92rem;}
+  .crumb:hover{color:var(--c);}
+  .crumb svg{width:16px;height:16px;}
+
+  /* ---------- Inicio ---------- */
+  .hero{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--c);border-radius:var(--radius-card);padding:32px 28px;margin-bottom:28px;}
+  .hero h1{font-size:clamp(1.9rem,4.6vw,2.8rem);letter-spacing:-.6px;margin-bottom:12px;}
+  .hero p{color:var(--ink-soft);font-size:1.08rem;max-width:62ch;margin:0;}
+  .resume{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:20px;}
+  .sec{margin-bottom:32px;}
+  .sec > h2{font-size:clamp(1.4rem,3vw,1.8rem);margin-bottom:12px;}
+  .lead{color:var(--ink-soft);max-width:68ch;}
+  .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+  @media (max-width:860px){.grid4{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:600px){.grid2,.grid4{grid-template-columns:1fr;}}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-card);padding:20px;}
+  .card h3{font-size:1.12rem;margin-bottom:6px;}
+  .card p{color:var(--ink-soft);font-size:.95rem;margin:0;}
+  .org b{display:block;font-family:var(--font-display);font-size:1.3rem;color:var(--c);}
+  .steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;counter-reset:s;}
+  @media (max-width:700px){.steps{grid-template-columns:1fr;}}
+  .steps li{counter-increment:s;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-card);padding:18px 18px 18px 64px;position:relative;}
+  .steps li::before{content:counter(s);position:absolute;left:18px;top:16px;width:32px;height:32px;border-radius:50%;background:var(--c-soft);color:var(--c);font-weight:700;display:flex;align-items:center;justify-content:center;}
+  .steps b{display:block;}
+  .steps span{color:var(--ink-soft);font-size:.93rem;}
+
+  .pick{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  @media (max-width:820px){.pick{grid-template-columns:1fr;}}
+  .pbtn{position:relative;overflow:hidden;display:flex;flex-direction:column;gap:8px;text-align:left;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-card);padding:24px 22px 20px;min-height:220px;transition:border-color .15s ease;}
+  .pbtn::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:var(--c);}
+  .pbtn:hover{border-color:var(--c);}
+  .pico{width:48px;height:48px;border-radius:50%;background:var(--c-soft);color:var(--c);display:flex;align-items:center;justify-content:center;}
+  .pico svg{width:24px;height:24px;}
+  .pbtn h3{font-size:1.3rem;margin-top:4px;}
+  .pbtn p{color:var(--ink-soft);font-size:.95rem;margin:0;}
+  .pbtn .go{margin-top:auto;display:inline-flex;align-items:center;gap:6px;font-weight:700;color:var(--c);font-size:.92rem;}
+  .pbtn .go svg{width:16px;height:16px;}
+  .prog{display:flex;flex-wrap:wrap;gap:6px;}
+  .chip{display:inline-flex;align-items:center;gap:4px;font-size:.78rem;font-weight:600;padding:3px 10px;border-radius:var(--radius-pill);background:var(--surface-alt);color:var(--ink-soft);border:1px solid var(--line);}
+  .chip.ok{background:var(--lime-soft);border-color:var(--lime-mid);color:var(--ink);}
+  .chip svg{width:12px;height:12px;}
+
+  /* ---------- Vista de prestación ---------- */
+  .phead{display:flex;align-items:flex-start;gap:16px;margin-bottom:18px;}
+  .phead .pico{width:56px;height:56px;flex:none;}
+  .phead h1{font-size:clamp(1.7rem,4vw,2.4rem);letter-spacing:-.5px;}
+  .phead p{color:var(--ink-soft);margin:6px 0 0;}
+  .keys{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:22px;}
+  @media (max-width:700px){.keys{grid-template-columns:1fr;}}
+  .key{background:var(--c-soft);border-radius:var(--radius-card);padding:14px 16px;}
+  .key b{display:block;font-family:var(--font-display);font-size:1.15rem;color:var(--ink);line-height:1.2;}
+  .key span{font-size:.88rem;color:var(--ink-soft);}
+
+  .tabs{display:flex;gap:4px;padding:4px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-pill);margin-bottom:20px;overflow-x:auto;}
+  .tab{flex:1;min-height:44px;padding:0 14px;border:none;background:none;border-radius:var(--radius-pill);font-weight:700;font-size:.9rem;color:var(--ink-soft);cursor:pointer;white-space:nowrap;}
+  .tab:hover{background:var(--c-soft);color:var(--ink);}
+  .tab[aria-selected="true"]{background:var(--c);color:#fff;}
+  @media (max-width:560px){.tabs{display:grid;grid-template-columns:1fr 1fr;border-radius:var(--radius-card);}.tab{border-radius:14px;font-size:.85rem;padding:0 8px;}}
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-card);padding:24px;}
+  @media (max-width:560px){.panel{padding:18px 16px;}}
+  .panel:focus{outline:none;}
+
+  /* Ficha */
+  .ficha-tools{display:flex;justify-content:flex-end;margin-bottom:8px;}
+  .linkbtn{display:inline-flex;align-items:center;min-height:44px;padding:0 4px;border:none;background:none;color:var(--c);font-weight:700;cursor:pointer;font-size:.9rem;}
+  details.ap{border-top:1px solid var(--line);}
+  details.ap:last-of-type{border-bottom:1px solid var(--line);}
+  details.ap summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:56px;cursor:pointer;font-family:var(--font-display);font-weight:600;font-size:1.15rem;}
+  details.ap summary::-webkit-details-marker{display:none;}
+  details.ap summary::after{content:"+";flex:none;width:30px;height:30px;border-radius:50%;background:var(--c-soft);color:var(--c);font-family:var(--font-ui);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:1.1rem;}
+  details.ap[open] summary::after{content:"−";}
+  .apb{padding:0 0 18px;max-width:72ch;}
+  .apb ul{margin:0 0 12px;padding-left:20px;}
+  .apb li{margin-bottom:6px;}
+  .ej{background:var(--surface-alt);border-left:4px solid var(--c);border-radius:0 12px 12px 0;padding:12px 14px;font-size:.95rem;}
+  .nota{font-size:.92rem;color:var(--ink-soft);}
+  .tbl{width:100%;border-collapse:collapse;margin:4px 0 14px;font-size:.93rem;}
+  .tbl caption{text-align:left;font-weight:700;margin-bottom:6px;}
+  .tbl th,.tbl td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top;}
+  .tbl th{background:var(--c-soft);font-weight:700;}
+  .tbl td.n,.tbl th.n{text-align:right;font-variant-numeric:tabular-nums;}
+  .tscroll{overflow-x:auto;}
+
+  .term{display:inline;padding:0;border:none;background:none;color:inherit;font:inherit;font-weight:600;cursor:help;text-decoration:underline dotted var(--c) 2px;text-underline-offset:3px;}
+  .term:hover{color:var(--c);}
+
+  /* Comprobador */
+  .wz-step{font-size:.85rem;font-weight:700;color:var(--c);margin-bottom:6px;}
+  .wz-q{font-size:clamp(1.25rem,3vw,1.5rem);margin-bottom:8px;}
+  .wz-help{color:var(--ink-soft);font-size:.95rem;}
+  .opts{display:grid;gap:10px;margin:18px 0;}
+  .opt{display:flex;align-items:center;gap:12px;min-height:52px;text-align:left;padding:12px 16px;border:1px solid var(--line);border-radius:14px;background:var(--surface);cursor:pointer;font-weight:600;color:var(--ink);}
+  .opt:hover{border-color:var(--c);background:var(--c-soft);}
+  .opt .dot{flex:none;width:18px;height:18px;border-radius:50%;border:2px solid var(--c);}
+  .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 20px;border-radius:var(--radius-pill);border:1px solid transparent;font-weight:700;font-size:.93rem;cursor:pointer;text-decoration:none;}
+  .btn svg{width:16px;height:16px;}
+  .btn-p{background:var(--c);color:#fff;}
+  .btn-p:hover{background:var(--ink);}
+  .btn-g{background:var(--surface);color:var(--ink);border-color:var(--line);}
+  .btn-g:hover{border-color:var(--c);}
+  .res{border-radius:var(--radius-card);padding:20px;border:1px solid var(--line);margin-bottom:16px;}
+  .res h3{font-size:1.3rem;display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+  .res h3 svg{width:26px;height:26px;flex:none;}
+  .res.si{background:var(--lime-soft);border-color:var(--lime-mid);}
+  .res.si h3 svg{color:var(--olive-deep);}
+  .res.no{background:color-mix(in srgb,var(--bad) 8%,var(--surface));border-color:color-mix(in srgb,var(--bad) 35%,var(--surface));}
+  .res.no h3 svg{color:var(--bad);}
+  .res.parcial{background:var(--c-soft);border-color:color-mix(in srgb,var(--c) 30%,var(--surface));}
+  .res.parcial h3 svg{color:var(--c);}
+  .res ul{margin:0 0 8px;padding-left:20px;}
+  .trail{font-size:.88rem;color:var(--ink-soft);margin-bottom:14px;}
+  .trail ol{margin:6px 0 0;padding-left:20px;}
+
+  /* Calculadora */
+  .calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:24px;}
+  @media (max-width:760px){.calc{grid-template-columns:1fr;}}
+  .field{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;}
+  .field label,.field legend{font-weight:700;font-size:.93rem;}
+  .field small{color:var(--ink-soft);font-size:.85rem;}
+  .field input[type=number],.field input[type=text],.field select{min-height:48px;padding:0 14px;border:1px solid var(--ink-muted);border-radius:12px;background:var(--surface);color:var(--ink);font-size:1rem;}
+  .field input:focus-visible,.field select:focus-visible{outline:3px solid var(--ink);outline-offset:1px;}
+  fieldset.field{border:none;padding:0;margin:0 0 16px;}
+  .seg{display:flex;flex-wrap:wrap;gap:8px;}
+  .seg label{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border:1px solid var(--line);border-radius:var(--radius-pill);cursor:pointer;font-weight:600;font-size:.9rem;background:var(--surface);}
+  .seg input{accent-color:var(--c);width:18px;height:18px;margin:0;}
+  .seg label:has(input:checked){border-color:var(--c);background:var(--c-soft);}
+  .out{background:var(--surface-alt);border-radius:var(--radius-card);padding:20px;}
+  .big{font-family:var(--font-display);font-weight:700;font-size:clamp(1.8rem,5vw,2.4rem);line-height:1.1;color:var(--ink);}
+  .out .lbl{font-size:.88rem;color:var(--ink-soft);font-weight:600;}
+  .warn{font-size:.88rem;color:var(--ink-soft);margin-top:12px;}
+
+  /* Casos */
+  .caso{border:1px solid var(--line);border-radius:var(--radius-card);padding:20px;margin-bottom:16px;}
+  .caso h3{font-size:1.15rem;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .caso .st{flex:none;font-family:var(--font-ui);font-size:.78rem;font-weight:700;padding:3px 10px;border-radius:var(--radius-pill);background:var(--surface-alt);color:var(--ink-soft);}
+  .caso .st.ok{background:var(--lime-soft);color:var(--ink);}
+  .caso .st.ko{background:color-mix(in srgb,var(--bad) 10%,var(--surface));color:var(--bad);}
+  .copts{display:grid;gap:8px;margin:14px 0 0;}
+  .copt{display:flex;align-items:flex-start;gap:10px;min-height:48px;text-align:left;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--surface);cursor:pointer;color:var(--ink);font-weight:500;line-height:1.45;}
+  .copt:hover:not(:disabled){border-color:var(--c);background:var(--c-soft);}
+  .copt:disabled{cursor:default;}
+  .copt .lt{flex:none;width:26px;height:26px;border-radius:50%;background:var(--c-soft);color:var(--c);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:.85rem;}
+  .copt.good{border-color:var(--olive-deep);background:var(--lime-soft);}
+  .copt.good .lt{background:var(--olive-deep);color:#fff;}
+  .copt.bad{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 8%,var(--surface));}
+  .copt.bad .lt{background:var(--bad);color:#fff;}
+  .fb{margin-top:12px;padding:14px 16px;border-radius:12px;background:var(--surface-alt);font-size:.95rem;}
+  .fb b{display:block;margin-bottom:4px;}
+
+  /* Glosario y definiciones */
+  dialog{border:none;border-radius:var(--radius-card);padding:0;max-width:min(560px,calc(100vw - 32px));width:100%;color:var(--ink);background:var(--surface);box-shadow:0 20px 50px -20px rgba(30,28,26,.45);}
+  dialog::backdrop{background:rgba(30,28,26,.45);}
+  .dlg-h{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 16px 12px 22px;border-bottom:1px solid var(--line);}
+  .dlg-h h2{font-size:1.3rem;}
+  .xbtn{flex:none;width:44px;height:44px;border-radius:50%;border:none;background:var(--surface-alt);cursor:pointer;color:var(--ink);display:flex;align-items:center;justify-content:center;}
+  .xbtn:hover{background:var(--c-soft);}
+  .xbtn svg{width:18px;height:18px;}
+  .dlg-b{padding:16px 22px 22px;max-height:70vh;overflow-y:auto;}
+  #glosDlg{max-width:min(720px,calc(100vw - 32px));}
+  .gl-search{width:100%;min-height:48px;padding:0 14px;border:1px solid var(--ink-muted);border-radius:12px;margin-bottom:14px;}
+  .gl dl{margin:0;}
+  .gl dt{font-weight:700;margin-top:14px;font-family:var(--font-display);font-size:1.05rem;}
+  .gl dd{margin:4px 0 0;color:var(--ink-soft);font-size:.95rem;}
+  .gl mark{background:var(--lime-soft);color:inherit;}
+
+  /* Resumen */
+  .sum-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:20px;}
+  .sum-p{margin-bottom:22px;}
+  .sum-p h3{font-size:1.2rem;margin-bottom:8px;}
+  .score{font-family:var(--font-display);font-size:1.6rem;font-weight:700;}
+  .print-only{display:none;}
+
+  footer{border-top:1px solid var(--line);padding-block:24px 40px;color:var(--ink-soft);font-size:.88rem;}
+  footer p{max-width:80ch;}
+
+  @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important;}html{scroll-behavior:auto;}}
+
+  @media print{
+    @page{margin:16mm;}
+    body{background:#fff;font-size:11pt;}
+    .top,.no-print,footer,.crumb{display:none!important;}
+    .print-only{display:block;}
+    main{padding:0;}
+    .panel,.card,.res,.caso{border-color:#bbb;break-inside:avoid;}
+    .tbl th{background:#eee;}
+    a{color:inherit;text-decoration:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="top no-print">
+  <div class="wrap top-in">
+    <a class="brand" href="index.html" aria-label="Educa Tools, volver al catálogo">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><path fill="#6B7028" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg>
+      <b><span>Educa</span> Tools</b>
+    </a>
+    <nav class="top-nav" aria-label="Herramienta">
+      <a class="nbtn" href="#/" data-nav="home">Inicio</a>
+      <button type="button" class="nbtn" id="openGlos">Glosario</button>
+      <a class="nbtn" href="#/resumen" data-nav="resumen">Mi resumen</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap" tabindex="-1"></main>
+
+<footer class="wrap">
+  <p><strong>Datos vigentes en 2026.</strong> Fuentes: texto consolidado de la <a href="https://www.boe.es/buscar/act.php?id=BOE-A-2015-11724" target="_blank" rel="noopener">Ley General de la Seguridad Social</a> (arts. 169-180 y 266-273), <a href="https://www.boe.es/buscar/doc.php?id=BOE-A-2025-15741" target="_blank" rel="noopener">Real Decreto-ley 9/2025</a> e IPREM de 600 € al mes (Ley 31/2022, prorrogada).</p>
+  <p>Herramienta educativa: los cálculos son orientativos y no sustituyen la información de la <a href="https://www.seg-social.es" target="_blank" rel="noopener">Seguridad Social</a> ni del <a href="https://www.sepe.es" target="_blank" rel="noopener">SEPE</a>. Tu progreso se guarda solo en este navegador.</p>
+</footer>
+
+<dialog id="defDlg" aria-labelledby="defT">
+  <div class="dlg-h"><h2 id="defT"></h2><button type="button" class="xbtn" data-close aria-label="Cerrar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+  <div class="dlg-b"><p id="defD"></p><button type="button" class="linkbtn" id="defAll">Ver el glosario completo</button></div>
+</dialog>
+
+<dialog id="glosDlg" aria-labelledby="glosT">
+  <div class="dlg-h"><h2 id="glosT">Glosario</h2><button type="button" class="xbtn" data-close aria-label="Cerrar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+  <div class="dlg-b gl">
+    <label class="sr" for="glSearch">Buscar en el glosario</label>
+    <input id="glSearch" class="gl-search" type="search" placeholder="Buscar un término…" autocomplete="off">
+    <dl id="glList"></dl>
+  </div>
+</dialog>
+
+<script>
+/* =====================================================================
+   CONTENIDO
+   Términos del glosario dentro del texto: {{id|texto visible}}
+   ===================================================================== */
+const G = {
+  'seguridad-social':['Seguridad Social','Sistema público que protege a las personas ante situaciones de necesidad (enfermedad, nacimiento de un hijo, pérdida del empleo, jubilación…). Se financia sobre todo con cotizaciones y con aportaciones del Estado.'],
+  'tgss':['TGSS (Tesorería General de la Seguridad Social)','Organismo que gestiona la afiliación, las altas y bajas y el cobro de las cotizaciones.'],
+  'inss':['INSS (Instituto Nacional de la Seguridad Social)','Organismo que reconoce y paga la mayoría de prestaciones económicas: incapacidad temporal, nacimiento y cuidado de menor, jubilación, incapacidad permanente…'],
+  'sepe':['SEPE (Servicio Público de Empleo Estatal)','Organismo que reconoce y paga las prestaciones y subsidios por desempleo.'],
+  'mutua':['Mutua colaboradora con la Seguridad Social','Asociación de empresas, sin ánimo de lucro, que colabora con la Seguridad Social. Gestiona las contingencias profesionales y, si la empresa lo elige, la incapacidad temporal por contingencias comunes.'],
+  'afiliacion':['Afiliación','Inscripción en la Seguridad Social. Se hace una sola vez en la vida y te asigna un número de afiliación.'],
+  'alta':['Alta','Comunicación a la Seguridad Social de que empiezas a trabajar (la hace la empresa, o tú si eres autónomo). Mientras estás de alta, cotizas y estás protegido.'],
+  'asimilada':['Situación asimilada al alta','Situación en la que no estás trabajando pero la ley te trata como si estuvieras de alta, por ejemplo mientras cobras la prestación por desempleo.'],
+  'cotizacion':['Cotización','Cantidad que la empresa y la persona trabajadora pagan a la Seguridad Social. Da derecho a las prestaciones contributivas.'],
+  'base-cotizacion':['Base de cotización','Cantidad sobre la que se calcula lo que se cotiza. Parte del salario bruto mensual y tiene un mínimo y un máximo que se fijan cada año. Aparece en tu nómina.'],
+  'base-reguladora':['Base reguladora','Cantidad, normalmente diaria, a la que se aplica un porcentaje para saber cuánto cobras. Se calcula a partir de tus bases de cotización.'],
+  'carencia':['Período mínimo de cotización (carencia)','Días cotizados que se exigen antes de poder cobrar algunas prestaciones.'],
+  'hecho-causante':['Hecho causante','Momento en que se produce la situación protegida: la baja médica, el nacimiento o la pérdida del empleo.'],
+  'contingencias-comunes':['Contingencias comunes','Situaciones que no tienen que ver con el trabajo: enfermedad común y accidente no laboral.'],
+  'contingencias-profesionales':['Contingencias profesionales','Situaciones causadas por el trabajo: accidente de trabajo y enfermedad profesional.'],
+  'contributiva':['Prestación contributiva','Prestación que exige haber cotizado. Su cuantía depende de lo cotizado.'],
+  'no-contributiva':['Prestación no contributiva','Prestación para quien no ha cotizado lo suficiente y tiene pocos recursos. Su cuantía es fija.'],
+  'subsidio':['Subsidio','Prestación económica que se cobra por días mientras dura la situación protegida.'],
+  'pago-delegado':['Pago delegado','La empresa adelanta en la nómina la prestación de incapacidad temporal y después la descuenta de las cotizaciones que paga.'],
+  'parte-baja':['Parte de baja','Documento médico que declara que no puedes trabajar. Hay partes de baja, de confirmación y de alta.'],
+  'recaida':['Recaída','Nueva baja por la misma enfermedad o una similar dentro de los 180 días siguientes al alta. Cuenta como el mismo proceso.'],
+  'incapacidad-permanente':['Incapacidad permanente','Situación en la que, tras el tratamiento, quedan secuelas previsiblemente definitivas que reducen o anulan la capacidad para trabajar.'],
+  'convenio':['Convenio colectivo','Acuerdo entre la empresa (o el sector) y los representantes de los trabajadores. Puede mejorar lo que fija la ley; por ejemplo, completar la incapacidad temporal hasta el 100 % del salario.'],
+  'guarda':['Guarda con fines de adopción','Situación en la que el menor ya convive con la familia antes de que la adopción se formalice.'],
+  'progenitor':['Progenitor','Padre o madre, ya sea biológico, adoptivo o de acogida.'],
+  'iprem':['IPREM','Indicador Público de Renta de Efectos Múltiples. Sirve de referencia para calcular ayudas y topes. En 2026: 600 € al mes (20 € al día).'],
+  'sld':['Situación legal de desempleo','Casos en los que la ley considera que pierdes el empleo sin quererlo: despido, fin de contrato temporal, no superar el periodo de prueba por decisión de la empresa… Sin ella no hay prestación.'],
+  'demandante':['Demandante de empleo','Persona inscrita en el servicio público de empleo de su comunidad autónoma porque busca trabajo.'],
+  'acuerdo':['Acuerdo de actividad','Compromiso de buscar empleo activamente y de aceptar ofertas de trabajo adecuadas.'],
+  'dias-habiles':['Días hábiles','Todos los días excepto sábados, domingos y festivos.'],
+  'subsidio-desempleo':['Subsidio por desempleo','Ayuda del nivel asistencial para personas en paro que no tienen derecho a la prestación contributiva o ya la han agotado, y que cumplen requisitos de rentas.']
+};
+
+const ICON = {
+  it:'<path d="M4 12h4l2-5 4 10 2-5h4"/>',
+  nac:'<circle cx="12" cy="7" r="3.2"/><path d="M5.5 20c.8-3.6 3.4-5.6 6.5-5.6s5.7 2 6.5 5.6"/>',
+  des:'<rect x="3.5" y="8" width="17" height="11" rx="1.5"/><path d="M8.5 8V6a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v2"/><line x1="3.5" y1="13" x2="20.5" y2="13"/>',
+  arrow:'<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>',
+  back:'<line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>',
+  check:'<polyline points="4 12.5 9.5 18 20 6.5"/>',
+  x:'<path d="M6 6l12 12M18 6 6 18"/>',
+  info:'<circle cx="12" cy="12" r="9"/><line x1="12" y1="11" x2="12" y2="17"/><circle cx="12" cy="7.6" r=".6" fill="currentColor"/>',
+  print:'<path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="1.5"/><path d="M7 14h10v7H7z"/>'
+};
+const svg = (n, sw) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw||1.8}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${ICON[n]}</svg>`;
+
+const P = {
+  it:{
+    nombre:'Incapacidad temporal', corto:'IT',
+    lema:'Cuando no puedes trabajar durante un tiempo por enfermedad o accidente.',
+    claves:[['180 días en 5 años','Cotización exigida si es enfermedad común'],['60 % y 75 %','De la base reguladora, según el día de baja'],['365 + 180 días','Duración máxima, con prórroga']],
+    ficha:[
+      ['¿Qué cubre?',`<p>Protege a la persona trabajadora que <strong>no puede trabajar durante un tiempo</strong> por una enfermedad o un accidente y recibe asistencia sanitaria de la Seguridad Social. Durante la baja cobra un {{subsidio|subsidio}} que sustituye a su salario.</p>
+       <p>Según su origen, la baja puede ser por {{contingencias-comunes|contingencias comunes}} (enfermedad común o accidente no laboral) o por {{contingencias-profesionales|contingencias profesionales}} (accidente de trabajo o enfermedad profesional). El origen cambia los requisitos y lo que se cobra. Si dudas, usa el <a href="determinacioncontingencias.html">Wizard de determinación de contingencias</a>.</p>`],
+      ['Requisitos',`<ul>
+        <li>Estar {{afiliacion|afiliado/a}} y en {{alta|alta}} o en {{asimilada|situación asimilada al alta}}.</li>
+        <li>Tener un {{parte-baja|parte de baja}} médica y recibir asistencia sanitaria de la Seguridad Social.</li>
+        <li>{{carencia|Período mínimo de cotización}}:
+          <ul><li><strong>Enfermedad común:</strong> 180 días cotizados en los 5 años anteriores a la baja.</li>
+          <li><strong>Accidente</strong> (de trabajo o no) y <strong>enfermedad profesional:</strong> no se exige ninguno.</li></ul></li>
+      </ul>`],
+      ['Base reguladora',`<p>La {{base-reguladora|base reguladora}} es la cantidad diaria sobre la que se aplica el porcentaje.</p>
+       <ul><li><strong>Contingencias comunes:</strong> {{base-cotizacion|base de cotización}} por contingencias comunes del mes anterior a la baja ÷ 30 (si cobras por meses).</li>
+       <li><strong>Contingencias profesionales:</strong> base de cotización por contingencias profesionales del mes anterior, sin horas extra, ÷ 30, más las horas extra cobradas el año anterior ÷ 365.</li></ul>
+       <p class="ej">Ejemplo: base de cotización de 1.800 € el mes anterior → 1.800 ÷ 30 = <strong>60 € al día</strong>.</p>`],
+      ['Cuantía y quién paga',`<div class="tscroll"><table class="tbl"><caption>Contingencias comunes (enfermedad común o accidente no laboral)</caption>
+        <thead><tr><th scope="col">Días de baja</th><th scope="col">Cuánto</th><th scope="col">Quién paga</th></tr></thead>
+        <tbody><tr><td>1 a 3</td><td>Nada (salvo mejora del convenio)</td><td>–</td></tr>
+        <tr><td>4 a 15</td><td>60 % de la base reguladora</td><td>Empresa</td></tr>
+        <tr><td>16 a 20</td><td>60 % de la base reguladora</td><td>INSS o mutua</td></tr>
+        <tr><td>Desde el 21</td><td>75 % de la base reguladora</td><td>INSS o mutua</td></tr></tbody></table></div>
+       <div class="tscroll"><table class="tbl"><caption>Contingencias profesionales (accidente de trabajo o enfermedad profesional)</caption>
+        <thead><tr><th scope="col">Días de baja</th><th scope="col">Cuánto</th><th scope="col">Quién paga</th></tr></thead>
+        <tbody><tr><td>Día de la baja</td><td>Salario completo</td><td>Empresa</td></tr>
+        <tr><td>Desde el día siguiente</td><td>75 % de la base reguladora</td><td>INSS o mutua</td></tr></tbody></table></div>
+       <p>En la práctica, la empresa adelanta todo en la nómina ({{pago-delegado|pago delegado}}) y después lo descuenta de sus cotizaciones. Muchos {{convenio|convenios colectivos}} añaden un complemento hasta el 100 % del salario.</p>`],
+      ['Duración',`<ul><li>Máximo <strong>365 días</strong>.</li>
+        <li>Si se prevé la curación, el {{inss|INSS}} puede prorrogarla <strong>hasta 180 días más</strong> (545 en total).</li>
+        <li>Al llegar a los 365 días solo decide el INSS: alta, prórroga o iniciar el expediente de {{incapacidad-permanente|incapacidad permanente}}.</li>
+        <li>Las {{recaida|recaídas}} suman al mismo proceso.</li></ul>`],
+      ['Gestión y trámite',`<p>El médico del servicio público de salud (contingencias comunes) o de la {{mutua|mutua}} (contingencias profesionales) emite el parte de baja y los de confirmación. Desde abril de 2023 la persona trabajadora <strong>ya no entrega copia a la empresa</strong>: los partes se comunican por vía electrónica.</p>
+       <p>Paga el INSS o la mutua, normalmente a través de la empresa.</p>`],
+      ['¿Cuándo se acaba?',`<ul><li>Alta médica por curación o mejoría.</li><li>Al cumplirse los 545 días.</li><li>Reconocimiento de una incapacidad permanente o de la jubilación.</li><li>No acudir sin justificación a los reconocimientos médicos del INSS o de la mutua.</li><li>Fallecimiento.</li></ul>
+       <p class="nota">Durante una huelga o un cierre patronal no se cobra incapacidad temporal.</p>`]
+    ]
+  },
+  nac:{
+    nombre:'Nacimiento y cuidado de menor', corto:'Nacimiento',
+    lema:'Sustituye al salario durante el permiso por nacimiento, adopción o acogimiento.',
+    claves:[['19 semanas','Por cada progenitor (32 si es familia monoparental)'],['100 %','De la base reguladora, exenta de IRPF'],['Paga el INSS','Directamente, no la empresa']],
+    ficha:[
+      ['¿Qué cubre?',`<p>Sustituye al salario durante el permiso por nacimiento, adopción, {{guarda|guarda con fines de adopción}} o acogimiento familiar.</p>
+       <p>Cada {{progenitor|progenitor}} tiene su propio permiso: es <strong>individual e intransferible</strong>, no se puede ceder al otro.</p>`],
+      ['Duración',`<p>Desde el Real Decreto-ley 9/2025, <strong>19 semanas para cada progenitor</strong>:</p>
+       <ul><li><strong>6 semanas obligatorias</strong>, seguidas y a jornada completa, justo después del parto o de la resolución de adopción o acogimiento.</li>
+        <li><strong>11 semanas</strong> que se reparten por semanas, seguidas o no, hasta que el bebé cumpla 12 meses. Con acuerdo de la empresa, también a jornada parcial.</li>
+        <li><strong>2 semanas</strong> para el cuidado del menor, que se pueden usar hasta que cumpla 8 años.</li></ul>
+       <p><strong>Familias monoparentales:</strong> 32 semanas. La madre biológica puede adelantar parte del permiso hasta 4 semanas antes de la fecha prevista del parto.</p>
+       <p class="nota">La ampliación se aplica a nacimientos desde el 2 de agosto de 2024, pero las semanas nuevas solo se pueden pedir desde el 1 de enero de 2026.</p>`],
+      ['Requisitos',`<ul><li>Estar en {{alta|alta}} o en {{asimilada|situación asimilada al alta}} al empezar cada periodo de descanso.</li>
+        <li>{{carencia|Período mínimo de cotización}} según tu edad en la fecha del nacimiento (o de la resolución):</li></ul>
+       <div class="tscroll"><table class="tbl"><thead><tr><th scope="col">Edad</th><th scope="col">Cotización exigida</th></tr></thead>
+        <tbody><tr><td>Menos de 21 años</td><td>Ninguna</td></tr>
+        <tr><td>De 21 a 25 años</td><td>90 días en los 7 años anteriores, <strong>o</strong> 180 días en toda la vida laboral</td></tr>
+        <tr><td>26 años o más</td><td>180 días en los 7 años anteriores, <strong>o</strong> 360 días en toda la vida laboral</td></tr></tbody></table></div>`],
+      ['Base reguladora',`<p>{{base-cotizacion|Base de cotización}} por contingencias comunes del <strong>mes anterior al mes previo</strong> al nacimiento ÷ 30 (si cobras por meses y estuviste de alta todo ese mes).</p>
+       <p class="ej">Ejemplo: si el bebé nace en junio, el mes previo es mayo y el anterior a ese es <strong>abril</strong>. Con una base de 2.100 € en abril: 2.100 ÷ 30 = <strong>70 € al día</strong>.</p>`],
+      ['Cuantía',`<ul><li><strong>100 % de la {{base-reguladora|base reguladora}}</strong> por cada día de permiso.</li>
+        <li>Está <strong>exenta de IRPF</strong>.</li>
+        <li>Se sigue cotizando a la Seguridad Social durante el permiso.</li></ul>
+       <p><strong>Subsidio especial:</strong> si en caso de parto cumples todo menos la cotización mínima, puedes cobrar un subsidio {{no-contributiva|no contributivo}} del 100 % del {{iprem|IPREM}} (20 € al día) durante 42 días naturales. Se amplía 14 días en familia numerosa o monoparental, parto múltiple o discapacidad del 65 % o más.</p>`],
+      ['Gestión y solicitud',`<p>Lo reconoce y paga directamente el {{inss|INSS}}, no la empresa. Se pide en la sede electrónica de la Seguridad Social o con cita previa; la empresa envía un certificado con tus datos de cotización. Las notificaciones llegan solo por vía electrónica.</p>`],
+      ['¿Cuándo se pierde?',`<p>Se puede denegar, anular o suspender si se actúa de forma fraudulenta o si se trabaja (por cuenta propia o ajena) durante el permiso.</p>`]
+    ]
+  },
+  des:{
+    nombre:'Prestación por desempleo', corto:'Desempleo',
+    lema:'El "paro": protege a quien pierde su empleo sin quererlo y ha cotizado.',
+    claves:[['360 días en 6 años','Cotización mínima por desempleo'],['70 % y luego 60 %','De la base reguladora (desde el día 181)'],['De 120 a 720 días','Duración, según lo cotizado']],
+    ficha:[
+      ['¿Qué cubre?',`<p>Protege a quien <strong>pierde su empleo sin quererlo</strong> (o ve suspendido su contrato o reducida su jornada) y ha cotizado lo suficiente. Es una prestación {{contributiva|contributiva}}: lo que cobras depende de lo que has cotizado.</p>
+       <p>La reconoce y paga el {{sepe|SEPE}}.</p>`],
+      ['Requisitos',`<ul><li>Estar {{afiliacion|afiliado/a}} y en {{alta|alta}} o {{asimilada|situación asimilada}}.</li>
+        <li>Haber cotizado por desempleo <strong>al menos 360 días en los 6 años anteriores</strong>, sin haberlos usado ya para otra prestación.</li>
+        <li>Estar en {{sld|situación legal de desempleo}}: despido, fin de contrato temporal, no superar el periodo de prueba por decisión de la empresa, ERE… <strong>Irse voluntariamente no da derecho.</strong></li>
+        <li>Inscribirse como {{demandante|demandante de empleo}} y firmar el {{acuerdo|acuerdo de actividad}}.</li>
+        <li>No tener la edad ordinaria de jubilación (salvo que no te alcance la cotización para jubilarte).</li></ul>`],
+      ['Base reguladora',`<p>Media de las {{base-cotizacion|bases de cotización}} por desempleo de los <strong>últimos 180 días</strong>, sin horas extra.</p>
+       <p class="ej">Ejemplo: si en los últimos 6 meses tu base fue de 1.500 € cada mes: 9.000 ÷ 180 = <strong>50 € al día</strong> (1.500 € al mes).</p>`],
+      ['Cuantía',`<ul><li><strong>70 %</strong> de la {{base-reguladora|base reguladora}} los primeros 180 días.</li>
+        <li><strong>60 %</strong> desde el día 181 (antes de 2023 era el 50 %).</li></ul>
+       <div class="tscroll"><table class="tbl"><caption>Límites mensuales en 2026 (jornada completa)</caption>
+        <thead><tr><th scope="col">Situación</th><th scope="col" class="n">Mínimo</th><th scope="col" class="n">Máximo</th></tr></thead>
+        <tbody><tr><td>Sin hijos a cargo</td><td class="n">560 €</td><td class="n">1.225 €</td></tr>
+        <tr><td>1 hijo a cargo</td><td class="n">749 €</td><td class="n">1.400 €</td></tr>
+        <tr><td>2 o más hijos a cargo</td><td class="n">749 €</td><td class="n">1.575 €</td></tr></tbody></table></div>
+       <p class="nota">Se calculan con el {{iprem|IPREM}} (600 €) más una sexta parte, es decir, 700 €: el máximo es el 175 %, 200 % o 225 % y el mínimo el 80 % o 107 %. Si trabajabas a jornada parcial, se reducen en proporción.</p>
+       <p>El SEPE paga la parte de la empresa de tu {{cotizacion|cotización}}; a ti te descuenta tu parte (y el IRPF, si corresponde).</p>`],
+      ['Duración',`<div class="tscroll"><table class="tbl"><thead><tr><th scope="col">Días cotizados (últimos 6 años)</th><th scope="col" class="n">Días de prestación</th></tr></thead><tbody>
+        ${[[360,539,120],[540,719,180],[720,899,240],[900,1079,300],[1080,1259,360],[1260,1439,420],[1440,1619,480],[1620,1799,540],[1800,1979,600],[1980,2159,660]].map(r=>`<tr><td>De ${r[0].toLocaleString('es-ES')} a ${r[1].toLocaleString('es-ES')}</td><td class="n">${r[2]}</td></tr>`).join('')}
+        <tr><td>2.160 o más</td><td class="n">720</td></tr></tbody></table></div>`],
+      ['Cómo se solicita',`<p>Inscríbete como demandante de empleo y pide la prestación al SEPE en los <strong>15 {{dias-habiles|días hábiles}}</strong> siguientes a quedarte sin trabajo. Si la pides tarde, pierdes los días de retraso. La empresa envía el certificado de empresa.</p>`],
+      ['Suspensión y fin',`<ul><li><strong>Se suspende</strong> si trabajas con un contrato de menos de 12 meses (después la puedes reanudar) o por algunas sanciones.</li>
+        <li><strong>Se extingue</strong> al agotar la duración, al trabajar 12 meses o más, por sanción grave o al jubilarte.</li></ul>
+       <p class="nota">Si no llegas a 360 días cotizados o ya la has agotado, quizá tengas derecho al {{subsidio-desempleo|subsidio por desempleo}} (reformado en 2024). Consulta al SEPE.</p>`]
+    ]
+  }
+};
+
+/* Comprobadores: cada nodo es una pregunta; cada opción lleva a otro nodo (go) o a un resultado (res) */
+const W = {
+  it:{start:'alta', nodes:{
+    alta:{q:'¿Estás afiliado/a y de alta (o en situación asimilada) en la Seguridad Social?', help:'Si trabajas con contrato, tu empresa te ha dado de alta.', o:[['Sí',{go:'causa'}],['No',{res:'it-noalta'}]]},
+    causa:{q:'¿Qué ha provocado que no puedas trabajar?', help:'Si no sabes si es accidente de trabajo o no, prueba el <a href="determinacioncontingencias.html">Wizard de determinación de contingencias</a>.', o:[['Una enfermedad común (gripe, lumbalgia no laboral…)',{go:'carencia',set:{tipo:'ec'}}],['Un accidente fuera del trabajo',{go:'baja',set:{tipo:'anl'}}],['Un accidente de trabajo (incluido in itinere)',{go:'baja',set:{tipo:'at'}}],['Una enfermedad profesional',{go:'baja',set:{tipo:'ep'}}]]},
+    carencia:{q:'¿Has cotizado al menos 180 días en los últimos 5 años?', help:'Lo puedes ver en tu informe de vida laboral.', o:[['Sí',{go:'baja'}],['No',{res:'it-nocarencia'}]]},
+    baja:{q:'¿Tienes un parte de baja médica y recibes asistencia sanitaria de la Seguridad Social?', o:[['Sí',{res:'it-si'}],['No',{res:'it-nobaja'}]]}
+  }},
+  nac:{start:'sit', nodes:{
+    sit:{q:'¿Qué situación vas a vivir?', o:[['Nacimiento',{go:'alta',set:{parto:true}}],['Adopción, guarda con fines de adopción o acogimiento',{go:'alta',set:{parto:false}}]]},
+    alta:{q:'¿Estarás de alta (o en situación asimilada) cuando empiece el permiso?', o:[['Sí',{go:'edad'}],['No',{res:'nac-noalta'}]]},
+    edad:{q:'¿Qué edad tienes en la fecha del nacimiento (o de la resolución)?', o:[['Menos de 21 años',{go:'mono'}],['Entre 21 y 25 años',{go:'c21'}],['26 años o más',{go:'c26'}]]},
+    c21:{q:'¿Tienes al menos 90 días cotizados en los últimos 7 años, o 180 días en toda tu vida laboral?', o:[['Sí',{go:'mono'}],['No',{res:'nac-nocarencia'}]]},
+    c26:{q:'¿Tienes al menos 180 días cotizados en los últimos 7 años, o 360 días en toda tu vida laboral?', o:[['Sí',{go:'mono'}],['No',{res:'nac-nocarencia'}]]},
+    mono:{q:'¿Eres la única persona progenitora (familia monoparental)?', o:[['No, somos dos progenitores',{res:'nac-si',set:{mono:false}}],['Sí',{res:'nac-si',set:{mono:true}}]]}
+  }},
+  des:{start:'fin', nodes:{
+    fin:{q:'¿Cómo terminó tu último trabajo?', o:[['Me despidieron',{go:'alta'}],['Se acabó mi contrato temporal',{go:'alta'}],['No superé el periodo de prueba (lo decidió la empresa)',{go:'alta'}],['Me fui yo voluntariamente',{res:'des-volun'}]]},
+    alta:{q:'¿Estabas afiliado/a y de alta en la Seguridad Social?', o:[['Sí',{go:'cot'}],['No',{res:'des-noalta'}]]},
+    cot:{q:'¿Has cotizado por desempleo al menos 360 días en los últimos 6 años, sin haberlos usado para otro paro?', help:'Mira tu informe de vida laboral: 360 días son aproximadamente 12 meses a jornada completa.', o:[['Sí',{go:'insc'}],['No',{res:'des-nocot'}]]},
+    insc:{q:'¿Te vas a inscribir como demandante de empleo y a firmar el acuerdo de actividad?', o:[['Sí',{go:'jub'}],['No',{res:'des-noinsc'}]]},
+    jub:{q:'¿Has cumplido ya la edad ordinaria de jubilación?', o:[['No',{res:'des-si'}],['Sí',{res:'des-jub'}]]}
+  }}
+};
+const R = {
+  'it-noalta':c=>['no','Sin alta no hay prestación','Para cobrar la incapacidad temporal hay que estar afiliado/a y de alta (o en situación asimilada) cuando empieza la baja.'],
+  'it-nocarencia':c=>['no','No llegas a la cotización mínima','En una baja por enfermedad común se exigen 180 días cotizados en los 5 años anteriores. Si fuera un accidente (de trabajo o no), no se exigiría cotización previa.'],
+  'it-nobaja':c=>['no','Falta la baja médica','La incapacidad temporal exige que un médico declare que no puedes trabajar (parte de baja) y que recibas asistencia sanitaria de la Seguridad Social.'],
+  'it-si':c=>{
+    const prof = c.tipo==='at'||c.tipo==='ep';
+    return ['si','Tienes derecho a la incapacidad temporal', prof
+      ? `<p>Es una baja por <strong>contingencias profesionales</strong>: no se exige cotización previa.</p><ul><li>Día de la baja: la empresa te paga el salario completo.</li><li>Desde el día siguiente: <strong>75 %</strong> de la base reguladora, a cargo del INSS o de la mutua.</li></ul>`
+      : `<p>Es una baja por <strong>contingencias comunes</strong>${c.tipo==='anl'?' (accidente no laboral: no se exige cotización previa)':''}.</p><ul><li>Días 1 a 3: no se cobra (salvo mejora del convenio).</li><li>Días 4 a 15: <strong>60 %</strong>, lo paga la empresa.</li><li>Días 16 a 20: <strong>60 %</strong>, INSS o mutua.</li><li>Desde el día 21: <strong>75 %</strong>, INSS o mutua.</li></ul>`];
+  },
+  'nac-noalta':c=>['no','Sin alta no hay prestación','Hay que estar de alta (o en situación asimilada) al empezar cada periodo de descanso.'],
+  'nac-nocarencia':c=> c.parto
+    ? ['parcial','No llegas a la cotización mínima, pero hay un subsidio especial','En caso de parto, si cumples todo salvo la cotización mínima, puedes cobrar el subsidio no contributivo: 100 % del IPREM (20 € al día) durante 42 días naturales, ampliables 14 días en algunos casos (familia numerosa o monoparental, parto múltiple, discapacidad del 65 % o más).']
+    : ['no','No llegas a la cotización mínima','Para la prestación contributiva necesitas la cotización mínima que corresponde a tu edad. Pregunta al INSS si en tu caso existe alguna alternativa.'],
+  'nac-si':c=>['si','Tienes derecho a la prestación', c.mono
+    ? '<ul><li><strong>32 semanas</strong> de permiso (familia monoparental).</li><li>Cobras el <strong>100 %</strong> de tu base reguladora cada día, exento de IRPF.</li><li>Lo paga directamente el INSS.</li></ul>'
+    : '<ul><li><strong>19 semanas</strong>: 6 obligatorias tras el nacimiento, 11 hasta los 12 meses y 2 hasta los 8 años.</li><li>Cobras el <strong>100 %</strong> de tu base reguladora cada día, exento de IRPF.</li><li>Es un derecho tuyo e intransferible; el otro progenitor tiene el suyo.</li></ul>'],
+  'des-volun':c=>['no','No es situación legal de desempleo','Si dejas el trabajo por tu propia voluntad no tienes derecho a la prestación por desempleo. Sí podrías tenerlo más adelante si consigues otro empleo y lo pierdes sin quererlo.'],
+  'des-noalta':c=>['no','Sin alta no hay prestación','La prestación exige haber estado afiliado/a y de alta, con cotizaciones por desempleo.'],
+  'des-nocot':c=>['parcial','No llegas a la prestación contributiva','Necesitas 360 días cotizados por desempleo en los últimos 6 años. Con menos, quizá tengas derecho al subsidio por desempleo si cumples sus requisitos: consúltalo en el SEPE.'],
+  'des-noinsc':c=>['no','Falta la inscripción','Para cobrar el paro es obligatorio inscribirse como demandante de empleo y firmar el acuerdo de actividad (compromiso de buscar trabajo).'],
+  'des-jub':c=>['no','Con la edad de jubilación, no hay paro','Por regla general no se cobra el paro si ya has cumplido la edad ordinaria de jubilación (salvo que no tengas cotización suficiente para jubilarte).'],
+  'des-si':c=>['si','Tienes derecho a la prestación por desempleo','<ul><li>Pídela al SEPE en los <strong>15 días hábiles</strong> siguientes a quedarte sin trabajo.</li><li>Cobrarás el <strong>70 %</strong> de tu base reguladora los primeros 180 días y el <strong>60 %</strong> después.</li><li>Cuánto tiempo depende de tus días cotizados: compruébalo en la pestaña <strong>Calculadora</strong>.</li></ul>']
+};
+
+/* Casos prácticos: [título, enunciado, opciones, índice correcto, explicación] */
+const C = {
+  it:[
+    ['Lucía y la gripe','Lucía es dependienta, lleva 2 años trabajando y coge una gripe. Su médica le da la baja durante 10 días. ¿Qué cobra?',
+      ['Nada los días 1 a 3; del día 4 al 10, el 60 % de su base reguladora, que paga la empresa.','El 75 % desde el primer día, a cargo del INSS.','El 60 % desde el día 4, a cargo del INSS.','Nada, porque la baja dura menos de 15 días.'],0,
+      'Es enfermedad común y Lucía supera los 180 días cotizados en 5 años. Los 3 primeros días no se cobra subsidio y del día 4 al 15 lo paga la empresa al 60 %. Su baja termina antes del día 16, así que todo lo abona la empresa.'],
+    ['Marcos en el almacén','Marcos tiene 19 años y empezó a trabajar hace 2 meses. Se rompe la muñeca al caerse en el almacén mientras trabaja. ¿Tiene derecho a la incapacidad temporal?',
+      ['No, porque no tiene 180 días cotizados.','Sí: es accidente de trabajo y no se exige cotización previa. El día de la baja cobra su salario y desde el día siguiente el 75 %.','Sí, pero solo el 60 % de su base reguladora.','Solo si su convenio colectivo lo prevé.'],1,
+      'Es un accidente de trabajo (contingencia profesional): no se exige ningún periodo de cotización. La empresa paga el salario del día de la baja y, desde el día siguiente, el INSS o la mutua pagan el 75 % de la base reguladora.'],
+    ['Calcula la baja de Ana','Ana tiene una base de cotización de 1.800 € el mes anterior y está 30 días de baja por enfermedad común. ¿Cuánto cobra en total por incapacidad temporal?',
+      ['1.350 €','972 €','1.062 €','1.800 €'],2,
+      'Base reguladora: 1.800 ÷ 30 = 60 € al día. Días 1 a 3: nada. Días 4 a 20 (17 días) al 60 %: 17 × 36 € = 612 €. Días 21 a 30 (10 días) al 75 %: 10 × 45 € = 450 €. Total: 612 + 450 = 1.062 €.']
+  ],
+  nac:[
+    ['Andrea, 24 años','Andrea tiene 24 años cuando nace su hija. Ha cotizado 120 días en los últimos 7 años. ¿Cumple el periodo mínimo de cotización?',
+      ['No: a partir de 21 años se exigen 180 días.','Sí: entre 21 y 25 años se exigen 90 días en los últimos 7 años, y ella tiene 120.','No: siempre se exigen 360 días.','Sí, porque nunca se exige cotización para esta prestación.'],1,
+      'Entre 21 y 25 años se exigen 90 días cotizados en los 7 años anteriores (o 180 en toda la vida laboral). Andrea tiene 120, así que lo cumple.'],
+    ['El permiso de Pablo','A Pablo le nace un hijo en marzo de 2026. La madre también trabaja. ¿Cuánto dura el permiso de Pablo y cómo se organiza?',
+      ['16 semanas, todas seguidas tras el parto.','19 semanas: 6 obligatorias tras el nacimiento, 11 hasta que el bebé cumpla 12 meses y 2 hasta que cumpla 8 años.','19 semanas, pero puede cederle algunas a la madre.','5 semanas, como antes de 2019.'],1,
+      'Desde el Real Decreto-ley 9/2025 cada progenitor tiene 19 semanas: 6 obligatorias e ininterrumpidas tras el nacimiento, 11 flexibles hasta los 12 meses y 2 hasta los 8 años. Es un derecho individual e intransferible: no se puede ceder.'],
+    ['¿Cuánto cobra Elena?','A Elena le nace un hijo en junio. Su base de cotización por contingencias comunes fue de 2.100 € en abril. ¿Cuánto cobra por cada día de permiso?',
+      ['42 €','52,50 €','49 €','70 €'],3,
+      'La base reguladora se toma del mes anterior al mes previo al nacimiento (junio → abril): 2.100 ÷ 30 = 70 € al día. La prestación es el 100 % de esa base: 70 € por día, sin IRPF.']
+  ],
+  des:[
+    ['Sara cambia de ciudad','Sara deja su trabajo por voluntad propia porque se muda a otra ciudad. ¿Puede cobrar el paro?',
+      ['Sí, si ha cotizado 360 días.','Sí, pero solo durante 120 días.','No: irse voluntariamente no es situación legal de desempleo.','Sí, si se inscribe en los 15 días hábiles siguientes.'],2,
+      'La prestación exige estar en situación legal de desempleo, es decir, perder el empleo sin quererlo. Una baja voluntaria no lo es, aunque se cumplan los demás requisitos.'],
+    ['Javier y su despido','A Javier le despiden. En los últimos 6 años ha cotizado por desempleo 1.000 días que no ha usado antes. ¿Durante cuánto tiempo cobrará?',
+      ['240 días','300 días','360 días','1.000 días'],1,
+      'Según la escala, de 900 a 1.079 días cotizados corresponden 300 días de prestación (unos 10 meses).'],
+    ['¿Cuánto cobra Nuria?','Nuria, sin hijos, tuvo una base de cotización de 1.500 € al mes en sus últimos 6 meses. ¿Cuánto cobra al mes durante los primeros 180 días?',
+      ['1.050 €','900 €','1.225 €','1.500 €'],0,
+      'Base reguladora: 1.500 € al mes (50 € al día). Los primeros 180 días se cobra el 70 %: 1.050 €, que está entre el mínimo (560 €) y el máximo sin hijos (1.225 €). Desde el día 181 cobraría el 60 %: 900 €.']
+  ]
+};
+
+/* =====================================================================
+   ESTADO GUARDADO (solo en este navegador)
+   ===================================================================== */
+const KEY = 'educatools-prestaciones-v1';
+const blank = () => ({nombre:'', p:{it:{},nac:{},des:{}}, casos:{}, calc:{}, last:''});
+let ST = blank();
+try{ const s = JSON.parse(localStorage.getItem(KEY)||'null'); if(s && s.p) ST = Object.assign(blank(), s); }catch(e){}
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(ST)); }catch(e){} }
+function mark(pid, what){ if(!ST.p[pid][what]){ ST.p[pid][what] = true; save(); } }
+
+/* =====================================================================
+   UTILIDADES
+   ===================================================================== */
+const $ = s => document.querySelector(s);
+const main = $('#main');
+// useGrouping 'always': 1.062,00 € (con punto de miles también en cifras de 4 dígitos, como en la ficha)
+const eur = n => n.toLocaleString('es-ES',{style:'currency',currency:'EUR',minimumFractionDigits:2,maximumFractionDigits:2,useGrouping:'always'});
+const terms = html => html.replace(/\{\{([\w-]+)\|([^}]+)\}\}/g,(m,id,txt)=>G[id]?`<button type="button" class="term" data-term="${id}" aria-haspopup="dialog">${txt}</button>`:txt);
+const okCases = pid => C[pid].filter((_,i)=>ST.casos[pid+i] && ST.casos[pid+i].ok).length;
+
+/* =====================================================================
+   VISTAS
+   ===================================================================== */
+function viewHome(){
+  const has = ST.last && ST.last !== '#/';
+  return `
+  <section class="hero">
+    <h1>Prestaciones de la Seguridad Social</h1>
+    <p>Descubre cómo te protege la Seguridad Social y estudia a fondo tres prestaciones clave: la baja por enfermedad o accidente, el permiso por nacimiento y el paro. En cada una tienes la ficha, un comprobador de requisitos, una calculadora y casos prácticos.</p>
+    ${has?`<div class="resume no-print"><a class="btn btn-p" href="${ST.last}">Seguir donde lo dejé ${svg('arrow',2.2)}</a></div>`:''}
+  </section>
+
+  <section class="sec" aria-labelledby="h-que">
+    <h2 id="h-que">¿Qué es la Seguridad Social?</h2>
+    <p class="lead">${terms('Es el sistema público que protege a las personas cuando no pueden obtener ingresos por una situación de necesidad: una enfermedad, el nacimiento de un hijo, la pérdida del empleo, la jubilación… Lo reconoce el artículo 41 de la Constitución y se financia sobre todo con las {{cotizacion|cotizaciones}} de empresas y personas trabajadoras, y con aportaciones del Estado.')}</p>
+    <div class="grid4" style="margin-top:16px">
+      <div class="card org"><b>TGSS</b><p>Afiliación, altas y bajas, y cobro de las cotizaciones.</p></div>
+      <div class="card org"><b>INSS</b><p>Reconoce y paga la mayoría de prestaciones: incapacidad temporal, nacimiento, jubilación…</p></div>
+      <div class="card org"><b>SEPE</b><p>Reconoce y paga las prestaciones por desempleo.</p></div>
+      <div class="card org"><b>Mutuas</b><p>Colaboran con la Seguridad Social, sobre todo en accidentes de trabajo y enfermedades profesionales.</p></div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="h-fun">
+    <h2 id="h-fun">¿Para qué sirve?</h2>
+    <div class="grid2">
+      <div class="card"><h3>Nivel contributivo</h3><p>${terms('Para quien ha cotizado. La cuantía depende de lo cotizado: por ejemplo, la incapacidad temporal, el permiso por nacimiento o el paro. Son prestaciones {{contributiva|contributivas}}.')}</p></div>
+      <div class="card"><h3>Nivel no contributivo</h3><p>${terms('Para quien no ha cotizado lo suficiente y tiene pocos recursos. Las cuantías son fijas. Son prestaciones {{no-contributiva|no contributivas}}.')}</p></div>
+    </div>
+    <p class="lead" style="margin-top:12px">Además, garantiza la asistencia sanitaria y ofrece servicios sociales.</p>
+  </section>
+
+  <section class="sec" aria-labelledby="h-pre">
+    <h2 id="h-pre">¿Qué es una prestación?</h2>
+    <p class="lead">${terms('Es la protección que recibes cuando ocurre una situación prevista por la ley (el {{hecho-causante|hecho causante}}). Puede ser <strong>económica</strong> (dinero, como un {{subsidio|subsidio}} o una pensión) o <strong>asistencial</strong> (asistencia sanitaria, rehabilitación…). Según su origen, distinguimos {{contingencias-comunes|contingencias comunes}} y {{contingencias-profesionales|contingencias profesionales}}.')}</p>
+    <h3 style="font-size:1.15rem;margin:18px 0 10px">Para cobrar una prestación contributiva se necesitan, en general, tres cosas:</h3>
+    <ol class="steps">
+      <li><b>Afiliación</b><span>${terms('Estar inscrito/a en la Seguridad Social ({{afiliacion|afiliación}}).')}</span></li>
+      <li><b>Alta</b><span>${terms('Estar de {{alta|alta}} o en {{asimilada|situación asimilada}} cuando ocurre el hecho causante.')}</span></li>
+      <li><b>Cotización mínima</b><span>${terms('Haber cotizado los días que se exijan ({{carencia|carencia}}), cuando la ley la pide.')}</span></li>
+    </ol>
+  </section>
+
+  <section class="sec" aria-labelledby="h-elige">
+    <h2 id="h-elige">Elige una prestación</h2>
+    <div class="pick">
+      ${Object.keys(P).map(pid=>{
+        const p = P[pid], s = ST.p[pid], n = okCases(pid);
+        return `<a class="pbtn" href="#/${pid}/ficha">
+          <span class="pico">${svg(pid)}</span>
+          <h3>${p.nombre}</h3>
+          <p>${p.lema}</p>
+          <span class="prog" aria-label="Tu progreso">
+            <span class="chip ${s.ficha?'ok':''}">${s.ficha?svg('check',3):''}Ficha</span>
+            <span class="chip ${s.wizard?'ok':''}">${s.wizard?svg('check',3):''}Comprobador</span>
+            <span class="chip ${n===3?'ok':''}">Casos ${n}/3</span>
+          </span>
+          <span class="go">Empezar ${svg('arrow',2.2)}</span>
+        </a>`;}).join('')}
+    </div>
+  </section>`;
+}
+
+const TABS = [['ficha','Ficha'],['comprobador','¿Tengo derecho?'],['calculadora','Calculadora'],['casos','Casos prácticos']];
+
+function viewP(pid, tab){
+  const p = P[pid];
+  return `
+  <a class="crumb" href="#/">${svg('back',2)} Todas las prestaciones</a>
+  <div class="phead"><span class="pico">${svg(pid)}</span><div><h1>${p.nombre}</h1><p>${p.lema}</p></div></div>
+  <div class="keys">${p.claves.map(k=>`<div class="key"><b>${k[0]}</b><span>${k[1]}</span></div>`).join('')}</div>
+  <div class="tabs" role="tablist" aria-label="Apartados de ${p.nombre}">
+    ${TABS.map(t=>`<button type="button" role="tab" class="tab" id="tab-${t[0]}" aria-controls="panel" aria-selected="${t[0]===tab}" tabindex="${t[0]===tab?0:-1}" data-tab="${t[0]}">${t[1]}</button>`).join('')}
+  </div>
+  <section class="panel" id="panel" role="tabpanel" aria-labelledby="tab-${tab}" tabindex="-1">${panel(pid, tab)}</section>`;
+}
+
+function panel(pid, tab){
+  if(tab==='ficha'){ mark(pid,'ficha');
+    return `<div class="ficha-tools"><button type="button" class="linkbtn" id="toggleAll">Abrir todos los apartados</button></div>` +
+      P[pid].ficha.map((a,i)=>`<details class="ap"${i===0?' open':''}><summary>${a[0]}</summary><div class="apb">${terms(a[1])}</div></details>`).join('');
+  }
+  if(tab==='comprobador') return `<div id="wz"></div>`;
+  if(tab==='calculadora') return calcHTML(pid);
+  if(tab==='casos') return casesHTML(pid);
+  return '';
+}
+
+/* ---------- Comprobador ---------- */
+const WS = {};
+function wzReset(pid){ WS[pid] = {node:W[pid].start, hist:[], ctx:{}, res:null}; }
+function wzRender(pid){
+  const box = $('#wz'); if(!box) return;
+  const s = WS[pid] || (wzReset(pid), WS[pid]);
+  const trail = s.hist.length ? `<div class="trail"><b>Tus respuestas:</b><ol>${s.hist.map(h=>`<li>${h.q} <strong>${h.a}</strong></li>`).join('')}</ol></div>` : '';
+  if(s.res){
+    const [tipo, tit, txt] = R[s.res](s.ctx);
+    const ic = tipo==='si'?'check':tipo==='no'?'x':'info';
+    box.innerHTML = `<div class="res ${tipo}" role="status"><h3>${svg(ic,2.4)}${tit}</h3>${txt.startsWith('<')?txt:`<p>${txt}</p>`}</div>${trail}
+      <div class="row"><button type="button" class="btn btn-g" data-wz="back">${svg('back',2)} Cambiar la última respuesta</button><button type="button" class="btn btn-g" data-wz="reset">Empezar de nuevo</button><a class="btn btn-p" href="#/${pid}/ficha">Repasar la ficha</a></div>`;
+    mark(pid,'wizard');
+  } else {
+    const n = W[pid].nodes[s.node];
+    box.innerHTML = `<p class="wz-step">Pregunta ${s.hist.length+1}</p><h2 class="wz-q" id="wzq" tabindex="-1">${n.q}</h2>${n.help?`<p class="wz-help">${n.help}</p>`:''}
+      <div class="opts" role="group" aria-labelledby="wzq">${n.o.map((o,i)=>`<button type="button" class="opt" data-opt="${i}"><span class="dot" aria-hidden="true"></span>${o[0]}</button>`).join('')}</div>
+      ${trail}${s.hist.length?`<div class="row"><button type="button" class="btn btn-g" data-wz="back">${svg('back',2)} Atrás</button><button type="button" class="btn btn-g" data-wz="reset">Empezar de nuevo</button></div>`:''}`;
+  }
+  box.onclick = e=>{
+    const b = e.target.closest('button'); if(!b) return;
+    if(b.dataset.opt!==undefined){
+      const n = W[pid].nodes[s.node], o = n.o[+b.dataset.opt];
+      s.hist.push({node:s.node, q:n.q, a:o[0], ctx:{...s.ctx}});
+      if(o[1].set) Object.assign(s.ctx, o[1].set);
+      if(o[1].go) s.node = o[1].go; else s.res = o[1].res;
+    } else if(b.dataset.wz==='back'){
+      const h = s.hist.pop(); if(h){ s.node = h.node; s.ctx = h.ctx; s.res = null; }
+    } else if(b.dataset.wz==='reset'){ wzReset(pid); }
+    else return;
+    wzRender(pid);
+    const f = box.querySelector('#wzq') || box.querySelector('.res h3');
+    if(f){ f.setAttribute('tabindex','-1'); f.focus({preventScroll:false}); }
+  };
+}
+
+/* ---------- Calculadoras ---------- */
+function calcHTML(pid){
+  const v = ST.calc[pid] || {};
+  const num = (id,label,help,val,min,max,step) => `<div class="field"><label for="${id}">${label}</label>${help?`<small id="${id}-h">${help}</small>`:''}<input type="number" id="${id}" inputmode="decimal" min="${min}" max="${max}" step="${step||1}" value="${val}"${help?` aria-describedby="${id}-h"`:''}></div>`;
+  const seg = (name,legend,opts,val) => `<fieldset class="field"><legend>${legend}</legend><div class="seg">${opts.map(o=>`<label><input type="radio" name="${name}" value="${o[0]}"${String(val)===String(o[0])?' checked':''}>${o[1]}</label>`).join('')}</div></fieldset>`;
+  let form = '';
+  if(pid==='it') form = seg('tipo','Origen de la baja',[['cc','Contingencias comunes'],['cp','Contingencias profesionales']],v.tipo||'cc')
+    + num('base','Base de cotización del mes anterior (€)','Aparece en tu nómina. Si cobras por meses, se divide entre 30.',v.base??1800,0,6000,1)
+    + `<div id="heBox">${num('he','Horas extra cobradas el año anterior (€)','Solo en contingencias profesionales.',v.he??0,0,20000,1)}</div>`
+    + num('dias','Días de baja','Entre 1 y 545.',v.dias??30,1,545,1);
+  if(pid==='nac') form = seg('fam','Tipo de familia',[['2','Dos progenitores (19 semanas)'],['1','Monoparental (32 semanas)']],v.fam||'2')
+    + num('base','Base de cotización por contingencias comunes (€/mes)','La del mes anterior al mes previo al nacimiento.',v.base??2100,0,6000,1);
+  if(pid==='des') form = num('base','Base de cotización media por desempleo (€/mes)','Media de tus últimos 6 meses, sin horas extra.',v.base??1500,0,6000,1)
+    + num('dias','Días cotizados en los últimos 6 años','Sin contar los ya usados para otro paro.',v.dias??1000,0,2190,1)
+    + seg('hijos','Hijos a cargo',[['0','Ninguno'],['1','1'],['2','2 o más']],v.hijos??'0');
+  return `<div class="calc"><form id="calcForm" onsubmit="return false">${form}</form><div class="out" id="calcOut" aria-live="polite"></div></div>
+    <p class="warn">Cálculo orientativo con las reglas generales de 2026. No incluye descuentos (IRPF, cotización del trabajador), mejoras de convenio ni casos especiales. Para un cálculo oficial, consulta la <a href="https://www.seg-social.es" target="_blank" rel="noopener">Seguridad Social</a> o el <a href="https://www.sepe.es" target="_blank" rel="noopener">SEPE</a>.</p>`;
+}
+
+function calcRun(pid){
+  const f = $('#calcForm'), out = $('#calcOut'); if(!f) return;
+  const val = id => { const x = parseFloat(String(f.querySelector('#'+id)?.value||'').replace(',','.')); return isFinite(x)&&x>=0 ? x : 0; };
+  const rad = n => (f.querySelector(`input[name="${n}"]:checked`)||{}).value;
+  let html = '';
+  if(pid==='it'){
+    const tipo = rad('tipo'), base = val('base'), he = val('he'), dias = Math.min(545, Math.max(0, Math.round(val('dias'))));
+    $('#heBox').hidden = tipo!=='cp';
+    ST.calc.it = {tipo, base, he, dias};
+    const br = tipo==='cp' ? base/30 + he/365 : base/30;
+    const rows = [];
+    const tramo = (d1,d2,pct,quien) => { const a = Math.max(d1,1), b = Math.min(d2,dias); if(b>=a){ const n=b-a+1; rows.push([a===b?`Día ${a}`:`Días ${a} a ${b}`, n, pct, quien, n*br*pct/100]); } };
+    if(tipo==='cp'){ if(dias>=1) rows.push(['Día de la baja',1,null,'Empresa (salario)',null]); tramo(2,545,75,'INSS o mutua'); }
+    else { if(dias>=1) rows.push([dias>=3?'Días 1 a 3':`Días 1 a ${dias}`,Math.min(3,dias),0,'Nadie',0]); tramo(4,15,60,'Empresa'); tramo(16,20,60,'INSS o mutua'); tramo(21,545,75,'INSS o mutua'); }
+    const total = rows.reduce((a,r)=>a+(r[4]||0),0);
+    html = `<p class="lbl">Base reguladora diaria</p><p class="big">${eur(br)}</p>
+      <div class="tscroll"><table class="tbl"><thead><tr><th scope="col">Tramo</th><th scope="col" class="n">%</th><th scope="col">Paga</th><th scope="col" class="n">Importe</th></tr></thead><tbody>
+      ${rows.map(r=>`<tr><td>${r[0]}</td><td class="n">${r[2]===null?'–':r[2]+' %'}</td><td>${r[3]}</td><td class="n">${r[4]===null?'Salario':eur(r[4])}</td></tr>`).join('')}
+      </tbody></table></div><p class="lbl">Total de subsidio en ${dias} ${dias===1?'día':'días'}</p><p class="big">${eur(total)}</p>
+      ${dias>365?'<p class="warn">Más de 365 días solo es posible si el INSS concede la prórroga.</p>':''}`;
+  }
+  if(pid==='nac'){
+    const fam = rad('fam'), base = val('base'); ST.calc.nac = {fam, base};
+    const sem = fam==='1' ? 32 : 19, br = base/30, total = br*7*sem;
+    const rep = fam==='1' ? '6 obligatorias + 22 hasta los 12 meses + 4 hasta los 8 años' : '6 obligatorias + 11 hasta los 12 meses + 2 hasta los 8 años';
+    html = `<p class="lbl">Cobras cada día (100 % de la base reguladora)</p><p class="big">${eur(br)}</p>
+      <p class="lbl" style="margin-top:12px">Por semana</p><p class="big" style="font-size:1.6rem">${eur(br*7)}</p>
+      <p class="lbl" style="margin-top:12px">Total por ${sem} semanas (${rep})</p><p class="big">${eur(total)}</p>
+      <p class="warn">Exento de IRPF. Lo paga directamente el INSS.</p>`;
+  }
+  if(pid==='des'){
+    const base = val('base'), dias = Math.round(val('dias')), hijos = rad('hijos')||'0'; ST.calc.des = {base, dias, hijos};
+    const esc = [[2160,720],[1980,660],[1800,600],[1620,540],[1440,480],[1260,420],[1080,360],[900,300],[720,240],[540,180],[360,120]];
+    const dur = (esc.find(e=>dias>=e[0])||[0,0])[1];
+    const ref = 700; // IPREM 600 € + 1/6
+    const max = ref*(hijos==='0'?1.75:hijos==='1'?2:2.25), min = ref*(hijos==='0'?0.80:1.07);
+    const clamp = x => Math.min(max, Math.max(min, x));
+    if(!dur){
+      html = `<p class="lbl">Duración</p><p class="big">Sin derecho</p><p>Con ${dias} días cotizados no llegas a los 360 que exige la prestación contributiva. Quizá tengas derecho al subsidio por desempleo: consúltalo en el SEPE.</p>`;
+    } else {
+      const m1 = clamp(base*0.70), m2 = clamp(base*0.60);
+      const d1 = Math.min(dur,180), d2 = Math.max(dur-180,0);
+      const total = m1*d1/30 + m2*d2/30;
+      const tope = (raw,v) => raw>max?' (limitado al máximo)':raw<min?' (elevado al mínimo)':'';
+      html = `<p class="lbl">Duración</p><p class="big">${dur} días <span style="font-size:1rem;font-family:var(--font-ui);font-weight:600;color:var(--ink-soft)">(unos ${Math.round(dur/30)} meses)</span></p>
+        <div class="tscroll"><table class="tbl" style="margin-top:12px"><thead><tr><th scope="col">Periodo</th><th scope="col" class="n">%</th><th scope="col" class="n">Al mes</th></tr></thead><tbody>
+        <tr><td>Días 1 a ${d1}</td><td class="n">70 %</td><td class="n">${eur(m1)}${tope(base*0.7,m1)}</td></tr>
+        ${d2?`<tr><td>Días 181 a ${dur}</td><td class="n">60 %</td><td class="n">${eur(m2)}${tope(base*0.6,m2)}</td></tr>`:''}
+        </tbody></table></div>
+        <p class="lbl">Total aproximado en bruto</p><p class="big">${eur(total)}</p>
+        <p class="warn">Límites mensuales aplicados: mínimo ${eur(min)}, máximo ${eur(max)} (jornada completa).</p>`;
+    }
+  }
+  out.innerHTML = html;
+  mark(pid,'calc'); save();
+}
+
+/* ---------- Casos prácticos ---------- */
+function casesHTML(pid){
+  const n = okCases(pid);
+  return `<p class="lead">Lee cada caso y elige una respuesta. Si fallas, lee la explicación y vuelve a intentarlo.</p>
+    <p><strong id="caseScore">Resueltos correctamente: ${n} de 3</strong></p>` +
+    C[pid].map((c,i)=>caseHTML(pid,i)).join('');
+}
+function caseHTML(pid,i){
+  const c = C[pid][i], a = ST.casos[pid+i];
+  const st = a ? (a.ok ? '<span class="st ok">Correcto</span>' : '<span class="st ko">Incorrecto</span>') : '<span class="st">Pendiente</span>';
+  return `<article class="caso" id="caso-${pid}-${i}" aria-labelledby="ct-${pid}-${i}">
+    <h3><span id="ct-${pid}-${i}">Caso ${i+1}. ${c[0]}</span>${st}</h3>
+    <p>${c[1]}</p>
+    <div class="copts" role="group" aria-label="Respuestas del caso ${i+1}">
+      ${c[2].map((o,j)=>{
+        let cls=''; if(a){ if(j===c[3] && a.ok) cls='good'; else if(j===a.sel && !a.ok) cls='bad'; }
+        return `<button type="button" class="copt ${cls}" data-case="${i}" data-opt="${j}"${a?' disabled':''}><span class="lt" aria-hidden="true">${'ABCD'[j]}</span><span>${o}${cls==='good'?'<span class="sr"> (correcta)</span>':cls==='bad'?'<span class="sr"> (tu respuesta, incorrecta)</span>':''}</span></button>`;}).join('')}
+    </div>
+    ${a?`<div class="fb" role="status"><b>${a.ok?'¡Correcto!':'No es correcta.'}</b>${a.ok?c[4]:'Piensa en qué requisito o regla falla y vuelve a intentarlo.'}</div>
+      <div class="row" style="margin-top:12px">${a.ok?'':`<button type="button" class="btn btn-p" data-retry="${i}">Intentarlo otra vez</button><button type="button" class="btn btn-g" data-show="${i}">Ver la solución</button>`}</div>`:''}
+  </article>`;
+}
+
+/* ---------- Resumen imprimible ---------- */
+function viewResumen(){
+  let tot = 0, ok = 0;
+  const bloques = Object.keys(P).map(pid=>{
+    const s = ST.p[pid];
+    const casos = C[pid].map((c,i)=>{ const a = ST.casos[pid+i]; tot++; if(a&&a.ok) ok++;
+      return `<tr><td>Caso ${i+1}. ${c[0]}</td><td>${a?(a.ok?'Correcto':a.shown?'Solución vista':'Incorrecto'):'Sin hacer'}</td></tr>`; }).join('');
+    return `<div class="sum-p card"><h3>${P[pid].nombre}</h3>
+      <ul>${P[pid].claves.map(k=>`<li><strong>${k[0]}:</strong> ${k[1].toLowerCase()}.</li>`).join('')}</ul>
+      <p class="nota">Ficha: ${s.ficha?'vista':'sin ver'} · Comprobador: ${s.wizard?'hecho':'sin hacer'} · Calculadora: ${s.calc?'usada':'sin usar'}</p>
+      <div class="tscroll"><table class="tbl"><thead><tr><th scope="col">Caso práctico</th><th scope="col">Resultado</th></tr></thead><tbody>${casos}</tbody></table></div></div>`;
+  }).join('');
+  return `
+  <a class="crumb" href="#/">${svg('back',2)} Inicio</a>
+  <div class="sum-head">
+    <div><h1 style="font-size:clamp(1.7rem,4vw,2.4rem)">Mi resumen</h1><p class="lead" style="margin:6px 0 0">Prestaciones de la Seguridad Social · Educa Tools</p></div>
+    <div class="score" aria-label="Casos correctos">${ok}/${tot} casos</div>
+  </div>
+  <div class="field no-print" style="max-width:420px"><label for="nombre">Tu nombre (aparecerá en la hoja)</label><input type="text" id="nombre" value="${(ST.nombre||'').replace(/"/g,'&quot;')}" autocomplete="name"></div>
+  <p class="print-only"><strong>Nombre:</strong> ${ST.nombre||'________________________'} &nbsp; <strong>Fecha:</strong> ${new Date().toLocaleDateString('es-ES')}</p>
+  <div class="row no-print" style="margin-bottom:20px"><button type="button" class="btn btn-p" id="doPrint">${svg('print',2)} Imprimir o guardar en PDF</button><button type="button" class="btn btn-g" id="doReset">Borrar mi progreso</button></div>
+  ${bloques}`;
+}
+
+/* =====================================================================
+   NAVEGACIÓN (#/, #/it/ficha, #/resumen…)
+   ===================================================================== */
+function route(){
+  const parts = location.hash.replace(/^#\/?/,'').split('/').filter(Boolean);
+  let pid = parts[0], tab = parts[1];
+  document.querySelectorAll('[data-nav]').forEach(a=>a.removeAttribute('aria-current'));
+  if(pid==='resumen'){
+    main.innerHTML = viewResumen(); $('[data-nav="resumen"]').setAttribute('aria-current','page');
+    document.title = 'Mi resumen · Prestaciones · Educa Tools';
+    $('#nombre').oninput = e=>{ ST.nombre = e.target.value; save(); };
+    $('#doPrint').onclick = ()=>window.print();
+    $('#doReset').onclick = ()=>{ if(confirm('¿Seguro que quieres borrar todo tu progreso en esta herramienta?')){ ST = blank(); save(); Object.keys(WS).forEach(k=>delete WS[k]); route(); } };
+  } else if(P[pid]){
+    if(!TABS.some(t=>t[0]===tab)) tab = 'ficha';
+    main.innerHTML = viewP(pid, tab);
+    document.title = P[pid].nombre + ' · Prestaciones · Educa Tools';
+    ST.last = `#/${pid}/${tab}`; save();
+    bindP(pid, tab);
+  } else {
+    main.innerHTML = viewHome(); $('[data-nav="home"]').setAttribute('aria-current','page');
+    document.title = 'Prestaciones de la Seguridad Social · Educa Tools';
+  }
+}
+
+function bindP(pid, tab){
+  const tabs = [...document.querySelectorAll('[role=tab]')];
+  tabs.forEach((t,i)=>{
+    t.onclick = ()=>{ location.hash = `#/${pid}/${t.dataset.tab}`; };
+    t.onkeydown = e=>{
+      let j = null;
+      if(e.key==='ArrowRight') j = (i+1)%tabs.length; else if(e.key==='ArrowLeft') j = (i-1+tabs.length)%tabs.length;
+      else if(e.key==='Home') j = 0; else if(e.key==='End') j = tabs.length-1;
+      if(j!==null){ e.preventDefault(); location.hash = `#/${pid}/${tabs[j].dataset.tab}`; }
+    };
+  });
+  if(tab==='ficha'){
+    const tg = $('#toggleAll');
+    tg.onclick = ()=>{ const ds=[...document.querySelectorAll('details.ap')]; const open = ds.some(d=>!d.open); ds.forEach(d=>d.open=open); tg.textContent = open?'Cerrar todos los apartados':'Abrir todos los apartados'; };
+  }
+  if(tab==='comprobador') wzRender(pid);
+  if(tab==='calculadora'){ const f = $('#calcForm'); f.addEventListener('input',()=>calcRun(pid)); f.addEventListener('change',()=>calcRun(pid)); calcRun(pid); }
+  if(tab==='casos'){
+    $('#panel').onclick = e=>{
+      const b = e.target.closest('button'); if(!b) return;
+      let i;
+      if(b.dataset.case!==undefined){ i = +b.dataset.case; const j = +b.dataset.opt; ST.casos[pid+i] = {sel:j, ok:j===C[pid][i][3]}; }
+      else if(b.dataset.retry!==undefined){ i = +b.dataset.retry; delete ST.casos[pid+i]; }
+      else if(b.dataset.show!==undefined){ i = +b.dataset.show; ST.casos[pid+i] = {sel:C[pid][i][3], ok:false, shown:true}; }
+      else return;
+      save();
+      const art = $(`#caso-${pid}-${i}`);
+      art.outerHTML = caseHTML(pid,i);
+      if(ST.casos[pid+i] && ST.casos[pid+i].shown){
+        const a2 = $(`#caso-${pid}-${i}`); a2.querySelector('.fb').innerHTML = `<b>Solución: ${'ABCD'[C[pid][i][3]]}</b>${C[pid][i][4]}`;
+        a2.querySelectorAll('.copt')[C[pid][i][3]].classList.add('good');
+      }
+      $('#caseScore').textContent = `Resueltos correctamente: ${okCases(pid)} de 3`;
+      const nb = $(`#caso-${pid}-${i}`).querySelector('.fb, .copt');
+      if(nb){ nb.setAttribute('tabindex','-1'); nb.focus(); }
+    };
+  }
+}
+
+let prevHash = null;
+addEventListener('hashchange', ()=>{
+  const [a] = location.hash.replace(/^#\/?/,'').split('/');
+  const [b] = (prevHash||'').replace(/^#\/?/,'').split('/');
+  route();
+  // Al cambiar de pestaña dentro de la misma prestación, el foco va a la pestaña activa; si no, al contenido
+  if(a && a===b && P[a]) document.querySelector('[role=tab][aria-selected=true]')?.focus();
+  else { main.focus({preventScroll:true}); scrollTo(0,0); }
+  prevHash = location.hash;
+});
+
+/* ---------- Glosario y definiciones ---------- */
+const defDlg = $('#defDlg'), glosDlg = $('#glosDlg');
+document.addEventListener('click', e=>{
+  const t = e.target.closest('.term');
+  if(t){ const g = G[t.dataset.term]; $('#defT').textContent = g[0]; $('#defD').textContent = g[1]; defDlg.showModal(); }
+  const c = e.target.closest('[data-close]'); if(c) c.closest('dialog').close();
+});
+[defDlg, glosDlg].forEach(d=>d.addEventListener('click', e=>{ if(e.target===d) d.close(); }));
+function glosRender(q){
+  const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+  const nq = norm(q||'');
+  const items = Object.values(G).sort((a,b)=>a[0].localeCompare(b[0],'es')).filter(g=>!nq || norm(g[0]+' '+g[1]).includes(nq));
+  $('#glList').innerHTML = items.length ? items.map(g=>`<dt>${g[0]}</dt><dd>${g[1]}</dd>`).join('') : '<dd>No hay ningún término con esa palabra.</dd>';
+}
+function openGlos(){ glosRender(''); $('#glSearch').value=''; glosDlg.showModal(); }
+$('#openGlos').onclick = openGlos;
+$('#defAll').onclick = ()=>{ defDlg.close(); openGlos(); };
+$('#glSearch').oninput = e=>glosRender(e.target.value);
+
+route();
+prevHash = location.hash;
+</script>
+</body>
+</html>
