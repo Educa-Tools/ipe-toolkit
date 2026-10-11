@@ -38,7 +38,7 @@
   .theme-opt{
     display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;
     background:none;border:1px solid transparent;padding:8px 10px;font-family:'Inter',sans-serif;
-    font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);
+    font-size:13.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);
     transition:all .2s;
   }
   .theme-opt:hover{border-color:rgba(30,28,26,.3)}
@@ -69,15 +69,15 @@
     display:flex;align-items:baseline;gap:14px;
   }
   .brand .num{
-    font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-muted);
+    font-size:15px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-muted);
     font-family:'Inter',sans-serif;font-weight:400;
   }
   .brand em{font-style:italic;color:var(--accent)}
   .header-meta{
-    text-align:right;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);
+    text-align:right;font-size:14.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);
   }
   .header-meta .progress{margin-top:6px;font-family:'Fraunces',serif;font-size:22px;color:var(--ink);letter-spacing:0;text-transform:none}
-  .header-meta .progress .total{color:var(--ink-soft);font-size:14px}
+  .header-meta .progress .total{color:var(--ink-soft);font-size:16px}
 
   /* ---------- LAYOUT GENERAL CANVAS ---------- */
   .canvas-wrap{padding: 0 48px 48px}
@@ -86,17 +86,17 @@
     margin-bottom:28px;
   }
   .canvas-intro h1{
-    font-family:'Fraunces',serif;font-weight:300;font-size:clamp(40px,5vw,72px);
+    font-family:'Fraunces',serif;font-weight:400;font-size:clamp(40px,5vw,72px);
     line-height:.95;letter-spacing:-.03em;margin:0;
   }
   .canvas-intro h1 em{font-style:italic;color:var(--accent)}
   .canvas-intro p{
-    max-width:380px;font-size:14px;line-height:1.55;color:var(--ink-soft);margin:0;
+    max-width:380px;font-size:16px;line-height:1.55;color:var(--ink-soft);margin:0;
   }
   .actions{display:flex;gap:10px;margin-top:14px}
   .btn{
     background:transparent;border:1px solid var(--ink);color:var(--ink);
-    font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+    font-family:'Inter',sans-serif;font-size:13.5px;letter-spacing:.22em;text-transform:uppercase;
     padding:11px 18px;cursor:pointer;transition:all .25s ease;font-weight:400;
   }
   .btn:hover{background:var(--ink);color:var(--canvas)}
@@ -134,7 +134,7 @@
   }
 
   .block-num{
-    font-size:10px;letter-spacing:.3em;color:var(--ink-muted);font-weight:400;
+    font-size:13.5px;letter-spacing:.3em;color:var(--ink-muted);font-weight:400;
     margin-bottom:4px;
   }
   .block-title{
@@ -145,14 +145,14 @@
     font-size:22px;margin-bottom:8px;opacity:.85;
   }
   .block-desc{
-    font-size:12px;line-height:1.5;color:var(--ink-soft);font-weight:400;
+    font-size:14.5px;line-height:1.5;color:var(--ink-soft);font-weight:400;
     flex-grow:1;
   }
   .block-content{
-    font-family:'Fraunces',serif;font-weight:300;font-size:13.5px;line-height:1.45;color:var(--ink);
+    font-family:'Fraunces',serif;font-weight:400;font-size:15.5px;line-height:1.45;color:var(--ink);
     margin-top:8px;
   }
-  .block-content ul{margin:0;padding-left:14px;font-family:'Inter',sans-serif;font-size:12.5px;line-height:1.55}
+  .block-content ul{margin:0;padding-left:14px;font-family:'Inter',sans-serif;font-size:14.5px;line-height:1.55}
   .block-content li{margin-bottom:3px}
 
   /* posiciones */
@@ -187,7 +187,7 @@
     padding:32px 40px 20px;border-bottom:1px solid rgba(30,28,26,.15);
     display:flex;justify-content:space-between;align-items:flex-start;gap:20px;
   }
-  .modal-header .label{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:6px}
+  .modal-header .label{font-size:13.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:6px}
   .modal-header h2{
     font-family:'Fraunces',serif;font-weight:400;font-size:34px;letter-spacing:-.02em;margin:0;line-height:1;
   }
@@ -206,11 +206,11 @@
     margin-bottom:10px;line-height:1.3;
   }
   .question-block .hint{
-    display:block;font-size:12px;color:var(--ink-soft);margin-bottom:10px;font-style:italic;line-height:1.5;
+    display:block;font-size:14.5px;color:var(--ink-soft);margin-bottom:10px;font-style:italic;line-height:1.5;
   }
   .question-block textarea{
     width:100%;background:var(--surface);border:1px solid rgba(30,28,26,.25);
-    padding:14px 16px;font-family:'Inter',sans-serif;font-size:14px;font-weight:400;
+    padding:14px 16px;font-family:'Inter',sans-serif;font-size:16px;font-weight:400;
     color:var(--ink);resize:vertical;min-height:80px;line-height:1.5;
     transition:border-color .2s;
   }
@@ -220,7 +220,7 @@
     padding:20px 40px 32px;border-top:1px solid rgba(30,28,26,.15);
     display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
   }
-  .modal-footer .status{font-size:12px;color:var(--ink-soft);font-style:italic}
+  .modal-footer .status{font-size:14.5px;color:var(--ink-soft);font-style:italic}
 
   /* ---------- LOADING ---------- */
   .loading{display:inline-block;width:14px;height:14px;border:2px solid var(--ink-soft);border-top-color:transparent;border-radius:50%;animation:spin .8s linear infinite;vertical-align:middle;margin-right:8px}
@@ -229,7 +229,7 @@
   /* ---------- TOAST ---------- */
   .toast{
     position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(80px);
-    background:var(--ink);color:var(--canvas);padding:14px 24px;font-size:13px;letter-spacing:.05em;
+    background:var(--ink);color:var(--canvas);padding:14px 24px;font-size:15px;letter-spacing:.05em;
     transition:transform .35s cubic-bezier(.2,.8,.2,1);z-index:200;
   }
   .toast.show{transform:translateX(-50%) translateY(0)}
@@ -454,9 +454,24 @@
     }
     .modal-header,.modal-body,.modal-footer{padding-left:24px;padding-right:24px}
   }
+
+/* ══ Kit v2 Educa Tools: contraste, tamaños y barra de marca ══ */
+:root{ --kit-bg:#F5F6E4; --kit-ink:#1E1C1A; --kit-soft:#4A463F; --kit-accent:#7A3244; }
+html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-font-smoothing:antialiased; }
+:root{ --ink-faint:#4A463F; --ink-muted:#4A463F; --muted:#4A463F; }
+.kit-bar{ background:var(--kit-accent); color:#fff; margin:0; }
+.kit-bar-in{ max-width:1100px; margin:0 auto; padding:0 20px; min-height:54px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.kit-bar a{ display:inline-flex; align-items:center; gap:8px; color:#fff; text-decoration:none; font-family:'Fraunces',Georgia,serif; font-weight:700; font-size:16px; }
+.kit-bar a span{ color:#E8EDC4; }
+.kit-bar small{ font-family:'Inter',system-ui,sans-serif; font-size:14px; font-weight:600; color:rgba(255,255,255,.85); text-align:right; }
+.kit-save{ display:inline-flex; align-items:center; gap:6px; }
+.kit-save i{ width:8px; height:8px; border-radius:50%; background:#C5CD78; display:inline-block; }
+@media print{ .kit-bar{ display:none !important; } }
+@media (max-width:640px){ .kit-save{ display:none !important; } .kit-bar small{ font-size:13.5px; } }
 </style>
 </head>
 <body>
+<header class="kit-bar"><div class="kit-bar-in"><a href="index.html" aria-label="Educa Tools, volver al catálogo"><svg width="20" height="20" viewBox="0 0 40 40" aria-hidden="true"><path fill="#C5CD78" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg><span>Educa</span>&nbsp;Tools</a><small><span class="kit-save" id="kitSave" hidden><i></i>Progreso guardado en este navegador</span> &nbsp;Modelo Canvas</small></div></header>
 
 <header class="app-header">
   <div class="brand">
@@ -811,12 +826,12 @@ function printCanvas(){
         <button class="modal-close" onclick="this.closest('.modal-backdrop').remove()" aria-label="Cerrar">×</button>
       </div>
       <div class="modal-body">
-        <div class="label" style="font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:10px">Tono del entregable</div>
+        <div class="label" style="font-size:13.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:10px">Tono del entregable</div>
         <div class="theme-picker" id="themePicker">${themePickerHTML()}</div>
-        <p style="font-family:'Fraunces',serif;font-size:16px;line-height:1.4;margin:0 0 18px;color:var(--ink)">
+        <p style="font-family:'Fraunces',serif;font-size:17.5px;line-height:1.4;margin:0 0 18px;color:var(--ink)">
           Para que el Canvas se imprima en <em style="color:var(--accent)">una sola página</em>, en el diálogo del navegador asegúrate de:
         </p>
-        <ol style="font-size:14px;line-height:1.7;color:var(--ink);padding-left:20px;margin:0">
+        <ol style="font-size:16px;line-height:1.7;color:var(--ink);padding-left:20px;margin:0">
           <li><strong>Orientación:</strong> Horizontal</li>
           <li><strong>Tamaño de papel:</strong> A4</li>
           <li><strong>Márgenes:</strong> Ninguno (o Predeterminados)</li>
@@ -862,6 +877,25 @@ document.getElementById('modal').addEventListener('click', e => {
 document.addEventListener('keydown', e => {
   if(e.key === 'Escape') closeModal();
 });
+
+// ============ GUARDADO AUTOMÁTICO (en este navegador) ============
+const SAVE_KEY = 'educa-canvas-v1';
+let lastSaved = '';
+try{
+  const sv = JSON.parse(localStorage.getItem(SAVE_KEY) || 'null');
+  if(sv && sv.state){
+    state = sv.state;
+    if(sv.theme) setTheme(sv.theme);
+    Object.keys(BLOCKS).forEach(renderBlock);
+    updateProgress();
+  }
+}catch(e){}
+setInterval(() => {
+  try{
+    const j = JSON.stringify({ state, theme: currentTheme });
+    if(j !== lastSaved){ localStorage.setItem(SAVE_KEY, j); lastSaved = j; const k = document.getElementById('kitSave'); if(k) k.hidden = false; }
+  }catch(e){}
+}, 1200);
 </script>
 </body>
 </html>

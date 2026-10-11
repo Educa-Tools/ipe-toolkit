@@ -42,7 +42,7 @@
   .masthead{ display:flex; flex-direction:column; gap:4px; }
   .eyebrow{
     font-family:'Inter', sans-serif; font-weight: 600;
-    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    font-size: 13.5px; letter-spacing: 0.12em; text-transform: uppercase;
     color: var(--ink-faint);
   }
   h1{
@@ -52,7 +52,7 @@
     margin: 0; letter-spacing: -0.01em;
     text-wrap: balance;
   }
-  .sub{ font-size: 14px; color: var(--ink-soft); max-width: 46ch; line-height:1.5; }
+  .sub{ font-size: 16px; color: var(--ink-soft); max-width: 46ch; line-height:1.5; }
 
   /* progress */
   .progress{ display:flex; align-items:center; gap: 6px; flex-wrap: wrap; }
@@ -65,7 +65,7 @@
   .dot[data-state="done"]{ background: var(--accent); }
   .dot[data-state="current"]{ background: var(--accent-mid); transform: scale(1.35); }
   .progress-label{
-    font-family:'Inter', sans-serif; font-weight: 500; font-size: 11px; color: var(--ink-faint);
+    font-family:'Inter', sans-serif; font-weight: 500; font-size: 13.5px; color: var(--ink-faint);
     margin-inline-start: 4px; letter-spacing: 0.02em;
   }
 
@@ -79,7 +79,7 @@
     position: relative;
   }
   .card-tab{
-    font-family:'Inter', sans-serif; font-weight: 600; font-size: 11px;
+    font-family:'Inter', sans-serif; font-weight: 600; font-size: 13.5px;
     letter-spacing: 0.08em; text-transform: uppercase;
     color: var(--accent-ink); background: var(--accent-soft);
     display:inline-flex; padding: 4px 10px; border-radius: var(--radius-pill);
@@ -90,12 +90,12 @@
     font-weight: 600; font-size: clamp(19px, 4.4vw, 23px);
     line-height: 1.35; margin: 0 0 6px; text-wrap: balance;
   }
-  .helper{ font-size: 13.5px; color: var(--ink-soft); margin: 0 0 16px; line-height:1.5; }
+  .helper{ font-size: 15.5px; color: var(--ink-soft); margin: 0 0 16px; line-height:1.5; }
 
   input[type="text"], textarea{
     width: 100%;
     font-family: 'Inter', sans-serif;
-    font-size: 15.5px;
+    font-size: 17px;
     color: var(--ink);
     background: transparent;
     border: none;
@@ -112,7 +112,7 @@
 
   .field-foot{
     display:flex; justify-content: flex-end; align-items:baseline;
-    margin-top: 6px; font-family:'Inter', sans-serif; font-size: 10.5px;
+    margin-top: 6px; font-family:'Inter', sans-serif; font-size: 13.5px;
     color: var(--ink-faint);
   }
   .field-foot.over{ color: var(--danger); }
@@ -120,7 +120,7 @@
 
   .chips{ display:flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
   .chip{
-    font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500;
+    font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 500;
     padding: 7px 12px; border-radius: var(--radius-pill);
     border: 1.5px solid var(--card-line); background: transparent; color: var(--ink-soft);
     cursor: pointer; transition: all .15s;
@@ -136,7 +136,7 @@
   .nav{ display:flex; justify-content: space-between; align-items:center; gap: 10px; margin-top: 20px; }
   button{ font-family: 'Inter', sans-serif; cursor:pointer; }
   .btn{
-    font-size: 14px; font-weight: 600; padding: 10px 20px; border-radius: var(--radius-pill);
+    font-size: 16px; font-weight: 600; padding: 10px 20px; border-radius: var(--radius-pill);
     border: 1.5px solid var(--accent); background: var(--accent); color: #fff;
     transition: opacity .15s, transform .1s;
   }
@@ -146,7 +146,7 @@
   .btn.ghost:hover{ border-color: var(--ink-soft); color: var(--ink); }
   .btn.wide{ width: 100%; }
 
-  .keyhint{ font-family:'Inter', sans-serif; font-weight: 500; font-size: 10.5px; color: var(--ink-faint); }
+  .keyhint{ font-family:'Inter', sans-serif; font-weight: 500; font-size: 13.5px; color: var(--ink-faint); }
 
   /* review */
   .review-grid{ display:flex; flex-direction:column; gap: 14px; }
@@ -156,22 +156,22 @@
   }
   .review-item:last-child{ border-bottom:none; padding-bottom:0; }
   .review-label{
-    font-family:'Inter', sans-serif; font-weight: 600; font-size: 10.5px;
+    font-family:'Inter', sans-serif; font-weight: 600; font-size: 13.5px;
     letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-ink);
     display:flex; justify-content: space-between; gap: 8px;
   }
   .review-label button{
-    font-family: inherit; font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em;
+    font-family: inherit; font-size: 13.5px; text-transform: uppercase; letter-spacing: 0.06em;
     background:none; border:none; color: var(--ink-faint); text-decoration: underline;
     padding:0;
   }
   .review-label button:hover{ color: var(--accent); }
-  .review-value{ font-size: 14.5px; line-height: 1.5; white-space: pre-wrap; }
+  .review-value{ font-size: 16.5px; line-height: 1.5; white-space: pre-wrap; }
   .review-value.empty{ color: var(--ink-faint); font-style: italic; }
 
   .review-actions{ display:flex; flex-direction:column; gap:10px; margin-top: 20px; }
   .status-line{
-    font-family:'Inter', sans-serif; font-size: 11.5px; color: var(--ink-soft);
+    font-family:'Inter', sans-serif; font-size: 14.5px; color: var(--ink-soft);
     text-align:center; min-height: 14px;
   }
   .status-line.err{ color: var(--danger); }
@@ -180,9 +180,24 @@
     .card{ padding: 22px 18px 20px; }
     .nav{ flex-wrap: wrap; }
   }
-</style>
+
+/* ══ Kit v2 Educa Tools: contraste, tamaños y barra de marca ══ */
+:root{ --kit-bg:#F5F6E4; --kit-ink:#1E1C1A; --kit-soft:#4A463F; --kit-accent:#4B4F1D; }
+html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-font-smoothing:antialiased; }
+:root{ --ink-faint:#4A463F; --ink-muted:#4A463F; --muted:#4A463F; }
+.kit-bar{ background:var(--kit-accent); color:#fff; margin:0; }
+.kit-bar-in{ max-width:1100px; margin:0 auto; padding:0 20px; min-height:54px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.kit-bar a{ display:inline-flex; align-items:center; gap:8px; color:#fff; text-decoration:none; font-family:'Fraunces',Georgia,serif; font-weight:700; font-size:16px; }
+.kit-bar a span{ color:#E8EDC4; }
+.kit-bar small{ font-family:'Inter',system-ui,sans-serif; font-size:14px; font-weight:600; color:rgba(255,255,255,.85); text-align:right; }
+.kit-save{ display:inline-flex; align-items:center; gap:6px; }
+.kit-save i{ width:8px; height:8px; border-radius:50%; background:#C5CD78; display:inline-block; }
+@media print{ .kit-bar{ display:none !important; } }
+@media (max-width:640px){ .kit-save{ display:none !important; } .kit-bar small{ font-size:13.5px; } }
+body{ padding-top:0 !important; } .kit-bar{ margin:0 -16px 26px; } .wrap{ max-width:680px !important; }</style>
 </head>
 <body>
+<header class="kit-bar"><div class="kit-bar-in"><a href="index.html" aria-label="Educa Tools, volver al catálogo"><svg width="20" height="20" viewBox="0 0 40 40" aria-hidden="true"><path fill="#C5CD78" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg><span>Educa</span>&nbsp;Tools</a><small><span class="kit-save" id="kitSave" hidden><i></i>Progreso guardado en este navegador</span> &nbsp;Ficha inicial de la idea</small></div></header>
 <div class="wrap">
   <header class="masthead">
     <span class="eyebrow">Fase 3 · Brainstorming de idea de negocio</span>
@@ -264,7 +279,7 @@
     }catch(e){ /* ignore, start fresh */ }
   }
   function saveDraft(){
-    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify({ data: data, step: step })); }
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify({ data: data, step: step })); var ks=document.getElementById("kitSave"); if(ks) ks.hidden=false; }
     catch(e){ /* storage unavailable, continue without persistence */ }
   }
 
@@ -605,48 +620,13 @@
   }
 
   function buildPDF(d){
+    // Ficha de una sola hoja A4: cabecera de color y ocho bloques en dos columnas.
+    // Si el texto es largo, la letra se reduce para que todo quepa en la hoja.
     var jsPDF = window.jspdf.jsPDF;
     var doc = new jsPDF({ unit: "mm", format: "a4" });
-    var pageW = doc.internal.pageSize.getWidth();
-    var marginX = 20;
-    var contentW = pageW - marginX * 2;
-    var y = 24;
-
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(9);
-    doc.setTextColor(139, 132, 122);
-    doc.text("FICHA DE IDEA DE NEGOCIO", marginX, y);
-    doc.text("IPE · PROYECTO DE EMPRESA", pageW - marginX, y, { align: "right" });
-    y += 5;
-    doc.setDrawColor(232, 225, 214);
-    doc.setLineWidth(0.3);
-    doc.line(marginX, y, pageW - marginX, y);
-    y += 10;
-
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(24);
-    doc.setTextColor(30, 28, 26);
-    var titleLines = doc.splitTextToSize(d.nombre || "Idea sin nombre", contentW);
-    doc.text(titleLines, marginX, y);
-    y += titleLines.length * 9 + 2;
-
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(10.5);
-    doc.setTextColor(74, 70, 63);
-    var teamLine = (d.equipo || "Equipo sin nombre") + (d.integrantes ? "  ·  " + d.integrantes : "");
-    var teamLines = doc.splitTextToSize(teamLine, contentW);
-    doc.text(teamLines, marginX, y);
-    y += teamLines.length * 5;
-
-    var today = new Date();
-    var dateStr = String(today.getDate()).padStart(2, "0") + "/" + String(today.getMonth() + 1).padStart(2, "0") + "/" + today.getFullYear();
-    doc.setFontSize(9.5);
-    doc.text(dateStr, marginX, y + 5);
-    y += 12;
-
-    doc.setDrawColor(232, 225, 214);
-    doc.line(marginX, y, pageW - marginX, y);
-    y += 10;
+    var W = doc.internal.pageSize.getWidth(), H = doc.internal.pageSize.getHeight();
+    var M = 14, GAP = 5, colW = (W - M * 2 - GAP) / 2;
+    var OLIVE = [75, 79, 29], OLIVE2 = [107, 112, 40], LIME = [232, 237, 196], ALT = [245, 246, 228], INK = [30, 28, 26], SOFT = [74, 70, 63];
 
     var sections = [
       { label: "PROBLEMA QUE RESUELVE", value: d.problema },
@@ -659,50 +639,63 @@
       { label: "MAYOR RIESGO O DUDA", value: d.viabilidadRiesgo }
     ];
 
-    var pageH = doc.internal.pageSize.getHeight();
-    var bottomLimit = pageH - 22;
+    // Cabecera
+    var headH = 46;
+    doc.setFillColor.apply(doc, OLIVE); doc.rect(0, 0, W, headH, "F");
+    doc.setFillColor.apply(doc, OLIVE2); doc.rect(0, headH, W, 2.2, "F");
+    doc.setFont("helvetica", "bold"); doc.setFontSize(8.5); doc.setTextColor(197, 205, 120);
+    doc.text("FICHA DE IDEA DE NEGOCIO", M, 13);
+    doc.text("IPE 2 · EDUCA TOOLS", W - M, 13, { align: "right" });
+    doc.setFontSize(22); doc.setTextColor(255, 255, 255);
+    var title = doc.splitTextToSize(d.nombre || "Idea sin nombre", W - M * 2);
+    if (title.length > 2) { doc.setFontSize(17); title = doc.splitTextToSize(d.nombre, W - M * 2).slice(0, 2); }
+    doc.text(title, M, 24);
+    var today = new Date();
+    var dateStr = String(today.getDate()).padStart(2, "0") + "/" + String(today.getMonth() + 1).padStart(2, "0") + "/" + today.getFullYear();
+    doc.setFont("helvetica", "normal"); doc.setFontSize(10); doc.setTextColor(232, 237, 196);
+    var team = (d.equipo || "Equipo sin nombre") + (d.integrantes ? "  ·  " + d.integrantes : "") + "  ·  " + dateStr;
+    doc.text(doc.splitTextToSize(team, W - M * 2)[0], M, headH - 6);
 
-    sections.forEach(function(sec){
-      var text = (sec.value || "—").trim() || "—";
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(8.5);
-      doc.setTextColor(107, 112, 40);
-      var labelH = 5;
-      doc.setFont("helvetica", "normal");
-      doc.setFontSize(11.5);
-      doc.setTextColor(30, 28, 26);
-      var bodyLines = doc.splitTextToSize(text, contentW);
-      var blockH = labelH + bodyLines.length * 5.2 + 7;
-
-      if(y + blockH > bottomLimit){
-        doc.addPage();
-        y = 24;
+    // Medir con un tamaño de letra y reducir hasta que quepa en la hoja
+    var top = headH + 10, bottom = H - 16, fs = 11, layout;
+    function measure(fs){
+      var lh = fs * 0.43, rows = [], y = top;
+      for (var r = 0; r < sections.length; r += 2){
+        var hs = [0, 1].map(function(c){
+          var s = sections[r + c]; doc.setFont("helvetica", "normal"); doc.setFontSize(fs);
+          var lines = doc.splitTextToSize(((s.value || "—").trim() || "—"), colW - 10);
+          return { s: s, lines: lines, h: 11 + lines.length * lh + 5 };
+        });
+        var h = Math.max(hs[0].h, hs[1].h);
+        rows.push({ y: y, h: h, cells: hs, lh: lh }); y += h + GAP;
       }
+      return { rows: rows, end: y - GAP };
+    }
+    do { layout = measure(fs); fs -= 0.5; } while (layout.end > bottom && fs >= 7.5);
+    fs += 0.5;
 
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(8.5);
-      doc.setTextColor(107, 112, 40);
-      doc.text(sec.label, marginX, y);
-      y += labelH + 1;
-
-      doc.setFont("helvetica", "normal");
-      doc.setFontSize(11.5);
-      doc.setTextColor(30, 28, 26);
-      doc.text(bodyLines, marginX, y);
-      y += bodyLines.length * 5.2 + 7;
+    layout.rows.forEach(function(row, ri){
+      row.cells.forEach(function(cell, c){
+        var x = M + c * (colW + GAP);
+        doc.setFillColor.apply(doc, ALT); doc.roundedRect(x, row.y, colW, row.h, 2.5, 2.5, "F");
+        doc.setFillColor.apply(doc, OLIVE2); doc.rect(x, row.y, 2.2, row.h, "F");
+        doc.setFillColor.apply(doc, LIME); doc.roundedRect(x + 6, row.y + 4, 7, 5, 1, 1, "F");
+        doc.setFont("helvetica", "bold"); doc.setFontSize(7.5); doc.setTextColor.apply(doc, OLIVE);
+        doc.text(String(ri * 2 + c + 1).padStart(2, "0"), x + 9.5, row.y + 7.6, { align: "center" });
+        doc.setFontSize(8.5); doc.text(cell.s.label, x + 16, row.y + 7.8);
+        doc.setFont("helvetica", "normal"); doc.setFontSize(fs); doc.setTextColor.apply(doc, INK);
+        doc.text(cell.lines, x + 6, row.y + 15);
+      });
     });
 
-    var pageCount = doc.internal.getNumberOfPages();
-    for(var p = 1; p <= pageCount; p++){
-      doc.setPage(p);
-      doc.setFont("helvetica", "normal");
-      doc.setFontSize(8);
-      doc.setTextColor(139, 132, 122);
-      doc.text("Itinerario Personal para la Empleabilidad", marginX, pageH - 12);
-      doc.text(String(p) + " / " + pageCount, pageW - marginX, pageH - 12, { align: "right" });
-    }
+    // Pie
+    doc.setDrawColor(232, 225, 214); doc.setLineWidth(0.3); doc.line(M, H - 12, W - M, H - 12);
+    doc.setFont("helvetica", "normal"); doc.setFontSize(8); doc.setTextColor.apply(doc, SOFT);
+    doc.text("Itinerario Personal para la Empleabilidad II · Ficha inicial de la idea", M, H - 7);
+    doc.text("Siguiente paso: Matriz Estrella", W - M, H - 7, { align: "right" });
 
     return doc.output("blob");
+
   }
 
   function offerDownload(blob, filename, btn, originalText){

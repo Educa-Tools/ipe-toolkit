@@ -6,6 +6,7 @@
 <title>Generador de ideas de negocio · Educa Tools</title>
 </head>
 <body style="margin:0;background:#FAF7F2;">
+<header class="kit-bar"><div class="kit-bar-in"><a href="index.html" aria-label="Educa Tools, volver al catálogo"><svg width="20" height="20" viewBox="0 0 40 40" aria-hidden="true"><path fill="#C5CD78" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg><span>Educa</span>&nbsp;Tools</a><small><span class="kit-save" id="kitSave" hidden><i></i>Progreso guardado en este navegador</span> &nbsp;Generador de ideas de negocio</small></div></header>
 <div style="max-width:820px;margin:0 auto;padding:1.5rem 1rem 3rem;">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,21 +32,21 @@
     --amber-soft: #F7EDD8;
   }
 
-  .biz-tool { font-family: var(--font-body); color: var(--ink); background: var(--canvas); max-width: 100%; padding: 0; font-size: 16px; line-height: 1.6; }
+  .biz-tool { font-family: var(--font-body); color: var(--ink); background: var(--canvas); max-width: 100%; padding: 0; font-size: 17.5px; line-height: 1.6; }
   .biz-tool * { box-sizing: border-box; }
 
   .biz-header { text-align: center; margin-bottom: 2.5rem; padding-top: 0.5rem; }
   .biz-eyebrow {
-    display: inline-block; font-size: 12px; font-weight: 600;
+    display: inline-block; font-size: 14.5px; font-weight: 600;
     letter-spacing: 1.8px; text-transform: uppercase;
     color: var(--olive-deep); background: var(--lime-soft);
     padding: 6px 14px; border-radius: 999px; margin-bottom: 18px;
   }
   .biz-title { font-family: var(--font-display); font-size: 38px; font-weight: 500; margin: 0 0 10px; color: var(--ink); letter-spacing: -0.8px; line-height: 1.15; }
-  .biz-subtitle { font-size: 16px; color: var(--ink-muted); margin: 0; }
+  .biz-subtitle { font-size: 17.5px; color: var(--ink-muted); margin: 0; }
 
   .biz-progress { margin-bottom: 2rem; }
-  .biz-progress-meta { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 13px; color: var(--ink-muted); font-weight: 500; }
+  .biz-progress-meta { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 15px; color: var(--ink-muted); font-weight: 500; }
   .biz-progress-track { height: 6px; background: var(--olive-soft); border-radius: 999px; overflow: hidden; }
   .biz-progress-bar { height: 100%; background: linear-gradient(90deg, var(--olive-mid), var(--olive-deep)); border-radius: 999px; transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
 
@@ -53,14 +54,14 @@
   .biz-step { animation: slideIn 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
   @keyframes slideIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-  .biz-step-num { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--olive-deep); margin-bottom: 10px; }
+  .biz-step-num { display: inline-block; font-size: 14.5px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--olive-deep); margin-bottom: 10px; }
   .biz-q { font-family: var(--font-display); font-size: 28px; font-weight: 500; margin: 0 0 8px; color: var(--ink); letter-spacing: -0.5px; line-height: 1.25; }
-  .biz-help { font-size: 15px; color: var(--ink-muted); margin: 0 0 1.75rem; line-height: 1.55; }
+  .biz-help { font-size: 16.5px; color: var(--ink-muted); margin: 0 0 1.75rem; line-height: 1.55; }
   .biz-field { margin-bottom: 1.5rem; }
-  .biz-label { display: block; font-size: 13px; font-weight: 500; color: var(--ink-soft); margin-bottom: 10px; letter-spacing: 0.2px; }
+  .biz-label { display: block; font-size: 15px; font-weight: 500; color: var(--ink-soft); margin-bottom: 10px; letter-spacing: 0.2px; }
 
   .biz-input, .biz-select, .biz-textarea {
-    width: 100%; font-family: var(--font-body); font-size: 15px; color: var(--ink);
+    width: 100%; font-family: var(--font-body); font-size: 16.5px; color: var(--ink);
     background: var(--canvas); border: 0.5px solid var(--line);
     border-radius: 12px; padding: 13px 16px; transition: all 0.2s ease; outline: none;
   }
@@ -78,7 +79,7 @@
 
   .biz-pill {
     background: var(--surface); border: 1px solid var(--line-strong);
-    border-radius: 12px; padding: 13px 16px; font-size: 14px; font-weight: 500;
+    border-radius: 12px; padding: 13px 16px; font-size: 16px; font-weight: 500;
     color: var(--ink-soft); cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     text-align: center; font-family: var(--font-body);
     box-shadow: 0 1px 2px rgba(107, 112, 40, 0.04);
@@ -113,13 +114,13 @@
     border-color: var(--olive-deep);
     box-shadow: 0 0 0 1px var(--olive-deep), 0 4px 12px rgba(107, 112, 40, 0.15);
   }
-  .biz-radio-title { font-size: 15px; font-weight: 600; margin-bottom: 4px; color: var(--ink); }
-  .biz-radio-desc { font-size: 14px; color: var(--ink-muted); line-height: 1.55; }
+  .biz-radio-title { font-size: 16.5px; font-weight: 600; margin-bottom: 4px; color: var(--ink); }
+  .biz-radio-desc { font-size: 16px; color: var(--ink-muted); line-height: 1.55; }
   .biz-radio-card.is-selected .biz-radio-title { color: var(--ink-soft); }
 
   .biz-nav { display: flex; justify-content: space-between; gap: 12px; margin-top: 1.75rem; }
   .biz-btn {
-    font-family: var(--font-body); font-size: 15px; font-weight: 500;
+    font-family: var(--font-body); font-size: 16.5px; font-weight: 500;
     padding: 13px 24px; border-radius: 12px; cursor: pointer;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid var(--line-strong);
     background: var(--surface); color: var(--ink-soft);
@@ -140,10 +141,10 @@
   .biz-loading { text-align: center; padding: 4rem 1rem; }
   .biz-spinner { display: inline-block; width: 40px; height: 40px; border: 3px solid var(--olive-soft); border-top-color: var(--olive-deep); border-right-color: var(--olive-mid); border-radius: 50%; animation: bizSpin 0.8s linear infinite; margin-bottom: 1.5rem; }
   @keyframes bizSpin { to { transform: rotate(360deg); } }
-  .biz-loading-text { font-size: 15px; color: var(--ink-soft); margin: 0; transition: opacity 0.3s ease; }
+  .biz-loading-text { font-size: 16.5px; color: var(--ink-soft); margin: 0; transition: opacity 0.3s ease; }
 
   .biz-results-header { text-align: center; margin-bottom: 2.5rem; }
-  .biz-results-eyebrow { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 1.8px; text-transform: uppercase; color: var(--olive-deep); margin-bottom: 12px; }
+  .biz-results-eyebrow { display: inline-block; font-size: 14.5px; font-weight: 600; letter-spacing: 1.8px; text-transform: uppercase; color: var(--olive-deep); margin-bottom: 12px; }
   .biz-results-title { font-family: var(--font-display); font-size: 34px; font-weight: 500; margin: 0 0 14px; color: var(--ink); letter-spacing: -0.6px; line-height: 1.2; }
   .biz-results-summary { font-family: var(--font-display); font-size: 17px; color: var(--ink-soft); line-height: 1.55; max-width: 580px; margin: 0 auto; font-style: italic; font-weight: 400; }
 
@@ -160,26 +161,26 @@
 
   .biz-idea-tag {
     display: inline-flex; align-items: center; gap: 6px;
-    font-size: 11px; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase;
+    font-size: 13.5px; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase;
     padding: 5px 12px; border-radius: 999px; margin-bottom: 16px;
   }
   .biz-idea[data-tipo="sector"] .biz-idea-tag { background: var(--lime-soft); color: var(--ink-soft); }
   .biz-idea[data-tipo="hibrido"] .biz-idea-tag { background: var(--olive-soft); color: var(--ink-soft); }
   .biz-idea[data-tipo="innovadora"] .biz-idea-tag { background: var(--canvas); color: var(--ink); }
 
-  .biz-idea-num { font-family: var(--font-display); font-size: 14px; font-weight: 500; color: #C8CCA8; margin-right: 6px; font-style: italic; }
+  .biz-idea-num { font-family: var(--font-display); font-size: 16px; font-weight: 500; color: #C8CCA8; margin-right: 6px; font-style: italic; }
   .biz-idea-title { font-family: var(--font-display); font-size: 24px; font-weight: 500; margin: 0 0 6px; color: var(--ink); letter-spacing: -0.4px; line-height: 1.25; }
-  .biz-idea-nicho { font-size: 14px; color: var(--ink-muted); margin: 0 0 18px; }
-  .biz-idea-desc { font-size: 16px; line-height: 1.65; color: var(--ink-soft); margin: 0; }
+  .biz-idea-nicho { font-size: 16px; color: var(--ink-muted); margin: 0 0 18px; }
+  .biz-idea-desc { font-size: 17.5px; line-height: 1.65; color: var(--ink-soft); margin: 0; }
 
   .biz-section { margin-top: 20px; padding-top: 20px; border-top: 0.5px solid var(--line); }
-  .biz-section-label { font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--olive-deep); margin: 0 0 10px; }
-  .biz-section-text { font-size: 15px; line-height: 1.65; color: var(--ink-soft); margin: 0; }
+  .biz-section-label { font-size: 13.5px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--olive-deep); margin: 0 0 10px; }
+  .biz-section-text { font-size: 16.5px; line-height: 1.65; color: var(--ink-soft); margin: 0; }
 
   .biz-meta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 18px; }
   .biz-meta-item { background: var(--canvas); padding: 14px 16px; border-radius: 12px; border: 0.5px solid var(--line); }
-  .biz-meta-label { font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 5px; }
-  .biz-meta-value { font-size: 14px; font-weight: 600; color: var(--ink); line-height: 1.3; }
+  .biz-meta-label { font-size: 13.5px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 5px; }
+  .biz-meta-value { font-size: 16px; font-weight: 600; color: var(--ink); line-height: 1.3; }
 
   .biz-step-action {
     background: linear-gradient(135deg, var(--lime-soft), var(--canvas));
@@ -187,7 +188,7 @@
     border: 0.5px solid var(--line);
   }
   .biz-step-action .biz-section-label { color: #4A5010; margin-bottom: 8px; }
-  .biz-step-action .biz-section-text { color: var(--ink-soft); font-weight: 500; font-size: 15px; }
+  .biz-step-action .biz-section-text { color: var(--ink-soft); font-weight: 500; font-size: 16.5px; }
 
   .biz-feature-list {
     margin: 0; padding: 0; list-style: none;
@@ -195,7 +196,7 @@
   }
   .biz-feature-list li {
     position: relative; padding-left: 22px;
-    font-size: 14px; line-height: 1.6; color: var(--ink-soft);
+    font-size: 16px; line-height: 1.6; color: var(--ink-soft);
   }
   .biz-feature-list li::before {
     content: ''; position: absolute; left: 0; top: 9px;
@@ -204,7 +205,7 @@
   }
 
   .biz-info-search {
-    margin: 10px 0 0; font-size: 13px; color: var(--ink-muted); line-height: 1.5;
+    margin: 10px 0 0; font-size: 15px; color: var(--ink-muted); line-height: 1.5;
   }
   .biz-info-search-label {
     font-weight: 500; color: var(--ink-soft);
@@ -212,37 +213,37 @@
   .biz-info-search code {
     font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
     background: var(--lime-soft); padding: 2px 8px; border-radius: 6px;
-    font-size: 12px; color: var(--olive-deep);
+    font-size: 14.5px; color: var(--olive-deep);
   }
 
   .biz-restart { text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 0.5px solid var(--line); }
 
   .biz-validation {
     background: var(--lime-soft); color: var(--ink-soft);
-    font-size: 14px; padding: 12px 16px; border-radius: 10px;
+    font-size: 16px; padding: 12px 16px; border-radius: 10px;
     margin-top: 14px; border: 0.5px solid var(--line); display: none; font-weight: 500;
   }
   .biz-validation.is-visible { display: block; animation: shake 0.4s ease; }
   @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
 
   /* ===== Fichas enriquecidas (Comercio y Marketing) ===== */
-  .biz-note { display: none; max-width: 620px; margin: 14px auto 0; font-size: 13px; line-height: 1.55; color: var(--ink-muted); background: var(--amber-soft); border: 0.5px solid #E5CF9D; border-radius: 10px; padding: 10px 14px; text-align: left; }
+  .biz-note { display: none; max-width: 620px; margin: 14px auto 0; font-size: 15px; line-height: 1.55; color: var(--ink-muted); background: var(--amber-soft); border: 0.5px solid #E5CF9D; border-radius: 10px; padding: 10px 14px; text-align: left; }
   .biz-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 14px; }
-  .biz-chip { font-size: 12px; font-weight: 500; padding: 4px 10px; border-radius: 999px; background: var(--lime-soft); color: var(--olive-deep); border: 0.5px solid var(--line-strong); line-height: 1.4; }
+  .biz-chip { font-size: 14.5px; font-weight: 500; padding: 4px 10px; border-radius: 999px; background: var(--lime-soft); color: var(--olive-deep); border: 0.5px solid var(--line-strong); line-height: 1.4; }
   .biz-chip.warn { background: var(--amber-soft); color: #7A5418; border-color: #E5CF9D; }
 
   .biz-quote { margin: 18px 0 0; padding: 4px 0 4px 16px; border-left: 3px solid var(--olive-mid); font-family: var(--font-display); font-style: italic; font-size: 17px; line-height: 1.5; color: var(--ink); }
-  .biz-quote-label { display: block; font-family: var(--font-body); font-style: normal; font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--olive-deep); margin-bottom: 4px; }
+  .biz-quote-label { display: block; font-family: var(--font-body); font-style: normal; font-size: 13.5px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--olive-deep); margin-bottom: 4px; }
 
   .biz-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
   .biz-box { background: var(--canvas); border: 0.5px solid var(--line); border-radius: 12px; padding: 14px 16px; }
   .biz-box .biz-section-label { margin-bottom: 8px; }
 
   .biz-meta.four { grid-template-columns: repeat(4, 1fr); }
-  .biz-meta-sub { font-size: 11px; color: var(--ink-muted); margin-top: 4px; font-weight: 400; line-height: 1.35; }
+  .biz-meta-sub { font-size: 13.5px; color: var(--ink-muted); margin-top: 4px; font-weight: 400; line-height: 1.35; }
 
   .biz-more { margin-top: 12px; border: 0.5px solid var(--line); border-radius: 12px; background: var(--surface); overflow: hidden; }
-  .biz-more > summary { cursor: pointer; list-style: none; padding: 13px 16px; font-size: 14px; font-weight: 600; color: var(--ink-soft); display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .biz-more > summary { cursor: pointer; list-style: none; padding: 13px 16px; font-size: 16px; font-weight: 600; color: var(--ink-soft); display: flex; justify-content: space-between; align-items: center; gap: 12px; }
   .biz-more > summary::-webkit-details-marker { display: none; }
   .biz-more > summary::after { content: '+'; font-size: 20px; font-weight: 400; color: var(--olive-deep); line-height: 1; }
   .biz-more[open] > summary::after { content: '–'; }
@@ -250,18 +251,18 @@
   .biz-more > summary:hover { background: var(--lime-soft); }
   .biz-more .inner { padding: 14px 16px 16px; }
   .biz-plan { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
-  .biz-plan li { font-size: 14px; line-height: 1.6; color: var(--ink-soft); padding: 10px 14px; background: var(--canvas); border-radius: 10px; border: 0.5px solid var(--line); }
+  .biz-plan li { font-size: 16px; line-height: 1.6; color: var(--ink-soft); padding: 10px 14px; background: var(--canvas); border-radius: 10px; border: 0.5px solid var(--line); }
 
   .biz-alt-heading { font-family: var(--font-display); font-size: 24px; font-weight: 500; margin: 2.5rem 0 6px; color: var(--ink); text-align: center; letter-spacing: -0.4px; }
-  .biz-alt-help { text-align: center; font-size: 14px; color: var(--ink-muted); margin: 0 0 1.25rem; }
+  .biz-alt-help { text-align: center; font-size: 16px; color: var(--ink-muted); margin: 0 0 1.25rem; }
   .biz-alt { background: var(--surface); border: 0.5px solid var(--line); border-radius: 14px; margin-bottom: 10px; overflow: hidden; }
   .biz-alt > summary { cursor: pointer; list-style: none; padding: 14px 18px; display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; align-items: center; }
   .biz-alt > summary::-webkit-details-marker { display: none; }
   .biz-alt > summary:hover { background: var(--lime-soft); }
   .biz-alt[open] > summary { background: var(--lime-soft); }
-  .biz-alt-tag { grid-row: 1 / span 2; font-size: 10px; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; padding: 5px 10px; border-radius: 999px; background: var(--olive-soft); color: var(--ink-soft); }
+  .biz-alt-tag { grid-row: 1 / span 2; font-size: 13.5px; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; padding: 5px 10px; border-radius: 999px; background: var(--olive-soft); color: var(--ink-soft); }
   .biz-alt-title-txt { font-family: var(--font-display); font-size: 17px; font-weight: 500; color: var(--ink); line-height: 1.3; }
-  .biz-alt-sub { font-size: 12px; color: var(--ink-muted); }
+  .biz-alt-sub { font-size: 14.5px; color: var(--ink-muted); }
   .biz-alt-body { padding: 4px 18px 20px; }
 
   .biz-restart .biz-btn { margin: 4px 6px; }
@@ -271,8 +272,22 @@
     .biz-meta.four { grid-template-columns: 1fr 1fr; }
     .biz-idea { padding: 1.5rem 1.25rem; }
     .biz-idea-title { font-size: 21px; }
-    .biz-quote { font-size: 16px; }
+    .biz-quote { font-size: 17.5px; }
   }
+
+/* ══ Kit v2 Educa Tools: contraste, tamaños y barra de marca ══ */
+:root{ --kit-bg:#F5F6E4; --kit-ink:#1E1C1A; --kit-soft:#4A463F; --kit-accent:#6B7028; }
+html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-font-smoothing:antialiased; }
+:root{ --ink-faint:#4A463F; --ink-muted:#4A463F; --muted:#4A463F; }
+.kit-bar{ background:var(--kit-accent); color:#fff; margin:0; }
+.kit-bar-in{ max-width:1100px; margin:0 auto; padding:0 20px; min-height:54px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.kit-bar a{ display:inline-flex; align-items:center; gap:8px; color:#fff; text-decoration:none; font-family:'Fraunces',Georgia,serif; font-weight:700; font-size:16px; }
+.kit-bar a span{ color:#E8EDC4; }
+.kit-bar small{ font-family:'Inter',system-ui,sans-serif; font-size:14px; font-weight:600; color:rgba(255,255,255,.85); text-align:right; }
+.kit-save{ display:inline-flex; align-items:center; gap:6px; }
+.kit-save i{ width:8px; height:8px; border-radius:50%; background:#C5CD78; display:inline-block; }
+@media print{ .kit-bar{ display:none !important; } }
+@media (max-width:640px){ .kit-save{ display:none !important; } .kit-bar small{ font-size:13.5px; } }
 </style>
 
 <div class="biz-tool">
@@ -353,7 +368,7 @@
 
       <div class="biz-field">
         <textarea id="biz-formacion-extra" class="biz-textarea" rows="3" maxlength="500" spellcheck="true" autocomplete="off" placeholder="Ej: Curso de soldadura TIG, prácticas en concesionario Audi, dos años trabajando en hostelería, certificado B2 inglés..."></textarea>
-        <p style="font-size: 13px; color: var(--ink-muted); margin-top: 8px;">Déjalo en blanco si no procede. Máximo 500 caracteres.</p>
+        <p style="font-size: 15px; color: var(--ink-muted); margin-top: 8px;">Déjalo en blanco si no procede. Máximo 500 caracteres.</p>
       </div>
 
       <div class="biz-field">
@@ -487,7 +502,7 @@
 
       <div class="biz-field">
         <textarea id="biz-problema" class="biz-textarea" rows="5" maxlength="600" spellcheck="true" autocomplete="off" placeholder="Ej: En mi pueblo no hay ningún taller que arregle bicicletas eléctricas; los servicios técnicos tardan semanas..."></textarea>
-        <p style="font-size: 13px; color: var(--ink-muted); margin-top: 8px;">Si no se te ocurre nada, déjalo en blanco. Máximo 600 caracteres.</p>
+        <p style="font-size: 15px; color: var(--ink-muted); margin-top: 8px;">Si no se te ocurre nada, déjalo en blanco. Máximo 600 caracteres.</p>
       </div>
     </div>
 
@@ -1571,7 +1586,7 @@
     }
   });
 
-  $('biz-restart').addEventListener('click', () => location.reload());
+  $('biz-restart').addEventListener('click', () => { try { localStorage.removeItem('educa-generador-v1'); } catch (e) {} location.reload(); });
 
   // ===========================================
   // MOTOR DE RECOMENDACIÓN
@@ -3338,7 +3353,44 @@
     setTimeout(() => renderComercio(state.data, true), 900);
   });
 
-  showStep(1);
+  // ===========================================
+  // GUARDADO AUTOMÁTICO (en este navegador)
+  // ===========================================
+  const SAVE_KEY = 'educa-generador-v1';
+  const TXT = ['biz-formacion-extra', 'biz-intereses', 'biz-problema', 'biz-localidad'];
+  let generado = false, lastSaved = '';
+  const genOriginal = generate;
+  generate = function () { generado = true; return genOriginal.apply(this, arguments); };
+  function snapshot() {
+    const txt = {}; TXT.forEach(id => { const el = $(id); if (el) txt[id] = el.value; });
+    return JSON.stringify({ step: state.step, data: state.data, txt, gen: generado,
+      sel: { familia: $('biz-familia').value, nivel: $('biz-nivel').value, ciclo: $('biz-ciclo-sel').value } });
+  }
+  function restore(sv) {
+    Object.assign(state.data, sv.data || {});
+    const fire = (el, v) => { if (el && v != null && v !== '') { el.value = v; el.dispatchEvent(new Event('change')); } };
+    fire($('biz-familia'), sv.sel && sv.sel.familia);
+    fire($('biz-nivel'), sv.sel && sv.sel.nivel);
+    fire($('biz-ciclo-sel'), sv.sel && sv.sel.ciclo);
+    Object.assign(state.data, sv.data || {}); // los «change» pueden haber tocado datos: se reponen
+    Object.entries(sv.txt || {}).forEach(([id, v]) => { const el = $(id); if (el) el.value = v; });
+    document.querySelectorAll('.biz-pill[data-key], .biz-radio-card[data-key]').forEach(b => {
+      const v = state.data[b.dataset.key];
+      b.classList.toggle('is-selected', Array.isArray(v) ? v.includes(b.dataset.value) : v === b.dataset.value);
+    });
+    state.step = Math.min(Math.max(1, sv.step || 1), state.total);
+    showStep(state.step);
+    if (sv.gen) generate();
+  }
+  let sv = null;
+  try { sv = JSON.parse(localStorage.getItem(SAVE_KEY) || 'null'); } catch (e) {}
+  if (sv && sv.data) { try { restore(sv); } catch (e) { showStep(1); } } else showStep(1);
+  setInterval(() => {
+    try {
+      const j = snapshot();
+      if (j !== lastSaved) { localStorage.setItem(SAVE_KEY, j); lastSaved = j; const k = document.getElementById('kitSave'); if (k) k.hidden = false; }
+    } catch (e) {}
+  }, 1500);
 })();
 </script>
 
