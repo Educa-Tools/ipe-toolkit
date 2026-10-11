@@ -123,3 +123,29 @@ Usa `fill="currentColor"` para que herede el color del contexto.
 **Tipografía:** Fraunces solo para titulares y logo. Inter para todo lo demás. Los titulares llevan `text-wrap: balance`. Las etiquetas en mayúsculas llevan `letter-spacing` amplio.
 
 **El proyecto es de tema claro.** No lleva modo oscuro — es una decisión de diseño, no una omisión. Los colores se pintan siempre explícitamente.
+
+---
+
+## Estilo "cuaderno" (portada, octubre 2026)
+
+Capa de detalle que se suma a lo anterior sin cambiar paleta, tipografías ni logo. Se estrenó en `index.html` y puede usarse en herramientas nuevas.
+
+```css
+--frame:        1px solid var(--ink);   /* marco fino en tinta */
+--sticker:      3px 3px 0 var(--ink);   /* sombra "pegatina": dura, sin difuminar */
+--sticker-lift: 5px 5px 0 var(--ink);   /* la misma, al pasar el ratón */
+```
+
+**Marcos finos:** tarjetas, píldoras y chips con borde de 1px en `--ink`. Separan sin necesidad de sombras difuminadas.
+
+**Botón pegatina (acción principal):** fondo `--lime-mid`, borde de 1.5px en `--ink` y sombra `--sticker`. Al pasar el ratón se desplaza 2px y la sombra crece; al pulsar se hunde y la sombra desaparece. Solo uno por pantalla.
+
+**Rotulador:** una palabra clave del titular con un trazo `--lime-mid` detrás (más o menos la mitad inferior de las letras), que se "pinta" de izquierda a derecha al cargar.
+
+**Tarjetas de herramienta:** al pasar el ratón se levantan con una sombra dura en el color de acento de la herramienta, no en tinta.
+
+**Franja de contraste:** `--olive-deep` a todo lo ancho con texto blanco, como mucho una por página.
+
+**Garabatos:** trazos a mano en `--olive-deep` (flechas, círculos) de 2px, sin relleno, que se dibujan una sola vez al aparecer.
+
+**Movimiento:** siempre con un motivo (entrar en pantalla, responder al ratón, cambiar de vista). Los iconos pueden reaccionar al pasar el ratón con un gesto ligado a su significado (la bombilla se enciende, la balanza se inclina). Todo se desactiva con `prefers-reduced-motion`.
