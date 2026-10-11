@@ -361,6 +361,8 @@
   .behind-grid{display:grid;grid-template-columns:5fr 7fr;gap:64px;align-items:start;}
   @media (max-width:860px){.behind-grid{grid-template-columns:1fr;gap:28px;}}
   .behind-grid h2.sec-title{position:sticky;top:110px;margin:0;}
+  /* En el móvil no hay columna al lado: el título no se queda pegado */
+  @media (max-width:860px){.behind-grid h2.sec-title{position:static;}}
   .rows{list-style:none;margin:0;padding:0;}
   .row{display:grid;grid-template-columns:auto 1fr;gap:6px 22px;padding:28px 0;border-bottom:var(--frame);}
   .row:first-child{padding-top:0;}
