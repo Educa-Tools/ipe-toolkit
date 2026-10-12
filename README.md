@@ -24,6 +24,11 @@ Web publicada: https://educa-tools.github.io/ipe-toolkit/
    - `titular`: el titular grande que sale en la ventanita de la portada. Copia el de la propia herramienta; lo que vaya entre `<em>` y `</em>` sale en cursiva y en su color. Si lo omites, se usa el `titulo`.
    - `dibujo`: el mini dibujo de la ventanita. Elige uno de los que ya existen (`idea`, `ficha`, `estrella`, `canvas`, `pestel`, `porter`, `buyer`, `dafo`, `forma`, `patologias`, `ruta`, `expediente`, `buscador`, `piramide`, `ue`, `contingencias`, `prestaciones`, `nomina`) o pide uno nuevo. Si lo omites, sale un dibujo genérico.
 
+   Campos opcionales para las etiquetas pequeñas de la tarjeta:
+   - `minutos`: tiempo aproximado en clase (sale como "≈ 20 min").
+   - `guarda`: la clave con la que la herramienta guarda el progreso en el navegador (la que aparece en su código como `KEY = '...'`). Con ella la tarjeta dice "Guarda progreso", y si el alumno ya ha escrito algo, "Empezada"; además sale en "Seguir donde lo dejaste".
+   - `informe`: pon `true` si la herramienta saca informe para imprimir o guardar en PDF.
+
 3. Añade `"miid"` a la lista `"herramientas"` de su unidad (en `modulos`) y de su temática (en `etiquetas`).
 4. Guarda (commit). En uno o dos minutos está en la web.
 
@@ -31,6 +36,12 @@ Notas:
 - Una unidad con la lista vacía `[]` aparece como "En construcción".
 - Una temática sin herramientas no se muestra.
 - Separa los elementos con **comas**, sin coma después del último. Si la web muestra un aviso de error, casi siempre es eso.
+
+## Enlaces directos para compartir con la clase
+
+- `…/ipe-toolkit/#ipe2` abre IPE 2; `#ipe1` abre IPE 1.
+- `…/ipe-toolkit/#ipe2-ud1` baja a la Unidad didáctica 1 de IPE 2; `#ipe1-b2` baja al Bloque 2 de IPE 1.
+- En la portada, cada módulo y cada unidad tiene un botón "Copiar enlace" que copia la dirección.
 
 ## Nombres de archivo
 

@@ -255,8 +255,7 @@
   @keyframes printOut{from{translate:0 -5px;opacity:.2;}}
 
   /* ---------- Explorar ---------- */
-  .explorer-head{display:grid;grid-template-columns:1fr auto;gap:24px 48px;align-items:end;margin-bottom:40px;}
-  @media (max-width:860px){.explorer-head{grid-template-columns:1fr;}}
+  .explorer-head{margin-bottom:36px;}
   .modes{display:inline-flex;gap:4px;padding:4px;background:var(--surface);border:var(--frame);border-radius:var(--radius-pill);}
   .mode{min-height:44px;border:none;background:none;cursor:pointer;font-weight:700;font-size:.92rem;color:var(--ink-soft);padding:0 20px;border-radius:var(--radius-pill);transition:background .15s ease,color .15s ease;}
   .mode:hover{color:var(--ink);background:var(--lime-soft);}
@@ -357,6 +356,59 @@
   .loading{display:flex;align-items:center;justify-content:center;gap:10px;}
   .loading svg{width:20px;height:20px;color:var(--olive-deep);animation:spin 1.2s linear infinite;}
 
+  /* Etiquetas pequeñas de cada tarjeta: tiempo, si guarda y si saca informe */
+  .tool-meta{display:flex;flex-wrap:wrap;gap:5px;margin-top:2px;}
+  .tool-meta span{display:inline-flex;align-items:center;gap:4px;font-size:.68rem;font-weight:700;line-height:1;padding:4px 8px;border-radius:var(--radius-pill);border:1px solid var(--line);background:var(--surface);color:var(--ink-soft);white-space:nowrap;}
+  .tool-meta svg{width:11px;height:11px;color:var(--c);}
+  .tool-meta .on{background:var(--lime-soft);border-color:var(--lime-mid);color:var(--ink);}
+
+  /* Buscador + forma de explorar */
+  .finder{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;margin-bottom:32px;}
+  .search{position:relative;flex:1 1 320px;}
+  .search svg{position:absolute;left:18px;top:50%;translate:0 -50%;width:19px;height:19px;color:var(--olive-deep);pointer-events:none;}
+  .search input{
+    width:100%;min-height:52px;font:inherit;font-size:1rem;color:var(--ink);
+    background:var(--surface);border:var(--frame);border-radius:var(--radius-pill);padding:0 48px 0 48px;
+    transition:box-shadow .12s ease;
+  }
+  .search input::placeholder{color:var(--ink-muted);}
+  .search input:focus{outline:none;box-shadow:var(--sticker);}
+  .search input::-webkit-search-cancel-button{display:none;}
+  .search-clear{position:absolute;right:6px;top:50%;translate:0 -50%;width:40px;height:40px;border:none;border-radius:50%;background:none;cursor:pointer;color:var(--ink-soft);display:flex;align-items:center;justify-content:center;}
+  .search-clear:hover{background:var(--lime-soft);color:var(--ink);}
+  .search-clear svg{position:static;translate:none;width:16px;height:16px;color:currentColor;}
+  .finder.searching .modes{opacity:.45;}
+  .results-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 20px;margin-bottom:22px;}
+  .results-head p{margin:0;font-weight:600;}
+  .results-head p em{font-style:normal;background:var(--lime-soft);padding:0 6px;border-radius:6px;}
+
+  /* Seguir donde lo dejaste: herramientas con trabajo guardado en este navegador */
+  .resume{scroll-margin-top:100px;margin-bottom:36px;padding:22px 24px;background:var(--surface);border:var(--frame);border-radius:var(--radius-card);box-shadow:var(--sticker);}
+  .resume-h{display:flex;align-items:center;gap:10px;margin:0 0 4px;font-family:var(--font-display);font-weight:700;font-size:1.3rem;}
+  .resume-h svg{width:20px;height:20px;color:var(--olive-deep);}
+  .resume-sub{margin:0 0 16px;font-size:.9rem;color:var(--ink-soft);}
+  .resume-list{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px;}
+  .resume-item{
+    display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 8px 0 14px;text-decoration:none;color:var(--ink);
+    background:var(--bg);border:var(--frame);border-left:6px solid var(--c);border-radius:12px;font-weight:600;font-size:.94rem;
+    transition:translate .15s ease,box-shadow .15s ease;
+  }
+  .resume-item:hover,.resume-item:focus-visible{translate:-2px -2px;box-shadow:3px 3px 0 var(--c);}
+  .resume-item small{display:block;font-size:.72rem;font-weight:600;color:var(--ink-soft);}
+  .resume-go{display:inline-flex;align-items:center;gap:4px;font-size:.78rem;font-weight:700;background:var(--lime-mid);border-radius:var(--radius-pill);padding:5px 10px;}
+  .resume-go svg{width:13px;height:13px;}
+  .hero-resume{margin:18px 0 0;font-size:.95rem;color:var(--ink-soft);}
+  .hero-resume a{color:var(--ink);font-weight:700;text-underline-offset:4px;}
+
+  /* Copiar el enlace directo a un módulo o a una unidad */
+  .copy-link{display:inline-flex;align-items:center;gap:6px;flex:none;min-height:40px;padding:0 14px;cursor:pointer;font-weight:600;font-size:.82rem;color:var(--ink-soft);background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-pill);transition:background .15s ease,color .15s ease;}
+  .copy-link:hover{background:var(--lime-soft);color:var(--ink);border-color:var(--ink);}
+  .copy-link.done{background:var(--lime-mid);color:var(--ink);border-color:var(--ink);}
+  .copy-link svg{width:14px;height:14px;}
+  .mod-head{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:12px 24px;}
+  .mod-head > div{flex:1 1 320px;}
+  @media (max-width:620px){.unit-head .copy-link span{display:none;}.unit-head .copy-link{padding:0 12px;}}
+
   /* ---------- Qué hay detrás: titular a un lado, lista al otro ---------- */
   .behind{border-top:var(--frame);}
   .behind-grid{display:grid;grid-template-columns:5fr 7fr;gap:64px;align-items:start;}
@@ -442,6 +494,7 @@
         </a>
         <a class="btn btn-link" href="#proyecto">Sobre el proyecto</a>
       </div>
+      <p class="hero-resume" id="heroResume" hidden></p>
       <!-- Las cifras se cuentan solas a partir de data/estructura.json -->
       <ul class="facts reveal" id="facts" aria-label="El catálogo en cifras">
         <li id="factToolsLi"><b id="factTools" data-to="0">0</b><span>herramientas</span></li>
@@ -505,9 +558,17 @@
 <section class="block explorer" id="explorar" aria-labelledby="explorar-t">
   <div class="wrap">
     <div class="explorer-head reveal">
-      <div>
-        <h2 class="sec-title" id="explorar-t">Encuentra tu herramienta.</h2>
-        <p class="sec-lede">Por módulo, con todas sus unidades a la vista, o por temática si no conoces los módulos de IPE.</p>
+      <h2 class="sec-title" id="explorar-t">Encuentra tu herramienta.</h2>
+      <p class="sec-lede">Búscala por su nombre, entra por módulo con todas sus unidades a la vista, o por temática si no conoces los módulos de IPE.</p>
+    </div>
+    <!-- Solo aparece si en este navegador hay trabajo guardado en alguna herramienta -->
+    <div class="resume" id="seguir" hidden></div>
+    <div class="finder" id="finder">
+      <div class="search" role="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+        <label class="sr" for="q">Buscar herramienta</label>
+        <input type="search" id="q" placeholder="Buscar: nómina, Porter, riesgos…" autocomplete="off" spellcheck="false">
+        <button type="button" class="search-clear" id="qClear" aria-label="Borrar la búsqueda" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>
       </div>
       <div class="modes" role="group" aria-label="Forma de explorar">
         <button type="button" class="mode active" aria-pressed="true" data-mode="modulos">Por módulos</button>
@@ -598,7 +659,12 @@ const ICONS = {
   compass:'<circle cx="12" cy="12" r="8.5"/><polygon class="needle" points="14.5,9.5 10.5,10.5 9.5,14.5 13.5,13.5"/>',
   book:'<path d="M12 6c-1.6-1.3-3.6-2-6-2v13c2.4 0 4.4.7 6 2 1.6-1.3 3.6-2 6-2V4c-2.4 0-4.4.7-6 2Z"/><line x1="12" y1="6" x2="12" y2="19"/>',
   tool:'<path d="M14.5 6.5a3.5 3.5 0 0 1-4.6 4.6L4 17l3 3 5.9-5.9a3.5 3.5 0 0 1 4.6-4.6L21 6l-3-3-3.5 3.5Z"/>',
-  arrow:'<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>'
+  arrow:'<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>',
+  save:'<path d="M7 3h10a1 1 0 0 1 1 1v17l-6-4-6 4V4a1 1 0 0 1 1-1z"/>',
+  print:'<path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><rect x="7" y="14" width="10" height="7"/>',
+  link:'<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
+  check:'<polyline points="5 12.5 10 17 19 7"/>',
+  resume:'<path d="M4 12a8 8 0 1 0 2.4-5.7"/><polyline points="4 3 4 8 9 8"/><polygon points="10 9 15.5 12 10 15" fill="currentColor" stroke="none"/>'
 };
 const icon = n => '<svg class="ic ic-'+n+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'+(ICONS[n]||'')+'</svg>';
 const star = cls => '<svg class="'+(cls||'')+'" viewBox="0 0 40 40" aria-hidden="true">'+STAR+'</svg>';
@@ -639,8 +705,8 @@ const art = t => '<svg class="clip-art" viewBox="0 0 160 56" aria-hidden="true">
 // Barra superior de la ventanita, como la de cada herramienta
 const winBar = t => `<span class="clip-bar"><span>${star('')}Educa Tools</span><span>${t.titulo}</span></span>`;
 
-let DB = {tools:{}, mods:[], tags:[], where:{}};
-let S = {mode:'modulos', mod:null, tag:null};
+let DB = {tools:{}, mods:[], tags:[], where:{}, text:{}, order:[]};
+let S = {mode:'modulos', mod:null, tag:null, q:''};
 const stage = document.getElementById('stage');
 const crumbs = document.getElementById('crumbs');
 const sep = '<span class="crumb-sep" aria-hidden="true">/</span>';
@@ -657,11 +723,55 @@ function load(json){
   DB.tags = (json.etiquetas||[]).filter(t=>(t.herramientas||[]).some(id=>DB.tools[id]));
   // Dónde vive cada herramienta (módulo + unidad), para la etiqueta de la vista por temática
   DB.where = {};
-  DB.mods.forEach(m=>m.unidades.forEach(u=>(u.herramientas||[]).forEach(id=>{ if(!DB.where[id]) DB.where[id] = m.tag+' · '+unitWord(m).abrev+u.n; })));
+  DB.text = {};
+  DB.order = [];
+  // Texto en el que busca el buscador: nombre, descripción, módulo, unidad y temática de cada herramienta
+  const addText = (id, s) => { DB.text[id] = (DB.text[id]||'') + ' ' + norm(s); };
+  Object.entries(DB.tools).forEach(([id,t])=>addText(id, [t.titulo, t.titular, t.descripcion].join(' ')));
+  DB.mods.forEach(m=>m.unidades.forEach(u=>(u.herramientas||[]).forEach(id=>{
+    if(!DB.where[id]) DB.where[id] = m.tag+' · '+unitWord(m).abrev+u.n;
+    if(!DB.order.includes(id)) DB.order.push(id);
+    addText(id, [m.tag, m.nombre, unitWord(m).sing, u.titulo].join(' '));
+  })));
+  DB.tags.forEach(x=>(x.herramientas||[]).forEach(id=>addText(id, x.nombre)));
+  Object.keys(DB.tools).forEach(id=>{ if(!DB.order.includes(id)) DB.order.push(id); });
   S.tag = DB.tags.length ? DB.tags[0].id : null;
 }
 
 const isExt = url => /^https?:/.test(url);
+// Quita etiquetas, tildes y mayúsculas para comparar ("Nómina" = "nomina")
+const norm = s => String(s||'').replace(/<[^>]+>/g,' ').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+const esc = s => String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+// ¿Tiene esta herramienta trabajo guardado en este navegador? (cada herramienta guarda con su propia clave)
+// Algunas guardan su pantalla de inicio vacía nada más abrirse, así que solo cuenta si hay algo escrito
+// o respondido. Estos campos son de navegación o ajustes por defecto, no trabajo del alumno.
+const NO_CUENTA = new Set(['screen','theme','nivel','nivelTexto','cur','step','currentQ','currentFactor','itemSeq']);
+function filled(v, k){
+  if(NO_CUENTA.has(k) || v == null) return false;
+  if(Array.isArray(v)) return v.length > 0;
+  if(typeof v === 'object') return Object.entries(v).some(([kk,vv])=>filled(vv, kk));
+  if(typeof v === 'string') return v.trim() !== '';
+  if(typeof v === 'number') return v !== 0;
+  return v === true;
+}
+function hasSave(t){
+  if(!t.guarda) return false;
+  try{
+    const raw = localStorage.getItem(t.guarda);
+    if(raw === null) return false;
+    try{ return filled(JSON.parse(raw), ''); }catch(e){ return raw.trim() !== ''; }
+  }catch(e){ return false; }
+}
+
+// Etiquetas pequeñas: tiempo aproximado, si guarda el progreso (o si ya está empezada) y si saca informe
+function toolMeta(t){
+  const m = [];
+  if(t.minutos) m.push(`<span>${icon('clock')}≈ ${t.minutos} min</span>`);
+  if(t.guarda) m.push(hasSave(t) ? `<span class="on">${icon('check')}Empezada</span>` : `<span>${icon('save')}Guarda progreso</span>`);
+  if(t.informe) m.push(`<span>${icon('print')}Informe PDF</span>`);
+  return m.length ? `<span class="tool-meta">${m.join('')}</span>` : '';
+}
 
 // Tarjetas del catálogo: la misma ventanita que los recortes de la portada, con la descripción debajo del dibujo
 function toolCards(list){
@@ -674,10 +784,16 @@ function toolCards(list){
         <span class="clip-h">${t.titular||t.titulo}</span>
         ${art(t)}
         ${t.descripcion ? `<span class="win-desc">${t.descripcion}</span>` : ''}
+        ${toolMeta(t)}
         <span class="clip-go">Abrir ${icon('arrow')}</span>
       </span>
     </a></li>`;}).join('') + '</ul>';
 }
+
+// Enlaces directos: #ipe2 abre el módulo; #ipe2-ud1 o #ipe1-b2 abren el módulo y bajan a esa unidad o bloque
+const unitHash = (m,u) => m.id+'-'+unitWord(m).abrev.toLowerCase()+u.n;
+const linkTo = hash => location.href.split('#')[0]+'#'+hash;
+const copyBtn = (hash, label) => `<button type="button" class="copy-link" data-copy="${hash}" title="Copia un enlace que abre directamente aquí">${icon('link')}<span>${label}</span></button>`;
 
 function moduleGrid(){
   return '<div class="module-grid">' + DB.mods.map((m,i)=>{
@@ -695,7 +811,7 @@ function moduleGrid(){
 // Vista de un módulo: todas sus unidades, cada una con sus herramientas ya visibles
 function moduleView(m){
   const w = unitWord(m);
-  const uid = u => m.id+'-u'+u.n;
+  const uid = u => unitHash(m,u);
   const index = '<ul class="unit-index" aria-label="Ir a">' + m.unidades.map(u=>{
     const n = toolsOf(u.herramientas).length;
     return `<li><a class="unit-chip ${n?'':'soon'}" href="#${uid(u)}"><b>${w.abrev}${u.n}</b><span class="chip-t" aria-hidden="true">${u.titulo.length>28 ? u.titulo.slice(0,26).trim()+'…' : u.titulo}</span><span class="sr">${u.titulo}</span></a></li>`;
@@ -709,12 +825,13 @@ function moduleView(m){
           <span class="unit-meta">${w.sing} ${u.n} · ${list.length ? plural(list.length,'herramienta','herramientas') : 'En construcción'}</span>
           <h4 class="unit-title" id="${uid(u)}-t">${u.titulo}</h4>
         </div>
+        ${list.length ? copyBtn(uid(u), 'Copiar enlace') : ''}
         <span class="unit-icon">${icon(u.icono||'book')}</span>
       </div>
       ${list.length ? toolCards(list, false) : `<p class="unit-empty">${icon('tool')}Las herramientas de ${w.este} ${w.sing.toLowerCase()} están en camino.</p>`}
     </section>`;
   }).join('');
-  return `<div class="mod-head"><h3 class="mod-title" id="modTitle" tabindex="-1">${m.tag}: ${m.nombre}</h3>${m.descripcion?`<p class="mod-desc">${m.descripcion}</p>`:''}</div>
+  return `<div class="mod-head"><div><h3 class="mod-title" id="modTitle" tabindex="-1">${m.tag}: ${m.nombre}</h3>${m.descripcion?`<p class="mod-desc">${m.descripcion}</p>`:''}</div>${copyBtn(m.id, 'Copiar enlace a '+m.tag)}</div>
     ${index}<div class="unit-list">${units}</div>`;
 }
 
@@ -750,14 +867,98 @@ function scrollToExplorer(){
   if(Math.abs(window.scrollY - top) > 200) window.scrollTo({top, behavior:'smooth'});
 }
 
+function setModeButtons(mode){
+  document.querySelectorAll('.mode').forEach(x=>{const on = x.dataset.mode===mode; x.classList.toggle('active',on); x.setAttribute('aria-pressed',on);});
+}
 document.querySelectorAll('.mode').forEach(b=>b.onclick=()=>{
-  document.querySelectorAll('.mode').forEach(x=>{const on = x===b; x.classList.toggle('active',on); x.setAttribute('aria-pressed',on);});
+  setModeButtons(b.dataset.mode);
+  clearSearch(false);
   go({mode:b.dataset.mode, mod:null});
+  if(findRoute(currentHash())) history.pushState(null, '', '#explorar');
 });
+
+// ---------- Buscador ----------
+const q = document.getElementById('q');
+const qClear = document.getElementById('qClear');
+const finder = document.getElementById('finder');
+const searching = () => norm(S.q).trim().length >= 2;
+q.addEventListener('input', ()=>{ S.q = q.value; qClear.hidden = !q.value; render(); });
+q.addEventListener('keydown', e=>{ if(e.key==='Escape' && q.value) clearSearch(); });
+qClear.onclick = ()=>{ clearSearch(); q.focus(); };
+function clearSearch(doRender=true){
+  q.value = ''; S.q = ''; qClear.hidden = true;
+  if(doRender) render();
+}
+function searchView(){
+  const words = norm(S.q).split(/\s+/).filter(Boolean);
+  const list = DB.order.filter(id=>DB.tools[id].url && words.every(w=>DB.text[id].includes(w))).map(id=>({id, ...DB.tools[id]}));
+  const head = `<div class="results-head"><p role="status">${list.length ? plural(list.length,'herramienta encontrada','herramientas encontradas') : 'Ninguna herramienta encontrada'} para <em>${esc(S.q.trim())}</em></p></div>`;
+  if(!list.length) return head + `<p class="unit-empty">${icon('tool')}Prueba con otra palabra (el nombre del tema, por ejemplo) o borra la búsqueda para explorar por módulos.</p>`;
+  return head + toolCards(list);
+}
+
+// ---------- Enlaces directos (#ipe2, #ipe1-b2…) ----------
+const currentHash = () => { try{ return decodeURIComponent(location.hash.slice(1)); }catch(e){ return ''; } };
+function findRoute(h){
+  for(const m of DB.mods){
+    if(h===m.id) return {m};
+    const u = m.unidades.find(u=>unitHash(m,u)===h);
+    if(u) return {m, u};
+  }
+  return null;
+}
+function applyRoute(){
+  const h = currentHash();
+  const r = findRoute(h);
+  if(!r){
+    // Volver atrás desde un módulo (o pulsar "Explorar") devuelve a la elección de módulo
+    if(S.mod && (h==='' || h==='explorar')) go({mod:null});
+    return;
+  }
+  if(S.q) clearSearch(false);
+  if(S.mode!=='modulos' || S.mod!==r.m.id){ setModeButtons('modulos'); go({mode:'modulos', mod:r.m.id}); }
+  setTimeout(()=>{
+    const sec = r.u && document.getElementById(unitHash(r.m, r.u));
+    if(sec) sec.scrollIntoView({behavior: calm ? 'auto' : 'smooth', block:'start'});
+    else scrollToExplorer();
+  }, 60);
+}
+addEventListener('hashchange', applyRoute);
+
+function copyLink(b){
+  const url = linkTo(b.dataset.copy);
+  const label = b.querySelector('span');
+  const done = ()=>{
+    const old = label.textContent;
+    b.classList.add('done'); label.textContent = '¡Enlace copiado!';
+    setTimeout(()=>{ b.classList.remove('done'); label.textContent = old; }, 2200);
+  };
+  (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject())
+    .then(done)
+    .catch(()=>window.prompt('Copia este enlace:', url));
+}
+
+// ---------- Seguir donde lo dejaste ----------
+function renderResume(){
+  const box = document.getElementById('seguir');
+  const hero = document.getElementById('heroResume');
+  const list = DB.order.map(id=>({id, ...DB.tools[id]})).filter(t=>t.url && hasSave(t));
+  box.hidden = hero.hidden = !list.length;
+  if(!list.length){ box.innerHTML = ''; hero.innerHTML = ''; return; }
+  box.innerHTML = `<h3 class="resume-h">${icon('resume')}Seguir donde lo dejaste</h3>
+    <p class="resume-sub">Tienes trabajo guardado en este navegador. Ábrelo y continúa justo donde lo dejaste.</p>
+    <ul class="resume-list">${list.map(t=>`<li><a class="resume-item" style="--c:${t.color||'var(--olive-deep)'}" href="${t.url}"><span>${t.titulo}<small>${DB.where[t.id]||''}</small></span><span class="resume-go">Retomar ${icon('arrow')}</span></a></li>`).join('')}</ul>`;
+  hero.innerHTML = `Tienes trabajo guardado en ${plural(list.length,'herramienta','herramientas')}. <a href="#seguir">Seguir donde lo dejaste</a>`;
+}
+// Al volver a la portada con el botón "atrás", se actualiza lo que hay guardado
+addEventListener('pageshow', e=>{ if(e.persisted && DB.order.length){ renderResume(); render(); } });
 
 function render(){
   let html = '', c = '';
-  if(S.mode==='modulos'){
+  finder.classList.toggle('searching', searching());
+  if(searching()){
+    html = searchView();
+  } else if(S.mode==='modulos'){
     const m = DB.mods.find(x=>x.id===S.mod);
     if(m){
       c = `<button type="button" class="crumb" data-go="home">Módulos</button>${sep}<span class="crumb current" aria-current="page">${m.tag}</span>`;
@@ -775,12 +976,15 @@ function render(){
   crumbs.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{
     const prev = S.mod;
     go({mod:null});
+    history.pushState(null, '', '#explorar');
     const card = stage.querySelector(`[data-mod="${prev}"]`);
     if(card) card.focus({preventScroll:true});
     scrollToExplorer();
   });
+  stage.querySelectorAll('[data-copy]').forEach(b=>b.onclick=()=>copyLink(b));
   stage.querySelectorAll('[data-mod]').forEach(b=>b.onclick=()=>{
     go({mod:b.dataset.mod});
+    history.pushState(null, '', '#'+b.dataset.mod);
     const h = document.getElementById('modTitle');
     if(h) h.focus({preventScroll:true});
     scrollToExplorer();
@@ -822,7 +1026,7 @@ document.querySelectorAll('.reveal, #steps').forEach(el=>io.observe(el));
 
 fetch('data/estructura.json', {cache:'no-store'})
   .then(r=>{ if(!r.ok) throw new Error(r.status); return r.json(); })
-  .then(json=>{ load(json); render(); renderWall(); fillFacts(); })
+  .then(json=>{ load(json); render(); renderWall(); fillFacts(); renderResume(); applyRoute(); })
   .catch(()=>{
     stage.innerHTML = '<div class="load-msg"><b>No se han podido cargar las herramientas.</b><br>Revisa que <code>data/estructura.json</code> existe y no tiene errores de formato (comas o llaves de más).</div>';
     document.getElementById('factToolsLi').hidden = true;
