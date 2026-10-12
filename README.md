@@ -18,8 +18,11 @@ Web publicada: https://educa-tools.github.io/ipe-toolkit/
 2. En `data/estructura.json`, dentro de `"herramientas"`, añade una línea:
 
 ```json
-"miid": { "titulo": "Nombre", "descripcion": "Una frase sobre qué hace.", "url": "archivo.html", "color": "#3E5778" },
+"miid": { "titulo": "Nombre", "titular": "El titular de su <em>página</em>", "dibujo": "pestel", "descripcion": "Una frase sobre qué hace.", "url": "archivo.html", "color": "#3E5778" },
 ```
+
+   - `titular`: el titular grande que sale en la ventanita de la portada. Copia el de la propia herramienta; lo que vaya entre `<em>` y `</em>` sale en cursiva y en su color. Si lo omites, se usa el `titulo`.
+   - `dibujo`: el mini dibujo de la ventanita. Elige uno de los que ya existen (`idea`, `ficha`, `estrella`, `canvas`, `pestel`, `porter`, `buyer`, `dafo`, `forma`, `patologias`, `ruta`, `expediente`, `buscador`, `piramide`, `ue`, `contingencias`, `prestaciones`, `nomina`) o pide uno nuevo. Si lo omites, sale un dibujo genérico.
 
 3. Añade `"miid"` a la lista `"herramientas"` de su unidad (en `modulos`) y de su temática (en `etiquetas`).
 4. Guarda (commit). En uno o dos minutos está en la web.

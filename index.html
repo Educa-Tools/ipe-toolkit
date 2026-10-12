@@ -336,21 +336,22 @@
   .tag-pill.active svg{color:var(--lime-mid);}
   .tag-pill.active em{background:var(--lime-mid);color:var(--ink);}
 
-  .tool-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;}
+  /* Tarjetas de herramienta: la misma "ventanita" que los recortes de la portada, en recto y algo más pequeña */
+  .tool-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:22px;}
   .tool-grid li{display:flex;}
-  .tool-card{flex:1;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:8px;text-decoration:none;color:var(--ink);background:var(--surface);border:var(--frame);border-radius:var(--radius-card);padding:28px 24px 22px;transition:transform .12s ease,box-shadow .12s ease,background .2s ease;}
-  .tool-card::before{content:"";position:absolute;left:0;right:0;top:0;height:6px;background:var(--c);border-bottom:var(--frame);transition:height .2s var(--ease-out);}
-  .tool-card:hover{transform:translate(-3px,-3px);box-shadow:5px 5px 0 var(--c);background:color-mix(in srgb,var(--c) 7%,#FFFFFF);}
-  .tool-card:hover::before{height:10px;}
-  .tc-top{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:18px;}
-  .tc-dot{width:12px;height:12px;border-radius:50%;background:var(--c);border:1px solid var(--ink);transition:scale .2s var(--ease-out);}
-  .tool-card:hover .tc-dot{scale:1.35;}
-  .tc-where{font-size:.74rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);}
-  .tool-card b{font-family:var(--font-display);font-weight:600;font-size:1.25rem;line-height:1.2;margin-top:4px;}
-  .tool-card small{color:var(--ink-soft);font-size:.95rem;line-height:1.5;}
-  .tc-go{margin-top:auto;padding-top:14px;display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:.9rem;color:var(--ink);}
-  .tc-go svg{width:15px;height:15px;color:var(--c);transition:translate .15s ease;}
-  .tool-card:hover .tc-go svg{translate:4px 0;}
+  .tool-card{
+    flex:1;display:flex;flex-direction:column;overflow:hidden;text-decoration:none;color:var(--ink);
+    background:var(--bg);border:var(--frame);border-radius:12px;box-shadow:3px 3px 0 var(--ink);
+    transition:translate .2s var(--ease-out),rotate .2s var(--ease-out),box-shadow .2s ease;
+  }
+  .tool-card:hover,.tool-card:focus-visible{translate:0 -5px;rotate:-.6deg;box-shadow:6px 6px 0 var(--c);}
+  .tool-grid li:nth-child(even) .tool-card:hover{rotate:.6deg;}
+  .tool-card .clip-body{flex:1;}
+  .tool-card .clip-h{font-size:1.06rem;}
+  .tool-card .clip-art{max-width:200px;}
+  .win-desc{font-size:.84rem;line-height:1.45;color:var(--ink-soft);}
+  .tool-card .clip-go{margin-top:auto;padding-top:4px;}
+  .tool-card:hover .clip-go svg{translate:3px 0;}
 
   .load-msg{background:var(--surface);border:1px dashed var(--ink-muted);border-radius:var(--radius-card);padding:28px;color:var(--ink-soft);text-align:center;}
   .loading{display:flex;align-items:center;justify-content:center;gap:10px;}
@@ -602,21 +603,41 @@ const ICONS = {
 const icon = n => '<svg class="ic ic-'+n+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'+(ICONS[n]||'')+'</svg>';
 const star = cls => '<svg class="'+(cls||'')+'" viewBox="0 0 40 40" aria-hidden="true">'+STAR+'</svg>';
 
-// Recortes de la portada: el titular tal y como aparece en cada herramienta y un mini dibujo de su elemento estrella.
-// Para cambiar una herramienta, cambia aquí su identificador (el de data/estructura.json), su titular y su dibujo.
-const CLIPS = [
-  {id:'canvas',      h:'Diseña tu <em>idea de negocio</em> en nueve bloques.', art:'canvas'},
-  {id:'pestel',      h:'Mapa <em>PESTEL</em> de impacto', art:'pestel'},
-  {id:'casosnomina', h:'Casos prácticos de <em>nóminas</em>', art:'nomina'},
-  {id:'buyer',       h:'Forja a tu <em>cliente ideal</em>', art:'buyer'}
-];
-// Mini dibujos a línea fina (160 x 56); var(--c) es el color de cada herramienta
+// Herramientas que salen como recortes en la portada (identificadores de data/estructura.json).
+// El titular y el dibujo de cada una están en el catálogo ("titular" y "dibujo").
+const WALL = ['canvas', 'pestel', 'casosnomina', 'buyer'];
+
+// Mini dibujos a línea fina (160 x 56), uno por herramienta. var(--c) es el color de cada herramienta.
+// Para una herramienta nueva: elige uno de estos nombres en su "dibujo" o añade aquí uno nuevo.
+const K = 'stroke="#1E1C1A"';
+const TINT = 'style="fill:color-mix(in srgb,var(--c) 22%,#FFFFFF)"';
+const SOLID = 'style="fill:var(--c)"';
+const st = (x,y,s) => `<path d="M${x} ${y-s}Q${x} ${y} ${x+s} ${y}Q${x} ${y} ${x} ${y+s}Q${x} ${y} ${x-s} ${y}Q${x} ${y} ${x} ${y-s}Z" ${SOLID}/>`;
 const ART = {
-  canvas:'<g stroke="#1E1C1A" fill="#FFFFFF"><rect x="1" y="1" width="30" height="36" rx="3"/><rect x="33" y="1" width="30" height="17" rx="3"/><rect x="33" y="20" width="30" height="17" rx="3"/><rect x="65" y="1" width="30" height="36" rx="3" style="fill:color-mix(in srgb,var(--c) 22%,#FFFFFF)"/><rect x="97" y="1" width="30" height="17" rx="3"/><rect x="97" y="20" width="30" height="17" rx="3"/><rect x="129" y="1" width="30" height="36" rx="3"/><rect x="1" y="39" width="78" height="16" rx="3"/><rect x="81" y="39" width="78" height="16" rx="3"/></g>',
-  pestel:'<g stroke="#1E1C1A"><rect x="1" y="1" width="158" height="54" rx="4" fill="#FFFFFF"/><rect x="107" y="1" width="52" height="18" style="fill:color-mix(in srgb,var(--c) 22%,#FFFFFF)" stroke="none"/><line x1="54" y1="1" x2="54" y2="55"/><line x1="107" y1="1" x2="107" y2="55"/><line x1="1" y1="19" x2="159" y2="19"/><line x1="1" y1="37" x2="159" y2="37"/><rect x="1" y="1" width="158" height="54" rx="4" fill="none"/></g><g stroke="#1E1C1A" style="fill:var(--c)"><circle cx="128" cy="10" r="4"/><circle cx="142" cy="12" r="4"/><circle cx="80" cy="27" r="4"/><circle cx="30" cy="46" r="4"/></g>',
-  nomina:'<g stroke="#1E1C1A"><rect x="30" y="1" width="76" height="54" rx="4" fill="#FFFFFF"/><path d="M30 13V5a4 4 0 0 1 4-4h68a4 4 0 0 1 4 4v8z" style="fill:color-mix(in srgb,var(--c) 30%,#FFFFFF)"/><line x1="38" y1="22" x2="80" y2="22" stroke-linecap="round"/><line x1="38" y1="31" x2="96" y2="31" stroke-linecap="round"/><line x1="38" y1="40" x2="72" y2="40" stroke-linecap="round"/><circle cx="112" cy="42" r="12" fill="#FFFFFF"/></g><path d="M106 42l4 4 8-8" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="stroke:var(--c)"/>',
-  buyer:'<g stroke="#1E1C1A"><circle cx="34" cy="28" r="26" style="fill:color-mix(in srgb,var(--c) 18%,#FFFFFF)"/><path d="M14 46c4-8 11-11 20-11s16 3 20 11" fill="#FFFFFF"/><circle cx="34" cy="22" r="10" fill="#F2E8D9"/><path d="M24 20c1-8 18-10 20 0" fill="#4A463F"/></g><g stroke="#1E1C1A" stroke-linecap="round"><line x1="72" y1="16" x2="150" y2="16"/><line x1="72" y1="28" x2="132" y2="28"/></g><rect x="72" y="38" width="78" height="8" rx="4" fill="#FFFFFF" stroke="#1E1C1A"/><rect x="72" y="38" width="52" height="8" rx="4" stroke="#1E1C1A" style="fill:var(--c)"/>'
+  canvas:`<g ${K} fill="#FFFFFF"><rect x="1" y="1" width="30" height="36" rx="3"/><rect x="33" y="1" width="30" height="17" rx="3"/><rect x="33" y="20" width="30" height="17" rx="3"/><rect x="65" y="1" width="30" height="36" rx="3" ${TINT}/><rect x="97" y="1" width="30" height="17" rx="3"/><rect x="97" y="20" width="30" height="17" rx="3"/><rect x="129" y="1" width="30" height="36" rx="3"/><rect x="1" y="39" width="78" height="16" rx="3"/><rect x="81" y="39" width="78" height="16" rx="3"/></g>`,
+  pestel:`<g ${K}><rect x="1" y="1" width="158" height="54" rx="4" fill="#FFFFFF"/><rect x="107" y="1" width="52" height="18" ${TINT} stroke="none"/><line x1="54" y1="1" x2="54" y2="55"/><line x1="107" y1="1" x2="107" y2="55"/><line x1="1" y1="19" x2="159" y2="19"/><line x1="1" y1="37" x2="159" y2="37"/><rect x="1" y="1" width="158" height="54" rx="4" fill="none"/></g><g ${K} ${SOLID}><circle cx="128" cy="10" r="4"/><circle cx="142" cy="12" r="4"/><circle cx="80" cy="27" r="4"/><circle cx="30" cy="46" r="4"/></g>`,
+  nomina:`<g ${K}><rect x="30" y="1" width="76" height="54" rx="4" fill="#FFFFFF"/><path d="M30 13V5a4 4 0 0 1 4-4h68a4 4 0 0 1 4 4v8z" ${TINT}/><line x1="38" y1="22" x2="80" y2="22" stroke-linecap="round"/><line x1="38" y1="31" x2="96" y2="31" stroke-linecap="round"/><line x1="38" y1="40" x2="72" y2="40" stroke-linecap="round"/><circle cx="112" cy="42" r="12" fill="#FFFFFF"/></g><path d="M106 42l4 4 8-8" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="stroke:var(--c)"/>`,
+  buyer:`<g ${K}><circle cx="34" cy="28" r="26" ${TINT}/><path d="M14 46c4-8 11-11 20-11s16 3 20 11" fill="#FFFFFF"/><circle cx="34" cy="22" r="10" fill="#F2E8D9"/><path d="M24 20c1-8 18-10 20 0" fill="#4A463F"/></g><g ${K} stroke-linecap="round"><line x1="72" y1="16" x2="150" y2="16"/><line x1="72" y1="28" x2="132" y2="28"/></g><rect x="72" y="38" width="78" height="8" rx="4" fill="#FFFFFF" ${K}/><rect x="72" y="38" width="52" height="8" rx="4" ${K} ${SOLID}/>`,
+  idea:`<g ${K} stroke-linecap="round"><circle cx="80" cy="21" r="15" ${TINT}/><path d="M73 34h14v6H73z" fill="#FFFFFF"/><line x1="75" y1="45" x2="85" y2="45"/><path d="M75 21a5 5 0 0 1 5-5" fill="none"/><line x1="56" y1="21" x2="50" y2="21"/><line x1="104" y1="21" x2="110" y2="21"/><line x1="63" y1="6" x2="59" y2="2"/><line x1="97" y1="6" x2="101" y2="2"/></g>${st(36,36,7)}${st(126,40,5)}${st(122,12,4)}`,
+  ficha:`<g ${K}><rect x="30" y="1" width="100" height="54" rx="4" fill="#FFFFFF"/><path d="M30 12V5a4 4 0 0 1 4-4h92a4 4 0 0 1 4 4v7z" ${TINT}/><rect x="38" y="19" width="18" height="7" rx="2" ${TINT}/><rect x="38" y="31" width="18" height="7" rx="2" ${TINT}/><rect x="38" y="43" width="18" height="7" rx="2" ${TINT}/></g><g ${K} stroke-linecap="round"><line x1="62" y1="22.5" x2="120" y2="22.5"/><line x1="62" y1="34.5" x2="108" y2="34.5"/><line x1="62" y1="46.5" x2="116" y2="46.5"/></g>`,
+  estrella:`<g ${K}><rect x="40" y="1" width="80" height="54" rx="4" fill="#FFFFFF"/><rect x="80" y="1" width="40" height="27" ${TINT} stroke="none"/><line x1="80" y1="1" x2="80" y2="55"/><line x1="40" y1="28" x2="120" y2="28"/><rect x="40" y="1" width="80" height="54" rx="4" fill="none"/></g><g ${K}>${st(100,14,9)}</g><g ${K} fill="#FFFFFF"><circle cx="58" cy="16" r="3.5"/><circle cx="62" cy="42" r="3.5"/><circle cx="98" cy="42" r="3.5"/></g>`,
+  porter:`<g ${K}><rect x="62" y="18" width="36" height="20" rx="4" ${SOLID}/><g fill="#FFFFFF"><rect x="6" y="20" width="32" height="16" rx="3"/><rect x="122" y="20" width="32" height="16" rx="3"/><rect x="68" y="1" width="24" height="11" rx="3"/><rect x="68" y="44" width="24" height="11" rx="3"/></g></g><g ${K} fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M38 28h20M54 24l4 4-4 4"/><path d="M122 28h-20M106 24l-4 4 4 4"/><path d="M80 12v4M77 14l3 3 3-3"/><path d="M80 44v-4M77 42l3-3 3 3"/></g>`,
+  dafo:`<g ${K}><rect x="16" y="1" width="76" height="54" rx="4" fill="#FFFFFF"/><rect x="16" y="1" width="38" height="27" ${TINT} stroke="none"/><line x1="54" y1="1" x2="54" y2="55"/><line x1="16" y1="28" x2="92" y2="28"/><rect x="16" y="1" width="76" height="54" rx="4" fill="none"/></g><g font-family="Fraunces, Georgia, serif" font-weight="700" font-size="14" fill="#1E1C1A" text-anchor="middle"><text x="35" y="20">D</text><text x="73" y="20">A</text><text x="35" y="47">F</text><text x="73" y="47">O</text></g><g ${K} fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M98 28h16M110 24l4 4-4 4"/></g><g ${K}><rect x="120" y="12" width="36" height="32" rx="3" fill="#FFFFFF"/><rect x="138" y="12" width="18" height="16" ${SOLID}/><line x1="138" y1="12" x2="138" y2="44"/><line x1="120" y1="28" x2="156" y2="28"/><rect x="120" y="12" width="36" height="32" rx="3" fill="none"/></g>`,
+  forma:`<g ${K} fill="none" stroke-linecap="round"><path d="M28 28C44 28 44 9 60 9"/><path d="M28 28h32" style="stroke:var(--c)" stroke-width="2.2"/><path d="M28 28C44 28 44 47 60 47"/><path d="M100 28h18" style="stroke:var(--c)" stroke-width="2.2"/></g><g ${K}><circle cx="20" cy="28" r="8" ${TINT}/><rect x="60" y="2" width="40" height="14" rx="3" fill="#FFFFFF"/><rect x="60" y="21" width="40" height="14" rx="3" ${TINT}/><rect x="60" y="40" width="40" height="14" rx="3" fill="#FFFFFF"/><circle cx="132" cy="28" r="13" fill="#FFFFFF"/></g><path d="M126 28l4 4 8-8" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="stroke:var(--c)"/>`,
+  patologias:`<g ${K} fill="none" stroke-linecap="round"><path d="M30 10C70 10 70 46 110 46"/><path d="M30 46C70 46 70 28 110 28"/></g><path d="M30 28C70 28 70 10 110 10" fill="none" stroke-width="2.2" stroke-linecap="round" style="stroke:var(--c)"/><g ${K}><circle cx="24" cy="10" r="6" ${TINT}/><circle cx="24" cy="28" r="6" ${TINT}/><circle cx="24" cy="46" r="6" ${TINT}/><g fill="#FFFFFF"><rect x="110" y="4" width="40" height="12" rx="3"/><rect x="110" y="22" width="40" height="12" rx="3"/><rect x="110" y="40" width="40" height="12" rx="3"/></g></g>`,
+  ruta:`<path d="M14 46C30 46 40 30 58 30S90 40 102 38S136 16 146 12" fill="none" ${K} stroke-dasharray="4 4"/><g ${K} fill="#FFFFFF"><circle cx="14" cy="46" r="8"/><circle cx="58" cy="30" r="8"/><circle cx="102" cy="38" r="8"/><circle cx="146" cy="12" r="9" ${TINT}/></g>${st(14,46,5)}${st(58,30,5)}${st(102,38,5)}<text x="146" y="16" font-family="Inter, sans-serif" font-size="9" font-weight="700" text-anchor="middle" fill="#1E1C1A">22</text>`,
+  expediente:`<g ${K}><path d="M28 12h22l5 5h51v37H28z" ${TINT}/><rect x="34" y="22" width="66" height="28" rx="2" fill="#FFFFFF"/></g><g ${K} stroke-linecap="round"><line x1="40" y1="30" x2="86" y2="30"/><line x1="40" y1="38" x2="76" y2="38"/></g><g ${K}><circle cx="118" cy="38" r="14" fill="#FFFFFF" stroke-dasharray="3 2"/></g><text x="118" y="42" font-family="Inter, sans-serif" font-size="10" font-weight="700" text-anchor="middle" style="fill:var(--c)">Art.</text>`,
+  buscador:`<g ${K}><rect x="8" y="2" width="144" height="16" rx="8" fill="#FFFFFF"/><circle cx="21" cy="10" r="4" fill="none"/><line x1="24" y1="13" x2="27" y2="16" stroke-linecap="round"/><rect x="8" y="24" width="144" height="14" rx="3" ${TINT} stroke="none"/></g><g ${K}><circle cx="18" cy="31" r="3.5" ${SOLID}/><circle cx="18" cy="48" r="3.5" fill="#FFFFFF"/></g><g ${K} stroke-linecap="round"><line x1="28" y1="31" x2="120" y2="31"/><line x1="28" y1="48" x2="100" y2="48"/><line x1="34" y1="10" x2="90" y2="10" stroke-dasharray="2 3"/></g>`,
+  piramide:`<g ${K} stroke-linejoin="round"><polygon points="80,2 126,54 34,54" fill="#FFFFFF"/><polygon points="80,2 91.5,15 68.5,15" ${SOLID}/><polygon points="68.5,15 91.5,15 103,28 57,28" ${TINT}/><line x1="45.5" y1="41" x2="114.5" y2="41"/></g>`,
+  ue:`<circle cx="80" cy="28" r="27" ${K} ${TINT}/>${[[80,6],[91,8.9],[99.1,17],[102,28],[99.1,39],[91,47.1],[80,50],[69,47.1],[60.9,39],[58,28],[60.9,17],[69,8.9]].map(([x,y])=>st(x,y,3.6)).join('')}`,
+  contingencias:`<g ${K} fill="none" stroke-linecap="round"><path d="M28 28C42 28 42 13 56 13"/><path d="M28 28C42 28 42 43 56 43"/></g><g ${K}><circle cx="18" cy="28" r="10" fill="#FFFFFF"/><rect x="56" y="4" width="62" height="18" rx="3" ${TINT}/><rect x="56" y="34" width="62" height="18" rx="3" fill="#FFFFFF"/></g><g font-family="Inter, sans-serif" font-weight="700" fill="#1E1C1A" text-anchor="middle"><text x="18" y="32" font-size="12">?</text><text x="87" y="16.5" font-size="8.5">Común</text><text x="87" y="46.5" font-size="8.5">Profesional</text></g><g ${K} fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M122 13h16M134 9l4 4-4 4"/></g><circle cx="147" cy="13" r="6" ${K} ${SOLID}/>`,
+  prestaciones:`<g ${K} stroke-linecap="round" stroke-linejoin="round"><path d="M44 30Q80 -4 116 30Q107 24 98 30Q89 24 80 30Q71 24 62 30Q53 24 44 30Z" ${TINT}/><path d="M80 30v16q0 6-6 4" fill="none"/></g><g ${K}><circle cx="128" cy="46" r="6" ${SOLID}/><circle cx="141" cy="44" r="6" fill="#FFFFFF"/><circle cx="28" cy="46" r="5" ${SOLID}/></g>`
 };
+// Dibujo por defecto si una herramienta no tiene "dibujo" en el catálogo
+const ART_DEF = `<g ${K} stroke-linecap="round"><line x1="20" y1="16" x2="140" y2="16"/><line x1="20" y1="28" x2="120" y2="28"/><line x1="20" y1="40" x2="96" y2="40"/></g>`;
+const art = t => '<svg class="clip-art" viewBox="0 0 160 56" aria-hidden="true">'+(ART[t.dibujo]||ART_DEF)+'</svg>';
+// Barra superior de la ventanita, como la de cada herramienta
+const winBar = t => `<span class="clip-bar"><span>${star('')}Educa Tools</span><span>${t.titulo}</span></span>`;
 
 let DB = {tools:{}, mods:[], tags:[], where:{}};
 let S = {mode:'modulos', mod:null, tag:null};
@@ -642,14 +663,19 @@ function load(json){
 
 const isExt = url => /^https?:/.test(url);
 
-function toolCards(list, showWhere){
+// Tarjetas del catálogo: la misma ventanita que los recortes de la portada, con la descripción debajo del dibujo
+function toolCards(list){
   return '<ul class="tool-grid">' + list.map((t,i)=>{
     const ext = isExt(t.url);
     return `<li class="pop" style="--i:${i}"><a class="tool-card" style="--c:${t.color||'var(--olive-deep)'}" href="${t.url}"${ext?' target="_blank" rel="noopener"':''}>
-      <span class="tc-top"><span class="tc-dot"></span>${showWhere && DB.where[t.id] ? `<span class="tc-where">${DB.where[t.id]}</span>` : ''}</span>
-      <b>${t.titulo}</b>
-      ${t.descripcion ? `<small>${t.descripcion}</small>` : ''}
-      <span class="tc-go">Abrir ${icon('arrow')}</span>
+      ${winBar(t)}
+      <span class="clip-body">
+        <span class="clip-kick">${DB.where[t.id]||''}</span>
+        <span class="clip-h">${t.titular||t.titulo}</span>
+        ${art(t)}
+        ${t.descripcion ? `<span class="win-desc">${t.descripcion}</span>` : ''}
+        <span class="clip-go">Abrir ${icon('arrow')}</span>
+      </span>
     </a></li>`;}).join('') + '</ul>';
 }
 
@@ -700,18 +726,18 @@ function topicView(){
   }).join('') + '</div>' + (t ? toolCards(toolsOf(t.herramientas), true) : '');
 }
 
-// Recortes de la portada: solo los de CLIPS cuya herramienta exista en el catálogo
+// Recortes de la portada: solo los de WALL cuya herramienta exista en el catálogo
 function renderWall(){
   const wall = document.getElementById('wall');
-  const list = CLIPS.map(c=>({...c, ...DB.tools[c.id]})).filter(t=>t.url).slice(0,4);
+  const list = WALL.map(id=>({id, ...DB.tools[id]})).filter(t=>t.url).slice(0,4);
   wall.insertAdjacentHTML('beforeend', list.map((t,i)=>{
     const ext = isExt(t.url);
     return `<a class="clip n${i+1}" style="--c:${t.color||'#6B7028'};--i:${i}" href="${t.url}"${ext?' target="_blank" rel="noopener"':''}>
-      <span class="clip-bar"><span>${star('')}Educa Tools</span><span>${t.titulo}</span></span>
+      ${winBar(t)}
       <span class="clip-body">
         <span class="clip-kick">${DB.where[t.id]||''}</span>
-        <span class="clip-h">${t.h}</span>
-        <svg class="clip-art" viewBox="0 0 160 56" aria-hidden="true">${ART[t.art]||''}</svg>
+        <span class="clip-h">${t.titular||t.titulo}</span>
+        ${art(t)}
         <span class="clip-go">Abrir ${icon('arrow')}</span>
       </span>
     </a>`;}).join(''));
