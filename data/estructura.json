@@ -17,6 +17,8 @@
     "enfprofesionales":{ "titulo": "Buscador de enfermedades profesionales", "titular": "¿Qué enfermedad profesional puede tener <em>tu oficio</em>?", "dibujo": "buscador", "descripcion": "Descubre qué enfermedades profesionales del RD 1299/2006 pueden afectar a tu oficio.", "url": "enfermedadesprofesionales.html", "color": "#8B3A3A", "minutos": 10 },
     "guiaruido":   { "titulo": "Guía del ruido", "titular": "Guía del <em>ruido</em>", "dibujo": "ruido", "descripcion": "Decibelios, los tres escalones del RD 286/2006, simulador de obligaciones y caso práctico para entregar.", "url": "guia-ruido.html", "color": "#4B44A0", "minutos": 40, "guarda": "educa-guia-ruido-v1", "informe": true },
     "guialuz":     { "titulo": "Guía de la iluminación", "titular": "Guía de la <em>iluminación</em>", "dibujo": "luz", "descripcion": "Lumen y lux, los mínimos del Anexo IV del RD 486/1997, comprobador de lux y caso práctico para entregar.", "url": "guia-iluminacion.html", "color": "#946500", "minutos": 40, "guarda": "educa-guia-iluminacion-v1", "informe": true },
+    "guiavib":     { "titulo": "Guía de las vibraciones", "titular": "Guía de las <em>vibraciones</em>", "dibujo": "vibracion", "descripcion": "Hercios, mano-brazo o cuerpo entero, daños por frecuencia, prevención y caso práctico para entregar.", "url": "guia-vibraciones.html", "color": "#8A5232", "minutos": 35, "guarda": "educa-guia-vibraciones-v1", "informe": true },
+    "guiatermo":   { "titulo": "Guía de las condiciones termohigrométricas", "titular": "Condiciones <em>termohigrométricas</em>", "dibujo": "termo", "descripcion": "Temperatura, humedad y ventilación: valores del Anexo III, comprobador y caso práctico para entregar.", "url": "guia-termohigrometricas.html", "color": "#1672A0", "minutos": 40, "guarda": "educa-guia-termohigrometricas-v1", "informe": true },
 
     "piramide":    { "titulo": "Pirámide de la jerarquía normativa", "titular": "La <em>jerarquía normativa</em>, explicada", "dibujo": "piramide", "descripcion": "Los ocho niveles de las fuentes del Derecho laboral, con definición y ejemplo.", "url": "piramide.html", "color": "#5D3D66", "minutos": 10 },
     "mapaue":      { "titulo": "Mapa interactivo de la Unión Europea", "titular": "La <em>Unión Europea</em>, país a país", "dibujo": "ue", "descripcion": "Estados miembro, euro y espacio Schengen, país a país.", "url": "mapaeuropa.html", "color": "#5D3D66", "minutos": 15 },
@@ -34,7 +36,7 @@
       "nombre": "Itinerario Personal para la Empleabilidad I",
       "descripcion": "Prevención de riesgos, derecho del trabajo, Seguridad Social e itinerario profesional.",
       "unidades": [
-        { "n": 1, "titulo": "Prevención de Riesgos Laborales",           "icono": "shield", "herramientas": ["patologias", "ruta22", "simuladorprl", "enfprofesionales", "guiaruido", "guialuz"] },
+        { "n": 1, "titulo": "Prevención de Riesgos Laborales",           "icono": "shield", "herramientas": ["patologias", "ruta22", "simuladorprl", "enfprofesionales", "guiaruido", "guialuz", "guiavib", "guiatermo"] },
         { "n": 2, "titulo": "Derecho del trabajo y Seguridad Social",    "icono": "scale",  "herramientas": ["piramide", "mapaue", "contingencias", "prestaciones", "casosnomina"] },
         { "n": 3, "titulo": "Autoconocimiento e itinerario profesional", "icono": "target", "herramientas": [] }
       ]
@@ -58,7 +60,7 @@
     { "id": "idea",      "nombre": "Idea de negocio",            "icono": "bulb",   "herramientas": ["generador", "fichaidea", "estrella", "canvas"] },
     { "id": "mercado",   "nombre": "Análisis del mercado",       "icono": "chart",  "herramientas": ["pestel", "porter", "buyer", "dafocame"] },
     { "id": "viabilidad","nombre": "Viabilidad del proyecto emprendedor", "icono": "checkshield", "herramientas": ["formajuridica", "inversion"] },
-    { "id": "prl",       "nombre": "Prevención de riesgos",      "icono": "shield", "herramientas": ["patologias", "ruta22", "simuladorprl", "enfprofesionales", "guiaruido", "guialuz"] },
+    { "id": "prl",       "nombre": "Prevención de riesgos",      "icono": "shield", "herramientas": ["patologias", "ruta22", "simuladorprl", "enfprofesionales", "guiaruido", "guialuz", "guiavib", "guiatermo"] },
     { "id": "laboral",   "nombre": "Laboral y Seguridad Social", "icono": "scale",  "herramientas": ["piramide", "mapaue", "contingencias", "prestaciones", "casosnomina"] }
   ]
 }

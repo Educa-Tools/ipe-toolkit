@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía termohigrométrica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:          #FBFCEF;
+    --surface:     #FFFFFF;
+    --surface-alt: #F5F6E4;
+    --ink:         #1E1C1A;
+    --ink-soft:    #4A463F;
+    --ink-muted:   #8B847A;
+    --line:        #E8E1D6;
+    --line-soft:   #EEEFD8;
+    --olive-deep:  #6B7028;
+    --olive-mid:   #A8AD5C;
+    --lime-soft:   #E8EDC4;
+    --lime-mid:    #C5CD78;
+
+
+    /* Escalones de ruido */
+    --z0: #E8EDC4;
+    --z1: #EBC03E;
+    --z2: #E5862F;
+    --z3: #C2372B;
+    --ok:      #557A35;
+    --ok-soft: #E5EDDB;
+    --bad:     #C2372B;
+    --bad-soft:#FAE2DE;
+
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-ui:      'Inter', -apple-system, 'Segoe UI', sans-serif;
+    --radius-card: 18px;
+    --radius-pill: 999px;
+    --frame: 1px solid var(--ink);
+    --sticker: 3px 3px 0 var(--ink);
+    --sticker-lift: 5px 5px 0 var(--ink);
+    --ease: cubic-bezier(.22,1,.36,1);
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  html, body { background: var(--bg); }
+  body { margin: 0; font-family: var(--font-ui); color: var(--ink); -webkit-font-smoothing: antialiased; font-size: 16px; line-height: 1.55; }
+  h1, h2, h3 { font-family: var(--font-display); margin: 0; text-wrap: balance; line-height: 1.12; }
+  p { margin: 0; }
+  button { font-family: var(--font-ui); cursor: pointer; color: inherit; }
+  b, strong { font-weight: 650; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+
+  /* ---------- Cabecera ---------- */
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 22px 0 10px; flex-wrap: wrap; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); }
+  .brand svg { width: 22px; height: 22px; color: var(--olive-deep); flex: none; }
+  .brand-name { font-family: var(--font-display); font-weight: 700; font-size: 17px; }
+  .brand-name em { font-style: normal; color: var(--olive-mid); }
+  .top-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .chip-btn { border: var(--frame); background: var(--surface); border-radius: var(--radius-pill); padding: 6px 14px; font-size: 13px; font-weight: 600; text-decoration: none; color: var(--ink); }
+  .chip-btn:hover { background: var(--surface-alt); }
+
+  /* ---------- Portada ---------- */
+  .hero { display: grid; grid-template-columns: 1.25fr .75fr; gap: 28px; align-items: center; padding: 18px 0 26px; }
+  .eyebrow { display: inline-flex; gap: 8px; align-items: center; font-size: 12px; font-weight: 700; letter-spacing: 1.3px; text-transform: uppercase; color: var(--acc-deep); background: var(--acc-soft); border-radius: var(--radius-pill); padding: 5px 12px; margin-bottom: 14px; }
+  h1.title { font-size: clamp(34px, 6vw, 54px); font-weight: 700; letter-spacing: -1px; }
+  h1.title em { font-style: italic; color: var(--acc); position: relative; white-space: nowrap; }
+  h1.title em::after { content: ""; position: absolute; left: -2px; right: -2px; bottom: .08em; height: .38em; background: var(--lime-mid); z-index: -1; transform-origin: left; animation: marker 1s var(--ease) .3s both; }
+  h1.title { position: relative; z-index: 0; }
+  @keyframes marker { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  .lead { margin-top: 14px; font-size: 18px; color: var(--ink-soft); max-width: 56ch; }
+  .lead b { color: var(--ink); }
+  .norm { margin-top: 18px; display: flex; gap: 12px; align-items: center; background: var(--surface); border: var(--frame); border-radius: 14px; padding: 10px 14px; max-width: 520px; }
+  .norm .rd { flex: none; background: var(--acc); color: #fff; font-weight: 700; font-size: 13px; padding: 6px 10px; border-radius: 8px; font-variant-numeric: tabular-nums; }
+  .norm p { font-size: 14px; color: var(--ink-soft); }
+  .scene { width: 100%; max-width: 360px; justify-self: center; }
+  @keyframes ripple { 0% { opacity: 0; transform: scale(.55); } 25% { opacity: 1; } 100% { opacity: 0; transform: scale(1.7); } }
+  @keyframes eq { 0%, 100% { transform: scaleY(.35); } 50% { transform: scaleY(1); } }
+
+  /* ---------- Pasos (navegación) ---------- */
+  .stepper { position: sticky; top: 0; z-index: 20; background: var(--bg); border-bottom: 1px solid var(--line-soft); }
+  .stepper .wrap { position: relative; display: flex; gap: 8px; overflow-x: auto; padding-top: 10px; padding-bottom: 10px; scrollbar-width: none; }
+  .stepper .wrap::-webkit-scrollbar { display: none; }
+  .step-chip { flex: none; display: inline-flex; align-items: center; gap: 7px; border: var(--frame); background: var(--surface); border-radius: var(--radius-pill); padding: 6px 13px 6px 7px; font-size: 13.5px; font-weight: 600; white-space: nowrap; transition: background .2s, color .2s; }
+  .step-chip .n { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; background: var(--surface-alt); font-size: 12px; font-weight: 700; }
+  .step-chip.done .n { background: var(--lime-mid); }
+  .step-chip.on { background: var(--acc); color: #fff; border-color: var(--acc); }
+  .step-chip.on .n { background: #fff; color: var(--acc); }
+  .progress { height: 4px; background: var(--line-soft); }
+  .progress span { display: block; height: 100%; background: var(--acc); width: 0; transition: width .5s var(--ease); }
+
+  /* ---------- Secciones ---------- */
+  main { padding: 26px 0 70px; }
+  .step { display: none; animation: enter .5s var(--ease); }
+  .step.on { display: block; }
+  @keyframes enter { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  .step-head { margin-bottom: 18px; }
+  .step-num { font-size: 12px; font-weight: 700; letter-spacing: 1.3px; text-transform: uppercase; color: var(--acc); }
+  .step-head h2 { font-size: clamp(26px, 4.4vw, 36px); margin-top: 4px; letter-spacing: -.4px; }
+  .step-head p { margin-top: 8px; color: var(--ink-soft); font-size: 17px; max-width: 70ch; }
+  .stack { display: flex; flex-direction: column; gap: 16px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .dmg-grid { grid-template-columns: .9fr 1.1fr; align-items: stretch; }
+  .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .panel { background: var(--surface); border: var(--frame); border-radius: var(--radius-card); padding: 18px 20px; }
+  .panel.soft { background: var(--surface-alt); border-color: var(--line); }
+  .panel h3 { font-size: 21px; }
+  .tag { display: inline-block; font-size: 11.5px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--acc-deep); background: var(--acc-soft); border-radius: var(--radius-pill); padding: 3px 10px; }
+  .muted { color: var(--ink-muted); }
+  .small { font-size: 14px; }
+  .note { display: flex; gap: 12px; align-items: flex-start; background: var(--acc-soft); border-radius: 14px; padding: 12px 16px; font-size: 15px; }
+  .note .tag { background: var(--acc); color: #fff; flex: none; margin-top: 2px; }
+  .ex { font-size: 14.5px; color: var(--ink-soft); border-top: 1px dashed var(--line); padding-top: 10px; margin-top: 10px; }
+  ul.clean { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+  ul.clean li { padding-left: 18px; position: relative; font-size: 15px; }
+  ul.clean li::before { content: ""; position: absolute; left: 2px; top: .6em; width: 7px; height: 7px; border-radius: 50%; background: var(--acc); }
+
+  /* Botones */
+  .btn-main { border: 1.5px solid var(--ink); background: var(--lime-mid); box-shadow: var(--sticker); border-radius: var(--radius-pill); padding: 11px 22px; font-weight: 700; font-size: 15px; transition: transform .15s, box-shadow .15s; }
+  .btn-main:hover { transform: translate(-2px, -2px); box-shadow: var(--sticker-lift); }
+  .btn-main:active { transform: translate(3px, 3px); box-shadow: none; }
+  .btn-ghost { border: var(--frame); background: var(--surface); border-radius: var(--radius-pill); padding: 10px 18px; font-weight: 600; font-size: 14.5px; }
+  .btn-ghost:hover { background: var(--surface-alt); }
+  .btn-ghost[disabled] { opacity: .35; cursor: default; }
+  .nav-bottom { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--line); }
+
+  /* Portada: índice */
+  .toc { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .toc button { text-align: left; border: 1px solid var(--line); background: var(--surface); border-radius: 14px; padding: 12px 14px; display: flex; flex-direction: column; gap: 2px; transition: border-color .2s, transform .2s; }
+  .toc button:hover { border-color: var(--acc); transform: translateY(-2px); }
+  .toc .k { font-size: 12px; font-weight: 700; color: var(--acc); }
+  .toc .t { font-weight: 650; font-size: 15px; }
+  .toc .d { font-size: 13px; color: var(--ink-muted); }
+  .facts { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+  .fact { display: inline-flex; gap: 6px; align-items: center; font-size: 13px; font-weight: 600; border: 1px solid var(--line); background: var(--surface); border-radius: var(--radius-pill); padding: 5px 12px; color: var(--ink-soft); }
+
+  /* Tarjetas tipo de ruido */
+  .kind { text-align: left; border: var(--frame); background: var(--surface); border-radius: var(--radius-card); padding: 18px 20px; display: flex; flex-direction: column; gap: 8px; border-top: 6px solid var(--acc); transition: box-shadow .2s, transform .2s; }
+  .kind:hover { transform: translateY(-2px); }
+  .kind[aria-pressed="true"] { box-shadow: 4px 4px 0 var(--acc); }
+  .kind h3 { font-size: 22px; }
+  .kind .unit { font-variant-numeric: tabular-nums; }
+  .wave-box { padding: 8px 12px; }
+  .wave-box svg { display: block; width: 100%; height: auto; }
+
+  /* Escala de ruidos cotidianos */
+  .scale { display: flex; flex-direction: column; gap: 7px; }
+  .srow { display: grid; grid-template-columns: 190px 1fr 62px; gap: 12px; align-items: center; font-size: 14.5px; }
+  .sbar { height: 14px; background: var(--line-soft); border-radius: 7px; overflow: hidden; }
+  .sbar span { display: block; height: 100%; border-radius: 7px; width: 0; transition: width .9s var(--ease); }
+  .sval { font-weight: 700; font-variant-numeric: tabular-nums; text-align: right; }
+
+  /* Tabla de valores */
+  table.lvl { width: 100%; border-collapse: separate; border-spacing: 0 6px; }
+  table.lvl th, table.lvl td { padding: 12px 14px; text-align: left; }
+  table.lvl thead th { font-size: 13px; font-weight: 700; color: var(--ink-soft); text-transform: uppercase; letter-spacing: .8px; }
+  table.lvl thead small { display: block; text-transform: none; letter-spacing: 0; font-weight: 500; color: var(--ink-muted); font-size: 13px; }
+  table.lvl tbody th { font-family: var(--font-display); font-size: 18px; font-weight: 600; border-radius: 12px 0 0 12px; }
+  table.lvl tbody td { font-size: 26px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  table.lvl tbody td:last-child { border-radius: 0 12px 12px 0; }
+  table.lvl tbody td small { font-size: 14px; font-weight: 600; margin-left: 3px; }
+  tr.z3 > * { background: var(--z3); color: #fff; }
+  tr.z2 > * { background: var(--z2); color: #2A1405; }
+  tr.z1 > * { background: var(--z1); color: #3A2A00; }
+  tr.z0 > * { background: var(--z0); color: var(--ink-soft); }
+  tr.z0 td { font-size: 15px !important; font-weight: 500 !important; }
+
+  /* Ejercicios */
+  .quiz { display: flex; flex-direction: column; gap: 12px; }
+  .q { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; transition: border-color .2s; }
+  .q.right { border-color: var(--ok); }
+  .q.wrong { border-color: var(--bad); }
+  .q .qs { font-size: 15.5px; font-weight: 500; }
+  .q .qs .db { display: inline-block; font-weight: 700; font-variant-numeric: tabular-nums; background: var(--acc-soft); color: var(--acc-deep); border-radius: 6px; padding: 0 7px; margin: 0 2px; white-space: nowrap; }
+  .opts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .opt { border: var(--frame); background: var(--surface); border-radius: var(--radius-pill); padding: 7px 14px; font-size: 14px; font-weight: 600; transition: background .15s; }
+  .opt:hover { background: var(--surface-alt); }
+  .opt.sel-right { background: var(--ok); border-color: var(--ok); color: #fff; }
+  .opt.sel-wrong { background: var(--bad-soft); border-color: var(--bad); color: var(--bad); }
+  .fb { margin-top: 10px; font-size: 14.5px; border-radius: 10px; padding: 9px 12px; display: none; }
+  .fb.on { display: block; animation: enter .35s var(--ease); }
+  .fb.right { background: var(--ok-soft); }
+  .fb.wrong { background: var(--bad-soft); }
+  .score { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14px; background: var(--surface); border: var(--frame); border-radius: var(--radius-pill); padding: 5px 14px; }
+  .quiz-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
+  .quiz-head h3 { font-size: 21px; }
+
+  /* Simulador */
+  .sim { display: grid; grid-template-columns: 360px 1fr; gap: 18px; align-items: start; }
+  .sim label { display: flex; justify-content: space-between; font-size: 14.5px; font-weight: 600; margin-top: 14px; }
+  .sim label b { font-variant-numeric: tabular-nums; color: var(--acc); font-size: 17px; }
+  input[type=range] { width: 100%; accent-color: var(--acc); margin-top: 6px; }
+  .meter svg { display: block; width: 100%; height: auto; margin-top: 4px; }
+  .presets { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+  .presets button { border: 1px solid var(--line); background: var(--surface-alt); border-radius: var(--radius-pill); padding: 5px 11px; font-size: 13px; font-weight: 600; }
+  .presets button:hover { border-color: var(--acc); }
+  .verdict { border-radius: 16px; padding: 16px 18px; border: var(--frame); transition: background .3s, color .3s; }
+  .verdict .vt { font-family: var(--font-display); font-size: 24px; font-weight: 700; }
+  .verdict .vs { font-size: 15px; margin-top: 4px; }
+  .verdict.l0 { background: var(--z0); }
+  .verdict.l1 { background: var(--z1); }
+  .verdict.l2 { background: var(--z2); }
+  .verdict.l3 { background: var(--z3); color: #fff; }
+  .lvgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+  .lvc { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; animation: enter .4s var(--ease) both; }
+  .lvc .ic { width: 42px; height: 42px; border-radius: 12px; background: var(--acc-soft); display: grid; place-items: center; margin-bottom: 4px; }
+  .lvc .ic .nn { font-family: var(--font-display); font-weight: 700; font-size: 20px; color: var(--acc); }
+  .lvc .rl { font-size: 12px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--ink-muted); }
+  .lvc .big { font-family: var(--font-display); font-size: 19px; font-weight: 700; }
+  .lvc p { font-size: 14px; color: var(--ink-soft); }
+  .lvc.new { border-color: var(--acc); box-shadow: 3px 3px 0 var(--acc-soft); }
+  .lvc .newtag { align-self: flex-start; font-size: 11px; font-weight: 700; color: #fff; background: var(--acc); border-radius: var(--radius-pill); padding: 2px 8px; }
+  .empty { padding: 22px; text-align: center; color: var(--ink-soft); background: var(--surface-alt); border-radius: 14px; margin-top: 14px; font-size: 15px; }
+
+  /* Daños */
+  .key-fact { background: var(--acc); color: #fff; border-radius: 22px; padding: 22px 24px; display: flex; flex-direction: column; gap: 12px; }
+  .key-fact .k { font-size: 13px; font-weight: 700; color: rgba(255,255,255,.75); letter-spacing: 1px; text-transform: uppercase; }
+  .key-fact .big { font-family: var(--font-display); font-size: 28px; font-weight: 700; line-height: 1.15; }
+  .key-fact p { color: rgba(255,255,255,.9); font-size: 16px; }
+  .dmg { display: grid; grid-template-columns: 64px 1fr; gap: 14px; align-items: center; background: var(--surface); border: 1px solid var(--line); border-left: 6px solid var(--acc); border-radius: 16px; padding: 14px 18px; }
+  .dmg .di { width: 60px; height: 60px; border-radius: 50%; background: var(--acc-soft); display: grid; place-items: center; }
+  .dmg h3 { font-size: 20px; color: var(--acc); margin-bottom: 8px; }
+  .pills { display: flex; flex-wrap: wrap; gap: 6px; }
+  .pill { font-size: 14px; padding: 5px 12px; border-radius: var(--radius-pill); background: var(--acc-soft); }
+
+  /* Prevención */
+  .jc { background: var(--surface); border: var(--frame); border-top: 6px solid var(--acc); border-radius: var(--radius-card); padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; }
+  .jc .hd { display: flex; align-items: center; gap: 10px; }
+  .jc .n { font-family: var(--font-display); font-weight: 700; font-size: 34px; line-height: 1; color: var(--acc); }
+  .jc h3 { font-size: 21px; }
+  .jc .hd svg { margin-left: auto; }
+  .jc p { font-size: 15px; }
+  .prio { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; color: var(--ink-muted); margin: 2px 0 12px; }
+  .prio .arr { flex: 1; height: 2px; background: linear-gradient(90deg, var(--acc), var(--acc-soft)); position: relative; }
+  .prio .arr::after { content: ""; position: absolute; right: -1px; top: -4px; border: 5px solid transparent; border-left: 8px solid var(--acc-soft); }
+  .signs { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .sign { display: flex; gap: 14px; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; }
+  .sign b { display: block; font-size: 16px; }
+  .sign span { font-size: 14px; color: var(--ink-soft); }
+  .sign .lab { display: inline-block; margin-top: 6px; font-size: 12.5px; font-weight: 700; padding: 3px 9px; border-radius: 6px; color: #111; }
+  .mlist { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .mc { display: flex; gap: 12px; align-items: flex-start; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; }
+  .mc .ic { flex: none; width: 44px; height: 44px; border-radius: 12px; background: var(--acc-soft); display: grid; place-items: center; }
+  .mc h3 { font-size: 17px; }
+  .mc p { font-size: 14px; color: var(--ink-soft); }
+
+  /* Caso */
+  .enun { font-size: 16px; display: flex; flex-direction: column; gap: 10px; }
+  table.tbl { width: 100%; border-collapse: collapse; font-size: 15px; }
+  table.tbl th, table.tbl td { padding: 9px 10px; border-bottom: 1px solid var(--line); text-align: left; }
+  table.tbl thead th { font-size: 12.5px; text-transform: uppercase; letter-spacing: .8px; color: var(--ink-muted); }
+  table.tbl td.num { font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .day { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; display: grid; grid-template-columns: 200px 1fr; gap: 14px; }
+  .day h3 { font-size: 18px; }
+  .day .dv { font-size: 14px; color: var(--ink-soft); font-variant-numeric: tabular-nums; margin-top: 2px; }
+  .day select, .field input, textarea { width: 100%; font-family: var(--font-ui); font-size: 15px; color: var(--ink); border: 1px solid var(--ink-muted); border-radius: 10px; padding: 9px 11px; background: #fff; }
+  .day select:focus, .field input:focus, textarea:focus { outline: 2px solid var(--acc); outline-offset: 1px; border-color: var(--acc); }
+  textarea { resize: vertical; min-height: 78px; line-height: 1.45; }
+  .flab { display: block; font-size: 13px; font-weight: 700; color: var(--ink-soft); margin-bottom: 5px; }
+  .field { display: flex; flex-direction: column; }
+  .saved { font-size: 13px; color: var(--ok); font-weight: 600; opacity: 0; transition: opacity .3s; }
+  .saved.on { opacity: 1; }
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .hint { font-size: 13.5px; color: var(--ink-muted); }
+
+  /* Hoja para imprimir */
+  #printSheet { display: none; }
+
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; }
+    .scene { max-width: 240px; order: -1; }
+    .grid2, .grid3, .dmg-grid, .sim, .signs, .mlist { grid-template-columns: 1fr; }
+    .grid4, .toc { grid-template-columns: 1fr 1fr; }
+    .day { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 520px) {
+    .grid4, .toc, .lvgrid { grid-template-columns: 1fr; }
+    .srow { grid-template-columns: 1fr 52px; }
+    .srow .sbar { grid-column: 1 / -1; grid-row: 2; }
+    table.lvl tbody td { font-size: 20px; }
+    table.lvl th, table.lvl td { padding: 10px 8px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+  @media print {
+    @page { size: A4; margin: 16mm; }
+    body { background: #fff; font-size: 12pt; }
+    body > *:not(#printSheet) { display: none !important; }
+    #printSheet { display: block; }
+    #printSheet h1 { font-size: 22pt; margin-bottom: 4pt; }
+    #printSheet .meta { color: #555; font-size: 10.5pt; margin-bottom: 14pt; }
+    #printSheet h2 { font-size: 14pt; margin: 14pt 0 6pt; color: #35307A; }
+    #printSheet .pday { border: 1px solid #ccc; border-radius: 8px; padding: 8pt 10pt; margin-bottom: 8pt; break-inside: avoid; }
+    #printSheet .pday b { display: block; }
+    #printSheet .ans { white-space: pre-wrap; margin-top: 3pt; }
+    #printSheet table { border-collapse: collapse; width: 100%; font-size: 11pt; }
+    #printSheet td, #printSheet th { border: 1px solid #ccc; padding: 4pt 6pt; text-align: left; }
+  }
+  /* Acento del agente: temperatura (mismo color que en la presentación) */
+  :root { --acc: #1672A0; --acc-deep: #0F4F73; --acc-soft: #DAEDF7; --hot: #C2372B; --hot-soft: #FAE2DE; }
+  h1.title { font-size: clamp(30px, 5.4vw, 48px); }
+  h1.title em { white-space: normal; }
+  @keyframes merc { 0%, 100% { transform: scaleY(.55); } 50% { transform: scaleY(.9); } }
+  table.t3 { width: 100%; border-collapse: separate; border-spacing: 0 8px; }
+  table.t3 th, table.t3 td { padding: 0; text-align: left; vertical-align: middle; }
+  table.t3 thead th { font-size: 12.5px; text-transform: uppercase; letter-spacing: .8px; color: var(--ink-muted); padding: 0 10px; }
+  table.t3 tbody th { padding: 12px 14px; background: var(--surface); border: var(--frame); border-right: 0; border-radius: 14px 0 0 14px; font-family: var(--font-display); font-size: 18px; white-space: nowrap; }
+  table.t3 tbody th span { display: inline-flex; align-items: center; gap: 8px; }
+  table.t3 tbody td { border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); background: var(--surface); }
+  table.t3 tbody td:last-child { border-right: 1px solid var(--ink); border-radius: 0 14px 14px 0; }
+  .cell { width: 100%; min-height: 58px; border: 0; background: none; text-align: left; padding: 10px 14px; font-size: 14.5px; line-height: 1.4; }
+  .cell.hid { color: transparent; background: repeating-linear-gradient(135deg, var(--acc-soft) 0 10px, #EAF4FA 10px 20px); position: relative; }
+  .cell.hid::after { content: "Pulsa para ver"; position: absolute; inset: 0; display: grid; place-items: center; color: var(--acc-deep); font-weight: 600; font-size: 13px; }
+  .a3 { display: grid; grid-template-columns: 1.1fr 1fr 1fr; gap: 8px; align-items: stretch; }
+  .a3 .hd { background: var(--acc); color: #fff; border-radius: 12px; padding: 10px 14px; font-weight: 700; text-align: center; }
+  .a3 .rh { background: var(--surface-alt); border-radius: 12px; padding: 10px 14px; font-weight: 650; font-size: 15px; display: flex; flex-direction: column; justify-content: center; }
+  .a3 .rh small { font-weight: 500; color: var(--ink-muted); font-size: 12.5px; }
+  .a3 .v { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; font-family: var(--font-display); font-weight: 700; font-size: 22px; text-align: center; display: grid; place-items: center; font-variant-numeric: tabular-nums; }
+  .seg { display: inline-flex; border: var(--frame); border-radius: var(--radius-pill); overflow: hidden; margin-top: 8px; }
+  .seg button { border: 0; background: var(--surface); padding: 8px 16px; font-weight: 600; font-size: 14px; }
+  .seg button[aria-pressed="true"] { background: var(--acc); color: #fff; }
+  .chk { display: flex; gap: 10px; align-items: flex-start; margin-top: 14px; font-size: 14.5px; cursor: pointer; }
+  .sim label.chk { justify-content: flex-start; font-weight: 500; }
+  .chk input { margin-top: 3px; accent-color: var(--acc); width: 18px; height: 18px; flex: none; }
+  .res { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+  .ri { display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; }
+  .ri .mk { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-weight: 700; }
+  .ri.ok .mk { background: var(--ok); }
+  .ri.no { border-color: var(--bad); background: var(--bad-soft); }
+  .ri.no .mk { background: var(--bad); }
+  .ri b { display: block; font-size: 15.5px; }
+  .ri span { font-size: 14px; color: var(--ink-soft); }
+  .verdict.ok { background: var(--ok-soft); }
+  .verdict.no { background: var(--bad-soft); }
+  .dmg.hot { border-left-color: var(--hot); }
+  .dmg.hot h3 { color: var(--hot); }
+  .dmg.hot .di { background: var(--hot-soft); }
+  .dmg.hot .pill { background: var(--hot-soft); }
+  .urg { background: var(--hot); color: #fff; border-radius: 22px; padding: 20px 22px; display: flex; flex-direction: column; gap: 10px; border: var(--frame); }
+  .urg .k { font-size: 12.5px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; opacity: .85; }
+  .urg .t { font-family: var(--font-display); font-weight: 700; font-size: 26px; line-height: 1.15; }
+  .urg .sub { font-size: 12.5px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; opacity: .85; margin-top: 4px; }
+  .urg .sg { display: flex; flex-wrap: wrap; gap: 6px; }
+  .urg .sg span { background: rgba(255,255,255,.18); border-radius: var(--radius-pill); padding: 4px 12px; font-size: 14px; }
+  .urg ol { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .urg li { display: flex; gap: 10px; align-items: center; font-size: 15.5px; }
+  .urg li i { font-style: normal; width: 26px; height: 26px; border-radius: 50%; background: #fff; color: var(--hot); display: grid; place-items: center; font-weight: 700; font-size: 13px; flex: none; }
+  .tcol { background: var(--surface); border: var(--frame); border-radius: var(--radius-card); overflow: hidden; }
+  .tcol .th { color: #fff; padding: 14px 18px; display: flex; align-items: center; gap: 12px; }
+  .tcol .th b { font-family: var(--font-display); font-size: 21px; display: block; }
+  .tcol .th small { font-size: 13px; opacity: .9; }
+  .tcol ul { list-style: none; margin: 0; padding: 14px 18px; display: flex; flex-direction: column; gap: 10px; }
+  .tcol li { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; }
+  .tcol li .d { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font-size: 12px; font-weight: 700; flex: none; }
+  .both { display: grid; grid-template-columns: auto 1fr 1fr 1fr; gap: 12px; align-items: center; background: var(--surface-alt); border-radius: 16px; padding: 12px 16px; }
+  .both .lab { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--acc-deep); }
+  .both .it { font-size: 14.5px; }
+  .both .it b { display: block; }
+  .chart svg { display: block; width: 100%; height: auto; }
+  @media (max-width: 860px) { .a3 { grid-template-columns: 1fr 1fr 1fr; font-size: 14px; } .a3 .v { font-size: 17px; } .both { grid-template-columns: 1fr; } }
+  @media (max-width: 520px) { table.t3 tbody th { white-space: normal; font-size: 16px; } .cell { font-size: 13.5px; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="top">
+    <a class="brand" href="index.html" aria-label="Volver a Educa Tools">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 0 C20 0 18 9 14 13 C10 17 0 20 0 20 C0 20 10 23 14 27 C18 31 20 40 20 40 C20 40 22 31 26 27 C30 23 40 20 40 20 C40 20 30 17 26 13 C22 9 20 0 20 0Z" fill="currentColor"/></svg>
+      <span class="brand-name">Educa <em>Tools</em></span>
+    </a>
+    <div class="top-actions">
+      <a class="chip-btn" href="index.html">← Todas las herramientas</a>
+      <button class="chip-btn" id="btnReset" type="button">Empezar de cero</button>
+    </div>
+  </div>
+</div>
+
+<nav class="stepper" aria-label="Pasos de la guía">
+  <div class="wrap" id="stepper"></div>
+  <div class="progress"><span id="progBar"></span></div>
+</nav>
+
+<main class="wrap">
+
+  <!-- 0 · PORTADA -->
+  <section class="step" data-title="Empezar">
+    <div class="hero">
+      <div>
+        <span class="eyebrow">Riesgos físicos · Agente 4 de 4</span>
+        <h1 class="title">Condiciones <em>termohigrométricas</em></h1>
+        <p class="lead">Además de la <b>temperatura</b>, también la <b>humedad</b> y la <b>ventilación</b> del lugar de trabajo. Las tres juntas deciden si trabajas a gusto o pasando calor o frío.</p>
+        <div class="norm"><span class="rd">RD 486/1997</span><p>El mismo decreto de la iluminación. Esta vez, su <b>Anexo III</b>: condiciones ambientales de los lugares de trabajo.</p></div>
+        <div class="facts">
+          <span class="fact">≈ 40 min</span>
+          <span class="fact">7 pasos</span>
+          <span class="fact">Guarda tu progreso en este navegador</span>
+        </div>
+      </div>
+      <svg class="scene" id="scene" viewBox="0 0 500 500" role="img" aria-label="Termómetro con los rangos de temperatura del trabajo sedentario y del ligero"></svg>
+    </div>
+    <div class="panel soft">
+      <h3 style="margin-bottom:12px">Lo que vas a ver</h3>
+      <div class="toc" id="toc"></div>
+    </div>
+    <div class="nav-bottom">
+      <span class="hint">Puedes saltar a cualquier paso desde la barra de arriba.</span>
+      <button class="btn-main" data-next>Empezar la guía →</button>
+    </div>
+  </section>
+
+  <!-- 1 · TRES ELEMENTOS -->
+  <section class="step" data-title="Tres elementos" data-desc="Qué es y cómo se mide">
+    <div class="step-head">
+      <span class="step-num">Paso 1</span>
+      <h2>Qué es, con qué se mide y en qué</h2>
+      <p>Intenta adivinar cada casilla antes de destaparla. <b>Pulsa una casilla</b> para verla.</p>
+    </div>
+    <div class="stack">
+      <div style="overflow-x:auto"><table class="t3" id="tblTres"></table></div>
+      <div class="panel">
+        <div class="quiz-head"><h3>Compruébalo</h3><span class="score" id="sc-tres"></span></div>
+        <div class="quiz" id="q-tres"></div>
+      </div>
+    </div>
+    <div class="nav-bottom"><button class="btn-ghost" data-prev>← Anterior</button><button class="btn-main" data-next>Siguiente →</button></div>
+  </section>
+
+  <!-- 2 · SEDENTARIO O LIGERO -->
+  <section class="step" data-title="¿Sedentario o ligero?" data-desc="El tipo de trabajo">
+    <div class="step-head">
+      <span class="step-num">Paso 2</span>
+      <h2>Indeterminación jurídica: ¿sedentario o ligero?</h2>
+      <p>Antes de conocer los valores adecuados, hay que diferenciar <b>dos tipos de trabajo</b> por sus exigencias físicas. Hay más tipos, pero nos centramos en estos dos.</p>
+    </div>
+    <div class="stack">
+      <div class="grid2">
+        <div class="note"><p><b>Trabajo sedentario:</b> principalmente sentado, con bajo esfuerzo físico y movimientos limitados.</p></div>
+        <div class="note"><p><b>Trabajo ligero:</b> más movimiento pero de baja intensidad, de pie o caminando, sin esfuerzo físico importante.</p></div>
+      </div>
+      <div class="panel">
+        <div class="quiz-head"><h3>Compruébalo: ¿sedentario o ligero?</h3><span class="score" id="sc-sed"></span></div>
+        <div class="quiz" id="q-sed"></div>
+      </div>
+      <div class="panel soft"><p><b>¿Y los trabajos moderados y pesados?</b> Existen, pero el RD no fija rangos para ellos: se valoran con métodos de estrés térmico que hace un técnico de prevención. Nosotros nos quedamos con los dos tipos que regula el Anexo III.</p></div>
+      <p class="hint">El RD no define estos tipos y las notas técnicas del INSST aportan algo más; nosotros usamos la lógica. Hay trabajos con normativa específica (cámaras frigoríficas, hornos…): RD 1561/1995, sobre jornadas especiales de trabajo.</p>
+    </div>
+    <div class="nav-bottom"><button class="btn-ghost" data-prev>← Anterior</button><button class="btn-main" data-next>Siguiente →</button></div>
+  </section>
+
+  <!-- 3 · ANEXO III + COMPROBADOR -->
+  <section class="step" data-title="El Anexo III" data-desc="Comprobador">
+    <div class="step-head">
+      <span class="step-num">Paso 3</span>
+      <h2>Anexo III: locales de trabajo cerrados</h2>
+      <p>Estos son los valores que fija el RD. Debajo tienes un comprobador para ponerlos a prueba.</p>
+    </div>
+    <div class="stack">
+      <div class="a3">
+        <div></div><div class="hd">Sedentarios</div><div class="hd">Ligeros</div>
+        <div class="rh">Temperatura</div><div class="v">17 – 27 ºC</div><div class="v">14 – 25 ºC</div>
+        <div class="rh">Humedad relativa<small>norma general</small></div><div class="v">30 – 70 %</div><div class="v">30 – 70 %</div>
+        <div class="rh">Humedad relativa<small>si hay electricidad estática</small></div><div class="v">50 – 70 %</div><div class="v">50 – 70 %</div>
+        <div class="rh">Corrientes de aire<small>aire acondicionado</small></div><div class="v">≤ 0,25 m/s</div><div class="v">≤ 0,35 m/s</div>
+      </div>
+      <div class="note"><span class="tag">Otras corrientes</span><p>Fuera del aire acondicionado: 0,25 m/s en ambientes no calurosos y 0,5 / 0,75 m/s en ambientes calurosos (sedentarios / no sedentarios).</p></div>
+      <div class="sim">
+        <div class="panel">
+          <span class="tag">Comprobador</span>
+          <div style="margin-top:12px;font-weight:600;font-size:14.5px">Tipo de trabajo</div>
+          <div class="seg" id="segTipo"><button type="button" data-t="0">Sedentario</button><button type="button" data-t="1">Ligero</button></div>
+          <label for="sT">Temperatura <b id="vT"></b></label>
+          <input id="sT" type="range" min="5" max="35" step="0.5">
+          <label for="sH">Humedad relativa <b id="vH"></b></label>
+          <input id="sH" type="range" min="10" max="95" step="1">
+          <label class="chk"><input type="checkbox" id="sE"> <span>Hay riesgo por electricidad estática</span></label>
+          <label for="sA">Corriente del aire acondicionado <b id="vA"></b></label>
+          <input id="sA" type="range" min="0" max="0.6" step="0.05">
+          <p class="small muted" style="margin-top:12px">Prueba con estos puestos:</p>
+          <div class="presets" id="presets"></div>
+        </div>
+        <div>
+          <div class="verdict" id="verdict" aria-live="polite"><div class="vt"></div><div class="vs"></div></div>
+          <div class="res" id="res"></div>
+        </div>
+      </div>
+    </div>
+    <div class="nav-bottom"><button class="btn-ghost" data-prev>← Anterior</button><button class="btn-main" data-next>Siguiente →</button></div>
+  </section>
+
+  <!-- 4 · DAÑOS -->
+  <section class="step" data-title="Daños" data-desc="Ni horno ni nevera">
+    <div class="step-head">
+      <span class="step-num">Paso 4</span>
+      <h2>Ni horno ni nevera</h2>
+      <p>Tanto el exceso de calor como el de frío tienen consecuencias para la salud.</p>
+    </div>
+    <div class="grid2 dmg-grid">
+      <div class="stack" style="gap:12px">
+        <div class="dmg hot"><div class="di"><svg width="26" height="44" viewBox="0 0 26 44" aria-hidden="true"><rect x="8" y="2" width="10" height="28" rx="5" fill="#fff" stroke="#C2372B" stroke-width="2.5"/><rect x="11" y="10" width="4" height="22" rx="2" fill="#C2372B"/><circle cx="13" cy="35" r="7" fill="#C2372B"/></svg></div><div><h3>Exceso de calor</h3><div class="pills"><span class="pill">Deshidratación</span><span class="pill">Calambres</span><span class="pill">Lipotimia</span><span class="pill">Síncope</span><span class="pill">Golpe de calor</span></div></div></div>
+        <div class="dmg"><div class="di"><svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><g stroke="#1672A0" stroke-width="3" stroke-linecap="round"><line x1="20" y1="3" x2="20" y2="37"/><line x1="5" y1="11" x2="35" y2="29"/><line x1="5" y1="29" x2="35" y2="11"/><path d="M15 6 l5 4 l5-4 M15 34 l5-4 l5 4" fill="none"/></g></svg></div><div><h3>Exceso de frío</h3><div class="pills"><span class="pill">Deshidratación</span><span class="pill">Entumecimiento</span><span class="pill">Escalofríos</span><span class="pill">Enfermedades respiratorias</span><span class="pill">Hipotermia</span><span class="pill">Congelación</span></div></div></div>
+      </div>
+      <div class="urg">
+        <span class="k">Urgencia</span>
+        <p class="t">El golpe de calor pone en riesgo la vida.</p>
+        <span class="sub">Señales</span>
+        <div class="sg"><span>Piel roja y caliente</span><span>Confusión</span><span>Mareo o desmayo</span></div>
+        <span class="sub">Qué hacer</span>
+        <ol><li><i>1</i><b>Llama al 112</b></li><li><i>2</i>Lleva a la persona a la sombra</li><li><i>3</i>Refréscala</li></ol>
+      </div>
+    </div>
+    <div class="nav-bottom"><button class="btn-ghost" data-prev>← Anterior</button><button class="btn-main" data-next>Siguiente →</button></div>
+  </section>
+
+  <!-- 5 · MEDIDAS -->
+  <section class="step" data-title="Prevención" data-desc="Ajustar el ambiente">
+    <div class="step-head">
+      <span class="step-num">Paso 5</span>
+      <h2>Ajustar el ambiente antes que a la persona</h2>
+      <p>Primero se actúa sobre el lugar de trabajo; la ropa y las pausas vienen después.</p>
+    </div>
+    <div class="stack">
+      <div class="grid2">
+        <div class="tcol"><div class="th" style="background:linear-gradient(100deg,#C2372B,#E5862F)"><div><b>Frente al calor</b><small>Cuando el ambiente aprieta</small></div></div><ul>
+          <li><span class="d" style="background:var(--hot-soft);color:var(--hot)">1</span><span><b>Climatizar y ventilar</b>, y aislar las fuentes de calor</span></li>
+          <li><span class="d" style="background:var(--hot-soft);color:var(--hot)">2</span><span><b>Pausas</b> en zonas frescas y <b>agua</b> a mano</span></li>
+          <li><span class="d" style="background:var(--hot-soft);color:var(--hot)">3</span><span><b>Rotar</b> tareas y aclimatar poco a poco a quien llega nuevo</span></li>
+          <li><span class="d" style="background:var(--hot-soft);color:var(--hot)">4</span><span><b>Ropa transpirable</b> y ajustar horarios al aire libre</span></li></ul></div>
+        <div class="tcol"><div class="th" style="background:linear-gradient(100deg,#0F4F73,#1672A0)"><div><b>Frente al frío</b><small>Cámaras, muelles, exteriores</small></div></div><ul>
+          <li><span class="d" style="background:var(--acc-soft);color:var(--acc)">1</span><span><b>Calefacción</b> adecuada, sin corrientes de aire</span></li>
+          <li><span class="d" style="background:var(--acc-soft);color:var(--acc)">2</span><span><b>Ropa térmica</b> (EPI en cámaras frigoríficas)</span></li>
+          <li><span class="d" style="background:var(--acc-soft);color:var(--acc)">3</span><span><b>Pausas</b> en zona templada y bebidas calientes</span></li>
+          <li><span class="d" style="background:var(--acc-soft);color:var(--acc)">4</span><span><b>Limitar el tiempo</b> de exposición</span></li></ul></div>
+      </div>
+      <div class="both"><span class="lab">En ambos casos</span>
+        <div class="it"><b>Medir</b>termómetro, higrómetro y anemómetro</div>
+        <div class="it"><b>Formar e informar</b>a las personas trabajadoras</div>
+        <div class="it"><b>Vigilar la salud</b>si la exposición es extrema</div>
+      </div>
+      <div class="panel">
+        <div class="quiz-head"><h3>Compruébalo: ¿frente al calor, al frío o ambos?</h3><span class="score" id="sc-med"></span></div>
+        <div class="quiz" id="q-med"></div>
+      </div>
+    </div>
+    <div class="nav-bottom"><button class="btn-ghost" data-prev>← Anterior</button><button class="btn-main" data-next>Siguiente →</button></div>
+  </section>
+
+  <!-- 6 · PRACTICA -->
+  <section class="step" data-title="Practica" data-desc="Puestos reales">
+    <div class="step-head">
+      <span class="step-num">Paso 6</span>
+      <h2>Practica con puestos reales</h2>
+      <p>Decide si cada puesto cumple el Anexo III y, si no, qué falla. Si te equivocas, lee la pista y vuelve a intentarlo: <b>equivocarse aquí es parte del ejercicio</b>.</p>
+    </div>
+    <div class="panel">
+      <div class="quiz-head"><h3>¿Cumple el Anexo III?</h3><span class="score" id="sc-prac"></span></div>
+      <div class="quiz" id="q-prac"></div>
+    </div>
+    <div class="nav-bottom"><button class="btn-ghost" data-prev>← Anterior</button><button class="btn-main" data-next>Ir al caso final →</button></div>
+  </section>
+
+  <!-- 7 · CASO -->
+  <section class="step" data-title="Caso práctico" data-desc="Para entregar">
+    <div class="step-head">
+      <span class="step-num">Paso 7 · Para entregar</span>
+      <h2>Caso práctico: el Palacio de Liah y el Anexo III</h2>
+      <p>Comenta las condiciones termohigrométricas en función de las disposiciones del RD 486/1997.</p>
+    </div>
+    <div class="stack">
+      <div class="panel enun">
+        <p><b>Lunes a jueves:</b> 26 ºC, humedad del 57 % y corrientes de 0,3 m/s.</p>
+        <p><b>Viernes y sábados</b>, con el aforo completo: 29 ºC, y Sergio cree que todo se arregla con el aire acondicionado, que lanza corrientes de 0,5 m/s.</p>
+      </div>
+      <div class="panel chart">
+        <div class="quiz-head"><h3>Tu gráfico de trabajo</h3><div class="seg" id="segZona" style="margin:0"><button type="button" data-t="0">Zona sedentario</button><button type="button" data-t="1">Zona ligero</button></div></div>
+        <p class="small muted">Activa la zona legal de cada tipo de trabajo y sitúa mentalmente los datos de cada día.</p>
+        <svg id="chartTH" viewBox="0 0 600 300" role="img" aria-label="Gráfico de temperatura y humedad con la zona legal"></svg>
+        <svg id="chartAir" viewBox="0 0 600 70" role="img" aria-label="Escala de corrientes de aire con el límite legal"></svg>
+      </div>
+      <div class="panel soft">
+        <h3 style="margin-bottom:8px">Para entregar</h3>
+        <ol style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px"><li>¿Es trabajo sedentario o ligero? Justifícalo.</li><li>Lunes a jueves: comenta temperatura, humedad y corrientes de aire.</li><li>Viernes y sábado: comenta temperatura y corrientes. ¿Tiene razón Sergio?</li><li>Propón medidas.</li></ol>
+      </div>
+      <div class="stack" id="casoForm" style="gap:12px"></div>
+      <div class="actions">
+        <button class="btn-main" id="btnPrint" type="button">Imprimir o guardar en PDF</button>
+        <span class="saved" id="savedMsg">✓ Guardado en este navegador</span>
+      </div>
+      <p class="hint">Tus respuestas se guardan solas en este navegador. Si cambias de ordenador, imprime o guarda el PDF antes de irte.</p>
+    </div>
+    <div class="nav-bottom"><button class="btn-ghost" data-prev>← Anterior</button><span></span></div>
+  </section>
+</main>
+
+<div id="printSheet"></div>
+
+<script>
+(function () {
+  'use strict';
+  var INK = '#1E1C1A', T = '#1672A0', HOT = '#C2372B', LINE = '#E8E1D6', INK2 = '#4A463F', INK3 = '#8B847A';
+  var dec = function (x) { return String(x).replace('.', ','); };
+  var TERMO = [{ n: 'sedentario', t: [17, 27], a: 0.25 }, { n: 'ligero', t: [14, 25], a: 0.35 }];
+  var ICON = {
+    t: '<svg width="18" height="30" viewBox="0 0 26 44" aria-hidden="true"><rect x="8" y="2" width="10" height="28" rx="5" fill="#fff" stroke="#C2562B" stroke-width="2.5"/><rect x="11" y="12" width="4" height="20" rx="2" fill="#C2562B"/><circle cx="13" cy="35" r="7" fill="#C2562B"/></svg>',
+    h: '<svg width="22" height="28" viewBox="0 0 24 30" aria-hidden="true"><path d="M12 2C8 9 3 14 3 19a9 9 0 0 0 18 0C21 14 16 9 12 2Z" fill="#DAEDF7" stroke="#1672A0" stroke-width="2.5"/></svg>',
+    v: '<svg width="28" height="24" viewBox="0 0 34 28" aria-hidden="true"><path d="M2 9h20a4 4 0 1 0-4-4 M2 16h26a4 4 0 1 1-4 4 M2 23h12" fill="none" stroke="#23706B" stroke-width="2.6" stroke-linecap="round"/></svg>'
+  };
+  var TRES = [['t', 'Temperatura', 'Magnitud física que mide el grado de frío o de calor de un ambiente.', 'Termómetro', 'Grados centígrados (ºC)'], ['h', 'Humedad', 'Cantidad de vapor de agua que contiene el aire a una temperatura determinada.', 'Higrómetro', 'Porcentaje (%)'], ['v', 'Ventilación', 'Movimiento del aire alrededor del organismo, que condiciona el intercambio de calor con el ambiente.', 'Anemómetro', 'Metros por segundo (m/s)']];
+
+  window.GUIDE = {
+    key: 'educa-guia-termohigrometricas-v1',
+    title: 'Guía de las condiciones termohigrométricas · RD 486/1997, Anexo III',
+    caso: {
+      title: 'Caso práctico: el Palacio de Liah y el Anexo III',
+      dataHTML: '<table><tr><th>Días</th><th>Temperatura</th><th>Humedad</th><th>Corrientes</th></tr><tr><td>Lunes a jueves</td><td>26 ºC</td><td>57 %</td><td>0,3 m/s</td></tr><tr><td>Viernes y sábado (aforo completo)</td><td>29 ºC</td><td>—</td><td>0,5 m/s (aire acondicionado)</td></tr></table>',
+      groups: [
+        { title: '1. Tipo de trabajo', sub: 'Personal que atiende el local', fields: [
+          { k: 'tipo', type: 'select', label: '¿Sedentario o ligero?', opts: ['Sedentario', 'Ligero'], ph: 'Elige…' },
+          { k: 'tipoJ', type: 'textarea', label: 'Justificación', ph: '¿Trabajan sentados o de pie y moviéndose?' } ] },
+        { title: '2. Lunes a jueves', sub: '26 ºC · 57 % · 0,3 m/s', fields: [
+          { k: 'lj', type: 'textarea', rows: 4, label: 'Comenta temperatura, humedad y corrientes de aire', ph: 'Compara cada dato con el rango del Anexo III para el tipo de trabajo que has elegido.' } ] },
+        { title: '3. Viernes y sábado', sub: '29 ºC · aire acondicionado a 0,5 m/s', fields: [
+          { k: 'vs', type: 'textarea', rows: 4, label: 'Comenta temperatura y corrientes', ph: '¿Qué pasa con la temperatura? ¿Y con la corriente del aire acondicionado?' },
+          { k: 'sergio', type: 'select', label: '¿Tiene razón Sergio?', opts: ['Sí', 'No', 'Solo en parte'], ph: 'Elige…' } ] },
+        { title: '4. Medidas', sub: 'Para el Palacio de Liah', fields: [
+          { k: 'med', type: 'textarea', rows: 5, label: 'Propón medidas', ph: 'Primero el ambiente (climatización, ventilación…), después las personas (pausas, agua, ropa…).' } ] }
+      ]
+    },
+    init: function (E) {
+      var $ = E.$, $$ = E.$$, esc = E.esc, x = E.state.x;
+
+      /* Escena de portada */
+      function ty(t) { return 400 - (t - 10) / (32 - 10) * 320; }
+      var h = '<rect x="20" y="20" width="460" height="460" rx="40" fill="#fff" stroke="' + INK + '" stroke-width="2"/>';
+      h += '<defs><linearGradient id="gT" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="' + T + '"/><stop offset=".6" stop-color="#D9822B"/><stop offset="1" stop-color="' + HOT + '"/></linearGradient></defs>';
+      h += '<rect x="226" y="60" width="48" height="360" rx="24" fill="#fff" stroke="' + INK + '" stroke-width="4"/>';
+      h += '<rect x="236" y="70" width="28" height="340" rx="14" fill="url(#gT)" style="transform-origin:250px 410px;animation:merc 6s ease-in-out infinite"/>';
+      h += '<circle cx="250" cy="430" r="40" fill="url(#gT)" stroke="' + INK + '" stroke-width="4"/>';
+      h += '<path d="M200 ' + ty(27) + ' H186 V' + ty(17) + ' H200" fill="none" stroke="' + T + '" stroke-width="4"/><text x="176" y="' + ((ty(27) + ty(17)) / 2 - 6) + '" text-anchor="end" fill="' + T + '" font-family="Inter" font-size="20" font-weight="700">Sedentario</text><text x="176" y="' + ((ty(27) + ty(17)) / 2 + 20) + '" text-anchor="end" fill="' + T + '" font-family="Inter" font-size="19">17–27 ºC</text>';
+      h += '<path d="M300 ' + ty(25) + ' H314 V' + ty(14) + ' H300" fill="none" stroke="' + T + '" stroke-width="4"/><text x="324" y="' + ((ty(25) + ty(14)) / 2 - 6) + '" fill="' + T + '" font-family="Inter" font-size="20" font-weight="700">Ligero</text><text x="324" y="' + ((ty(25) + ty(14)) / 2 + 20) + '" fill="' + T + '" font-family="Inter" font-size="19">14–25 ºC</text>';
+      $('#scene').innerHTML = h;
+
+      /* Tabla destapable */
+      if (!x.open) x.open = {};
+      $('#tblTres').innerHTML = '<thead><tr><th>Elemento</th><th>Definición</th><th>Instrumento</th><th>Unidad</th></tr></thead><tbody>' + TRES.map(function (r, i) {
+        return '<tr><th><span>' + ICON[r[0]] + r[1] + '</span></th>' + [2, 3, 4].map(function (c) { var id = i + '-' + c; return '<td><button type="button" class="cell' + (x.open[id] ? '' : ' hid') + '" data-id="' + id + '">' + (c === 3 ? '<b>' + r[c] + '</b>' : r[c]) + '</button></td>'; }).join('') + '</tr>';
+      }).join('') + '</tbody>';
+      $('#tblTres').addEventListener('click', function (e) { var b = e.target.closest('.cell'); if (!b) return; b.classList.remove('hid'); x.open[b.dataset.id] = 1; E.save(); });
+
+      E.quiz('tres', null, [
+        { s: '¿Con qué aparato se mide la velocidad de las corrientes de aire?', opts: ['Higrómetro', 'Anemómetro', 'Termómetro'], ok: 1, why: 'El <b>anemómetro</b>, en metros por segundo.', hint: 'El higrómetro mide la humedad.' },
+        { s: '¿En qué unidad se expresa la humedad relativa?', opts: ['ºC', '%', 'm/s'], ok: 1, why: 'En <b>porcentaje</b>: cuánto vapor de agua hay en el aire.', hint: 'Mira la fila de la humedad.' },
+        { s: 'Un higrómetro marca 65. ¿Qué está midiendo?', opts: ['La temperatura', 'La humedad', 'La ventilación'], ok: 1, why: 'El higrómetro mide la <b>humedad</b>: 65 %.', hint: '«Higro» viene de humedad.' }
+      ]);
+
+      E.quiz('sed', ['Sedentario', 'Ligero'], [
+        { s: 'Persona teleoperadora en un call center.', ok: 0, why: 'Trabaja sentada, con poco esfuerzo físico: <b>sedentario</b>.', hint: '¿Está sentada o moviéndose?' },
+        { s: 'Persona que sirve en la barra de un bar.', ok: 1, why: 'De pie y caminando, sin gran esfuerzo: <b>ligero</b>.', hint: '¿Está sentada o moviéndose?' },
+        { s: 'Persona de aduanas tramitando expedientes en su mesa.', ok: 0, why: 'Trabajo de mesa: <b>sedentario</b>.', hint: 'Piensa en dónde pasa la jornada.' },
+        { s: 'Dependiente de una tienda.', ok: 1, why: 'De pie, atendiendo y reponiendo: <b>ligero</b>.', hint: '¿Pasa el día sentado?' },
+        { s: 'Reponedor que coloca productos en las estanterías del supermercado.', ok: 1, why: 'Movimiento constante pero de baja intensidad: <b>ligero</b>.', hint: 'Se mueve, pero sin cargas muy pesadas.' }
+      ]);
+
+      /* Comprobador */
+      if (x.tp == null) { x.tp = 0; x.T = 28; x.H = 55; x.E = false; x.A = 0.2; }
+      var PRESETS = [['Oficina en verano', 0, 28, 55, false, .2], ['Tienda en invierno', 1, 18, 45, false, .3], ['Almacén con electricidad estática', 1, 20, 40, true, .1], ['Call center con el aire fuerte', 0, 23, 50, false, .4]];
+      $('#presets').innerHTML = PRESETS.map(function (p, i) { return '<button type="button" data-p="' + i + '">' + esc(p[0]) + '</button>'; }).join('');
+      function check() {
+        var R = TERMO[x.tp], hmin = x.E ? 50 : 30;
+        $$('#segTipo button').forEach(function (b) { b.setAttribute('aria-pressed', String(+b.dataset.t === x.tp)); });
+        $('#sT').value = x.T; $('#sH').value = x.H; $('#sE').checked = !!x.E; $('#sA').value = x.A;
+        $('#vT').textContent = dec(x.T) + ' ºC'; $('#vH').textContent = x.H + ' %'; $('#vA').textContent = dec(Math.round(x.A * 100) / 100) + ' m/s';
+        var rows = [
+          ['Temperatura', x.T >= R.t[0] && x.T <= R.t[1], 'Trabajo ' + R.n + ': entre ' + R.t[0] + ' y ' + R.t[1] + ' ºC. ' + (x.T > R.t[1] ? 'Sobran ' + dec(Math.round((x.T - R.t[1]) * 10) / 10) + ' ºC.' : x.T < R.t[0] ? 'Faltan ' + dec(Math.round((R.t[0] - x.T) * 10) / 10) + ' ºC.' : 'Dentro del rango.')],
+          ['Humedad', x.H >= hmin && x.H <= 70, 'Entre ' + hmin + ' y 70 %' + (x.E ? ' porque hay electricidad estática.' : '.') + (x.H < hmin ? ' Aire demasiado seco.' : x.H > 70 ? ' Aire demasiado húmedo.' : '')],
+          ['Corrientes del aire acondicionado', x.A <= R.a + 1e-9, 'Como máximo ' + dec(R.a) + ' m/s para trabajo ' + R.n + '.']
+        ];
+        var bad = rows.filter(function (r) { return !r[1]; });
+        var v = $('#verdict'); v.className = 'verdict ' + (bad.length ? 'no' : 'ok');
+        $('.vt', v).textContent = bad.length ? '✗ No cumple el Anexo III' : '✓ Cumple el Anexo III';
+        $('.vs', v).innerHTML = bad.length ? 'Falla: <b>' + bad.map(function (r) { return r[0].toLowerCase(); }).join(', ') + '</b>.' : 'Temperatura, humedad y corrientes dentro de los valores para trabajo ' + R.n + '.';
+        $('#res').innerHTML = rows.map(function (r) { return '<div class="ri ' + (r[1] ? 'ok' : 'no') + '"><span class="mk">' + (r[1] ? '✓' : '✗') + '</span><div><b>' + r[0] + '</b><span>' + r[2] + '</span></div></div>'; }).join('');
+      }
+      $('#segTipo').addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; x.tp = +b.dataset.t; check(); E.save(); });
+      $('#sT').addEventListener('input', function () { x.T = +this.value; check(); E.save(); });
+      $('#sH').addEventListener('input', function () { x.H = +this.value; check(); E.save(); });
+      $('#sE').addEventListener('change', function () { x.E = this.checked; check(); E.save(); });
+      $('#sA').addEventListener('input', function () { x.A = +this.value; check(); E.save(); });
+      $('#presets').addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; var p = PRESETS[+b.dataset.p]; x.tp = p[1]; x.T = p[2]; x.H = p[3]; x.E = p[4]; x.A = p[5]; check(); E.save(); });
+      check();
+
+      E.quiz('med', ['Calor', 'Frío', 'Ambos'], [
+        { s: 'Poner agua a mano y hacer pausas en una zona fresca.', ok: 0, why: 'Medida <b>frente al calor</b>.', hint: '¿Zona fresca o templada?' },
+        { s: 'Entregar ropa térmica a quien entra en la cámara frigorífica.', ok: 1, why: 'Frente al <b>frío</b>; en cámaras es un EPI.', hint: 'Piensa en la cámara.' },
+        { s: 'Aclimatar poco a poco a la persona que se incorpora nueva.', ok: 0, why: 'Frente al <b>calor</b>: el cuerpo necesita adaptarse.', hint: 'Está en la columna roja.' },
+        { s: 'Medir con termómetro, higrómetro y anemómetro.', ok: 2, why: 'Medir sirve en <b>ambos casos</b>.', hint: 'Sin medir no sabes si hay problema.' },
+        { s: 'Bebidas calientes y pausas en una zona templada.', ok: 1, why: 'Frente al <b>frío</b>.', hint: '¿Templada para quién viene de dónde?' }
+      ]);
+
+      var PO = ['Cumple', 'No cumple: temperatura', 'No cumple: humedad', 'No cumple: corrientes'];
+      E.quiz('prac', PO, [
+        { s: '<b>Administrativo</b> de una empresa de exportación: <span class="db">28 ºC</span>, <span class="db">50 %</span>, corrientes de <span class="db">0,2 m/s</span>.', ok: 1, why: 'Trabajo sedentario: el máximo son <b>27 ºC</b>. Bajar el termostato y revisar la climatización.', hint: 'Primero decide: ¿sedentario o ligero?' },
+        { s: '<b>Dependienta</b> de una tienda de ropa: <span class="db">24 ºC</span>, <span class="db">45 %</span>, aire acondicionado a <span class="db">0,3 m/s</span>.', ok: 0, why: 'Trabajo ligero: 14–25 ºC, 30–70 % y hasta <b>0,35 m/s</b>. Todo correcto.', hint: 'Trabajo ligero: revisa los tres valores.' },
+        { s: '<b>Teleoperador</b>: <span class="db">22 ºC</span>, <span class="db">25 %</span>, <span class="db">0,2 m/s</span>.', ok: 2, why: 'La humedad debe estar entre <b>30 y 70 %</b>: el aire está demasiado seco.', hint: 'La temperatura está bien. Mira lo demás.' },
+        { s: '<b>Mozo de almacén</b> que manipula cajas de cartón con riesgo de electricidad estática: <span class="db">20 ºC</span>, <span class="db">40 %</span>.', ok: 2, why: 'Con electricidad estática la humedad mínima sube a <b>50 %</b>.', hint: 'Hay electricidad estática: cambia uno de los rangos.' },
+        { s: '<b>Programadora</b> en una oficina: <span class="db">23 ºC</span>, <span class="db">50 %</span>, aire acondicionado a <span class="db">0,3 m/s</span>.', ok: 3, why: 'Trabajo sedentario: el aire acondicionado no puede pasar de <b>0,25 m/s</b>.', hint: 'Sedentario: revisa la corriente máxima.' },
+        { s: '<b>Mozo de logística del frío</b> en una cámara frigorífica a <span class="db">−20 ºC</span>. ¿Qué norma se aplica?', opts: ['Anexo III: no cumple la temperatura', 'Normativa específica: RD 1561/1995'], ok: 1, why: 'Las cámaras frigoríficas tienen <b>normativa específica</b> (jornadas especiales, RD 1561/1995): ropa térmica, tiempo limitado y pausas en zona templada.', hint: 'Recuerda la nota del paso 2.' }
+      ]);
+
+      /* Gráfico del caso (sin los datos: los sitúa el alumno) */
+      var X0 = 60, X1 = 580, Y0 = 250, Y1 = 20;
+      function gx(t) { return X0 + (t - 10) / (32 - 10) * (X1 - X0); }
+      function gy(hm) { return Y0 - hm / 100 * (Y0 - Y1); }
+      var c = '';
+      for (var t = 10; t <= 32; t += 2) c += '<line x1="' + gx(t) + '" y1="' + Y0 + '" x2="' + gx(t) + '" y2="' + Y1 + '" stroke="' + LINE + '"/><text x="' + gx(t) + '" y="' + (Y0 + 20) + '" text-anchor="middle" font-family="Inter" font-size="13" fill="' + INK2 + '">' + t + '</text>';
+      for (var hm = 0; hm <= 100; hm += 20) c += '<line x1="' + X0 + '" y1="' + gy(hm) + '" x2="' + X1 + '" y2="' + gy(hm) + '" stroke="' + LINE + '"/><text x="' + (X0 - 8) + '" y="' + (gy(hm) + 5) + '" text-anchor="end" font-family="Inter" font-size="13" fill="' + INK2 + '">' + hm + '</text>';
+      c += '<text x="' + X1 + '" y="' + (Y0 + 40) + '" text-anchor="end" font-family="Inter" font-size="13" fill="' + INK2 + '">Temperatura (ºC)</text><text x="14" y="14" font-family="Inter" font-size="13" fill="' + INK2 + '">Humedad (%)</text>';
+      c += '<rect id="zone" y="' + gy(70) + '" height="' + (gy(30) - gy(70)) + '" rx="6" fill="' + T + '" fill-opacity=".16" stroke="' + T + '" stroke-width="3" opacity="0" style="transition:all .6s cubic-bezier(.22,1,.36,1)"/><text id="zoneLab" y="' + (gy(70) + 22) + '" font-family="Inter" font-size="14" font-weight="700" fill="' + T + '"></text>';
+      $('#chartTH').innerHTML = c;
+      var A0 = 60, A1 = 580, ax = function (v) { return A0 + v / 0.6 * (A1 - A0); };
+      var a = '<text x="' + A0 + '" y="14" font-family="Inter" font-size="13" fill="' + INK2 + '">Corrientes de aire acondicionado (m/s)</text><rect x="' + A0 + '" y="24" width="' + (A1 - A0) + '" height="16" rx="8" fill="#EEF1F3"/><rect id="airOk" x="' + A0 + '" y="24" width="0" height="16" rx="8" fill="' + T + '" fill-opacity=".3" style="transition:width .6s"/>';
+      [0, .1, .2, .3, .4, .5, .6].forEach(function (v) { a += '<text x="' + ax(v) + '" y="60" text-anchor="middle" font-family="Inter" font-size="12" fill="' + INK2 + '">' + dec(v) + '</text>'; });
+      $('#chartAir').innerHTML = a;
+      function zona(k) {
+        $$('#segZona button').forEach(function (b) { b.setAttribute('aria-pressed', String(+b.dataset.t === k)); });
+        var z = $('#zone'), l = $('#zoneLab');
+        if (k == null) { z.setAttribute('opacity', 0); l.textContent = ''; $('#airOk').setAttribute('width', 0); return; }
+        var R = TERMO[k];
+        z.setAttribute('x', gx(R.t[0])); z.setAttribute('width', gx(R.t[1]) - gx(R.t[0])); z.setAttribute('opacity', 1);
+        l.setAttribute('x', gx(R.t[0]) + 10); l.textContent = 'Zona legal · ' + R.n;
+        $('#airOk').setAttribute('width', ax(R.a) - A0);
+      }
+      $('#segZona').addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; x.zona = +b.dataset.t; zona(x.zona); E.save(); });
+      zona(x.zona == null ? null : x.zona);
+    }
+  };
+})();
+/* ===== Motor común de las guías de agentes físicos ===== */
+(function () {
+  'use strict';
+  var G = window.GUIDE;
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- Estado guardado ---------- */
+  var state = { step: 0, visited: [0], q: {}, x: {}, caso: {} };
+  try { var raw = localStorage.getItem(G.key); if (raw) { var s = JSON.parse(raw); for (var k in s) state[k] = s[k]; } } catch (e) {}
+  ['q', 'x', 'caso'].forEach(function (k) { if (!state[k] || typeof state[k] !== 'object') state[k] = {}; });
+  var saveTimer;
+  function save(showMsg) {
+    try { localStorage.setItem(G.key, JSON.stringify(state)); } catch (e) {}
+    var m = $('#savedMsg');
+    if (showMsg && m) { m.classList.add('on'); clearTimeout(saveTimer); saveTimer = setTimeout(function () { m.classList.remove('on'); }, 1600); }
+  }
+
+  /* ---------- Pasos ---------- */
+  var steps = $$('.step');
+  var stepper = $('#stepper');
+  stepper.innerHTML = steps.map(function (s, i) {
+    return '<button class="step-chip" type="button" data-go="' + i + '"><span class="n">' + (i === 0 ? '★' : i) + '</span>' + esc(s.dataset.title) + '</button>';
+  }).join('');
+  $('#toc').innerHTML = steps.slice(1).map(function (s, i) {
+    return '<button type="button" data-go="' + (i + 1) + '"><span class="k">Paso ' + (i + 1) + '</span><span class="t">' + esc(s.dataset.title) + '</span><span class="d">' + esc(s.dataset.desc || '') + '</span></button>';
+  }).join('');
+
+  function show(i, scroll) {
+    i = Math.max(0, Math.min(steps.length - 1, i));
+    state.step = i;
+    if (state.visited.indexOf(i) < 0) state.visited.push(i);
+    steps.forEach(function (s, k) { s.classList.toggle('on', k === i); });
+    $$('.step-chip').forEach(function (c, k) {
+      c.classList.toggle('on', k === i);
+      c.classList.toggle('done', state.visited.indexOf(k) >= 0 && k !== i);
+      if (k === i) c.setAttribute('aria-current', 'step'); else c.removeAttribute('aria-current');
+    });
+    var cur = $('.step-chip.on'); if (cur) stepper.scrollLeft = cur.offsetLeft - stepper.clientWidth / 2 + cur.offsetWidth / 2;
+    $('#progBar').style.width = (state.visited.length / steps.length * 100) + '%';
+    if (scroll) window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+    if (G.onShow) G.onShow(i, E);
+    save();
+  }
+  document.addEventListener('click', function (e) {
+    var g = e.target.closest('[data-go]'); if (g) { show(+g.dataset.go, true); return; }
+    if (e.target.closest('[data-next]')) show(state.step + 1, true);
+    if (e.target.closest('[data-prev]')) show(state.step - 1, true);
+  });
+
+  /* ---------- Ejercicios con corrección ---------- */
+  function quiz(id, opts, items) {
+    var box = $('#q-' + id);
+    if (!state.q[id]) state.q[id] = {};
+    box.innerHTML = items.map(function (it, i) {
+      var o = it.opts || opts;
+      return '<div class="q" data-i="' + i + '"><p class="qs">' + it.s + '</p><div class="opts">' + o.map(function (t, k) { return '<button type="button" class="opt" data-k="' + k + '">' + esc(t) + '</button>'; }).join('') + '</div><div class="fb" aria-live="polite"></div></div>';
+    }).join('');
+    function paint(i) {
+      var q = $$('.q', box)[i], ch = state.q[id][i], it = items[i];
+      $$('.opt', q).forEach(function (b, k) { b.classList.toggle('sel-right', ch === k && k === it.ok); b.classList.toggle('sel-wrong', ch === k && k !== it.ok); });
+      q.classList.toggle('right', ch === it.ok); q.classList.toggle('wrong', ch != null && ch !== it.ok);
+      var fb = $('.fb', q);
+      if (ch == null) { fb.className = 'fb'; fb.innerHTML = ''; return; }
+      var ok = ch === it.ok;
+      fb.className = 'fb on ' + (ok ? 'right' : 'wrong');
+      fb.innerHTML = ok ? '<b>¡Bien!</b> ' + it.why : '<b>Casi.</b> ' + (it.hint ? it.hint + ' ' : '') + 'Vuelve a intentarlo.';
+    }
+    function score() {
+      var n = items.filter(function (it, i) { return state.q[id][i] === it.ok; }).length;
+      $('#sc-' + id).textContent = n + ' de ' + items.length + (n === items.length ? ' ✓' : '');
+    }
+    box.addEventListener('click', function (e) {
+      var b = e.target.closest('.opt'); if (!b) return;
+      var i = +b.closest('.q').dataset.i;
+      state.q[id][i] = +b.dataset.k; paint(i); score(); save();
+    });
+    items.forEach(function (_, i) { paint(i); }); score();
+  }
+
+  /* ---------- Caso práctico (formulario + hoja imprimible) ---------- */
+  function fieldHTML(f) {
+    var id = 'cf-' + f.k, lab = '<label class="flab" for="' + id + '">' + esc(f.label) + '</label>';
+    if (f.type === 'select') return '<div class="field">' + lab + '<select id="' + id + '" data-k="' + f.k + '"><option value="">' + esc(f.ph || 'Elige…') + '</option>' + f.opts.map(function (o, i) { return '<option value="' + i + '">' + esc(o) + '</option>'; }).join('') + '</select></div>';
+    return '<div class="field">' + lab + '<textarea id="' + id + '" data-k="' + f.k + '" rows="' + (f.rows || 3) + '" placeholder="' + esc(f.ph || '') + '"></textarea></div>';
+  }
+  function buildCaso() {
+    var C = G.caso, box = $('#casoForm'); if (!C || !box) return;
+    box.innerHTML = '<div class="field" style="max-width:420px"><label class="flab" for="cf-nombre">Tu nombre</label><input id="cf-nombre" data-k="nombre" type="text" autocomplete="name"></div>' +
+      C.groups.map(function (g, gi) {
+        var fields = '<div class="stack" style="gap:10px">' + g.fields.map(fieldHTML).join('') + '</div>';
+        return g.title ? '<div class="day" id="cg-' + gi + '"><div><h3>' + esc(g.title) + '</h3>' + (g.sub ? '<p class="dv">' + esc(g.sub) + '</p>' : '') + '</div>' + fields + '</div>' : fields;
+      }).join('');
+    $$('[data-k]', box).forEach(function (el) { var v = state.caso[el.dataset.k]; el.value = v == null ? '' : v; });
+    box.addEventListener('input', function (e) { var t = e.target; if (!t.dataset.k) return; state.caso[t.dataset.k] = t.value; save(true); });
+    box.addEventListener('change', function (e) { var t = e.target; if (!t.dataset.k) return; state.caso[t.dataset.k] = t.value; save(true); });
+    $('#btnPrint').addEventListener('click', function () {
+      var hoy = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+      var h = '<h1>' + esc(C.title) + '</h1><p class="meta">' + esc(G.title) + ' · ' + esc(state.caso.nombre || 'Sin nombre') + ' · ' + hoy + '</p>' + (C.dataHTML || '');
+      C.groups.forEach(function (g) {
+        if (g.title) h += '<h2>' + esc(g.title) + (g.sub ? ' <span style="font-weight:400;font-size:11pt;color:#555">· ' + esc(g.sub) + '</span>' : '') + '</h2>';
+        g.fields.forEach(function (f) {
+          var v = state.caso[f.k];
+          if (f.type === 'select') v = v === '' || v == null ? '' : f.opts[+v];
+          h += '<div class="pday"><b>' + esc(f.label) + '</b><div class="ans">' + esc(v || '(sin responder)') + '</div></div>';
+        });
+      });
+      $('#printSheet').innerHTML = h;
+      window.print();
+    });
+  }
+
+  /* ---------- Empezar de cero ---------- */
+  $('#btnReset').addEventListener('click', function () {
+    if (!confirm('Se borrarán tus respuestas de esta guía en este navegador. ¿Seguro?')) return;
+    try { localStorage.removeItem(G.key); } catch (e) {}
+    location.reload();
+  });
+
+  var E = { state: state, save: save, quiz: quiz, show: show, $: $, $$: $$, esc: esc, reduce: reduce };
+  if (G.init) G.init(E);
+  buildCaso();
+  show(state.step || 0, false);
+})();
+</script>
+</body>
+</html>
