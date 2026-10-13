@@ -437,8 +437,8 @@
         <table class="lxt"><thead><tr><th>Zonas donde se realizan tareas</th><th style="text-align:right">Mínimo</th></tr></thead><tbody id="tA"></tbody></table>
         <table class="lxt"><thead><tr><th>Zonas adyacentes</th><th style="text-align:right">Mínimo</th></tr></thead><tbody id="tB"></tbody></table>
       </div>
-      <div class="note"><span class="tag">Lo inquietante</span><p>El RD <b>no especifica</b> en ningún sitio qué se entiende por exigencias visuales bajas, medias, altas y muy altas. Lo vemos en el paso siguiente.</p></div>
-      <div class="note" style="background:var(--surface-alt)"><span class="tag">Ojo</span><p>Estos mínimos <b>se duplican</b> si hay riesgo apreciable de caídas o choques, o si un error visual puede ser peligroso. (El RD llama «moderadas» a las que aquí llamamos «medias».)</p></div>
+      <div class="note"><span class="tag">Lo inquietante</span><p>El RD <b>no especifica</b> en ningún sitio qué se entiende por exigencias visuales bajas, moderadas, altas y muy altas. Lo vemos en el paso siguiente.</p></div>
+      <div class="note" style="background:var(--surface-alt)"><span class="tag">Ojo</span><p>Estos mínimos <b>se duplican</b> si hay riesgo apreciable de caídas o choques, o si un error visual puede ser peligroso.</p></div>
       <div class="panel">
         <div class="quiz-head"><h3>Compruébalo: ¿cuál es el mínimo?</h3><span class="score" id="sc-minimo"></span></div>
         <div class="quiz" id="q-minimo"></div>
@@ -451,8 +451,8 @@
   <section class="step" data-title="¿Cumple?" data-desc="Comprobador de lux">
     <div class="step-head">
       <span class="step-num">Paso 3</span>
-      <h2>Como el RD no lo concreta, una tabla práctica</h2>
-      <p>Los técnicos de prevención se apoyan en las guías del INSST y en documentación técnica complementaria. Esta es la tabla que usamos en clase.</p>
+      <h2>Como el RD no lo concreta, una tabla orientativa</h2>
+      <p>Para clasificar una tarea, los técnicos de prevención consultan la <b>Guía Técnica de lugares de trabajo del INSST</b> y normas técnicas como la <b>UNE-EN 12464-1</b>, que detallan mucha más información. Como recurso, aquí tienes una pequeña tabla <b>elaborada en clase siguiendo la lógica del alumnado a lo largo de los años</b>: no es oficial, pero ayuda a razonar.</p>
     </div>
     <div class="stack">
       <div class="stack" style="gap:8px" id="exig"></div>
@@ -578,11 +578,11 @@
   var dec = function (x) { return String(x).replace('.', ','); };
   var miles = function (x) { return x >= 1000 ? (x / 1000).toFixed(3).replace('.', '.') : String(x); };
 
-  var LUX_A = [['Exigencias visuales bajas', 100], ['Exigencias visuales medias', 200], ['Exigencias visuales altas', 500], ['Exigencias visuales muy altas', 1000]];
+  var LUX_A = [['Exigencias visuales bajas', 100], ['Exigencias visuales moderadas', 200], ['Exigencias visuales altas', 500], ['Exigencias visuales muy altas', 1000]];
   var LUX_B = [['Áreas de uso ocasional', 50], ['Áreas de uso habitual', 100], ['Vías de circulación de uso ocasional', 25], ['Vías de circulación de uso habitual', 50]];
   var ALL = LUX_A.concat(LUX_B);
   var CAT_OPTS = ALL.map(function (r) { return r[0] + ' · ' + miles(r[1]) + ' lx'; });
-  var EXIG = [['Baja', 100, 'Almacenes generales, cuartos de limpieza y mantenimiento', 'No se requiere precisión visual: importan la orientación y la seguridad.'], ['Media', 200, 'Recepciones y mostradores, almacenes con manipulación habitual, salas de reuniones', 'Se necesita cierta precisión, pero sin detalles finos.'], ['Alta', 500, 'Oficinas, aulas, montaje y ensamblaje, trabajo administrativo', 'Lectura, escritura o tareas de precisión moderada.'], ['Muy alta', 1000, 'Inspección de calidad, dibujo técnico, electrónica y mecánica fina, quirófanos, relojería', 'Distinguir detalles pequeños o colores.']];
+  var EXIG = [['Baja', 100, 'Almacenes generales, cuartos de limpieza y mantenimiento', 'No se requiere precisión visual: importan la orientación y la seguridad.'], ['Moderada', 200, 'Recepciones y mostradores, almacenes con manipulación habitual', 'Se necesita cierta precisión, pero sin detalles finos.'], ['Alta', 500, 'Oficinas, aulas, salas de reuniones, montaje y ensamblaje, trabajo administrativo', 'Lectura, escritura o tareas de precisión moderada.'], ['Muy alta', 1000, 'Inspección de calidad, dibujo técnico, electrónica y mecánica fina, quirófanos, relojería', 'Distinguir detalles pequeños o colores.']];
   var ZONES = [
     { name: 'Recepción', x: 24, y: 24, w: 200, h: 150, q: 'En la recepción de las oficinas, donde reciben al público y clientes.' },
     { name: 'Oficinas', x: 232, y: 24, w: 424, h: 150, q: 'En el interior de las oficinas, donde se realizan las tareas administrativas.' },
@@ -652,9 +652,9 @@
       /* Tabla práctica de exigencias */
       $('#exig').innerHTML = EXIG.map(function (e, i) { return '<div class="exig"><div class="lv" style="opacity:' + (.6 + i * .13) + '"><b>' + e[0] + '</b><span>' + miles(e[1]) + ' lx</span></div><div class="c">' + esc(e[2]) + '</div><div class="c soft">' + esc(e[3]) + '</div></div>'; }).join('');
 
-      E.quiz('exig', ['Baja', 'Media', 'Alta', 'Muy alta'], [
+      E.quiz('exig', ['Baja', 'Moderada', 'Alta', 'Muy alta'], [
         { s: 'Revisar con lupa que las costuras de un lote de bolsos no tienen defectos.', ok: 3, why: 'Es inspección de calidad: distinguir detalles pequeños. <b>Muy alta, 1.000 lx</b>.', hint: '¿Hace falta distinguir detalles muy pequeños?' },
-        { s: 'Atender a los clientes en el mostrador de una tienda.', ok: 1, why: 'Recepciones y mostradores: <b>media, 200 lx</b>.', hint: 'Mira la fila de recepciones y mostradores.' },
+        { s: 'Atender a los clientes en el mostrador de una tienda.', ok: 1, why: 'Recepciones y mostradores: <b>moderada, 200 lx</b>.', hint: 'Mira la fila de recepciones y mostradores.' },
         { s: 'Preparar facturas y responder correos en la oficina de exportación.', ok: 2, why: 'Trabajo administrativo con lectura y escritura: <b>alta, 500 lx</b>.', hint: 'Leer y escribir todo el día: ¿qué fila es?' },
         { s: 'Guardar los productos de limpieza en su cuarto.', ok: 0, why: 'Solo importan la orientación y la seguridad: <b>baja, 100 lx</b>.', hint: '¿Hace falta precisión visual para esto?' }
       ]);
