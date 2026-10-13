@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inversión y financiación</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Educa Tools · Plan de inversión y financiación. Tema claro por decisión de marca.
+   Flujo: intro → proyecto (nombre + 3 preguntas de perfil) → inversión (paneles) → colchón (paneles de gastos) → financiación → resultado.
+   El perfil solo decide qué opciones del catálogo salen primero ("habituales"); nunca oculta nada del todo.
+   Guarda en localStorage bajo una clave compartida para que el Umbral de rentabilidad lea los datos. */
+:root {
+  --bg: #FBFCEF; --surface: #FFFFFF; --surface-alt: #F5F6E4;
+  --ink: #1E1C1A; --ink-soft: #4A463F; --ink-muted: #8B847A;
+  --line: #E8E1D6; --line-soft: #EEEFD8;
+  --olive-deep: #6B7028; --olive-mid: #A8AD5C; --lime-soft: #E8EDC4;
+  --tool-soft: #E0EEE8; --tool-mid: #6FAE98; --tool-deep: #2C6E5A;
+  --ok-soft:#E5EDDB; --ok-mid:#A8C485; --ok-deep:#557A35; --ok-ink:#354B22;
+  --warn-soft:#F2EDDB; --warn-mid:#C9B073; --warn-deep:#8B6F2A; --warn-ink:#5A4818;
+  --bad-soft:#F4E5E5; --bad-mid:#C58A8A; --bad-deep:#8B3A3A; --bad-ink:#5E2424;
+  /* masas patrimoniales */
+  --c-mat:#6B7028; --c-int:#3E5778; --c-fin:#8B6430; --c-cor:#2C6E5A; --c-gas:#7A3244;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--ink); font-family: 'Inter', system-ui, sans-serif; font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+.container { max-width: 780px; margin: 0 auto; padding: 40px 20px 80px; }
+.screen { display: none; } .screen.active { display: block; }
+.serif { font-family: 'Fraunces', Georgia, serif; }
+h1.display { font-family: 'Fraunces', Georgia, serif; font-size: 46px; line-height: 1.06; font-weight: 400; letter-spacing: -0.02em; text-wrap: balance; }
+h1.display em { font-style: italic; font-weight: 300; color: var(--tool-deep); }
+h2.title { font-family: 'Fraunces', Georgia, serif; font-size: 27px; line-height: 1.2; font-weight: 400; letter-spacing: -0.01em; text-wrap: balance; }
+h2.title em { font-style: italic; font-weight: 300; color: var(--tool-deep); }
+h3.subtitle { font-family: 'Fraunces', Georgia, serif; font-size: 18px; line-height: 1.3; font-weight: 500; }
+.prose { font-family: 'Fraunces', Georgia, serif; font-size: 15.5px; line-height: 1.65; font-weight: 300; color: var(--ink-soft); }
+.prose b { font-weight: 500; color: var(--ink); }
+.prose-italic { font-family: 'Fraunces', Georgia, serif; font-style: italic; font-weight: 300; line-height: 1.6; color: var(--ink-soft); }
+.eyebrow { font-size: 11px; font-weight: 500; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 2px; }
+.eyebrow-line { display: flex; align-items: center; gap: 12px; margin-bottom: 22px; }
+.eyebrow-line::before { content: ''; width: 40px; height: 1px; background: var(--ink-muted); }
+.label-form { font-size: 12.5px; font-weight: 500; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 1.5px; display: block; margin-bottom: 10px; }
+.opt-tag { font-size: 10.5px; font-weight: 500; letter-spacing: 1px; color: var(--ink-muted); text-transform: none; margin-left: 6px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 24px; border-radius: 999px; font: 500 14px 'Inter', sans-serif; cursor: pointer; transition: all .2s ease; border: none; }
+.btn:focus-visible, .link-btn:focus-visible, .add-btn:focus-visible, .sg:focus-visible, .btn-back:focus-visible, .sw:focus-visible, .icon-btn:focus-visible { outline: 2px solid var(--tool-deep); outline-offset: 2px; }
+.btn-primary { background: var(--ink); color: var(--bg); }
+.btn-primary:hover:not(:disabled) { background: #2D3220; transform: translateY(-1px); }
+.btn-primary:disabled { background: var(--line); color: var(--ink-muted); cursor: not-allowed; }
+.btn-ghost { background: transparent; color: var(--ink-soft); border: 1px solid var(--line); }
+.btn-ghost:hover { background: var(--surface); border-color: var(--ink-muted); }
+.btn-tool { background: var(--tool-deep); color: #fff; }
+.btn-tool:hover { filter: brightness(1.08); }
+.btn-sm { padding: 9px 16px; font-size: 13px; }
+.btn-back { display: inline-flex; align-items: center; gap: 6px; background: none; border: none; font: 13px 'Inter', sans-serif; color: var(--ink-muted); cursor: pointer; padding: 4px 0; margin-bottom: 18px; }
+.btn-back:hover { color: var(--ink); }
+.link-btn { background: none; border: none; font: 500 13px 'Inter', sans-serif; color: var(--tool-deep); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; padding: 2px 0; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; }
+.text-input, .input-line { width: 100%; border: 1.5px solid var(--line); border-radius: 12px; padding: 13px 16px; font: 300 16px/1.5 'Fraunces', Georgia, serif; color: var(--ink); background: var(--surface); outline: none; transition: border-color .2s; }
+.text-input { resize: vertical; }
+.text-input:focus, .input-line:focus { border-color: var(--ink); }
+.field { margin-bottom: 22px; }
+.field-hint { font-size: 12px; color: var(--ink-muted); margin-top: 6px; }
+.stepnum { border-radius: 50%; width: 22px; height: 22px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: var(--ink); color: var(--surface); font-size: 11px; font-weight: 600; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes shake { 0%,100% { transform: none; } 20% { transform: translateX(-8px); } 40% { transform: translateX(7px); } 60% { transform: translateX(-5px); } 80% { transform: translateX(3px); } }
+@keyframes pop { 0% { transform: scale(.96); } 60% { transform: scale(1.02); } 100% { transform: none; } }
+.fade { animation: fadeUp .45s ease; }
+.shake { animation: shake .4s ease; }
+.pop { animation: pop .35s ease; }
+@media (prefers-reduced-motion: reduce) { .fade, .shake, .pop { animation: none; } .btn, .beam { transition: none !important; } }
+
+/* stepper */
+.stepper { display: flex; gap: 6px; margin-bottom: 26px; flex-wrap: wrap; }
+.st { flex: 1; min-width: 90px; }
+.st i { display: block; height: 4px; border-radius: 4px; background: var(--line); margin-bottom: 6px; }
+.st span { font-size: 11px; font-weight: 500; letter-spacing: .6px; color: var(--ink-muted); text-transform: uppercase; }
+.st.done i { background: var(--tool-mid); } .st.on i { background: var(--ink); } .st.on span { color: var(--ink); }
+
+/* intro */
+.rules { display: flex; flex-direction: column; gap: 14px; }
+.rule { display: flex; gap: 14px; align-items: flex-start; }
+.rule b { display: block; font: 500 15.5px 'Fraunces', Georgia, serif; margin-bottom: 2px; }
+.rule span.t { font-size: 13.5px; line-height: 1.55; color: var(--ink-soft); }
+.ex-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 14px; }
+.ex-row .lab { font-size: 12.5px; color: var(--ink-muted); margin-right: 4px; }
+.ex-btn { font: 500 13px 'Inter', sans-serif; padding: 8px 16px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink-soft); cursor: pointer; }
+.ex-btn:hover { border-color: var(--ink-muted); color: var(--ink); }
+.resume { display: flex; gap: 14px; align-items: center; justify-content: space-between; flex-wrap: wrap; padding: 16px 20px; border-radius: 14px; background: var(--tool-soft); border: 1px solid var(--tool-mid); margin-bottom: 22px; }
+.resume b { font: 500 16px 'Fraunces', Georgia, serif; color: var(--tool-deep); }
+.resume small { display: block; font-size: 12.5px; color: var(--ink-soft); }
+.hero-balance { display: flex; justify-content: center; margin: 4px 0 26px; }
+
+/* perfil del proyecto */
+.q-opts { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 8px; }
+.q-opt { text-align: left; font: inherit; color: inherit; cursor: pointer; background: var(--surface); border: 1.5px solid var(--line); border-radius: 12px; padding: 11px 14px; transition: all .15s ease; min-width: 0; }
+.q-opt:hover { border-color: var(--ink-muted); }
+.q-opt b { display: block; font: 600 13.5px 'Inter', sans-serif; color: var(--ink); }
+.q-opt span { display: block; font-size: 12px; line-height: 1.4; color: var(--ink-muted); margin-top: 2px; }
+.q-opt[aria-pressed="true"] { background: var(--tool-soft); border-color: var(--tool-deep); }
+.q-opt[aria-pressed="true"] b { color: var(--tool-deep); }
+.q-opt:focus-visible { outline: 2px solid var(--tool-deep); outline-offset: 2px; }
+@media (max-width: 560px) { .q-opts { grid-template-columns: 1fr; } }
+.perfil-strip { display: flex; gap: 6px 12px; align-items: center; flex-wrap: wrap; font-size: 13px; color: var(--ink-soft); padding: 10px 16px; border-radius: 12px; background: var(--surface-alt); border: 1px solid var(--line); margin-bottom: 18px; }
+.perfil-strip b { color: var(--ink); font-weight: 600; }
+
+/* paneles desplegables */
+details.panel > summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 1fr auto 18px; gap: 4px 14px; align-items: center; padding: 16px 20px; }
+details.panel > summary::-webkit-details-marker { display: none; }
+details.panel > summary:focus-visible { outline: 2px solid var(--tool-deep); outline-offset: -2px; border-radius: 12px; }
+details.panel > summary h3 { font: 500 17px 'Fraunces', Georgia, serif; color: var(--gc); }
+details.panel > summary .sub { grid-column: 1; font-size: 12.5px; color: var(--ink-muted); line-height: 1.4; }
+details.panel > summary .sum { grid-column: 2; grid-row: 1 / span 2; text-align: right; font: 500 17px 'Fraunces', Georgia, serif; font-variant-numeric: tabular-nums; }
+details.panel > summary .sum small { display: block; font: 400 11.5px 'Inter', sans-serif; color: var(--ink-muted); }
+details.panel > summary .chev { grid-column: 3; grid-row: 1 / span 2; width: 10px; height: 10px; border-right: 2px solid var(--ink-muted); border-bottom: 2px solid var(--ink-muted); transform: rotate(45deg); transition: transform .2s; justify-self: center; }
+details.panel[open] > summary .chev { transform: rotate(-135deg); }
+.opts-lab { padding: 0 20px 8px; font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink-muted); }
+.opts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; padding: 0 20px 8px; }
+.opt { display: flex; gap: 10px; align-items: flex-start; text-align: left; font: inherit; color: inherit; cursor: pointer; background: var(--surface); border: 1.5px solid var(--line); border-radius: 12px; padding: 10px 12px; transition: border-color .15s ease, background .15s ease; min-width: 0; }
+.opt:hover { border-color: var(--gc); }
+.opt:focus-visible { outline: 2px solid var(--tool-deep); outline-offset: 2px; }
+.opt .bx { flex-shrink: 0; width: 18px; height: 18px; margin-top: 1px; border-radius: 5px; border: 1.5px solid var(--ink-muted); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #fff; }
+.opt b { display: block; font: 600 13.5px/1.3 'Inter', sans-serif; color: var(--ink); }
+.opt span.ej { display: block; font-size: 12px; line-height: 1.4; color: var(--ink-muted); margin-top: 2px; }
+.opt[aria-pressed="true"] { border-color: var(--gc); background: var(--surface-alt); }
+.opt[aria-pressed="true"] .bx { background: var(--gc); border-color: var(--gc); }
+.more-row { padding: 0 20px 12px; }
+
+/* plan de inversión */
+.group { margin-bottom: 18px; border-radius: 16px; background: var(--surface); border: 1px solid var(--line); border-top: 4px solid var(--gc); overflow: hidden; }
+.group-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; padding: 16px 20px 6px; }
+.group-head h3 { font: 500 17px 'Fraunces', Georgia, serif; color: var(--gc); }
+.group-head .sum { font: 500 17px 'Fraunces', Georgia, serif; font-variant-numeric: tabular-nums; }
+.group-sub { padding: 0 20px 8px; font-size: 12.5px; color: var(--ink-muted); }
+.rows { padding: 0 20px; }
+.irow { display: grid; grid-template-columns: 1fr 130px 112px 92px 30px; gap: 10px; align-items: center; padding: 10px 0; border-top: 1px solid var(--line-soft); }
+.irow.no-life { grid-template-columns: 1fr 130px 30px; }
+.irow .nm { font: 400 15px/1.35 'Fraunces', Georgia, serif; min-width: 0; }
+.irow .nm small { display: block; font: 400 11.5px/1.4 'Inter', sans-serif; color: var(--ink-muted); margin-top: 2px; }
+.irow .nm small.fuera { color: var(--bad-deep); font-weight: 600; }
+.irow.ihead { padding: 4px 0 6px; border-top: none; font-size: 10.5px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--ink-muted); }
+.irow.ihead span:nth-child(2), .irow.ihead span:nth-child(3) { padding-left: 4px; }
+.irow.ihead span:nth-child(4) { text-align: right; }
+.irow.ihead + .irow { border-top-color: var(--line); }
+.fld { min-width: 0; }
+.fld .cap, .amort .cap { display: none; }
+.irow .nm input { width: 100%; border: none; border-bottom: 1.5px dashed var(--line); font: 400 15px 'Fraunces', Georgia, serif; padding: 3px 0; background: transparent; color: var(--ink); outline: none; }
+.irow .nm input:focus { border-bottom-color: var(--ink); }
+.num { display: flex; align-items: center; border: 1.5px solid var(--line); border-radius: 10px; background: var(--surface); padding: 0 10px; transition: border-color .2s; }
+.num:focus-within { border-color: var(--ink); }
+.num input { width: 100%; border: none; outline: none; background: transparent; padding: 9px 0; font: 500 15px 'Inter', sans-serif; font-variant-numeric: tabular-nums; text-align: right; color: var(--ink); min-width: 0; }
+.num span { font-size: 12.5px; color: var(--ink-muted); margin-left: 6px; white-space: nowrap; }
+.num input::-webkit-outer-spin-button, .num input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.num input[type=number] { -moz-appearance: textfield; }
+.amort { font-size: 12.5px; color: var(--ink-soft); text-align: right; font-variant-numeric: tabular-nums; line-height: 1.3; }
+.amort small { display: block; color: var(--ink-muted); font-size: 11px; }
+.icon-btn { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); color: var(--ink-muted); cursor: pointer; font-size: 16px; line-height: 1; }
+.icon-btn:hover { color: var(--bad-deep); border-color: var(--bad-mid); }
+.group-foot { padding: 10px 20px 16px; border-top: 1px solid var(--line-soft); }
+.add-btn { background: none; border: 1.5px dashed var(--line); border-radius: 999px; padding: 7px 14px; font: 500 12.5px 'Inter', sans-serif; color: var(--ink-soft); cursor: pointer; }
+.add-btn:hover { border-color: var(--ink-muted); color: var(--ink); }
+.empty { padding: 12px 0 14px; font-size: 13px; color: var(--ink-muted); font-style: italic; border-top: 1px solid var(--line-soft); }
+@media (max-width: 640px) {
+  .irow, .irow.no-life { grid-template-columns: 1fr 1fr 30px; }
+  .irow .nm { grid-column: 1 / 3; grid-row: 1; } .irow .icon-btn { grid-column: 3; grid-row: 1; }
+  .irow.no-life .fld { grid-column: 1 / 3; }
+  .irow .amort { grid-column: 1 / -1; text-align: left; }
+  .irow.ihead { display: none; }
+  .fld .cap, .amort .cap { display: block; font-size: 10.5px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 4px; }
+  .amort .cap { display: inline; margin-right: 8px; }
+  .amort small { display: inline; margin-left: 4px; }
+}
+.totals { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 6px 0 20px; }
+.tot { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; min-width: 0; }
+.tot span { display: block; font-size: 10.5px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 4px; }
+.tot b { font: 400 24px/1.15 'Fraunces', Georgia, serif; font-variant-numeric: tabular-nums; }
+.tot small { display: block; font-size: 12px; color: var(--ink-muted); margin-top: 2px; }
+.tot.hl { background: var(--tool-soft); border-color: var(--tool-mid); } .tot.hl b { color: var(--tool-deep); }
+@media (max-width: 640px) { .totals { grid-template-columns: 1fr; } }
+details.note { margin: 0 0 18px; background: var(--surface-alt); border: 1px solid var(--line); border-radius: 14px; padding: 12px 18px; }
+details.note summary { cursor: pointer; font-size: 13px; font-weight: 600; color: var(--tool-deep); letter-spacing: .2px; }
+details.note .in { font-size: 13.5px; line-height: 1.6; color: var(--ink-soft); margin-top: 10px; }
+details.note .in p + p { margin-top: 8px; }
+details.note b { color: var(--ink); font-weight: 600; }
+.glos .glos-h { font-size: 10.5px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--tool-deep); margin: 14px 0 4px; }
+.glos .glos-h:first-child { margin-top: 2px; }
+.glos dl { display: grid; grid-template-columns: 190px 1fr; gap: 0 14px; }
+.glos dt { font-weight: 600; color: var(--ink); padding: 6px 0; border-top: 1px solid var(--line-soft); }
+.glos dd { padding: 6px 0; border-top: 1px solid var(--line-soft); }
+@media (max-width: 560px) { .glos dl { grid-template-columns: 1fr; } .glos dd { border-top: none; padding-top: 0; } }
+.callout { margin: 0 0 18px; font-size: 13.5px; line-height: 1.55; padding: 12px 16px; border-radius: 12px; }
+.callout b { font-weight: 600; }
+.callout.warn { background: var(--warn-soft); color: var(--warn-ink); }
+.callout.bad { background: var(--bad-soft); color: var(--bad-ink); }
+.callout.ok { background: var(--ok-soft); color: var(--ok-ink); }
+.callout.info { background: var(--tool-soft); color: var(--tool-deep); }
+
+/* colchón */
+.seg { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; margin-bottom: 8px; }
+.sg { font: 600 16px 'Inter', sans-serif; height: 46px; color: var(--ink-soft); background: var(--surface); border: 1.5px solid var(--line); border-radius: 12px; cursor: pointer; transition: all .15s ease; }
+.sg:hover { border-color: var(--ink-muted); }
+.sg[aria-pressed="true"] { background: var(--tool-soft); border-color: var(--tool-deep); color: var(--tool-deep); }
+.formula { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; padding: 20px; border-radius: 16px; background: var(--tool-soft); margin: 18px 0; text-align: center; }
+.formula .fv { font: 400 26px/1 'Fraunces', Georgia, serif; font-variant-numeric: tabular-nums; }
+.formula small { display: block; font-size: 10.5px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 6px; }
+.formula .op { font: 300 26px 'Fraunces', Georgia, serif; color: var(--ink-muted); }
+.formula .res .fv { color: var(--tool-deep); font-size: 34px; font-weight: 500; }
+
+/* financiación */
+.frow { display: grid; grid-template-columns: 1fr 140px 30px; gap: 10px; align-items: center; padding: 12px 0; border-top: 1px solid var(--line-soft); }
+.frow .nm { font: 400 15px/1.35 'Fraunces', Georgia, serif; min-width: 0; }
+.frow .nm small { display: block; font: 400 12px/1.45 'Inter', sans-serif; color: var(--ink-muted); margin-top: 2px; }
+.loan-extra { grid-column: 1 / -1; display: grid; grid-template-columns: 130px 130px 1fr; gap: 10px; align-items: center; padding: 10px 14px; border-radius: 12px; background: var(--surface-alt); }
+.loan-extra .cu { font-size: 13px; color: var(--ink-soft); text-align: right; font-variant-numeric: tabular-nums; line-height: 1.35; }
+.loan-extra .cu b { font: 500 17px 'Fraunces', Georgia, serif; color: var(--ink); }
+@media (max-width: 640px) { .frow { grid-template-columns: 1fr 30px; } .frow .nm { grid-column: 1 / -1; } .frow .num { grid-column: 1; } .loan-extra { grid-template-columns: 1fr 1fr; } .loan-extra .cu { grid-column: 1 / -1; text-align: left; } }
+.split { display: flex; height: 26px; border-radius: 8px; overflow: hidden; margin: 10px 0 6px; font-size: 11.5px; font-weight: 600; color: #fff; }
+.split div { display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; min-width: 0; }
+.split .si { background: var(--bad-deep); } .split .sc { background: var(--tool-deep); }
+.legend-row { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12.5px; color: var(--ink-soft); }
+.legend-row i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: middle; }
+table.amtab { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 10px; font-variant-numeric: tabular-nums; }
+.amtab th { text-align: right; font-size: 10.5px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--ink-muted); padding: 6px 8px; border-bottom: 1px solid var(--line); }
+.amtab td { text-align: right; padding: 7px 8px; border-bottom: 1px solid var(--line-soft); }
+.amtab th:first-child, .amtab td:first-child { text-align: left; }
+.amtab td.int { color: var(--bad-deep); } .amtab td.cap { color: var(--tool-deep); }
+.table-scroll { overflow-x: auto; }
+
+/* barra de la balanza */
+.balbar { position: sticky; bottom: 0; z-index: 20; background: rgba(251,252,239,.96); backdrop-filter: blur(6px); border-top: 1px solid var(--line); }
+.balbar-in { max-width: 780px; margin: 0 auto; padding: 10px 20px; display: flex; align-items: center; gap: 16px; }
+.balbar .bnums { display: flex; gap: 18px; flex: 1; flex-wrap: wrap; min-width: 0; }
+.balbar .bn span { display: block; font-size: 10px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink-muted); }
+.balbar .bn b { font: 500 18px/1.2 'Fraunces', Georgia, serif; font-variant-numeric: tabular-nums; }
+.balbar .bstat { font-size: 12.5px; font-weight: 600; padding: 5px 12px; border-radius: 999px; white-space: nowrap; }
+.bstat.ok { background: var(--ok-soft); color: var(--ok-ink); } .bstat.short { background: var(--bad-soft); color: var(--bad-ink); } .bstat.over { background: var(--warn-soft); color: var(--warn-ink); } .bstat.zero { background: var(--surface-alt); color: var(--ink-muted); }
+@media (max-width: 560px) { .balbar svg { display: none; } .balbar .bn b { font-size: 16px; } .balbar .bstat { font-size: 11.5px; } }
+.beam { transition: transform .5s cubic-bezier(.3,1.4,.5,1); }
+
+/* informe */
+.actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; align-items: center; margin-bottom: 14px; }
+.toast { font-size: 13px; color: var(--ok-deep); font-weight: 500; }
+.themes { display: flex; align-items: center; gap: 8px; margin-right: auto; }
+.themes .lab { font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink-muted); }
+.sw { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--surface); box-shadow: 0 0 0 1px var(--line); cursor: pointer; }
+.sw[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--ink); }
+.report { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 44px 44px 36px; margin-bottom: 20px; }
+.report .sec { font-size: 10.5px; font-weight: 600; color: var(--tool-deep); text-transform: uppercase; letter-spacing: 2.2px; padding-bottom: 8px; border-bottom: 1px solid var(--line); margin: 34px 0 16px; display: block; }
+.rep-meta { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; font-size: 11.5px; color: var(--ink-muted); letter-spacing: .5px; }
+.rep-title { font: 400 30px/1.2 'Fraunces', Georgia, serif; letter-spacing: -0.015em; text-wrap: balance; margin: 14px 0 6px; }
+.rep-desc { font: italic 300 15px/1.55 'Fraunces', Georgia, serif; color: var(--ink-soft); margin-bottom: 20px; }
+.verdict { display: grid; grid-template-columns: auto 1fr; gap: 14px 26px; align-items: center; padding: 22px 24px; border-radius: 16px; background: var(--tool-soft); margin-bottom: 14px; }
+.verdict h2 { font: 500 22px/1.2 'Fraunces', Georgia, serif; color: var(--tool-deep); margin-bottom: 6px; text-wrap: balance; }
+.verdict p { font: 400 14.5px/1.6 'Fraunces', Georgia, serif; color: var(--ink-soft); }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 8px; }
+.stat { background: var(--surface-alt); border-radius: 12px; padding: 12px 14px; min-width: 0; }
+.stat span { display: block; font-size: 10px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 4px; }
+.stat b { font: 500 18px/1.25 'Fraunces', Georgia, serif; font-variant-numeric: tabular-nums; }
+@media (max-width: 700px) { .verdict { grid-template-columns: 1fr; } .stats { grid-template-columns: 1fr 1fr; } }
+.bs { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; font-variant-numeric: tabular-nums; }
+.bs > div { padding: 14px 18px; min-width: 0; }
+.bs > div + div { border-left: 1px solid var(--line); }
+.bs h4 { font-size: 10.5px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase; color: var(--tool-deep); margin-bottom: 8px; }
+.bs .l { display: flex; justify-content: space-between; gap: 10px; font-size: 13px; padding: 4px 0; }
+.bs .l.m { font-weight: 600; color: var(--ink); border-top: 1px solid var(--line-soft); margin-top: 6px; padding-top: 8px; }
+.bs .l.s { padding-left: 12px; color: var(--ink-soft); }
+.bs .tt { display: flex; justify-content: space-between; font: 500 15px 'Fraunces', Georgia, serif; padding: 10px 18px; background: var(--tool-soft); color: var(--tool-deep); }
+@media (max-width: 640px) { .bs { grid-template-columns: 1fr; } .bs > div + div { border-left: none; border-top: 1px solid var(--line); } }
+.stack { display: flex; height: 30px; border-radius: 8px; overflow: hidden; margin: 6px 0 8px; }
+.stack div { min-width: 0; }
+.stack-lab { font-size: 12px; color: var(--ink-soft); display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 14px; }
+.stack-lab i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 5px; vertical-align: middle; }
+.dtab { width: 100%; border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; }
+.dtab th { text-align: left; font-size: 10px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink-muted); padding: 6px 8px; border-bottom: 1px solid var(--line); }
+.dtab td { padding: 7px 8px; border-bottom: 1px solid var(--line-soft); }
+.dtab .r { text-align: right; }
+.dtab td:first-child { font-family: 'Fraunces', Georgia, serif; }
+.dtab tr.sub td { font-weight: 600; background: var(--surface-alt); font-family: 'Inter', sans-serif; }
+.handoff { border: 2px dashed var(--tool-mid); border-radius: 14px; padding: 18px 20px; background: var(--surface); }
+.handoff .hrow { display: flex; justify-content: space-between; gap: 12px; padding: 7px 0; border-bottom: 1px solid var(--line-soft); font-size: 13.5px; }
+.handoff .hrow b { font-variant-numeric: tabular-nums; }
+.handoff .hrow:last-of-type { border-bottom: none; }
+.mini { font-size: 12.5px; line-height: 1.6; color: var(--ink-soft); margin-top: 10px; }
+.mini b { color: var(--ink); font-weight: 600; }
+.method { font-size: 12.5px; line-height: 1.65; color: var(--ink-soft); }
+.method p + p { margin-top: 8px; }
+.rep-page + .rep-page { margin-top: 34px; padding-top: 26px; border-top: 2px dashed var(--line); }
+@media (max-width: 640px) { .report { padding: 26px 18px; } .rep-title { font-size: 24px; } h1.display { font-size: 34px; } .container { padding: 30px 16px 60px; } }
+.hidden-file { display: none; }
+</style>
+</head>
+<body>
+
+<!-- INTRO -->
+<div id="screen-intro" class="screen active">
+  <div class="container">
+    <div class="eyebrow-line fade"><span class="eyebrow">IPE 2 · Viabilidad del proyecto</span></div>
+    <h1 class="display fade" style="margin-bottom:18px;">¿Cuánto necesitas para <em>arrancar</em> y de dónde sale?</h1>
+    <p class="prose-italic fade" style="font-size:18px; margin-bottom:26px;">Antes de vender el primer producto ya has gastado dinero: local, equipos, mercancía y unos meses de colchón. Aquí calculas cuánto necesitas, de dónde lo vas a sacar y qué te costará.</p>
+
+    <div id="resume-box"></div>
+
+    <div class="hero-balance fade" id="intro-balance"></div>
+
+    <div class="card fade" style="padding:24px 26px; margin-bottom:18px;">
+      <h3 class="subtitle" style="margin-bottom:14px;">Cómo funciona</h3>
+      <div class="rules">
+        <div class="rule"><span class="stepnum">1</span><div><b>Cuéntanos tu proyecto</b><span class="t">Un nombre y tres preguntas rápidas: dónde trabajarás, qué vendes y si serás autónomo o sociedad. Así te enseñamos primero lo habitual en un negocio como el tuyo.</span></div></div>
+        <div class="rule"><span class="stepnum">2</span><div><b>Elige y pon precio</b><span class="t">Abre cada apartado del inmovilizado y del activo corriente, marca lo que necesitas y pon su importe. ¿Falta algo? Añádelo tú.</span></div></div>
+        <div class="rule"><span class="stepnum">3</span><div><b>Prepara el colchón</b><span class="t">Marca los gastos de cada mes y los de puesta en marcha. ¿Cuántos meses quieres tener cubiertos mientras arrancas?</span></div></div>
+        <div class="rule"><span class="stepnum">4</span><div><b>Busca la financiación y cuadra la balanza</b><span class="t">Recursos propios, préstamos, ayudas… Hasta que lo que necesitas y lo que tienes pesen exactamente lo mismo.</span></div></div>
+      </div>
+    </div>
+
+    <div class="card fade" style="padding:22px 26px; margin-bottom:28px; background:var(--tool-soft); border-color:var(--tool-mid);">
+      <p class="eyebrow" style="color:var(--tool-deep); margin-bottom:8px; font-weight:600;">La regla de oro</p>
+      <p class="prose" style="font-size:15px;"><b>Todo lo que inviertes tiene que estar financiado, al céntimo.</b> Si falta dinero, no puedes abrir. Si sobra, estás pidiendo prestado de más y pagando intereses por ello. Al final esto tiene nombre técnico: <b>balance inicial</b> (activo = patrimonio neto + pasivo).</p>
+    </div>
+
+    <button id="btn-start" class="btn btn-primary" style="width:100%; padding:16px; font-size:15px;">Empezar con mi proyecto →</button>
+    <div class="ex-row"><span class="lab">O carga un caso resuelto:</span>
+      <button class="ex-btn" data-ex="bicis">Tienda de bicis eléctricas</button>
+      <button class="ex-btn" data-ex="cosmetica">E-commerce de cosmética</button>
+      <button class="ex-btn" data-ex="agencia">Agencia de marketing digital</button>
+    </div>
+    <div class="ex-row"><span class="lab">¿Vienes de otro ordenador?</span><button class="link-btn" id="btn-import-intro">Cargar una copia guardada (.json)</button></div>
+  </div>
+</div>
+
+<!-- PROYECTO -->
+<div id="screen-proyecto" class="screen">
+  <div class="container">
+    <div class="stepper" data-step="0"></div>
+    <button class="btn-back" data-go="intro">← Inicio</button>
+    <h2 class="title" style="margin-bottom:10px;">¿Qué vas a <em>montar</em>?</h2>
+    <p class="prose" style="font-size:14.5px; margin-bottom:24px;">Un nombre, una frase y tres preguntas rápidas. Las respuestas no te cierran nada: solo sirven para enseñarte primero lo habitual en un negocio como el tuyo.</p>
+    <div class="field"><label class="label-form" for="in-nombre">Nombre del proyecto</label>
+      <input id="in-nombre" class="input-line" type="text" maxlength="80" placeholder="Ej: Bici&amp;Go"></div>
+    <div class="field"><label class="label-form" for="in-desc">¿Qué hace?<span class="opt-tag">· opcional</span></label>
+      <textarea id="in-desc" class="text-input" rows="3" maxlength="300" placeholder="Ej: Tienda y taller de bicicletas eléctricas en el centro, con venta online y reparación a domicilio."></textarea></div>
+    <div id="perfil-qs"></div>
+    <div class="callout info"><b>Antes de empezar:</b> todos los importes de esta herramienta van <b>sin IVA</b>. Te explicamos por qué en el siguiente paso.</div>
+    <button id="btn-proyecto" class="btn btn-primary" style="width:100%; padding:16px; font-size:15px;" disabled>Ir al plan de inversión →</button>
+    <p class="field-hint" id="proyecto-hint" style="text-align:center; margin-top:8px;"></p>
+  </div>
+</div>
+
+<!-- INVERSIÓN -->
+<div id="screen-inversion" class="screen">
+  <div class="container">
+    <div class="stepper" data-step="1"></div>
+    <button class="btn-back" data-go="proyecto">← Mi proyecto</button>
+    <h2 class="title" style="margin-bottom:10px;">Plan de <em>inversión</em></h2>
+    <p class="prose" style="font-size:14.5px; margin-bottom:18px;">Abre cada apartado, <b>marca lo que necesita tu negocio</b> y pon su importe. Si falta algo, añádelo en el apartado que le corresponda.</p>
+    <div class="glos-slot"></div>
+    <div id="plan"></div>
+  </div>
+  <div class="balbar"><div class="balbar-in" data-balbar></div></div>
+</div>
+
+<!-- COLCHÓN -->
+<div id="screen-colchon" class="screen">
+  <div class="container">
+    <div class="stepper" data-step="2"></div>
+    <button class="btn-back" data-go="inversion">← Plan de inversión</button>
+    <h2 class="title" style="margin-bottom:10px;">El colchón de <em>tesorería</em></h2>
+    <p class="prose" style="font-size:14.5px; margin-bottom:22px;">Abrir no significa vender. Los primeros meses entra poco dinero, pero el alquiler y los sueldos llegan puntuales. El colchón es el dinero que reservas para <b>aguantar sin ahogarte</b> mientras te das a conocer. Marca los gastos que tendrá tu negocio y pon su importe.</p>
+    <div class="glos-slot"></div>
+    <div id="colchon"></div>
+  </div>
+  <div class="balbar"><div class="balbar-in" data-balbar></div></div>
+</div>
+
+<!-- FINANCIACIÓN -->
+<div id="screen-financiacion" class="screen">
+  <div class="container">
+    <div class="stepper" data-step="3"></div>
+    <button class="btn-back" data-go="colchon">← Colchón</button>
+    <h2 class="title" style="margin-bottom:10px;">Plan de <em>financiación</em></h2>
+    <p class="prose" style="font-size:14.5px; margin-bottom:22px;">Ya sabes cuánto necesitas. Ahora toca decir de dónde sale cada euro: lo que ponéis vosotros (<b>recursos propios</b>) y lo que os prestan (<b>recursos ajenos</b>, que hay que devolver). Mira la balanza de abajo: tiene que quedar equilibrada.</p>
+    <div class="glos-slot"></div>
+    <div id="financiacion"></div>
+  </div>
+  <div class="balbar"><div class="balbar-in" data-balbar></div></div>
+</div>
+
+<!-- RESULTADO -->
+<div id="screen-informe" class="screen">
+  <div class="container" style="max-width:880px;">
+    <div class="stepper" data-step="4"></div>
+    <div class="actions">
+      <div class="themes" id="themes"></div>
+      <span id="toast" class="toast" role="status"></span>
+      <button class="btn btn-ghost btn-sm" data-go="financiacion">Editar</button>
+      <button class="btn btn-ghost btn-sm" id="btn-save-file">Guardar copia</button>
+      <button class="btn btn-ghost btn-sm" id="btn-copy">Copiar texto</button>
+      <button class="btn btn-primary btn-sm" id="btn-pdf">Descargar PDF</button>
+    </div>
+    <article id="report" class="report fade"></article>
+    <textarea id="copy-fallback" class="text-input" rows="8" hidden aria-label="Texto para copiar"></textarea>
+    <p style="text-align:center; margin-top:10px;"><button class="link-btn" id="btn-reset">Empezar un proyecto nuevo</button></p>
+  </div>
+</div>
+
+<input type="file" id="file-in" class="hidden-file" accept=".json,application/json">
+
+<script>
+// ═════════ CONFIGURACIÓN ═════════
+const STORE_KEY = 'educatools-expediente';   // clave compartida con el resto de herramientas (Umbral de rentabilidad)
+const SECTION = 'inversionFinanciacion';
+const STEPS = ['Proyecto', 'Inversión', 'Colchón', 'Financiación', 'Resultado'];
+
+const CATS = {
+  mat: { name:'Inmovilizado material', short:'Inm. material', sub:'Bienes físicos que usarás más de un año', color:'var(--c-mat)', amort:true },
+  int: { name:'Inmovilizado intangible', short:'Inm. intangible', sub:'Derechos y programas sin forma física que duran años', color:'var(--c-int)', amort:true },
+  fin: { name:'Inmovilizado financiero', short:'Inm. financiero', sub:'Dinero que entregas y recuperarás a largo plazo', color:'var(--c-fin)', amort:false },
+  cor: { name:'Activo corriente', short:'Activo corriente', sub:'Lo que se convierte en dinero en menos de un año', color:'var(--c-cor)', amort:false },
+};
+const INV_CATS = ['mat', 'int', 'fin', 'cor'];
+// paneles de gastos (pantalla del colchón): no son inversión
+const GAS_CATS = {
+  mes: { name:'Gastos de cada mes', sub:'Se repiten mientras el negocio esté abierto. Serán costes fijos en tu umbral de rentabilidad.', color:'var(--c-gas)', unit:'€/mes' },
+  pun: { name:'Gastos de puesta en marcha', sub:'Se pagan una vez, antes o al abrir. No son inversión, pero hay que tener el dinero.', color:'var(--c-fin)', unit:'€' },
+};
+
+// ═════════ PERFIL DEL PROYECTO ═════════
+// Solo ordena el catálogo: lo "habitual" sale primero y lo demás queda en «Ver todas».
+const PERFIL_QS = [
+  { key:'local', q:'¿Dónde vas a trabajar?', opts:[
+    { v:'local', t:'Local abierto al público', s:'Tienda, bar, taller, clínica…' },
+    { v:'oficina', t:'Oficina o almacén', s:'Un espacio propio, sin atender al público' },
+    { v:'casa', t:'Desde casa o en remoto', s:'Sin alquilar ningún espacio' } ] },
+  { key:'oferta', q:'¿Qué vendes sobre todo?', opts:[
+    { v:'productos', t:'Productos', s:'Cosas que compras o fabricas y vendes' },
+    { v:'servicios', t:'Servicios', s:'Tu tiempo y tu conocimiento' },
+    { v:'ambos', t:'Las dos cosas', s:'Por ejemplo, venta y reparación' } ] },
+  { key:'forma', q:'¿Cómo vas a empezar?', opts:[
+    { v:'autonomo', t:'Como autónomo', s:'Empresario individual' },
+    { v:'sociedad', t:'Como sociedad', s:'Sociedad limitada, cooperativa…' } ] },
+];
+const PERFIL_TXT = { local:'Local abierto al público', oficina:'Oficina o almacén', casa:'Desde casa', productos:'Productos', servicios:'Servicios', ambos:'Productos y servicios', autonomo:'Autónomo', sociedad:'Sociedad' };
+
+// ═════════ CATÁLOGO ═════════
+// cat: mat / int / fin / cor (inversión) · mes / pun (gastos). life: vida útil por defecto.
+// tabla: grupo de la tabla oficial de amortización (TABLA_AMORT). notaVida: criterio cuando no hay grupo en la tabla.
+// when(perfil): si devuelve true, sale entre las habituales. Sin when = habitual siempre.
+const EXTRA = () => false;
+// Tabla oficial de coeficientes de amortización lineal (art. 12.1.a de la Ley 27/2014 del Impuesto sobre Sociedades).
+// coef: coeficiente máximo (%) → marca los años MÍNIMOS · max: periodo máximo en años.
+const TABLA_AMORT = {
+  instalaciones:{ g:'Instalaciones', coef:10, max:20 },
+  mobiliario:{ g:'Mobiliario', coef:10, max:20 },
+  maquinaria:{ g:'Maquinaria', coef:12, max:18 },
+  utiles:{ g:'Útiles y herramientas', coef:25, max:8 },
+  enseres:{ g:'Otros enseres', coef:15, max:14 },
+  info:{ g:'Equipos para procesos de información', coef:25, max:8 },
+  electronicos:{ g:'Equipos electrónicos', coef:20, max:10 },
+  transporte:{ g:'Elementos de transporte externo', coef:16, max:14 },
+  programas:{ g:'Sistemas y programas informáticos', coef:33, max:6 },
+};
+// años mínimos = 100 / coeficiente máximo, redondeado (33 % se toma como 3 años, como se hace en la práctica)
+const minAnios = t => Math.ceil(99 / t.coef);
+const CATALOGO = [
+  { id:'reforma', cat:'mat', name:'Reforma del local', ej:'Obra, pintura, iluminación, instalación eléctrica.', life:10, tabla:'instalaciones', minLibre:true, notaVida:'si el local es alquilado y el contrato es más corto, los años que queden de contrato', when:p => p.local !== 'casa' },
+  { id:'mobiliario', cat:'mat', name:'Mobiliario', ej:'Mesas, sillas, estanterías, mostrador, vitrinas.', life:10, tabla:'mobiliario', when:p => p.local !== 'casa' },
+  { id:'equipos', cat:'mat', name:'Equipos informáticos', ej:'Ordenador, TPV, impresora, lector de códigos.', life:4, tabla:'info' },
+  { id:'movil', cat:'mat', name:'Móvil y tablet de empresa', ej:'Para atender clientes, cobrar o tomar pedidos.', life:4, tabla:'info' },
+  { id:'instalaciones', cat:'mat', name:'Instalaciones', ej:'Climatización, alarma, cámaras, cámara frigorífica.', life:10, tabla:'instalaciones', when:p => p.local === 'local' },
+  { id:'rotulo', cat:'mat', name:'Rótulo y escaparate', ej:'Cartel exterior, vinilos, señalización.', life:8, tabla:'enseres', when:p => p.local === 'local' },
+  { id:'maquinaria', cat:'mat', name:'Maquinaria', ej:'Para fabricar, reparar o preparar lo que vendes.', life:10, tabla:'maquinaria', when:EXTRA },
+  { id:'herramientas', cat:'mat', name:'Útiles y herramientas', ej:'Herramientas de taller, utensilios de cocina o peluquería.', life:4, tabla:'utiles', when:EXTRA },
+  { id:'audiovisual', cat:'mat', name:'Equipo de foto y vídeo', ej:'Cámara, focos y micrófono para crear contenido.', life:5, tabla:'electronicos', when:EXTRA },
+  { id:'furgoneta', cat:'mat', name:'Vehículo', ej:'Furgoneta de reparto o coche para visitar clientes.', life:7, tabla:'transporte', when:EXTRA },
+
+  { id:'web', cat:'int', name:'Página web o tienda online', ej:'Diseño y desarrollo de la web o del e-commerce.', life:3, tabla:'programas' },
+  { id:'software', cat:'int', name:'Programas informáticos', ej:'Licencias de facturación, gestión o diseño.', life:3, tabla:'programas' },
+  { id:'marca', cat:'int', name:'Registro de la marca', ej:'Nombre y logo en la Oficina Española de Patentes y Marcas.', life:10, notaVida:'Norma contable: si no se sabe cuánto durará, 10 años' },
+  { id:'app', cat:'int', name:'App propia', ej:'Aplicación móvil para tus clientes.', life:3, tabla:'programas', when:EXTRA },
+  { id:'traspaso', cat:'int', name:'Traspaso de un negocio', ej:'Lo que pagas por quedarte un negocio que ya funciona.', life:10, notaVida:'Norma contable: si no se sabe cuánto durará, 10 años', when:EXTRA },
+  { id:'franquicia', cat:'int', name:'Canon de franquicia', ej:'Pago de entrada por usar la marca de una franquicia.', life:5, notaVida:'Los años que dure el contrato de franquicia', when:EXTRA },
+
+  { id:'fianza', cat:'fin', name:'Fianza del local', ej:'Una o dos mensualidades que te devuelven al irte.', when:p => p.local !== 'casa' },
+  { id:'depositos', cat:'fin', name:'Otras fianzas y depósitos', ej:'Garantías por alquilar equipos, vehículos o suministros.', when:EXTRA },
+
+  { id:'stock', cat:'cor', name:'Stock inicial de mercancía', ej:'El primer pedido para tener producto que vender.', when:p => p.oferta !== 'servicios' },
+  { id:'materiales', cat:'cor', name:'Materiales y envases', ej:'Materia prima, embalajes y consumibles para empezar.', when:p => p.oferta !== 'servicios' },
+
+  { id:'alquiler', cat:'mes', name:'Alquiler del local', ej:'Lo que pagas cada mes al propietario.', when:p => p.local !== 'casa' },
+  { id:'sueldo', cat:'mes', name:'Sueldos de empleados', ej:'Salario bruto más la Seguridad Social de la empresa.' },
+  { id:'autonomo', cat:'mes', name:'Cuota de autónomos', ej:'Tu cotización. También la pagan los socios que trabajan en su sociedad.' },
+  { id:'suministros', cat:'mes', name:'Luz, agua, teléfono e internet', ej:'Si trabajas desde casa, solo la parte del negocio.' },
+  { id:'gestoria', cat:'mes', name:'Gestoría', ej:'Contabilidad, impuestos y nóminas.' },
+  { id:'seguros', cat:'mes', name:'Seguros', ej:'Del local, de responsabilidad civil… (cuota anual ÷ 12).' },
+  { id:'publicidad', cat:'mes', name:'Publicidad y redes', ej:'Anuncios online, folletos, colaboraciones.' },
+  { id:'suscripciones', cat:'mes', name:'Plataformas y suscripciones', ej:'Hosting, Shopify, programas de pago mensual.' },
+  { id:'coworking', cat:'mes', name:'Coworking', ej:'Un puesto en un espacio de trabajo compartido.', when:EXTRA },
+  { id:'mantenimiento', cat:'mes', name:'Limpieza y mantenimiento', ej:'Servicio de limpieza y pequeñas reparaciones.', when:EXTRA },
+
+  { id:'constitucion', cat:'pun', name:'Notaría y registro de la sociedad', ej:'Escritura, Registro Mercantil y gestoría.', when:p => p.forma === 'sociedad' },
+  { id:'altaautonomo', cat:'pun', name:'Trámites de alta como autónomo', ej:'Asesoría para darte de alta en Hacienda y Seguridad Social.', when:p => p.forma === 'autonomo' },
+  { id:'licencia', cat:'pun', name:'Licencia de apertura y tasas', ej:'Permisos del ayuntamiento para abrir el local.', when:p => p.local !== 'casa' },
+  { id:'identidad', cat:'pun', name:'Diseño de logo e imagen', ej:'Logotipo, colores, tarjetas y plantillas.' },
+  { id:'lanzamiento', cat:'pun', name:'Campaña de lanzamiento', ej:'Anuncios, creatividades e inauguración.' },
+  { id:'formacion', cat:'pun', name:'Formación inicial', ej:'Cursos o certificados que necesitas antes de abrir.', when:EXTRA },
+];
+
+const FUENTES = [
+  { key:'socios', grupo:'propio', tipo:'simple', name:'Aportación de los socios', help:'Dinero que ponéis vosotros. No se devuelve: os convierte en dueños.' },
+  { key:'paro', grupo:'propio', tipo:'simple', name:'Capitalización del paro (pago único)', help:'Cobrar de una vez la prestación por desempleo pendiente para emprender. Solo si tienes derecho a prestación contributiva.' },
+  { key:'subvencion', grupo:'propio', tipo:'simple', name:'Subvenciones', help:'Ayudas públicas que no se devuelven si cumples las condiciones. Ojo: suelen cobrarse meses después.' },
+  { key:'prestamo', grupo:'ajeno', tipo:'loan', name:'Préstamo bancario', help:'Te prestan una cantidad que devuelves en cuotas mensuales con intereses.', tin:6, plazo:5 },
+  { key:'micro', grupo:'ajeno', tipo:'loan', name:'Microcrédito', help:'Préstamo pequeño para emprendedores, a veces con menos garantías exigidas.', tin:5, plazo:4 },
+  { key:'familiar', grupo:'ajeno', tipo:'loan', name:'Préstamo de familia o amigos', help:'Aunque sea sin intereses, es una deuda: ponlo por escrito y devuélvelo.', tin:0, plazo:3 },
+  { key:'proveedores', grupo:'ajeno', tipo:'simple', name:'Aplazamiento con proveedores', help:'Pagar la primera mercancía a 30, 60 o 90 días. Financiación a corto plazo y sin intereses explícitos.' },
+];
+
+const THEMES = {
+  verde:{ s:'#E0EEE8', m:'#6FAE98', d:'#2C6E5A' }, olivo:{ s:'#E8EDC4', m:'#A8AD5C', d:'#6B7028' },
+  azul:{ s:'#E4E8F0', m:'#7E95B5', d:'#3E5778' }, ambar:{ s:'#F2E8D9', m:'#C9A06A', d:'#8B6430' }, vino:{ s:'#F2E1E6', m:'#B7798A', d:'#7A3244' },
+};
+
+const EJEMPLOS = {
+  bicis:{ nombre:'Bici&Go', desc:'Tienda y taller de bicicletas eléctricas en el centro de la ciudad, con venta online y reparación a domicilio.', meses:3,
+    perfil:{ local:'local', oferta:'ambos', forma:'sociedad' },
+    v:{ reforma:9000, mobiliario:6500, equipos:2200, maquinaria:1800, rotulo:1200, web:2500, marca:150, fianza:2400, stock:18000,
+      alquiler:1200, sueldo:2100, autonomo:300, suministros:250, gestoria:120, seguros:60, lanzamiento:1500, constitucion:900, licencia:600 },
+    fin:{ socios:15000, paro:8000, proveedores:4000 }, cuadrar:'prestamo' },
+  cosmetica:{ nombre:'Raíz Natural', desc:'Tienda online de cosmética natural y sostenible con envíos a toda España y venta en redes sociales.', meses:4,
+    perfil:{ local:'oficina', oferta:'productos', forma:'autonomo' },
+    v:{ mobiliario:1200, equipos:1800, audiovisual:900, web:6000, marca:150, stock:7000, materiales:800,
+      alquiler:400, autonomo:300, suministros:120, suscripciones:60, publicidad:400, lanzamiento:3000, identidad:600, altaautonomo:150 },
+    fin:{ socios:6000, subvencion:3000, familiar:4000 }, cuadrar:'micro' },
+  agencia:{ nombre:'Pulso Digital', desc:'Agencia de marketing digital para pequeños comercios: redes sociales, web y campañas de publicidad online.', meses:4,
+    perfil:{ local:'oficina', oferta:'servicios', forma:'sociedad' },
+    v:{ reforma:3000, mobiliario:4000, equipos:9000, audiovisual:2500, web:2500, software:1200, marca:150, fianza:1800,
+      alquiler:900, sueldo:2400, autonomo:600, suministros:200, gestoria:150, suscripciones:120, lanzamiento:1200, constitucion:800 },
+    fin:{ socios:12000, paro:10000 }, cuadrar:'prestamo' },
+};
+
+// ═════════ ESTADO ═════════
+function freshState() {
+  return { v:2, nombre:'', desc:'', perfil:{ local:null, oferta:null, forma:null }, items:[], gastos:[], meses:3,
+    fuentes: FUENTES.map(f => ({ key:f.key, amount:null, tin:f.tin ?? null, plazo:f.plazo ?? null })), extraFuentes:[], theme:'verde', screen:'intro' };
+}
+let state = freshState();
+let uid = 1;
+const nid = p => p + '-' + Date.now().toString(36) + '-' + (uid++);
+
+const $ = id => document.getElementById(id);
+const esc = s => { const d = document.createElement('div'); d.textContent = s ?? ''; return d.innerHTML; };
+const num = x => { const n = parseFloat(String(x ?? '').replace(',', '.')); return isFinite(n) && n > 0 ? n : 0; };
+// formato español con punto de miles siempre (es-ES no agrupa números de 4 cifras: «8897 €»)
+const eur = (x, dec = 0) => { const neg = x < 0, [i, d] = Math.abs(x).toFixed(dec).split('.'); return (neg ? '-' : '') + i.replace(/\B(?=(\d{3})+(?!\d))/g, '.') + (d ? ',' + d : '') + ' €'; };
+const pct = x => (Math.round(x * 10) / 10).toLocaleString('es-ES', { maximumFractionDigits:1 }) + ' %';
+const card = id => CATALOGO.find(c => c.id === id);
+const perfilCompleto = () => PERFIL_QS.every(q => state.perfil && state.perfil[q.key]);
+// sin perfil (copias antiguas) todo cuenta como habitual
+const esHabitual = o => !o.when || (perfilCompleto() ? o.when(state.perfil) : o.when !== EXTRA);
+const perfilTxt = () => PERFIL_QS.map(q => PERFIL_TXT[state.perfil[q.key]]).join(' · ');
+const fuenteDef = k => FUENTES.find(f => f.key === k);
+
+// ═════════ CÁLCULO ═════════
+const isAmort = it => CATS[it.cat].amort && !it.noAmort;
+const amortAnual = it => isAmort(it) && num(it.life) > 0 ? num(it.amount) / num(it.life) : 0;
+const totalCat = c => state.items.filter(i => i.cat === c).reduce((a, i) => a + num(i.amount), 0);
+const totalAmort = () => state.items.reduce((a, i) => a + amortAnual(i), 0);
+const gastosMes = () => state.gastos.filter(g => g.tipo === 'mes').reduce((a, g) => a + num(g.amount), 0);
+const gastosPun = () => state.gastos.filter(g => g.tipo === 'pun').reduce((a, g) => a + num(g.amount), 0);
+const colchon = () => gastosMes() * state.meses + gastosPun();
+const inmovilizado = () => totalCat('mat') + totalCat('int') + totalCat('fin');
+const activoCorriente = () => totalCat('cor') + colchon();
+const necesidades = () => inmovilizado() + activoCorriente();
+// un autónomo no tiene socios: la aportación es suya
+const AUTONOMO_PROPIO = { name:'Aportación propia (tus ahorros)', help:'El dinero que pones tú. No se devuelve: es tu dinero invertido en el negocio.' };
+function allFuentes() {
+  const auto = state.perfil && state.perfil.forma === 'autonomo';
+  return [...state.fuentes.map(f => ({ ...fuenteDef(f.key), ...(auto && f.key === 'socios' ? AUTONOMO_PROPIO : {}), ...f })), ...state.extraFuentes.map(f => ({ ...f, tipo:'simple', help:'' }))];
+}
+const totalGrupo = g => allFuentes().filter(f => f.grupo === g).reduce((a, f) => a + num(f.amount), 0);
+const financiado = () => totalGrupo('propio') + totalGrupo('ajeno');
+const diff = () => financiado() - necesidades();
+const cuadra = () => necesidades() > 0 && Math.abs(diff()) < 1;
+
+function loan(f) {
+  const P = num(f.amount), n = Math.max(1, Math.round(num(f.plazo) * 12)), r = num(f.tin) / 100 / 12;
+  if (!P) return null;
+  const cuota = r ? P * r / (1 - Math.pow(1 + r, -n)) : P / n;
+  let pend = P; const years = [];
+  for (let m = 1; m <= n; m++) {
+    const int = pend * r, cap = Math.min(pend, cuota - int); pend = Math.max(0, pend - cap);
+    const y = Math.ceil(m / 12);
+    if (!years[y - 1]) years[y - 1] = { y, cuota:0, int:0, cap:0, pend:0 };
+    years[y - 1].cuota += int + cap; years[y - 1].int += int; years[y - 1].cap += cap; years[y - 1].pend = pend;
+  }
+  return { P, n, cuota, years, int1:years[0].int, cap1:years[0].cap, totalInt:years.reduce((a, y) => a + y.int, 0) };
+}
+const loans = () => allFuentes().filter(f => f.tipo === 'loan' && num(f.amount) > 0).map(f => ({ f, L:loan(f) }));
+const intereses1 = () => loans().reduce((a, x) => a + x.L.int1, 0);
+const cuotaMensual = () => loans().reduce((a, x) => a + x.L.cuota, 0);
+
+function balance() {
+  const ls = loans(), capCorto = ls.reduce((a, x) => a + x.L.cap1, 0), deuda = ls.reduce((a, x) => a + x.L.P, 0);
+  const prov = num(state.fuentes.find(f => f.key === 'proveedores').amount);
+  return { anc:inmovilizado(), ac:activoCorriente(), pn:totalGrupo('propio'), pnc:deuda - capCorto, pc:capCorto + prov,
+    extraAjeno: state.extraFuentes.filter(f => f.grupo === 'ajeno').reduce((a, f) => a + num(f.amount), 0) };
+}
+
+function paraUmbral() {
+  return {
+    amortizacionAnual: +totalAmort().toFixed(2), amortizacionMensual: +(totalAmort() / 12).toFixed(2),
+    interesesAnio1: +intereses1().toFixed(2), interesesMensuales: +(intereses1() / 12).toFixed(2),
+    cuotaMensualPrestamos: +cuotaMensual().toFixed(2),
+    gastosMensualesEstimados: state.gastos.filter(g => g.tipo === 'mes' && num(g.amount) > 0).map(g => ({ concepto:g.name, importe:num(g.amount) })),
+    totalGastosMensuales: +gastosMes().toFixed(2),
+    stockInicial: totalCat('cor'), inversionTotal: +necesidades().toFixed(2), cuadrado: cuadra(),
+  };
+}
+
+// ═════════ GUARDADO ═════════
+let saveTimer = null;
+function save() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    try {
+      const all = JSON.parse(localStorage.getItem(STORE_KEY) || '{}') || {};
+      const { fb, deck, ...persist } = state;
+      all[SECTION] = persist; all.paraUmbral = paraUmbral();
+      all.proyecto = { nombre:state.nombre, descripcion:state.desc };
+      all.actualizado = new Date().toISOString();
+      localStorage.setItem(STORE_KEY, JSON.stringify(all));
+    } catch (_) {}
+  }, 250);
+}
+function loadSaved() {
+  try { const all = JSON.parse(localStorage.getItem(STORE_KEY) || 'null'); return all && all[SECTION] ? all : null; } catch (_) { return null; }
+}
+function applyLoaded(obj) {
+  const s = obj[SECTION]; if (!s || !Array.isArray(s.items)) throw new Error('formato');
+  state = Object.assign(freshState(), s);
+  delete state.deck; delete state.fb;   // restos del antiguo mazo de cartas
+  state.perfil = Object.assign({ local:null, oferta:null, forma:null }, state.perfil);
+  FUENTES.forEach(def => { if (!state.fuentes.find(f => f.key === def.key)) state.fuentes.push({ key:def.key, amount:null, tin:def.tin ?? null, plazo:def.plazo ?? null }); });
+}
+function downloadFile(name, blob) {
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name;
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+}
+const slug = () => (state.nombre.trim().replace(/\s+/g, '_').replace(/[^\wáéíóúñÁÉÍÓÚÑ_-]/g, '') || 'proyecto');
+function saveFile() {
+  const { fb, deck, ...persist } = state;
+  const data = { app:'educatools', tipo:'expediente', version:1, actualizado:new Date().toISOString(),
+    proyecto:{ nombre:state.nombre, descripcion:state.desc }, [SECTION]:persist, paraUmbral:paraUmbral() };
+  downloadFile('Inversion_' + slug() + '.json', new Blob([JSON.stringify(data, null, 2)], { type:'application/json' }));
+  toast('Copia descargada');
+}
+$('file-in').addEventListener('change', e => {
+  const f = e.target.files[0]; if (!f) return;
+  const rd = new FileReader();
+  rd.onload = () => { try { applyLoaded(JSON.parse(rd.result)); save(); go(state.screen && state.screen !== 'intro' ? state.screen : 'inversion'); }
+    catch (_) { alert('Ese archivo no es una copia válida de esta herramienta.'); } e.target.value = ''; };
+  rd.readAsText(f);
+});
+$('btn-import-intro').addEventListener('click', () => $('file-in').click());
+
+// ═════════ BALANZA ═════════
+function balanceSVG(w = 150) {
+  const need = necesidades(), have = financiado(), base = Math.max(need, have, 1);
+  let ang = need === 0 && have === 0 ? 0 : Math.max(-14, Math.min(14, (have - need) / base * 30));
+  if (Math.abs(have - need) < 1) ang = 0;
+  const pan = (x, lab, col) => `<g><line x1="${x}" y1="0" x2="${x - 16}" y2="34" stroke="${col}" stroke-width="1.5"/><line x1="${x}" y1="0" x2="${x + 16}" y2="34" stroke="${col}" stroke-width="1.5"/>
+    <path d="M${x - 22} 34 h44 a22 9 0 0 1 -44 0z" fill="${col}"/><text x="${x}" y="58" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" font-weight="600" letter-spacing=".6" fill="#8B847A">${lab}</text></g>`;
+  return `<svg width="${w}" viewBox="-14 0 178 104" role="img" aria-label="Balanza: necesitas ${eur(need)}, tienes ${eur(have)}">
+    <path d="M75 30 L64 96 h22 Z" fill="#E8E1D6"/><rect x="52" y="94" width="46" height="6" rx="3" fill="#C9C2B4"/>
+    <g class="beam" style="transform-origin:75px 30px; transform:rotate(${ang.toFixed(1)}deg)">
+      <rect x="14" y="27" width="122" height="6" rx="3" fill="#1E1C1A"/>
+      <g transform="translate(0,30)">${pan(22, 'NECESITAS', '#8B3A3A')}${pan(128, 'TIENES', '#2C6E5A')}</g>
+    </g><circle cx="75" cy="30" r="6" fill="#1E1C1A"/></svg>`;
+}
+function statusOf() {
+  const need = necesidades(), d = diff();
+  if (need === 0) return { c:'zero', t:'Añade tus inversiones' };
+  if (Math.abs(d) < 1) return { c:'ok', t:'✓ Balanza equilibrada' };
+  if (d < 0) return { c:'short', t:'Faltan ' + eur(-d) };
+  return { c:'over', t:'Sobran ' + eur(d) };
+}
+function renderBalbars() {
+  const st = statusOf();
+  document.querySelectorAll('[data-balbar]').forEach(el => {
+    el.innerHTML = `${balanceSVG(92)}<div class="bnums"><div class="bn"><span>Necesitas</span><b>${eur(necesidades())}</b></div><div class="bn"><span>Financiado</span><b>${eur(financiado())}</b></div></div><span class="bstat ${st.c}">${st.t}</span>`;
+  });
+  const ib = $('intro-balance'); if (ib) ib.innerHTML = balanceSVG(190);
+}
+
+// ═════════ NAVEGACIÓN ═════════
+function renderSteppers() {
+  document.querySelectorAll('.stepper').forEach(s => {
+    const k = +s.dataset.step;
+    s.innerHTML = STEPS.map((n, i) => `<div class="st ${i < k ? 'done' : i === k ? 'on' : ''}"><i></i><span>${n}</span></div>`).join('');
+  });
+}
+function go(s) {
+  document.querySelectorAll('.screen').forEach(e => e.classList.remove('active'));
+  $('screen-' + s).classList.add('active');
+  state.screen = s; window.scrollTo({ top:0 });
+  ({ intro:renderIntro, proyecto:renderProyecto, inversion:renderInversion, colchon:renderColchon, financiacion:renderFinanciacion, informe:renderInforme }[s])();
+  renderBalbars(); save();
+}
+
+// ═════════ INTRO ═════════
+function renderIntro() {
+  const saved = loadSaved();
+  $('resume-box').innerHTML = saved && saved[SECTION] && saved[SECTION].nombre
+    ? `<div class="resume fade"><div><b>Tienes un proyecto a medias: ${esc(saved[SECTION].nombre)}</b><small>Guardado en este navegador. Puedes seguir donde lo dejaste.</small></div><button class="btn btn-tool btn-sm" id="btn-resume">Continuar →</button></div>` : '';
+  const br = $('btn-resume');
+  if (br) br.addEventListener('click', () => { applyLoaded(saved); go(state.screen && state.screen !== 'intro' ? state.screen : 'inversion'); });
+}
+$('btn-start').addEventListener('click', () => {
+  const saved = loadSaved();
+  if (saved && saved[SECTION] && saved[SECTION].nombre && !confirm('Vas a empezar un proyecto nuevo y se sustituirá el que tienes guardado en este navegador. ¿Seguimos?')) return;
+  state = freshState(); go('proyecto');
+});
+
+function loadExample(k) {
+  const e = EJEMPLOS[k]; state = freshState();
+  Object.assign(state, { nombre:e.nombre, desc:e.desc, meses:e.meses, perfil:{ ...e.perfil } });
+  Object.entries(e.v).forEach(([id, amount]) => { toggleOpt(id); const x = listaDe(card(id).cat).find(i => i.card === id); x.amount = amount; });
+  state.fuentes.forEach(f => { if (e.fin[f.key]) f.amount = e.fin[f.key]; });
+  const target = state.fuentes.find(f => f.key === e.cuadrar);
+  target.amount = Math.round(necesidades() - financiado());
+  go('informe');
+}
+
+// ═════════ PROYECTO ═════════
+function renderPerfilQs() {
+  $('perfil-qs').innerHTML = PERFIL_QS.map(q => `<div class="field"><span class="label-form">${q.q}</span>
+    <div class="q-opts" role="group" aria-label="${q.q}">${q.opts.map(o => `<button type="button" class="q-opt" data-pq="${q.key}" data-pv="${o.v}" aria-pressed="${state.perfil[q.key] === o.v}"><b>${o.t}</b><span>${o.s}</span></button>`).join('')}</div></div>`).join('');
+}
+function updateProyectoBtn() {
+  const nombreOk = state.nombre.trim().length >= 2, ok = nombreOk && perfilCompleto();
+  $('btn-proyecto').disabled = !ok;
+  $('proyecto-hint').textContent = ok ? '' : !nombreOk ? 'Escribe el nombre del proyecto para seguir.' : 'Responde las tres preguntas para seguir.';
+}
+function renderProyecto() {
+  $('in-nombre').value = state.nombre; $('in-desc').value = state.desc;
+  renderPerfilQs(); updateProyectoBtn();
+}
+$('in-nombre').addEventListener('input', e => { state.nombre = e.target.value; updateProyectoBtn(); save(); });
+$('in-desc').addEventListener('input', e => { state.desc = e.target.value; save(); });
+$('btn-proyecto').addEventListener('click', () => go('inversion'));
+
+// ═════════ PANELES DESPLEGABLES ═════════
+// Marcar una opción del catálogo = crear su fila (inversión o gasto). Desmarcar = quitarla.
+const esGasto = k => !!GAS_CATS[k];
+const listaDe = k => esGasto(k) ? state.gastos.filter(g => g.tipo === k) : state.items.filter(i => i.cat === k);
+const elegido = o => listaDe(o.cat).some(x => x.card === o.id);
+function toggleOpt(id) {
+  const o = card(id);
+  if (esGasto(o.cat)) {
+    if (elegido(o)) state.gastos = state.gastos.filter(g => g.card !== id);
+    else state.gastos.push({ id:nid('g'), card:id, name:o.name, tipo:o.cat, amount:null });
+  } else {
+    if (elegido(o)) state.items = state.items.filter(i => i.card !== id);
+    else state.items.push({ id:nid('i'), card:id, name:o.name, cat:o.cat, amount:null, life:o.life ?? null });
+  }
+}
+const openPanels = new Set(['mat', 'mes']);   // qué apartados están desplegados (solo en pantalla)
+const verTodas = new Set();                   // apartados donde se ven también las opciones menos habituales
+document.addEventListener('toggle', e => {
+  const d = e.target; if (!d.dataset || !d.dataset.panel) return;
+  if (d.open) openPanels.add(d.dataset.panel); else openPanels.delete(d.dataset.panel);
+}, true);
+const panelSum = k => k === 'mes' ? eur(gastosMes()) + '/mes' : k === 'pun' ? eur(gastosPun()) : eur(totalCat(k) + (k === 'cor' ? colchon() : 0));
+function panelHTML(k) {
+  const gas = esGasto(k), C = gas ? GAS_CATS[k] : CATS[k];
+  const opts = CATALOGO.filter(o => o.cat === k);
+  const hab = opts.filter(o => esHabitual(o) || elegido(o)), resto = opts.filter(o => !hab.includes(o));
+  const todas = verTodas.has(k), shown = todas ? [...hab, ...resto] : hab;
+  const list = listaDe(k), n = list.length;
+  const tile = o => { const on = elegido(o); return `<button type="button" class="opt" data-opt="${o.id}" aria-pressed="${on}"><span class="bx" aria-hidden="true">${on ? '✓' : ''}</span><span><b>${o.name}</b><span class="ej">${o.ej}</span></span></button>`; };
+  const lab = todas ? 'Todas las opciones' : perfilCompleto() ? 'Lo habitual en un negocio como el tuyo' : 'Opciones';
+  const grid = shown.length ? `<div class="opts-lab">${lab}</div><div class="opts-grid">${shown.map(tile).join('')}</div>`
+    : `<p class="group-sub" style="padding-top:2px;">En un negocio como el tuyo no suele haber nada aquí. Si lo necesitas, mira todas las opciones o añade la tuya.</p>`;
+  const more = resto.length ? `<div class="more-row"><button type="button" class="link-btn" data-more="${k}">${todas ? 'Ver solo lo habitual' : `Ver todas las opciones (${resto.length} más)`}</button></div>` : '';
+  const tes = k === 'cor' ? `<div class="irow no-life" style="opacity:.85;"><div class="nm">Tesorería (colchón)<small>Se calcula en el paso del colchón</small></div><div class="amort" style="text-align:right;"><b id="tes-val">${eur(colchon())}</b></div><span></span></div>` : '';
+  const rows = n ? list.map(gas ? gastoRow : itemRow).join('') : `<div class="empty">Marca arriba lo que necesites o añade otra cosa.</div>`;
+  return `<details class="group panel" data-panel="${k}" style="--gc:${C.color}" ${openPanels.has(k) ? 'open' : ''}>
+    <summary><h3>${C.name}</h3><span class="sub">${C.sub}${gas ? '' : C.amort ? ' · <b>se amortiza</b>' : ' · no se amortiza'}</span>
+      <span class="sum"><span id="sum-${k}">${panelSum(k)}</span><small>${n ? n + (n === 1 ? ' concepto' : ' conceptos') : 'nada elegido'}</small></span><span class="chev" aria-hidden="true"></span></summary>
+    ${grid}${more}
+    <div class="rows">${n ? rowsHead(!gas && C.amort, k === 'mes' ? 'Importe al mes' : 'Importe') : ''}${rows}${tes}</div>
+    <div class="group-foot"><button type="button" class="add-btn" data-${gas ? 'gadd' : 'add'}="${k}">+ Añadir otra</button></div></details>`;
+}
+function renderPanel(k) { const w = $('pw-' + k); if (w) w.innerHTML = panelHTML(k); }
+function perfilStrip() {
+  return perfilCompleto()
+    ? `<div class="perfil-strip"><span>Te enseñamos primero lo habitual para: <b>${perfilTxt()}</b></span><button type="button" class="link-btn" data-go="proyecto">Cambiar</button></div>`
+    : `<div class="perfil-strip"><span>Responde las tres preguntas de tu proyecto y te enseñaremos primero lo habitual en un negocio como el tuyo.</span><button type="button" class="link-btn" data-go="proyecto">Responder</button></div>`;
+}
+
+// ═════════ PLAN DE INVERSIÓN ═════════
+// Pista de vida útil bajo el nombre: rango de la tabla oficial, o el criterio que toque.
+function vidaInfo(it) {
+  if (!isAmort(it)) return null;
+  const c = it.card ? card(it.card) : null, t = c && c.tabla ? TABLA_AMORT[c.tabla] : null;
+  if (t) {
+    // minLibre: la reforma de un local alquilado puede amortizarse en menos años (los del contrato)
+    const mn = minAnios(t), life = num(it.life), fuera = life > 0 && ((!c.minLibre && life < mn) || life > t.max);
+    return { fuera, txt:`${fuera ? 'Fuera de tablas: ' : 'Tablas: '}de ${mn} a ${t.max} años${c.notaVida ? ' · ' + c.notaVida : ''}` };
+  }
+  if (c && c.notaVida) return { fuera:false, txt:c.notaVida };
+  return { fuera:false, txt:'Elige los años con la tabla de amortización (abajo)' };
+}
+const vidaHTML = it => { const v = vidaInfo(it); return v ? `<small id="vi-${it.id}" class="${v.fuera ? 'fuera' : ''}">${v.txt}</small>` : ''; };
+// cabecera de columnas (en móvil se oculta y cada casilla lleva su propio rótulo .cap)
+const rowsHead = (amort, unit) => `<div class="irow ihead ${amort ? '' : 'no-life'}" aria-hidden="true"><span>Lo que has elegido</span><span>${unit}</span>${amort ? '<span>Vida útil</span><span>Amortización</span>' : ''}<span></span></div>`;
+function itemRow(it) {
+  const amort = isAmort(it), a = amortAnual(it), c = it.card ? card(it.card) : null;
+  const name = c ? `<div class="nm">${esc(it.name)}${vidaHTML(it)}</div>` : `<div class="nm"><input type="text" value="${esc(it.name)}" placeholder="Nombre de la inversión" data-iname="${it.id}" aria-label="Nombre">${vidaHTML(it)}</div>`;
+  return `<div class="irow ${amort ? '' : 'no-life'}">${name}
+    <div class="fld"><span class="cap">Importe</span><label class="num"><input type="number" min="0" step="50" inputmode="decimal" placeholder="0" value="${it.amount ?? ''}" data-iamt="${it.id}" aria-label="Importe de ${esc(it.name)}"><span>€</span></label></div>
+    ${amort ? `<div class="fld"><span class="cap">Vida útil</span><label class="num"><input type="number" min="1" max="50" step="1" value="${it.life ?? ''}" data-ilife="${it.id}" aria-label="Vida útil de ${esc(it.name)}, en años"><span>años</span></label></div>
+    <div class="amort"><span class="cap">Amortización</span><span id="am-${it.id}">${a ? eur(a) : '—'}<small>al año</small></span></div>` : ''}
+    <button type="button" class="icon-btn" data-idel="${it.id}" aria-label="Quitar ${esc(it.name)}">×</button></div>`;
+}
+function renderPlan() {
+  $('plan').innerHTML = perfilStrip()
+    + INV_CATS.map(k => `<div id="pw-${k}">${panelHTML(k)}</div>`).join('')
+    + `<div class="totals">
+      <div class="tot"><span>Inversión en inmovilizado</span><b id="t-inm">${eur(inmovilizado())}</b><small>Lo que usarás años</small></div>
+      <div class="tot hl"><span>Amortización anual</span><b id="t-am">${eur(totalAmort())}</b><small id="t-am-m">${eur(totalAmort() / 12)} al mes · coste fijo</small></div>
+      <div class="tot"><span>Existencias</span><b id="t-cor">${eur(totalCat('cor'))}</b><small>El colchón se suma después →</small></div>
+    </div>
+    <details class="note"><summary>¿Qué es eso de la amortización?</summary><div class="in">
+      <p>Un ordenador de 1.200 € no se «gasta» el día que lo compras: lo usas, por ejemplo, 4 años. Cada año pierde una parte de su valor. Ese <b>desgaste</b> es la amortización: <b>1.200 € / 4 años = 300 € al año</b>, 25 € al mes.</p>
+      <p>Por eso a tu <b>umbral de rentabilidad</b> no llega el precio del ordenador, sino su amortización: es un <b>coste fijo</b> más del negocio.</p>
+      <p>Aquí simplificamos: amortización <b>lineal</b> (la misma cada año) y <b>sin valor residual</b>. La fianza, la mercancía y la tesorería no se amortizan: no se desgastan.</p></div></details>
+    <details class="note"><summary>Tabla de amortización: ¿cuántos años pongo?</summary><div class="in">
+      <p>Hacienda publica una <b>tabla oficial</b> con un <b>porcentaje máximo</b> por año y un <b>plazo máximo</b> para cada tipo de bien. El porcentaje máximo marca los <b>años mínimos</b> (100 ÷ porcentaje). Tus años tienen que quedar entre el mínimo y el máximo. Si no, la herramienta te avisa en rojo.</p>
+      <div class="table-scroll"><table class="amtab"><thead><tr><th>Tipo de bien</th><th>% máximo</th><th>Años mínimos</th><th>Años máximos</th></tr></thead><tbody>
+        ${Object.values(TABLA_AMORT).map(t => `<tr><td>${t.g}</td><td>${t.coef} %</td><td>${minAnios(t)}</td><td>${t.max}</td></tr>`).join('')}
+      </tbody></table></div>
+      <p>Fuente: tabla del artículo 12 de la Ley 27/2014 del Impuesto sobre Sociedades (resumen con los bienes de esta herramienta). La usan las sociedades y los autónomos en estimación directa normal; los autónomos en estimación directa simplificada tienen una tabla propia, algo distinta.</p>
+      <p>Lo <b>intangible</b> sin grupo en la tabla (marca, traspaso) se amortiza en los años que vaya a durar; si no se puede saber, la norma contable fija <b>10 años</b>.</p></div></details>
+    <details class="note"><summary>Nota técnica: ¿y el IVA?</summary><div class="in">
+      <p>Aquí trabajamos <b>sin IVA</b> porque, para una empresa, el IVA de lo que compra (<b>IVA soportado</b>) no es un coste: lo recupera al restarlo del IVA que cobra a sus clientes en la declaración trimestral.</p>
+      <p>Pero ojo: <b>el IVA hay que pagarlo al comprar</b>. Si inviertes 20.000 € más un 21 % de IVA, al proveedor le pagas 24.200 €, y esos 4.200 € los recuperarás más adelante, no el primer día. En un plan real hay que prever cómo se financia ese adelanto: con el colchón, con más recursos propios o con financiación específica.</p></div></details>
+    <button id="btn-to-colchon" class="btn btn-primary" style="width:100%; padding:16px; font-size:15px; margin-top:6px;">Siguiente: el colchón de tesorería →</button>`;
+  $('btn-to-colchon').addEventListener('click', () => go('colchon'));
+}
+function renderInversion() { renderPlan(); renderBalbars(); }
+function refreshInv() {
+  INV_CATS.forEach(k => { const el = $('sum-' + k); if (el) el.textContent = panelSum(k); });
+  state.items.forEach(it => {
+    const el = $('am-' + it.id); if (el) el.innerHTML = `${amortAnual(it) ? eur(amortAnual(it)) : '—'}<small>al año</small>`;
+    const vi = $('vi-' + it.id), v = vidaInfo(it); if (vi && v) { vi.textContent = v.txt; vi.className = v.fuera ? 'fuera' : ''; }
+  });
+  if ($('t-inm')) { $('t-inm').textContent = eur(inmovilizado()); $('t-am').textContent = eur(totalAmort()); $('t-am-m').textContent = eur(totalAmort() / 12) + ' al mes · coste fijo'; $('t-cor').textContent = eur(totalCat('cor')); }
+  renderBalbars();
+}
+
+// ═════════ COLCHÓN ═════════
+function gastoRow(g) {
+  const c = g.card ? card(g.card) : null;
+  const name = c ? `<div class="nm">${esc(g.name)}</div>` : `<div class="nm"><input type="text" value="${esc(g.name)}" placeholder="Nombre del gasto" data-gname="${g.id}" aria-label="Nombre"></div>`;
+  return `<div class="irow no-life">${name}<div class="fld"><span class="cap">${g.tipo === 'mes' ? 'Importe al mes' : 'Importe'}</span><label class="num"><input type="number" min="0" step="10" inputmode="decimal" placeholder="0" value="${g.amount ?? ''}" data-gamt="${g.id}" aria-label="Importe de ${esc(g.name)}"><span>${g.tipo === 'mes' ? '€/mes' : '€'}</span></label></div>
+    <button type="button" class="icon-btn" data-gdel="${g.id}" aria-label="Quitar ${esc(g.name)}">×</button></div>`;
+}
+function renderColchon() {
+  $('colchon').innerHTML = perfilStrip()
+    + ['mes', 'pun'].map(k => `<div id="pw-${k}">${panelHTML(k)}</div>`).join('')
+    + `<div class="card" style="padding:20px 22px; margin-bottom:18px;"><span class="label-form">¿Cuántos meses quieres tener cubiertos?</span>
+      <div class="seg" role="group" aria-label="Meses de colchón">${[1, 2, 3, 4, 5, 6].map(m => `<button type="button" class="sg" data-meses="${m}" aria-pressed="${state.meses === m}">${m}</button>`).join('')}</div>
+      <p class="field-hint" id="meses-hint">${mesesHint()}</p>
+      <div class="formula" aria-live="polite">
+        <div><small>Gastos del mes</small><div class="fv" id="f-mes">${eur(gastosMes())}</div></div><span class="op">×</span>
+        <div><small>Meses</small><div class="fv" id="f-m">${state.meses}</div></div><span class="op">+</span>
+        <div><small>Puesta en marcha</small><div class="fv" id="f-pun">${eur(gastosPun())}</div></div><span class="op">=</span>
+        <div class="res"><small>Colchón</small><div class="fv" id="f-res">${eur(colchon())}</div></div></div>
+      <p class="mini" style="margin-top:0;">Supuesto prudente: calculamos como si esos meses <b>no entrara ninguna venta</b>. Este dinero entra en tu balance como <b>tesorería</b> (activo corriente): es dinero que tienes en el banco el día que abres.</p></div>
+    <button id="btn-to-fin" class="btn btn-primary" style="width:100%; padding:16px; font-size:15px;">Siguiente: ¿de dónde sale el dinero? →</button>`;
+  $('btn-to-fin').addEventListener('click', () => go('financiacion'));
+}
+const mesesHint = () => ({ 1:'Muy ajustado: cualquier retraso en las ventas te pone en apuros.', 2:'Justo. Solo si esperas vender desde el primer día.', 3:'Lo más habitual en un plan prudente.', 4:'Holgado: buena opción si tu negocio tarda en arrancar.', 5:'Muy prudente. Recuerda que todo ese dinero también hay que financiarlo.', 6:'Máxima tranquilidad, pero necesitarás mucha más financiación.' })[state.meses];
+function refreshColchon() {
+  if (!$('f-res')) return;
+  $('sum-mes').textContent = panelSum('mes'); $('sum-pun').textContent = panelSum('pun');
+  $('f-mes').textContent = eur(gastosMes()); $('f-m').textContent = state.meses; $('f-pun').textContent = eur(gastosPun()); $('f-res').textContent = eur(colchon());
+  $('meses-hint').textContent = mesesHint();
+  document.querySelectorAll('[data-meses]').forEach(b => b.setAttribute('aria-pressed', +b.dataset.meses === state.meses));
+  renderBalbars();
+}
+
+// ═════════ FINANCIACIÓN ═════════
+function fuenteRow(f) {
+  const loanBox = f.tipo === 'loan' ? (() => {
+    const L = loan(f);
+    return `<div class="loan-extra"><label class="num"><input type="number" min="0" max="30" step="0.1" inputmode="decimal" value="${f.tin ?? ''}" data-ftin="${f.key}" aria-label="Tipo de interés anual"><span>% anual</span></label>
+      <label class="num"><input type="number" min="0.5" max="30" step="0.5" inputmode="decimal" value="${f.plazo ?? ''}" data-fplazo="${f.key}" aria-label="Plazo en años"><span>años</span></label>
+      <div class="cu" id="cu-${f.key}">${L ? `Cuota: <b>${eur(L.cuota, 2)}</b>/mes<br>Intereses año 1: ${eur(L.int1, 2)}` : 'Pon un importe para ver la cuota'}</div></div>`;
+  })() : '';
+  const custom = !fuenteDef(f.key);
+  const name = custom ? `<div class="nm"><input type="text" value="${esc(f.name)}" placeholder="Nombre de la fuente" data-fname="${f.key}" style="width:100%; border:none; border-bottom:1.5px dashed var(--line); font:400 15px 'Fraunces',Georgia,serif; padding:3px 0; background:transparent; outline:none;" aria-label="Nombre"></div>`
+    : `<div class="nm">${f.name}<small>${f.help}</small></div>`;
+  return `<div class="frow">${name}<label class="num"><input type="number" min="0" step="100" inputmode="decimal" placeholder="0" value="${f.amount ?? ''}" data-famt="${f.key}" aria-label="Importe de ${esc(f.name)}"><span>€</span></label>
+    ${custom ? `<button type="button" class="icon-btn" data-fdel="${f.key}" aria-label="Quitar">×</button>` : '<span></span>'}${loanBox}</div>`;
+}
+function alertsHTML() {
+  const need = necesidades(), out = [];
+  if (!need) return '';
+  const prop = totalGrupo('propio'), share = financiado() ? prop / Math.max(financiado(), need) : 0;
+  if (financiado() > 0 && share < 0.2) out.push(`<div class="callout warn"><b>Ojo con la deuda:</b> solo el ${pct(share * 100)} sale de recursos propios. Es difícil que un banco financie casi todo el proyecto: normalmente quiere ver que los socios también arriesgan su dinero.</div>`);
+  const sub = num(state.fuentes.find(f => f.key === 'subvencion').amount);
+  if (sub > 0) out.push(`<div class="callout info"><b>Sobre la subvención:</b> lo normal es cobrarla meses después de solicitarla. Hasta entonces necesitarás adelantar esos ${eur(sub)} de otra forma.</div>`);
+  const prov = num(state.fuentes.find(f => f.key === 'proveedores').amount), stock = totalCat('cor');
+  if (prov > stock) out.push(`<div class="callout warn"><b>Revisa el aplazamiento:</b> los proveedores te aplazan el pago de la mercancía (${eur(stock)} de stock inicial). No tiene sentido aplazar más de lo que les compras.</div>`);
+  if (financiado() > 0) {
+    const d = diff();
+    if (Math.abs(d) < 1) out.push(`<div class="callout ok"><b>¡Balanza equilibrada!</b> Cada euro que necesitas tiene su origen. Ya puedes ver el resultado.</div>`);
+    else if (d < 0) out.push(`<div class="callout bad"><b>Te faltan ${eur(-d)}.</b> Sin ese dinero no puedes poner en marcha el proyecto. Aumenta alguna fuente o vuelve atrás y recorta inversiones.</div>`);
+    else out.push(`<div class="callout warn"><b>Te sobran ${eur(d)}.</b> Estás pidiendo más de lo que necesitas. Si es un préstamo, pagarás intereses por dinero que no usas: reduce el préstamo o añade meses al colchón.</div>`);
+  }
+  return out.join('');
+}
+function loanDetail() {
+  const ls = loans();
+  if (!ls.length) return '';
+  return `<div class="eyebrow-line" style="margin-top:8px;"><span class="eyebrow">La letra pequeña del préstamo</span></div>` + ls.map(({ f, L }) => {
+    const ip = L.int1 / (L.int1 + L.cap1) * 100;
+    return `<div class="card" style="padding:18px 22px; margin-bottom:14px;"><div style="display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; align-items:baseline;">
+        <h3 class="subtitle">${esc(f.name)}</h3><span style="font-size:13px; color:var(--ink-muted);">${eur(L.P)} · ${String(num(f.tin)).replace('.', ',')} % · ${String(num(f.plazo)).replace('.', ',')} años</span></div>
+      <p class="mini" style="margin-top:6px;">El primer año pagas <b>${eur(L.int1 + L.cap1, 2)}</b> en cuotas. Pero no todo es igual:</p>
+      <div class="split">${L.int1 > 0 ? `<div class="si" style="width:${ip}%">${ip > 14 ? 'Intereses' : ''}</div>` : ''}<div class="sc" style="width:${100 - ip}%">Devolución del capital</div></div>
+      <div class="legend-row"><span><i style="background:var(--bad-deep)"></i>Intereses: ${eur(L.int1, 2)} → <b>coste</b> (va al umbral)</span><span><i style="background:var(--tool-deep)"></i>Capital: ${eur(L.cap1, 2)} → <b>devuelves</b> lo prestado (no es coste)</span></div>
+      <details class="note" style="margin:14px 0 0;"><summary>Ver cuadro de amortización (por años)</summary><div class="in table-scroll"><table class="amtab"><thead><tr><th>Año</th><th>Cuotas</th><th>Intereses</th><th>Capital</th><th>Pendiente</th></tr></thead><tbody>
+        ${L.years.map(y => `<tr><td>${y.y}</td><td>${eur(y.cuota, 2)}</td><td class="int">${eur(y.int, 2)}</td><td class="cap">${eur(y.cap, 2)}</td><td>${eur(y.pend, 2)}</td></tr>`).join('')}
+        <tr><td><b>Total</b></td><td><b>${eur(L.P + L.totalInt, 2)}</b></td><td class="int"><b>${eur(L.totalInt, 2)}</b></td><td class="cap"><b>${eur(L.P, 2)}</b></td><td></td></tr></tbody></table>
+        <p class="mini">Sistema francés: cuota mensual constante. Al principio casi todo son intereses y, poco a poco, pesa más la devolución del capital.</p></div></details></div>`;
+  }).join('');
+}
+function renderFinanciacion() {
+  const box = $('financiacion'), F = allFuentes();
+  const grp = (g, title, sub, color) => `<div class="group" style="--gc:${color}"><div class="group-head"><h3>${title}</h3><span class="sum" id="sum-${g}">${eur(totalGrupo(g))}</span></div><p class="group-sub">${sub}</p>
+    <div class="rows">${F.filter(f => f.grupo === g).map(fuenteRow).join('')}</div><div class="group-foot"><button type="button" class="add-btn" data-fadd="${g}">+ Otra fuente</button></div></div>`;
+  box.innerHTML = grp('propio', 'Recursos propios', 'Lo que aportáis vosotros o recibís sin tener que devolverlo. Forma el patrimonio neto.', 'var(--c-cor)')
+    + grp('ajeno', 'Recursos ajenos', 'Dinero prestado: hay que devolverlo y, casi siempre, con intereses. Forma el pasivo.', 'var(--c-gas)')
+    + `<div id="fin-alerts">${alertsHTML()}</div>
+    <p style="margin:-4px 0 20px;"><button type="button" class="btn btn-ghost btn-sm" id="btn-cuadrar">⚖ Cuadrar la balanza con el préstamo bancario</button></p>
+    <div id="loan-detail">${loanDetail()}</div>
+    <button id="btn-to-report" class="btn btn-primary" style="width:100%; padding:16px; font-size:15px; margin-top:8px;">Ver mi resultado →</button>`;
+  $('btn-cuadrar').addEventListener('click', () => {
+    const p = state.fuentes.find(f => f.key === 'prestamo'), nuevo = Math.round(num(p.amount) - diff());
+    if (nuevo < 0) { toastFin('Te sobra dinero incluso sin préstamo: reduce otras fuentes.'); p.amount = 0; } else p.amount = nuevo || null;
+    renderFinanciacion(); renderBalbars(); save();
+  });
+  $('btn-to-report').addEventListener('click', () => go('informe'));
+  refreshFin(false);
+}
+function toastFin(m) { const a = $('fin-alerts'); a.insertAdjacentHTML('afterbegin', `<div class="callout warn">${m}</div>`); }
+function refreshFin(full = true) {
+  if (!$('fin-alerts')) return;
+  ['propio', 'ajeno'].forEach(g => { $('sum-' + g).textContent = eur(totalGrupo(g)); });
+  allFuentes().filter(f => f.tipo === 'loan').forEach(f => { const el = $('cu-' + f.key), L = loan(f); if (el) el.innerHTML = L ? `Cuota: <b>${eur(L.cuota, 2)}</b>/mes<br>Intereses año 1: ${eur(L.int1, 2)}` : 'Pon un importe para ver la cuota'; });
+  if (full) { $('fin-alerts').innerHTML = alertsHTML(); $('loan-detail').innerHTML = loanDetail(); }
+  const btn = $('btn-to-report'); btn.disabled = !cuadra();
+  btn.textContent = cuadra() ? 'Ver mi resultado →' : necesidades() ? 'Equilibra la balanza para ver el resultado' : 'Añade primero tus inversiones';
+  renderBalbars();
+}
+
+// ═════════ EDICIÓN (delegada) ═════════
+const findItem = id => state.items.find(i => i.id === id), findGasto = id => state.gastos.find(g => g.id === id);
+const findF = k => state.fuentes.find(f => f.key === k) || state.extraFuentes.find(f => f.key === k);
+document.addEventListener('input', e => {
+  const t = e.target, d = t.dataset, v = t.value === '' ? null : t.value;
+  if (d.iamt) { findItem(d.iamt).amount = v === null ? null : num(v); refreshInv(); }
+  else if (d.ilife) { findItem(d.ilife).life = v === null ? null : num(v); refreshInv(); }
+  else if (d.iname) { findItem(d.iname).name = t.value; }
+  else if (d.gamt) { findGasto(d.gamt).amount = v === null ? null : num(v); refreshColchon(); }
+  else if (d.gname) { findGasto(d.gname).name = t.value; }
+  else if (d.famt) { findF(d.famt).amount = v === null ? null : num(v); refreshFin(false); }
+  else if (d.ftin) { findF(d.ftin).tin = v === null ? null : (parseFloat(String(v).replace(',', '.')) || 0); refreshFin(false); }
+  else if (d.fplazo) { findF(d.fplazo).plazo = v === null ? null : num(v); refreshFin(false); }
+  else if (d.fname) { findF(d.fname).name = t.value; }
+  else return;
+  save();
+});
+document.addEventListener('change', e => { const d = e.target.dataset; if (d.famt || d.ftin || d.fplazo) refreshFin(true); });
+document.addEventListener('click', e => {
+  const g = e.target.closest('[data-go]'); if (g) { go(g.dataset.go); return; }
+  const x = e.target.closest('[data-ex]'); if (x) { loadExample(x.dataset.ex); return; }
+  const b = e.target.closest('[data-opt],[data-more],[data-pq],[data-idel],[data-add],[data-gdel],[data-gadd],[data-meses],[data-fadd],[data-fdel],[data-theme]'); if (!b) return;
+  const d = b.dataset;
+  const refresh = k => { renderPanel(k); esGasto(k) ? refreshColchon() : refreshInv(); };
+  const focusLast = (k, sel) => { const ins = $('pw-' + k).querySelectorAll(sel); if (ins.length) ins[ins.length - 1].focus(); };
+  if (d.opt) { const k = card(d.opt).cat; toggleOpt(d.opt); refresh(k); const t = document.querySelector(`[data-opt="${d.opt}"]`); if (t) t.focus(); }
+  else if (d.more) { verTodas.has(d.more) ? verTodas.delete(d.more) : verTodas.add(d.more); renderPanel(d.more); const t = document.querySelector(`[data-more="${d.more}"]`); if (t) t.focus(); return; }
+  else if (d.pq) { state.perfil[d.pq] = d.pv; renderPerfilQs(); updateProyectoBtn(); document.querySelector(`[data-pq="${d.pq}"][data-pv="${d.pv}"]`).focus(); }
+  else if (d.idel) { const it = findItem(d.idel); state.items = state.items.filter(i => i.id !== d.idel); if (it) refresh(it.cat); }
+  else if (d.add) { state.items.push({ id:nid('i'), name:'', cat:d.add, amount:null, life:CATS[d.add].amort ? 5 : null }); refresh(d.add); focusLast(d.add, '[data-iname]'); }
+  else if (d.gdel) { const g = findGasto(d.gdel); state.gastos = state.gastos.filter(i => i.id !== d.gdel); if (g) refresh(g.tipo); }
+  else if (d.gadd) { state.gastos.push({ id:nid('g'), name:'', tipo:d.gadd, amount:null }); refresh(d.gadd); focusLast(d.gadd, '[data-gname]'); }
+  else if (d.meses) { state.meses = +d.meses; refreshColchon(); }
+  else if (d.fadd) { state.extraFuentes.push({ key:nid('f'), grupo:d.fadd, name:'', amount:null }); renderFinanciacion(); const ins = document.querySelectorAll('[data-fname]'); if (ins.length) ins[ins.length - 1].focus(); }
+  else if (d.fdel) { state.extraFuentes = state.extraFuentes.filter(f => f.key !== d.fdel); renderFinanciacion(); }
+  else if (d.theme) { state.theme = d.theme; applyTheme(); }
+  save();
+});
+
+// ═════════ INFORME ═════════
+function applyTheme() {
+  const t = THEMES[state.theme] || THEMES.verde, r = $('report');
+  r.style.setProperty('--tool-soft', t.s); r.style.setProperty('--tool-mid', t.m); r.style.setProperty('--tool-deep', t.d);
+  $('themes').innerHTML = `<span class="lab">Color</span>` + Object.entries(THEMES).map(([k, v]) => `<button type="button" class="sw" data-theme="${k}" aria-pressed="${state.theme === k}" aria-label="Tema ${k}" style="background:${v.d}"></button>`).join('');
+}
+function stackHTML(parts) {
+  const tot = parts.reduce((a, p) => a + p.v, 0) || 1;
+  return `<div class="stack">${parts.filter(p => p.v > 0).map(p => `<div style="width:${p.v / tot * 100}%; background:${p.c}" title="${p.n}"></div>`).join('')}</div>
+    <div class="stack-lab">${parts.filter(p => p.v > 0).map(p => `<span><i style="background:${p.c}"></i>${p.n}: ${eur(p.v)} (${pct(p.v / tot * 100)})</span>`).join('')}</div>`;
+}
+function renderInforme() {
+  const r = $('report'), B = balance(), need = necesidades(), have = financiado(), ok = cuadra();
+  const prop = totalGrupo('propio'), aj = totalGrupo('ajeno'), autof = have ? prop / have * 100 : 0;
+  const fecha = new Date().toLocaleDateString('es-ES', { day:'numeric', month:'long', year:'numeric' });
+  const verd = !ok ? { t:'La balanza no cuadra', p:`Necesitas ${eur(need)} y has financiado ${eur(have)}. Vuelve a la financiación y ajusta las fuentes.` }
+    : autof >= 50 ? { t:'Proyecto financiado y con base sólida', p:`Más de la mitad del dinero lo ponéis vosotros. Eso da confianza a bancos y proveedores y deja menos intereses que pagar.` }
+    : autof >= 20 ? { t:'Proyecto financiado con apoyo de deuda', p:`Una parte relevante es dinero prestado. Es habitual al emprender, pero la cuota de cada mes se suma a tus gastos: tenlo presente en el umbral de rentabilidad.` }
+    : { t:'Proyecto financiado, pero muy endeudado', p:`Casi todo el dinero es prestado. Será difícil conseguirlo y las cuotas presionarán tu tesorería desde el primer mes. Plantéate aportar más o invertir menos.` };
+  const invRows = INV_CATS.map(k => {
+    const its = state.items.filter(i => i.cat === k && num(i.amount) > 0);
+    const rows = its.map(i => `<tr><td>${esc(i.name || 'Sin nombre')}</td><td class="r">${eur(num(i.amount))}</td><td class="r">${isAmort(i) ? (num(i.life) || '—') + ' años' : '—'}</td><td class="r">${isAmort(i) && amortAnual(i) ? eur(amortAnual(i)) : '—'}</td></tr>`).join('');
+    const tes = k === 'cor' && colchon() > 0 ? `<tr><td>Tesorería (colchón de ${state.meses} ${state.meses === 1 ? 'mes' : 'meses'})</td><td class="r">${eur(colchon())}</td><td class="r">—</td><td class="r">—</td></tr>` : '';
+    if (!rows && !tes) return '';
+    return `<tr class="sub"><td>${CATS[k].name}</td><td class="r">${eur(totalCat(k) + (k === 'cor' ? colchon() : 0))}</td><td></td><td class="r">${k === 'mat' || k === 'int' ? eur(state.items.filter(i => i.cat === k).reduce((a, i) => a + amortAnual(i), 0)) : ''}</td></tr>${rows}${tes}`;
+  }).join('');
+  const finRows = ['propio', 'ajeno'].map(g => {
+    const fs = allFuentes().filter(f => f.grupo === g && num(f.amount) > 0);
+    if (!fs.length) return '';
+    return `<tr class="sub"><td>${g === 'propio' ? 'Recursos propios' : 'Recursos ajenos'}</td><td class="r">${eur(totalGrupo(g))}</td><td class="r">${pct(totalGrupo(g) / (have || 1) * 100)}</td><td></td></tr>`
+      + fs.map(f => { const L = f.tipo === 'loan' ? loan(f) : null;
+        return `<tr><td>${esc(f.name || 'Otra fuente')}</td><td class="r">${eur(num(f.amount))}</td><td class="r">${pct(num(f.amount) / (have || 1) * 100)}</td><td class="r">${L ? `${eur(L.cuota, 2)}/mes · ${String(num(f.tin)).replace('.', ',')} % · ${String(num(f.plazo)).replace('.', ',')} a` : ''}</td></tr>`; }).join('');
+  }).join('');
+  const gm = state.gastos.filter(g => g.tipo === 'mes' && num(g.amount) > 0), gp = state.gastos.filter(g => g.tipo === 'pun' && num(g.amount) > 0);
+  const pasAj = B.pnc + B.pc + B.extraAjeno;
+  r.innerHTML = `
+  <div class="rep-page">
+    <div class="rep-meta"><span class="eyebrow" style="color:var(--tool-deep); font-weight:600;">Plan de inversión y financiación · Página 1 de 2</span><span>${fecha}</span></div>
+    <h1 class="rep-title">${esc(state.nombre || 'Mi proyecto')}</h1>
+    ${perfilCompleto() ? `<p class="eyebrow" style="margin:-2px 0 8px; letter-spacing:1.4px;">${perfilTxt()}</p>` : ''}
+    ${state.desc.trim() ? `<p class="rep-desc">${esc(state.desc.trim())}</p>` : '<div style="height:14px"></div>'}
+    <div class="verdict"><div>${balanceSVG(150)}</div><div><h2>${verd.t}</h2><p>${verd.p}</p></div></div>
+    <div class="stats">
+      <div class="stat"><span>Inversión total</span><b>${eur(need)}</b></div>
+      <div class="stat"><span>Recursos propios</span><b>${pct(autof)}</b></div>
+      <div class="stat"><span>Cuota préstamos</span><b>${eur(cuotaMensual())}/mes</b></div>
+      <div class="stat"><span>Amortización</span><b>${eur(totalAmort() / 12)}/mes</b></div></div>
+    <span class="sec">¿En qué se invierte?</span>
+    ${stackHTML(INV_CATS.map(k => ({ n:CATS[k].short, v:totalCat(k) + (k === 'cor' ? colchon() : 0), c:CATS[k].color })))}
+    <span class="sec" style="margin-top:20px;">¿De dónde sale el dinero?</span>
+    ${stackHTML([{ n:'Recursos propios', v:prop, c:'var(--c-cor)' }, { n:'Recursos ajenos', v:aj, c:'var(--c-gas)' }])}
+    <span class="sec">Balance inicial</span>
+    <div class="bs"><div><h4>Activo · lo que tiene la empresa</h4>
+        <div class="l m"><span>Activo no corriente</span><span>${eur(B.anc)}</span></div>
+        ${['mat', 'int', 'fin'].filter(k => totalCat(k)).map(k => `<div class="l s"><span>${CATS[k].name}</span><span>${eur(totalCat(k))}</span></div>`).join('')}
+        <div class="l m"><span>Activo corriente</span><span>${eur(B.ac)}</span></div>
+        ${totalCat('cor') ? `<div class="l s"><span>Existencias</span><span>${eur(totalCat('cor'))}</span></div>` : ''}
+        <div class="l s"><span>Tesorería</span><span>${eur(colchon())}</span></div></div>
+      <div><h4>Patrimonio neto y pasivo · de dónde viene</h4>
+        <div class="l m"><span>Patrimonio neto</span><span>${eur(B.pn)}</span></div>
+        <div class="l s"><span>Aportaciones, capitalización y ayudas</span><span>${eur(B.pn)}</span></div>
+        <div class="l m"><span>Pasivo no corriente</span><span>${eur(B.pnc + B.extraAjeno)}</span></div>
+        <div class="l s"><span>Deudas a largo plazo</span><span>${eur(B.pnc + B.extraAjeno)}</span></div>
+        <div class="l m"><span>Pasivo corriente</span><span>${eur(B.pc)}</span></div>
+        <div class="l s"><span>Deudas a corto plazo y proveedores</span><span>${eur(B.pc)}</span></div></div></div>
+    <div class="bs" style="border-top:none; border-radius:0 0 12px 12px; margin-top:-1px;"><div class="tt" style="padding:10px 18px;"><span>Total activo</span><span>${eur(B.anc + B.ac)}</span></div><div class="tt" style="padding:10px 18px;"><span>Total PN + pasivo</span><span>${eur(B.pn + pasAj)}</span></div></div>
+    <p class="mini">La parte de los préstamos que devuelves durante el primer año figura como deuda a corto plazo; el resto, a largo. El aplazamiento con proveedores también es corto plazo.</p>
+  </div>
+  <div class="rep-page">
+    <div class="rep-meta"><span class="eyebrow" style="color:var(--tool-deep); font-weight:600;">Página 2 de 2 · El detalle</span><span>${esc(state.nombre)}</span></div>
+    <span class="sec" style="margin-top:14px;">Plan de inversión y amortización</span>
+    <div class="table-scroll"><table class="dtab"><thead><tr><th>Concepto</th><th class="r">Importe</th><th class="r">Vida útil</th><th class="r">Amortiz. anual</th></tr></thead><tbody>${invRows}
+      <tr class="sub"><td>Total</td><td class="r">${eur(need)}</td><td></td><td class="r">${eur(totalAmort())}</td></tr></tbody></table></div>
+    <span class="sec">Colchón de tesorería</span>
+    <div class="table-scroll"><table class="dtab"><tbody>
+      ${gm.length ? `<tr class="sub"><td>Gastos de cada mes</td><td class="r">${eur(gastosMes())}/mes</td></tr>${gm.map(g => `<tr><td>${esc(g.name || 'Sin nombre')}</td><td class="r">${eur(num(g.amount))}/mes</td></tr>`).join('')}` : ''}
+      ${gp.length ? `<tr class="sub"><td>Gastos de puesta en marcha</td><td class="r">${eur(gastosPun())}</td></tr>${gp.map(g => `<tr><td>${esc(g.name || 'Sin nombre')}</td><td class="r">${eur(num(g.amount))}</td></tr>`).join('')}` : ''}
+      <tr class="sub"><td>Colchón = ${eur(gastosMes())} × ${state.meses} ${state.meses === 1 ? 'mes' : 'meses'} + ${eur(gastosPun())}</td><td class="r">${eur(colchon())}</td></tr></tbody></table></div>
+    <span class="sec">Plan de financiación</span>
+    <div class="table-scroll"><table class="dtab"><thead><tr><th>Fuente</th><th class="r">Importe</th><th class="r">Peso</th><th class="r">Condiciones</th></tr></thead><tbody>${finRows}
+      <tr class="sub"><td>Total</td><td class="r">${eur(have)}</td><td class="r">100 %</td><td></td></tr></tbody></table></div>
+    <span class="sec">Para tu umbral de rentabilidad</span>
+    <div class="handoff">
+      <p class="mini" style="margin:0 0 8px;">Estos datos pasan a la siguiente herramienta como <b>costes fijos</b>. Se han guardado en este navegador.</p>
+      <div class="hrow"><span>Amortización del inmovilizado</span><b>${eur(totalAmort() / 12, 2)}/mes</b></div>
+      <div class="hrow"><span>Intereses de los préstamos (media del primer año)</span><b>${eur(intereses1() / 12, 2)}/mes</b></div>
+      <div class="hrow"><span>Gastos mensuales estimados (alquiler, sueldos…)</span><b>${eur(gastosMes(), 2)}/mes</b></div>
+      <p class="mini">La <b>cuota del préstamo</b> (${eur(cuotaMensual(), 2)}/mes) no entra entera en el umbral: solo sus intereses son coste. La devolución del capital sale de la caja, pero no es un coste.</p></div>
+    <span class="sec">Ten en cuenta</span>
+    <div class="method"><p><b>Importes sin IVA.</b> El IVA de las compras se recupera en la declaración trimestral, por eso no es coste. Pero se paga al comprar: en un plan real hay que prever cómo se adelanta ese dinero.</p>
+      <p><b>Simplificaciones:</b> amortización lineal sin valor residual; préstamos por sistema francés (cuota constante); colchón calculado como si los primeros meses no hubiera ventas. Los gastos de puesta en marcha (trámites, licencias, lanzamiento…) se pagan con la tesorería inicial. Las vidas útiles y los tipos de interés son orientativos: contrástalos con datos reales.</p></div>
+    <p class="eyebrow" style="margin-top:24px; text-align:center;">Plan de inversión y financiación · Toolkit IPE</p>
+  </div>`;
+  applyTheme();
+}
+function reportText() {
+  const B = balance(), have = financiado();
+  const out = ['PLAN DE INVERSIÓN Y FINANCIACIÓN', state.nombre, perfilCompleto() ? perfilTxt() : '', state.desc.trim(), '', 'PLAN DE INVERSIÓN'];
+  INV_CATS.forEach(k => { const its = state.items.filter(i => i.cat === k && num(i.amount) > 0); if (its.length || (k === 'cor' && colchon())) {
+    out.push(`${CATS[k].name}: ${eur(totalCat(k) + (k === 'cor' ? colchon() : 0))}`);
+    its.forEach(i => out.push(`- ${i.name}: ${eur(num(i.amount))}${isAmort(i) && amortAnual(i) ? ` (${num(i.life)} años · amortización ${eur(amortAnual(i))}/año)` : ''}`));
+    if (k === 'cor' && colchon()) out.push(`- Tesorería (colchón de ${state.meses} meses): ${eur(colchon())}`); } });
+  out.push(`TOTAL INVERSIÓN: ${eur(necesidades())}`, `Amortización anual: ${eur(totalAmort())} (${eur(totalAmort() / 12)}/mes)`, '', 'PLAN DE FINANCIACIÓN');
+  allFuentes().filter(f => num(f.amount) > 0).forEach(f => { const L = f.tipo === 'loan' ? loan(f) : null;
+    out.push(`- ${f.name} (${f.grupo === 'propio' ? 'propio' : 'ajeno'}): ${eur(num(f.amount))}${L ? ` · ${num(f.tin)} % · ${num(f.plazo)} años · cuota ${eur(L.cuota, 2)}/mes · intereses año 1 ${eur(L.int1, 2)}` : ''}`); });
+  out.push(`TOTAL FINANCIACIÓN: ${eur(have)} · Recursos propios: ${pct(have ? totalGrupo('propio') / have * 100 : 0)}`, '',
+    'BALANCE INICIAL', `Activo no corriente: ${eur(B.anc)} · Activo corriente: ${eur(B.ac)}`,
+    `Patrimonio neto: ${eur(B.pn)} · Pasivo no corriente: ${eur(B.pnc + B.extraAjeno)} · Pasivo corriente: ${eur(B.pc)}`, '',
+    'PARA EL UMBRAL DE RENTABILIDAD', `Amortización: ${eur(totalAmort() / 12, 2)}/mes`, `Intereses: ${eur(intereses1() / 12, 2)}/mes`, `Gastos mensuales estimados: ${eur(gastosMes(), 2)}/mes`, '', 'Importes sin IVA.');
+  return out.join('\n');
+}
+function toast(msg) { const t = $('toast'); if (!t) return; t.textContent = msg; setTimeout(() => { t.textContent = ''; }, 2500); }
+async function copyText(txt, msg) {
+  try { await navigator.clipboard.writeText(txt); toast(msg); }
+  catch (_) { const ta = $('copy-fallback'); ta.hidden = false; ta.value = txt; ta.select(); toast('Selecciona el texto y cópialo'); }
+}
+$('btn-copy').addEventListener('click', () => copyText(reportText(), 'Informe copiado'));
+$('btn-save-file').addEventListener('click', saveFile);
+$('btn-reset').addEventListener('click', () => {
+  if (!confirm('Se borrará el proyecto guardado en este navegador. Si quieres conservarlo, antes pulsa «Guardar copia». ¿Empezamos uno nuevo?')) return;
+  state = freshState();
+  try { const all = JSON.parse(localStorage.getItem(STORE_KEY) || '{}') || {}; delete all[SECTION]; delete all.paraUmbral; localStorage.setItem(STORE_KEY, JSON.stringify(all)); } catch (_) {}
+  $('copy-fallback').hidden = true; go('intro');
+});
+
+// ═════════ PDF ═════════
+function loadScript(src) { return new Promise((ok, ko) => { const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = () => ko(new Error('No se pudo cargar ' + src)); document.head.appendChild(s); }); }
+async function makePDF() {
+  if (!window.html2canvas) await loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js');
+  if (!window.jspdf) await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
+  const host = document.createElement('div');
+  host.style.cssText = 'position:fixed; left:-10000px; top:0; width:820px; background:#FFFFFF;';
+  const t = THEMES[state.theme] || THEMES.verde;
+  [...$('report').querySelectorAll('.rep-page')].forEach(p => {
+    const c = p.cloneNode(true); c.classList.add('report');
+    c.style.cssText = `padding:34px 38px; background:#FFFFFF; border:0; border-radius:0; margin:0; --tool-soft:${t.s}; --tool-mid:${t.m}; --tool-deep:${t.d};`;
+    c.querySelectorAll('details').forEach(d => d.setAttribute('open', ''));
+    host.appendChild(c);
+  });
+  document.body.appendChild(host);
+  try {
+    const { jsPDF } = window.jspdf; let pdf = null;
+    for (const kid of host.children) {
+      const cv = await window.html2canvas(kid, { scale:2, backgroundColor:'#FFFFFF', useCORS:true, logging:false });
+      const wmm = 210, hmm = Math.max(297, cv.height / cv.width * wmm);
+      if (!pdf) pdf = new jsPDF({ unit:'mm', format:[wmm, hmm], orientation:'portrait', compress:true }); else pdf.addPage([wmm, hmm], 'portrait');
+      pdf.setFillColor(255, 255, 255); pdf.rect(0, 0, wmm, hmm, 'F');
+      pdf.addImage(cv.toDataURL('image/jpeg', 0.92), 'JPEG', 0, 0, wmm, cv.height / cv.width * wmm);
+    }
+    return pdf.output('blob');
+  } finally { host.remove(); }
+}
+$('btn-pdf').addEventListener('click', async () => {
+  const btn = $('btn-pdf'), old = btn.textContent; btn.disabled = true; btn.textContent = 'Generando PDF…';
+  try {
+    const blob = await makePDF(), name = 'Inversion_financiacion_' + slug() + '.pdf';
+    let dl = null; try { dl = window.claude && await window.claude.use('downloads'); } catch (_) {}
+    if (dl) { try { await dl.save({ filename:name, data:blob }); toast('PDF listo'); } catch (e) { toast(e && e.code === 'declined' ? 'Descarga cancelada' : 'No se pudo guardar el PDF'); } }
+    else { downloadFile(name, blob); toast('PDF listo'); }
+  } catch (e) { toast('No se pudo generar el PDF. Usa «Copiar texto».'); }
+  btn.disabled = false; btn.textContent = old;
+});
+
+// ═════════ GLOSARIO ═════════
+const GLOSARIO = [
+  ['Inversión', [
+    ['Inversión', 'Lo que compras para usarlo durante más de un año, o el dinero que dejas inmovilizado (como una fianza). No desaparece: se queda en la empresa.'],
+    ['Gasto', 'Lo que se consume y hay que volver a pagar: alquiler, sueldos, luz, publicidad…'],
+    ['Inmovilizado (activo no corriente)', 'Todo lo que la empresa va a tener y usar durante más de un año.'],
+    ['Inmovilizado material', 'Bienes que se pueden tocar: mobiliario, ordenadores, maquinaria, vehículos, la reforma del local…'],
+    ['Inmovilizado intangible', 'Bienes que no se pueden tocar pero que usas durante años: la web, los programas, la marca registrada…'],
+    ['Inmovilizado financiero', 'Dinero que entregas y que recuperarás más adelante, como la fianza del local.'],
+    ['Activo corriente', 'Lo que se convierte en dinero en menos de un año: la mercancía y el dinero en el banco.'],
+    ['Existencias', 'La mercancía y los materiales que tienes en el almacén para vender o para producir.'],
+    ['Amortización', 'El desgaste anual de lo que has invertido: el precio repartido entre los años que lo vas a usar. Es un coste fijo.'],
+    ['Vida útil', 'Los años que vas a usar un bien. Sirve para calcular su amortización.'],
+    ['Tabla de amortización', 'La tabla oficial que fija, para cada tipo de bien, el porcentaje máximo por año y el plazo máximo para amortizarlo.'] ]],
+  ['Colchón', [
+    ['Tesorería', 'El dinero que la empresa tiene en caja o en el banco.'],
+    ['Colchón de tesorería', 'El dinero que reservas para pagar los gastos de los primeros meses, cuando todavía se vende poco.'],
+    ['Gastos de puesta en marcha', 'Gastos que se pagan una sola vez para poder abrir: trámites, licencias, campaña de lanzamiento…'],
+    ['Costes fijos', 'Los que pagas vendas o no vendas: alquiler, sueldos, cuota de autónomos, amortización…'],
+    ['IVA soportado', 'El IVA que pagas en tus compras. No es un coste porque lo recuperas en la declaración trimestral, pero hay que adelantarlo.'] ]],
+  ['Financiación', [
+    ['Recursos propios (patrimonio neto)', 'El dinero que pones tú o tus socios, y las ayudas que no se devuelven.'],
+    ['Recursos ajenos (pasivo)', 'El dinero prestado. Hay que devolverlo y casi siempre con intereses.'],
+    ['Pasivo no corriente / corriente', 'Deudas a devolver en más de un año (no corriente) o en menos de un año (corriente).'],
+    ['Capitalización del paro', 'Cobrar de una vez la prestación por desempleo que te queda para invertirla en tu negocio.'],
+    ['Subvención', 'Ayuda pública que no se devuelve si cumples las condiciones. Suele cobrarse meses después.'],
+    ['Aplazamiento con proveedores', 'Pagar la mercancía unos días o meses después de recibirla. Es financiación a corto plazo.'],
+    ['TIN (tipo de interés)', 'El porcentaje anual que te cobra el banco por prestarte el dinero.'],
+    ['Cuota', 'Lo que pagas cada mes por un préstamo: una parte son intereses y otra es devolución del dinero prestado.'],
+    ['Sistema francés', 'La forma más habitual de devolver un préstamo: pagas la misma cuota todos los meses.'],
+    ['Balance inicial', 'La foto de la empresa el día que abre: lo que tiene (activo) y de dónde ha salido el dinero (patrimonio neto + pasivo). Siempre cuadra.'] ]],
+];
+const glosarioHTML = () => `<details class="note"><summary>Glosario: ¿qué significa cada palabra?</summary><div class="in glos">
+  ${GLOSARIO.map(([t, terms]) => `<p class="glos-h">${t}</p><dl>${terms.map(([w, d]) => `<dt>${w}</dt><dd>${d}</dd>`).join('')}</dl>`).join('')}</div></details>`;
+document.querySelectorAll('.glos-slot').forEach(el => { el.innerHTML = glosarioHTML(); });
+
+// ═════════ ARRANQUE ═════════
+renderSteppers();
+renderIntro();
+renderBalbars();
+</script>
+</body>
+</html>
