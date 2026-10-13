@@ -697,6 +697,7 @@ const ART = {
   piramide:`<g ${K} stroke-linejoin="round"><polygon points="80,2 126,54 34,54" fill="#FFFFFF"/><polygon points="80,2 91.5,15 68.5,15" ${SOLID}/><polygon points="68.5,15 91.5,15 103,28 57,28" ${TINT}/><line x1="45.5" y1="41" x2="114.5" y2="41"/></g>`,
   ue:`<circle cx="80" cy="28" r="27" ${K} ${TINT}/>${[[80,6],[91,8.9],[99.1,17],[102,28],[99.1,39],[91,47.1],[80,50],[69,47.1],[60.9,39],[58,28],[60.9,17],[69,8.9]].map(([x,y])=>st(x,y,3.6)).join('')}`,
   contingencias:`<g ${K} fill="none" stroke-linecap="round"><path d="M28 28C42 28 42 13 56 13"/><path d="M28 28C42 28 42 43 56 43"/></g><g ${K}><circle cx="18" cy="28" r="10" fill="#FFFFFF"/><rect x="56" y="4" width="62" height="18" rx="3" ${TINT}/><rect x="56" y="34" width="62" height="18" rx="3" fill="#FFFFFF"/></g><g font-family="Inter, sans-serif" font-weight="700" fill="#1E1C1A" text-anchor="middle"><text x="18" y="32" font-size="12">?</text><text x="87" y="16.5" font-size="8.5">Común</text><text x="87" y="46.5" font-size="8.5">Profesional</text></g><g ${K} fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M122 13h16M134 9l4 4-4 4"/></g><circle cx="147" cy="13" r="6" ${K} ${SOLID}/>`,
+  balanza:`<g ${K} stroke-linecap="round" fill="none"><line x1="80" y1="12" x2="80" y2="50"/><line x1="36" y1="12" x2="124" y2="12"/><path d="M40 12L30 32M40 12L50 32M120 12L110 32M120 12L130 32"/></g><g ${K}><path d="M27 32h26a13 7 0 0 1-26 0z" ${TINT}/><path d="M107 32h26a13 7 0 0 1-26 0z" ${SOLID}/><rect x="64" y="50" width="32" height="5" rx="2.5" fill="#FFFFFF"/><circle cx="80" cy="12" r="4" fill="#FFFFFF"/></g>`,
   prestaciones:`<g ${K} stroke-linecap="round" stroke-linejoin="round"><path d="M44 30Q80 -4 116 30Q107 24 98 30Q89 24 80 30Q71 24 62 30Q53 24 44 30Z" ${TINT}/><path d="M80 30v16q0 6-6 4" fill="none"/></g><g ${K}><circle cx="128" cy="46" r="6" ${SOLID}/><circle cx="141" cy="44" r="6" fill="#FFFFFF"/><circle cx="28" cy="46" r="5" ${SOLID}/></g>`
 };
 // Dibujo por defecto si una herramienta no tiene "dibujo" en el catálogo
@@ -719,7 +720,8 @@ const toolsOf = ids => (ids||[]).map(id=>({id, ...DB.tools[id]})).filter(t=>t.ur
 
 function load(json){
   DB.tools = json.herramientas || {};
-  DB.mods = (json.modulos||[]).map((m,i)=>({...m, cls: i===0 ? 'm1' : 'm2'}));
+  // "estilo" (m1 claro / m2 oscuro) va con cada módulo, así el color no cambia si se reordenan
+  DB.mods = (json.modulos||[]).map((m,i)=>({...m, cls: m.estilo || (i===0 ? 'm1' : 'm2')}));
   DB.tags = (json.etiquetas||[]).filter(t=>(t.herramientas||[]).some(id=>DB.tools[id]));
   // Dónde vive cada herramienta (módulo + unidad), para la etiqueta de la vista por temática
   DB.where = {};

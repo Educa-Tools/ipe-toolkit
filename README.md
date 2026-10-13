@@ -8,7 +8,7 @@ Web publicada: https://educa-tools.github.io/ipe-toolkit/
 - `index.html` — la portada. No hace falta tocarla para añadir herramientas.
 - `data/estructura.json` — **todo el contenido**, en tres bloques:
   - `herramientas`: el catálogo. Cada herramienta tiene un identificador corto y sus datos.
-  - `modulos`: IPE 2 e IPE 1, con sus unidades y la lista de herramientas de cada una (por identificador, en el orden en que deben aparecer).
+  - `modulos`: IPE 1 e IPE 2 (en el orden en que salen en la portada), con sus unidades y la lista de herramientas de cada una (por identificador, en el orden en que deben aparecer).
   - `etiquetas`: las temáticas del "Explorar por temática", también con su lista de herramientas.
 - El resto de `.html` — cada herramienta interactiva, independiente.
 
@@ -22,7 +22,7 @@ Web publicada: https://educa-tools.github.io/ipe-toolkit/
 ```
 
    - `titular`: el titular grande que sale en la ventanita de la portada. Copia el de la propia herramienta; lo que vaya entre `<em>` y `</em>` sale en cursiva y en su color. Si lo omites, se usa el `titulo`.
-   - `dibujo`: el mini dibujo de la ventanita. Elige uno de los que ya existen (`idea`, `ficha`, `estrella`, `canvas`, `pestel`, `porter`, `buyer`, `dafo`, `forma`, `patologias`, `ruta`, `expediente`, `buscador`, `piramide`, `ue`, `contingencias`, `prestaciones`, `nomina`) o pide uno nuevo. Si lo omites, sale un dibujo genérico.
+   - `dibujo`: el mini dibujo de la ventanita. Elige uno de los que ya existen (`idea`, `ficha`, `estrella`, `canvas`, `pestel`, `porter`, `buyer`, `dafo`, `forma`, `patologias`, `ruta`, `expediente`, `buscador`, `piramide`, `ue`, `contingencias`, `prestaciones`, `nomina`, `balanza`) o pide uno nuevo. Si lo omites, sale un dibujo genérico.
 
    Campos opcionales para las etiquetas pequeñas de la tarjeta:
    - `minutos`: tiempo aproximado en clase (sale como "≈ 20 min").
