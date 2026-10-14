@@ -2,8 +2,9 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<script>/* Esplora Labs: recupera el progreso guardado con el nombre antiguo (educa…) */try{for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(/^educa/.test(k)){var n=k.replace(/^educatools/,'esplora').replace(/^educa/,'esplora');if(localStorage.getItem(n)===null)localStorage.setItem(n,localStorage.getItem(k));}}}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Casos prácticos de nóminas · Educa Tools</title>
+<title>Casos prácticos de nóminas · Esplora Labs</title>
 <meta name="description" content="Cinco casos prácticos guiados sobre la nómina con la normativa de 2026: clasificar percepciones, comprobar el SMI, calcular bases, cuotas y líquido, y encontrar errores en un recibo de salarios.">
 <meta name="theme-color" content="#557A35">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath fill='%236B7028' d='M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z'/%3E%3C/svg%3E">
@@ -201,9 +202,9 @@
 
 <header class="top no-print">
   <div class="wrap top-in">
-    <a class="brand" href="index.html" aria-label="Educa Tools, volver al catálogo">
+    <a class="brand" href="index.html" aria-label="Esplora Labs, volver al catálogo">
       <svg viewBox="0 0 40 40" aria-hidden="true"><path fill="#6B7028" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg>
-      <b><span>Educa</span> Tools</b>
+      <b><span>Esplora</span> Labs</b>
     </a>
     <nav class="top-nav" aria-label="Herramienta">
       <a class="nbtn" href="#/" data-nav="home">Casos</a>
@@ -397,7 +398,7 @@ const CASES=[
 /* =========================================================
    ESTADO (se guarda en este navegador)
    ========================================================= */
-const KEY='educa-casosnomina-v1';
+const KEY='esplora-casosnomina-v1';
 let ST={name:'',c:{}};
 try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s&&s.c)ST=s}catch(e){}
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(ST))}catch(e){}};
@@ -565,7 +566,7 @@ function summary(){
   main.innerHTML=`
   <a class="crumb no-print" href="#/">← Todos los casos</a>
   <section class="sumbox">
-    <p class="print-only"><b>Educa Tools · Casos prácticos de nóminas · IPE 1</b></p>
+    <p class="print-only"><b>Esplora Labs</b></p>
     <div class="sum-head"><div><h1 style="font-size:clamp(1.7rem,4vw,2.3rem)">Mi resumen</h1><p style="color:var(--ink-soft);margin:6px 0 0">Imprime o guarda en PDF esta página para entregarla.</p></div><div style="text-align:right"><div class="score">${tot} / ${totalMax}</div><span style="color:var(--ink-soft);font-size:.9rem">puntos</span></div></div>
     <div class="field no-print"><label for="nm">Tu nombre</label><input id="nm" value="${(ST.name||'').replace(/"/g,'&quot;')}" placeholder="Nombre y apellidos"></div>
     <p class="print-only">Nombre: <b id="nmP">${ST.name||'________________________'}</b> · Fecha: ${new Date().toLocaleDateString('es-ES')}</p>

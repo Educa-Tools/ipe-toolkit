@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<script>/* Esplora Labs: recupera el progreso guardado con el nombre antiguo (educa…) */try{for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(/^educa/.test(k)){var n=k.replace(/^educatools/,'esplora').replace(/^educa/,'esplora');if(localStorage.getItem(n)===null)localStorage.setItem(n,localStorage.getItem(k));}}}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DAFO y CAME</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -9,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ══════════════════════════════════════════════════════════════
-   EDUCA TOOLS — DAFO + CAME
+   ESPLORA LABS — DAFO + CAME
    Paleta de marca (canónica, brand-kit-especificacion.md) +
    familias de color por cuadrante, heredadas del sistema PESTEL.
    Tema claro únicamente — decisión de marca del proyecto.
@@ -446,7 +447,7 @@ h3.subtitle { font-size: 22px; font-weight: 600; }
 
 </head>
 <body>
-<header class="brandbar"><div class="brandbar-in"><a href="index.html" aria-label="Educa Tools, volver al catálogo"><svg width="20" height="20" viewBox="0 0 40 40" aria-hidden="true"><path fill="#C5CD78" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg><span>Educa</span>&nbsp;Tools</a><small>DAFO · CAME</small></div></header>
+<header class="brandbar"><div class="brandbar-in"><a href="index.html" aria-label="Esplora Labs, volver al catálogo"><svg width="20" height="20" viewBox="0 0 40 40" aria-hidden="true"><path fill="#C5CD78" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg><span>Esplora</span>&nbsp;Labs</a><small>DAFO · CAME</small></div></header>
 <!-- ═══════════════════════════════════════════════════════════════ -->
 <!-- INTRO                                                            -->
 <!-- ═══════════════════════════════════════════════════════════════ -->
@@ -657,7 +658,7 @@ h3.subtitle { font-size: 22px; font-weight: 600; }
       <p class="rp-intro">El <b>DAFO</b> ordena lo que afecta a un proyecto en cuatro cuadrantes: lo que depende de ti (<b>interno</b>: fortalezas y debilidades) y lo que viene del entorno (<b>externo</b>: oportunidades y amenazas), separando lo que te favorece de lo que te perjudica. Prioridad de cada elemento: ●●● alta (3 puntos) · ●●○ media (2) · ●○○ baja (1).</p>
       <div class="dafo" id="rp-dafo"></div>
       <div class="balance" id="rp-balance"></div>
-      <div class="rp-foot"><span>Educa Tools · Análisis DAFO y CAME</span><span id="rp-date-1"></span></div>
+      <div class="rp-foot"><span>Esplora Labs</span><span id="rp-date-1"></span></div>
     </article>
 
     <!-- PÁGINA 2 — CAME -->
@@ -672,7 +673,7 @@ h3.subtitle { font-size: 22px; font-weight: 600; }
         <div><b>Corregir · DO</b>Estrategia de reorientación</div>
         <div><b>Afrontar · DA</b>Estrategia de supervivencia</div>
       </div>
-      <div class="rp-foot"><span>Educa Tools · Análisis DAFO y CAME</span><span id="rp-date-2"></span></div>
+      <div class="rp-foot"><span>Esplora Labs</span><span id="rp-date-2"></span></div>
     </article>
   </div>
 </div>
@@ -1206,7 +1207,7 @@ function resetAll() {
 // GUARDADO AUTOMÁTICO (en este navegador)
 // ═══════════════════════════════════════════════════════════════
 (function () {
-  const KEY = 'educa-dafocame-v1';
+  const KEY = 'esplora-dafocame-v1';
   const pack = () => JSON.stringify({
     screen: state.screen, idea: state.idea, items: state.items, itemSeq: state.itemSeq,
     cruces: Object.fromEntries(Object.entries(state.cruces).map(([k, c]) => [k, Object.fromEntries(Object.entries(c).map(([kk, v]) => [kk, v instanceof Set ? [...v] : v]))]))

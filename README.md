@@ -1,4 +1,4 @@
-# Educa Tools · IPE Toolkit
+# Esplora Labs · Herramientas educativas
 
 Herramientas interactivas y recursos para **Itinerario Personal para la Empleabilidad I y II** (FP).
 Web publicada: https://educa-tools.github.io/ipe-toolkit/

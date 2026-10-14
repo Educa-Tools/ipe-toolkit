@@ -1,4 +1,4 @@
-# Educa Tools — Especificación de marca
+# Esplora Labs — Especificación de marca
 
 > Versión en texto del Brand Kit, lista para usar sin tener que releer el PDF.
 > El PDF original está en el proyecto como `Educa_Tools_Brand_Kit.pdf`.
@@ -66,17 +66,17 @@ Cada herramienta tiene su color propio. Se aplica al icono, al badge y al borde 
 
 ## Logo — lockup completo (SVG listo para pegar)
 
-Estructura en dos líneas: "Educa" arriba, y debajo las dos estrellas seguidas de "Tools". Tagline al pie.
+Estructura en dos líneas: "Esplora" arriba, y debajo las dos estrellas seguidas de "Labs". Tagline al pie.
 
 ```svg
 <svg viewBox="0 0 220 112" fill="none" xmlns="http://www.w3.org/2000/svg" role="img">
-  <title>Educa Tools</title>
+  <title>Esplora Labs</title>
 
-  <!-- "Educa" — olive-mid, fila superior -->
+  <!-- "Esplora" — olive-mid, fila superior -->
   <text x="0" y="38" font-family="'Fraunces', Georgia, serif"
-        font-size="40" font-weight="700" fill="#A8AD5C" letter-spacing="-1.5">Educa</text>
+        font-size="40" font-weight="700" fill="#A8AD5C" letter-spacing="-1.5">Esplora</text>
 
-  <!-- Estrella grande (olive-deep) — debajo de "Educa" -->
+  <!-- Estrella grande (olive-deep) — debajo de "Esplora" -->
   <path d="M20 0 C20 0 18 9 14 13 C10 17 0 20 0 20 C0 20 10 23 14 27 C18 31 20 40 20 40
            C20 40 22 31 26 27 C30 23 40 20 40 20 C40 20 30 17 26 13 C22 9 20 0 20 0Z"
         fill="#6B7028" transform="translate(0, 52)"/>
@@ -86,9 +86,9 @@ Estructura en dos líneas: "Educa" arriba, y debajo las dos estrellas seguidas d
            C10 18 11 14 13 12 C15 10 20 9 20 9 C20 9 15 8 13 6 C11 4 10 0 10 0Z"
         fill="#A8AD5C" transform="translate(30, 50)"/>
 
-  <!-- "Tools" — ink, misma fila que las estrellas -->
+  <!-- "Labs" — ink, misma fila que las estrellas -->
   <text x="55" y="92" font-family="'Fraunces', Georgia, serif"
-        font-size="40" font-weight="700" fill="#1E1C1A" letter-spacing="-1.5">Tools</text>
+        font-size="40" font-weight="700" fill="#1E1C1A" letter-spacing="-1.5">Labs</text>
 
   <!-- Tagline -->
   <text x="0" y="110" font-family="'Inter', sans-serif"
@@ -96,7 +96,7 @@ Estructura en dos líneas: "Educa" arriba, y debajo las dos estrellas seguidas d
 </svg>
 ```
 
-**Cuidado con el espaciado vertical.** En una versión anterior las estrellas se solapaban con la palabra "Educa": el texto terminaba en `y=40` y las estrellas arrancaban en `y=44`, solo 4px de separación. La corrección fue ampliar el `viewBox` a `0 0 220 112` y bajar el grupo de estrellas a `translate(0, 52)` y `translate(30, 50)`, dándoles su propia fila limpia.
+**Cuidado con el espaciado vertical.** En una versión anterior las estrellas se solapaban con la palabra "Esplora": el texto terminaba en `y=40` y las estrellas arrancaban en `y=44`, solo 4px de separación. La corrección fue ampliar el `viewBox` a `0 0 220 112` y bajar el grupo de estrellas a `translate(0, 52)` y `translate(30, 50)`, dándoles su propia fila limpia.
 
 ### Estrella suelta
 

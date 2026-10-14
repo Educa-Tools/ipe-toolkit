@@ -1,4 +1,4 @@
-# Educa Tools (nombre provisional)
+# Esplora Labs (antes Educa Tools)
 
 ## Quién soy
 Soy profesor de FP (IPE 1 e IPE 2, FOL y EIE). No sé programar:
@@ -9,6 +9,8 @@ cambiado, en qué archivos y cómo comprobarlo.
 Herramientas HTML interactivas que el alumnado usa en clase: reutilizables,
 con margen para equivocarse y obtener una segunda visión.
 Web publicada con GitHub Pages: https://educa-tools.github.io/ipe-toolkit/
+(La dirección conserva el nombre antiguo: cambiarla obliga a renombrar la
+cuenta y el repositorio de GitHub y rompería los enlaces ya compartidos.)
 
 ## Estructura real del repositorio
 - index.html: la landing (portada). No tiene las herramientas escritas:
@@ -46,3 +48,7 @@ Web publicada con GitHub Pages: https://educa-tools.github.io/ipe-toolkit/
 ## Notas
 - La PESTEL vigente es el mapa de impacto e incertidumbre (matriz 3x3).
   La versión antigua con gráfico hexagonal está obsoleta.
+- Marca: "Esplora Labs" (con mayúsculas en el texto). El guardado usa
+  claves que empiezan por "esplora". Las herramientas llevan al principio
+  un pequeño script que copia el progreso de las claves antiguas ("educa…")
+  para que nadie lo pierda. No lo quites.

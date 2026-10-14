@@ -2,16 +2,17 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<script>/* Esplora Labs: recupera el progreso guardado con el nombre antiguo (educa…) */try{for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(/^educa/.test(k)){var n=k.replace(/^educatools/,'esplora').replace(/^educa/,'esplora');if(localStorage.getItem(n)===null)localStorage.setItem(n,localStorage.getItem(k));}}}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Matriz Estrella · Educa Tools</title>
-<meta name="description" content="Evaluación preliminar de la tangibilidad de una idea de negocio en cinco dimensiones. IPE Toolkit · Educa Tools.">
+<title>Matriz Estrella · Esplora Labs</title>
+<meta name="description" content="Evaluación preliminar de la tangibilidad de una idea de negocio en cinco dimensiones. Esplora Labs.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     color-scheme: light;
-    /* Brand Kit Educa Tools */
+    /* Brand Kit Esplora Labs */
     --bg:#FBFCEF;
     --surface:#FFFFFF;
     --surface-alt:#F5F6E4;
@@ -246,7 +247,7 @@
     footer.credit{margin-top:16px;font-size:8.5pt;}
   }
 
-/* ══ Kit v2 Educa Tools: contraste, tamaños y barra de marca ══ */
+/* ══ Kit v2 Esplora Labs: contraste, tamaños y barra de marca ══ */
 :root{ --kit-bg:#F5F6E4; --kit-ink:#1E1C1A; --kit-soft:#4A463F; --kit-accent:#557A35; }
 html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-font-smoothing:antialiased; }
 :root{ --ink-faint:#4A463F; --ink-muted:#4A463F; --muted:#4A463F; }
@@ -262,7 +263,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
 </style>
 </head>
 <body>
-<header class="kit-bar"><div class="kit-bar-in"><a href="index.html" aria-label="Educa Tools, volver al catálogo"><svg width="20" height="20" viewBox="0 0 40 40" aria-hidden="true"><path fill="#C5CD78" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg><span>Educa</span>&nbsp;Tools</a><small><span class="kit-save" id="kitSave" hidden><i></i>Progreso guardado en este navegador</span> &nbsp;Matriz Estrella</small></div></header>
+<header class="kit-bar"><div class="kit-bar-in"><a href="index.html" aria-label="Esplora Labs, volver al catálogo"><svg width="20" height="20" viewBox="0 0 40 40" aria-hidden="true"><path fill="#C5CD78" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg><span>Esplora</span>&nbsp;Labs</a><small><span class="kit-save" id="kitSave" hidden><i></i>Progreso guardado en este navegador</span> &nbsp;Matriz Estrella</small></div></header>
 <div class="app-shell">
 
   <header class="app-header" id="app-header">
@@ -367,7 +368,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     <button class="link-btn" id="btn-restart">Reiniciar</button>
   </div>
 
-  <footer class="credit">Educa Tools · IPE Toolkit · Matriz Estrella — evaluación preliminar de riesgo emprendedor</footer>
+  <footer class="credit">Esplora Labs · Matriz Estrella — evaluación preliminar de riesgo emprendedor</footer>
 </div>
 
 <script>
@@ -831,7 +832,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     });
 
     // Guardado automático en este navegador (se retoma al volver)
-    var KS = 'educa-estrella-v1', lastSaved = '';
+    var KS = 'esplora-estrella-v1', lastSaved = '';
     try {
       var sv = JSON.parse(localStorage.getItem(KS) || 'null');
       if (sv && sv.answers) {

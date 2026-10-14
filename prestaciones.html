@@ -2,8 +2,9 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<script>/* Esplora Labs: recupera el progreso guardado con el nombre antiguo (educa…) */try{for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(/^educa/.test(k)){var n=k.replace(/^educatools/,'esplora').replace(/^educa/,'esplora');if(localStorage.getItem(n)===null)localStorage.setItem(n,localStorage.getItem(k));}}}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Prestaciones de la Seguridad Social · Educa Tools</title>
+<title>Prestaciones de la Seguridad Social · Esplora Labs</title>
 <meta name="description" content="Guía interactiva de las prestaciones de la Seguridad Social: incapacidad temporal, nacimiento y cuidado de menor y desempleo. Con comprobador de requisitos, calculadora, casos prácticos y glosario.">
 <meta name="theme-color" content="#3E5778">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath fill='%236B7028' d='M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z'/%3E%3C/svg%3E">
@@ -248,9 +249,9 @@
 
 <header class="top no-print">
   <div class="wrap top-in">
-    <a class="brand" href="index.html" aria-label="Educa Tools, volver al catálogo">
+    <a class="brand" href="index.html" aria-label="Esplora Labs, volver al catálogo">
       <svg viewBox="0 0 40 40" aria-hidden="true"><path fill="#6B7028" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg>
-      <b><span>Educa</span> Tools</b>
+      <b><span>Esplora</span> Labs</b>
     </a>
     <nav class="top-nav" aria-label="Herramienta">
       <a class="nbtn" href="#/" data-nav="home">Inicio</a>
@@ -525,7 +526,7 @@ const C = {
 /* =====================================================================
    ESTADO GUARDADO (solo en este navegador)
    ===================================================================== */
-const KEY = 'educatools-prestaciones-v1';
+const KEY = 'esplora-prestaciones-v1';
 const blank = () => ({nombre:'', p:{it:{},nac:{},des:{}}, casos:{}, calc:{}, last:''});
 let ST = blank();
 try{ const s = JSON.parse(localStorage.getItem(KEY)||'null'); if(s && s.p) ST = Object.assign(blank(), s); }catch(e){}
@@ -780,7 +781,7 @@ function viewResumen(){
   return `
   <a class="crumb" href="#/">${svg('back',2)} Inicio</a>
   <div class="sum-head">
-    <div><h1 style="font-size:clamp(1.7rem,4vw,2.4rem)">Mi resumen</h1><p class="lead" style="margin:6px 0 0">Prestaciones de la Seguridad Social · Educa Tools</p></div>
+    <div><h1 style="font-size:clamp(1.7rem,4vw,2.4rem)">Mi resumen</h1><p class="lead" style="margin:6px 0 0">Prestaciones de la Seguridad Social · Esplora Labs</p></div>
     <div class="score" aria-label="Casos correctos">${ok}/${tot} casos</div>
   </div>
   <div class="field no-print" style="max-width:420px"><label for="nombre">Tu nombre (aparecerá en la hoja)</label><input type="text" id="nombre" value="${(ST.nombre||'').replace(/"/g,'&quot;')}" autocomplete="name"></div>
@@ -798,19 +799,19 @@ function route(){
   document.querySelectorAll('[data-nav]').forEach(a=>a.removeAttribute('aria-current'));
   if(pid==='resumen'){
     main.innerHTML = viewResumen(); $('[data-nav="resumen"]').setAttribute('aria-current','page');
-    document.title = 'Mi resumen · Prestaciones · Educa Tools';
+    document.title = 'Mi resumen · Prestaciones · Esplora Labs';
     $('#nombre').oninput = e=>{ ST.nombre = e.target.value; save(); };
     $('#doPrint').onclick = ()=>window.print();
     $('#doReset').onclick = ()=>{ if(confirm('¿Seguro que quieres borrar todo tu progreso en esta herramienta?')){ ST = blank(); save(); Object.keys(WS).forEach(k=>delete WS[k]); route(); } };
   } else if(P[pid]){
     if(!TABS.some(t=>t[0]===tab)) tab = 'ficha';
     main.innerHTML = viewP(pid, tab);
-    document.title = P[pid].nombre + ' · Prestaciones · Educa Tools';
+    document.title = P[pid].nombre + ' · Prestaciones · Esplora Labs';
     ST.last = `#/${pid}/${tab}`; save();
     bindP(pid, tab);
   } else {
     main.innerHTML = viewHome(); $('[data-nav="home"]').setAttribute('aria-current','page');
-    document.title = 'Prestaciones de la Seguridad Social · Educa Tools';
+    document.title = 'Prestaciones de la Seguridad Social · Esplora Labs';
   }
 }
 

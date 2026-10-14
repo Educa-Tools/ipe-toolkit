@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<script>/* Esplora Labs: recupera el progreso guardado con el nombre antiguo (educa…) */try{for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(/^educa/.test(k)){var n=k.replace(/^educatools/,'esplora').replace(/^educa/,'esplora');if(localStorage.getItem(n)===null)localStorage.setItem(n,localStorage.getItem(k));}}}catch(e){}</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Umbral de rentabilidad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Esplora Labs · Umbral de rentabilidad (punto muerto o de equilibrio). Tema claro por decisión de marca.
+   Flujo: intro → proyecto (nombre, unidad de venta y vinculación) → precio y costes variables → costes fijos → calcula a mano → resultado.
+   Modo libre: todo se escribe a mano. Modo vinculado: lee el paquete «paraUmbral» que deja el Plan de inversión y financiación
+   en la clave compartida 'esplora-expediente' (amortización, intereses, cuota y gastos de cada mes) y añade el umbral de caja.
+   Su propio progreso lo guarda en 'esplora-umbral-v1'. */
+:root {
+  --bg: #FBFCEF; --surface: #FFFFFF; --surface-alt: #F5F6E4;
+  --ink: #1E1C1A; --ink-soft: #4A463F; --ink-muted: #8B847A;
+  --line: #E8E1D6; --line-soft: #EEEFD8;
+  --olive-deep: #6B7028; --olive-mid: #A8AD5C; --lime-soft: #E8EDC4;
+  --tool-soft: #E4E8F0; --tool-mid: #7E95B5; --tool-deep: #3E5778;
+  --ok-soft:#E5EDDB; --ok-mid:#A8C485; --ok-deep:#557A35; --ok-ink:#354B22;
+  --warn-soft:#F2EDDB; --warn-mid:#C9B073; --warn-deep:#8B6F2A; --warn-ink:#5A4818;
+  --bad-soft:#F4E5E5; --bad-mid:#C58A8A; --bad-deep:#8B3A3A; --bad-ink:#5E2424;
+  --c-inv:#2C6E5A; --c-inv-soft:#E0EEE8;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--ink); font-family: 'Inter', system-ui, sans-serif; font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+.container { max-width: 780px; margin: 0 auto; padding: 40px 20px 80px; }
+.screen { display: none; } .screen.active { display: block; }
+h1.display { font-family: 'Fraunces', Georgia, serif; font-size: 46px; line-height: 1.06; font-weight: 400; letter-spacing: -0.02em; text-wrap: balance; }
+h1.display em { font-style: italic; font-weight: 300; color: var(--tool-deep); }
+h2.title { font-family: 'Fraunces', Georgia, serif; font-size: 27px; line-height: 1.2; font-weight: 400; letter-spacing: -0.01em; text-wrap: balance; }
+h2.title em { font-style: italic; font-weight: 300; color: var(--tool-deep); }
+h3.subtitle { font-family: 'Fraunces', Georgia, serif; font-size: 18px; line-height: 1.3; font-weight: 500; }
+.prose { font-family: 'Fraunces', Georgia, serif; font-size: 15.5px; line-height: 1.65; font-weight: 300; color: var(--ink-soft); }
+.prose b { font-weight: 500; color: var(--ink); }
+.prose-italic { font-family: 'Fraunces', Georgia, serif; font-style: italic; font-weight: 300; line-height: 1.6; color: var(--ink-soft); }
+.eyebrow { font-size: 11px; font-weight: 500; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 2px; }
+.eyebrow-line { display: flex; align-items: center; gap: 12px; margin-bottom: 22px; }
+.eyebrow-line::before { content: ''; width: 40px; height: 1px; background: var(--ink-muted); }
+.label-form { font-size: 12.5px; font-weight: 500; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 1.5px; display: block; margin-bottom: 10px; }
+.opt-tag { font-size: 10.5px; font-weight: 500; letter-spacing: 1px; color: var(--ink-muted); text-transform: none; margin-left: 6px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 24px; border-radius: 999px; font: 500 14px 'Inter', sans-serif; cursor: pointer; transition: all .2s ease; border: none; }
+.btn:focus-visible, .link-btn:focus-visible, .add-btn:focus-visible, .btn-back:focus-visible, .sw:focus-visible, .icon-btn:focus-visible, .mode-btn:focus-visible { outline: 2px solid var(--tool-deep); outline-offset: 2px; }
+.btn-primary { background: var(--ink); color: var(--bg); }
+.btn-primary:hover:not(:disabled) { background: #2D3220; transform: translateY(-1px); }
+.btn-primary:disabled { background: var(--line); color: var(--ink-muted); cursor: not-allowed; }
+.btn-ghost { background: transparent; color: var(--ink-soft); border: 1px solid var(--line); }
+.btn-ghost:hover { background: var(--surface); border-color: var(--ink-muted); }
+.btn-tool { background: var(--tool-deep); color: #fff; }
+.btn-tool:hover { filter: brightness(1.08); }
+.btn-sm { padding: 9px 16px; font-size: 13px; }
+.btn-back { display: inline-flex; align-items: center; gap: 6px; background: none; border: none; font: 13px 'Inter', sans-serif; color: var(--ink-muted); cursor: pointer; padding: 4px 0; margin-bottom: 18px; }
+.btn-back:hover { color: var(--ink); }
+.link-btn { background: none; border: none; font: 500 13px 'Inter', sans-serif; color: var(--tool-deep); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; padding: 2px 0; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; }
+.text-input, .input-line { width: 100%; border: 1.5px solid var(--line); border-radius: 12px; padding: 13px 16px; font: 300 16px/1.5 'Fraunces', Georgia, serif; color: var(--ink); background: var(--surface); outline: none; transition: border-color .2s; }
+.text-input { resize: vertical; }
+.text-input:focus, .input-line:focus { border-color: var(--ink); }
+.field { margin-bottom: 22px; }
+.field-hint { font-size: 12px; color: var(--ink-muted); margin-top: 6px; }
+.stepnum { border-radius: 50%; width: 22px; height: 22px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: var(--ink); color: var(--surface); font-size: 11px; font-weight: 600; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes shake { 0%,100% { transform: none; } 20% { transform: translateX(-8px); } 40% { transform: translateX(7px); } 60% { transform: translateX(-5px); } 80% { transform: translateX(3px); } }
+@keyframes pop { 0% { transform: scale(.96); } 60% { transform: scale(1.02); } 100% { transform: none; } }
+.fade { animation: fadeUp .45s ease; }
+.shake { animation: shake .4s ease; }
+.pop { animation: pop .35s ease; }
+@media (prefers-reduced-motion: reduce) { .fade, .shake, .pop { animation: none; } .btn { transition: none !important; } }
+
+/* stepper */
+.stepper { display: flex; gap: 6px; margin-bottom: 26px; flex-wrap: wrap; }
+.st { flex: 1; min-width: 90px; }
+.st i { display: block; height: 4px; border-radius: 4px; background: var(--line); margin-bottom: 6px; }
+.st span { font-size: 11px; font-weight: 500; letter-spacing: .6px; color: var(--ink-muted); text-transform: uppercase; }
+.st.done i { background: var(--tool-mid); } .st.on i { background: var(--ink); } .st.on span { color: var(--ink); }
+
+/* intro */
+.rules { display: flex; flex-direction: column; gap: 14px; }
+.rule { display: flex; gap: 14px; align-items: flex-start; }
+.rule b { display: block; font: 500 15.5px 'Fraunces', Georgia, serif; margin-bottom: 2px; }
+.rule span.t { font-size: 13.5px; line-height: 1.55; color: var(--ink-soft); }
+.ex-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 14px; }
+.ex-row .lab { font-size: 12.5px; color: var(--ink-muted); margin-right: 4px; }
+.ex-btn { font: 500 13px 'Inter', sans-serif; padding: 8px 16px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink-soft); cursor: pointer; }
+.ex-btn:hover { border-color: var(--ink-muted); color: var(--ink); }
+.resume { display: flex; gap: 14px; align-items: center; justify-content: space-between; flex-wrap: wrap; padding: 16px 20px; border-radius: 14px; background: var(--tool-soft); border: 1px solid var(--tool-mid); margin-bottom: 14px; }
+.resume b { font: 500 16px 'Fraunces', Georgia, serif; color: var(--tool-deep); }
+.resume small { display: block; font-size: 12.5px; color: var(--ink-soft); }
+.resume.inv { background: var(--c-inv-soft); border-color: #6FAE98; }
+.resume.inv b { color: var(--c-inv); }
+.hero-chart { margin: 4px 0 26px; }
+
+/* opciones (unidad, vinculación) */
+.q-opts { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 8px; }
+.q-opt { text-align: left; font: inherit; color: inherit; cursor: pointer; background: var(--surface); border: 1.5px solid var(--line); border-radius: 12px; padding: 11px 14px; transition: all .15s ease; min-width: 0; }
+.q-opt:hover:not(:disabled) { border-color: var(--ink-muted); }
+.q-opt:disabled { cursor: not-allowed; opacity: .55; }
+.q-opt b { display: block; font: 600 13.5px 'Inter', sans-serif; color: var(--ink); }
+.q-opt span { display: block; font-size: 12px; line-height: 1.4; color: var(--ink-muted); margin-top: 2px; }
+.q-opt[aria-pressed="true"] { background: var(--tool-soft); border-color: var(--tool-deep); }
+.q-opt[aria-pressed="true"] b { color: var(--tool-deep); }
+.q-opt:focus-visible { outline: 2px solid var(--tool-deep); outline-offset: 2px; }
+@media (max-width: 560px) { .q-opts { grid-template-columns: 1fr; } }
+.link-box { margin-top: 10px; padding: 14px 16px; border-radius: 12px; background: var(--surface-alt); border: 1px solid var(--line); font-size: 13.5px; line-height: 1.55; color: var(--ink-soft); }
+.link-box b { color: var(--ink); }
+.link-box .hrow { display: flex; justify-content: space-between; gap: 12px; padding: 5px 0; border-bottom: 1px solid var(--line-soft); font-variant-numeric: tabular-nums; }
+.link-box .hrow:last-child { border-bottom: none; }
+
+/* catálogo de conceptos */
+.panel { margin-bottom: 18px; border-radius: 16px; background: var(--surface); border: 1px solid var(--line); border-top: 4px solid var(--gc); overflow: hidden; }
+.panel-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; padding: 16px 20px 4px; }
+.panel-head h3 { font: 500 17px 'Fraunces', Georgia, serif; color: var(--gc); }
+.panel-head .sum { font: 500 17px 'Fraunces', Georgia, serif; font-variant-numeric: tabular-nums; }
+.panel-sub { padding: 0 20px 12px; font-size: 12.5px; color: var(--ink-muted); }
+.opts-lab { padding: 0 20px 8px; font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink-muted); }
+.opts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; padding: 0 20px 14px; }
+.opt { display: flex; gap: 10px; align-items: flex-start; text-align: left; font: inherit; color: inherit; cursor: pointer; background: var(--surface); border: 1.5px solid var(--line); border-radius: 12px; padding: 10px 12px; transition: border-color .15s ease, background .15s ease; min-width: 0; }
+.opt:hover { border-color: var(--gc); }
+.opt:focus-visible { outline: 2px solid var(--tool-deep); outline-offset: 2px; }
+.opt .bx { flex-shrink: 0; width: 18px; height: 18px; margin-top: 1px; border-radius: 5px; border: 1.5px solid var(--ink-muted); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #fff; }
+.opt b { display: block; font: 600 13.5px/1.3 'Inter', sans-serif; color: var(--ink); }
+.opt span.ej { display: block; font-size: 12px; line-height: 1.4; color: var(--ink-muted); margin-top: 2px; }
+.opt[aria-pressed="true"] { border-color: var(--gc); background: var(--surface-alt); }
+.opt[aria-pressed="true"] .bx { background: var(--gc); border-color: var(--gc); }
+.rows { padding: 0 20px; }
+.row { display: grid; grid-template-columns: 1fr 170px 30px; gap: 10px; align-items: center; padding: 10px 0; border-top: 1px solid var(--line-soft); }
+.row.cv { grid-template-columns: 1fr 74px 150px 30px; }
+.row .nm { font: 400 15px/1.35 'Fraunces', Georgia, serif; min-width: 0; }
+.row .nm small { display: block; font: 400 11.5px/1.4 'Inter', sans-serif; color: var(--ink-muted); margin-top: 2px; }
+.row .nm input { width: 100%; border: none; border-bottom: 1.5px dashed var(--line); font: 400 15px 'Fraunces', Georgia, serif; padding: 3px 0; background: transparent; color: var(--ink); outline: none; }
+.row .nm input:focus { border-bottom-color: var(--ink); }
+.tag-inv { display: inline-block; font: 600 10px 'Inter', sans-serif; letter-spacing: .8px; text-transform: uppercase; color: var(--c-inv); background: var(--c-inv-soft); border-radius: 999px; padding: 2px 8px; margin-left: 6px; vertical-align: 2px; }
+.num { display: flex; align-items: center; border: 1.5px solid var(--line); border-radius: 10px; background: var(--surface); padding: 0 10px; transition: border-color .2s; min-width: 0; }
+.num:focus-within { border-color: var(--ink); }
+.num input { width: 100%; border: none; outline: none; background: transparent; padding: 9px 0; font: 500 15px 'Inter', sans-serif; font-variant-numeric: tabular-nums; text-align: right; color: var(--ink); min-width: 0; }
+.num span { font-size: 12.5px; color: var(--ink-muted); margin-left: 6px; white-space: nowrap; }
+.num input::-webkit-outer-spin-button, .num input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.num input[type=number] { -moz-appearance: textfield; }
+.num.big input { font: 400 26px 'Fraunces', Georgia, serif; padding: 10px 0; }
+.num.big span { font-size: 15px; }
+.mode { display: inline-flex; border: 1.5px solid var(--line); border-radius: 999px; overflow: hidden; }
+.mode-btn { border: none; background: var(--surface); font: 600 12px 'Inter', sans-serif; color: var(--ink-muted); padding: 6px 0; width: 35px; cursor: pointer; }
+.mode-btn[aria-pressed="true"] { background: var(--ink); color: var(--surface); }
+.icon-btn { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); color: var(--ink-muted); cursor: pointer; font-size: 16px; line-height: 1; }
+.icon-btn:hover { color: var(--bad-deep); border-color: var(--bad-mid); }
+.panel-foot { padding: 10px 20px 16px; border-top: 1px solid var(--line-soft); }
+.add-btn { background: none; border: 1.5px dashed var(--line); border-radius: 999px; padding: 7px 14px; font: 500 12.5px 'Inter', sans-serif; color: var(--ink-soft); cursor: pointer; }
+.add-btn:hover { border-color: var(--ink-muted); color: var(--ink); }
+.empty { padding: 12px 0 14px; font-size: 13px; color: var(--ink-muted); font-style: italic; border-top: 1px solid var(--line-soft); }
+@media (max-width: 640px) {
+  .row, .row.cv { grid-template-columns: 1fr 30px; }
+  .row .nm { grid-column: 1; grid-row: 1; } .row .icon-btn { grid-column: 2; grid-row: 1; }
+  .row .num { grid-column: 1 / -1; }
+  .row.cv .mode { grid-column: 1 / -1; justify-self: start; }
+}
+details.note { margin: 0 0 18px; background: var(--surface-alt); border: 1px solid var(--line); border-radius: 14px; padding: 12px 18px; }
+details.note summary { cursor: pointer; font-size: 13px; font-weight: 600; color: var(--tool-deep); letter-spacing: .2px; }
+details.note .in { font-size: 13.5px; line-height: 1.6; color: var(--ink-soft); margin-top: 10px; }
+details.note .in p + p { margin-top: 8px; }
+details.note b { color: var(--ink); font-weight: 600; }
+.glos .glos-h { font-size: 10.5px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--tool-deep); margin: 14px 0 4px; }
+.glos .glos-h:first-child { margin-top: 2px; }
+.glos dl { display: grid; grid-template-columns: 190px 1fr; gap: 0 14px; }
+.glos dt { font-weight: 600; color: var(--ink); padding: 6px 0; border-top: 1px solid var(--line-soft); }
+.glos dd { padding: 6px 0; border-top: 1px solid var(--line-soft); }
+@media (max-width: 560px) { .glos dl { grid-template-columns: 1fr; } .glos dd { border-top: none; padding-top: 0; } }
+.callout { margin: 0 0 18px; font-size: 13.5px; line-height: 1.55; padding: 12px 16px; border-radius: 12px; }
+.callout b { font-weight: 600; }
+.callout.warn { background: var(--warn-soft); color: var(--warn-ink); }
+.callout.bad { background: var(--bad-soft); color: var(--bad-ink); }
+.callout.ok { background: var(--ok-soft); color: var(--ok-ink); }
+.callout.info { background: var(--tool-soft); color: var(--tool-deep); }
+.callout.inv { background: var(--c-inv-soft); color: var(--c-inv); }
+
+/* barra inferior con el umbral en vivo */
+.livebar { position: sticky; bottom: 0; z-index: 20; background: rgba(251,252,239,.96); backdrop-filter: blur(6px); border-top: 1px solid var(--line); }
+.livebar-in { max-width: 780px; margin: 0 auto; padding: 10px 20px; display: flex; align-items: center; gap: 16px; }
+.livebar .bnums { display: flex; gap: 20px; flex: 1; flex-wrap: wrap; min-width: 0; }
+.livebar .bn span { display: block; font-size: 10px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink-muted); }
+.livebar .bn b { font: 500 18px/1.2 'Fraunces', Georgia, serif; font-variant-numeric: tabular-nums; }
+.livebar .bn.bad b { color: var(--bad-deep); }
+.livebar .btn { flex-shrink: 0; }
+@media (max-width: 560px) { .livebar .bn b { font-size: 15px; } .livebar .bnums { gap: 12px; } .livebar .bn.hide-sm { display: none; } }
+
+/* fórmula */
+.formula { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; padding: 20px; border-radius: 16px; background: var(--tool-soft); margin: 0 0 18px; text-align: center; }
+.formula .fv { font: 400 24px/1 'Fraunces', Georgia, serif; font-variant-numeric: tabular-nums; }
+.formula small { display: block; font-size: 10.5px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 6px; }
+.formula .op { font: 300 26px 'Fraunces', Georgia, serif; color: var(--ink-muted); }
+.formula .res .fv { color: var(--tool-deep); font-size: 30px; font-weight: 500; }
+
+/* calcula */
+.calc-step { padding: 20px 22px; margin-bottom: 14px; }
+.calc-step h3 { display: flex; gap: 10px; align-items: center; font: 500 17px 'Fraunces', Georgia, serif; margin-bottom: 8px; }
+.calc-step .q { font-size: 13.5px; color: var(--ink-soft); margin-bottom: 12px; }
+.calc-in { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.calc-in .num { width: 200px; }
+.fb { margin-top: 12px; font-size: 13.5px; line-height: 1.55; padding: 10px 14px; border-radius: 10px; }
+.fb:empty { display: none; }
+.fb.ok { background: var(--ok-soft); color: var(--ok-ink); } .fb.bad { background: var(--bad-soft); color: var(--bad-ink); } .fb.warn { background: var(--warn-soft); color: var(--warn-ink); } .fb.info { background: var(--tool-soft); color: var(--tool-deep); }
+.calc-step.locked { opacity: .5; pointer-events: none; }
+.datos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 18px; }
+@media (max-width: 640px) { .datos { grid-template-columns: 1fr; } }
+
+/* tarjetas de cifras */
+.tot { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; min-width: 0; }
+.tot span { display: block; font-size: 10.5px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 4px; }
+.tot b { font: 400 22px/1.15 'Fraunces', Georgia, serif; font-variant-numeric: tabular-nums; }
+.tot small { display: block; font-size: 12px; color: var(--ink-muted); margin-top: 2px; }
+
+/* zona de juego */
+.play { padding: 22px 24px; margin-bottom: 18px; }
+.play h3 { font: 500 18px 'Fraunces', Georgia, serif; margin-bottom: 4px; }
+.play .sub { font-size: 13px; color: var(--ink-muted); margin-bottom: 14px; }
+.play-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 560px) { .play-grid { grid-template-columns: 1fr; } }
+.sl { display: grid; grid-template-columns: 150px 1fr 64px; gap: 12px; align-items: center; padding: 8px 0; border-top: 1px solid var(--line-soft); font-size: 13.5px; }
+.sl:first-of-type { border-top: none; }
+.sl output { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+.sl input[type=range] { width: 100%; accent-color: var(--tool-deep); }
+@media (max-width: 560px) { .sl { grid-template-columns: 1fr 56px; } .sl input[type=range] { grid-column: 1 / -1; grid-row: 2; } }
+.whatif-res { margin-top: 12px; padding: 12px 16px; border-radius: 12px; background: var(--surface-alt); font-size: 14px; line-height: 1.55; }
+.whatif-res b { font-weight: 600; }
+
+/* informe */
+.actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; align-items: center; margin-bottom: 14px; }
+.toast { font-size: 13px; color: var(--ok-deep); font-weight: 500; }
+.themes { display: flex; align-items: center; gap: 8px; margin-right: auto; }
+.themes .lab { font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink-muted); }
+.sw { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--surface); box-shadow: 0 0 0 1px var(--line); cursor: pointer; }
+.sw[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--ink); }
+.report { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 44px 44px 36px; margin-bottom: 20px; }
+.report .sec { font-size: 10.5px; font-weight: 600; color: var(--tool-deep); text-transform: uppercase; letter-spacing: 2.2px; padding-bottom: 8px; border-bottom: 1px solid var(--line); margin: 30px 0 16px; display: block; }
+.rep-meta { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; font-size: 11.5px; color: var(--ink-muted); letter-spacing: .5px; }
+.rep-title { font: 400 30px/1.2 'Fraunces', Georgia, serif; letter-spacing: -0.015em; text-wrap: balance; margin: 14px 0 6px; }
+.rep-desc { font: italic 300 15px/1.55 'Fraunces', Georgia, serif; color: var(--ink-soft); margin-bottom: 20px; }
+.verdict { padding: 22px 24px; border-radius: 16px; background: var(--tool-soft); margin-bottom: 14px; display: grid; grid-template-columns: auto 1fr; gap: 10px 26px; align-items: center; }
+.verdict .big { text-align: center; min-width: 120px; }
+.verdict .big b { display: block; font: 500 54px/1 'Fraunces', Georgia, serif; color: var(--tool-deep); font-variant-numeric: tabular-nums; }
+.verdict .big span { display: block; font-size: 11px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: var(--ink-muted); margin-top: 6px; }
+.verdict h2 { font: 500 21px/1.25 'Fraunces', Georgia, serif; color: var(--tool-deep); margin-bottom: 6px; text-wrap: balance; }
+.verdict p { font: 400 14.5px/1.6 'Fraunces', Georgia, serif; color: var(--ink-soft); }
+.verdict.bad { background: var(--bad-soft); } .verdict.bad h2, .verdict.bad .big b { color: var(--bad-deep); }
+@media (max-width: 640px) { .verdict { grid-template-columns: 1fr; } }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 8px; }
+.stat { background: var(--surface-alt); border-radius: 12px; padding: 12px 14px; min-width: 0; }
+.stat span { display: block; font-size: 10px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 4px; }
+.stat b { font: 500 18px/1.25 'Fraunces', Georgia, serif; font-variant-numeric: tabular-nums; }
+.stat small { display: block; font-size: 11.5px; color: var(--ink-muted); margin-top: 2px; }
+@media (max-width: 700px) { .stats { grid-template-columns: 1fr 1fr; } }
+.chart { width: 100%; height: auto; display: block; }
+.chart-legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; color: var(--ink-soft); margin-top: 6px; }
+.chart-legend i { display: inline-block; width: 14px; height: 3px; border-radius: 2px; margin-right: 6px; vertical-align: middle; }
+.dtab { width: 100%; border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; }
+.dtab th { text-align: left; font-size: 10px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink-muted); padding: 6px 8px; border-bottom: 1px solid var(--line); }
+.dtab td { padding: 7px 8px; border-bottom: 1px solid var(--line-soft); }
+.dtab .r { text-align: right; }
+.dtab td:first-child { font-family: 'Fraunces', Georgia, serif; }
+.dtab tr.sub td { font-weight: 600; background: var(--surface-alt); font-family: 'Inter', sans-serif; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+@media (max-width: 700px) { .two { grid-template-columns: 1fr; } }
+.steps-calc { font-size: 13.5px; line-height: 1.7; color: var(--ink-soft); }
+.steps-calc p { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; border-bottom: 1px solid var(--line-soft); }
+.steps-calc p b { color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.cash { border: 2px dashed #6FAE98; border-radius: 14px; padding: 16px 20px; background: var(--surface); }
+.cash .hrow { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; border-bottom: 1px solid var(--line-soft); font-size: 13.5px; }
+.cash .hrow b { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.cash .hrow.tt { border-bottom: none; font: 500 16px 'Fraunces', Georgia, serif; color: var(--c-inv); padding-top: 10px; }
+.mini { font-size: 12.5px; line-height: 1.6; color: var(--ink-soft); margin-top: 10px; }
+.mini b { color: var(--ink); font-weight: 600; }
+.method { font-size: 12.5px; line-height: 1.65; color: var(--ink-soft); }
+.method p + p { margin-top: 8px; }
+.rep-page + .rep-page { margin-top: 34px; padding-top: 26px; border-top: 2px dashed var(--line); }
+.table-scroll { overflow-x: auto; }
+@media (max-width: 640px) { .report { padding: 26px 18px; } .rep-title { font-size: 24px; } h1.display { font-size: 34px; } .container { padding: 30px 16px 60px; } .verdict .big b { font-size: 44px; } }
+.hidden-file { display: none; }
+</style>
+</head>
+<body>
+
+<!-- INTRO -->
+<div id="screen-intro" class="screen active">
+  <div class="container">
+    <div class="eyebrow-line fade"><span class="eyebrow">IPE 2 · Viabilidad del proyecto</span></div>
+    <h1 class="display fade" style="margin-bottom:18px;">¿Cuánto tienes que vender para <em>no perder dinero</em>?</h1>
+    <p class="prose-italic fade" style="font-size:18px; margin-bottom:26px;">Cada mes pagas lo mismo vendas o no: alquiler, sueldos, cuotas… El umbral de rentabilidad (también llamado <b style="font-style:normal; font-weight:500;">punto muerto</b> o <b style="font-style:normal; font-weight:500;">punto de equilibrio</b>) es la cantidad que tienes que vender para cubrirlo todo. A partir de ahí, cada venta es beneficio.</p>
+
+    <div id="resume-box"></div>
+    <div id="inv-box"></div>
+
+    <div class="hero-chart fade card" style="padding:16px 18px 10px;" id="intro-chart"></div>
+
+    <div class="card fade" style="padding:24px 26px; margin-bottom:18px;">
+      <h3 class="subtitle" style="margin-bottom:14px;">Cómo funciona</h3>
+      <div class="rules">
+        <div class="rule"><span class="stepnum">1</span><div><b>Cuéntanos qué vendes</b><span class="t">Un nombre y qué cuentas como «una venta»: un producto, un servicio o el ticket medio de un cliente. Si ya hiciste el plan de inversión y financiación, puedes vincularlo.</span></div></div>
+        <div class="rule"><span class="stepnum">2</span><div><b>Precio y costes variables</b><span class="t">Lo que cobras por cada venta y lo que te cuesta servirla. La diferencia es lo que te queda para pagar lo demás.</span></div></div>
+        <div class="rule"><span class="stepnum">3</span><div><b>Costes fijos</b><span class="t">Lo que pagas cada mes aunque no vendas nada. Si vinculas tu plan de inversión, la amortización y los intereses llegan solos.</span></div></div>
+        <div class="rule"><span class="stepnum">4</span><div><b>Calcula y compara</b><span class="t">Intenta el cálculo a mano (o sáltatelo), mira el gráfico y juega: ¿y si subo el precio? ¿y si vendo menos de lo previsto?</span></div></div>
+      </div>
+    </div>
+
+    <div class="card fade" style="padding:22px 26px; margin-bottom:28px; background:var(--tool-soft); border-color:var(--tool-mid);">
+      <p class="eyebrow" style="color:var(--tool-deep); margin-bottom:8px; font-weight:600;">La fórmula</p>
+      <p class="prose" style="font-size:15px;"><b>Umbral = costes fijos ÷ (precio − coste variable por unidad).</b> Lo que hay entre paréntesis se llama <b>margen de contribución</b>: lo que deja cada venta para ir pagando los costes fijos. Cuando la suma de esos márgenes iguala los costes fijos, has llegado al umbral.</p>
+    </div>
+
+    <button id="btn-start" class="btn btn-primary" style="width:100%; padding:16px; font-size:15px;">Empezar con mi proyecto →</button>
+    <div class="ex-row"><span class="lab">O carga un caso resuelto (vinculado a su plan de inversión):</span>
+      <button class="ex-btn" data-ex="bicis">Tienda de bicis eléctricas</button>
+      <button class="ex-btn" data-ex="cosmetica">E-commerce de cosmética</button>
+      <button class="ex-btn" data-ex="agencia">Agencia de marketing digital</button>
+    </div>
+    <div class="ex-row"><span class="lab">¿Vienes de otro ordenador?</span><button class="link-btn" id="btn-import-intro">Cargar una copia guardada (.json)</button></div>
+  </div>
+</div>
+
+<!-- PROYECTO -->
+<div id="screen-proyecto" class="screen">
+  <div class="container">
+    <div class="stepper" data-step="0"></div>
+    <button class="btn-back" data-go="intro">← Inicio</button>
+    <h2 class="title" style="margin-bottom:10px;">¿Qué <em>vendes</em>?</h2>
+    <p class="prose" style="font-size:14.5px; margin-bottom:24px;">Para calcular el umbral necesitas decidir qué cuentas como <b>una venta</b>. Si vendes muchas cosas distintas, usa el <b>ticket medio</b>: lo que gasta de media cada cliente.</p>
+    <div class="field"><label class="label-form" for="in-nombre">Nombre del proyecto</label>
+      <input id="in-nombre" class="input-line" type="text" maxlength="80" placeholder="Ej: Bici&amp;Go"></div>
+    <div class="field"><label class="label-form" for="in-desc">¿Qué hace?<span class="opt-tag">· opcional</span></label>
+      <textarea id="in-desc" class="text-input" rows="2" maxlength="300" placeholder="Ej: Tienda y taller de bicicletas eléctricas en el centro."></textarea></div>
+    <div class="field"><span class="label-form">¿Qué cuentas como una venta?</span>
+      <div class="q-opts" id="unidad-opts" role="group" aria-label="Qué cuentas como una venta"></div></div>
+    <div class="field"><label class="label-form" for="in-unidad">¿Cómo la llamas? (en singular)</label>
+      <input id="in-unidad" class="input-line" type="text" maxlength="40" placeholder="Ej: bici, pedido, cliente, sesión">
+      <p class="field-hint">Así el resultado te dirá «necesitas vender 9 bicis al mes» en vez de «9 unidades».</p></div>
+    <div class="field"><span class="label-form">¿Lo vinculas con tu plan de inversión y financiación?</span>
+      <div class="q-opts" id="link-opts" role="group" aria-label="Vincular con el plan de inversión"></div>
+      <div id="link-info"></div></div>
+    <div class="callout info"><b>Todo sin IVA:</b> el IVA que cobras no es tuyo (lo ingresas a Hacienda) y el que pagas lo recuperas. Por eso precios y costes van sin IVA.</div>
+    <button id="btn-proyecto" class="btn btn-primary" style="width:100%; padding:16px; font-size:15px;" disabled>Ir al precio y los costes variables →</button>
+    <p class="field-hint" id="proyecto-hint" style="text-align:center; margin-top:8px;"></p>
+  </div>
+</div>
+
+<!-- PRECIO Y COSTES VARIABLES -->
+<div id="screen-variables" class="screen">
+  <div class="container">
+    <div class="stepper" data-step="1"></div>
+    <button class="btn-back" data-go="proyecto">← Qué vendes</button>
+    <h2 class="title" style="margin-bottom:10px;">Precio y costes <em>variables</em></h2>
+    <p class="prose" style="font-size:14.5px; margin-bottom:22px;">Un coste es <b>variable</b> si solo lo pagas cuando vendes: si vendes el doble, se dobla; si no vendes, es cero. Aquí lo calculas <b>por cada venta</b>.</p>
+    <div class="glos-slot"></div>
+    <div class="card" style="padding:20px 22px; margin-bottom:18px;">
+      <label class="label-form" for="in-precio" id="lab-precio">Precio de venta</label>
+      <div class="num big" style="max-width:260px;"><input id="in-precio" type="number" min="0" step="any" inputmode="decimal" placeholder="0"><span id="precio-u">€</span></div>
+      <p class="field-hint">Sin IVA. Si en tu tienda pone 121 € con IVA del 21 %, el precio es 100 €.</p>
+    </div>
+    <div id="cv-panel"></div>
+    <div id="mc-box"></div>
+  </div>
+  <div class="livebar"><div class="livebar-in" data-livebar></div></div>
+</div>
+
+<!-- COSTES FIJOS -->
+<div id="screen-fijos" class="screen">
+  <div class="container">
+    <div class="stepper" data-step="2"></div>
+    <button class="btn-back" data-go="variables">← Precio y costes variables</button>
+    <h2 class="title" style="margin-bottom:10px;">Costes <em>fijos</em> de cada mes</h2>
+    <p class="prose" style="font-size:14.5px; margin-bottom:22px;">Los que pagas <b>vendas o no vendas</b>. No cambian aunque tengas un mes flojo o uno buenísimo. Pon el importe <b>mensual</b> (si es anual, divídelo entre 12).</p>
+    <div class="glos-slot"></div>
+    <div id="sync-box"></div>
+    <div id="cf-panel"></div>
+    <div id="cf-notes"></div>
+  </div>
+  <div class="livebar"><div class="livebar-in" data-livebar></div></div>
+</div>
+
+<!-- CALCULA -->
+<div id="screen-calcula" class="screen">
+  <div class="container">
+    <div class="stepper" data-step="3"></div>
+    <button class="btn-back" data-go="fijos">← Costes fijos</button>
+    <h2 class="title" style="margin-bottom:10px;">¿Te atreves a <em>calcularlo</em> tú?</h2>
+    <p class="prose" style="font-size:14.5px; margin-bottom:22px;">Con calculadora y en dos pasos. Si te equivocas no pasa nada: te damos pistas. Y si prefieres, puedes saltártelo.</p>
+    <div id="calc"></div>
+  </div>
+</div>
+
+<!-- RESULTADO -->
+<div id="screen-informe" class="screen">
+  <div class="container" style="max-width:880px;">
+    <div class="stepper" data-step="4"></div>
+    <div class="actions">
+      <div class="themes" id="themes"></div>
+      <span id="toast" class="toast" role="status"></span>
+      <button class="btn btn-ghost btn-sm" data-go="fijos">Editar</button>
+      <button class="btn btn-ghost btn-sm" id="btn-save-file">Guardar copia</button>
+      <button class="btn btn-ghost btn-sm" id="btn-copy">Copiar texto</button>
+      <button class="btn btn-primary btn-sm" id="btn-pdf">Descargar PDF</button>
+    </div>
+    <div class="card play" id="play-prev"></div>
+    <article id="report" class="report fade"></article>
+    <div class="card play" id="play-whatif"></div>
+    <textarea id="copy-fallback" class="text-input" rows="8" hidden aria-label="Texto para copiar"></textarea>
+    <p style="text-align:center; margin-top:10px;"><button class="link-btn" id="btn-reset">Empezar un proyecto nuevo</button></p>
+  </div>
+</div>
+
+<input type="file" id="file-in" class="hidden-file" accept=".json,application/json">
+
+<script>
+// ═════════ CONFIGURACIÓN ═════════
+const KEY = 'esplora-umbral-v1';                 // progreso propio de esta herramienta
+const EXP_KEY = 'esplora-expediente';       // clave compartida que escribe el Plan de inversión y financiación
+const INV_URL = 'inversionfinanciacion.html';
+const STEPS = ['Proyecto', 'Precio y variables', 'Costes fijos', 'Calcula', 'Resultado'];
+
+const UNIDADES = [
+  { v:'producto', t:'Un producto', s:'Cada cosa que vendes: una bici, una crema, un menú.', sg:'producto' },
+  { v:'servicio', t:'Un servicio', s:'Una hora, una sesión o un cliente con cuota mensual.', sg:'servicio' },
+  { v:'ticket', t:'Un ticket medio', s:'Lo que gasta de media cada cliente, si vendes muchas cosas distintas.', sg:'pedido' },
+];
+
+// Catálogo de costes variables (por cada venta). pct: si suele ir en % del precio, su valor por defecto.
+const CV_CAT = [
+  { id:'compra', name:'Compra de la mercancía', ej:'Lo que te cobra el proveedor por cada unidad que vendes.' },
+  { id:'materia', name:'Materias primas', ej:'Ingredientes, tejidos, piezas… para fabricar o preparar.' },
+  { id:'envase', name:'Envases y embalaje', ej:'Caja, bolsa, etiqueta, relleno.' },
+  { id:'envio', name:'Envío al cliente', ej:'Mensajería o transporte de cada pedido.' },
+  { id:'tpv', name:'Comisión del TPV o pasarela de pago', ej:'El banco o la pasarela se queda un % de cada cobro.', pct:1.5 },
+  { id:'plataforma', name:'Comisión de plataforma', ej:'Marketplace, app de reparto o de reservas: un % por venta.', pct:15 },
+  { id:'comercial', name:'Comisión de ventas', ej:'El % que cobra el comercial o el afiliado por venta.', pct:5 },
+  { id:'freelance', name:'Colaboradores por encargo', ej:'Freelance o personal externo que solo pagas si hay trabajo.' },
+  { id:'consumibles', name:'Consumibles del servicio', ej:'Productos, materiales o licencias que gastas en cada servicio.' },
+  { id:'garantia', name:'Garantía y devoluciones', ej:'Lo que te cuesta de media atender devoluciones y garantías.' },
+];
+// Catálogo de costes fijos (al mes). Los nombres coinciden con los del Plan de inversión para reconocer lo importado.
+const CF_CAT = [
+  { id:'alquiler', name:'Alquiler del local', ej:'Lo que pagas cada mes al propietario.' },
+  { id:'sueldo', name:'Sueldos de empleados', ej:'Salario bruto más la Seguridad Social de la empresa.' },
+  { id:'misueldo', name:'Tu sueldo como emprendedor', ej:'Lo que necesitas para vivir. Si no lo cuentas, el umbral te engaña.' },
+  { id:'autonomo', name:'Cuota de autónomos', ej:'Tu cotización a la Seguridad Social.' },
+  { id:'suministros', name:'Luz, agua, teléfono e internet', ej:'La parte fija de las facturas.' },
+  { id:'gestoria', name:'Gestoría', ej:'Contabilidad, impuestos y nóminas.' },
+  { id:'seguros', name:'Seguros', ej:'Del local, de responsabilidad civil… (cuota anual ÷ 12).' },
+  { id:'publicidad', name:'Publicidad y redes', ej:'Lo que inviertes cada mes en darte a conocer.' },
+  { id:'suscripciones', name:'Plataformas y suscripciones', ej:'Hosting, tienda online, programas de pago mensual.' },
+  { id:'coworking', name:'Coworking', ej:'Un puesto en un espacio de trabajo compartido.' },
+  { id:'mantenimiento', name:'Limpieza y mantenimiento', ej:'Servicio de limpieza y pequeñas reparaciones.' },
+  { id:'amort', name:'Amortización', ej:'El desgaste de lo que has comprado: precio ÷ años de uso ÷ 12.', inv:true },
+  { id:'intereses', name:'Intereses de préstamos', ej:'Solo los intereses, no la cuota entera.', inv:true },
+];
+
+const THEMES = {
+  azul:{ s:'#E4E8F0', m:'#7E95B5', d:'#3E5778' }, verde:{ s:'#E0EEE8', m:'#6FAE98', d:'#2C6E5A' }, olivo:{ s:'#E8EDC4', m:'#A8AD5C', d:'#6B7028' },
+  ambar:{ s:'#F2E8D9', m:'#C9A06A', d:'#8B6430' }, vino:{ s:'#F2E1E6', m:'#B7798A', d:'#7A3244' },
+};
+
+// Casos resueltos: los mismos proyectos que el Plan de inversión y financiación, con sus cifras de amortización, intereses y cuota.
+const EJEMPLOS = {
+  bicis:{ nombre:'Bici&Go', desc:'Tienda y taller de bicicletas eléctricas en el centro de la ciudad, con venta online y reparación a domicilio.',
+    unidad:'producto', uSg:'bici', precio:1650, dias:24, previstas:12,
+    cv:[ ['compra', 1050], ['tpv', 0.5, 'pct'], ['_', 25, 'eur', 'Montaje y puesta a punto'], ['garantia', 30] ],
+    inv:{ amortizacionMensual:273.19, interesesMensuales:146.44, cuotaMensualPrestamos:615.56, inversionTotal:58840,
+      gastos:[ ['Alquiler del local', 1200], ['Sueldos de empleados', 2100], ['Cuota de autónomos', 300], ['Luz, agua, teléfono e internet', 250], ['Gestoría', 120], ['Seguros', 60] ] } },
+  cosmetica:{ nombre:'Raíz Natural', desc:'Tienda online de cosmética natural y sostenible con envíos a toda España y venta en redes sociales.',
+    unidad:'ticket', uSg:'pedido', precio:38, dias:30, previstas:120,
+    cv:[ ['compra', 14], ['envase', 2.5], ['envio', 4.5], ['tpv', 2.9, 'pct'] ],
+    inv:{ amortizacionMensual:230.42, interesesMensuales:51.15, cuotaMensualPrestamos:427.07, inversionTotal:26720,
+      gastos:[ ['Alquiler del local', 400], ['Cuota de autónomos', 300], ['Luz, agua, teléfono e internet', 120], ['Plataformas y suscripciones', 60], ['Publicidad y redes', 400] ] } },
+  agencia:{ nombre:'Pulso Digital', desc:'Agencia de marketing digital para pequeños comercios: redes sociales, web y campañas de publicidad online.',
+    unidad:'servicio', uSg:'cliente', precio:450, dias:21, previstas:12,
+    cv:[ ['freelance', 80, 'eur', 'Diseño y vídeo por encargo'], ['consumibles', 25, 'eur', 'Herramientas y licencias por cliente'] ],
+    inv:{ amortizacionMensual:391.53, interesesMensuales:99.48, cuotaMensualPrestamos:418.17, inversionTotal:43630,
+      gastos:[ ['Alquiler del local', 900], ['Sueldos de empleados', 2400], ['Cuota de autónomos', 600], ['Luz, agua, teléfono e internet', 200], ['Gestoría', 150], ['Plataformas y suscripciones', 120] ] } },
+};
+
+// ═════════ ESTADO ═════════
+function freshState() {
+  return { v:1, screen:'intro', nombre:'', desc:'', unidad:null, uSg:'', vinculo:null, imp:null,
+    precio:null, cvs:[], cfs:[], dias:22, previstas:null,
+    calc:{ mc:'', u:'', okMc:false, okU:false, fallos:0, saltado:false, snap:null },
+    wi:{ p:0, cv:0, cf:0 }, theme:'azul' };
+}
+let state = freshState();
+let uid = 1;
+const nid = p => p + '-' + Date.now().toString(36) + '-' + (uid++);
+
+const $ = id => document.getElementById(id);
+const esc = s => { const d = document.createElement('div'); d.textContent = s ?? ''; return d.innerHTML; };
+const num = x => { const n = parseFloat(String(x ?? '').replace(',', '.')); return isFinite(n) && n > 0 ? n : 0; };
+// formato español con punto de miles siempre (es-ES no agrupa números de 4 cifras)
+const fmt = (x, dec = 0) => { const neg = x < 0, [i, d] = Math.abs(x).toFixed(dec).split('.'); return (neg ? '-' : '') + i.replace(/\B(?=(\d{3})+(?!\d))/g, '.') + (d && +d ? ',' + d : ''); };
+const eur = (x, dec = 0) => fmt(x, dec) + ' €';
+const eur2 = x => { const [i, d] = Math.abs(x).toFixed(2).split('.'); return (x < 0 ? '-' : '') + i.replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ',' + d + ' €'; };
+const pct = x => (Math.round(x * 10) / 10).toLocaleString('es-ES', { maximumFractionDigits:1 }) + ' %';
+const fmt1 = x => (Math.round(x * 100) / 100).toLocaleString('es-ES', { maximumFractionDigits:2 });
+const cvCard = id => CV_CAT.find(c => c.id === id);
+const cfCard = id => CF_CAT.find(c => c.id === id);
+
+// nombres de la unidad: singular y un plural aproximado
+const uSg = () => (state.uSg || '').trim() || 'unidad';
+function plural(s) {
+  const w = s.trim(); if (!w) return w;
+  const sp = w.indexOf(' ');
+  if (sp > 0) return plural(w.slice(0, sp)) + w.slice(sp);
+  if (/[aeiouáéó]$/i.test(w)) return w + 's';
+  if (/ión$/i.test(w)) return w.slice(0, -3) + 'iones';
+  if (/z$/i.test(w)) return w.slice(0, -1) + 'ces';
+  if (/s$/i.test(w)) return w;
+  return w + 'es';
+}
+const uPl = () => plural(uSg());
+const uN = n => (n === 1 ? uSg() : uPl());
+
+// ═════════ CÁLCULO ═════════
+const precio = () => num(state.precio);
+const cvRow = r => r.modo === 'pct' ? precio() * num(r.amount) / 100 : num(r.amount);
+const cvUnit = () => state.cvs.reduce((a, r) => a + cvRow(r), 0);
+const cfTotal = () => state.cfs.reduce((a, r) => a + num(r.amount), 0);
+const mc = () => precio() - cvUnit();
+const hayUmbral = () => precio() > 0 && mc() > 0;
+const umbralExacto = () => hayUmbral() ? cfTotal() / mc() : Infinity;
+const umbralUds = () => Math.ceil(umbralExacto() - 1e-9);
+const umbralEur = () => umbralExacto() * precio();
+const resultado = q => q * mc() - cfTotal();
+const vinculado = () => state.vinculo === 'si' && !!state.imp;
+const sumCard = id => state.cfs.filter(r => r.card === id).reduce((a, r) => a + num(r.amount), 0);
+// Umbral de caja (solo vinculado): la amortización es coste pero no sale de la caja;
+// la parte de la cuota que devuelve el préstamo sale de la caja pero no es coste.
+function caja() {
+  if (!vinculado()) return null;
+  const amort = sumCard('amort'), devol = Math.max(0, num(state.imp.cuotaMensualPrestamos) - num(state.imp.interesesMensuales));
+  const pagos = cfTotal() - amort + devol;
+  return { amort, devol, cuota:num(state.imp.cuotaMensualPrestamos), pagos, uds: hayUmbral() ? Math.ceil(pagos / mc() - 1e-9) : Infinity, exacto: hayUmbral() ? pagos / mc() : Infinity };
+}
+
+// ═════════ VINCULACIÓN CON EL PLAN DE INVERSIÓN ═════════
+function readExpediente() {
+  try { const all = JSON.parse(localStorage.getItem(EXP_KEY) || 'null'); return all && all.paraUmbral ? all : null; } catch (_) { return null; }
+}
+// Convierte un expediente (del navegador o de un .json) en lo que guardamos como «imp»
+function impFrom(all) {
+  const pu = all.paraUmbral;
+  return { nombre:(all.proyecto && all.proyecto.nombre) || '', desc:(all.proyecto && all.proyecto.descripcion) || '', actualizado:all.actualizado || '',
+    amortizacionMensual:num(pu.amortizacionMensual), interesesMensuales:num(pu.interesesMensuales), cuotaMensualPrestamos:num(pu.cuotaMensualPrestamos),
+    inversionTotal:num(pu.inversionTotal), cuadrado:!!pu.cuadrado,
+    gastos:(pu.gastosMensualesEstimados || []).map(g => ({ concepto:String(g.concepto || 'Gasto'), importe:num(g.importe) })) };
+}
+// Sustituye las filas importadas antes por las nuevas (las que el alumno añadió a mano se quedan)
+function applyImp(imp) {
+  state.imp = imp; state.vinculo = 'si';
+  state.cfs = state.cfs.filter(r => r.origen !== 'inv' && !(r.card === 'amort' || r.card === 'intereses'));
+  const rows = imp.gastos.filter(g => g.importe > 0).map(g => {
+    const c = CF_CAT.find(x => x.name.toLowerCase() === g.concepto.toLowerCase());
+    return { id:nid('cf'), card:c ? c.id : null, name:g.concepto, amount:g.importe, origen:'inv' };
+  });
+  if (imp.amortizacionMensual > 0) rows.push({ id:nid('cf'), card:'amort', name:'Amortización del inmovilizado', amount:imp.amortizacionMensual, origen:'inv' });
+  if (imp.interesesMensuales > 0) rows.push({ id:nid('cf'), card:'intereses', name:'Intereses de los préstamos', amount:imp.interesesMensuales, origen:'inv' });
+  state.cfs = [...rows, ...state.cfs];
+  if (!state.nombre.trim() && imp.nombre) state.nombre = imp.nombre;
+  if (!state.desc.trim() && imp.desc) state.desc = imp.desc;
+}
+function desvincular() {
+  state.vinculo = 'no'; state.imp = null;
+  state.cfs.forEach(r => { delete r.origen; });
+}
+// ¿Ha cambiado el plan de inversión desde que lo importamos?
+function planCambiado() {
+  if (!vinculado()) return null;
+  const all = readExpediente();
+  if (!all || !all.actualizado || !state.imp.actualizado) return null;
+  return all.actualizado > state.imp.actualizado ? all : null;
+}
+
+// ═════════ GUARDADO ═════════
+let saveTimer = null;
+function save() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (_) {} }, 250);
+}
+function loadSaved() { try { const s = JSON.parse(localStorage.getItem(KEY) || 'null'); return s && Array.isArray(s.cfs) ? s : null; } catch (_) { return null; } }
+function applyLoaded(s) {
+  if (!s || !Array.isArray(s.cfs) || !Array.isArray(s.cvs)) throw new Error('formato');
+  const f = freshState();
+  state = Object.assign(f, s, { calc:Object.assign(f.calc, s.calc), wi:Object.assign(f.wi, s.wi) });
+}
+function downloadFile(name, blob) {
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name;
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+}
+const slug = () => (state.nombre.trim().replace(/\s+/g, '_').replace(/[^\wáéíóúñÁÉÍÓÚÑ_-]/g, '') || 'proyecto');
+function saveFile() {
+  const data = { app:'esplora', tipo:'umbral', version:1, actualizado:new Date().toISOString(), umbral:state };
+  downloadFile('Umbral_' + slug() + '.json', new Blob([JSON.stringify(data, null, 2)], { type:'application/json' }));
+  toast('Copia descargada');
+}
+// El mismo botón acepta una copia de esta herramienta o la del Plan de inversión (para vincular)
+let fileMode = 'any';
+$('file-in').addEventListener('change', e => {
+  const f = e.target.files[0]; if (!f) return;
+  const rd = new FileReader();
+  rd.onload = () => {
+    try {
+      const d = JSON.parse(rd.result);
+      if (d.umbral && fileMode !== 'inv') { applyLoaded(d.umbral); save(); go(state.screen && state.screen !== 'intro' ? state.screen : 'variables'); }
+      else if (d.paraUmbral) {
+        if (fileMode === 'any') { const keep = state; state = freshState(); if (keep.screen === 'proyecto') Object.assign(state, { nombre:keep.nombre, desc:keep.desc, unidad:keep.unidad, uSg:keep.uSg }); }
+        applyImp(impFrom(d)); save(); toast('Plan de inversión vinculado'); go('proyecto');
+      }
+      else throw new Error('formato');
+    } catch (_) { alert('Ese archivo no es una copia válida del umbral ni del plan de inversión.'); }
+    e.target.value = '';
+  };
+  rd.readAsText(f);
+});
+const pickFile = mode => { fileMode = mode; $('file-in').click(); };
+$('btn-import-intro').addEventListener('click', () => pickFile('any'));
+
+// ═════════ GRÁFICO ═════════
+// redondea hacia arriba a una cifra «bonita» (1, 1,5, 2, 2,5, 3, 4, 5, 6, 8, 10 × potencia de 10) para que el umbral no quede arrinconado
+function niceMax(x) {
+  if (!(x > 0)) return 1;
+  const p = Math.pow(10, Math.floor(Math.log10(x))), n = x / p;
+  return [1, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10].find(s => n <= s + 1e-9) * p;
+}
+const kEur = v => v >= 1000 ? fmt1(v / 1000) + ' k€' : fmt(v) + ' €';
+// o: { P, CV, CF, prev, compact, t (tema), uLab }
+function chartSVG(o) {
+  const t = o.t || THEMES[state.theme] || THEMES.azul;
+  const W = 640, H = o.compact ? 230 : 310, L = o.compact ? 18 : 62, R = 112, T = 22, B = o.compact ? 16 : 44;
+  const pw = W - L - R, ph = H - T - B, M = o.P - o.CV;
+  if (!(o.P > 0) || !(M > 0)) return '';
+  const U = o.CF / M;
+  const xMax = niceMax(Math.max(U * 2, (o.prev || 0) * 1.2, 2));
+  const yMax = niceMax(Math.max(o.P * xMax, o.CF + o.CV * xMax) * 1.04);
+  const X = q => L + q / xMax * pw, Y = v => T + ph - v / yMax * ph;
+  const f = n => n.toFixed(1);
+  const inc = o.P * xMax, ct = o.CF + o.CV * xMax;
+  let g = '';
+  // zonas
+  g += `<polygon points="${f(X(0))},${f(Y(o.CF))} ${f(X(U))},${f(Y(o.P * U))} ${f(X(0))},${f(Y(0))}" fill="#F4E5E5"/>`;
+  g += `<polygon points="${f(X(U))},${f(Y(o.P * U))} ${f(X(xMax))},${f(Y(inc))} ${f(X(xMax))},${f(Y(ct))}" fill="#E5EDDB"/>`;
+  // ejes y rejilla
+  if (!o.compact) {
+    for (let i = 0; i <= 5; i++) {
+      const vx = xMax / 5 * i, vy = yMax / 5 * i;
+      g += `<line x1="${f(L)}" y1="${f(Y(vy))}" x2="${f(L + pw)}" y2="${f(Y(vy))}" stroke="#EEEFD8"/>`;
+      g += `<text x="${f(L - 8)}" y="${f(Y(vy) + 4)}" text-anchor="end" font-family="Inter,sans-serif" font-size="10.5" fill="#8B847A">${kEur(vy)}</text>`;
+      g += `<text x="${f(X(vx))}" y="${f(T + ph + 17)}" text-anchor="middle" font-family="Inter,sans-serif" font-size="10.5" fill="#8B847A">${fmt1(vx)}</text>`;
+    }
+    g += `<text x="${f(L + pw / 2)}" y="${H - 6}" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#4A463F">${esc(o.uLab || 'Unidades vendidas al mes')}</text>`;
+  }
+  g += `<line x1="${f(L)}" y1="${f(T + ph)}" x2="${f(L + pw)}" y2="${f(T + ph)}" stroke="#1E1C1A"/><line x1="${f(L)}" y1="${f(T)}" x2="${f(L)}" y2="${f(T + ph)}" stroke="#1E1C1A"/>`;
+  // guías del umbral
+  g += `<line x1="${f(X(U))}" y1="${f(Y(o.P * U))}" x2="${f(X(U))}" y2="${f(T + ph)}" stroke="${t.d}" stroke-dasharray="3 4"/>`;
+  // previsión
+  if (o.prev > 0) {
+    const okp = o.prev >= U, col = okp ? '#557A35' : '#8B3A3A';
+    g += `<line x1="${f(X(o.prev))}" y1="${f(T - 4)}" x2="${f(X(o.prev))}" y2="${f(T + ph)}" stroke="${col}" stroke-width="1.5" stroke-dasharray="6 4"/>`;
+    g += `<text x="${f(X(o.prev))}" y="${f(T - 8)}" text-anchor="middle" font-family="Inter,sans-serif" font-size="10.5" font-weight="600" fill="${col}">Previsión: ${fmt1(o.prev)}</text>`;
+  }
+  // líneas
+  g += `<line x1="${f(X(0))}" y1="${f(Y(o.CF))}" x2="${f(X(xMax))}" y2="${f(Y(o.CF))}" stroke="#8B847A" stroke-width="1.5" stroke-dasharray="5 4"/>`;
+  g += `<line x1="${f(X(0))}" y1="${f(Y(o.CF))}" x2="${f(X(xMax))}" y2="${f(Y(ct))}" stroke="#8B3A3A" stroke-width="2.4"/>`;
+  g += `<line x1="${f(X(0))}" y1="${f(Y(0))}" x2="${f(X(xMax))}" y2="${f(Y(inc))}" stroke="${t.d}" stroke-width="2.6"/>`;
+  // etiquetas al final de cada línea, separadas para que no se pisen
+  const labs = [{ y:Y(inc), t:'Ingresos', c:t.d }, { y:Y(ct), t:'Costes totales', c:'#8B3A3A' }, { y:Y(o.CF), t:'Costes fijos', c:'#8B847A' }].sort((a, b) => a.y - b.y);
+  for (let i = 1; i < labs.length; i++) if (labs[i].y - labs[i - 1].y < 15) labs[i].y = labs[i - 1].y + 15;
+  labs.forEach(l => { g += `<text x="${f(L + pw + 8)}" y="${f(l.y + 4)}" font-family="Inter,sans-serif" font-size="11.5" font-weight="600" fill="${l.c}">${l.t}</text>`; });
+  // zonas, rotuladas junto al eje a cada lado del umbral (halo blanco para que se lean sobre la rejilla)
+  const HALO = 'paint-order="stroke" stroke="#FFFFFF" stroke-width="4" stroke-linejoin="round"';
+  const px = X(U), py = Y(o.P * U);
+  g += `<text x="${f(px - 10)}" y="${f(T + ph - 8)}" text-anchor="end" font-family="Inter,sans-serif" font-size="10" font-weight="700" letter-spacing="1.2" fill="#8B3A3A" ${HALO}>← PÉRDIDAS</text>`;
+  g += `<text x="${f(px + 10)}" y="${f(T + ph - 8)}" text-anchor="start" font-family="Inter,sans-serif" font-size="10" font-weight="700" letter-spacing="1.2" fill="#557A35" ${HALO}>BENEFICIOS →</text>`;
+  // punto de equilibrio: la etiqueta va arriba a la izquierda (zona libre de líneas) o, si no cabe, abajo a la derecha
+  g += `<circle cx="${f(px)}" cy="${f(py)}" r="7" fill="${t.d}" stroke="#FFFFFF" stroke-width="2.5"/>`;
+  const lab1 = `Umbral: ${fmt1(Math.round(U * 100) / 100)} ${o.uShort || 'uds'}`, lab2 = kEur(o.P * U) + ' al mes';
+  const left = px - L > 150, lx = left ? px - 12 : px + 14, ly = left ? py - 22 : py + 22, an = left ? 'end' : 'start';
+  g += `<text x="${f(lx)}" y="${f(ly)}" text-anchor="${an}" font-family="Fraunces,Georgia,serif" font-size="14" font-weight="500" fill="${t.d}" ${HALO}>${esc(lab1)}</text>`;
+  g += `<text x="${f(lx)}" y="${f(ly + 14)}" text-anchor="${an}" font-family="Inter,sans-serif" font-size="10.5" fill="#4A463F" ${HALO}>${lab2}</text>`;
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Gráfico del umbral: ingresos y costes totales se cruzan en ${fmt1(U)} ${o.uShort || 'unidades'} al mes">${g}</svg>`;
+}
+function myChart(extra = {}) {
+  return chartSVG(Object.assign({ P:precio(), CV:cvUnit(), CF:cfTotal(), prev:num(state.previstas), uShort:uPl(), uLab:`Ventas al mes (${uPl()})` }, extra));
+}
+
+// ═════════ NAVEGACIÓN ═════════
+function renderSteppers() {
+  document.querySelectorAll('.stepper').forEach(s => {
+    const k = +s.dataset.step;
+    s.innerHTML = STEPS.map((n, i) => `<div class="st ${i < k ? 'done' : i === k ? 'on' : ''}"><i></i><span>${n}</span></div>`).join('');
+  });
+}
+function go(s) {
+  document.querySelectorAll('.screen').forEach(e => e.classList.remove('active'));
+  $('screen-' + s).classList.add('active');
+  state.screen = s; window.scrollTo({ top:0 });
+  ({ intro:renderIntro, proyecto:renderProyecto, variables:renderVariables, fijos:renderFijos, calcula:renderCalcula, informe:renderInforme }[s])();
+  renderLivebars(); save();
+}
+document.addEventListener('click', e => { const b = e.target.closest('[data-go]'); if (b) go(b.dataset.go); });
+
+// barra inferior: el umbral se mueve mientras escribes
+function renderLivebars() {
+  const s = state.screen, next = s === 'variables' ? ['fijos', 'Costes fijos →'] : ['calcula', 'Calcular →'];
+  const nextOk = s === 'variables' ? precio() > 0 : true;
+  const umb = !precio() ? '—' : !hayUmbral() ? 'Imposible' : cfTotal() ? fmt(umbralUds()) + ' ' + uN(umbralUds()) : '0';
+  document.querySelectorAll('[data-livebar]').forEach(el => {
+    el.innerHTML = `<div class="bnums"><div class="bn ${hayUmbral() || !precio() ? '' : 'bad'}"><span>Margen por ${esc(uSg())}</span><b>${precio() ? eur2(mc()) : '—'}</b></div>
+      <div class="bn hide-sm"><span>Costes fijos</span><b>${eur(cfTotal())}/mes</b></div>
+      <div class="bn ${precio() && !hayUmbral() ? 'bad' : ''}"><span>Umbral</span><b>${umb}</b></div></div>
+      <button class="btn btn-primary btn-sm" data-go="${next[0]}" ${nextOk ? '' : 'disabled'}>${next[1]}</button>`;
+  });
+}
+
+// ═════════ INTRO ═════════
+function renderIntro() {
+  const saved = loadSaved();
+  $('resume-box').innerHTML = saved && saved.nombre && saved.screen !== 'intro'
+    ? `<div class="resume fade"><div><b>Tienes un umbral a medias: ${esc(saved.nombre)}</b><small>Guardado en este navegador. Puedes seguir donde lo dejaste.</small></div><button class="btn btn-tool btn-sm" id="btn-resume">Continuar →</button></div>` : '';
+  const br = $('btn-resume');
+  if (br) br.addEventListener('click', () => { applyLoaded(saved); go(state.screen && state.screen !== 'intro' ? state.screen : 'variables'); });
+  const exp = readExpediente();
+  $('inv-box').innerHTML = exp && !(saved && saved.nombre && saved.screen !== 'intro')
+    ? `<div class="resume inv fade"><div><b>Hemos encontrado tu plan de inversión${exp.proyecto && exp.proyecto.nombre ? ': ' + esc(exp.proyecto.nombre) : ''}</b><small>Empieza vinculado: la amortización, los intereses y los gastos de cada mes llegarán solos.</small></div><button class="btn btn-sm" style="background:var(--c-inv); color:#fff;" id="btn-start-inv">Usarlo →</button></div>` : '';
+  const bi = $('btn-start-inv');
+  if (bi) bi.addEventListener('click', () => { if (!confirmNuevo()) return; state = freshState(); applyImp(impFrom(readExpediente())); go('proyecto'); });
+  $('intro-chart').innerHTML = chartSVG({ P:38, CV:22, CF:1600, compact:true, t:THEMES.azul, uShort:'pedidos' })
+    + `<div class="chart-legend"><span><i style="background:#3E5778"></i>Ingresos</span><span><i style="background:#8B3A3A"></i>Costes totales</span><span><i style="background:#8B847A"></i>Costes fijos</span></div>`;
+}
+function confirmNuevo() {
+  const saved = loadSaved();
+  return !(saved && saved.nombre && saved.screen !== 'intro') || confirm('Vas a empezar un proyecto nuevo y se sustituirá el umbral que tienes guardado en este navegador. ¿Seguimos?');
+}
+$('btn-start').addEventListener('click', () => {
+  if (!confirmNuevo()) return;
+  state = freshState(); go('proyecto');
+});
+function loadExample(k) {
+  const e = EJEMPLOS[k]; state = freshState();
+  Object.assign(state, { nombre:e.nombre, desc:e.desc, unidad:e.unidad, uSg:e.uSg, precio:e.precio, dias:e.dias, previstas:e.previstas });
+  state.cvs = e.cv.map(([id, amount, modo, name]) => ({ id:nid('cv'), card:id === '_' ? null : id, name:name || cvCard(id).name, amount, modo:modo || 'eur' }));
+  applyImp({ nombre:e.nombre, desc:e.desc, actualizado:'', amortizacionMensual:e.inv.amortizacionMensual, interesesMensuales:e.inv.interesesMensuales,
+    cuotaMensualPrestamos:e.inv.cuotaMensualPrestamos, inversionTotal:e.inv.inversionTotal, cuadrado:true, ejemplo:true,
+    gastos:e.inv.gastos.map(([concepto, importe]) => ({ concepto, importe })) });
+  state.calc.saltado = true;
+  go('informe');
+}
+document.querySelectorAll('[data-ex]').forEach(b => b.addEventListener('click', () => { if (confirmNuevo()) loadExample(b.dataset.ex); }));
+
+// ═════════ PROYECTO ═════════
+function renderProyecto() {
+  $('in-nombre').value = state.nombre; $('in-desc').value = state.desc; $('in-unidad').value = state.uSg;
+  $('unidad-opts').innerHTML = UNIDADES.map(o => `<button type="button" class="q-opt" data-unidad="${o.v}" aria-pressed="${state.unidad === o.v}"><b>${o.t}</b><span>${o.s}</span></button>`).join('');
+  renderLink(); updateProyectoBtn();
+}
+function renderLink() {
+  const exp = readExpediente();
+  const si = state.vinculo === 'si', no = state.vinculo === 'no';
+  $('link-opts').innerHTML = `<button type="button" class="q-opt" data-link="si" aria-pressed="${si}"><b>Sí, traer mis datos</b><span>Amortización, intereses y gastos de cada mes del plan de inversión.</span></button>
+    <button type="button" class="q-opt" data-link="no" aria-pressed="${no}"><b>No, lo hago por mi cuenta</b><span>Escribirás tú todos los costes. Lo puedes vincular después.</span></button>`;
+  let h = '';
+  if (si && state.imp) {
+    const i = state.imp;
+    h = `<div class="link-box fade"><p style="margin-bottom:6px;"><b>Vinculado con ${i.ejemplo ? 'el caso resuelto' : 'tu plan'}${i.nombre ? ' «' + esc(i.nombre) + '»' : ''}.</b> Esto llega a tus costes fijos:</p>
+      <div class="hrow"><span>Amortización del inmovilizado</span><b>${eur2(i.amortizacionMensual)}/mes</b></div>
+      <div class="hrow"><span>Intereses de los préstamos</span><b>${eur2(i.interesesMensuales)}/mes</b></div>
+      <div class="hrow"><span>Gastos de cada mes (${i.gastos.filter(g => g.importe > 0).length} conceptos)</span><b>${eur2(i.gastos.reduce((a, g) => a + g.importe, 0))}/mes</b></div>
+      <div class="hrow"><span>Cuota de los préstamos (para el umbral de caja)</span><b>${eur2(i.cuotaMensualPrestamos)}/mes</b></div>
+      ${!i.cuadrado && !i.ejemplo ? `<p class="mini" style="color:var(--warn-ink);"><b>Ojo:</b> en tu plan la balanza todavía no cuadraba. Si cambias la financiación, los intereses cambiarán.</p>` : ''}
+      <p class="mini">${exp && !i.ejemplo ? `<button type="button" class="link-btn" id="btn-reimp">Volver a importar</button> · ` : ''}<button type="button" class="link-btn" id="btn-imp-file">Usar otra copia (.json)</button></p></div>`;
+  }
+  if (!exp && !si) {
+    h += `<p class="field-hint" style="margin-top:8px;">No hemos encontrado ningún plan de inversión en este navegador. Hazlo primero en <a href="${INV_URL}" style="color:var(--tool-deep);">Plan de inversión y financiación</a> o <button type="button" class="link-btn" id="btn-imp-file">carga su copia (.json)</button>.</p>`;
+  }
+  $('link-info').innerHTML = h;
+  const bf = $('btn-imp-file'); if (bf) bf.addEventListener('click', () => pickFile('inv'));
+  const br = $('btn-reimp'); if (br) br.addEventListener('click', () => { applyImp(impFrom(readExpediente())); save(); renderProyecto(); toast('Datos actualizados'); });
+}
+function updateProyectoBtn() {
+  const nombreOk = state.nombre.trim().length >= 2, uOk = !!state.unidad, lOk = !!state.vinculo && (state.vinculo === 'no' || !!state.imp);
+  $('btn-proyecto').disabled = !(nombreOk && uOk && lOk);
+  $('proyecto-hint').textContent = !nombreOk ? 'Escribe el nombre del proyecto para seguir.' : !uOk ? 'Elige qué cuentas como una venta.' : !lOk ? 'Dinos si lo vinculas con el plan de inversión.' : '';
+}
+$('in-nombre').addEventListener('input', e => { state.nombre = e.target.value; updateProyectoBtn(); save(); });
+$('in-desc').addEventListener('input', e => { state.desc = e.target.value; save(); });
+$('in-unidad').addEventListener('input', e => { state.uSg = e.target.value; save(); });
+$('btn-proyecto').addEventListener('click', () => go('variables'));
+$('screen-proyecto').addEventListener('click', e => {
+  const u = e.target.closest('[data-unidad]'), l = e.target.closest('[data-link]');
+  if (u) {
+    const prev = UNIDADES.find(x => x.v === state.unidad);
+    state.unidad = u.dataset.unidad;
+    if (!state.uSg.trim() || (prev && state.uSg.trim() === prev.sg)) state.uSg = UNIDADES.find(x => x.v === state.unidad).sg;
+    renderProyecto(); save();
+  }
+  if (l) {
+    if (l.dataset.link === 'si') {
+      const exp = readExpediente();
+      if (state.imp) state.vinculo = 'si';
+      else if (exp) applyImp(impFrom(exp));
+      else { state.vinculo = null; renderLink(); updateProyectoBtn(); pickFile('inv'); return; }
+    } else if (state.vinculo === 'si') {
+      if (state.cfs.some(r => r.origen === 'inv') && !confirm('Los costes que llegaron del plan de inversión se quedarán como filas normales y podrás cambiarlos. ¿Desvinculamos?')) return;
+      desvincular();
+    } else state.vinculo = 'no';
+    renderProyecto(); save();
+  }
+});
+
+// ═════════ FILAS (variables y fijos) ═════════
+function optsGrid(cat, list, kind) {
+  return `<div class="opts-grid">${cat.map(o => { const on = list.some(r => r.card === o.id);
+    return `<button type="button" class="opt" data-${kind}opt="${o.id}" aria-pressed="${on}"><span class="bx">${on ? '✓' : ''}</span><span><b>${o.name}</b><span class="ej">${o.ej}</span></span></button>`; }).join('')}</div>`;
+}
+function cvRowHTML(r) {
+  const c = r.card ? cvCard(r.card) : null, isPct = r.modo === 'pct';
+  return `<div class="row cv" data-row="${r.id}">
+    <div class="nm">${c ? `${esc(r.name)}${isPct && precio() ? `<small>${fmt1(num(r.amount))} % de ${eur2(precio())} = ${eur2(cvRow(r))}</small>` : ''}` : `<input type="text" value="${esc(r.name)}" placeholder="Nombre del coste" data-cvname="${r.id}" aria-label="Nombre del coste variable">${isPct && precio() ? `<small>= ${eur2(cvRow(r))}</small>` : ''}`}</div>
+    <div class="mode" role="group" aria-label="Unidad"><button type="button" class="mode-btn" data-cvmode="${r.id}" data-m="eur" aria-pressed="${!isPct}">€</button><button type="button" class="mode-btn" data-cvmode="${r.id}" data-m="pct" aria-pressed="${isPct}">%</button></div>
+    <label class="num"><input type="number" min="0" step="any" inputmode="decimal" value="${r.amount ?? ''}" placeholder="0" data-cvamt="${r.id}" aria-label="Importe de ${esc(r.name || 'coste variable')}"><span>${isPct ? '% del precio' : '€/' + esc(uSg())}</span></label>
+    <button type="button" class="icon-btn" data-cvdel="${r.id}" aria-label="Quitar">×</button></div>`;
+}
+function cfRowHTML(r) {
+  const c = r.card ? cfCard(r.card) : null, inv = r.origen === 'inv' && vinculado();
+  const tag = inv ? '<span class="tag-inv">del plan de inversión</span>' : '';
+  return `<div class="row" data-row="${r.id}">
+    <div class="nm">${c || inv ? `${esc(r.name)}${tag}${r.card === 'amort' && !inv ? '<small>Precio de lo que compraste ÷ años de uso ÷ 12</small>' : ''}${r.card === 'intereses' && !inv ? '<small>Solo los intereses: la devolución del préstamo no es coste</small>' : ''}` : `<input type="text" value="${esc(r.name)}" placeholder="Nombre del coste" data-cfname="${r.id}" aria-label="Nombre del coste fijo">`}</div>
+    <label class="num"><input type="number" min="0" step="any" inputmode="decimal" value="${r.amount ?? ''}" placeholder="0" data-cfamt="${r.id}" aria-label="Importe mensual de ${esc(r.name || 'coste fijo')}"><span>€/mes</span></label>
+    <button type="button" class="icon-btn" data-cfdel="${r.id}" aria-label="Quitar">×</button></div>`;
+}
+
+// ═════════ PRECIO Y VARIABLES ═════════
+function renderVariables() {
+  $('in-precio').value = state.precio ?? '';
+  $('lab-precio').textContent = `Precio de venta por ${uSg()}` + (state.unidad === 'ticket' ? ' (ticket medio)' : '');
+  $('precio-u').textContent = '€/' + uSg();
+  $('cv-panel').innerHTML = `<div class="panel" style="--gc:var(--bad-deep);">
+    <div class="panel-head"><h3>Costes variables por ${esc(uSg())}</h3><span class="sum" id="cv-sum">${eur2(cvUnit())}</span></div>
+    <p class="panel-sub">Marca los que tenga tu negocio. Las comisiones suelen ser un <b>%</b> del precio: pulsa «%» y la herramienta lo convierte en euros.</p>
+    ${optsGrid(CV_CAT, state.cvs, 'cv')}
+    <div class="rows">${state.cvs.length ? state.cvs.map(cvRowHTML).join('') : '<p class="empty">Todavía no has marcado ningún coste variable.</p>'}</div>
+    <div class="panel-foot"><button type="button" class="add-btn" data-cvadd>+ Añadir otro coste variable</button></div></div>`;
+  refreshVariables();
+}
+function refreshVariables() {
+  if ($('cv-sum')) $('cv-sum').textContent = eur2(cvUnit());
+  const P = precio(), M = mc();
+  let h = '';
+  if (P > 0) {
+    h = `<div class="formula"><div><small>Precio</small><span class="fv">${eur2(P)}</span></div><span class="op">−</span><div><small>Costes variables</small><span class="fv">${eur2(cvUnit())}</span></div><span class="op">=</span><div class="res"><small>Margen de contribución</small><span class="fv">${eur2(M)}</span></div></div>`;
+    if (M <= 0) h += `<div class="callout bad"><b>Cada ${esc(uSg())} que vendes te hace perder dinero.</b> Si el coste variable es igual o mayor que el precio, nunca llegarás al umbral por mucho que vendas. Sube el precio o busca un proveedor más barato.</div>`;
+    else if (!state.cvs.length) h += `<div class="callout warn"><b>¿Seguro que no tienes ningún coste variable?</b> Pasa en algunos servicios, pero casi siempre hay algo: materiales, comisiones del cobro con tarjeta, envíos…</div>`;
+    else h += `<div class="callout info">De cada ${esc(uSg())} que vendes te quedan <b>${eur2(M)}</b> (${pct(M / P * 100)} del precio) para pagar los costes fijos. Ese es tu <b>margen de contribución</b>.</div>`;
+  }
+  $('mc-box').innerHTML = h;
+  // las filas en % muestran su equivalencia en euros
+  state.cvs.forEach(r => { if (r.modo !== 'pct') return; const el = document.querySelector(`[data-row="${r.id}"] .nm small`); if (el) el.textContent = (r.card ? `${fmt1(num(r.amount))} % de ${eur2(P)} = ` : '= ') + eur2(cvRow(r)); });
+  renderLivebars();
+}
+$('in-precio').addEventListener('input', e => {
+  const hadPct = state.cvs.some(r => r.modo === 'pct');
+  state.precio = e.target.value === '' ? null : e.target.value;
+  if (hadPct && !document.querySelector('[data-row] .nm small') && precio()) renderVariables(); else refreshVariables();
+  save();
+});
+
+// ═════════ COSTES FIJOS ═════════
+function renderFijos() {
+  const cambio = planCambiado();
+  $('sync-box').innerHTML = cambio ? `<div class="callout inv"><b>Tu plan de inversión ha cambiado</b> desde que trajiste los datos. <button type="button" class="link-btn" id="btn-sync" style="color:var(--c-inv);">Actualizar los costes importados</button></div>`
+    : vinculado() ? `<div class="callout inv">Los costes con la etiqueta <b>del plan de inversión</b> llegan de tu plan. Puedes cambiarlos o quitarlos, y añadir los que falten.</div>` : '';
+  const bs = $('btn-sync'); if (bs) bs.addEventListener('click', () => { applyImp(impFrom(readExpediente())); renderFijos(); renderLivebars(); save(); toast('Datos actualizados'); });
+  const cat = vinculado() ? CF_CAT.filter(c => !c.inv || state.cfs.some(r => r.card === c.id)) : CF_CAT;
+  $('cf-panel').innerHTML = `<div class="panel" style="--gc:var(--tool-deep);">
+    <div class="panel-head"><h3>Costes fijos al mes</h3><span class="sum" id="cf-sum">${eur(cfTotal())}/mes</span></div>
+    <p class="panel-sub">Marca los que tenga tu negocio y pon el importe de un mes.</p>
+    ${optsGrid(cat, state.cfs, 'cf')}
+    <div class="rows">${state.cfs.length ? state.cfs.map(cfRowHTML).join('') : '<p class="empty">Todavía no has marcado ningún coste fijo.</p>'}</div>
+    <div class="panel-foot"><button type="button" class="add-btn" data-cfadd>+ Añadir otro coste fijo</button></div></div>`;
+  refreshFijos();
+}
+function refreshFijos() {
+  if ($('cf-sum')) $('cf-sum').textContent = eur(cfTotal()) + '/mes';
+  const out = [];
+  const tieneSueldo = state.cfs.some(r => r.card === 'misueldo' && num(r.amount) > 0);
+  if (!tieneSueldo) out.push(`<div class="callout warn"><b>¿Y tu sueldo?</b> Si trabajas en tu negocio y no te pagas nada, el umbral te dice cuánto vender para no perder dinero… trabajando gratis. Prueba a marcar «Tu sueldo como emprendedor» y mira cómo cambia.</div>`);
+  if (!vinculado()) {
+    out.push(`<details class="note"><summary>¿Has comprado equipos o pedido un préstamo?</summary><div class="in">
+      <p>Lo que compras para usarlo varios años (ordenadores, mobiliario, reforma…) no es un gasto de un solo mes: se reparte en los años que lo vas a usar. Ese reparto es la <b>amortización</b>, y es un coste fijo. Ejemplo: un ordenador de 1.200 € que usarás 4 años = 300 € al año = <b>25 € al mes</b>.</p>
+      <p>Del préstamo, solo los <b>intereses</b> son coste. La parte de la cuota que devuelve el dinero prestado no lo es.</p>
+      <p>La forma cómoda: haz antes el <a href="${INV_URL}" style="color:var(--tool-deep);">Plan de inversión y financiación</a> y vincúlalo en el primer paso. Te traerá estos datos calculados.</p></div></details>`);
+  }
+  $('cf-notes').innerHTML = out.join('');
+  renderLivebars();
+}
+
+// ═════════ EVENTOS DE FILAS ═════════
+const findRow = (list, id) => state[list].find(r => r.id === id);
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-cvopt],[data-cfopt],[data-cvadd],[data-cfadd],[data-cvdel],[data-cfdel],[data-cvmode],[data-theme]');
+  if (!t) return;
+  const d = t.dataset;
+  if (d.cvopt) {
+    const c = cvCard(d.cvopt);
+    if (state.cvs.some(r => r.card === c.id)) state.cvs = state.cvs.filter(r => r.card !== c.id);
+    else state.cvs.push({ id:nid('cv'), card:c.id, name:c.name, amount:c.pct ?? null, modo:c.pct ? 'pct' : 'eur' });
+    renderVariables();
+    if (!c.pct) { const r = state.cvs.find(x => x.card === c.id); if (r) { const i = document.querySelector(`[data-cvamt="${r.id}"]`); if (i) i.focus(); } }
+  }
+  else if ('cvadd' in d) { state.cvs.push({ id:nid('cv'), card:null, name:'', amount:null, modo:'eur' }); renderVariables(); const ins = document.querySelectorAll('[data-cvname]'); if (ins.length) ins[ins.length - 1].focus(); }
+  else if (d.cvdel) { state.cvs = state.cvs.filter(r => r.id !== d.cvdel); renderVariables(); }
+  else if (d.cvmode) { const r = findRow('cvs', d.cvmode); if (r && r.modo !== d.m) { r.modo = d.m; r.amount = null; renderVariables(); const i = document.querySelector(`[data-cvamt="${r.id}"]`); if (i) i.focus(); } }
+  else if (d.cfopt) {
+    const c = cfCard(d.cfopt);
+    if (state.cfs.some(r => r.card === c.id)) {
+      if (state.cfs.some(r => r.card === c.id && r.origen === 'inv') && vinculado() && !confirm(`«${c.name}» llega de tu plan de inversión. ¿Lo quitas igualmente?`)) return;
+      state.cfs = state.cfs.filter(r => r.card !== c.id);
+    } else state.cfs.push({ id:nid('cf'), card:c.id, name:c.name, amount:null });
+    renderFijos();
+    const r = state.cfs.find(x => x.card === c.id); if (r) { const i = document.querySelector(`[data-cfamt="${r.id}"]`); if (i) i.focus(); }
+  }
+  else if ('cfadd' in d) { state.cfs.push({ id:nid('cf'), card:null, name:'', amount:null }); renderFijos(); const ins = document.querySelectorAll('[data-cfname]'); if (ins.length) ins[ins.length - 1].focus(); }
+  else if (d.cfdel) { state.cfs = state.cfs.filter(r => r.id !== d.cfdel); renderFijos(); }
+  else if (d.theme) { state.theme = d.theme; renderInforme(); }
+  resetCalcIfNeeded(); save();
+});
+document.addEventListener('input', e => {
+  const d = e.target.dataset;
+  if (d.cvamt) { findRow('cvs', d.cvamt).amount = e.target.value === '' ? null : e.target.value; refreshVariables(); }
+  else if (d.cvname) { findRow('cvs', d.cvname).name = e.target.value; }
+  else if (d.cfamt) { findRow('cfs', d.cfamt).amount = e.target.value === '' ? null : e.target.value; refreshFijos(); }
+  else if (d.cfname) { findRow('cfs', d.cfname).name = e.target.value; }
+  else return;
+  resetCalcIfNeeded(); save();
+});
+// si cambian los datos después de calcular a mano, el cálculo hay que repetirlo (snap = cifras con las que se hizo)
+const snapNow = () => [precio(), cvUnit(), cfTotal()].map(x => x.toFixed(2)).join('|');
+const calcVigente = () => state.calc.okU && state.calc.snap === snapNow();
+function resetCalcIfNeeded() {
+  if (state.calc.snap && state.calc.snap !== snapNow()) state.calc = { mc:'', u:'', okMc:false, okU:false, fallos:0, saltado:false, snap:null };
+}
+
+// ═════════ CALCULA ═════════
+function renderCalcula() {
+  resetCalcIfNeeded();
+  const P = precio(), CV = cvUnit(), CF = cfTotal(), M = mc(), c = state.calc;
+  c.snap = snapNow();
+  let h = `<div class="datos"><div class="tot"><span>Precio</span><b>${eur2(P)}</b><small>por ${esc(uSg())}</small></div>
+    <div class="tot"><span>Costes variables</span><b>${eur2(CV)}</b><small>por ${esc(uSg())}</small></div>
+    <div class="tot"><span>Costes fijos</span><b>${eur2(CF)}</b><small>al mes</small></div></div>`;
+  if (!hayUmbral()) {
+    h += `<div class="callout bad"><b>Así no hay umbral que calcular.</b> ${P ? `Tu margen de contribución es ${eur2(M)}: cada venta pierde dinero o no deja nada.` : 'Falta el precio de venta.'} Vuelve al paso anterior y revisa el precio y los costes variables.</div>
+      <button class="btn btn-primary" data-go="variables" style="width:100%;">← Revisar precio y costes variables</button>`;
+    $('calc').innerHTML = h; return;
+  }
+  h += `<div class="card calc-step"><h3><span class="stepnum">1</span>Margen de contribución</h3>
+      <p class="q">¿Cuánto te deja cada venta (cada ${esc(uSg())}) para pagar los costes fijos?</p>
+      <div class="calc-in"><label class="num"><input type="number" step="any" inputmode="decimal" id="in-mc" value="${esc(c.mc)}" placeholder="0,00" aria-label="Tu margen de contribución"><span>€/${esc(uSg())}</span></label>
+        <button class="btn btn-tool btn-sm" id="chk-mc">Comprobar</button></div>
+      <div class="fb" id="fb-mc"></div></div>
+    <div class="card calc-step ${c.okMc ? '' : 'locked'}" id="step-u"><h3><span class="stepnum">2</span>Umbral de rentabilidad</h3>
+      <p class="q">¿Cuántas ventas (${esc(uPl())}) necesitas al mes para cubrir todos los costes?</p>
+      <div class="calc-in"><label class="num"><input type="number" step="any" inputmode="decimal" id="in-u" value="${esc(c.u)}" placeholder="0" aria-label="Tu umbral" ${c.okMc ? '' : 'disabled'}><span>${esc(uPl())}/mes</span></label>
+        <button class="btn btn-tool btn-sm" id="chk-u" ${c.okMc ? '' : 'disabled'}>Comprobar</button></div>
+      <div class="fb" id="fb-u"></div></div>
+    <div id="calc-end"></div>
+    <p style="text-align:center; margin-top:14px;"><button class="link-btn" id="btn-skip">Saltar y ver el resultado</button></p>`;
+  $('calc').innerHTML = h;
+  if (c.okMc) feedback('fb-mc', 'ok', `¡Bien! ${eur2(P)} − ${eur2(CV)} = <b>${eur2(M)}</b> por ${esc(uSg())}.`);
+  if (c.okU) { feedback('fb-u', 'ok', umbralMsg()); showEnd(); }
+  $('chk-mc').addEventListener('click', checkMc);
+  $('chk-u').addEventListener('click', checkU);
+  $('in-mc').addEventListener('keydown', e => { if (e.key === 'Enter') checkMc(); });
+  $('in-u').addEventListener('keydown', e => { if (e.key === 'Enter') checkU(); });
+  $('in-mc').addEventListener('input', e => { state.calc.mc = e.target.value; save(); });
+  $('in-u').addEventListener('input', e => { state.calc.u = e.target.value; save(); });
+  $('btn-skip').addEventListener('click', () => { if (!state.calc.okU) state.calc.saltado = true; go('informe'); });
+}
+function feedback(id, cls, html) { const el = $(id); el.className = 'fb ' + cls; el.innerHTML = html; }
+function shake(id) { const el = $(id).closest('.calc-step'); el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); }
+const parseIn = v => { const n = parseFloat(String(v).replace(',', '.')); return isFinite(n) ? n : NaN; };
+let failsMc = 0, failsU = 0;
+function checkMc() {
+  const v = parseIn($('in-mc').value), M = mc(), P = precio(), CV = cvUnit();
+  if (isNaN(v)) { feedback('fb-mc', 'warn', 'Escribe un número.'); return; }
+  if (Math.abs(v - M) <= 0.051) {
+    state.calc.okMc = true; failsMc = 0;
+    feedback('fb-mc', 'ok', `¡Bien! ${eur2(P)} − ${eur2(CV)} = <b>${eur2(M)}</b> por ${esc(uSg())}.`);
+    const s = $('step-u'); s.classList.remove('locked'); $('in-u').disabled = false; $('chk-u').disabled = false; $('in-u').focus();
+  } else {
+    failsMc++; state.calc.fallos++; shake('fb-mc');
+    if (Math.abs(v - P) < 0.05) feedback('fb-mc', 'bad', 'Ese es el precio. Al precio tienes que <b>restarle</b> lo que te cuesta cada venta.');
+    else if (Math.abs(v - CV) < 0.05) feedback('fb-mc', 'bad', 'Ese es el coste variable. El margen es lo que <b>queda</b> del precio después de pagarlo.');
+    else if (failsMc === 1) feedback('fb-mc', 'bad', 'No es eso. Pista: margen de contribución = <b>precio − coste variable por unidad</b>.');
+    else feedback('fb-mc', 'bad', `Todavía no. Haz esta resta con calculadora: <b>${fmt1(P)} − ${fmt1(CV)}</b>.`);
+  }
+  save();
+}
+function umbralMsg() {
+  const U = umbralExacto(), N = umbralUds(), entero = Math.abs(U - Math.round(U)) < 1e-9;
+  return entero ? `¡Correcto! ${eur2(cfTotal())} ÷ ${eur2(mc())} = <b>${fmt(N)} ${uN(N)} al mes</b>. Con eso cubres justo todos los costes.`
+    : `¡Correcto! ${eur2(cfTotal())} ÷ ${eur2(mc())} = ${fmt1(U)}. Como no existen medias ventas, se redondea <b>siempre hacia arriba</b>: <b>${fmt(N)} ${uN(N)} al mes</b>.`;
+}
+function checkU() {
+  const v = parseIn($('in-u').value), U = umbralExacto(), N = umbralUds();
+  if (isNaN(v)) { feedback('fb-u', 'warn', 'Escribe un número.'); return; }
+  const entero = Math.abs(U - Math.round(U)) < 1e-9;
+  if (Math.abs(v - N) < 0.001 || Math.abs(v - U) <= 0.051) {
+    state.calc.okU = true; failsU = 0;
+    feedback('fb-u', 'ok', umbralMsg()); showEnd();
+  } else if (!entero && Math.abs(v - Math.floor(U)) < 0.001) {
+    state.calc.fallos++; shake('fb-u');
+    feedback('fb-u', 'warn', `Casi. Te sale ${fmt1(U)}, pero si vendes ${fmt(Math.floor(U))} todavía pierdes ${eur2(-resultado(Math.floor(U)))} al mes. Aquí se redondea <b>siempre hacia arriba</b>.`);
+  } else {
+    failsU++; state.calc.fallos++; shake('fb-u');
+    if (Math.abs(v - cfTotal() / precio()) <= 0.05) feedback('fb-u', 'bad', 'Has dividido entre el precio. Pero de cada venta no te queda el precio entero: divide entre el <b>margen de contribución</b>.');
+    else if (failsU === 1) feedback('fb-u', 'bad', 'No es eso. Pista: umbral = <b>costes fijos ÷ margen de contribución</b>.');
+    else feedback('fb-u', 'bad', `Todavía no. Haz esta división: <b>${fmt1(cfTotal())} ÷ ${fmt1(mc())}</b> y redondea hacia arriba.`);
+  }
+  save();
+}
+function showEnd() {
+  $('calc-end').innerHTML = `<button class="btn btn-primary fade" data-go="informe" style="width:100%; padding:16px; font-size:15px;">Ver mi resultado y el gráfico →</button>`;
+  state.calc.saltado = false;
+}
+
+// ═════════ RESULTADO ═════════
+function applyTheme() {
+  const t = THEMES[state.theme] || THEMES.azul, r = $('report');
+  r.style.setProperty('--tool-soft', t.s); r.style.setProperty('--tool-mid', t.m); r.style.setProperty('--tool-deep', t.d);
+  $('themes').innerHTML = `<span class="lab">Color</span>` + Object.entries(THEMES).map(([k, v]) => `<button type="button" class="sw" data-theme="${k}" aria-pressed="${state.theme === k}" aria-label="Tema ${k}" style="background:${v.d}"></button>`).join('');
+}
+function verdict() {
+  const N = umbralUds(), prev = num(state.previstas);
+  if (!hayUmbral()) return { cls:'bad', t:'No hay umbral posible', p:precio() ? `Cada ${uSg()} que vendes deja ${eur2(mc())}. Si el margen de contribución no es positivo, cuanto más vendes, más pierdes. Revisa el precio y los costes variables.` : 'Falta el precio de venta.' };
+  if (!cfTotal()) return { cls:'', t:'Sin costes fijos, ganas desde la primera venta', p:'Es muy raro que un negocio no tenga ningún coste fijo. Revisa el paso anterior: alquiler, cuotas, tu sueldo…' };
+  if (!prev) return { cls:'', t:`Tienes que vender ${fmt(N)} ${uN(N)} al mes para no perder dinero`, p:`Eso son ${eur(umbralEur())} de ventas al mes. Por debajo, pierdes; por encima, cada ${uSg()} te deja ${eur2(mc())} de beneficio. Escribe abajo cuántos crees que venderás.` };
+  const ms = (prev - umbralExacto()) / prev * 100, r = resultado(prev);
+  if (prev < umbralExacto()) return { cls:'bad', t:`Con ${fmt1(prev)} ${uN(prev)} al mes pierdes ${eur(-r)} al mes`, p:`Te faltan ${fmt(Math.ceil(umbralExacto() - prev - 1e-9))} ${uN(Math.ceil(umbralExacto() - prev - 1e-9))} al mes para llegar al umbral. Prueba a subir el precio, rebajar costes o vender más: juega con los números de abajo.` };
+  if (ms < 15) return { cls:'', t:`Llegas al umbral, pero por los pelos`, p:`Con ${fmt1(prev)} ${uN(prev)} al mes ganas ${eur(r)}. Tu margen de seguridad es del ${pct(ms)}: un mes un poco peor de lo previsto y entras en pérdidas.` };
+  return { cls:'', t:`Superas el umbral: ganas ${eur(r)} al mes`, p:`Con ${fmt1(prev)} ${uN(prev)} al mes estás un ${pct(ms)} por encima del umbral (margen de seguridad). Tus ventas podrían caer ese porcentaje antes de empezar a perder dinero.` };
+}
+function renderInforme() {
+  renderPlayPrev();
+  renderReport();
+  renderWhatIf();
+}
+function renderPlayPrev() {
+  $('play-prev').innerHTML = `<h3>Tus ventas previstas</h3><p class="sub">¿Cuántas ventas (${esc(uPl())}) crees que harás en un mes normal? ¿Y cuántos días al mes abres o vendes?</p>
+    <div class="play-grid"><div><label class="label-form" for="in-prev" style="margin-bottom:6px;">Ventas previstas al mes</label><label class="num"><input id="in-prev" type="number" min="0" step="any" inputmode="decimal" value="${state.previstas ?? ''}" placeholder="0"><span>${esc(uPl())}/mes</span></label></div>
+      <div><label class="label-form" for="in-dias" style="margin-bottom:6px;">Días de venta al mes</label><label class="num"><input id="in-dias" type="number" min="1" max="31" step="1" inputmode="numeric" value="${state.dias ?? ''}" placeholder="22"><span>días</span></label></div></div>`;
+  $('in-prev').addEventListener('input', e => { state.previstas = e.target.value === '' ? null : e.target.value; renderReport(); renderWhatIf(); save(); });
+  $('in-dias').addEventListener('input', e => { state.dias = e.target.value === '' ? null : e.target.value; renderReport(); save(); });
+}
+function renderReport() {
+  const r = $('report'), P = precio(), CV = cvUnit(), CF = cfTotal(), M = mc(), ok = hayUmbral();
+  const N = umbralUds(), U = umbralExacto(), dias = Math.round(num(state.dias)) || 0, prev = num(state.previstas), v = verdict(), cj = caja();
+  const fecha = new Date().toLocaleDateString('es-ES', { day:'numeric', month:'long', year:'numeric' });
+  const uLab = UNIDADES.find(x => x.v === state.unidad);
+  const big = ok && CF ? `<div class="big"><b>${fmt(N)}</b><span>${esc(uPl())} al mes</span></div>` : `<div class="big"><b>${ok ? '0' : '—'}</b><span>${esc(uPl())} al mes</span></div>`;
+  const cvRows = state.cvs.filter(x => num(x.amount) > 0).map(x => `<tr><td>${esc(x.name || 'Sin nombre')}${x.modo === 'pct' ? ` (${fmt1(num(x.amount))} %)` : ''}</td><td class="r">${eur2(cvRow(x))}</td></tr>`).join('');
+  const cfRows = state.cfs.filter(x => num(x.amount) > 0).map(x => `<tr><td>${esc(x.name || 'Sin nombre')}${x.origen === 'inv' && vinculado() ? ' <span class="tag-inv">plan</span>' : ''}</td><td class="r">${eur2(num(x.amount))}</td></tr>`).join('');
+  const calcTxt = calcVigente() ?`Calculado a mano${state.calc.fallos ? ` (${state.calc.fallos} ${state.calc.fallos === 1 ? 'intento fallido' : 'intentos fallidos'} antes de acertar)` : ' a la primera'}.` : 'El cálculo a mano no se ha hecho.';
+  r.innerHTML = `
+  <div class="rep-page">
+    <div class="rep-meta"><span class="eyebrow" style="color:var(--tool-deep); font-weight:600;">Umbral de rentabilidad · Página 1 de 2</span><span>${fecha}</span></div>
+    <h1 class="rep-title">${esc(state.nombre || 'Mi proyecto')}</h1>
+    <p class="eyebrow" style="margin:-2px 0 8px; letter-spacing:1.4px;">${uLab ? uLab.t + ': ' : ''}${esc(uSg())}${vinculado() ? ' · Vinculado al plan de inversión' : ''}</p>
+    ${state.desc.trim() ? `<p class="rep-desc">${esc(state.desc.trim())}</p>` : '<div style="height:14px"></div>'}
+    <div class="verdict ${v.cls}">${big}<div><h2>${esc(v.t)}</h2><p>${esc(v.p)}</p></div></div>
+    ${ok ? `<div class="stats">
+      <div class="stat"><span>Margen por ${esc(uSg())}</span><b>${eur2(M)}</b><small>${pct(M / P * 100)} del precio</small></div>
+      <div class="stat"><span>Costes fijos</span><b>${eur(CF)}</b><small>al mes · ${eur(CF * 12)} al año</small></div>
+      <div class="stat"><span>Umbral en euros</span><b>${eur(umbralEur())}</b><small>de ventas al mes</small></div>
+      <div class="stat"><span>Al día</span><b>${dias && CF ? fmt1(Math.round(U / dias * 10) / 10) + ' ' + esc(uN(U / dias)) : '—'}</b><small>${dias ? `en ${dias} días de venta` : 'pon los días de venta'}</small></div></div>
+    <span class="sec">El gráfico del umbral</span>
+    ${CF ? myChart() + `<div class="chart-legend"><span><i style="background:var(--tool-deep)"></i>Ingresos = precio × ventas</span><span><i style="background:#8B3A3A"></i>Costes totales = fijos + variables</span><span><i style="background:#8B847A"></i>Costes fijos</span></div>
+    <p class="mini">Donde se cruzan las líneas de ingresos y costes totales está el umbral. A la izquierda los costes son mayores que los ingresos (pérdidas); a la derecha, al revés (beneficios).</p>` : '<p class="mini">Añade tus costes fijos para ver el gráfico.</p>'}` : ''}
+    ${ok && prev ? `<span class="sec">Tus previsiones</span>
+    <div class="two"><div class="steps-calc">
+      <p><span>Ventas previstas</span><b>${fmt1(prev)} ${esc(uN(prev))}/mes</b></p>
+      <p><span>Ingresos (${fmt1(prev)} × ${eur2(P)})</span><b>${eur2(prev * P)}</b></p>
+      <p><span>− Costes variables (${fmt1(prev)} × ${eur2(CV)})</span><b>${eur2(prev * CV)}</b></p>
+      <p><span>− Costes fijos</span><b>${eur2(CF)}</b></p>
+      <p><span><b>= ${resultado(prev) >= 0 ? 'Beneficio' : 'Pérdida'} al mes</b></span><b style="color:${resultado(prev) >= 0 ? 'var(--ok-deep)' : 'var(--bad-deep)'}">${eur2(resultado(prev))}</b></p></div>
+      <div class="steps-calc">
+      <p><span>Margen de seguridad</span><b>${prev >= U ? pct((prev - U) / prev * 100) : 'No hay: estás por debajo'}</b></p>
+      <p><span>Resultado al año (× 12)</span><b>${eur(resultado(prev) * 12)}</b></p>
+      ${dias ? `<p><span>Ventas previstas al día</span><b>${fmt1(Math.round(prev / dias * 10) / 10)} ${esc(uN(prev / dias))}</b></p>` : ''}
+      <p class="mini" style="display:block; border:none;">El <b>margen de seguridad</b> es cuánto pueden caer tus ventas previstas antes de entrar en pérdidas.</p></div></div>` : ''}
+    ${ok && cj && CF ? `<span class="sec">Umbral de caja: ¿llegas a pagar la cuota del préstamo?</span>
+    <div class="cash">
+      <div class="hrow"><span>Costes fijos del umbral</span><b>${eur2(CF)}/mes</b></div>
+      <div class="hrow"><span>− Amortización (es coste, pero no sale dinero de la caja)</span><b>${eur2(cj.amort)}/mes</b></div>
+      <div class="hrow"><span>+ Devolución del préstamo (sale dinero, pero no es coste)</span><b>${eur2(cj.devol)}/mes</b></div>
+      <div class="hrow"><span>= Pagos fijos de cada mes</span><b>${eur2(cj.pagos)}/mes</b></div>
+      <div class="hrow tt"><span>Umbral de caja</span><span>${fmt(cj.uds)} ${esc(uN(cj.uds))} al mes</span></div>
+      <p class="mini">${cj.uds > N ? `Vendiendo ${fmt(N)} no pierdes dinero, pero <b>no te llega para pagar la cuota del préstamo</b> (${eur2(cj.cuota)}/mes): necesitas ${fmt(cj.uds)}.` : cj.uds < N ? `Te llega para pagar los gastos y la cuota antes de llegar al umbral de rentabilidad, porque la amortización es un coste que no se paga cada mes. Ojo: ese dinero lo necesitarás para renovar los equipos cuando se gasten.` : Math.abs(cj.exacto - U) < 0.005 ? 'Coinciden: la amortización y la devolución del préstamo se compensan.'
+        : `Redondeando sale lo mismo (${fmt(N)}), aunque sin redondear necesitas algo ${cj.exacto > U ? 'más' : 'menos'} (${fmt1(cj.exacto)} frente a ${fmt1(U)}): ${cj.exacto > U ? 'la devolución del préstamo pesa más que la amortización' : 'la amortización pesa más que la devolución del préstamo'}.`}${prev ? ` Con tus previsiones (${fmt1(prev)}) ${prev >= cj.exacto ? 'sí llegas.' : '<b>no llegas</b>.'}` : ''}</p></div>` : ''}
+  </div>
+  <div class="rep-page">
+    <div class="rep-meta"><span class="eyebrow" style="color:var(--tool-deep); font-weight:600;">Página 2 de 2 · El detalle</span><span>${esc(state.nombre)}</span></div>
+    <div class="two" style="margin-top:14px;">
+      <div><span class="sec" style="margin-top:0;">Precio y costes variables</span>
+        <div class="table-scroll"><table class="dtab"><tbody>
+          <tr class="sub"><td>Precio por ${esc(uSg())} (sin IVA)</td><td class="r">${eur2(P)}</td></tr>
+          ${cvRows || '<tr><td colspan="2">Sin costes variables</td></tr>'}
+          <tr class="sub"><td>Coste variable por ${esc(uSg())}</td><td class="r">${eur2(CV)}</td></tr>
+          <tr class="sub"><td>Margen de contribución</td><td class="r">${eur2(M)}</td></tr></tbody></table></div></div>
+      <div><span class="sec" style="margin-top:0;">Costes fijos al mes</span>
+        <div class="table-scroll"><table class="dtab"><tbody>
+          ${cfRows || '<tr><td colspan="2">Sin costes fijos</td></tr>'}
+          <tr class="sub"><td>Total al mes</td><td class="r">${eur2(CF)}</td></tr></tbody></table></div></div></div>
+    ${ok ? `<span class="sec">El cálculo, paso a paso</span>
+    <div class="steps-calc">
+      <p><span>1. Margen de contribución = precio − coste variable</span><b>${eur2(P)} − ${eur2(CV)} = ${eur2(M)}</b></p>
+      <p><span>2. Umbral = costes fijos ÷ margen de contribución</span><b>${eur2(CF)} ÷ ${eur2(M)} = ${fmt1(U)}</b></p>
+      <p><span>3. Se redondea hacia arriba</span><b>${fmt(N)} ${esc(uN(N))} al mes</b></p>
+      <p><span>4. Umbral en euros = umbral × precio</span><b>${fmt1(U)} × ${eur2(P)} = ${eur2(umbralEur())}</b></p></div>
+    <p class="mini">${calcTxt}</p>` : ''}
+    ${vinculado() && state.imp ? `<span class="sec">Lo que llegó del plan de inversión</span>
+    <div class="steps-calc">
+      <p><span>Amortización del inmovilizado</span><b>${eur2(state.imp.amortizacionMensual)}/mes</b></p>
+      <p><span>Intereses de los préstamos (media del primer año)</span><b>${eur2(state.imp.interesesMensuales)}/mes</b></p>
+      <p><span>Cuota de los préstamos</span><b>${eur2(state.imp.cuotaMensualPrestamos)}/mes</b></p>
+      ${state.imp.inversionTotal ? `<p><span>Inversión total del proyecto</span><b>${eur(state.imp.inversionTotal)}</b></p>` : ''}</div>` : ''}
+    <span class="sec">Ten en cuenta</span>
+    <div class="method"><p><b>Importes sin IVA y al mes.</b> El umbral sale en ventas de un mes; para el año, multiplica por 12.</p>
+      <p><b>Simplificaciones:</b> precio y coste variable iguales en todas las ventas; si vendes cosas distintas, el ticket medio es una aproximación. Los costes fijos se suponen constantes, aunque en la realidad cambian si creces mucho (más personal, otro local…).${vinculado() ? ' Los intereses son la media del primer año: bajan cada año a medida que devuelves el préstamo.' : ''}</p></div>
+    <p class="eyebrow" style="margin-top:24px; text-align:center;">Esplora Labs</p>
+  </div>`;
+  applyTheme();
+}
+function renderWhatIf() {
+  const el = $('play-whatif');
+  if (!hayUmbral() || !cfTotal()) { el.innerHTML = ''; el.style.display = 'none'; return; }
+  el.style.display = '';
+  const w = state.wi, sl = (k, lab) => `<div class="sl"><label for="wi-${k}">${lab}</label><input type="range" id="wi-${k}" min="-30" max="30" step="5" value="${w[k]}" data-wi="${k}"><output id="wo-${k}">${w[k] > 0 ? '+' : ''}${w[k]} %</output></div>`;
+  el.innerHTML = `<h3>¿Y si…?</h3><p class="sub">Mueve las barras para ver cómo cambia el umbral. No se guarda en el informe: es para probar.</p>
+    ${sl('p', 'Precio de venta')}${sl('cv', 'Costes variables')}${sl('cf', 'Costes fijos')}
+    <div class="whatif-res" id="wi-res"></div>
+    <p style="margin-top:10px;"><button type="button" class="link-btn" id="wi-reset">Volver a mis datos</button></p>`;
+  el.querySelectorAll('[data-wi]').forEach(i => i.addEventListener('input', e => { state.wi[e.target.dataset.wi] = +e.target.value; $('wo-' + e.target.dataset.wi).textContent = (e.target.value > 0 ? '+' : '') + e.target.value + ' %'; whatIfRes(); save(); }));
+  $('wi-reset').addEventListener('click', () => { state.wi = { p:0, cv:0, cf:0 }; renderWhatIf(); save(); });
+  whatIfRes();
+}
+function whatIfRes() {
+  // las comisiones en % siguen al precio nuevo; luego se aplica el cambio de costes variables
+  const w = state.wi, P = precio() * (1 + w.p / 100), CF = cfTotal() * (1 + w.cf / 100);
+  const cvEur = state.cvs.filter(r => r.modo !== 'pct').reduce((a, r) => a + num(r.amount), 0), cvPct = state.cvs.filter(r => r.modo === 'pct').reduce((a, r) => a + num(r.amount), 0) / 100;
+  const CV = (cvEur + cvPct * P) * (1 + w.cv / 100), M = P - CV;
+  const base = umbralUds(), prev = num(state.previstas);
+  if (!w.p && !w.cv && !w.cf) { $('wi-res').innerHTML = `Ahora mismo tu umbral es de <b>${fmt(base)} ${esc(uN(base))} al mes</b>. Prueba, por ejemplo, a subir el precio un 10 %.`; return; }
+  if (M <= 0) { $('wi-res').innerHTML = `<b style="color:var(--bad-deep)">Así no hay umbral:</b> con ese precio y esos costes, cada ${esc(uSg())} pierde dinero.`; return; }
+  const n = Math.ceil(CF / M - 1e-9), d = n - base;
+  let t = `Precio ${eur2(P)} · coste variable ${eur2(CV)} · fijos ${eur(CF)}/mes → margen de ${eur2(M)} por ${esc(uSg())}.<br>Nuevo umbral: <b>${fmt(n)} ${esc(uN(n))} al mes</b> `;
+  t += d === 0 ? '(igual que ahora).' : d < 0 ? `<b style="color:var(--ok-deep)">(${fmt(-d)} menos que ahora)</b>.` : `<b style="color:var(--bad-deep)">(${fmt(d)} más que ahora)</b>.`;
+  if (prev) { const res = prev * M - CF; t += ` Con tus ${fmt1(prev)} ${esc(uN(prev))} previstos, ${res >= 0 ? 'ganarías' : 'perderías'} <b>${eur(Math.abs(res))} al mes</b>.`; }
+  if (w.p > 0) t += `<br><span style="color:var(--ink-muted); font-size:12.5px;">Ojo: si subes el precio, quizá vendas menos. ¿Lo aceptarían tus clientes?</span>`;
+  $('wi-res').innerHTML = t;
+}
+function reportText() {
+  const P = precio(), CV = cvUnit(), CF = cfTotal(), M = mc(), N = umbralUds(), U = umbralExacto(), prev = num(state.previstas), cj = caja(), dias = Math.round(num(state.dias)) || 0;
+  const out = ['UMBRAL DE RENTABILIDAD', state.nombre, state.desc.trim(), `Unidad de venta: ${uSg()}${vinculado() ? ' · Vinculado al plan de inversión' : ''}`, '',
+    `Precio por ${uSg()} (sin IVA): ${eur2(P)}`, 'Costes variables por ' + uSg() + ':'];
+  state.cvs.filter(x => num(x.amount) > 0).forEach(x => out.push(`- ${x.name || 'Sin nombre'}${x.modo === 'pct' ? ` (${fmt1(num(x.amount))} %)` : ''}: ${eur2(cvRow(x))}`));
+  out.push(`Total coste variable: ${eur2(CV)}`, `MARGEN DE CONTRIBUCIÓN: ${eur2(M)}`, '', 'Costes fijos al mes:');
+  state.cfs.filter(x => num(x.amount) > 0).forEach(x => out.push(`- ${x.name || 'Sin nombre'}${x.origen === 'inv' && vinculado() ? ' (del plan de inversión)' : ''}: ${eur2(num(x.amount))}`));
+  out.push(`Total costes fijos: ${eur2(CF)}/mes`, '');
+  if (hayUmbral()) {
+    out.push(`UMBRAL: ${eur2(CF)} ÷ ${eur2(M)} = ${fmt1(U)} → ${fmt(N)} ${uN(N)} al mes`, `Umbral en euros: ${eur2(umbralEur())} de ventas al mes`);
+    if (dias) out.push(`Al día: ${fmt1(Math.round(U / dias * 10) / 10)} (en ${dias} días de venta)`);
+    if (prev) out.push('', `Ventas previstas: ${fmt1(prev)} al mes → ${resultado(prev) >= 0 ? 'beneficio' : 'pérdida'} de ${eur2(Math.abs(resultado(prev)))} al mes`, `Margen de seguridad: ${prev >= U ? pct((prev - U) / prev * 100) : 'no hay'}`);
+    if (cj && CF) out.push('', `UMBRAL DE CAJA: (${eur2(CF)} − ${eur2(cj.amort)} amortización + ${eur2(cj.devol)} devolución del préstamo) ÷ ${eur2(M)} = ${fmt(cj.uds)} ${uN(cj.uds)} al mes`);
+  } else out.push('No hay umbral posible: el margen de contribución no es positivo.');
+  out.push('', 'Importes sin IVA.');
+  return out.filter(x => x !== undefined).join('\n');
+}
+function toast(msg) { const t = $('toast'); if (!t) return; t.textContent = msg; setTimeout(() => { t.textContent = ''; }, 2500); }
+async function copyText(txt, msg) {
+  try { await navigator.clipboard.writeText(txt); toast(msg); }
+  catch (_) { const ta = $('copy-fallback'); ta.hidden = false; ta.value = txt; ta.select(); toast('Selecciona el texto y cópialo'); }
+}
+$('btn-copy').addEventListener('click', () => copyText(reportText(), 'Informe copiado'));
+$('btn-save-file').addEventListener('click', saveFile);
+$('btn-reset').addEventListener('click', () => {
+  if (!confirm('Se borrará el umbral guardado en este navegador (tu plan de inversión no se toca). Si quieres conservarlo, antes pulsa «Guardar copia». ¿Empezamos uno nuevo?')) return;
+  state = freshState();
+  try { localStorage.removeItem(KEY); } catch (_) {}
+  $('copy-fallback').hidden = true; go('intro');
+});
+
+// ═════════ PDF ═════════
+function loadScript(src) { return new Promise((ok, ko) => { const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = () => ko(new Error('No se pudo cargar ' + src)); document.head.appendChild(s); }); }
+async function makePDF() {
+  if (!window.html2canvas) await loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js');
+  if (!window.jspdf) await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
+  const host = document.createElement('div');
+  host.style.cssText = 'position:fixed; left:-10000px; top:0; width:820px; background:#FFFFFF;';
+  const t = THEMES[state.theme] || THEMES.azul;
+  [...$('report').querySelectorAll('.rep-page')].forEach(p => {
+    const c = p.cloneNode(true); c.classList.add('report');
+    c.style.cssText = `padding:34px 38px; background:#FFFFFF; border:0; border-radius:0; margin:0; --tool-soft:${t.s}; --tool-mid:${t.m}; --tool-deep:${t.d};`;
+    host.appendChild(c);
+  });
+  document.body.appendChild(host);
+  try {
+    const { jsPDF } = window.jspdf; let pdf = null;
+    for (const kid of host.children) {
+      const cv = await window.html2canvas(kid, { scale:2, backgroundColor:'#FFFFFF', useCORS:true, logging:false });
+      const wmm = 210, hmm = Math.max(297, cv.height / cv.width * wmm);
+      if (!pdf) pdf = new jsPDF({ unit:'mm', format:[wmm, hmm], orientation:'portrait', compress:true }); else pdf.addPage([wmm, hmm], 'portrait');
+      pdf.setFillColor(255, 255, 255); pdf.rect(0, 0, wmm, hmm, 'F');
+      pdf.addImage(cv.toDataURL('image/jpeg', 0.92), 'JPEG', 0, 0, wmm, cv.height / cv.width * wmm);
+    }
+    return pdf.output('blob');
+  } finally { host.remove(); }
+}
+$('btn-pdf').addEventListener('click', async () => {
+  const btn = $('btn-pdf'), old = btn.textContent; btn.disabled = true; btn.textContent = 'Generando PDF…';
+  try {
+    const blob = await makePDF(), name = 'Umbral_rentabilidad_' + slug() + '.pdf';
+    let dl = null; try { dl = window.claude && await window.claude.use('downloads'); } catch (_) {}
+    if (dl) { try { await dl.save({ filename:name, data:blob }); toast('PDF listo'); } catch (e) { toast(e && e.code === 'declined' ? 'Descarga cancelada' : 'No se pudo guardar el PDF'); } }
+    else { downloadFile(name, blob); toast('PDF listo'); }
+  } catch (e) { toast('No se pudo generar el PDF. Usa «Copiar texto».'); }
+  btn.disabled = false; btn.textContent = old;
+});
+
+// ═════════ GLOSARIO ═════════
+const GLOSARIO = [
+  ['Costes', [
+    ['Costes fijos', 'Los que pagas vendas o no vendas: alquiler, sueldos, cuota de autónomos, seguros, amortización…'],
+    ['Costes variables', 'Los que solo pagas si vendes y crecen con las ventas: mercancía, materiales, envíos, comisiones…'],
+    ['Coste variable unitario', 'Lo que te cuesta servir una sola venta.'],
+    ['Costes totales', 'Costes fijos + costes variables de todas las ventas.'],
+    ['Amortización', 'El desgaste de lo que has comprado para varios años, repartido año a año. Es un coste fijo, aunque no pagas nada cada mes por él.'],
+    ['Intereses y cuota', 'La cuota del préstamo tiene dos partes: intereses (coste) y devolución del dinero prestado (no es coste, pero sale de la caja).'] ]],
+  ['Umbral', [
+    ['Margen de contribución', 'Precio − coste variable unitario. Lo que te deja cada venta para pagar los costes fijos.'],
+    ['Umbral de rentabilidad', 'Las ventas con las que ingresos y costes totales son iguales: ni ganas ni pierdes. También se llama punto muerto o punto de equilibrio.'],
+    ['Umbral en euros', 'La facturación que necesitas para llegar al umbral: umbral en unidades × precio.'],
+    ['Margen de seguridad', 'Cuánto pueden caer tus ventas previstas antes de entrar en pérdidas, en %.'],
+    ['Umbral de caja', 'Lo que tienes que vender para poder pagar todo lo que sale cada mes, incluida la cuota del préstamo.'],
+    ['Ticket medio', 'Lo que gasta de media cada cliente. Facturación ÷ número de clientes.'],
+    ['IVA', 'No es ni ingreso ni coste para la empresa: el que cobras lo ingresas a Hacienda y el que pagas lo recuperas. Por eso todo va sin IVA.'] ]],
+];
+const glosarioHTML = () => `<details class="note"><summary>Glosario: ¿qué significa cada palabra?</summary><div class="in glos">
+  ${GLOSARIO.map(([t, terms]) => `<p class="glos-h">${t}</p><dl>${terms.map(([w, d]) => `<dt>${w}</dt><dd>${d}</dd>`).join('')}</dl>`).join('')}</div></details>`;
+document.querySelectorAll('.glos-slot').forEach(el => { el.innerHTML = glosarioHTML(); });
+
+// ═════════ ARRANQUE ═════════
+renderSteppers();
+renderIntro();
+</script>
+</body>
+</html>

@@ -2,11 +2,12 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
+<script>/* Esplora Labs: recupera el progreso guardado con el nombre antiguo (educa…) */try{for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(/^educa/.test(k)){var n=k.replace(/^educatools/,'esplora').replace(/^educa/,'esplora');if(localStorage.getItem(n)===null)localStorage.setItem(n,localStorage.getItem(k));}}}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Generador de ideas de negocio · Educa Tools</title>
+<title>Generador de ideas de negocio · Esplora Labs</title>
 </head>
 <body style="margin:0;background:#FAF7F2;">
-<header class="kit-bar"><div class="kit-bar-in"><a href="index.html" aria-label="Educa Tools, volver al catálogo"><svg width="20" height="20" viewBox="0 0 40 40" aria-hidden="true"><path fill="#C5CD78" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg><span>Educa</span>&nbsp;Tools</a><small><span class="kit-save" id="kitSave" hidden><i></i>Progreso guardado en este navegador</span> &nbsp;Generador de ideas de negocio</small></div></header>
+<header class="kit-bar"><div class="kit-bar-in"><a href="index.html" aria-label="Esplora Labs, volver al catálogo"><svg width="20" height="20" viewBox="0 0 40 40" aria-hidden="true"><path fill="#C5CD78" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg><span>Esplora</span>&nbsp;Labs</a><small><span class="kit-save" id="kitSave" hidden><i></i>Progreso guardado en este navegador</span> &nbsp;Generador de ideas de negocio</small></div></header>
 <div style="max-width:820px;margin:0 auto;padding:1.5rem 1rem 3rem;">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -275,7 +276,7 @@
     .biz-quote { font-size: 17.5px; }
   }
 
-/* ══ Kit v2 Educa Tools: contraste, tamaños y barra de marca ══ */
+/* ══ Kit v2 Esplora Labs: contraste, tamaños y barra de marca ══ */
 :root{ --kit-bg:#F5F6E4; --kit-ink:#1E1C1A; --kit-soft:#4A463F; --kit-accent:#6B7028; }
 html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-font-smoothing:antialiased; }
 :root{ --ink-faint:#4A463F; --ink-muted:#4A463F; --muted:#4A463F; }
@@ -1586,7 +1587,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     }
   });
 
-  $('biz-restart').addEventListener('click', () => { try { localStorage.removeItem('educa-generador-v1'); } catch (e) {} location.reload(); });
+  $('biz-restart').addEventListener('click', () => { try { localStorage.removeItem('esplora-generador-v1'); } catch (e) {} location.reload(); });
 
   // ===========================================
   // MOTOR DE RECOMENDACIÓN
@@ -3356,7 +3357,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
   // ===========================================
   // GUARDADO AUTOMÁTICO (en este navegador)
   // ===========================================
-  const SAVE_KEY = 'educa-generador-v1';
+  const SAVE_KEY = 'esplora-generador-v1';
   const TXT = ['biz-formacion-extra', 'biz-intereses', 'biz-problema', 'biz-localidad'];
   let generado = false, lastSaved = '';
   const genOriginal = generate;

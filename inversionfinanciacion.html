@@ -2,13 +2,14 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
+<script>/* Esplora Labs: recupera el progreso guardado con el nombre antiguo (educa…) */try{for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(/^educa/.test(k)){var n=k.replace(/^educatools/,'esplora').replace(/^educa/,'esplora');if(localStorage.getItem(n)===null)localStorage.setItem(n,localStorage.getItem(k));}}}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Inversión y financiación</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* Educa Tools · Plan de inversión y financiación. Tema claro por decisión de marca.
+/* Esplora Labs · Plan de inversión y financiación. Tema claro por decisión de marca.
    Flujo: intro → proyecto (nombre + 3 preguntas de perfil) → inversión (paneles) → colchón (paneles de gastos) → financiación → resultado.
    El perfil solo decide qué opciones del catálogo salen primero ("habituales"); nunca oculta nada del todo.
    Guarda en localStorage bajo una clave compartida para que el Umbral de rentabilidad lea los datos. */
@@ -406,7 +407,7 @@ table.amtab { width: 100%; border-collapse: collapse; font-size: 13px; margin-to
 
 <script>
 // ═════════ CONFIGURACIÓN ═════════
-const STORE_KEY = 'educatools-expediente';   // clave compartida con el resto de herramientas (Umbral de rentabilidad)
+const STORE_KEY = 'esplora-expediente';   // clave compartida con el resto de herramientas (Umbral de rentabilidad)
 const SECTION = 'inversionFinanciacion';
 const STEPS = ['Proyecto', 'Inversión', 'Colchón', 'Financiación', 'Resultado'];
 
@@ -648,7 +649,7 @@ function downloadFile(name, blob) {
 const slug = () => (state.nombre.trim().replace(/\s+/g, '_').replace(/[^\wáéíóúñÁÉÍÓÚÑ_-]/g, '') || 'proyecto');
 function saveFile() {
   const { fb, deck, ...persist } = state;
-  const data = { app:'educatools', tipo:'expediente', version:1, actualizado:new Date().toISOString(),
+  const data = { app:'esplora', tipo:'expediente', version:1, actualizado:new Date().toISOString(),
     proyecto:{ nombre:state.nombre, descripcion:state.desc }, [SECTION]:persist, paraUmbral:paraUmbral() };
   downloadFile('Inversion_' + slug() + '.json', new Blob([JSON.stringify(data, null, 2)], { type:'application/json' }));
   toast('Copia descargada');
@@ -1096,7 +1097,7 @@ function renderInforme() {
     <span class="sec">Ten en cuenta</span>
     <div class="method"><p><b>Importes sin IVA.</b> El IVA de las compras se recupera en la declaración trimestral, por eso no es coste. Pero se paga al comprar: en un plan real hay que prever cómo se adelanta ese dinero.</p>
       <p><b>Simplificaciones:</b> amortización lineal sin valor residual; préstamos por sistema francés (cuota constante); colchón calculado como si los primeros meses no hubiera ventas. Los gastos de puesta en marcha (trámites, licencias, lanzamiento…) se pagan con la tesorería inicial. Las vidas útiles y los tipos de interés son orientativos: contrástalos con datos reales.</p></div>
-    <p class="eyebrow" style="margin-top:24px; text-align:center;">Plan de inversión y financiación · Toolkit IPE</p>
+    <p class="eyebrow" style="margin-top:24px; text-align:center;">Esplora Labs</p>
   </div>`;
   applyTheme();
 }

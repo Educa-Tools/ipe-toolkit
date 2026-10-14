@@ -2,13 +2,14 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<script>/* Esplora Labs: recupera el progreso guardado con el nombre antiguo (educa…) */try{for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(/^educa/.test(k)){var n=k.replace(/^educatools/,'esplora').replace(/^educa/,'esplora');if(localStorage.getItem(n)===null)localStorage.setItem(n,localStorage.getItem(k));}}}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Modelo de Porter</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* Educa Tools · Modelo de Porter (versión profesional). Tema claro por decisión de marca.
+/* Esplora Labs · Modelo de Porter (versión profesional). Tema claro por decisión de marca.
    Layout: flujo de pantallas (intro → mapa de 5 fuerzas → detalle por fuerza → análisis → informe). */
 :root {
   --bg: #FBFCEF; --surface: #FFFFFF; --surface-alt: #F5F6E4;
@@ -183,7 +184,7 @@ h3.subtitle { font-family: 'Fraunces', Georgia, serif; font-size: 18px; line-hei
 @media (max-width: 700px) { .viz { grid-template-columns: 1fr; } .score-row { grid-template-columns: 1fr; } }
 @media (max-width: 640px) { .report { padding: 28px 18px; } .frow { grid-template-columns: 1fr auto; } .frow .fc { grid-column: 1 / -1; order: 3; } .rep-title { font-size: 24px; } }
 
-/* ══ Kit v2 Educa Tools: contraste, tamaños y barra de marca ══ */
+/* ══ Kit v2 Esplora Labs: contraste, tamaños y barra de marca ══ */
 :root{ --kit-bg:#F5F6E4; --kit-ink:#1E1C1A; --kit-soft:#4A463F; --kit-accent:#2F6670; }
 html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-font-smoothing:antialiased; }
 :root{ --ink-faint:#4A463F; --ink-muted:#4A463F; --muted:#4A463F; }
@@ -271,7 +272,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
 </style>
 </head>
 <body>
-<header class="kit-bar"><div class="kit-bar-in"><a href="index.html" aria-label="Educa Tools, volver al catálogo"><svg width="20" height="20" viewBox="0 0 40 40" aria-hidden="true"><path fill="#C5CD78" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg><span>Educa</span>&nbsp;Tools</a><small><span class="kit-save" id="kitSave" hidden><i></i>Progreso guardado en este navegador</span> &nbsp;Análisis PORTER</small></div></header>
+<header class="kit-bar"><div class="kit-bar-in"><a href="index.html" aria-label="Esplora Labs, volver al catálogo"><svg width="20" height="20" viewBox="0 0 40 40" aria-hidden="true"><path fill="#C5CD78" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg><span>Esplora</span>&nbsp;Labs</a><small><span class="kit-save" id="kitSave" hidden><i></i>Progreso guardado en este navegador</span> &nbsp;Análisis PORTER</small></div></header>
 <!-- INTRO -->
 <div id="screen-intro" class="screen active">
   <div class="container">
@@ -726,7 +727,7 @@ function renderReport() {
     <p class="rp-intro">El <b>modelo de Porter</b> mide lo atractivo que es un sector analizando cinco fuerzas que presionan sobre la rentabilidad: la <b>entrada de nuevos competidores</b>, los <b>productos sustitutivos</b>, el poder de <b>proveedores</b> y de <b>clientes</b> y, en el centro, la <b>rivalidad</b> entre las empresas que ya compiten. Cada fuerza se puntúa de 0 (sin presión) a 10 (presión máxima).</p>
     <div class="p5">${legend}${card(force('E'))}${centro}${card(force('P'))}${card(force('R'), 'ce')}${card(force('C'))}<div></div>${card(force('S'))}<div></div></div>
     ${g()}
-    <div class="rp-foot"><span>Educa Tools · Modelo de Porter</span><span>${fecha}</span></div>
+    <div class="rp-foot"><span>Esplora Labs</span><span>${fecha}</span></div>
   </article>
   <article class="rp" id="rp2">
     <div class="rp-top"><span>Informe de análisis competitivo</span><span>2 / 2</span></div>
@@ -739,7 +740,7 @@ function renderReport() {
     <p class="sec2">Tu análisis</p>
     <div class="rf2"><div class="pos"><b>Lo más positivo</b>${esc(state.refPos)}</div><div class="neg"><b>Lo más negativo</b>${esc(state.refNeg)}</div></div>
     <div class="rec2"><small>Recomendación · ${RIVALIDAD[L].n}</small><b>${RIVALIDAD[L].acc}</b><p>${RIVALIDAD[L].riesgo}</p></div>
-    <div class="rp-foot"><span>Educa Tools · Modelo de Porter</span><span>${fecha}</span></div>
+    <div class="rp-foot"><span>Esplora Labs</span><span>${fecha}</span></div>
   </article>`;
   ['rp1', 'rp2'].forEach(fitPage);
   if (document.fonts) document.fonts.ready.then(() => ['rp1', 'rp2'].forEach(fitPage));
@@ -781,7 +782,7 @@ $('btn-reset').addEventListener('click', () => {
 });
 
 // ═════════ GUARDADO AUTOMÁTICO (en este navegador) ═════════
-const SAVE_KEY = 'educa-porter-v1';
+const SAVE_KEY = 'esplora-porter-v1';
 let curScreen = 'intro', lastSaved = '';
 const goBase = go;
 go = function (s) { curScreen = s; return goBase(s); };

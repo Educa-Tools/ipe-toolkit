@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<script>/* Esplora Labs: recupera el progreso guardado con el nombre antiguo (educa…) */try{for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(/^educa/.test(k)){var n=k.replace(/^educatools/,'esplora').replace(/^educa/,'esplora');if(localStorage.getItem(n)===null)localStorage.setItem(n,localStorage.getItem(k));}}}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Buyer Persona Creator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -9,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   /* Diseño: creador de personajes. Columna izquierda = ficha en vivo (sticky); derecha = 6 pasos en dos perfiles; final = ficha imprimible.
-     Identidad Educa Tools (tema claro, Fraunces + Inter). Acento propio de la herramienta: orquídea #B03A78.
+     Identidad Esplora Labs (tema claro, Fraunces + Inter). Acento propio de la herramienta: orquídea #B03A78.
      Perfil sociodemográfico = familia teal (t). Perfil psicosocial = familia gold (e1). */
   :root{
     color-scheme: light;
@@ -302,7 +303,7 @@
     #print-sheet{position:static;left:auto;margin:0 auto;}
   }
 
-/* ══ Kit v2 Educa Tools: contraste, tamaños y barra de marca ══ */
+/* ══ Kit v2 Esplora Labs: contraste, tamaños y barra de marca ══ */
 :root{ --kit-bg:#F5F6E4; --kit-ink:#1E1C1A; --kit-soft:#4A463F; --kit-accent:#B03A78; }
 html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-font-smoothing:antialiased; }
 :root{ --ink-faint:#4A463F; --ink-muted:#4A463F; --muted:#4A463F; }
@@ -318,7 +319,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
 </style>
 </head>
 <body>
-<header class="kit-bar"><div class="kit-bar-in"><a href="index.html" aria-label="Educa Tools, volver al catálogo"><svg width="20" height="20" viewBox="0 0 40 40" aria-hidden="true"><path fill="#C5CD78" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg><span>Educa</span>&nbsp;Tools</a><small><span class="kit-save" id="kitSave" hidden><i></i>Progreso guardado en este navegador</span> &nbsp;Buyer Persona</small></div></header>
+<header class="kit-bar"><div class="kit-bar-in"><a href="index.html" aria-label="Esplora Labs, volver al catálogo"><svg width="20" height="20" viewBox="0 0 40 40" aria-hidden="true"><path fill="#C5CD78" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg><span>Esplora</span>&nbsp;Labs</a><small><span class="kit-save" id="kitSave" hidden><i></i>Progreso guardado en este navegador</span> &nbsp;Buyer Persona</small></div></header>
 
 <div class="wrap">
 
@@ -555,7 +556,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
   </section>
 
   <div id="print-sheet" aria-hidden="true"></div>
-  <footer class="credit">Educa Tools · IPE Toolkit · Buyer Persona Creator. Basado en la plantilla de buyer personas de HubSpot.</footer>
+  <footer class="credit">Esplora Labs · Buyer Persona Creator. Basado en la plantilla de buyer personas de HubSpot.</footer>
 </div>
 <div class="toast" id="toast" hidden></div>
 
@@ -563,7 +564,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
 (function () {
   'use strict';
   var STANDALONE = true;
-  var KEY = 'educatools_buyer_persona_v1';
+  var KEY = 'esplora_buyer_persona_v1';
 
   /* ───────── Listas ───────── */
   var L = {
@@ -902,7 +903,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
       if (n) sheet.appendChild(n.cloneNode(true));
     });
     sheet.querySelectorAll('[id]').forEach(function (e) { e.removeAttribute('id'); });
-    var cr = document.createElement('div'); cr.className = 'ps-credit'; cr.textContent = 'Educa Tools · IPE Toolkit · Buyer Persona Creator'; sheet.appendChild(cr);
+    var cr = document.createElement('div'); cr.className = 'ps-credit'; cr.textContent = 'Esplora Labs'; sheet.appendChild(cr);
     var avail = Math.floor(276 / 25.4 * 96);
     var h = sheet.getBoundingClientRect().height;
     sheet.style.zoom = h > avail ? (avail / h) : 1;
