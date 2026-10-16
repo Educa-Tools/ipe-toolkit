@@ -45,6 +45,10 @@ Fuente de verdad del estado del proyecto: esplora-contexto-claude-code.md.
   data/estructura.json (sigue el README).
 - Cada herramienta es un HTML autónomo y completo (con DOCTYPE), sin
   build ni dependencias de servidor.
+- Las fuentes y librerías se cargan siempre desde fuentes/ y lib/, nunca
+  desde Google Fonts ni desde un CDN. Ninguna herramienta debe hacer
+  peticiones a dominios externos, salvo enlaces normales a webs oficiales
+  (BOE, SEPE, Seguridad Social).
 - Nombres de archivo en minúsculas, sin espacios ni tildes (GitHub Pages
   distingue mayúsculas de minúsculas).
 - Nunca pongas claves, contraseñas ni llamadas a APIs con credenciales en
