@@ -1,7 +1,11 @@
-# Esplora Labs · Herramientas educativas
+# Esplora · Herramientas para explorar en el aula
 
-Herramientas interactivas y recursos para **Itinerario Personal para la Empleabilidad I y II** (FP).
-Web publicada: https://educa-tools.github.io/ipe-toolkit/
+Herramientas interactivas y recursos para **Itinerario Personal para la Empleabilidad I y II** (FP), FOL y EIE.
+
+- Web: https://esplora.es (la dirección antigua https://educa-tools.github.io/ipe-toolkit/ sigue funcionando)
+- Contacto: contacto@esplora.es
+
+> **No borres ni cambies el archivo `CNAME`** de la raíz: es el que conecta la web con `esplora.es`.
 
 ## Cómo está organizado
 
@@ -11,6 +15,7 @@ Web publicada: https://educa-tools.github.io/ipe-toolkit/
   - `modulos`: IPE 1 e IPE 2 (en el orden en que salen en la portada), con sus unidades y la lista de herramientas de cada una (por identificador, en el orden en que deben aparecer).
   - `etiquetas`: las temáticas del "Explorar por temática", también con su lista de herramientas.
 - El resto de `.html` — cada herramienta interactiva, independiente.
+- `CNAME` — el dominio `esplora.es`. No se toca.
 
 ## Añadir una herramienta nueva
 
@@ -30,7 +35,9 @@ Web publicada: https://educa-tools.github.io/ipe-toolkit/
    - `informe`: pon `true` si la herramienta saca informe para imprimir o guardar en PDF.
 
 3. Añade `"miid"` a la lista `"herramientas"` de su unidad (en `modulos`) y de su temática (en `etiquetas`).
-4. Guarda (commit). En uno o dos minutos está en la web.
+4. Guarda (commit) y sube a `main`. En uno o dos minutos está en la web.
+
+Usa siempre rutas relativas (`archivo.html`, no `/archivo.html`), para que funcionen tanto en `esplora.es` como en la dirección antigua.
 
 Notas:
 - Una unidad con la lista vacía `[]` aparece como "En construcción".
@@ -39,8 +46,8 @@ Notas:
 
 ## Enlaces directos para compartir con la clase
 
-- `…/ipe-toolkit/#ipe2` abre IPE 2; `#ipe1` abre IPE 1.
-- `…/ipe-toolkit/#ipe2-ud1` baja a la Unidad didáctica 1 de IPE 2; `#ipe1-b2` baja al Bloque 2 de IPE 1.
+- `https://esplora.es/#ipe2` abre IPE 2; `#ipe1` abre IPE 1.
+- `https://esplora.es/#ipe2-ud1` baja a la Unidad didáctica 1 de IPE 2; `#ipe1-b2` baja al Bloque 2 de IPE 1.
 - En la portada, cada módulo y cada unidad tiene un botón "Copiar enlace" que copia la dirección.
 
 ## Nombres de archivo

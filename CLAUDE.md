@@ -1,16 +1,35 @@
-# Esplora Labs (antes Educa Tools)
+# Esplora (antes Educa Tools / IPE Toolkit)
 
 ## Quién soy
 Soy profesor de FP (IPE 1 e IPE 2, FOL y EIE). No sé programar:
 explícame todo sin jerga y, al terminar cada tarea, dime qué has
-cambiado, en qué archivos y cómo comprobarlo.
+cambiado, en qué archivos y cómo comprobarlo. Paso a paso y una acción
+por mensaje cuando haya configuración.
 
 ## Qué es este proyecto
 Herramientas HTML interactivas que el alumnado usa en clase: reutilizables,
-con margen para equivocarse y obtener una segunda visión.
-Web publicada con GitHub Pages: https://educa-tools.github.io/ipe-toolkit/
-(La dirección conserva el nombre antiguo: cambiarla obliga a renombrar la
-cuenta y el repositorio de GitHub y rompería los enlaces ya compartidos.)
+con margen para equivocarse y obtener una segunda visión. El público de la
+comunicación son docentes de secundaria, con foco en FP.
+Lema provisional: "herramientas para explorar en el aula".
+Fuente de verdad del estado del proyecto: esplora-contexto-claude-code.md.
+
+## Web, dominio y correo
+- Web: https://esplora.es (también https://www.esplora.es), servida por
+  GitHub Pages desde el repo Educa-Tools/ipe-toolkit, rama main, raíz /.
+- La dirección antigua https://educa-tools.github.io/ipe-toolkit/ sigue
+  funcionando: las rutas deben ser relativas para que valgan en las dos.
+- Contacto: contacto@esplora.es (Zoho Mail).
+- DNS en Cloudflare. No toques DNS sin mi OK.
+- No renombres el repositorio ni la organización de GitHub: rompería el
+  CNAME de www y los enlaces ya compartidos.
+
+## Git
+- Haz git pull antes de empezar.
+- El archivo CNAME de la raíz (contenido: esplora.es) no se borra ni se
+  sobrescribe nunca: si desaparece, se cae el dominio.
+- Hacer push a main publica la web en 1-2 minutos. Enséñame el diff
+  antes de hacer push.
+- Mensajes de commit claros y en español.
 
 ## Estructura real del repositorio
 - index.html: la landing (portada). No tiene las herramientas escritas:
@@ -20,8 +39,10 @@ cuenta y el repositorio de GitHub y rompería los enlaces ya compartidos.)
   IPE 1 por bloques, con las herramientas de cada uno) y etiquetas
   (temáticas de "Explorar por temática").
 - Cada herramienta es un archivo .html independiente en la raíz.
+- CNAME: dominio personalizado (no tocar).
 - README.md: instrucciones para añadir herramientas.
-- branding/: kit de marca en texto (brand-kit-especificacion.md).
+- branding/: kit de marca anterior (brand-kit-especificacion.md).
+- Objetivo: unas 30 herramientas; el catálogo tiene que seguir escalando.
 
 ## Reglas de trabajo
 - No renombres ni muevas archivos: la web publicada enlaza a ellos por
@@ -34,21 +55,35 @@ cuenta y el repositorio de GitHub y rompería los enlaces ya compartidos.)
   distingue mayúsculas de minúsculas).
 - Nunca pongas claves, contraseñas ni llamadas a APIs con credenciales en
   el código: el repositorio se publica.
-- Todo el texto visible, en español.
+- Todo el texto visible, en español. Tono cercano pero riguroso.
 - IPE 1 usa "bloques" y IPE 2 "unidades didácticas".
 - Alumnado de FP, sobre todo ciclos superiores de Comercio y Marketing.
 - Las sesiones duran 50 minutos: herramientas ágiles y con opción de
   guardar el progreso para retomarlo otro día.
-- Branding: usa siempre branding/brand-kit-especificacion.md (paleta,
-  tipografías Fraunces e Inter, logo). Tema claro, sin modo oscuro.
-  No inventes colores nuevos.
-- Antes de cambios grandes (tocar varias herramientas), cuéntame el plan
-  y espera mi OK. No borres nada sin avisarme.
+- Antes de cambios grandes (tocar varias herramientas) o irreversibles
+  (borrar, renombrar, DNS), cuéntame el plan y espera mi OK.
+  No borres nada sin avisarme.
+
+## Identidad visual vigente (provisional)
+- Verde oliva de marca #6B7028 (en modo oscuro #A7AE4B), fondo crema
+  #F7F5EC, texto #2B2D14, acento terracota #C2683A / #B5482F, cuerpo de
+  la mascota #8A9136. No inventes colores nuevos.
+- Tipografía system-ui en la web. Versión retro: Alfa Slab One para
+  títulos y Courier Prime.
+- Con modo oscuro mediante prefers-color-scheme.
+- Las herramientas actuales todavía usan el kit anterior (Fraunces e
+  Inter, tema claro). Pasarlas a la identidad nueva es un cambio grande:
+  pídeme OK antes.
+- Logotipo e isotipo definitivos: pendientes. Cuando lleguen, sustituir
+  favicon, avatar, cabecera y 404.
+- Mascota: Explorito, una espora con mochila y lupa, con accesorios
+  según el módulo. El diseño actual es solo de referencia.
+- Marca por delante de la persona: sin fotos ni imagen personal.
 
 ## Notas
 - La PESTEL vigente es el mapa de impacto e incertidumbre (matriz 3x3).
   La versión antigua con gráfico hexagonal está obsoleta.
-- Marca: "Esplora Labs" (con mayúsculas en el texto). El guardado usa
-  claves que empiezan por "esplora". Las herramientas llevan al principio
-  un pequeño script que copia el progreso de las claves antiguas ("educa…")
-  para que nadie lo pierda. No lo quites.
+- Marca: "Esplora". El guardado usa claves que empiezan por "esplora".
+  Las herramientas llevan al principio un pequeño script que copia el
+  progreso de las claves antiguas ("educa…") para que nadie lo pierda.
+  No lo quites.
