@@ -158,49 +158,67 @@
   .search-clear:hover{background:var(--lime-soft);color:var(--ink);}
   .search-clear svg{position:static;translate:none;width:16px;height:16px;color:currentColor;}
 
-  /* Filtros: temática y tipo de recurso */
-  .filters{display:grid;gap:14px;margin-bottom:26px;}
-  .filter-group{display:grid;grid-template-columns:150px 1fr;align-items:start;gap:8px 16px;}
-  .filter-label{font-weight:700;font-size:.95rem;padding-top:10px;}
-  .chips{display:flex;flex-wrap:wrap;gap:8px;}
-  .chip{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;cursor:pointer;background:var(--surface);border:var(--frame);border-radius:var(--radius-pill);color:var(--ink);font-weight:600;font-size:.92rem;transition:background .15s ease;}
-  .chip:hover{background:var(--lime-soft);}
-  .chip em{font-style:normal;font-size:.76rem;font-weight:700;background:var(--lime-soft);border-radius:var(--radius-pill);padding:1px 8px;}
-  .chip.soon{border-style:dashed;color:var(--ink-soft);}
-  .chip.soon em{background:var(--surface-alt);color:var(--ink-soft);}
-  .chip[aria-pressed="true"]{background:var(--ink);color:#fff;}
-  .chip[aria-pressed="true"] em{background:var(--lime-mid);color:var(--ink);}
-  @media (max-width:720px){.filter-group{grid-template-columns:1fr;}.filter-label{padding-top:0;}}
-
-  .res-count{margin:0 0 12px;font-weight:600;color:var(--ink-soft);}
+  /* Filtros: dos desplegables (temática y tipo de recurso) y el número de resultados */
+  .filters{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:28px;}
+  .dd{position:relative;display:inline-flex;align-items:center;gap:8px;flex:0 1 auto;min-width:0;min-height:46px;padding-left:18px;background:var(--surface);border:var(--frame);border-radius:var(--radius-pill);transition:box-shadow .12s ease,background .15s ease;}
+  .dd:hover{background:var(--lime-soft);}
+  .dd:focus-within{box-shadow:var(--sticker);}
+  .dd.on{background:var(--lime-soft);}
+  .dd > span{flex:none;font-size:.86rem;font-weight:500;color:var(--ink-soft);}
+  .dd select{appearance:none;-webkit-appearance:none;min-width:0;max-width:100%;min-height:44px;margin:0;padding:0 42px 0 0;border:0;background:transparent;font:inherit;font-size:.94rem;font-weight:700;color:var(--ink);cursor:pointer;text-overflow:ellipsis;}
+  .dd select:focus{outline:none;}
+  .dd svg{position:absolute;right:16px;top:50%;translate:0 -50%;width:14px;height:14px;pointer-events:none;}
+  .filters-end{display:flex;align-items:center;gap:6px 14px;margin-left:auto;}
+  .res-count{margin:0;font-weight:600;color:var(--ink-soft);}
   .res-count mark{background:var(--lime-soft);color:var(--ink);padding:0 6px;border-radius:6px;}
-
-  /* Lista de recursos: filas dentro de una ficha, con el mini dibujo de cada uno */
-  .res-list{list-style:none;margin:0;padding:0;background:var(--surface);border:var(--frame);border-radius:var(--radius-card);overflow:hidden;}
-  .res-list li + li{border-top:1px solid var(--line);}
-  .res{display:grid;grid-template-columns:132px 1fr auto;align-items:center;gap:22px;padding:18px 22px;text-decoration:none;color:var(--ink);transition:background .15s ease;}
-  .res:hover,.res:focus-visible{background:color-mix(in srgb,var(--c) 7%,#FFFFFF);}
-  .res:focus-visible{outline-offset:-3px;}
-  .res-art{display:flex;align-items:center;justify-content:center;height:68px;border-radius:12px;background:color-mix(in srgb,var(--c) 10%,#FFFFFF);border:1px solid color-mix(in srgb,var(--c) 30%,#FFFFFF);padding:10px;}
-  .clip-art{display:block;width:100%;height:auto;}
-  .res-main{display:flex;flex-direction:column;gap:3px;min-width:0;}
-  .res-t{font-family:var(--font-display);font-weight:600;font-size:1.2rem;line-height:1.25;}
-  .res-d{color:var(--ink-soft);font-size:.94rem;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;max-width:68ch;}
-  .res-meta{font-size:.86rem;font-weight:600;color:var(--ink-soft);}
-  .flags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;}
-  .flag{display:inline-flex;align-items:center;gap:5px;font-size:.72rem;font-weight:700;line-height:1;padding:5px 9px;border-radius:var(--radius-pill);border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);white-space:nowrap;}
-  .flag svg{width:12px;height:12px;color:var(--c);}
-  .flag.on{background:var(--lime-soft);border-color:var(--lime-mid);color:var(--ink);}
-  .res-go{flex:none;width:40px;height:40px;border-radius:50%;border:1.5px solid var(--ink);display:flex;align-items:center;justify-content:center;background:var(--surface);transition:translate .15s ease,background .15s ease;}
-  .res-go svg{width:17px;height:17px;}
-  .res:hover .res-go{translate:3px 0;background:var(--lime-mid);}
-  @media (max-width:720px){
-    .res{grid-template-columns:1fr auto;gap:14px;padding:16px;}
-    .res-art{display:none;}
-    .res-t{font-size:1.1rem;}
+  .link-btn{min-height:44px;padding:0 4px;border:0;background:none;cursor:pointer;font-weight:600;font-size:.92rem;color:var(--ink);text-decoration:underline;text-underline-offset:5px;}
+  .link-btn:hover{color:var(--olive-deep);}
+  @media (max-width:620px){
+    .filters{display:grid;grid-template-columns:1fr;gap:10px;}
+    .dd{flex:none;}
+    .dd select{flex:1;}
+    .filters-end{margin-left:0;justify-content:space-between;}
   }
 
-  /* Al cambiar un filtro, las filas nuevas entran con un pequeño retardo para que se note el cambio */
+  /* Tarjetas de recurso: una "ventanita" con la barra de color de cada herramienta */
+  .tool-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:22px;}
+  .tool-grid li{display:flex;}
+  .tool-card{
+    flex:1;display:flex;flex-direction:column;overflow:hidden;text-decoration:none;color:var(--ink);
+    background:var(--bg);border:var(--frame);border-radius:12px;box-shadow:3px 3px 0 var(--ink);
+    transition:translate .2s var(--ease-out),rotate .2s var(--ease-out),box-shadow .2s ease;
+  }
+  .tool-card:hover,.tool-card:focus-visible{translate:0 -5px;rotate:-.6deg;box-shadow:6px 6px 0 var(--c);}
+  .tool-grid li:nth-child(even) .tool-card:hover{rotate:.6deg;}
+  /* Barra superior, como la de cada herramienta */
+  .clip-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--c);color:#fff;font-size:.62rem;font-weight:700;padding:6px 10px;border-bottom:var(--frame);white-space:nowrap;}
+  .clip-bar svg{width:9px;height:9px;margin-right:4px;vertical-align:-1px;}
+  .clip-bar span:last-child{overflow:hidden;text-overflow:ellipsis;opacity:.9;}
+  .clip-body{flex:1;display:flex;flex-direction:column;gap:6px;padding:12px 14px;}
+  .clip-kick{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);}
+  .clip-h{font-family:var(--font-display);font-weight:600;font-size:1.06rem;line-height:1.12;letter-spacing:-.3px;}
+  .clip-h em{font-style:italic;color:var(--c);}
+  .clip-art{display:block;width:100%;max-width:200px;height:auto;margin-top:4px;}
+  .win-desc{font-size:.84rem;line-height:1.45;color:var(--ink-soft);}
+  .clip-go{display:inline-flex;align-items:center;gap:5px;margin-top:auto;padding-top:4px;font-size:.74rem;font-weight:700;}
+  .clip-go svg{width:13px;height:13px;color:var(--c);transition:translate .15s ease;}
+  .tool-card:hover .clip-go svg{translate:3px 0;}
+  /* Etiquetas pequeñas de cada tarjeta: tiempo, si guarda y si saca informe */
+  .tool-meta{display:flex;flex-wrap:wrap;gap:5px;margin-top:2px;}
+  .tool-meta span{display:inline-flex;align-items:center;gap:4px;font-size:.68rem;font-weight:700;line-height:1;padding:4px 8px;border-radius:var(--radius-pill);border:1px solid var(--line);background:var(--surface);color:var(--ink-soft);white-space:nowrap;}
+  .tool-meta svg{width:11px;height:11px;color:var(--c);}
+  .tool-meta .on{background:var(--lime-soft);border-color:var(--lime-mid);color:var(--ink);}
+  /* En el móvil, dos tarjetas por fila y solo lo esencial: la descripción se lee al abrir */
+  @media (max-width:560px){
+    .tool-grid{grid-template-columns:1fr 1fr;gap:14px;}
+    .clip-bar span:last-child{display:none;}
+    .clip-body{padding:10px 11px;gap:5px;}
+    .clip-h{font-size:.98rem;}
+    .win-desc{display:none;}
+    .tool-meta span:not(.on){display:none;}
+  }
+
+  /* Al cambiar un filtro, las tarjetas nuevas entran con un pequeño retardo para que se note el cambio */
   .pop{animation:rise .35s var(--ease-out) backwards;animation-delay:calc(var(--i,0) * 30ms);}
 
   /* Estados vacíos y de carga */
@@ -652,25 +670,30 @@ function hasSave(t){
   }catch(e){ return false; }
 }
 
-// Una fila por recurso: dibujo, nombre, descripción, "Tipo · Temática · tiempo" y etiquetas
-function rowsList(list, showTipo){
-  return '<ul class="res-list">' + list.map((t,i)=>{
-    const tp = tipoById(DB.tipo[t.id]);
-    const tema = DB.tags.find(x=>x.id===DB.tema[t.id]);
-    const meta = [showTipo && tp ? tp.sing : '', tema ? tema.nombre : '', t.minutos ? '≈ '+t.minutos+' min' : ''].filter(Boolean).join(' · ');
-    const flags = [];
-    if(t.guarda) flags.push(hasSave(t) ? `<span class="flag on">${icon('check')}Empezada</span>` : `<span class="flag">${icon('save')}Guarda progreso</span>`);
-    if(t.informe) flags.push(`<span class="flag">${icon('print')}Informe PDF</span>`);
+// Barra superior de la ventanita, como la de cada herramienta
+const winBar = t => `<span class="clip-bar"><span><svg viewBox="0 0 40 40" aria-hidden="true"><path fill="currentColor" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg>Esplora</span><span>${t.titulo}</span></span>`;
+// Etiquetas pequeñas: tiempo aproximado, si guarda el progreso (o si ya está empezada) y si saca informe
+function toolMeta(t){
+  const m = [];
+  if(t.minutos) m.push(`<span>${icon('clock')}≈ ${t.minutos} min</span>`);
+  if(t.guarda) m.push(hasSave(t) ? `<span class="on">${icon('check')}Empezada</span>` : `<span>${icon('save')}Guarda progreso</span>`);
+  if(t.informe) m.push(`<span>${icon('print')}Informe PDF</span>`);
+  return m.length ? `<span class="tool-meta">${m.join('')}</span>` : '';
+}
+// Tarjetas del catálogo: dónde está, titular, mini dibujo, descripción y etiquetas
+function toolCards(list){
+  return '<ul class="tool-grid">' + list.map((t,i)=>{
     const ext = isExt(t.url);
-    return `<li class="pop" style="--i:${Math.min(i,10)}"><a class="res" style="--c:${t.color||'#6B7028'}" href="${t.url}"${ext?' target="_blank" rel="noopener"':''}>
-      <span class="res-art">${art(t)}</span>
-      <span class="res-main">
-        <span class="res-t">${t.titulo}</span>
-        ${t.descripcion ? `<span class="res-d">${t.descripcion}</span>` : ''}
-        ${meta ? `<span class="res-meta">${meta}</span>` : ''}
-        ${flags.length ? `<span class="flags">${flags.join('')}</span>` : ''}
+    return `<li class="pop" style="--i:${Math.min(i,10)}"><a class="tool-card" style="--c:${t.color||'#6B7028'}" href="${t.url}"${ext?' target="_blank" rel="noopener"':''}>
+      ${winBar(t)}
+      <span class="clip-body">
+        <span class="clip-kick">${DB.where[t.id]||''}</span>
+        <span class="clip-h">${t.titular||t.titulo}</span>
+        ${art(t)}
+        ${t.descripcion ? `<span class="win-desc">${t.descripcion}</span>` : ''}
+        ${toolMeta(t)}
+        <span class="clip-go">Abrir ${icon('arrow')}</span>
       </span>
-      <span class="res-go" aria-hidden="true">${icon('arrow')}</span>
     </a></li>`;}).join('') + '</ul>';
 }
 
@@ -683,36 +706,35 @@ function matches(id, f){
   const words = norm(f.q).split(/\s+/).filter(w=>w.length>=2);
   return words.every(w=>DB.text[id].includes(w));
 }
+const CHEVRON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>';
 function exploreView(){
   const f = {tag:S.tag, tipo:S.tipo, q:S.q};
   const count = patch => DB.order.filter(id=>matches(id, {...f, ...patch})).length;
-  const chipTema = [{id:'all', nombre:'Todas'}, ...DB.tags].map(x=>{
-    const on = S.tag===x.id;
-    return `<button type="button" class="chip" data-tag="${x.id}" aria-pressed="${on}">${x.nombre}${x.id==='all' ? '' : `<em>${count({tag:x.id})}</em>`}</button>`;
+  const optTema = [{id:'all', nombre:'Todas'}, ...DB.tags].map(x=>
+    `<option value="${x.id}"${S.tag===x.id?' selected':''}>${x.nombre}${x.id==='all' ? '' : ' ('+count({tag:x.id})+')'}</option>`).join('');
+  const optTipo = [{id:'all', nombre:'Todos'}, ...DB.tipos].map(x=>{
+    const soon = x.proximamente && !DB.order.some(id=>DB.tipo[id]===x.id);
+    return `<option value="${x.id}"${S.tipo===x.id?' selected':''}>${x.nombre}${x.id==='all' ? '' : soon ? ' (próximamente)' : ' ('+count({tipo:x.id})+')'}</option>`;
   }).join('');
-  const chipTipo = [{id:'all', nombre:'Todos'}, ...DB.tipos].map(x=>{
-    const on = S.tipo===x.id;
-    const total = x.id==='all' ? 1 : DB.order.filter(id=>DB.tipo[id]===x.id).length;
-    const soon = x.proximamente && !total;
-    return `<button type="button" class="chip${soon?' soon':''}" data-tipo="${x.id}" aria-pressed="${on}">${x.nombre}${x.id==='all' ? '' : `<em>${soon ? 'Próximamente' : count({tipo:x.id})}</em>`}</button>`;
-  }).join('');
-  const filters = `<div class="filters">
-    <div class="filter-group" role="group" aria-labelledby="fTema"><span class="filter-label" id="fTema">Temática</span><div class="chips">${chipTema}</div></div>
-    <div class="filter-group" role="group" aria-labelledby="fTipo"><span class="filter-label" id="fTipo">Tipo de recurso</span><div class="chips">${chipTipo}</div></div>
-  </div>`;
-
   const list = DB.order.filter(id=>matches(id, f)).map(id=>({id, ...DB.tools[id]}));
   const q = S.q.trim();
-  if(list.length){
-    return filters + `<p class="res-count" role="status">${plural(list.length,'resultado','resultados')}${q ? ` para <mark>${esc(q)}</mark>` : ''}</p>` + rowsList(list, true);
-  }
+  const filtered = S.tag!=='all' || S.tipo!=='all';
+  const filters = `<div class="filters">
+    <label class="dd${S.tag!=='all'?' on':''}"><span>Temática</span><select id="fTema" data-key="tag">${optTema}</select>${CHEVRON}</label>
+    <label class="dd${S.tipo!=='all'?' on':''}"><span>Tipo</span><select id="fTipo" data-key="tipo" aria-label="Tipo de recurso">${optTipo}</select>${CHEVRON}</label>
+    <div class="filters-end">
+      <p class="res-count" role="status">${plural(list.length,'resultado','resultados')}${q ? ` para <mark>${esc(q)}</mark>` : ''}</p>
+      ${filtered ? '<button type="button" class="link-btn" data-reset>Quitar filtros</button>' : ''}
+    </div>
+  </div>`;
+  if(list.length) return filters + toolCards(list);
   // Sin resultados: o es un tipo que aún no tiene nada, o la combinación de filtros no encaja
   const tp = tipoById(S.tipo);
   if(tp && !DB.order.some(id=>DB.tipo[id]===tp.id)){
-    return filters + `<div class="empty" role="status"><h3>${icon(KIND_ICON[tp.id]||'tool')}${tp.nombre}: próximamente</h3><p>${tp.descripcion||''}</p><button type="button" class="btn-small" data-reset>Ver todo el catálogo</button></div>`;
+    return filters + `<div class="empty"><h3>${icon(KIND_ICON[tp.id]||'tool')}${tp.nombre}: próximamente</h3><p>${tp.descripcion||''}</p><button type="button" class="btn-small" data-reset>Ver todo el catálogo</button></div>`;
   }
-  const why = q ? `Nada coincide con «${esc(q)}» con estos filtros. Prueba con otra palabra o quita los filtros.` : 'No hay recursos con esta combinación de temática y tipo. Quita uno de los dos filtros.';
-  return filters + `<div class="empty" role="status"><h3>${icon('search')}Ningún resultado</h3><p>${why}</p><button type="button" class="btn-small" data-reset>Quitar filtros</button></div>`;
+  const why = q ? `Nada coincide con «${esc(q)}» con estos filtros. Prueba con otra palabra o quita los filtros.` : 'No hay recursos con esta combinación de temática y tipo. Cambia uno de los dos desplegables.';
+  return filters + `<div class="empty"><h3>${icon('search')}Ningún resultado</h3><p>${why}</p><button type="button" class="btn-small" data-reset>Quitar filtros</button></div>`;
 }
 
 // ---------- Un módulo: todas sus unidades o bloques a la vista ----------
@@ -742,7 +764,7 @@ function moduleView(m){
         </div>
         ${list.length ? copyBtn(uid(u), 'Copiar enlace') : ''}
       </div>
-      ${list.length ? rowsList(list, false) : `<p class="unit-empty">${icon('tool')}Los recursos de ${w.este} ${w.sing.toLowerCase()} están en camino.</p>`}
+      ${list.length ? toolCards(list) : `<p class="unit-empty">${icon('tool')}Los recursos de ${w.este} ${w.sing.toLowerCase()} están en camino.</p>`}
     </section>`;
   }).join('');
   const sub = [m.lema, tp ? plural(n, tipoName(tp,1), tipoName(tp,2)) : '', plural(m.unidades.length, w.sing.toLowerCase(), w.plural)].filter(Boolean).join(' · ');
@@ -759,17 +781,19 @@ function render(){
 }
 function go(patch){ Object.assign(S, patch); render(); }
 
-// Clics dentro del catálogo (los botones se crean de nuevo en cada render)
+// Clics y cambios dentro del catálogo (los controles se crean de nuevo en cada render)
 stage.addEventListener('click', e=>{
   const b = e.target.closest('button');
   if(!b) return;
   if(b.dataset.copy) return copyLink(b);
-  if(b.hasAttribute('data-reset')){ clearSearch(false); go({tag:'all', tipo:'all'}); history.replaceState(null,'','#catalogo'); return; }
-  const key = b.dataset.tag ? 'tag' : b.dataset.tipo ? 'tipo' : null;
-  if(!key) return;
-  go({[key]: b.dataset[key]});
+  if(b.hasAttribute('data-reset')){ clearSearch(false); go({tag:'all', tipo:'all'}); history.replaceState(null,'','#catalogo'); }
+});
+stage.addEventListener('change', e=>{
+  const s = e.target.closest('select[data-key]');
+  if(!s) return;
+  go({[s.dataset.key]: s.value});
   history.replaceState(null,'','#catalogo');
-  const again = stage.querySelector(`[data-${key}="${b.dataset[key]}"]`);
+  const again = document.getElementById(s.id);
   if(again) again.focus({preventScroll:true});
 });
 
@@ -817,7 +841,7 @@ function applyRoute(){
     const sec = r.unit && document.getElementById(unitHash(r.m, r.unit));
     if(sec) sec.scrollIntoView({behavior: calm ? 'auto' : 'smooth', block:'start'});
     else scrollToCatalog();
-    if(r.focus){ const c = stage.querySelector('[data-tag]'); if(c) c.focus({preventScroll:true}); }
+    if(r.focus){ const c = document.getElementById('fTema'); if(c) c.focus({preventScroll:true}); }
     else if(!r.unit && r.view!=='todo'){ const h = document.getElementById('modTitle'); if(h) h.focus({preventScroll:true}); }
   }, 60);
   return true;
