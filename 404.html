@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#6B7028">
+<title>404 · esplora</title>
+<style>
+  :root {
+    --bg: #F7F5EC;
+    --ink: #2B2D14;
+    --muted: #6A6C4A;
+    --brand: #6B7028;
+    --card: #FFFFFF;
+    --line: #E1DEC9;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1B1C0E;
+      --ink: #F1EFDC;
+      --muted: #A9AB82;
+      --brand: #A7AE4B;
+      --card: #252714;
+      --line: #3A3C20;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    display: grid;
+    place-items: center;
+    padding: 24px 16px;
+  }
+  main { width: 100%; max-width: 560px; text-align: center; }
+  .spore { width: 120px; height: 120px; margin: 0 auto 8px; }
+  .spore svg { width: 100%; height: 100%; overflow: visible; }
+  .sprout { transform-origin: 60px 78px; animation: sway 4s ease-in-out infinite; }
+  @keyframes sway {
+    0%, 100% { transform: rotate(-4deg); }
+    50% { transform: rotate(5deg); }
+  }
+  .code {
+    font-size: clamp(64px, 18vw, 104px);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: var(--brand);
+    margin: 0;
+  }
+  h1 { font-size: clamp(22px, 5vw, 28px); margin: 12px 0 8px; letter-spacing: -0.01em; }
+  p { color: var(--muted); line-height: 1.55; margin: 0 0 20px; font-size: 16px; }
+  .btn {
+    display: inline-block;
+    background: var(--brand);
+    color: #fff;
+    text-decoration: none;
+    padding: 12px 22px;
+    border-radius: 999px;
+    font-weight: 600;
+    transition: transform .15s ease, opacity .15s ease;
+  }
+  @media (prefers-color-scheme: dark) { .btn { color: #1B1C0E; } }
+  .btn:hover { transform: translateY(-1px); opacity: .92; }
+  .btn:focus-visible, .tool:focus-visible { outline: 3px solid var(--brand); outline-offset: 3px; }
+  .tool {
+    display: none;
+    margin: 28px auto 0;
+    max-width: 420px;
+    text-align: left;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 16px 18px;
+    text-decoration: none;
+    color: inherit;
+  }
+  .tool.show { display: block; }
+  .tool small { color: var(--muted); display: block; margin-bottom: 4px; font-size: 13px; }
+  .tool strong { display: block; font-size: 17px; margin-bottom: 2px; }
+  .tool span { color: var(--muted); font-size: 14px; line-height: 1.4; }
+  footer { margin-top: 32px; font-size: 14px; color: var(--muted); letter-spacing: .02em; }
+  @media (prefers-reduced-motion: reduce) { .sprout { animation: none; } }
+</style>
+</head>
+<body>
+<main>
+  <div class="spore" aria-hidden="true">
+    <svg viewBox="0 0 120 120">
+      <ellipse cx="60" cy="100" rx="26" ry="5" fill="currentColor" opacity=".08"/>
+      <circle cx="60" cy="86" r="14" fill="#6B7028"/>
+      <circle cx="55" cy="81" r="3.5" fill="#fff" opacity=".35"/>
+      <g class="sprout">
+        <path d="M60 78 C60 62 60 54 60 44" stroke="#6B7028" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <circle cx="60" cy="40" r="5" fill="#6B7028" opacity=".5"/>
+      </g>
+    </svg>
+  </div>
+
+  <p class="code">404</p>
+  <h1>Aquí no ha brotado nada</h1>
+  <p>La espora ha caído en terreno equivocado. La página que buscas no existe, se ha movido o nunca llegó a germinar.</p>
+  <a class="btn" id="home" href="/">Volver a explorar</a>
+
+  <a class="tool" id="tool" href="#">
+    <small>¿Y si pruebas esto?</small>
+    <strong id="tool-title"></strong>
+    <span id="tool-desc"></span>
+  </a>
+
+  <footer>esplora</footer>
+</main>
+
+<script>
+(function () {
+  // Funciona tanto en github.io/<repo>/ como en un dominio propio.
+  var base = '/';
+  if (location.hostname.slice(-10) === '.github.io') {
+    var seg = location.pathname.split('/')[1];
+    if (seg) base = '/' + seg + '/';
+  }
+  document.getElementById('home').href = base + '#explorar';
+
+  // Sugerencia al azar del catálogo (si el JSON no carga, simplemente no se muestra).
+  fetch(base + 'data/estructura.json')
+    .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+    .then(function (data) {
+      var list = Object.values(data.herramientas || {}).filter(function (t) { return t && t.url && t.titulo; });
+      if (!list.length) return;
+      var t = list[Math.floor(Math.random() * list.length)];
+      var a = document.getElementById('tool');
+      a.href = base + t.url;
+      document.getElementById('tool-title').textContent = t.titulo;
+      document.getElementById('tool-desc').textContent = t.descripcion || '';
+      a.classList.add('show');
+    })
+    .catch(function () {});
+})();
+</script>
+</body>
+</html>
