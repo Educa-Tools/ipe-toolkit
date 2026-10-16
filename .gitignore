@@ -1,0 +1,22 @@
+# Archivos que nunca deben publicarse (la web es pública)
+
+# Nómina con datos personales reales
+salario-nomina*.html
+
+# Notas internas del proyecto
+esplora-contexto-claude-code.md
+
+# Documentos de Word (llevan el nombre del autor en los metadatos)
+*.docx
+~$*
+
+# Borradores de la portada
+index-prueba*
+index-renovada*
+
+# Configuración local de Claude Code
+.claude/
+
+# Variables de entorno y claves
+.env
+.env.*
