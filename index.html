@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <script>/* Esplora Labs: recupera el progreso guardado con el nombre antiguo (educa…) */try{for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(/^educa/.test(k)){var n=k.replace(/^educatools/,'esplora').replace(/^educa/,'esplora');if(localStorage.getItem(n)===null)localStorage.setItem(n,localStorage.getItem(k));}}}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Esplora Labs · Herramientas educativas</title>
-<meta name="description" content="Herramientas interactivas para Itinerario Personal para la Empleabilidad I y II, organizadas por unidad didáctica y por temática.">
+<title>Esplora · Herramientas y recursos didácticos</title>
+<meta name="description" content="Herramientas y recursos didácticos sobre empleabilidad y emprendimiento para IPE 1, IPE 2 y otras materias afines. Se usan en el navegador, sin instalar nada.">
 <meta name="theme-color" content="#6B7028">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath fill='%236B7028' d='M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="fuentes/fuentes.css">
@@ -13,14 +13,12 @@
   /* Tokens: solo los de branding/brand-kit-especificacion.md */
   :root{
     --bg:#FBFCEF;
-    --canvas:#FAF7F2;
     --surface:#FFFFFF;
     --surface-alt:#F5F6E4;
     --ink:#1E1C1A;
     --ink-soft:#4A463F;
     --ink-muted:#8B847A;
     --line:#E8E1D6;
-    --line-soft:#EEEFD8;
     --olive-deep:#6B7028;
     --olive-mid:#A8AD5C;
     --lime-soft:#E8EDC4;
@@ -48,10 +46,6 @@
   .skip{position:absolute;left:12px;top:-60px;z-index:50;background:var(--ink);color:#fff;font-weight:700;padding:12px 18px;border-radius:var(--radius-pill);text-decoration:none;}
   .skip:focus{top:12px;}
 
-  /* Aparición suave al bajar por la página (solo si hay JavaScript) */
-  .js .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease-out),transform .7s var(--ease-out);}
-  .js .reveal.in{opacity:1;transform:none;}
-
   /* ---------- Barra superior flotante (píldora) ---------- */
   .nav{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);z-index:30;margin-top:12px;}
   .nav-pill{
@@ -64,8 +58,7 @@
   .nav-brand{display:inline-flex;align-items:center;gap:8px;min-height:44px;text-decoration:none;color:var(--ink);}
   .nav-brand svg{width:22px;height:22px;transition:rotate .5s var(--ease-out);}
   .nav-brand:hover svg{rotate:90deg;}
-  .nav-brand b{font-family:var(--font-display);font-weight:700;font-size:1.1rem;letter-spacing:-0.3px;}
-  .nav-brand b span{color:var(--olive-mid);}
+  .nav-brand b{font-family:var(--font-display);font-weight:700;font-size:1.15rem;letter-spacing:-0.3px;}
   .nav-links{display:flex;align-items:center;gap:2px;}
   .nav-links a{
     display:inline-flex;align-items:center;min-height:44px;
@@ -77,125 +70,224 @@
   .nav-links a.nav-cta:hover{background:var(--olive-deep);}
   @media (max-width:620px){.nav-links a.hide-sm{display:none;}.nav-pill{padding-left:14px;}.nav-links a.nav-cta{padding:0 16px;}}
 
-  /* ---------- Portada ---------- */
-  .hero{padding-block:56px 88px;}
-  .hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:center;}
-
-  /* Etiqueta tipo pegatina sobre el titular (la única de la página) */
-  .badge{display:inline-flex;align-items:center;gap:8px;background:var(--lime-soft);border:var(--frame);border-radius:var(--radius-pill);padding:6px 14px;font-size:.82rem;font-weight:600;margin:0 0 26px;}
-  .badge svg{width:14px;height:14px;color:var(--olive-deep);animation:twinkle 3.2s ease-in-out infinite;}
-  @keyframes twinkle{0%,80%,100%{rotate:0deg;scale:1;}88%{rotate:45deg;scale:1.25;}}
-
-  .hero h1{
-    font-family:var(--font-display);font-weight:700;font-size:clamp(2.7rem,6.6vw,4.8rem);line-height:1.02;
-    letter-spacing:-1.8px;margin:0 0 26px;text-wrap:balance;
-  }
-  .hero h1 em{font-style:italic;font-weight:600;color:var(--olive-deep);}
-  /* Rotulador fluorescente que se "pinta" detrás de la palabra al cargar */
-  .mark{position:relative;z-index:0;white-space:nowrap;}
-  .mark::before{
-    content:"";position:absolute;z-index:-1;left:-.1em;right:-.12em;bottom:.06em;height:.46em;
-    background:var(--lime-mid);border-radius:.12em .3em .18em .4em;
-    transform:skewX(-8deg) scaleX(0);transform-origin:left center;
-    animation:paint .75s var(--ease-out) .5s forwards;
-  }
-  @keyframes paint{to{transform:skewX(-8deg) scaleX(1);}}
-  .hero-lede{font-size:1.2rem;line-height:1.6;color:var(--ink-soft);max-width:46ch;margin:0 0 36px;}
-  .cta-row{display:flex;flex-wrap:wrap;align-items:center;gap:20px;}
-
-  .btn{
-    display:inline-flex;align-items:center;gap:10px;min-height:52px;text-decoration:none;cursor:pointer;
-    font-weight:700;font-size:1rem;padding:0 26px;border-radius:var(--radius-pill);white-space:nowrap;color:var(--ink);
-  }
-  .btn svg{width:17px;height:17px;transition:translate .15s ease;}
-  .btn-sticker{background:var(--lime-mid);border:1.5px solid var(--ink);box-shadow:var(--sticker);transition:transform .12s ease,box-shadow .12s ease;}
-  .btn-sticker:hover{transform:translate(-2px,-2px);box-shadow:var(--sticker-lift);}
-  .btn-sticker:hover svg{translate:3px 0;}
-  .btn-sticker:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--ink);}
-  .btn-link{padding:0 4px;font-weight:600;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:6px;}
-  .btn-link:hover{color:var(--olive-deep);}
-
-  /* Cifras del catálogo; el 0 va rodeado con un círculo hecho a mano */
-  .facts{list-style:none;margin:48px 0 0;padding:20px 0 0;border-top:var(--frame);display:flex;flex-wrap:wrap;gap:12px 44px;}
-  .facts li{display:flex;flex-direction:column;}
-  .facts b{position:relative;align-self:flex-start;font-family:var(--font-display);font-weight:700;font-size:2.1rem;line-height:1.1;font-variant-numeric:tabular-nums;}
-  .facts span{font-size:.86rem;color:var(--ink-soft);}
-  .doodle{fill:none;stroke:var(--olive-deep);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
-  .circle-doodle{position:absolute;left:-16px;top:-10px;width:calc(100% + 32px);height:calc(100% + 20px);overflow:visible;pointer-events:none;}
-  .circle-doodle path{stroke-dasharray:160;stroke-dashoffset:160;transition:stroke-dashoffset 1s var(--ease-out) .5s;}
-  .facts.in .circle-doodle path{stroke-dashoffset:0;}
-
-  /* Recortes de las herramientas: cada uno imita la cabecera real de su HTML, alrededor de la doble estrella */
-  .wall{position:relative;width:100%;max-width:520px;height:580px;justify-self:center;}
-  .wall-star{position:absolute;left:50%;top:50%;width:112px;translate:-50% -50%;z-index:3;overflow:visible;pointer-events:none;animation:float 6s ease-in-out 1.2s infinite;}
+  /* ---------- Portada: la marca a un lado, la elección de materia al otro ---------- */
+  .hero{padding-block:48px 88px;}
+  /* En escritorio: titular y texto a la izquierda, selector a la derecha. En móvil: titular, selector y texto */
+  .hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,470px);grid-template-rows:auto auto;column-gap:64px;row-gap:28px;}
+  .hero-grid > :first-child{align-self:end;}
+  .picker{grid-column:2;grid-row:1 / span 2;align-self:center;}
+  .hero-more{grid-column:1;grid-row:2;}
+  .hero h1{margin:0;}
+  .wordmark{display:flex;align-items:flex-start;gap:.08em;font-family:var(--font-display);font-weight:700;font-size:clamp(3.6rem,9.5vw,6.6rem);line-height:.92;letter-spacing:-.045em;}
+  .wordmark svg{flex:none;width:.5em;height:.44em;margin-top:.02em;overflow:visible;}
   .star-big,.star-small{transform-box:fill-box;transform-origin:center;}
-  .star-big{animation:starIn .9s var(--ease-out) both;}
-  .star-small{animation:starIn .7s var(--ease-out) .3s both,twinkle 4s ease-in-out 1.5s infinite;}
-  @keyframes starIn{from{opacity:0;scale:.3;rotate:-90deg;}to{opacity:1;scale:1;rotate:0deg;}}
-  @keyframes float{50%{translate:-50% calc(-50% - 8px);}}
+  .star-small{animation:twinkle 4s ease-in-out 1.2s infinite;}
+  @keyframes twinkle{0%,80%,100%{rotate:0deg;scale:1;}88%{rotate:45deg;scale:1.25;}}
+  .h1-sub{display:block;margin-top:22px;font-family:var(--font-display);font-weight:500;font-size:clamp(1.45rem,2.7vw,2.05rem);line-height:1.18;letter-spacing:-.4px;max-width:25ch;text-wrap:balance;}
+  .hero-lede{font-size:1.12rem;line-height:1.65;color:var(--ink-soft);max-width:46ch;margin:0;}
+  .hero-resume{margin:20px 0 0;font-size:.95rem;color:var(--ink-soft);}
+  .hero-resume a{color:var(--ink);font-weight:700;text-underline-offset:4px;}
 
-  .clip{
-    position:absolute;z-index:2;width:47%;display:flex;flex-direction:column;overflow:hidden;
-    text-decoration:none;color:var(--ink);background:var(--bg);border:var(--frame);border-radius:12px;
-    box-shadow:3px 3px 0 var(--ink);
-    rotate:var(--r);transition:rotate .25s var(--ease-out),translate .25s var(--ease-out),box-shadow .25s ease;
-    animation:drop .7s var(--ease-out) backwards;animation-delay:calc(var(--i) * 110ms + 250ms);
+  /* Selector de materia: una ficha de cuaderno con una fila por opción */
+  .picker{background:var(--surface);border:var(--frame);border-radius:var(--radius-card);box-shadow:var(--sticker);padding:26px 26px 18px;}
+  .picker-q{font-family:var(--font-display);font-weight:700;font-size:1.45rem;line-height:1.2;margin:0 0 14px;letter-spacing:-.3px;}
+  .picker-list{list-style:none;margin:0;padding:0;}
+  .picker-list li + li{border-top:1px solid var(--line);}
+  .pick{
+    display:grid;grid-template-columns:92px 1fr auto;align-items:center;gap:14px;min-height:80px;padding:12px 10px;margin-inline:-10px;
+    text-decoration:none;color:var(--ink);border-radius:12px;transition:background .15s ease;
   }
-  .clip:hover,.clip:focus-visible{rotate:0deg;translate:0 -6px;z-index:5;box-shadow:6px 6px 0 var(--c);}
-  @keyframes drop{from{opacity:0;translate:0 -30px;rotate:calc(var(--r) * 3);}}
-  /* Barra superior, como la de cada herramienta */
-  .clip-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--c);color:#fff;font-size:.62rem;font-weight:700;padding:6px 10px;border-bottom:var(--frame);white-space:nowrap;}
-  .clip-bar svg{width:9px;height:9px;margin-right:4px;vertical-align:-1px;}
-  .clip-bar span:last-child{overflow:hidden;text-overflow:ellipsis;opacity:.9;}
-  .clip-body{display:flex;flex-direction:column;gap:6px;padding:12px 14px 12px;}
-  .clip-kick{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);}
-  .clip-h{font-family:var(--font-display);font-weight:600;font-size:1.12rem;line-height:1.12;letter-spacing:-.3px;}
-  .clip-h em{font-style:italic;color:var(--c);}
-  .clip-art{display:block;width:100%;height:auto;margin-top:4px;}
-  .clip-go{display:inline-flex;align-items:center;gap:5px;font-size:.74rem;font-weight:700;}
-  .clip-go svg{width:13px;height:13px;color:var(--c);transition:translate .15s ease;}
-  .clip:hover .clip-go svg{translate:3px 0;}
-  .clip.n1{left:0;top:0;--r:-4deg;}
-  .clip.n2{right:0;top:26px;--r:3deg;}
-  .clip.n3{left:3%;bottom:18px;--r:3deg;}
-  .clip.n4{right:1%;bottom:0;--r:-3deg;}
-  /* Garabato: "¡Prueba una!" con flecha hacia los recortes */
-  .wall-hint{position:absolute;right:4px;bottom:-58px;flex-direction:row-reverse;display:flex;align-items:flex-end;gap:4px;font-weight:700;font-size:.92rem;color:var(--olive-deep);rotate:-4deg;}
-  .wall-hint svg{width:56px;height:44px;overflow:visible;}
-  .wall-hint path{stroke-dasharray:120;stroke-dashoffset:120;animation:drawIn .9s var(--ease-out) 1.2s forwards;}
-  @keyframes drawIn{to{stroke-dashoffset:0;}}
+  .pick:hover{background:var(--lime-soft);}
+  .pick-tag{font-family:var(--font-display);font-weight:700;font-size:1.75rem;line-height:1;letter-spacing:-.8px;color:var(--olive-deep);white-space:nowrap;}
+  .pick-tag svg{width:30px;height:30px;color:var(--olive-deep);}
+  .pick-tx{display:flex;flex-direction:column;min-width:0;}
+  .pick-tx b{font-weight:700;font-size:1.04rem;line-height:1.3;}
+  .pick-tx small{font-size:.86rem;color:var(--ink-soft);line-height:1.4;}
+  .pick-go{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--ink);background:var(--lime-mid);display:flex;align-items:center;justify-content:center;transition:translate .15s ease;}
+  .pick-go svg{width:17px;height:17px;}
+  .pick:hover .pick-go{translate:3px 0;}
+  .all-link{display:inline-flex;align-items:center;min-height:44px;margin-top:8px;font-weight:600;color:var(--ink);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:6px;}
+  .all-link:hover{color:var(--olive-deep);}
+  /* El único momento de entrada de la página: las opciones aparecen una tras otra */
+  .picker-list li{animation:rise .55s var(--ease-out) backwards;}
+  .picker-list li:nth-child(1){animation-delay:.15s;}
+  .picker-list li:nth-child(2){animation-delay:.25s;}
+  .picker-list li:nth-child(3){animation-delay:.35s;}
+  @keyframes rise{from{opacity:0;translate:0 12px;}}
 
-  @media (max-width:860px){
-    .hero{padding-block:36px 64px;}
-    .hero-grid{grid-template-columns:1fr;gap:44px;}
-    .wall{height:auto;max-width:520px;display:grid;grid-template-columns:1fr 1fr;gap:18px 14px;}
-    .wall-star{position:relative;left:auto;top:auto;translate:none;grid-column:1 / -1;justify-self:center;width:84px;animation:none;}
-    .clip{position:relative;left:auto;right:auto;top:auto;bottom:auto;width:auto;}
-    .clip.n1,.clip.n2,.clip.n3,.clip.n4{left:auto;right:auto;top:auto;bottom:auto;}
-    .clip.n2,.clip.n4{margin-top:16px;}
-    .clip.n1,.clip.n4{--r:-2deg;}
-    .clip.n2,.clip.n3{--r:2deg;}
-    .wall-hint{display:none;}
+  @media (max-width:980px){
+    .hero{padding-block:32px 64px;}
+    .hero-grid{grid-template-columns:1fr;row-gap:32px;}
+    .picker,.hero-more{grid-column:auto;grid-row:auto;}
+    .picker{max-width:560px;}
+    .h1-sub{margin-top:16px;}
   }
-  @media (max-width:420px){.clip-bar span:last-child{display:none;}.clip-h{font-size:1rem;}}
+  @media (max-width:520px){
+    .picker{padding:20px 18px 12px;}
+    .pick{grid-template-columns:64px 1fr auto;gap:10px;}
+    .pick-tag{font-size:1.35rem;}
+  }
 
   /* ---------- Secciones ---------- */
-  section.block{padding-block:112px;}
-  @media (max-width:620px){section.block{padding-block:72px;}}
-  h2.sec-title{font-family:var(--font-display);font-weight:700;font-size:clamp(2rem,4.6vw,3.2rem);line-height:1.06;letter-spacing:-1px;margin:0 0 18px;text-wrap:balance;}
-  .sec-lede{color:var(--ink-soft);font-size:1.12rem;max-width:58ch;margin:0;}
+  section.block{padding-block:104px;}
+  @media (max-width:620px){section.block{padding-block:68px;}}
+  h2.sec-title{font-family:var(--font-display);font-weight:700;font-size:clamp(2rem,4.6vw,3.1rem);line-height:1.06;letter-spacing:-1px;margin:0 0 16px;text-wrap:balance;}
+  .sec-lede{color:var(--ink-soft);font-size:1.1rem;max-width:58ch;margin:0;}
 
-  /* El proyecto: franja oliva con la línea de tiempo de una sesión */
+  /* ---------- Catálogo ---------- */
+  .catalog{border-top:var(--frame);scroll-margin-top:90px;}
+  .cat-head{margin-bottom:32px;}
+  .finder{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;margin-bottom:28px;}
+  .seg{display:inline-flex;gap:4px;padding:4px;background:var(--surface);border:var(--frame);border-radius:var(--radius-pill);}
+  .seg a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 20px;border-radius:var(--radius-pill);text-decoration:none;font-weight:700;font-size:.94rem;color:var(--ink-soft);white-space:nowrap;transition:background .15s ease,color .15s ease;}
+  .seg a:hover{background:var(--lime-soft);color:var(--ink);}
+  .seg a[aria-current="true"]{background:var(--ink);color:#fff;}
+  @media (max-width:520px){.seg{display:grid;grid-template-columns:repeat(3,1fr);width:100%;}.seg a{padding:0 8px;}}
+
+  .search{position:relative;flex:1 1 300px;}
+  .search svg{position:absolute;left:18px;top:50%;translate:0 -50%;width:19px;height:19px;color:var(--olive-deep);pointer-events:none;}
+  .search input{
+    width:100%;min-height:52px;font:inherit;font-size:1rem;color:var(--ink);
+    background:var(--surface);border:var(--frame);border-radius:var(--radius-pill);padding:0 48px;
+    transition:box-shadow .12s ease;
+  }
+  .search input::placeholder{color:var(--ink-muted);}
+  .search input:focus{outline:none;box-shadow:var(--sticker);}
+  .search input::-webkit-search-cancel-button{display:none;}
+  .search-clear{position:absolute;right:6px;top:50%;translate:0 -50%;width:40px;height:40px;border:none;border-radius:50%;background:none;cursor:pointer;color:var(--ink-soft);display:flex;align-items:center;justify-content:center;}
+  .search-clear:hover{background:var(--lime-soft);color:var(--ink);}
+  .search-clear svg{position:static;translate:none;width:16px;height:16px;color:currentColor;}
+
+  /* Filtros: temática y tipo de recurso */
+  .filters{display:grid;gap:14px;margin-bottom:26px;}
+  .filter-group{display:grid;grid-template-columns:150px 1fr;align-items:start;gap:8px 16px;}
+  .filter-label{font-weight:700;font-size:.95rem;padding-top:10px;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;cursor:pointer;background:var(--surface);border:var(--frame);border-radius:var(--radius-pill);color:var(--ink);font-weight:600;font-size:.92rem;transition:background .15s ease;}
+  .chip:hover{background:var(--lime-soft);}
+  .chip em{font-style:normal;font-size:.76rem;font-weight:700;background:var(--lime-soft);border-radius:var(--radius-pill);padding:1px 8px;}
+  .chip.soon{border-style:dashed;color:var(--ink-soft);}
+  .chip.soon em{background:var(--surface-alt);color:var(--ink-soft);}
+  .chip[aria-pressed="true"]{background:var(--ink);color:#fff;}
+  .chip[aria-pressed="true"] em{background:var(--lime-mid);color:var(--ink);}
+  @media (max-width:720px){.filter-group{grid-template-columns:1fr;}.filter-label{padding-top:0;}}
+
+  .res-count{margin:0 0 12px;font-weight:600;color:var(--ink-soft);}
+  .res-count mark{background:var(--lime-soft);color:var(--ink);padding:0 6px;border-radius:6px;}
+
+  /* Lista de recursos: filas dentro de una ficha, con el mini dibujo de cada uno */
+  .res-list{list-style:none;margin:0;padding:0;background:var(--surface);border:var(--frame);border-radius:var(--radius-card);overflow:hidden;}
+  .res-list li + li{border-top:1px solid var(--line);}
+  .res{display:grid;grid-template-columns:132px 1fr auto;align-items:center;gap:22px;padding:18px 22px;text-decoration:none;color:var(--ink);transition:background .15s ease;}
+  .res:hover,.res:focus-visible{background:color-mix(in srgb,var(--c) 7%,#FFFFFF);}
+  .res:focus-visible{outline-offset:-3px;}
+  .res-art{display:flex;align-items:center;justify-content:center;height:68px;border-radius:12px;background:color-mix(in srgb,var(--c) 10%,#FFFFFF);border:1px solid color-mix(in srgb,var(--c) 30%,#FFFFFF);padding:10px;}
+  .clip-art{display:block;width:100%;height:auto;}
+  .res-main{display:flex;flex-direction:column;gap:3px;min-width:0;}
+  .res-t{font-family:var(--font-display);font-weight:600;font-size:1.2rem;line-height:1.25;}
+  .res-d{color:var(--ink-soft);font-size:.94rem;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;max-width:68ch;}
+  .res-meta{font-size:.86rem;font-weight:600;color:var(--ink-soft);}
+  .flags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;}
+  .flag{display:inline-flex;align-items:center;gap:5px;font-size:.72rem;font-weight:700;line-height:1;padding:5px 9px;border-radius:var(--radius-pill);border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);white-space:nowrap;}
+  .flag svg{width:12px;height:12px;color:var(--c);}
+  .flag.on{background:var(--lime-soft);border-color:var(--lime-mid);color:var(--ink);}
+  .res-go{flex:none;width:40px;height:40px;border-radius:50%;border:1.5px solid var(--ink);display:flex;align-items:center;justify-content:center;background:var(--surface);transition:translate .15s ease,background .15s ease;}
+  .res-go svg{width:17px;height:17px;}
+  .res:hover .res-go{translate:3px 0;background:var(--lime-mid);}
+  @media (max-width:720px){
+    .res{grid-template-columns:1fr auto;gap:14px;padding:16px;}
+    .res-art{display:none;}
+    .res-t{font-size:1.1rem;}
+  }
+
+  /* Al cambiar un filtro, las filas nuevas entran con un pequeño retardo para que se note el cambio */
+  .pop{animation:rise .35s var(--ease-out) backwards;animation-delay:calc(var(--i,0) * 30ms);}
+
+  /* Estados vacíos y de carga */
+  .empty{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:28px;background:var(--surface);border:1px dashed var(--ink-muted);border-radius:var(--radius-card);}
+  .empty h3{display:flex;align-items:center;gap:10px;margin:0;font-family:var(--font-display);font-weight:700;font-size:1.3rem;}
+  .empty h3 svg{width:22px;height:22px;color:var(--olive-deep);}
+  .empty p{margin:0;color:var(--ink-soft);max-width:60ch;}
+  .btn-small{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;margin-top:6px;cursor:pointer;font-weight:700;font-size:.92rem;color:var(--ink);background:var(--lime-mid);border:1.5px solid var(--ink);border-radius:var(--radius-pill);box-shadow:var(--sticker);transition:transform .12s ease,box-shadow .12s ease;}
+  .btn-small:hover{transform:translate(-2px,-2px);box-shadow:var(--sticker-lift);}
+  .load-msg{background:var(--surface);border:1px dashed var(--ink-muted);border-radius:var(--radius-card);padding:28px;color:var(--ink-soft);text-align:center;}
+  .loading{display:flex;align-items:center;justify-content:center;gap:10px;}
+  .loading svg{width:20px;height:20px;color:var(--olive-deep);animation:spin 1.2s linear infinite;}
+  @keyframes spin{to{rotate:360deg;}}
+
+  /* Vista de un módulo: sus unidades o bloques, cada uno con su lista */
+  .mod-head{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:12px 24px;margin-bottom:22px;}
+  .mod-head > div{flex:1 1 320px;}
+  .mod-title{font-family:var(--font-display);font-weight:700;font-size:clamp(1.6rem,3.4vw,2.3rem);line-height:1.12;margin:0 0 6px;text-wrap:balance;}
+  .mod-title:focus{outline:none;}
+  .mod-title:focus-visible{outline:3px solid var(--ink);}
+  .mod-desc{margin:0;color:var(--ink-soft);}
+  .unit-index{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 40px;padding:0;list-style:none;}
+  .unit-chip{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:var(--radius-pill);background:var(--surface);border:var(--frame);color:var(--ink);font-weight:600;font-size:.92rem;text-decoration:none;transition:background .15s ease;}
+  .unit-chip:hover{background:var(--lime-soft);}
+  .unit-chip b{color:var(--olive-deep);}
+  .unit-chip.soon{color:var(--ink-soft);border-style:dashed;}
+  @media (max-width:620px){.unit-chip .chip-t{display:none;}.unit-chip{min-width:56px;justify-content:center;}}
+  .unit-list{display:grid;gap:44px;}
+  .unit-sec{scroll-margin-top:100px;}
+  .unit-head{display:flex;align-items:center;gap:16px;padding-bottom:14px;margin-bottom:16px;border-bottom:var(--frame);}
+  .unit-num{flex:none;font-family:var(--font-display);font-weight:700;font-size:2.3rem;line-height:1;color:var(--olive-deep);min-width:50px;font-variant-numeric:tabular-nums;}
+  .unit-head-tx{flex:1;min-width:0;}
+  .unit-meta{display:block;font-size:.86rem;font-weight:600;color:var(--ink-soft);}
+  .unit-title{font-family:var(--font-display);font-weight:600;font-size:1.35rem;line-height:1.22;margin:2px 0 0;text-wrap:balance;}
+  @media (max-width:620px){.unit-num{font-size:1.9rem;min-width:40px;}}
+  .unit-empty{display:flex;align-items:center;gap:10px;margin:0;padding:20px 22px;border:1px dashed var(--ink-muted);border-radius:var(--radius-card);background:var(--surface);color:var(--ink-soft);font-size:.97rem;}
+  .unit-empty svg{width:20px;height:20px;flex:none;color:var(--olive-deep);}
+
+  /* Copiar el enlace directo a un módulo o a una unidad */
+  .copy-link{display:inline-flex;align-items:center;gap:6px;flex:none;min-height:40px;padding:0 14px;cursor:pointer;font-weight:600;font-size:.82rem;color:var(--ink-soft);background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-pill);transition:background .15s ease,color .15s ease;}
+  .copy-link:hover{background:var(--lime-soft);color:var(--ink);border-color:var(--ink);}
+  .copy-link.done{background:var(--lime-mid);color:var(--ink);border-color:var(--ink);}
+  .copy-link svg{width:14px;height:14px;}
+  @media (max-width:620px){.unit-head .copy-link span{display:none;}.unit-head .copy-link{padding:0 12px;}}
+
+  /* Seguir donde lo dejaste: recursos con trabajo guardado en este navegador */
+  .resume{scroll-margin-top:100px;margin-bottom:28px;padding:20px 22px;background:var(--surface);border:var(--frame);border-radius:var(--radius-card);box-shadow:var(--sticker);}
+  .resume-h{display:flex;align-items:center;gap:10px;margin:0 0 4px;font-family:var(--font-display);font-weight:700;font-size:1.25rem;}
+  .resume-h svg{width:20px;height:20px;color:var(--olive-deep);}
+  .resume-sub{margin:0 0 14px;font-size:.9rem;color:var(--ink-soft);}
+  .resume-list{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px;}
+  .resume-item{
+    display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 8px 0 14px;text-decoration:none;color:var(--ink);
+    background:var(--bg);border:var(--frame);border-left:6px solid var(--c);border-radius:12px;font-weight:600;font-size:.94rem;
+    transition:translate .15s ease,box-shadow .15s ease;
+  }
+  .resume-item:hover,.resume-item:focus-visible{translate:-2px -2px;box-shadow:3px 3px 0 var(--c);}
+  .resume-item small{display:block;font-size:.72rem;font-weight:600;color:var(--ink-soft);}
+  .resume-go{display:inline-flex;align-items:center;gap:4px;font-size:.78rem;font-weight:700;background:var(--lime-mid);border-radius:var(--radius-pill);padding:5px 10px;}
+  .resume-go svg{width:13px;height:13px;}
+
+  /* ---------- Tipos de recurso: titular a un lado, filas al otro ---------- */
+  .kinds{border-top:var(--frame);}
+  .kinds-grid{display:grid;grid-template-columns:5fr 7fr;gap:64px;align-items:start;}
+  .kinds-grid > div:first-child{position:sticky;top:110px;}
+  @media (max-width:860px){.kinds-grid{grid-template-columns:1fr;gap:28px;}.kinds-grid > div:first-child{position:static;}}
+  .kind-list{list-style:none;margin:0;padding:0;}
+  .kind{display:grid;grid-template-columns:auto 1fr;gap:6px 22px;padding:28px 0;border-bottom:var(--frame);}
+  .kind:first-child{padding-top:0;}
+  .kind-icon{grid-row:span 3;width:52px;height:52px;border-radius:14px;border:var(--frame);background:var(--lime-soft);color:var(--olive-deep);display:flex;align-items:center;justify-content:center;}
+  .kind-icon svg{width:24px;height:24px;}
+  .kind.soon .kind-icon{background:var(--surface);border-style:dashed;}
+  .kind h3{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;font-family:var(--font-display);font-size:1.45rem;font-weight:700;margin:0;line-height:1.2;}
+  .kind h3 small{font-family:var(--font-ui);font-size:.82rem;font-weight:700;color:var(--ink-soft);}
+  .kind p{margin:0;color:var(--ink-soft);}
+  .kind a{justify-self:start;display:inline-flex;align-items:center;min-height:44px;font-weight:700;color:var(--ink);text-underline-offset:5px;}
+  .kind a:hover{color:var(--olive-deep);}
+
+  /* ---------- El proyecto: franja oliva con la línea de tiempo de una sesión ---------- */
   .about{background:var(--olive-deep);color:#fff;position:relative;overflow:hidden;}
   .about h2.sec-title{color:#fff;}
   .about .sec-lede{color:#fff;}
-  .about-deco{position:absolute;right:-70px;top:-70px;width:260px;height:260px;color:var(--olive-mid);opacity:.35;pointer-events:none;animation:slowspin 60s linear infinite;}
-  @keyframes slowspin{to{rotate:360deg;}}
-  .about-head{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:end;margin-bottom:72px;}
+  .about-deco{position:absolute;right:-70px;top:-70px;width:260px;height:260px;color:var(--olive-mid);opacity:.35;pointer-events:none;}
+  .about-head{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:end;margin-bottom:64px;}
   .about-head h2.sec-title{margin:0;}
-  @media (max-width:860px){.about-head{grid-template-columns:1fr;gap:20px;margin-bottom:48px;}}
+  @media (max-width:860px){.about-head{grid-template-columns:1fr;gap:20px;margin-bottom:44px;}}
   .session-t{font-family:var(--font-display);font-weight:600;font-style:italic;font-size:1.35rem;color:var(--lime-soft);margin:0 0 28px;}
-
   .steps{position:relative;list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:28px;}
   /* Línea discontinua que une las paradas y se dibuja al aparecer */
   .steps::before{
@@ -208,14 +300,9 @@
   .step-dot{
     position:relative;width:60px;height:60px;border-radius:50%;background:var(--lime-soft);color:var(--ink);border:1.5px solid var(--ink);
     display:flex;align-items:center;justify-content:center;margin-bottom:20px;box-shadow:3px 3px 0 var(--ink);
-    scale:0;transition:scale .5s cubic-bezier(.3,1.6,.5,1);
   }
-  .steps.in .step-dot{scale:1;}
-  .steps.in .step:nth-child(2) .step-dot{transition-delay:.35s;}
-  .steps.in .step:nth-child(3) .step-dot{transition-delay:.7s;}
-  .steps.in .step:nth-child(4) .step-dot{transition-delay:1.05s;}
   .step-dot svg{width:26px;height:26px;}
-  .step-when{display:block;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;margin-bottom:6px;}
+  .step-when{display:block;font-size:.86rem;font-weight:700;color:var(--lime-soft);margin-bottom:6px;}
   .step h3{font-family:var(--font-display);font-size:1.35rem;font-weight:700;margin:0 0 8px;line-height:1.2;}
   .step p{margin:0;color:#fff;font-size:1rem;}
   @media (max-width:860px){
@@ -225,207 +312,7 @@
     .step-dot{position:absolute;left:-84px;top:0;}
   }
 
-  /* ---------- Iconos vivos: cada uno reacciona a su manera al pasar el ratón ---------- */
-  .ic *{transform-box:fill-box;transform-origin:center;}
-  .live:hover .ic,.live:focus-visible .ic{animation:hop .5s var(--ease-out);}
-  .ic .glass{transition:fill .25s ease;}
-  .live:hover .ic-bulb .glass,.live:focus-visible .ic-bulb .glass{fill:var(--lime-mid);}
-  .live:hover .ic-chart .bar,.live:focus-visible .ic-chart .bar{transform-origin:50% 100%;animation:grow .55s var(--ease-out) both;}
-  .live:hover .ic-chart .bar:nth-of-type(2){animation-delay:.08s;}
-  .live:hover .ic-chart .bar:nth-of-type(3){animation-delay:.16s;}
-  .live:hover .ic-clock .hands,.live:focus-visible .ic-clock .hands{transform-box:view-box;transform-origin:12px 12px;animation:spin .9s var(--ease-out);}
-  .live:hover .ic-compass .needle,.live:focus-visible .ic-compass .needle{animation:swing .9s ease;}
-  .live:hover .ic-scale .beam,.live:focus-visible .ic-scale .beam{transform-box:view-box;transform-origin:12px 7px;animation:tilt .9s ease;}
-  .live:hover .ic-coin,.live:focus-visible .ic-coin{animation:flip .7s ease;}
-  .live:hover .ic-checkshield .tick,.live:focus-visible .ic-checkshield .tick{stroke-dasharray:12;animation:tick .5s ease both;}
-  .live:hover .ic-target .bull,.live:focus-visible .ic-target .bull{animation:pulse .6s ease;}
-  .live:hover .ic-tool,.live:hover .ic-pencil,.live:focus-visible .ic-pencil{animation:wiggle .6s ease;}
-  .live:hover .ic-print .paper,.live:focus-visible .ic-print .paper{animation:printOut .8s var(--ease-out);}
-  .live:hover .ic-open .play,.live:focus-visible .ic-open .play{animation:pulse .6s ease;}
-  @keyframes hop{40%{translate:0 -3px;}}
-  @keyframes grow{from{scale:1 .15;}}
-  @keyframes spin{to{rotate:360deg;}}
-  @keyframes swing{25%{rotate:-35deg;}60%{rotate:20deg;}}
-  @keyframes tilt{30%{rotate:-12deg;}70%{rotate:9deg;}}
-  @keyframes flip{to{transform:rotateY(360deg);}}
-  @keyframes tick{from{stroke-dashoffset:12;}to{stroke-dashoffset:0;}}
-  @keyframes pulse{50%{scale:1.5;}}
-  @keyframes wiggle{25%{rotate:-14deg;}75%{rotate:12deg;}}
-  @keyframes printOut{from{translate:0 -5px;opacity:.2;}}
-
-  /* ---------- Explorar ---------- */
-  .explorer-head{margin-bottom:36px;}
-  .modes{display:inline-flex;gap:4px;padding:4px;background:var(--surface);border:var(--frame);border-radius:var(--radius-pill);}
-  .mode{min-height:44px;border:none;background:none;cursor:pointer;font-weight:700;font-size:.92rem;color:var(--ink-soft);padding:0 20px;border-radius:var(--radius-pill);transition:background .15s ease,color .15s ease;}
-  .mode:hover{color:var(--ink);background:var(--lime-soft);}
-  .mode.active{background:var(--ink);color:#fff;}
-  @media (max-width:520px){.modes{display:grid;grid-template-columns:1fr 1fr;width:100%;}.mode{padding:0 8px;font-size:.86rem;}}
-
-  .crumbs{display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin-bottom:20px;}
-  .crumb{display:inline-flex;align-items:center;min-height:44px;background:none;border:none;cursor:pointer;font-weight:600;font-size:.92rem;color:var(--ink-soft);padding:0 12px;border-radius:var(--radius-pill);}
-  .crumb:hover{background:var(--lime-soft);color:var(--ink);}
-  .crumb.current{color:var(--ink);cursor:default;font-weight:700;}
-  .crumb-sep{color:var(--ink-soft);}
-
-  /* Aparición escalonada cada vez que cambia lo que se muestra en el catálogo */
-  .pop{animation:rise .45s var(--ease-out) backwards;animation-delay:calc(var(--i,0) * 45ms);}
-  @keyframes rise{from{opacity:0;translate:0 14px;}}
-
-  .module-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px;}
-  @media (max-width:760px){.module-grid{grid-template-columns:1fr;gap:20px;}}
-  .module-card{
-    position:relative;overflow:hidden;text-align:left;cursor:pointer;font:inherit;
-    border-radius:var(--radius-card);border:var(--frame);padding:40px 36px;min-height:300px;display:flex;flex-direction:column;
-    transition:transform .12s ease,box-shadow .12s ease;
-  }
-  .module-card:hover{transform:translate(-3px,-3px);box-shadow:var(--sticker-lift);}
-  .module-card.m1{background:var(--lime-soft);color:var(--ink);}
-  .module-card.m2{background:var(--olive-deep);color:#fff;}
-  .module-card .bg-star{position:absolute;right:-30px;bottom:-40px;width:210px;height:210px;pointer-events:none;transition:rotate .8s var(--ease-out),scale .8s var(--ease-out);}
-  .module-card:hover .bg-star{rotate:45deg;scale:1.1;}
-  .module-card.m1 .bg-star{color:var(--lime-mid);}
-  .module-card.m2 .bg-star{color:var(--olive-mid);opacity:.35;}
-  .module-tag{position:relative;font-family:var(--font-display);font-weight:700;font-size:3.6rem;line-height:1;letter-spacing:-1.8px;}
-  .module-card.m1 .module-tag{color:var(--olive-deep);}
-  .module-card.m2 .module-tag{color:var(--lime-soft);}
-  .module-name{position:relative;font-family:var(--font-display);font-weight:600;font-size:1.45rem;line-height:1.22;margin:16px 0 10px;max-width:24ch;text-wrap:balance;}
-  .module-desc{position:relative;font-size:1rem;max-width:40ch;}
-  .module-card.m1 .module-desc{color:var(--ink-soft);}
-  .module-foot{position:relative;margin-top:auto;padding-top:28px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
-  .module-foot .count{font-size:.9rem;font-weight:600;}
-  .module-card.m1 .count{color:var(--ink-soft);}
-  .arrow-circle{flex:none;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1.5px solid var(--ink);transition:translate .15s ease;}
-  .module-card:hover .arrow-circle{translate:4px 0;}
-  .module-card.m1 .arrow-circle{background:var(--lime-mid);color:var(--ink);}
-  .module-card.m2 .arrow-circle{background:var(--lime-soft);color:var(--ink);}
-  .arrow-circle svg{width:18px;height:18px;}
-
-  .mod-head{margin-bottom:24px;}
-  .mod-title{font-family:var(--font-display);font-weight:700;font-size:clamp(1.6rem,3.4vw,2.3rem);line-height:1.12;margin:0 0 8px;text-wrap:balance;}
-  .mod-title:focus{outline:none;}
-  .mod-title:focus-visible{outline:3px solid var(--ink);}
-  .mod-desc{margin:0;color:var(--ink-soft);}
-  .unit-index{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 40px;padding:0;list-style:none;}
-  .unit-chip{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:var(--radius-pill);background:var(--surface);border:var(--frame);color:var(--ink);font-weight:600;font-size:.92rem;text-decoration:none;transition:background .15s ease;}
-  .unit-chip:hover{background:var(--lime-soft);}
-  .unit-chip b{color:var(--olive-deep);}
-  .unit-chip.soon{color:var(--ink-soft);border-style:dashed;}
-  @media (max-width:620px){.unit-chip .chip-t{display:none;}.unit-chip{min-width:56px;justify-content:center;}}
-
-  .unit-list{display:grid;gap:48px;}
-  .unit-sec{scroll-margin-top:100px;}
-  .unit-head{display:flex;align-items:center;gap:16px;padding-bottom:16px;margin-bottom:20px;border-bottom:var(--frame);}
-  .unit-num{flex:none;font-family:var(--font-display);font-weight:700;font-size:2.4rem;line-height:1;color:var(--olive-deep);min-width:52px;font-variant-numeric:tabular-nums;}
-  .unit-head-tx{flex:1;min-width:0;}
-  .unit-meta{display:block;font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);}
-  .unit-title{font-family:var(--font-display);font-weight:600;font-size:1.4rem;line-height:1.22;margin:4px 0 0;text-wrap:balance;}
-  .unit-icon{flex:none;width:48px;height:48px;border-radius:50%;border:var(--frame);background:var(--lime-soft);color:var(--olive-deep);display:flex;align-items:center;justify-content:center;}
-  .unit-icon svg{width:22px;height:22px;}
-  @media (max-width:620px){.unit-icon{display:none;}.unit-num{font-size:1.9rem;min-width:40px;}}
-  .unit-empty{display:flex;align-items:center;gap:10px;margin:0;padding:20px 22px;border:1px dashed var(--ink-muted);border-radius:var(--radius-card);background:var(--surface);color:var(--ink-soft);font-size:.97rem;}
-  .unit-empty svg{width:20px;height:20px;flex:none;color:var(--olive-deep);}
-
-  .tag-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px;}
-  .tag-pill{display:inline-flex;align-items:center;gap:8px;min-height:44px;cursor:pointer;background:var(--surface);border:var(--frame);color:var(--ink);font-weight:700;font-size:.92rem;padding:0 16px;border-radius:var(--radius-pill);transition:background .15s ease;}
-  .tag-pill svg{width:18px;height:18px;color:var(--olive-deep);}
-  .tag-pill em{font-style:normal;font-size:.78rem;background:var(--lime-soft);color:var(--ink);border-radius:var(--radius-pill);padding:1px 8px;}
-  .tag-pill:hover{background:var(--lime-soft);}
-  .tag-pill.active{background:var(--ink);color:#fff;}
-  .tag-pill.active svg{color:var(--lime-mid);}
-  .tag-pill.active em{background:var(--lime-mid);color:var(--ink);}
-
-  /* Tarjetas de herramienta: la misma "ventanita" que los recortes de la portada, en recto y algo más pequeña */
-  .tool-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:22px;}
-  .tool-grid li{display:flex;}
-  .tool-card{
-    flex:1;display:flex;flex-direction:column;overflow:hidden;text-decoration:none;color:var(--ink);
-    background:var(--bg);border:var(--frame);border-radius:12px;box-shadow:3px 3px 0 var(--ink);
-    transition:translate .2s var(--ease-out),rotate .2s var(--ease-out),box-shadow .2s ease;
-  }
-  .tool-card:hover,.tool-card:focus-visible{translate:0 -5px;rotate:-.6deg;box-shadow:6px 6px 0 var(--c);}
-  .tool-grid li:nth-child(even) .tool-card:hover{rotate:.6deg;}
-  .tool-card .clip-body{flex:1;}
-  .tool-card .clip-h{font-size:1.06rem;}
-  .tool-card .clip-art{max-width:200px;}
-  .win-desc{font-size:.84rem;line-height:1.45;color:var(--ink-soft);}
-  .tool-card .clip-go{margin-top:auto;padding-top:4px;}
-  .tool-card:hover .clip-go svg{translate:3px 0;}
-
-  .load-msg{background:var(--surface);border:1px dashed var(--ink-muted);border-radius:var(--radius-card);padding:28px;color:var(--ink-soft);text-align:center;}
-  .loading{display:flex;align-items:center;justify-content:center;gap:10px;}
-  .loading svg{width:20px;height:20px;color:var(--olive-deep);animation:spin 1.2s linear infinite;}
-
-  /* Etiquetas pequeñas de cada tarjeta: tiempo, si guarda y si saca informe */
-  .tool-meta{display:flex;flex-wrap:wrap;gap:5px;margin-top:2px;}
-  .tool-meta span{display:inline-flex;align-items:center;gap:4px;font-size:.68rem;font-weight:700;line-height:1;padding:4px 8px;border-radius:var(--radius-pill);border:1px solid var(--line);background:var(--surface);color:var(--ink-soft);white-space:nowrap;}
-  .tool-meta svg{width:11px;height:11px;color:var(--c);}
-  .tool-meta .on{background:var(--lime-soft);border-color:var(--lime-mid);color:var(--ink);}
-
-  /* Buscador + forma de explorar */
-  .finder{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;margin-bottom:32px;}
-  .search{position:relative;flex:1 1 320px;}
-  .search svg{position:absolute;left:18px;top:50%;translate:0 -50%;width:19px;height:19px;color:var(--olive-deep);pointer-events:none;}
-  .search input{
-    width:100%;min-height:52px;font:inherit;font-size:1rem;color:var(--ink);
-    background:var(--surface);border:var(--frame);border-radius:var(--radius-pill);padding:0 48px 0 48px;
-    transition:box-shadow .12s ease;
-  }
-  .search input::placeholder{color:var(--ink-muted);}
-  .search input:focus{outline:none;box-shadow:var(--sticker);}
-  .search input::-webkit-search-cancel-button{display:none;}
-  .search-clear{position:absolute;right:6px;top:50%;translate:0 -50%;width:40px;height:40px;border:none;border-radius:50%;background:none;cursor:pointer;color:var(--ink-soft);display:flex;align-items:center;justify-content:center;}
-  .search-clear:hover{background:var(--lime-soft);color:var(--ink);}
-  .search-clear svg{position:static;translate:none;width:16px;height:16px;color:currentColor;}
-  .finder.searching .modes{opacity:.45;}
-  .results-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 20px;margin-bottom:22px;}
-  .results-head p{margin:0;font-weight:600;}
-  .results-head p em{font-style:normal;background:var(--lime-soft);padding:0 6px;border-radius:6px;}
-
-  /* Seguir donde lo dejaste: herramientas con trabajo guardado en este navegador */
-  .resume{scroll-margin-top:100px;margin-bottom:36px;padding:22px 24px;background:var(--surface);border:var(--frame);border-radius:var(--radius-card);box-shadow:var(--sticker);}
-  .resume-h{display:flex;align-items:center;gap:10px;margin:0 0 4px;font-family:var(--font-display);font-weight:700;font-size:1.3rem;}
-  .resume-h svg{width:20px;height:20px;color:var(--olive-deep);}
-  .resume-sub{margin:0 0 16px;font-size:.9rem;color:var(--ink-soft);}
-  .resume-list{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px;}
-  .resume-item{
-    display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 8px 0 14px;text-decoration:none;color:var(--ink);
-    background:var(--bg);border:var(--frame);border-left:6px solid var(--c);border-radius:12px;font-weight:600;font-size:.94rem;
-    transition:translate .15s ease,box-shadow .15s ease;
-  }
-  .resume-item:hover,.resume-item:focus-visible{translate:-2px -2px;box-shadow:3px 3px 0 var(--c);}
-  .resume-item small{display:block;font-size:.72rem;font-weight:600;color:var(--ink-soft);}
-  .resume-go{display:inline-flex;align-items:center;gap:4px;font-size:.78rem;font-weight:700;background:var(--lime-mid);border-radius:var(--radius-pill);padding:5px 10px;}
-  .resume-go svg{width:13px;height:13px;}
-  .hero-resume{margin:18px 0 0;font-size:.95rem;color:var(--ink-soft);}
-  .hero-resume a{color:var(--ink);font-weight:700;text-underline-offset:4px;}
-
-  /* Copiar el enlace directo a un módulo o a una unidad */
-  .copy-link{display:inline-flex;align-items:center;gap:6px;flex:none;min-height:40px;padding:0 14px;cursor:pointer;font-weight:600;font-size:.82rem;color:var(--ink-soft);background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-pill);transition:background .15s ease,color .15s ease;}
-  .copy-link:hover{background:var(--lime-soft);color:var(--ink);border-color:var(--ink);}
-  .copy-link.done{background:var(--lime-mid);color:var(--ink);border-color:var(--ink);}
-  .copy-link svg{width:14px;height:14px;}
-  .mod-head{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:12px 24px;}
-  .mod-head > div{flex:1 1 320px;}
-  @media (max-width:620px){.unit-head .copy-link span{display:none;}.unit-head .copy-link{padding:0 12px;}}
-
-  /* ---------- Qué hay detrás: titular a un lado, lista al otro ---------- */
-  .behind{border-top:var(--frame);}
-  .behind-grid{display:grid;grid-template-columns:5fr 7fr;gap:64px;align-items:start;}
-  @media (max-width:860px){.behind-grid{grid-template-columns:1fr;gap:28px;}}
-  .behind-grid h2.sec-title{position:sticky;top:110px;margin:0;}
-  /* En el móvil no hay columna al lado: el título no se queda pegado */
-  @media (max-width:860px){.behind-grid h2.sec-title{position:static;}}
-  .rows{list-style:none;margin:0;padding:0;}
-  .row{display:grid;grid-template-columns:auto 1fr;gap:6px 22px;padding:28px 0;border-bottom:var(--frame);}
-  .row:first-child{padding-top:0;}
-  .row-icon{grid-row:span 2;width:52px;height:52px;border-radius:14px;border:var(--frame);background:var(--lime-soft);color:var(--olive-deep);display:flex;align-items:center;justify-content:center;rotate:-4deg;transition:rotate .3s var(--ease-out),background .3s ease;}
-  .row:nth-child(2) .row-icon{rotate:3deg;}
-  .row:hover .row-icon{rotate:0deg;background:var(--lime-mid);}
-  .row-icon svg{width:24px;height:24px;}
-  .row h3{font-family:var(--font-display);font-size:1.45rem;font-weight:700;margin:0;line-height:1.2;}
-  .row p{margin:0;color:var(--ink-soft);}
-
-  /* ---------- Contacto (provisional) ---------- */
+  /* ---------- Contacto ---------- */
   .contact-card{
     position:relative;overflow:hidden;border-radius:var(--radius-card);padding:64px 56px;
     background:var(--surface);border:var(--frame);box-shadow:var(--sticker);
@@ -448,36 +335,33 @@
   .soon-badge{flex:none;font-size:.75rem;font-weight:700;background:var(--lime-mid);color:var(--ink);border-radius:var(--radius-pill);padding:4px 10px;}
 
   footer{border-top:var(--frame);padding-block:40px calc(40px + env(safe-area-inset-bottom,0px));}
-  .foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;color:var(--ink-soft);font-size:.9rem;}
-  .foot .nav-brand b{font-size:1rem;}
+  .foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px 24px;color:var(--ink-soft);font-size:.9rem;}
+  .foot .nav-brand b{font-size:1.05rem;}
+  .foot a.mail{color:var(--ink);font-weight:600;text-underline-offset:4px;}
 
   /* Quien pida menos movimiento en su ordenador, ve la página quieta y completa */
   @media (prefers-reduced-motion: reduce){
     *,*::before,*::after{animation:none!important;transition:none!important;}
     html{scroll-behavior:auto;}
-    .js .reveal{opacity:1;transform:none;}
-    .mark::before{transform:skewX(-8deg) scaleX(1);}
-    .circle-doodle path,.wall-hint path{stroke-dashoffset:0;}
     .steps::before{transform:none!important;}
-    .step-dot{scale:1;}
   }
 </style>
-<script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
-<a class="skip" href="#explorar">Saltar al catálogo de herramientas</a>
+<a class="skip" href="#explorar">Saltar al catálogo</a>
 
 <nav class="nav" id="nav" aria-label="Principal">
   <div class="wrap">
     <div class="nav-pill">
-      <a class="nav-brand" href="#inicio" aria-label="Esplora Labs, inicio">
+      <a class="nav-brand" href="#inicio" aria-label="Esplora, inicio">
         <svg viewBox="0 0 40 40" aria-hidden="true"><path fill="#6B7028" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg>
-        <b><span>Esplora</span> Labs</b>
+        <b>Esplora</b>
       </a>
       <div class="nav-links">
+        <a href="#recursos" class="hide-sm">Recursos</a>
         <a href="#proyecto" class="hide-sm">Proyecto</a>
         <a href="#contacto" class="hide-sm">Contacto</a>
-        <a href="#explorar" class="nav-cta">Explorar</a>
+        <a href="#catalogo" class="nav-cta">Catálogo</a>
       </div>
     </div>
   </div>
@@ -487,68 +371,107 @@
 <header class="hero" id="inicio">
   <div class="wrap hero-grid">
     <div>
-      <p class="badge"><svg viewBox="0 0 40 40" aria-hidden="true"><path fill="currentColor" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg>IPE 1 · IPE 2 · Formación Profesional</p>
-      <h1>Aprender <em class="mark">haciendo</em>, no escuchando.</h1>
-      <p class="hero-lede">Esplora Labs nace y se desarrolla dentro del aula con un objetivo claro: que el alumnado trabaje los contenidos de forma interactiva, probando, equivocándose y aprendiendo por el camino.</p>
-      <div class="cta-row">
-        <a class="btn btn-sticker" href="#explorar">Explorar herramientas
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-        <a class="btn btn-link" href="#proyecto">Sobre el proyecto</a>
-      </div>
-      <p class="hero-resume" id="heroResume" hidden></p>
-      <!-- Las cifras se cuentan solas a partir de data/estructura.json -->
-      <ul class="facts reveal" id="facts" aria-label="El catálogo en cifras">
-        <li id="factToolsLi"><b id="factTools" data-to="0">0</b><span>herramientas</span></li>
-        <li id="factModsLi"><b id="factMods" data-to="0">0</b><span>módulos</span></li>
-        <li><b>0<svg class="circle-doodle" viewBox="0 0 60 60" preserveAspectRatio="none" aria-hidden="true"><path class="doodle" d="M34 5C18 3 4 14 5 31c1 16 15 25 30 24 14-1 21-12 20-25C54 15 42 4 26 7"/></svg></b><span>cosas que instalar</span></li>
-      </ul>
+      <h1>
+        <span class="wordmark">Esplora<svg viewBox="-2 -2 54 46" aria-hidden="true"><g transform="translate(0, 2)"><path class="star-big" d="M20 0 C20 0 18 9 14 13 C10 17 0 20 0 20 C0 20 10 23 14 27 C18 31 20 40 20 40 C20 40 22 31 26 27 C30 23 40 20 40 20 C40 20 30 17 26 13 C22 9 20 0 20 0Z" fill="#6B7028"/></g><g transform="translate(30, 0)"><path class="star-small" d="M10 0 C10 0 9 4 7 6 C5 8 0 9 0 9 C0 9 5 10 7 12 C9 14 10 18 10 18 C10 18 11 14 13 12 C15 10 20 9 20 9 C20 9 15 8 13 6 C11 4 10 0 10 0Z" fill="#A8AD5C"/></g></svg></span>
+        <span class="h1-sub">Herramientas y recursos didácticos sobre empleabilidad y emprendimiento</span>
+      </h1>
     </div>
 
-    <!-- Recortes de herramientas alrededor de la doble estrella del logo (se rellenan desde el catálogo) -->
-    <div class="wall" id="wall">
-      <svg class="wall-star" viewBox="-2 -2 54 46" role="img" aria-label="Esplora Labs">
-        <g transform="translate(0, 2)"><path class="star-big" d="M20 0 C20 0 18 9 14 13 C10 17 0 20 0 20 C0 20 10 23 14 27 C18 31 20 40 20 40 C20 40 22 31 26 27 C30 23 40 20 40 20 C40 20 30 17 26 13 C22 9 20 0 20 0Z" fill="#6B7028"/></g>
-        <g transform="translate(30, 0)"><path class="star-small" d="M10 0 C10 0 9 4 7 6 C5 8 0 9 0 9 C0 9 5 10 7 12 C9 14 10 18 10 18 C10 18 11 14 13 12 C15 10 20 9 20 9 C20 9 15 8 13 6 C11 4 10 0 10 0Z" fill="#A8AD5C"/></g>
-      </svg>
-      <p class="wall-hint" id="wallHint" hidden>
-        <span>¡Prueba una!</span>
-        <svg viewBox="0 0 56 44" aria-hidden="true"><path class="doodle" d="M52 40C38 40 22 30 12 10M12 10l10 4M12 10l-2 10"/></svg>
-      </p>
+    <!-- Elección de materia: cada opción abre el catálogo ya filtrado -->
+    <div class="picker" role="navigation" aria-labelledby="picker-t">
+      <h2 class="picker-q" id="picker-t">¿Con qué materia trabajas?</h2>
+      <ul class="picker-list">
+        <li><a class="pick" href="#ipe1">
+          <span class="pick-tag">IPE 1</span>
+          <span class="pick-tx"><b>Trabajo por cuenta ajena</b><small data-count="ipe1">Prevención, derecho laboral y Seguridad Social</small></span>
+          <span class="pick-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </a></li>
+        <li><a class="pick" href="#ipe2">
+          <span class="pick-tag">IPE 2</span>
+          <span class="pick-tx"><b>Emprendimiento</b><small data-count="ipe2">De la idea de negocio a su viabilidad</small></span>
+          <span class="pick-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </a></li>
+        <li><a class="pick" href="#tematicas">
+          <span class="pick-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><polygon points="14.5,9.5 10.5,10.5 9.5,14.5 13.5,13.5"/></svg></span>
+          <span class="pick-tx"><b>Doy otra materia</b><small>Busca por temática o por tipo de recurso</small></span>
+          <span class="pick-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </a></li>
+      </ul>
+      <a class="all-link" href="#catalogo" id="allLink">Ver todo el catálogo</a>
+    </div>
+
+    <div class="hero-more">
+      <p class="hero-lede">Esplora nace dentro del aula con un objetivo claro: impulsar al alumnado a trabajar los contenidos de forma interactiva, probando, equivocándose y aprendiendo por el camino.</p>
+      <p class="hero-resume" id="heroResume" hidden></p>
     </div>
   </div>
 </header>
 
+<section class="block catalog" id="explorar" aria-labelledby="explorar-t">
+  <div class="wrap">
+    <div class="cat-head">
+      <h2 class="sec-title" id="explorar-t">El catálogo.</h2>
+      <p class="sec-lede">Entra por tu materia o mira todo el catálogo y fíltralo por temática y por tipo de recurso.</p>
+    </div>
+    <!-- Solo aparece si en este navegador hay trabajo guardado en algún recurso -->
+    <div class="resume" id="seguir" hidden></div>
+    <div class="finder">
+      <nav class="seg" id="seg" aria-label="Qué ver">
+        <a href="#ipe1" data-view="ipe1">IPE 1</a>
+        <a href="#ipe2" data-view="ipe2">IPE 2</a>
+        <a href="#catalogo" data-view="todo" aria-current="true">Todo</a>
+      </nav>
+      <div class="search" role="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+        <label class="sr" for="q">Buscar en el catálogo</label>
+        <input type="search" id="q" placeholder="Buscar: nómina, Porter, riesgos…" autocomplete="off" spellcheck="false">
+        <button type="button" class="search-clear" id="qClear" aria-label="Borrar la búsqueda" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>
+      </div>
+    </div>
+    <div id="stage"><div class="load-msg loading" role="status"><svg viewBox="0 0 40 40" aria-hidden="true"><path fill="currentColor" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg>Cargando el catálogo…</div></div>
+  </div>
+</section>
+
+<section class="block kinds" id="recursos" aria-labelledby="recursos-t">
+  <div class="wrap kinds-grid">
+    <div>
+      <h2 class="sec-title" id="recursos-t">Tres tipos de recurso.</h2>
+      <p class="sec-lede">Todo funciona en el navegador del aula o del móvil, sin instalar nada y sin crear cuentas.</p>
+    </div>
+    <ul class="kind-list" id="kindList"></ul>
+  </div>
+</section>
+
 <section class="block about" id="proyecto" aria-labelledby="proyecto-t">
   <svg class="about-deco" viewBox="0 0 40 40" aria-hidden="true"><path fill="currentColor" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg>
   <div class="wrap">
-    <div class="about-head reveal">
+    <div class="about-head">
       <h2 class="sec-title" id="proyecto-t">Un aula que se construye curso a curso.</h2>
-      <p class="sec-lede">Recursos para IPE 1 e IPE 2 en Formación Profesional. Funcionan en el navegador, sin instalar nada, y están pensados para trabajarse dentro de una sesión de clase.</p>
+      <p class="sec-lede">Esplora nace en Formación Profesional, con IPE 1 e IPE 2, y sirve también en otras materias de empleabilidad y emprendimiento. El proyecto arranca en el curso 2026/27 y suma recursos de forma progresiva.</p>
     </div>
 
-    <p class="session-t reveal">Así cabe una herramienta en una sesión de 50 minutos:</p>
+    <p class="session-t">Así cabe un recurso en una sesión de 50 minutos:</p>
     <ol class="steps" id="steps">
-      <li class="step live">
-        <span class="step-dot"><svg class="ic ic-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="15" rx="2"/><line x1="3" y1="8" x2="21" y2="8"/><path class="play" d="M10.5 11v5l4-2.5z" fill="currentColor"/></svg></span>
+      <li class="step">
+        <span class="step-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="15" rx="2"/><line x1="3" y1="8" x2="21" y2="8"/><path d="M10.5 11v5l4-2.5z" fill="currentColor"/></svg></span>
         <span class="step-when">Al empezar</span>
         <h3>Abrir y listo</h3>
         <p>Se abre en el navegador del aula o del móvil. Sin instalar nada y sin crear cuentas.</p>
       </li>
-      <li class="step live">
-        <span class="step-dot"><svg class="ic ic-pencil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1-4.5L15.5 5a2 2 0 0 1 3 0l.5.5a2 2 0 0 1 0 3L8.5 19z"/><line x1="13.5" y1="7" x2="17" y2="10.5"/></svg></span>
+      <li class="step">
+        <span class="step-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1-4.5L15.5 5a2 2 0 0 1 3 0l.5.5a2 2 0 0 1 0 3L8.5 19z"/><line x1="13.5" y1="7" x2="17" y2="10.5"/></svg></span>
         <span class="step-when">Durante la clase</span>
         <h3>Probar y equivocarse</h3>
         <p>Hay margen para corregir y una segunda visión antes de dar una respuesta por buena.</p>
       </li>
-      <li class="step live">
-        <span class="step-dot"><svg class="ic ic-save" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h10a1 1 0 0 1 1 1v17l-6-4-6 4V4a1 1 0 0 1 1-1z"/></svg></span>
+      <li class="step">
+        <span class="step-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h10a1 1 0 0 1 1 1v17l-6-4-6 4V4a1 1 0 0 1 1-1z"/></svg></span>
         <span class="step-when">Al sonar el timbre</span>
         <h3>Guardar el progreso</h3>
         <p>El trabajo queda guardado para retomarlo en la siguiente sesión, justo donde se dejó.</p>
       </li>
-      <li class="step live">
-        <span class="step-dot"><svg class="ic ic-print" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><rect class="paper" x="7" y="14" width="10" height="7" fill="#E8EDC4"/></svg></span>
+      <li class="step">
+        <span class="step-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><rect x="7" y="14" width="10" height="7" fill="#E8EDC4"/></svg></span>
         <span class="step-when">Para entregar</span>
         <h3>Imprimir el informe</h3>
         <p>Muchas herramientas generan un informe listo para imprimir o guardar en PDF.</p>
@@ -557,61 +480,13 @@
   </div>
 </section>
 
-<section class="block explorer" id="explorar" aria-labelledby="explorar-t">
-  <div class="wrap">
-    <div class="explorer-head reveal">
-      <h2 class="sec-title" id="explorar-t">Encuentra tu herramienta.</h2>
-      <p class="sec-lede">Búscala por su nombre, entra por módulo con todas sus unidades a la vista, o por temática si no conoces los módulos de IPE.</p>
-    </div>
-    <!-- Solo aparece si en este navegador hay trabajo guardado en alguna herramienta -->
-    <div class="resume" id="seguir" hidden></div>
-    <div class="finder" id="finder">
-      <div class="search" role="search">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
-        <label class="sr" for="q">Buscar herramienta</label>
-        <input type="search" id="q" placeholder="Buscar: nómina, Porter, riesgos…" autocomplete="off" spellcheck="false">
-        <button type="button" class="search-clear" id="qClear" aria-label="Borrar la búsqueda" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>
-      </div>
-      <div class="modes" role="group" aria-label="Forma de explorar">
-        <button type="button" class="mode active" aria-pressed="true" data-mode="modulos">Por módulos</button>
-        <button type="button" class="mode" aria-pressed="false" data-mode="tematica">Por temática</button>
-      </div>
-    </div>
-    <nav class="crumbs" id="crumbs" aria-label="Estás en" hidden></nav>
-    <div id="stage"><div class="load-msg loading" role="status"><svg viewBox="0 0 40 40" aria-hidden="true"><path fill="currentColor" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg>Cargando herramientas…</div></div>
-  </div>
-</section>
-
-<section class="block behind" aria-labelledby="detras-t">
-  <div class="wrap behind-grid">
-    <h2 class="sec-title reveal" id="detras-t">Lo que hay detrás de cada herramienta.</h2>
-    <ul class="rows">
-      <li class="row reveal">
-        <span class="row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><path d="M17 13v8M13 17h8"/></svg></span>
-        <h3>Herramientas interactivas</h3>
-        <p>Simuladores, wizards, mapas y juegos de repaso conectados con productos visuales que el alumnado genera de forma interactiva.</p>
-      </li>
-      <li class="row reveal">
-        <span class="row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z"/><path d="m5.6 5.6 2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></svg></span>
-        <h3>Tecnología en el aula</h3>
-        <p>Diseño asistido por IA, metodologías activas y gamificación pensados para acompañar el proceso de aprendizaje, no para sustituirlo.</p>
-      </li>
-      <li class="row reveal">
-        <span class="row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 0 0-14.8-4.2L4 8"/><polyline points="4 3 4 8 9 8"/><path d="M4 13a8 8 0 0 0 14.8 4.2L20 16"/><polyline points="20 21 20 16 15 16"/></svg></span>
-        <h3>Cambio constante</h3>
-        <p>El proyecto nace en el curso 2026/27 con la intención de incorporar nuevas herramientas de manera progresiva.</p>
-      </li>
-    </ul>
-  </div>
-</section>
-
 <section class="block" id="contacto" aria-labelledby="contacto-t">
   <div class="wrap">
-    <div class="contact-card reveal">
+    <div class="contact-card">
       <svg class="big-deco" viewBox="0 0 40 40" aria-hidden="true"><path fill="currentColor" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg>
       <div>
-        <h2 id="contacto-t">¿Hablamos de FP, recursos o ideas para el aula?</h2>
-        <p>Si eres docente y quieres usar estas herramientas, proponer mejoras o colaborar en el proyecto, escríbenos.</p>
+        <h2 id="contacto-t">¿Hablamos de recursos o ideas para el aula?</h2>
+        <p>Si eres docente y quieres usar estos recursos, proponer mejoras o colaborar en el proyecto, escríbenos.</p>
       </div>
       <!-- LinkedIn sigue provisional: aún no hay cuenta, por eso no es enlace -->
       <ul class="contact-list">
@@ -634,47 +509,40 @@
 
 <footer>
   <div class="wrap foot">
-    <a class="nav-brand" href="#inicio" aria-label="Esplora Labs, volver al inicio">
+    <a class="nav-brand" href="#inicio" aria-label="Esplora, volver al inicio">
       <svg viewBox="0 0 40 40" aria-hidden="true"><path fill="#6B7028" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg>
-      <b><span>Esplora</span> Labs</b>
+      <b>Esplora</b>
     </a>
-    <span>Herramientas educativas para Formación Profesional</span>
+    <span>esplora.es · <a class="mail" href="mailto:contacto@esplora.es">contacto@esplora.es</a></span>
   </div>
 </footer>
 
 <script>
-const STAR = '<path fill="currentColor" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/>';
 // Iconos con piezas marcadas (glass, bar, hands…) para poder animarlas por separado
 const ICONS = {
   shield:'<path d="M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6l7-3z"/>',
-  warning:'<path d="M12 4 21 20 3 20 Z"/><line x1="12" y1="10" x2="12" y2="15"/><circle cx="12" cy="18" r="0.6" fill="currentColor" stroke="none"/>',
-  org:'<circle cx="12" cy="5" r="2.2"/><circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="18" r="2.2"/><line x1="12" y1="7.2" x2="12" y2="12"/><line x1="12" y1="12" x2="6" y2="15.8"/><line x1="12" y1="12" x2="18" y2="15.8"/>',
   scale:'<line x1="12" y1="3" x2="12" y2="19"/><g class="beam"><line x1="5" y1="7" x2="19" y2="7"/><path d="M5 7 2.5 13 A2.5 2.5 0 0 0 7.5 13 Z"/><path d="M19 7 16.5 13 A2.5 2.5 0 0 0 21.5 13 Z"/></g><line x1="8" y1="21" x2="16" y2="21"/>',
-  document:'<rect x="6" y="3" width="12" height="18" rx="1.5"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/>',
   clock:'<circle cx="12" cy="12" r="8.5"/><g class="hands"><line x1="12" y1="12" x2="12" y2="7"/><line x1="12" y1="12" x2="15.5" y2="14"/></g>',
-  coin:'<circle cx="12" cy="12" r="8.5"/><path d="M9.5 15c0 1.1 1.1 2 2.5 2s2.5-.7 2.5-1.8-1.1-1.6-2.5-1.9-2.5-.8-2.5-1.9S10.6 9.6 12 9.6s2.5.9 2.5 2"/>',
-  target:'<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="5"/><circle class="bull" cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/>',
-  briefcase:'<rect x="3.5" y="8" width="17" height="11" rx="1.5"/><path d="M8.5 8V6a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v2"/><line x1="3.5" y1="13" x2="20.5" y2="13"/>',
-  bulb:'<path d="M9 18h6"/><path d="M9.5 21h5"/><path class="glass" fill="transparent" d="M12 3a6 6 0 0 0-3.5 10.9c.5.4.8 1 .8 1.6h5.4c0-.6.3-1.2.8-1.6A6 6 0 0 0 12 3Z"/>',
-  chart:'<line x1="4" y1="20" x2="20" y2="20"/><rect class="bar" x="6" y="13" width="3" height="7"/><rect class="bar" x="11" y="9" width="3" height="11"/><rect class="bar" x="16" y="5" width="3" height="15"/>',
-  checkshield:'<path d="M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6l7-3z"/><path class="tick" d="M9 12.3l2 2 4-4.3"/>',
-  puzzle:'<path d="M9 4h4v2.2a1.6 1.6 0 0 0 3 0V4h4v4h-2.2a1.6 1.6 0 0 0 0 3H20v4h-4v-2.2a1.6 1.6 0 0 0-3 0V17H9v-4H6.8a1.6 1.6 0 0 1 0-3H9V4Z"/>',
-  compass:'<circle cx="12" cy="12" r="8.5"/><polygon class="needle" points="14.5,9.5 10.5,10.5 9.5,14.5 13.5,13.5"/>',
+  target:'<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/>',
+  bulb:'<path d="M9 18h6"/><path d="M9.5 21h5"/><path fill="transparent" d="M12 3a6 6 0 0 0-3.5 10.9c.5.4.8 1 .8 1.6h5.4c0-.6.3-1.2.8-1.6A6 6 0 0 0 12 3Z"/>',
+  chart:'<line x1="4" y1="20" x2="20" y2="20"/><rect x="6" y="13" width="3" height="7"/><rect x="11" y="9" width="3" height="11"/><rect x="16" y="5" width="3" height="15"/>',
+  checkshield:'<path d="M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6l7-3z"/><path d="M9 12.3l2 2 4-4.3"/>',
+  compass:'<circle cx="12" cy="12" r="8.5"/><polygon points="14.5,9.5 10.5,10.5 9.5,14.5 13.5,13.5"/>',
   book:'<path d="M12 6c-1.6-1.3-3.6-2-6-2v13c2.4 0 4.4.7 6 2 1.6-1.3 3.6-2 6-2V4c-2.4 0-4.4.7-6 2Z"/><line x1="12" y1="6" x2="12" y2="19"/>',
   tool:'<path d="M14.5 6.5a3.5 3.5 0 0 1-4.6 4.6L4 17l3 3 5.9-5.9a3.5 3.5 0 0 1 4.6-4.6L21 6l-3-3-3.5 3.5Z"/>',
+  grid:'<rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><path d="M17 13v8M13 17h8"/>',
+  slides:'<rect x="3" y="4" width="18" height="12" rx="2"/><line x1="12" y1="16" x2="12" y2="20"/><line x1="8" y1="20" x2="16" y2="20"/>',
   arrow:'<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>',
   save:'<path d="M7 3h10a1 1 0 0 1 1 1v17l-6-4-6 4V4a1 1 0 0 1 1-1z"/>',
   print:'<path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><rect x="7" y="14" width="10" height="7"/>',
   link:'<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
   check:'<polyline points="5 12.5 10 17 19 7"/>',
+  search:'<circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/>',
   resume:'<path d="M4 12a8 8 0 1 0 2.4-5.7"/><polyline points="4 3 4 8 9 8"/><polygon points="10 9 15.5 12 10 15" fill="currentColor" stroke="none"/>'
 };
 const icon = n => '<svg class="ic ic-'+n+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'+(ICONS[n]||'')+'</svg>';
-const star = cls => '<svg class="'+(cls||'')+'" viewBox="0 0 40 40" aria-hidden="true">'+STAR+'</svg>';
-
-// Herramientas que salen como recortes en la portada (identificadores de data/estructura.json).
-// El titular y el dibujo de cada una están en el catálogo ("titular" y "dibujo").
-const WALL = ['canvas', 'pestel', 'casosnomina', 'buyer'];
+// Icono de cada tipo de recurso (los ids están en "tipos" de data/estructura.json)
+const KIND_ICON = {herramienta:'grid', aula:'book', material:'slides'};
 
 // Mini dibujos a línea fina (160 x 56), uno por herramienta. var(--c) es el color de cada herramienta.
 // Para una herramienta nueva: elige uno de estos nombres en su "dibujo" o añade aquí uno nuevo.
@@ -702,53 +570,60 @@ const ART = {
   contingencias:`<g ${K} fill="none" stroke-linecap="round"><path d="M28 28C42 28 42 13 56 13"/><path d="M28 28C42 28 42 43 56 43"/></g><g ${K}><circle cx="18" cy="28" r="10" fill="#FFFFFF"/><rect x="56" y="4" width="62" height="18" rx="3" ${TINT}/><rect x="56" y="34" width="62" height="18" rx="3" fill="#FFFFFF"/></g><g font-family="Inter, sans-serif" font-weight="700" fill="#1E1C1A" text-anchor="middle"><text x="18" y="32" font-size="12">?</text><text x="87" y="16.5" font-size="8.5">Común</text><text x="87" y="46.5" font-size="8.5">Profesional</text></g><g ${K} fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M122 13h16M134 9l4 4-4 4"/></g><circle cx="147" cy="13" r="6" ${K} ${SOLID}/>`,
   umbral:`<g ${K} stroke-linecap="round"><line x1="20" y1="4" x2="20" y2="50"/><line x1="20" y1="50" x2="150" y2="50"/></g><path d="M20 30L120 14.6L20 50Z" ${TINT}/><line x1="20" y1="30" x2="150" y2="10" stroke="#1E1C1A" stroke-width="1.5" stroke-linecap="round"/><line x1="20" y1="50" x2="150" y2="4" stroke-width="2.2" stroke-linecap="round" style="stroke:var(--c)"/><g ${K}><circle cx="120" cy="14.6" r="4.5" ${SOLID}/></g>`,
   balanza:`<g ${K} stroke-linecap="round" fill="none"><line x1="80" y1="12" x2="80" y2="50"/><line x1="36" y1="12" x2="124" y2="12"/><path d="M40 12L30 32M40 12L50 32M120 12L110 32M120 12L130 32"/></g><g ${K}><path d="M27 32h26a13 7 0 0 1-26 0z" ${TINT}/><path d="M107 32h26a13 7 0 0 1-26 0z" ${SOLID}/><rect x="64" y="50" width="32" height="5" rx="2.5" fill="#FFFFFF"/><circle cx="80" cy="12" r="4" fill="#FFFFFF"/></g>`,
-  prestaciones:`<g ${K} stroke-linecap="round" stroke-linejoin="round"><path d="M44 30Q80 -4 116 30Q107 24 98 30Q89 24 80 30Q71 24 62 30Q53 24 44 30Z" ${TINT}/><path d="M80 30v16q0 6-6 4" fill="none"/></g><g ${K}><circle cx="128" cy="46" r="6" ${SOLID}/><circle cx="141" cy="44" r="6" fill="#FFFFFF"/><circle cx="28" cy="46" r="5" ${SOLID}/></g>`
-};
-// Guías de agentes físicos
-Object.assign(ART, {
+  prestaciones:`<g ${K} stroke-linecap="round" stroke-linejoin="round"><path d="M44 30Q80 -4 116 30Q107 24 98 30Q89 24 80 30Q71 24 62 30Q53 24 44 30Z" ${TINT}/><path d="M80 30v16q0 6-6 4" fill="none"/></g><g ${K}><circle cx="128" cy="46" r="6" ${SOLID}/><circle cx="141" cy="44" r="6" fill="#FFFFFF"/><circle cx="28" cy="46" r="5" ${SOLID}/></g>`,
+  // Guías de agentes físicos
   ruido:`<g ${K} stroke-linejoin="round"><rect x="40" y="20" width="14" height="16" rx="3" ${TINT}/><path d="M54 20L72 8V48L54 36Z" fill="#FFFFFF"/></g><g ${K} fill="none" stroke-linecap="round"><path d="M84 20q6 8 0 16"/><path d="M95 13q11 15 0 30"/></g><path d="M106 6q16 22 0 44" fill="none" stroke-width="2.2" stroke-linecap="round" style="stroke:var(--c)"/>`,
   luz:`<g ${K} stroke-linecap="round"><path d="M56 4a15 15 0 0 1 9 27v6H47v-6A15 15 0 0 1 56 4z" ${TINT}/><rect x="48" y="41" width="16" height="6" rx="2" fill="#FFFFFF"/><line x1="30" y1="19" x2="24" y2="19"/><line x1="82" y1="19" x2="88" y2="19"/><line x1="36" y1="5" x2="32" y2="1"/><line x1="76" y1="5" x2="80" y2="1"/><rect x="100" y="14" width="46" height="26" rx="5" fill="#FFFFFF"/></g><text x="123" y="31" font-family="Inter, sans-serif" font-size="10" font-weight="700" text-anchor="middle" style="fill:var(--c)">500 lx</text>`,
   vibracion:`<g ${K} stroke-linecap="round"><line x1="12" y1="50" x2="148" y2="50"/></g><path d="M12 28q7-20 14 0t14 0t14 0t14 0t14 0t14 0t14 0t14 0t14 0t14 0" fill="none" stroke-width="2.2" stroke-linecap="round" style="stroke:var(--c)"/><g ${K} fill="none" stroke-linecap="round" opacity=".5"><path d="M12 40q7-8 14 0t14 0t14 0t14 0t14 0t14 0t14 0t14 0t14 0t14 0"/></g>`,
   termo:`<g ${K}><rect x="62" y="2" width="14" height="38" rx="7" fill="#FFFFFF"/><circle cx="69" cy="45" r="9" ${SOLID}/></g><rect x="66.5" y="16" width="5" height="26" rx="2.5" ${SOLID}/><g ${K} stroke-linecap="round"><line x1="80" y1="10" x2="86" y2="10"/><line x1="80" y1="18" x2="86" y2="18"/><line x1="80" y1="26" x2="86" y2="26"/></g><path d="M112 10C106 20 101 26 101 32a11 11 0 0 0 22 0C123 26 118 20 112 10Z" ${K} ${TINT}/>`
-});
-// Dibujo por defecto si una herramienta no tiene "dibujo" en el catálogo
+};
+// Dibujo por defecto si un recurso no tiene "dibujo" en el catálogo
 const ART_DEF = `<g ${K} stroke-linecap="round"><line x1="20" y1="16" x2="140" y2="16"/><line x1="20" y1="28" x2="120" y2="28"/><line x1="20" y1="40" x2="96" y2="40"/></g>`;
 const art = t => '<svg class="clip-art" viewBox="0 0 160 56" aria-hidden="true">'+(ART[t.dibujo]||ART_DEF)+'</svg>';
-// Barra superior de la ventanita, como la de cada herramienta
-const winBar = t => `<span class="clip-bar"><span>${star('')}Esplora Labs</span><span>${t.titulo}</span></span>`;
 
-let DB = {tools:{}, mods:[], tags:[], where:{}, text:{}, order:[]};
-let S = {mode:'modulos', mod:null, tag:null, q:''};
+// DB: el catálogo ya preparado. tipo y tema: el tipo de recurso y la primera temática de cada uno.
+let DB = {tools:{}, mods:[], tags:[], tipos:[], where:{}, tipo:{}, tema:{}, text:{}, order:[]};
+// S: lo que se está viendo. view = 'todo' o el id de un módulo; tag y tipo = 'all' o un id.
+let S = {view:'todo', tag:'all', tipo:'all', q:''};
 const stage = document.getElementById('stage');
-const crumbs = document.getElementById('crumbs');
-const sep = '<span class="crumb-sep" aria-hidden="true">/</span>';
 const pad = n => String(n).padStart(2,'0');
 const plural = (n, sing, plu) => n + ' ' + (n===1 ? sing : plu);
 
-const UNIT_DEF = {sing:'Unidad didáctica', plural:'unidades', abrev:'UD', este:'esta'};
+const UNIT_DEF = {sing:'Unidad didáctica', plural:'unidades didácticas', abrev:'UD', este:'esta'};
 const unitWord = m => ({...UNIT_DEF, ...(m && m.nomUnidad || {})});
 const toolsOf = ids => (ids||[]).map(id=>({id, ...DB.tools[id]})).filter(t=>t.url);
+const tipoById = id => DB.tipos.find(x=>x.id===id);
+const tipoName = (tp, n) => n===1 ? tp.sing.toLowerCase() : tp.nombre.toLowerCase();
 
 function load(json){
   DB.tools = json.herramientas || {};
-  // "estilo" (m1 claro / m2 oscuro) va con cada módulo, así el color no cambia si se reordenan
-  DB.mods = (json.modulos||[]).map((m,i)=>({...m, cls: m.estilo || (i===0 ? 'm1' : 'm2')}));
+  DB.mods = json.modulos || [];
+  DB.tipos = json.tipos || [];
   DB.tags = (json.etiquetas||[]).filter(t=>(t.herramientas||[]).some(id=>DB.tools[id]));
-  // Dónde vive cada herramienta (módulo + unidad), para la etiqueta de la vista por temática
-  DB.where = {};
-  DB.text = {};
-  DB.order = [];
-  // Texto en el que busca el buscador: nombre, descripción, módulo, unidad y temática de cada herramienta
+  DB.where = {}; DB.tipo = {}; DB.tema = {}; DB.text = {}; DB.order = [];
+  // Texto en el que busca el buscador: nombre, descripción, módulo, unidad, tipo y temática de cada recurso
   const addText = (id, s) => { DB.text[id] = (DB.text[id]||'') + ' ' + norm(s); };
-  Object.entries(DB.tools).forEach(([id,t])=>addText(id, [t.titulo, t.titular, t.descripcion].join(' ')));
+  Object.entries(DB.tools).forEach(([id,t])=>{
+    addText(id, [t.titulo, t.titular, t.descripcion].join(' '));
+    if(t.tipo) DB.tipo[id] = t.tipo;   // un recurso puede indicar su propio tipo
+  });
   DB.mods.forEach(m=>m.unidades.forEach(u=>(u.herramientas||[]).forEach(id=>{
+    if(!DB.tools[id]) return;
     if(!DB.where[id]) DB.where[id] = m.tag+' · '+unitWord(m).abrev+u.n;
+    if(!DB.tipo[id] && m.tipo) DB.tipo[id] = m.tipo;  // si no, hereda el de su módulo
     if(!DB.order.includes(id)) DB.order.push(id);
     addText(id, [m.tag, m.nombre, unitWord(m).sing, u.titulo].join(' '));
   })));
-  DB.tags.forEach(x=>(x.herramientas||[]).forEach(id=>addText(id, x.nombre)));
-  Object.keys(DB.tools).forEach(id=>{ if(!DB.order.includes(id)) DB.order.push(id); });
-  S.tag = DB.tags.length ? DB.tags[0].id : null;
+  DB.tags.forEach(x=>(x.herramientas||[]).forEach(id=>{
+    if(!DB.tools[id]) return;
+    if(!DB.tema[id]) DB.tema[id] = x.id;
+    addText(id, x.nombre);
+  }));
+  Object.keys(DB.tools).forEach(id=>{
+    if(!DB.order.includes(id)) DB.order.push(id);
+    const tp = tipoById(DB.tipo[id]);
+    if(tp) addText(id, tp.nombre+' '+tp.sing);
+  });
 }
 
 const isExt = url => /^https?:/.test(url);
@@ -756,8 +631,8 @@ const isExt = url => /^https?:/.test(url);
 const norm = s => String(s||'').replace(/<[^>]+>/g,' ').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
 const esc = s => String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-// ¿Tiene esta herramienta trabajo guardado en este navegador? (cada herramienta guarda con su propia clave)
-// Algunas guardan su pantalla de inicio vacía nada más abrirse, así que solo cuenta si hay algo escrito
+// ¿Tiene este recurso trabajo guardado en este navegador? (cada uno guarda con su propia clave)
+// Algunos guardan su pantalla de inicio vacía nada más abrirse, así que solo cuenta si hay algo escrito
 // o respondido. Estos campos son de navegación o ajustes por defecto, no trabajo del alumno.
 const NO_CUENTA = new Set(['screen','theme','nivel','nivelTexto','cur','step','currentQ','currentFactor','itemSeq']);
 function filled(v, k){
@@ -777,166 +652,188 @@ function hasSave(t){
   }catch(e){ return false; }
 }
 
-// Etiquetas pequeñas: tiempo aproximado, si guarda el progreso (o si ya está empezada) y si saca informe
-function toolMeta(t){
-  const m = [];
-  if(t.minutos) m.push(`<span>${icon('clock')}≈ ${t.minutos} min</span>`);
-  if(t.guarda) m.push(hasSave(t) ? `<span class="on">${icon('check')}Empezada</span>` : `<span>${icon('save')}Guarda progreso</span>`);
-  if(t.informe) m.push(`<span>${icon('print')}Informe PDF</span>`);
-  return m.length ? `<span class="tool-meta">${m.join('')}</span>` : '';
-}
-
-// Tarjetas del catálogo: la misma ventanita que los recortes de la portada, con la descripción debajo del dibujo
-function toolCards(list){
-  return '<ul class="tool-grid">' + list.map((t,i)=>{
+// Una fila por recurso: dibujo, nombre, descripción, "Tipo · Temática · tiempo" y etiquetas
+function rowsList(list, showTipo){
+  return '<ul class="res-list">' + list.map((t,i)=>{
+    const tp = tipoById(DB.tipo[t.id]);
+    const tema = DB.tags.find(x=>x.id===DB.tema[t.id]);
+    const meta = [showTipo && tp ? tp.sing : '', tema ? tema.nombre : '', t.minutos ? '≈ '+t.minutos+' min' : ''].filter(Boolean).join(' · ');
+    const flags = [];
+    if(t.guarda) flags.push(hasSave(t) ? `<span class="flag on">${icon('check')}Empezada</span>` : `<span class="flag">${icon('save')}Guarda progreso</span>`);
+    if(t.informe) flags.push(`<span class="flag">${icon('print')}Informe PDF</span>`);
     const ext = isExt(t.url);
-    return `<li class="pop" style="--i:${i}"><a class="tool-card" style="--c:${t.color||'var(--olive-deep)'}" href="${t.url}"${ext?' target="_blank" rel="noopener"':''}>
-      ${winBar(t)}
-      <span class="clip-body">
-        <span class="clip-kick">${DB.where[t.id]||''}</span>
-        <span class="clip-h">${t.titular||t.titulo}</span>
-        ${art(t)}
-        ${t.descripcion ? `<span class="win-desc">${t.descripcion}</span>` : ''}
-        ${toolMeta(t)}
-        <span class="clip-go">Abrir ${icon('arrow')}</span>
+    return `<li class="pop" style="--i:${Math.min(i,10)}"><a class="res" style="--c:${t.color||'#6B7028'}" href="${t.url}"${ext?' target="_blank" rel="noopener"':''}>
+      <span class="res-art">${art(t)}</span>
+      <span class="res-main">
+        <span class="res-t">${t.titulo}</span>
+        ${t.descripcion ? `<span class="res-d">${t.descripcion}</span>` : ''}
+        ${meta ? `<span class="res-meta">${meta}</span>` : ''}
+        ${flags.length ? `<span class="flags">${flags.join('')}</span>` : ''}
       </span>
+      <span class="res-go" aria-hidden="true">${icon('arrow')}</span>
     </a></li>`;}).join('') + '</ul>';
 }
 
+// ---------- Todo el catálogo: búsqueda + temática + tipo de recurso ----------
+function matches(id, f){
+  const t = DB.tools[id];
+  if(!t || !t.url) return false;
+  if(f.tag!=='all'){ const x = DB.tags.find(x=>x.id===f.tag); if(!x || !(x.herramientas||[]).includes(id)) return false; }
+  if(f.tipo!=='all' && DB.tipo[id]!==f.tipo) return false;
+  const words = norm(f.q).split(/\s+/).filter(w=>w.length>=2);
+  return words.every(w=>DB.text[id].includes(w));
+}
+function exploreView(){
+  const f = {tag:S.tag, tipo:S.tipo, q:S.q};
+  const count = patch => DB.order.filter(id=>matches(id, {...f, ...patch})).length;
+  const chipTema = [{id:'all', nombre:'Todas'}, ...DB.tags].map(x=>{
+    const on = S.tag===x.id;
+    return `<button type="button" class="chip" data-tag="${x.id}" aria-pressed="${on}">${x.nombre}${x.id==='all' ? '' : `<em>${count({tag:x.id})}</em>`}</button>`;
+  }).join('');
+  const chipTipo = [{id:'all', nombre:'Todos'}, ...DB.tipos].map(x=>{
+    const on = S.tipo===x.id;
+    const total = x.id==='all' ? 1 : DB.order.filter(id=>DB.tipo[id]===x.id).length;
+    const soon = x.proximamente && !total;
+    return `<button type="button" class="chip${soon?' soon':''}" data-tipo="${x.id}" aria-pressed="${on}">${x.nombre}${x.id==='all' ? '' : `<em>${soon ? 'Próximamente' : count({tipo:x.id})}</em>`}</button>`;
+  }).join('');
+  const filters = `<div class="filters">
+    <div class="filter-group" role="group" aria-labelledby="fTema"><span class="filter-label" id="fTema">Temática</span><div class="chips">${chipTema}</div></div>
+    <div class="filter-group" role="group" aria-labelledby="fTipo"><span class="filter-label" id="fTipo">Tipo de recurso</span><div class="chips">${chipTipo}</div></div>
+  </div>`;
+
+  const list = DB.order.filter(id=>matches(id, f)).map(id=>({id, ...DB.tools[id]}));
+  const q = S.q.trim();
+  if(list.length){
+    return filters + `<p class="res-count" role="status">${plural(list.length,'resultado','resultados')}${q ? ` para <mark>${esc(q)}</mark>` : ''}</p>` + rowsList(list, true);
+  }
+  // Sin resultados: o es un tipo que aún no tiene nada, o la combinación de filtros no encaja
+  const tp = tipoById(S.tipo);
+  if(tp && !DB.order.some(id=>DB.tipo[id]===tp.id)){
+    return filters + `<div class="empty" role="status"><h3>${icon(KIND_ICON[tp.id]||'tool')}${tp.nombre}: próximamente</h3><p>${tp.descripcion||''}</p><button type="button" class="btn-small" data-reset>Ver todo el catálogo</button></div>`;
+  }
+  const why = q ? `Nada coincide con «${esc(q)}» con estos filtros. Prueba con otra palabra o quita los filtros.` : 'No hay recursos con esta combinación de temática y tipo. Quita uno de los dos filtros.';
+  return filters + `<div class="empty" role="status"><h3>${icon('search')}Ningún resultado</h3><p>${why}</p><button type="button" class="btn-small" data-reset>Quitar filtros</button></div>`;
+}
+
+// ---------- Un módulo: todas sus unidades o bloques a la vista ----------
 // Enlaces directos: #ipe2 abre el módulo; #ipe2-ud1 o #ipe1-b2 abren el módulo y bajan a esa unidad o bloque
 const unitHash = (m,u) => m.id+'-'+unitWord(m).abrev.toLowerCase()+u.n;
 const linkTo = hash => location.href.split('#')[0]+'#'+hash;
 const copyBtn = (hash, label) => `<button type="button" class="copy-link" data-copy="${hash}" title="Copia un enlace que abre directamente aquí">${icon('link')}<span>${label}</span></button>`;
 
-function moduleGrid(){
-  return '<div class="module-grid">' + DB.mods.map((m,i)=>{
-    const w = unitWord(m);
-    const nTools = m.unidades.reduce((a,u)=>a+toolsOf(u.herramientas).length, 0);
-    return `<button type="button" class="module-card pop ${m.cls}" style="--i:${i}" data-mod="${m.id}">
-      ${star('bg-star')}
-      <span class="module-tag">${m.tag}</span>
-      <span class="module-name">${m.nombre}</span>
-      <span class="module-desc">${m.descripcion||''}</span>
-      <span class="module-foot"><span class="count">${plural(m.unidades.length, w.sing.toLowerCase(), w.plural)} · ${plural(nTools,'herramienta','herramientas')}</span><span class="arrow-circle">${icon('arrow')}</span></span>
-    </button>`;}).join('') + '</div>';
-}
-
-// Vista de un módulo: todas sus unidades, cada una con sus herramientas ya visibles
 function moduleView(m){
   const w = unitWord(m);
+  const tp = tipoById(m.tipo);
   const uid = u => unitHash(m,u);
+  const n = m.unidades.reduce((a,u)=>a+toolsOf(u.herramientas).length, 0);
   const index = '<ul class="unit-index" aria-label="Ir a">' + m.unidades.map(u=>{
-    const n = toolsOf(u.herramientas).length;
-    return `<li><a class="unit-chip ${n?'':'soon'}" href="#${uid(u)}"><b>${w.abrev}${u.n}</b><span class="chip-t" aria-hidden="true">${u.titulo.length>28 ? u.titulo.slice(0,26).trim()+'…' : u.titulo}</span><span class="sr">${u.titulo}</span></a></li>`;
+    const k = toolsOf(u.herramientas).length;
+    return `<li><a class="unit-chip ${k?'':'soon'}" href="#${uid(u)}"><b>${w.abrev}${u.n}</b><span class="chip-t" aria-hidden="true">${u.titulo.length>28 ? u.titulo.slice(0,26).trim()+'…' : u.titulo}</span><span class="sr">${u.titulo}</span></a></li>`;
   }).join('') + '</ul>';
   const units = m.unidades.map(u=>{
     const list = toolsOf(u.herramientas);
+    const what = tp ? plural(list.length, tp.sing.toLowerCase(), tp.nombre.toLowerCase()) : plural(list.length,'recurso','recursos');
     return `<section class="unit-sec" id="${uid(u)}" aria-labelledby="${uid(u)}-t">
-      <div class="unit-head live">
+      <div class="unit-head">
         <span class="unit-num" aria-hidden="true">${pad(u.n)}</span>
         <div class="unit-head-tx">
-          <span class="unit-meta">${w.sing} ${u.n} · ${list.length ? plural(list.length,'herramienta','herramientas') : 'En construcción'}</span>
+          <span class="unit-meta">${w.sing} ${u.n} · ${list.length ? what : 'En construcción'}</span>
           <h4 class="unit-title" id="${uid(u)}-t">${u.titulo}</h4>
         </div>
         ${list.length ? copyBtn(uid(u), 'Copiar enlace') : ''}
-        <span class="unit-icon">${icon(u.icono||'book')}</span>
       </div>
-      ${list.length ? toolCards(list, false) : `<p class="unit-empty">${icon('tool')}Las herramientas de ${w.este} ${w.sing.toLowerCase()} están en camino.</p>`}
+      ${list.length ? rowsList(list, false) : `<p class="unit-empty">${icon('tool')}Los recursos de ${w.este} ${w.sing.toLowerCase()} están en camino.</p>`}
     </section>`;
   }).join('');
-  return `<div class="mod-head"><div><h3 class="mod-title" id="modTitle" tabindex="-1">${m.tag}: ${m.nombre}</h3>${m.descripcion?`<p class="mod-desc">${m.descripcion}</p>`:''}</div>${copyBtn(m.id, 'Copiar enlace a '+m.tag)}</div>
+  const sub = [m.lema, tp ? plural(n, tipoName(tp,1), tipoName(tp,2)) : '', plural(m.unidades.length, w.sing.toLowerCase(), w.plural)].filter(Boolean).join(' · ');
+  return `<div class="mod-head"><div><h3 class="mod-title" id="modTitle" tabindex="-1">${m.tag}: ${m.nombre}</h3><p class="mod-desc">${sub}</p></div>${copyBtn(m.id, 'Copiar enlace a '+m.tag)}</div>
     ${index}<div class="unit-list">${units}</div>`;
 }
 
-function topicView(){
-  const t = DB.tags.find(x=>x.id===S.tag);
-  return '<div class="tag-row" role="group" aria-label="Temáticas">' + DB.tags.map(x=>{
-    const n = toolsOf(x.herramientas).length;
-    return `<button type="button" class="tag-pill live ${x.id===S.tag?'active':''}" aria-pressed="${x.id===S.tag}" data-tag="${x.id}">${icon(x.icono||'tool')}<span>${x.nombre}</span><em>${n}<span class="sr"> ${n===1?'herramienta':'herramientas'}</span></em></button>`;
-  }).join('') + '</div>' + (t ? toolCards(toolsOf(t.herramientas), true) : '');
+function render(){
+  const m = DB.mods.find(x=>x.id===S.view);
+  stage.innerHTML = m ? moduleView(m) : exploreView();
+  document.querySelectorAll('#seg a').forEach(a=>{
+    if(a.dataset.view===(m ? m.id : 'todo')) a.setAttribute('aria-current','true'); else a.removeAttribute('aria-current');
+  });
 }
-
-// Recortes de la portada: solo los de WALL cuya herramienta exista en el catálogo
-function renderWall(){
-  const wall = document.getElementById('wall');
-  const list = WALL.map(id=>({id, ...DB.tools[id]})).filter(t=>t.url).slice(0,4);
-  wall.insertAdjacentHTML('beforeend', list.map((t,i)=>{
-    const ext = isExt(t.url);
-    return `<a class="clip n${i+1}" style="--c:${t.color||'#6B7028'};--i:${i}" href="${t.url}"${ext?' target="_blank" rel="noopener"':''}>
-      ${winBar(t)}
-      <span class="clip-body">
-        <span class="clip-kick">${DB.where[t.id]||''}</span>
-        <span class="clip-h">${t.titular||t.titulo}</span>
-        ${art(t)}
-        <span class="clip-go">Abrir ${icon('arrow')}</span>
-      </span>
-    </a>`;}).join(''));
-  document.getElementById('wallHint').hidden = list.length < 4;
-}
-
 function go(patch){ Object.assign(S, patch); render(); }
-function scrollToExplorer(){
-  const top = document.getElementById('explorar').getBoundingClientRect().top + window.scrollY - 90;
-  if(Math.abs(window.scrollY - top) > 200) window.scrollTo({top, behavior:'smooth'});
-}
 
-function setModeButtons(mode){
-  document.querySelectorAll('.mode').forEach(x=>{const on = x.dataset.mode===mode; x.classList.toggle('active',on); x.setAttribute('aria-pressed',on);});
-}
-document.querySelectorAll('.mode').forEach(b=>b.onclick=()=>{
-  setModeButtons(b.dataset.mode);
-  clearSearch(false);
-  go({mode:b.dataset.mode, mod:null});
-  if(findRoute(currentHash())) history.pushState(null, '', '#explorar');
+// Clics dentro del catálogo (los botones se crean de nuevo en cada render)
+stage.addEventListener('click', e=>{
+  const b = e.target.closest('button');
+  if(!b) return;
+  if(b.dataset.copy) return copyLink(b);
+  if(b.hasAttribute('data-reset')){ clearSearch(false); go({tag:'all', tipo:'all'}); history.replaceState(null,'','#catalogo'); return; }
+  const key = b.dataset.tag ? 'tag' : b.dataset.tipo ? 'tipo' : null;
+  if(!key) return;
+  go({[key]: b.dataset[key]});
+  history.replaceState(null,'','#catalogo');
+  const again = stage.querySelector(`[data-${key}="${b.dataset[key]}"]`);
+  if(again) again.focus({preventScroll:true});
 });
 
-// ---------- Buscador ----------
+// ---------- Buscador: busca siempre en todo el catálogo ----------
 const q = document.getElementById('q');
 const qClear = document.getElementById('qClear');
-const finder = document.getElementById('finder');
-const searching = () => norm(S.q).trim().length >= 2;
-q.addEventListener('input', ()=>{ S.q = q.value; qClear.hidden = !q.value; render(); });
+q.addEventListener('input', ()=>{
+  S.q = q.value; qClear.hidden = !q.value;
+  if(S.view!=='todo'){ S.view = 'todo'; history.replaceState(null,'','#catalogo'); }
+  render();
+});
 q.addEventListener('keydown', e=>{ if(e.key==='Escape' && q.value) clearSearch(); });
 qClear.onclick = ()=>{ clearSearch(); q.focus(); };
 function clearSearch(doRender=true){
   q.value = ''; S.q = ''; qClear.hidden = true;
   if(doRender) render();
 }
-function searchView(){
-  const words = norm(S.q).split(/\s+/).filter(Boolean);
-  const list = DB.order.filter(id=>DB.tools[id].url && words.every(w=>DB.text[id].includes(w))).map(id=>({id, ...DB.tools[id]}));
-  const head = `<div class="results-head"><p role="status">${list.length ? plural(list.length,'herramienta encontrada','herramientas encontradas') : 'Ninguna herramienta encontrada'} para <em>${esc(S.q.trim())}</em></p></div>`;
-  if(!list.length) return head + `<p class="unit-empty">${icon('tool')}Prueba con otra palabra (el nombre del tema, por ejemplo) o borra la búsqueda para explorar por módulos.</p>`;
-  return head + toolCards(list);
-}
 
-// ---------- Enlaces directos (#ipe2, #ipe1-b2…) ----------
+// ---------- Enlaces directos ----------
+// #ipe1, #ipe2-ud1… (módulo o unidad) · #catalogo (todo) · #tematicas (todo, con el foco en las temáticas)
+// #tema-prl, #tipo-aula… (todo, ya filtrado por esa temática o ese tipo)
 const currentHash = () => { try{ return decodeURIComponent(location.hash.slice(1)); }catch(e){ return ''; } };
 function findRoute(h){
   for(const m of DB.mods){
-    if(h===m.id) return {m};
+    if(h===m.id) return {view:m.id};
     const u = m.unidades.find(u=>unitHash(m,u)===h);
-    if(u) return {m, u};
+    if(u) return {view:m.id, unit:u, m};
   }
+  if(h==='catalogo') return {view:'todo', tag:'all', tipo:'all'};
+  if(h==='tematicas') return {view:'todo', tag:'all', tipo:'all', focus:true};
+  let r;
+  if((r = h.match(/^tema-(.+)$/)) && DB.tags.some(x=>x.id===r[1])) return {view:'todo', tag:r[1], tipo:'all'};
+  if((r = h.match(/^tipo-(.+)$/)) && DB.tipos.some(x=>x.id===r[1])) return {view:'todo', tag:'all', tipo:r[1]};
   return null;
 }
 function applyRoute(){
-  const h = currentHash();
-  const r = findRoute(h);
-  if(!r){
-    // Volver atrás desde un módulo (o pulsar "Explorar") devuelve a la elección de módulo
-    if(S.mod && (h==='' || h==='explorar')) go({mod:null});
-    return;
-  }
+  const r = findRoute(currentHash());
+  if(!r) return false;
   if(S.q) clearSearch(false);
-  if(S.mode!=='modulos' || S.mod!==r.m.id){ setModeButtons('modulos'); go({mode:'modulos', mod:r.m.id}); }
+  const patch = {view:r.view};
+  if(r.tag) patch.tag = r.tag;
+  if(r.tipo) patch.tipo = r.tipo;
+  go(patch);
   setTimeout(()=>{
-    const sec = r.u && document.getElementById(unitHash(r.m, r.u));
+    const sec = r.unit && document.getElementById(unitHash(r.m, r.unit));
     if(sec) sec.scrollIntoView({behavior: calm ? 'auto' : 'smooth', block:'start'});
-    else scrollToExplorer();
+    else scrollToCatalog();
+    if(r.focus){ const c = stage.querySelector('[data-tag]'); if(c) c.focus({preventScroll:true}); }
+    else if(!r.unit && r.view!=='todo'){ const h = document.getElementById('modTitle'); if(h) h.focus({preventScroll:true}); }
   }, 60);
+  return true;
+}
+function scrollToCatalog(){
+  const top = document.getElementById('explorar').getBoundingClientRect().top + window.scrollY - 80;
+  if(Math.abs(window.scrollY - top) > 120) window.scrollTo({top, behavior: calm ? 'auto' : 'smooth'});
 }
 addEventListener('hashchange', applyRoute);
+// Pulsar un enlace al mismo sitio en el que ya se está (por ejemplo, IPE 1 dos veces) vuelve a llevar allí
+document.addEventListener('click', e=>{
+  const a = e.target.closest('a[href^="#"]');
+  if(!a || !DB.order.length) return;
+  const h = a.getAttribute('href').slice(1);
+  if(h===currentHash() && findRoute(h)){ e.preventDefault(); applyRoute(); }
+});
 
 function copyLink(b){
   const url = linkTo(b.dataset.copy);
@@ -951,6 +848,29 @@ function copyLink(b){
     .catch(()=>window.prompt('Copia este enlace:', url));
 }
 
+// ---------- Portada: cifras de cada materia y tipos de recurso ----------
+function fillPicker(){
+  DB.mods.forEach(m=>{
+    const el = document.querySelector(`[data-count="${m.id}"]`);
+    const tp = tipoById(m.tipo);
+    const n = m.unidades.reduce((a,u)=>a+toolsOf(u.herramientas).length, 0);
+    if(el && tp) el.textContent = plural(m.unidades.length, unitWord(m).sing.toLowerCase(), unitWord(m).plural)+' · '+plural(n, tipoName(tp,1), tipoName(tp,2));
+  });
+  const total = DB.order.filter(id=>DB.tools[id].url).length;
+  document.getElementById('allLink').textContent = `Ver todo el catálogo (${total})`;
+}
+function renderKinds(){
+  document.getElementById('kindList').innerHTML = DB.tipos.map(tp=>{
+    const n = DB.order.filter(id=>DB.tipo[id]===tp.id && DB.tools[id].url).length;
+    return `<li class="kind${n?'':' soon'}">
+      <span class="kind-icon">${icon(KIND_ICON[tp.id]||'tool')}</span>
+      <h3>${tp.nombre}<small>${n ? plural(n,'disponible','disponibles') : 'Próximamente'}</small></h3>
+      <p>${tp.descripcion||''}</p>
+      ${n ? `<a href="#tipo-${tp.id}">Ver ${n===1 ? 'el recurso' : 'los '+n}</a>` : ''}
+    </li>`;
+  }).join('');
+}
+
 // ---------- Seguir donde lo dejaste ----------
 function renderResume(){
   const box = document.getElementById('seguir');
@@ -960,90 +880,26 @@ function renderResume(){
   if(!list.length){ box.innerHTML = ''; hero.innerHTML = ''; return; }
   box.innerHTML = `<h3 class="resume-h">${icon('resume')}Seguir donde lo dejaste</h3>
     <p class="resume-sub">Tienes trabajo guardado en este navegador. Ábrelo y continúa justo donde lo dejaste.</p>
-    <ul class="resume-list">${list.map(t=>`<li><a class="resume-item" style="--c:${t.color||'var(--olive-deep)'}" href="${t.url}"><span>${t.titulo}<small>${DB.where[t.id]||''}</small></span><span class="resume-go">Retomar ${icon('arrow')}</span></a></li>`).join('')}</ul>`;
-  hero.innerHTML = `Tienes trabajo guardado en ${plural(list.length,'herramienta','herramientas')}. <a href="#seguir">Seguir donde lo dejaste</a>`;
+    <ul class="resume-list">${list.map(t=>`<li><a class="resume-item" style="--c:${t.color||'#6B7028'}" href="${t.url}"><span>${t.titulo}<small>${DB.where[t.id]||''}</small></span><span class="resume-go">Retomar ${icon('arrow')}</span></a></li>`).join('')}</ul>`;
+  hero.innerHTML = `Tienes trabajo guardado en ${plural(list.length,'recurso','recursos')}. <a href="#seguir">Seguir donde lo dejaste</a>`;
 }
 // Al volver a la portada con el botón "atrás", se actualiza lo que hay guardado
 addEventListener('pageshow', e=>{ if(e.persisted && DB.order.length){ renderResume(); render(); } });
 
-function render(){
-  let html = '', c = '';
-  finder.classList.toggle('searching', searching());
-  if(searching()){
-    html = searchView();
-  } else if(S.mode==='modulos'){
-    const m = DB.mods.find(x=>x.id===S.mod);
-    if(m){
-      c = `<button type="button" class="crumb" data-go="home">Módulos</button>${sep}<span class="crumb current" aria-current="page">${m.tag}</span>`;
-      html = moduleView(m);
-    } else {
-      html = moduleGrid();
-    }
-  } else {
-    html = topicView();
-  }
-  crumbs.innerHTML = c;
-  crumbs.hidden = !c;
-  stage.innerHTML = html;
-
-  crumbs.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{
-    const prev = S.mod;
-    go({mod:null});
-    history.pushState(null, '', '#explorar');
-    const card = stage.querySelector(`[data-mod="${prev}"]`);
-    if(card) card.focus({preventScroll:true});
-    scrollToExplorer();
-  });
-  stage.querySelectorAll('[data-copy]').forEach(b=>b.onclick=()=>copyLink(b));
-  stage.querySelectorAll('[data-mod]').forEach(b=>b.onclick=()=>{
-    go({mod:b.dataset.mod});
-    history.pushState(null, '', '#'+b.dataset.mod);
-    const h = document.getElementById('modTitle');
-    if(h) h.focus({preventScroll:true});
-    scrollToExplorer();
-  });
-  stage.querySelectorAll('[data-tag]').forEach(b=>b.onclick=()=>{
-    go({tag:b.dataset.tag});
-    const again = stage.querySelector(`[data-tag="${b.dataset.tag}"]`);
-    if(again) again.focus({preventScroll:true});
-  });
-}
-
-// Cifras de la portada: cuentan hacia arriba cuando aparecen en pantalla
 const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
-function countUp(el){
-  const to = +el.dataset.to;
-  if(calm || !to){ el.textContent = to; return; }
-  const t0 = performance.now(), dur = 900;
-  const step = now => {
-    const p = Math.min(1, (now - t0) / dur);
-    el.textContent = Math.round(to * (1 - Math.pow(1 - p, 3)));
-    if(p < 1) requestAnimationFrame(step);
-  };
-  requestAnimationFrame(step);
-}
-function fillFacts(){
-  document.getElementById('factTools').dataset.to = Object.values(DB.tools).filter(t=>t.url).length;
-  document.getElementById('factMods').dataset.to = DB.mods.length;
-  if(document.getElementById('facts').classList.contains('in')) document.querySelectorAll('#facts [data-to]').forEach(countUp);
-}
-
-// Aparición al bajar por la página
-const io = new IntersectionObserver(entries=>entries.forEach(e=>{
-  if(!e.isIntersecting) return;
-  e.target.classList.add('in');
-  if(e.target.id==='facts') e.target.querySelectorAll('[data-to]').forEach(countUp);
-  io.unobserve(e.target);
-}), {threshold:.2, rootMargin:'0px 0px -40px 0px'});
-document.querySelectorAll('.reveal, #steps').forEach(el=>io.observe(el));
+// La línea de la sesión de 50 minutos se dibuja cuando aparece en pantalla
+const steps = document.getElementById('steps');
+if('IntersectionObserver' in window){
+  const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ steps.classList.add('in'); io.disconnect(); } }), {threshold:.3});
+  io.observe(steps);
+} else steps.classList.add('in');
 
 fetch('data/estructura.json', {cache:'no-store'})
   .then(r=>{ if(!r.ok) throw new Error(r.status); return r.json(); })
-  .then(json=>{ load(json); render(); renderWall(); fillFacts(); renderResume(); applyRoute(); })
+  .then(json=>{ load(json); fillPicker(); renderKinds(); renderResume(); if(!applyRoute()) render(); })
   .catch(()=>{
-    stage.innerHTML = '<div class="load-msg"><b>No se han podido cargar las herramientas.</b><br>Revisa que <code>data/estructura.json</code> existe y no tiene errores de formato (comas o llaves de más).</div>';
-    document.getElementById('factToolsLi').hidden = true;
-    document.getElementById('factModsLi').hidden = true;
+    stage.innerHTML = '<div class="empty" role="alert"><h3>No se ha podido cargar el catálogo.</h3><p>Revisa que <code>data/estructura.json</code> existe y no tiene errores de formato (comas o llaves de más). Después, recarga la página.</p></div>';
+    document.getElementById('recursos').hidden = true;
   });
 
 // Sombra bajo la barra flotante al bajar por la página
