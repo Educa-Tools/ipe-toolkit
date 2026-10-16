@@ -1,11 +1,5 @@
 # Esplora (antes Educa Tools / IPE Toolkit)
 
-## Quién soy
-Soy profesor de FP (IPE 1 e IPE 2, FOL y EIE). No sé programar:
-explícame todo sin jerga y, al terminar cada tarea, dime qué has
-cambiado, en qué archivos y cómo comprobarlo. Paso a paso y una acción
-por mensaje cuando haya configuración.
-
 ## Qué es este proyecto
 Herramientas HTML interactivas que el alumnado usa en clase: reutilizables,
 con margen para equivocarse y obtener una segunda visión. El público de la
@@ -19,7 +13,7 @@ Fuente de verdad del estado del proyecto: esplora-contexto-claude-code.md.
 - La dirección antigua https://educa-tools.github.io/ipe-toolkit/ sigue
   funcionando: las rutas deben ser relativas para que valgan en las dos.
 - Contacto: contacto@esplora.es (Zoho Mail).
-- DNS en Cloudflare. No toques DNS sin mi OK.
+- DNS en Cloudflare. No se toca el DNS sin confirmación.
 - No renombres el repositorio ni la organización de GitHub: rompería el
   CNAME de www y los enlaces ya compartidos.
 
@@ -27,7 +21,7 @@ Fuente de verdad del estado del proyecto: esplora-contexto-claude-code.md.
 - Haz git pull antes de empezar.
 - El archivo CNAME de la raíz (contenido: esplora.es) no se borra ni se
   sobrescribe nunca: si desaparece, se cae el dominio.
-- Hacer push a main publica la web en 1-2 minutos. Enséñame el diff
+- Hacer push a main publica la web en 1-2 minutos. Mostrar el diff
   antes de hacer push.
 - Mensajes de commit claros y en español.
 
@@ -46,7 +40,7 @@ Fuente de verdad del estado del proyecto: esplora-contexto-claude-code.md.
 
 ## Reglas de trabajo
 - No renombres ni muevas archivos: la web publicada enlaza a ellos por
-  su nombre. Si hace falta reorganizar, cuéntame el plan y espera mi OK.
+  su nombre. Si hace falta reorganizar, explicar el plan y esperar confirmación.
 - Para añadir una herramienta: crear su .html y registrarla en
   data/estructura.json (sigue el README).
 - Cada herramienta es un HTML autónomo y completo (con DOCTYPE), sin
@@ -61,8 +55,8 @@ Fuente de verdad del estado del proyecto: esplora-contexto-claude-code.md.
 - Las sesiones duran 50 minutos: herramientas ágiles y con opción de
   guardar el progreso para retomarlo otro día.
 - Antes de cambios grandes (tocar varias herramientas) o irreversibles
-  (borrar, renombrar, DNS), cuéntame el plan y espera mi OK.
-  No borres nada sin avisarme.
+  (borrar, renombrar, DNS), explicar el plan y esperar confirmación.
+  No borrar nada sin avisar.
 
 ## Identidad visual vigente (provisional)
 - Verde oliva de marca #6B7028 (en modo oscuro #A7AE4B), fondo crema
@@ -73,7 +67,7 @@ Fuente de verdad del estado del proyecto: esplora-contexto-claude-code.md.
 - Con modo oscuro mediante prefers-color-scheme.
 - Las herramientas actuales todavía usan el kit anterior (Fraunces e
   Inter, tema claro). Pasarlas a la identidad nueva es un cambio grande:
-  pídeme OK antes.
+  pedir confirmación antes.
 - Logotipo e isotipo definitivos: pendientes. Cuando lleguen, sustituir
   favicon, avatar, cabecera y 404.
 - Mascota: Explorito, una espora con mochila y lupa, con accesorios
