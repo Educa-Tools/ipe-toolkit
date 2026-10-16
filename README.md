@@ -10,10 +10,13 @@ Herramientas interactivas y recursos para **Itinerario Personal para la Empleabi
 ## Cómo está organizado
 
 - `index.html` — la portada. No hace falta tocarla para añadir herramientas.
-- `data/estructura.json` — **todo el contenido**, en tres bloques:
+- `data/estructura.json` — **todo el contenido**, en cuatro bloques:
   - `herramientas`: el catálogo. Cada herramienta tiene un identificador corto y sus datos.
-  - `modulos`: IPE 1 e IPE 2 (en el orden en que salen en la portada), con sus unidades y la lista de herramientas de cada una (por identificador, en el orden en que deben aparecer).
-  - `etiquetas`: las temáticas del "Explorar por temática", también con su lista de herramientas.
+  - `modulos`: IPE 1 e IPE 2 (en el orden en que salen en la portada), con sus unidades y la lista de herramientas de cada una (por identificador, en el orden en que deben aparecer). Cada módulo lleva su `lema` (la frase corta del selector "¿Con qué materia trabajas?") y su `tipo` de recurso.
+  - `tipos`: los tipos de recurso del filtro "Tipo de recurso": `herramienta` (herramientas interactivas, las de IPE 2), `aula` (recursos de aula, los de IPE 1) y `material` (materiales didácticos: diapositivas y capítulos). Un tipo con `"proximamente": true` y sin recursos sale como "Próximamente".
+  - `etiquetas`: las temáticas del filtro "Temática", también con su lista de herramientas.
+
+Cada recurso toma el tipo de su módulo. Si alguno es de otro tipo (por ejemplo, unas diapositivas de IPE 1), ponle `"tipo": "material"` en su línea de `herramientas`.
 - El resto de `.html` — cada herramienta interactiva, independiente.
 - `CNAME` — el dominio `esplora.es`. No se toca.
 
@@ -48,6 +51,9 @@ Notas:
 
 - `https://esplora.es/#ipe2` abre IPE 2; `#ipe1` abre IPE 1.
 - `https://esplora.es/#ipe2-ud1` baja a la Unidad didáctica 1 de IPE 2; `#ipe1-b2` baja al Bloque 2 de IPE 1.
+- `https://esplora.es/#catalogo` abre todo el catálogo.
+- `#tema-prl` abre el catálogo filtrado por una temática (el `id` de `etiquetas`: `idea`, `mercado`, `viabilidad`, `prl`, `laboral`).
+- `#tipo-herramienta`, `#tipo-aula` o `#tipo-material` lo abren filtrado por tipo de recurso.
 - En la portada, cada módulo y cada unidad tiene un botón "Copiar enlace" que copia la dirección.
 
 ## Nombres de archivo

@@ -28,10 +28,15 @@ Fuente de verdad del estado del proyecto: esplora-contexto-claude-code.md.
 ## Estructura real del repositorio
 - index.html: la landing (portada). No tiene las herramientas escritas:
   las lee de data/estructura.json.
-- data/estructura.json: el índice del catálogo. Tiene tres partes:
+- data/estructura.json: el índice del catálogo. Tiene cuatro partes:
   herramientas (nombre, descripción, color), módulos (IPE 2 por unidades,
-  IPE 1 por bloques, con las herramientas de cada uno) y etiquetas
-  (temáticas de "Explorar por temática").
+  IPE 1 por bloques, con las herramientas de cada uno), tipos de recurso
+  (herramientas interactivas = IPE 2, recursos de aula = IPE 1, materiales
+  didácticos = diapositivas y capítulos, aún sin contenido) y etiquetas
+  (temáticas del filtro "Temática").
+- La portada se organiza por materia (IPE 1, IPE 2 u otra materia) y
+  filtra el catálogo por temática y tipo de recurso. Sin versión "Pro" y
+  sin "materias afines" por ahora.
 - Cada herramienta es un archivo .html independiente en la raíz.
 - CNAME: dominio personalizado (no tocar).
 - README.md: instrucciones para añadir herramientas.

@@ -33,6 +33,8 @@
       "id": "ipe1",
       "tag": "IPE 1",
       "estilo": "m2",
+      "tipo": "aula",
+      "lema": "Trabajo por cuenta ajena",
       "nomUnidad": { "sing": "Bloque", "plural": "bloques", "abrev": "B", "este": "este" },
       "nombre": "Itinerario Personal para la Empleabilidad I",
       "descripcion": "Prevención de riesgos, derecho del trabajo, Seguridad Social e itinerario profesional.",
@@ -46,6 +48,8 @@
       "id": "ipe2",
       "tag": "IPE 2",
       "estilo": "m1",
+      "tipo": "herramienta",
+      "lema": "Emprendimiento",
       "nombre": "Itinerario Personal para la Empleabilidad II",
       "descripcion": "Emprendimiento, análisis del entorno, viabilidad e inserción laboral.",
       "unidades": [
@@ -55,6 +59,12 @@
         { "n": 4, "titulo": "Empleabilidad e inserción laboral",          "icono": "compass",     "herramientas": [] }
       ]
     }
+  ],
+
+  "tipos": [
+    { "id": "herramienta", "nombre": "Herramientas interactivas", "sing": "Herramienta interactiva", "descripcion": "Análisis, simuladores y planes que el alumnado construye paso a paso, guarda y entrega como informe. Son las de IPE 2." },
+    { "id": "aula",        "nombre": "Recursos de aula",          "sing": "Recurso de aula",         "descripcion": "Juegos de repaso, casos, guías y buscadores para trabajar en clase la prevención, el derecho laboral y la Seguridad Social. Son los de IPE 1." },
+    { "id": "material",    "nombre": "Materiales didácticos",     "sing": "Material didáctico",      "descripcion": "Diapositivas y capítulos para preparar y dar la clase. Llegarán a lo largo del curso 2026/27.", "proximamente": true }
   ],
 
   "etiquetas": [
