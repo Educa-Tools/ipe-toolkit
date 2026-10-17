@@ -6,7 +6,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Esplora · Herramientas y recursos didácticos</title>
 <meta name="description" content="Herramientas y recursos didácticos sobre empleabilidad y emprendimiento para IPE 1, IPE 2 y otras materias afines. Se usan en el navegador, sin instalar nada.">
-<meta name="theme-color" content="#6B7028">
+<meta name="theme-color" content="#FBFCEF">
+<!-- Cómo se ve el enlace al compartirlo en LinkedIn, Instagram o WhatsApp (la imagen llegará con el logo) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Esplora">
+<meta property="og:locale" content="es_ES">
+<meta property="og:url" content="https://esplora.es/">
+<meta property="og:title" content="Esplora · Herramientas y recursos didácticos">
+<meta property="og:description" content="Herramientas y recursos didácticos sobre empleabilidad y emprendimiento, para trabajar en clase desde el navegador.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Esplora · Herramientas y recursos didácticos">
+<meta name="twitter:description" content="Herramientas y recursos didácticos sobre empleabilidad y emprendimiento, para trabajar en clase desde el navegador.">
+<link rel="canonical" href="https://esplora.es/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath fill='%236B7028' d='M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="fuentes/fuentes.css">
 <style>
@@ -23,6 +34,8 @@
     --olive-mid:#A8AD5C;
     --lime-soft:#E8EDC4;
     --lime-mid:#C5CD78;
+    /* Cuadrícula de libreta: el oliva de marca, casi transparente */
+    --grid:rgba(107,112,40,.08);
     --font-display:'Fraunces',Georgia,serif;
     --font-ui:'Inter',-apple-system,'Segoe UI',sans-serif;
     --radius-card:18px;
@@ -31,7 +44,11 @@
     --frame:1px solid var(--ink);
     --sticker:3px 3px 0 var(--ink);
     --sticker-lift:5px 5px 0 var(--ink);
-    --ease-out:cubic-bezier(.2,.8,.2,1);
+    /* Curvas firmes: arrancan rápido y frenan suave */
+    --ease-out:cubic-bezier(.23,1,.32,1);
+    --ease-in-out:cubic-bezier(.77,0,.175,1);
+    /* Alto de la barra de navegación fija (12px de margen + 58px de píldora) */
+    --nav-h:70px;
     color-scheme:light;
   }
   *{box-sizing:border-box;}
@@ -41,10 +58,18 @@
   .wrap{max-width:1160px;margin-inline:auto;padding-inline:24px;}
   @media (max-width:620px){.wrap{padding-inline:16px;}}
   button{font-family:inherit;}
+  a,button,select,input,label{touch-action:manipulation;}
   :focus-visible{outline:3px solid var(--ink);outline-offset:3px;}
+  /* Al saltar a una sección, el título no queda debajo de la barra fija */
+  header[id],section[id]{scroll-margin-top:calc(var(--nav-h) + 14px);}
   .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
   .skip{position:absolute;left:12px;top:-60px;z-index:50;background:var(--ink);color:#fff;font-weight:700;padding:12px 18px;border-radius:var(--radius-pill);text-decoration:none;}
   .skip:focus{top:12px;}
+
+  /* Todo lo que se pulsa responde con un leve hundimiento */
+  .pick,.clip,.tool-card,.btn-small,.seg a,.nav-links a,.resume-item,.unit-chip,.copy-link,.contact-item.is-live{transition-property:background-color,color,box-shadow,translate,rotate,scale,border-color;transition-duration:.18s;transition-timing-function:var(--ease-out);}
+  .pick:active,.btn-small:active,.seg a:active,.nav-links a:active,.unit-chip:active,.copy-link:active,.contact-item.is-live:active{scale:.97;}
+  .tool-card:active,.clip:active,.resume-item:active{scale:.98;}
 
   /* ---------- Barra superior flotante (píldora) ---------- */
   .nav{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);z-index:30;margin-top:12px;}
@@ -57,70 +82,89 @@
   .nav.scrolled .nav-pill{box-shadow:var(--sticker);}
   .nav-brand{display:inline-flex;align-items:center;gap:8px;min-height:44px;text-decoration:none;color:var(--ink);}
   .nav-brand svg{width:22px;height:22px;transition:rotate .5s var(--ease-out);}
-  .nav-brand:hover svg{rotate:90deg;}
   .nav-brand b{font-family:var(--font-display);font-weight:700;font-size:1.15rem;letter-spacing:-0.3px;}
   .nav-links{display:flex;align-items:center;gap:2px;}
-  .nav-links a{
-    display:inline-flex;align-items:center;min-height:44px;
-    text-decoration:none;color:var(--ink);font-weight:500;font-size:.95rem;padding:0 14px;border-radius:var(--radius-pill);
-    transition:background .15s ease;
-  }
-  .nav-links a:hover{background:var(--lime-soft);}
+  .nav-links a{display:inline-flex;align-items:center;min-height:44px;text-decoration:none;color:var(--ink);font-weight:500;font-size:.95rem;padding:0 14px;border-radius:var(--radius-pill);}
   .nav-links a.nav-cta{background:var(--ink);color:#fff;font-weight:700;padding:0 20px;margin-left:6px;}
-  .nav-links a.nav-cta:hover{background:var(--olive-deep);}
   @media (max-width:620px){.nav-links a.hide-sm{display:none;}.nav-pill{padding-left:14px;}.nav-links a.nav-cta{padding:0 16px;}}
 
-  /* ---------- Portada: la marca a un lado, la elección de materia al otro ---------- */
-  .hero{padding-block:48px 88px;}
+  /* ---------- Portada: una página de cuaderno de campo ---------- */
+  .hero{position:relative;isolation:isolate;padding-block:118px 150px;}
+  /* Cuadrícula de libreta que se desvanece hacia abajo */
+  .hero::before{
+    content:"";position:absolute;inset:-96px 0 0;z-index:-1;pointer-events:none;
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:28px 28px;background-position:center -1px;
+    -webkit-mask-image:linear-gradient(to bottom,#000 50%,transparent 96%);mask-image:linear-gradient(to bottom,#000 50%,transparent 96%);
+  }
   /* En escritorio: titular y texto a la izquierda, selector a la derecha. En móvil: titular, selector y texto */
-  .hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,470px);grid-template-rows:auto auto;column-gap:64px;row-gap:28px;}
+  .hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,460px);grid-template-rows:auto auto;column-gap:88px;row-gap:28px;}
   .hero-grid > :first-child{align-self:end;}
-  .picker{grid-column:2;grid-row:1 / span 2;align-self:center;}
+  .desk{grid-column:2;grid-row:1 / span 2;align-self:center;position:relative;}
   .hero-more{grid-column:1;grid-row:2;}
   .hero h1{margin:0;}
   .wordmark{display:flex;align-items:flex-start;gap:.08em;font-family:var(--font-display);font-weight:700;font-size:clamp(3.6rem,9.5vw,6.6rem);line-height:.92;letter-spacing:-.045em;}
   .wordmark svg{flex:none;width:.5em;height:.44em;margin-top:.02em;overflow:visible;}
   .star-big,.star-small{transform-box:fill-box;transform-origin:center;}
-  .star-small{animation:twinkle 4s ease-in-out 1.2s infinite;}
+  .star-small{animation:twinkle 4s ease-in-out 1.6s infinite;}
   @keyframes twinkle{0%,80%,100%{rotate:0deg;scale:1;}88%{rotate:45deg;scale:1.25;}}
   .h1-sub{display:block;margin-top:22px;font-family:var(--font-display);font-weight:500;font-size:clamp(1.45rem,2.7vw,2.05rem);line-height:1.18;letter-spacing:-.4px;max-width:25ch;text-wrap:balance;}
   .hero-lede{font-size:1.12rem;line-height:1.65;color:var(--ink-soft);max-width:46ch;margin:0;}
   .hero-resume{margin:20px 0 0;font-size:.95rem;color:var(--ink-soft);}
   .hero-resume a{color:var(--ink);font-weight:700;text-underline-offset:4px;}
 
-  /* Selector de materia: una ficha de cuaderno con una fila por opción */
-  .picker{background:var(--surface);border:var(--frame);border-radius:var(--radius-card);box-shadow:var(--sticker);padding:26px 26px 18px;}
+  /* Selector de materia: la ficha principal, por encima de las demás */
+  .picker{position:relative;z-index:2;background:var(--surface);border:var(--frame);border-radius:var(--radius-card);box-shadow:var(--sticker);padding:26px 26px 18px;}
   .picker-q{font-family:var(--font-display);font-weight:700;font-size:1.45rem;line-height:1.2;margin:0 0 14px;letter-spacing:-.3px;}
   .picker-list{list-style:none;margin:0;padding:0;}
   .picker-list li + li{border-top:1px solid var(--line);}
-  .pick{
-    display:grid;grid-template-columns:92px 1fr auto;align-items:center;gap:14px;min-height:80px;padding:12px 10px;margin-inline:-10px;
-    text-decoration:none;color:var(--ink);border-radius:12px;transition:background .15s ease;
-  }
-  .pick:hover{background:var(--lime-soft);}
+  .pick{display:grid;grid-template-columns:92px 1fr auto;align-items:center;gap:14px;min-height:80px;padding:12px 10px;margin-inline:-10px;text-decoration:none;color:var(--ink);border-radius:12px;}
   .pick-tag{font-family:var(--font-display);font-weight:700;font-size:1.75rem;line-height:1;letter-spacing:-.8px;color:var(--olive-deep);white-space:nowrap;}
   .pick-tag svg{width:30px;height:30px;color:var(--olive-deep);}
   .pick-tx{display:flex;flex-direction:column;min-width:0;}
   .pick-tx b{font-weight:700;font-size:1.04rem;line-height:1.3;}
-  .pick-tx small{font-size:.86rem;color:var(--ink-soft);line-height:1.4;}
-  .pick-go{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--ink);background:var(--lime-mid);display:flex;align-items:center;justify-content:center;transition:translate .15s ease;}
+  .pick-tx small{font-size:.86rem;color:var(--ink-soft);line-height:1.4;font-variant-numeric:tabular-nums;}
+  .pick-go{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--ink);background:var(--lime-mid);display:flex;align-items:center;justify-content:center;transition:translate .18s var(--ease-out);}
   .pick-go svg{width:17px;height:17px;}
-  .pick:hover .pick-go{translate:3px 0;}
-  .all-link{display:inline-flex;align-items:center;min-height:44px;margin-top:8px;font-weight:600;color:var(--ink);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:6px;}
-  .all-link:hover{color:var(--olive-deep);}
-  /* El único momento de entrada de la página: las opciones aparecen una tras otra */
-  .picker-list li{animation:rise .55s var(--ease-out) backwards;}
-  .picker-list li:nth-child(1){animation-delay:.15s;}
-  .picker-list li:nth-child(2){animation-delay:.25s;}
-  .picker-list li:nth-child(3){animation-delay:.35s;}
-  @keyframes rise{from{opacity:0;translate:0 12px;}}
+  .all-link{display:inline-flex;align-items:center;min-height:44px;margin-top:8px;font-weight:600;color:var(--ink);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:6px;font-variant-numeric:tabular-nums;}
+
+  /* Fichas reales de herramientas que asoman por detrás del selector */
+  .clip{
+    position:absolute;z-index:1;width:214px;display:flex;flex-direction:column;overflow:hidden;
+    text-decoration:none;color:var(--ink);background:var(--bg);border:var(--frame);border-radius:12px;box-shadow:3px 3px 0 var(--ink);
+    rotate:var(--r);
+  }
+  .clip .clip-body{padding:10px 12px 12px;}
+  .clip .clip-art{max-width:170px;}
+  .clip.n1{left:-60px;top:-92px;--r:-7deg;}
+  .clip.n2{right:-36px;top:-70px;--r:5deg;}
+  .clip.n3{right:-66px;bottom:-104px;--r:-4deg;}
+  /* Anotación a mano: una nota en cursiva y una flecha que apunta al selector */
+  .note{position:absolute;z-index:3;left:-6px;bottom:-84px;display:flex;align-items:flex-start;gap:6px;margin:0;font-family:var(--font-display);font-style:italic;font-weight:500;font-size:1.08rem;line-height:1.2;color:var(--olive-deep);rotate:-3deg;pointer-events:none;}
+  .note svg{flex:none;width:46px;height:40px;overflow:visible;margin-top:-22px;}
+  .doodle{fill:none;stroke:var(--olive-deep);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+  .draw{stroke-dasharray:140;stroke-dashoffset:140;}
+
+  /* El único momento de entrada de la página: las fichas caen sobre la mesa y las opciones aparecen en cascada */
+  .clip{animation:drop .8s var(--ease-out) backwards;animation-delay:calc(var(--i) * 110ms + 120ms);}
+  @keyframes drop{from{opacity:0;translate:0 -28px;rotate:calc(var(--r) * 2.4);}}
+  .picker-list li{animation:rise .5s var(--ease-out) backwards;}
+  .picker-list li:nth-child(1){animation-delay:.2s;}
+  .picker-list li:nth-child(2){animation-delay:.27s;}
+  .picker-list li:nth-child(3){animation-delay:.34s;}
+  @keyframes rise{from{opacity:0;translate:0 10px;}}
+  .note .draw{animation:ink .9s var(--ease-in-out) .9s forwards;}
+  .note span{animation:fade .5s ease 1.2s backwards;}
+  @keyframes ink{to{stroke-dashoffset:0;}}
+  @keyframes fade{from{opacity:0;}}
 
   @media (max-width:980px){
     .hero{padding-block:32px 64px;}
     .hero-grid{grid-template-columns:1fr;row-gap:32px;}
-    .picker,.hero-more{grid-column:auto;grid-row:auto;}
-    .picker{max-width:560px;}
+    .desk,.hero-more{grid-column:auto;grid-row:auto;}
+    .desk{max-width:560px;}
     .h1-sub{margin-top:16px;}
+    .clip,.note{display:none;}
   }
   @media (max-width:520px){
     .picker{padding:20px 18px 12px;}
@@ -133,46 +177,48 @@
   @media (max-width:620px){section.block{padding-block:68px;}}
   h2.sec-title{font-family:var(--font-display);font-weight:700;font-size:clamp(2rem,4.6vw,3.1rem);line-height:1.06;letter-spacing:-1px;margin:0 0 16px;text-wrap:balance;}
   .sec-lede{color:var(--ink-soft);font-size:1.1rem;max-width:58ch;margin:0;}
+  /* Subrayado a mano bajo un título; se dibuja una vez al aparecer */
+  .ink-under{position:relative;display:inline-block;}
+  .ink-under svg{position:absolute;left:-2%;bottom:-.22em;width:104%;height:.36em;overflow:visible;pointer-events:none;}
+  .ink-under .draw{stroke-dasharray:420;stroke-dashoffset:420;transition:stroke-dashoffset 1s var(--ease-in-out);}
+  .ink-under.in .draw{stroke-dashoffset:0;}
 
   /* ---------- Catálogo ---------- */
-  .catalog{border-top:var(--frame);scroll-margin-top:90px;}
-  .cat-head{margin-bottom:32px;}
-  .finder{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;margin-bottom:28px;}
+  .catalog{border-top:var(--frame);}
+  .cat-head{margin-bottom:28px;}
+  /* Barra de búsqueda y filtros: en escritorio se queda fija bajo la navegación al bajar */
+  .toolbar{position:sticky;top:var(--nav-h);z-index:20;margin:0 -24px 28px;padding:14px 24px;background:rgba(251,252,239,.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .2s ease;}
+  .toolbar.stuck{border-bottom-color:var(--ink);}
+  .toolbar-sentinel{height:1px;margin-bottom:-1px;}
+  .finder{display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px;}
   .seg{display:inline-flex;gap:4px;padding:4px;background:var(--surface);border:var(--frame);border-radius:var(--radius-pill);}
-  .seg a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 20px;border-radius:var(--radius-pill);text-decoration:none;font-weight:700;font-size:.94rem;color:var(--ink-soft);white-space:nowrap;transition:background .15s ease,color .15s ease;}
-  .seg a:hover{background:var(--lime-soft);color:var(--ink);}
+  .seg a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 20px;border-radius:var(--radius-pill);text-decoration:none;font-weight:700;font-size:.94rem;color:var(--ink-soft);white-space:nowrap;}
   .seg a[aria-current="true"]{background:var(--ink);color:#fff;}
-  @media (max-width:520px){.seg{display:grid;grid-template-columns:repeat(3,1fr);width:100%;}.seg a{padding:0 8px;}}
-
   .search{position:relative;flex:1 1 300px;}
   .search svg{position:absolute;left:18px;top:50%;translate:0 -50%;width:19px;height:19px;color:var(--olive-deep);pointer-events:none;}
-  .search input{
-    width:100%;min-height:52px;font:inherit;font-size:1rem;color:var(--ink);
-    background:var(--surface);border:var(--frame);border-radius:var(--radius-pill);padding:0 48px;
-    transition:box-shadow .12s ease;
-  }
+  .search input{width:100%;min-height:52px;font:inherit;font-size:1rem;color:var(--ink);background:var(--surface);border:var(--frame);border-radius:var(--radius-pill);padding:0 48px;transition:box-shadow .15s var(--ease-out);}
   .search input::placeholder{color:var(--ink-muted);}
   .search input:focus{outline:none;box-shadow:var(--sticker);}
   .search input::-webkit-search-cancel-button{display:none;}
   .search-clear{position:absolute;right:6px;top:50%;translate:0 -50%;width:40px;height:40px;border:none;border-radius:50%;background:none;cursor:pointer;color:var(--ink-soft);display:flex;align-items:center;justify-content:center;}
-  .search-clear:hover{background:var(--lime-soft);color:var(--ink);}
   .search-clear svg{position:static;translate:none;width:16px;height:16px;color:currentColor;}
+  @media (max-width:820px){.toolbar{position:static;margin:0 0 24px;padding:0;background:none;backdrop-filter:none;-webkit-backdrop-filter:none;border:0;}}
+  @media (max-width:520px){.seg{display:grid;grid-template-columns:repeat(3,1fr);width:100%;}.seg a{padding:0 8px;}}
 
   /* Filtros: dos desplegables (temática y tipo de recurso) y el número de resultados */
-  .filters{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:28px;}
-  .dd{position:relative;display:inline-flex;align-items:center;gap:8px;flex:0 1 auto;min-width:0;min-height:46px;padding-left:18px;background:var(--surface);border:var(--frame);border-radius:var(--radius-pill);transition:box-shadow .12s ease,background .15s ease;}
-  .dd:hover{background:var(--lime-soft);}
+  .filters{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:12px;}
+  .dd{position:relative;display:inline-flex;align-items:center;gap:8px;flex:0 1 auto;min-width:0;min-height:46px;padding-left:18px;background:var(--surface);border:var(--frame);border-radius:var(--radius-pill);transition:box-shadow .15s var(--ease-out),background-color .15s ease;}
   .dd:focus-within{box-shadow:var(--sticker);}
   .dd.on{background:var(--lime-soft);}
   .dd > span{flex:none;font-size:.86rem;font-weight:500;color:var(--ink-soft);}
-  .dd select{appearance:none;-webkit-appearance:none;min-width:0;max-width:100%;min-height:44px;margin:0;padding:0 42px 0 0;border:0;background:transparent;font:inherit;font-size:.94rem;font-weight:700;color:var(--ink);cursor:pointer;text-overflow:ellipsis;}
+  .dd select{appearance:none;-webkit-appearance:none;min-width:0;max-width:100%;min-height:44px;margin:0;padding:0 42px 0 0;border:0;background-color:transparent;font:inherit;font-size:.94rem;font-weight:700;color:var(--ink);cursor:pointer;text-overflow:ellipsis;}
   .dd select:focus{outline:none;}
+  .dd select option{background-color:#FFFFFF;color:#1E1C1A;}
   .dd svg{position:absolute;right:16px;top:50%;translate:0 -50%;width:14px;height:14px;pointer-events:none;}
   .filters-end{display:flex;align-items:center;gap:6px 14px;margin-left:auto;}
-  .res-count{margin:0;font-weight:600;color:var(--ink-soft);}
+  .res-count{margin:0;font-weight:600;color:var(--ink-soft);font-variant-numeric:tabular-nums;}
   .res-count mark{background:var(--lime-soft);color:var(--ink);padding:0 6px;border-radius:6px;}
   .link-btn{min-height:44px;padding:0 4px;border:0;background:none;cursor:pointer;font-weight:600;font-size:.92rem;color:var(--ink);text-decoration:underline;text-underline-offset:5px;}
-  .link-btn:hover{color:var(--olive-deep);}
   @media (max-width:620px){
     .filters{display:grid;grid-template-columns:1fr;gap:10px;}
     .dd{flex:none;}
@@ -180,20 +226,22 @@
     .filters-end{margin-left:0;justify-content:space-between;}
   }
 
+  /* Grupos por temática dentro de "Todo" */
+  .group + .group{margin-top:56px;}
+  .group-h{display:flex;align-items:center;gap:12px;margin:0 0 18px;font-family:var(--font-display);font-weight:700;font-size:1.5rem;line-height:1.2;letter-spacing:-.4px;}
+  .group-h em{flex:none;font-family:var(--font-ui);font-style:normal;font-size:.8rem;font-weight:700;line-height:1;padding:4px 9px;border-radius:var(--radius-pill);background:var(--lime-soft);font-variant-numeric:tabular-nums;}
+  .group-h::after{content:"";flex:1;min-width:24px;height:1px;background:var(--ink);opacity:.2;}
+  @media (max-width:620px){.group + .group{margin-top:40px;}.group-h{font-size:1.25rem;}.group-h::after{display:none;}}
+
   /* Tarjetas de recurso: una "ventanita" con la barra de color de cada herramienta */
   .tool-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:22px;}
   .tool-grid li{display:flex;}
-  .tool-card{
-    flex:1;display:flex;flex-direction:column;overflow:hidden;text-decoration:none;color:var(--ink);
-    background:var(--bg);border:var(--frame);border-radius:12px;box-shadow:3px 3px 0 var(--ink);
-    transition:translate .2s var(--ease-out),rotate .2s var(--ease-out),box-shadow .2s ease;
-  }
-  .tool-card:hover,.tool-card:focus-visible{translate:0 -5px;rotate:-.6deg;box-shadow:6px 6px 0 var(--c);}
-  .tool-grid li:nth-child(even) .tool-card:hover{rotate:.6deg;}
+  .tool-card{flex:1;display:flex;flex-direction:column;overflow:hidden;text-decoration:none;color:var(--ink);background:var(--bg);border:var(--frame);border-radius:12px;box-shadow:3px 3px 0 var(--ink);}
+  .tool-card:focus-visible{translate:0 -5px;box-shadow:6px 6px 0 var(--c);}
   /* Barra superior, como la de cada herramienta */
   .clip-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--c);color:#fff;font-size:.62rem;font-weight:700;padding:6px 10px;border-bottom:var(--frame);white-space:nowrap;}
   .clip-bar svg{width:9px;height:9px;margin-right:4px;vertical-align:-1px;}
-  .clip-bar span:last-child{overflow:hidden;text-overflow:ellipsis;opacity:.9;}
+  .clip-bar > span:last-child{overflow:hidden;text-overflow:ellipsis;opacity:.9;}
   .clip-body{flex:1;display:flex;flex-direction:column;gap:6px;padding:12px 14px;}
   .clip-kick{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);}
   .clip-h{font-family:var(--font-display);font-weight:600;font-size:1.06rem;line-height:1.12;letter-spacing:-.3px;}
@@ -201,53 +249,51 @@
   .clip-art{display:block;width:100%;max-width:200px;height:auto;margin-top:4px;}
   .win-desc{font-size:.84rem;line-height:1.45;color:var(--ink-soft);}
   .clip-go{display:inline-flex;align-items:center;gap:5px;margin-top:auto;padding-top:4px;font-size:.74rem;font-weight:700;}
-  .clip-go svg{width:13px;height:13px;color:var(--c);transition:translate .15s ease;}
-  .tool-card:hover .clip-go svg{translate:3px 0;}
+  .clip-go svg{width:13px;height:13px;color:var(--c);transition:translate .18s var(--ease-out);}
   /* Etiquetas pequeñas de cada tarjeta: tiempo, si guarda y si saca informe */
   .tool-meta{display:flex;flex-wrap:wrap;gap:5px;margin-top:2px;}
-  .tool-meta span{display:inline-flex;align-items:center;gap:4px;font-size:.68rem;font-weight:700;line-height:1;padding:4px 8px;border-radius:var(--radius-pill);border:1px solid var(--line);background:var(--surface);color:var(--ink-soft);white-space:nowrap;}
+  .tool-meta span{display:inline-flex;align-items:center;gap:4px;font-size:.68rem;font-weight:700;line-height:1;padding:4px 8px;border-radius:var(--radius-pill);border:1px solid var(--line);background:var(--surface);color:var(--ink-soft);white-space:nowrap;font-variant-numeric:tabular-nums;}
   .tool-meta svg{width:11px;height:11px;color:var(--c);}
   .tool-meta .on{background:var(--lime-soft);border-color:var(--lime-mid);color:var(--ink);}
   /* En el móvil, dos tarjetas por fila y solo lo esencial: la descripción se lee al abrir */
   @media (max-width:560px){
     .tool-grid{grid-template-columns:1fr 1fr;gap:14px;}
-    .clip-bar span:last-child{display:none;}
+    .clip-bar > span:last-child{display:none;}
     .clip-body{padding:10px 11px;gap:5px;}
     .clip-h{font-size:.98rem;}
     .win-desc{display:none;}
     .tool-meta span:not(.on){display:none;}
   }
-
-  /* Al cambiar un filtro, las tarjetas nuevas entran con un pequeño retardo para que se note el cambio */
-  .pop{animation:rise .35s var(--ease-out) backwards;animation-delay:calc(var(--i,0) * 30ms);}
+  /* Al cambiar un filtro, las tarjetas nuevas entran rápido y en cascada corta para que se note el cambio */
+  .pop{animation:rise .3s var(--ease-out) backwards;animation-delay:calc(var(--i,0) * 25ms);}
 
   /* Estados vacíos y de carga */
   .empty{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:28px;background:var(--surface);border:1px dashed var(--ink-muted);border-radius:var(--radius-card);}
   .empty h3{display:flex;align-items:center;gap:10px;margin:0;font-family:var(--font-display);font-weight:700;font-size:1.3rem;}
   .empty h3 svg{width:22px;height:22px;color:var(--olive-deep);}
   .empty p{margin:0;color:var(--ink-soft);max-width:60ch;}
-  .btn-small{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;margin-top:6px;cursor:pointer;font-weight:700;font-size:.92rem;color:var(--ink);background:var(--lime-mid);border:1.5px solid var(--ink);border-radius:var(--radius-pill);box-shadow:var(--sticker);transition:transform .12s ease,box-shadow .12s ease;}
-  .btn-small:hover{transform:translate(-2px,-2px);box-shadow:var(--sticker-lift);}
+  .btn-small{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;margin-top:6px;cursor:pointer;font-weight:700;font-size:.92rem;color:var(--ink);background:var(--lime-mid);border:1.5px solid var(--ink);border-radius:var(--radius-pill);box-shadow:var(--sticker);}
   .load-msg{background:var(--surface);border:1px dashed var(--ink-muted);border-radius:var(--radius-card);padding:28px;color:var(--ink-soft);text-align:center;}
   .loading{display:flex;align-items:center;justify-content:center;gap:10px;}
-  .loading svg{width:20px;height:20px;color:var(--olive-deep);animation:spin 1.2s linear infinite;}
+  .loading svg{width:20px;height:20px;color:var(--olive-deep);animation:spin .9s linear infinite;}
   @keyframes spin{to{rotate:360deg;}}
 
-  /* Vista de un módulo: sus unidades o bloques, cada uno con su lista */
+  /* Vista de un módulo: sus unidades o bloques, cada uno con sus tarjetas */
   .mod-head{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:12px 24px;margin-bottom:22px;}
   .mod-head > div{flex:1 1 320px;}
   .mod-title{font-family:var(--font-display);font-weight:700;font-size:clamp(1.6rem,3.4vw,2.3rem);line-height:1.12;margin:0 0 6px;text-wrap:balance;}
   .mod-title:focus{outline:none;}
   .mod-title:focus-visible{outline:3px solid var(--ink);}
-  .mod-desc{margin:0;color:var(--ink-soft);}
+  .mod-desc{margin:0;color:var(--ink-soft);font-variant-numeric:tabular-nums;}
   .unit-index{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 40px;padding:0;list-style:none;}
-  .unit-chip{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:var(--radius-pill);background:var(--surface);border:var(--frame);color:var(--ink);font-weight:600;font-size:.92rem;text-decoration:none;transition:background .15s ease;}
-  .unit-chip:hover{background:var(--lime-soft);}
+  .unit-chip{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:var(--radius-pill);background:var(--surface);border:var(--frame);color:var(--ink);font-weight:600;font-size:.92rem;text-decoration:none;}
   .unit-chip b{color:var(--olive-deep);}
   .unit-chip.soon{color:var(--ink-soft);border-style:dashed;}
   @media (max-width:620px){.unit-chip .chip-t{display:none;}.unit-chip{min-width:56px;justify-content:center;}}
   .unit-list{display:grid;gap:44px;}
-  .unit-sec{scroll-margin-top:100px;}
+  /* La barra fija de escritorio ocupa sitio: el título de la unidad queda visible debajo */
+  section.unit-sec[id]{scroll-margin-top:calc(var(--nav-h) + 96px);}
+  @media (max-width:820px){section.unit-sec[id]{scroll-margin-top:calc(var(--nav-h) + 14px);}}
   .unit-head{display:flex;align-items:center;gap:16px;padding-bottom:14px;margin-bottom:16px;border-bottom:var(--frame);}
   .unit-num{flex:none;font-family:var(--font-display);font-weight:700;font-size:2.3rem;line-height:1;color:var(--olive-deep);min-width:50px;font-variant-numeric:tabular-nums;}
   .unit-head-tx{flex:1;min-width:0;}
@@ -258,24 +304,18 @@
   .unit-empty svg{width:20px;height:20px;flex:none;color:var(--olive-deep);}
 
   /* Copiar el enlace directo a un módulo o a una unidad */
-  .copy-link{display:inline-flex;align-items:center;gap:6px;flex:none;min-height:40px;padding:0 14px;cursor:pointer;font-weight:600;font-size:.82rem;color:var(--ink-soft);background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-pill);transition:background .15s ease,color .15s ease;}
-  .copy-link:hover{background:var(--lime-soft);color:var(--ink);border-color:var(--ink);}
+  .copy-link{display:inline-flex;align-items:center;gap:6px;flex:none;min-height:40px;padding:0 14px;cursor:pointer;font-weight:600;font-size:.82rem;color:var(--ink-soft);background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-pill);}
   .copy-link.done{background:var(--lime-mid);color:var(--ink);border-color:var(--ink);}
   .copy-link svg{width:14px;height:14px;}
   @media (max-width:620px){.unit-head .copy-link span{display:none;}.unit-head .copy-link{padding:0 12px;}}
 
   /* Seguir donde lo dejaste: recursos con trabajo guardado en este navegador */
-  .resume{scroll-margin-top:100px;margin-bottom:28px;padding:20px 22px;background:var(--surface);border:var(--frame);border-radius:var(--radius-card);box-shadow:var(--sticker);}
+  .resume{scroll-margin-top:calc(var(--nav-h) + 14px);margin-bottom:28px;padding:20px 22px;background:var(--surface);border:var(--frame);border-radius:var(--radius-card);box-shadow:var(--sticker);}
   .resume-h{display:flex;align-items:center;gap:10px;margin:0 0 4px;font-family:var(--font-display);font-weight:700;font-size:1.25rem;}
   .resume-h svg{width:20px;height:20px;color:var(--olive-deep);}
   .resume-sub{margin:0 0 14px;font-size:.9rem;color:var(--ink-soft);}
   .resume-list{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px;}
-  .resume-item{
-    display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 8px 0 14px;text-decoration:none;color:var(--ink);
-    background:var(--bg);border:var(--frame);border-left:6px solid var(--c);border-radius:12px;font-weight:600;font-size:.94rem;
-    transition:translate .15s ease,box-shadow .15s ease;
-  }
-  .resume-item:hover,.resume-item:focus-visible{translate:-2px -2px;box-shadow:3px 3px 0 var(--c);}
+  .resume-item{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 8px 0 14px;text-decoration:none;color:var(--ink);background:var(--bg);border:var(--frame);border-left:6px solid var(--c);border-radius:12px;font-weight:600;font-size:.94rem;}
   .resume-item small{display:block;font-size:.72rem;font-weight:600;color:var(--ink-soft);}
   .resume-go{display:inline-flex;align-items:center;gap:4px;font-size:.78rem;font-weight:700;background:var(--lime-mid);border-radius:var(--radius-pill);padding:5px 10px;}
   .resume-go svg{width:13px;height:13px;}
@@ -283,19 +323,19 @@
   /* ---------- Tipos de recurso: titular a un lado, filas al otro ---------- */
   .kinds{border-top:var(--frame);}
   .kinds-grid{display:grid;grid-template-columns:5fr 7fr;gap:64px;align-items:start;}
-  .kinds-grid > div:first-child{position:sticky;top:110px;}
+  .kinds-grid > div:first-child{position:sticky;top:calc(var(--nav-h) + 40px);}
   @media (max-width:860px){.kinds-grid{grid-template-columns:1fr;gap:28px;}.kinds-grid > div:first-child{position:static;}}
   .kind-list{list-style:none;margin:0;padding:0;}
   .kind{display:grid;grid-template-columns:auto 1fr;gap:6px 22px;padding:28px 0;border-bottom:var(--frame);}
   .kind:first-child{padding-top:0;}
-  .kind-icon{grid-row:span 3;width:52px;height:52px;border-radius:14px;border:var(--frame);background:var(--lime-soft);color:var(--olive-deep);display:flex;align-items:center;justify-content:center;}
+  .kind-icon{grid-row:span 3;width:52px;height:52px;border-radius:14px;border:var(--frame);background:var(--lime-soft);color:var(--olive-deep);display:flex;align-items:center;justify-content:center;rotate:-4deg;}
+  .kind:nth-child(2) .kind-icon{rotate:3deg;}
   .kind-icon svg{width:24px;height:24px;}
   .kind.soon .kind-icon{background:var(--surface);border-style:dashed;}
   .kind h3{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;font-family:var(--font-display);font-size:1.45rem;font-weight:700;margin:0;line-height:1.2;}
-  .kind h3 small{font-family:var(--font-ui);font-size:.82rem;font-weight:700;color:var(--ink-soft);}
+  .kind h3 small{font-family:var(--font-ui);font-size:.82rem;font-weight:700;color:var(--ink-soft);font-variant-numeric:tabular-nums;}
   .kind p{margin:0;color:var(--ink-soft);}
   .kind a{justify-self:start;display:inline-flex;align-items:center;min-height:44px;font-weight:700;color:var(--ink);text-underline-offset:5px;}
-  .kind a:hover{color:var(--olive-deep);}
 
   /* ---------- El proyecto: franja oliva con la línea de tiempo de una sesión ---------- */
   .about{background:var(--olive-deep);color:#fff;position:relative;overflow:hidden;}
@@ -311,14 +351,11 @@
   .steps::before{
     content:"";position:absolute;left:30px;right:calc((100% - 84px) / 4 - 30px);top:29px;height:2px;
     background:repeating-linear-gradient(90deg,var(--lime-mid) 0 10px,transparent 10px 18px);
-    transform:scaleX(0);transform-origin:left;transition:transform 1.4s var(--ease-out) .2s;
+    transform:scaleX(0);transform-origin:left;transition:transform 1s var(--ease-in-out) .15s;
   }
   .steps.in::before{transform:scaleX(1);}
   .step{position:relative;}
-  .step-dot{
-    position:relative;width:60px;height:60px;border-radius:50%;background:var(--lime-soft);color:var(--ink);border:1.5px solid var(--ink);
-    display:flex;align-items:center;justify-content:center;margin-bottom:20px;box-shadow:3px 3px 0 var(--ink);
-  }
+  .step-dot{position:relative;width:60px;height:60px;border-radius:50%;background:var(--lime-soft);color:var(--ink);border:1.5px solid var(--ink);display:flex;align-items:center;justify-content:center;margin-bottom:20px;box-shadow:3px 3px 0 var(--ink);}
   .step-dot svg{width:26px;height:26px;}
   .step-when{display:block;font-size:.86rem;font-weight:700;color:var(--lime-soft);margin-bottom:6px;}
   .step h3{font-family:var(--font-display);font-size:1.35rem;font-weight:700;margin:0 0 8px;line-height:1.2;}
@@ -331,11 +368,7 @@
   }
 
   /* ---------- Contacto ---------- */
-  .contact-card{
-    position:relative;overflow:hidden;border-radius:var(--radius-card);padding:64px 56px;
-    background:var(--surface);border:var(--frame);box-shadow:var(--sticker);
-    display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center;
-  }
+  .contact-card{position:relative;overflow:hidden;border-radius:var(--radius-card);padding:64px 56px;background:var(--surface);border:var(--frame);box-shadow:var(--sticker);display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center;}
   @media (max-width:860px){.contact-card{grid-template-columns:1fr;gap:32px;padding:40px 24px;}}
   .contact-card .big-deco{position:absolute;right:-60px;top:-60px;width:220px;height:220px;color:var(--lime-soft);pointer-events:none;}
   .contact-card h2{position:relative;font-family:var(--font-display);font-weight:700;font-size:clamp(1.9rem,4.2vw,2.8rem);line-height:1.08;margin:0 0 16px;letter-spacing:-.9px;text-wrap:balance;}
@@ -348,19 +381,50 @@
   .contact-item .ct small{display:block;font-size:.8rem;font-weight:600;color:var(--ink-soft);}
   .contact-item .ct span{display:block;font-weight:700;font-size:1.05rem;overflow-wrap:break-word;word-break:normal;}
   a.contact-item{color:inherit;text-decoration:none;}
-  .contact-item.is-live{border-style:solid;border-color:var(--ink);transition:translate .2s;}
-  .contact-item.is-live:hover{translate:0 -2px;}
+  .contact-item.is-live{border-style:solid;border-color:var(--ink);}
   .soon-badge{flex:none;font-size:.75rem;font-weight:700;background:var(--lime-mid);color:var(--ink);border-radius:var(--radius-pill);padding:4px 10px;}
 
-  footer{border-top:var(--frame);padding-block:40px calc(40px + env(safe-area-inset-bottom,0px));}
-  .foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px 24px;color:var(--ink-soft);font-size:.9rem;}
-  .foot .nav-brand b{font-size:1.05rem;}
-  .foot a.mail{color:var(--ink);font-weight:600;text-underline-offset:4px;}
+  /* ---------- Pie de página ---------- */
+  footer{border-top:var(--frame);padding-block:48px calc(40px + env(safe-area-inset-bottom,0px));}
+  .foot{display:grid;grid-template-columns:1.2fr 1fr auto;gap:28px 48px;align-items:start;color:var(--ink-soft);font-size:.92rem;}
+  .foot-brand p{margin:8px 0 0;max-width:34ch;}
+  .foot .nav-brand b{font-size:1.15rem;}
+  .foot-links{display:grid;grid-template-columns:repeat(2,auto);justify-content:start;gap:0 32px;}
+  .foot-links a{display:inline-flex;align-items:center;min-height:36px;color:var(--ink);font-weight:600;text-decoration:none;}
+  .foot-mail{margin:0;text-align:right;}
+  .foot-mail a{color:var(--ink);font-weight:700;text-underline-offset:4px;}
+  @media (max-width:760px){.foot{grid-template-columns:1fr;}.foot-mail{text-align:left;}}
+
+  /* Efectos al pasar el ratón: solo con ratón de verdad (en móviles y tablets el toque los dispara por error) */
+  @media (hover:hover) and (pointer:fine){
+    .nav-brand:hover svg{rotate:90deg;}
+    .nav-links a:hover{background:var(--lime-soft);}
+    .nav-links a.nav-cta:hover{background:var(--olive-deep);}
+    .pick:hover{background:var(--lime-soft);}
+    .pick:hover .pick-go{translate:3px 0;}
+    .all-link:hover{color:var(--olive-deep);}
+    .clip:hover{z-index:4;rotate:calc(var(--r) * .3);translate:0 -10px;box-shadow:6px 6px 0 var(--c);}
+    .seg a:not([aria-current="true"]):hover{background:var(--lime-soft);color:var(--ink);}
+    .search-clear:hover{background:var(--lime-soft);color:var(--ink);}
+    .dd:hover{background:var(--lime-soft);}
+    .link-btn:hover{color:var(--olive-deep);}
+    .tool-card:hover{translate:0 -5px;rotate:-.6deg;box-shadow:6px 6px 0 var(--c);}
+    .tool-grid li:nth-child(even) .tool-card:hover{rotate:.6deg;}
+    .tool-card:hover .clip-go svg{translate:3px 0;}
+    .btn-small:hover{translate:-2px -2px;box-shadow:var(--sticker-lift);}
+    .unit-chip:hover{background:var(--lime-soft);}
+    .copy-link:hover{background:var(--lime-soft);color:var(--ink);border-color:var(--ink);}
+    .resume-item:hover{translate:-2px -2px;box-shadow:3px 3px 0 var(--c);}
+    .kind a:hover{color:var(--olive-deep);}
+    .contact-item.is-live:hover{translate:0 -2px;}
+    .foot-links a:hover,.foot-mail a:hover{color:var(--olive-deep);}
+  }
 
   /* Quien pida menos movimiento en su ordenador, ve la página quieta y completa */
   @media (prefers-reduced-motion: reduce){
     *,*::before,*::after{animation:none!important;transition:none!important;}
     html{scroll-behavior:auto;}
+    .draw,.ink-under .draw{stroke-dashoffset:0!important;}
     .steps::before{transform:none!important;}
   }
 </style>
@@ -373,7 +437,7 @@
     <div class="nav-pill">
       <a class="nav-brand" href="#inicio" aria-label="Esplora, inicio">
         <svg viewBox="0 0 40 40" aria-hidden="true"><path fill="#6B7028" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg>
-        <b>Esplora</b>
+        <b translate="no">Esplora</b>
       </a>
       <div class="nav-links">
         <a href="#recursos" class="hide-sm">Recursos</a>
@@ -390,12 +454,14 @@
   <div class="wrap hero-grid">
     <div>
       <h1>
-        <span class="wordmark">Esplora<svg viewBox="-2 -2 54 46" aria-hidden="true"><g transform="translate(0, 2)"><path class="star-big" d="M20 0 C20 0 18 9 14 13 C10 17 0 20 0 20 C0 20 10 23 14 27 C18 31 20 40 20 40 C20 40 22 31 26 27 C30 23 40 20 40 20 C40 20 30 17 26 13 C22 9 20 0 20 0Z" fill="#6B7028"/></g><g transform="translate(30, 0)"><path class="star-small" d="M10 0 C10 0 9 4 7 6 C5 8 0 9 0 9 C0 9 5 10 7 12 C9 14 10 18 10 18 C10 18 11 14 13 12 C15 10 20 9 20 9 C20 9 15 8 13 6 C11 4 10 0 10 0Z" fill="#A8AD5C"/></g></svg></span>
+        <span class="wordmark" translate="no">Esplora<svg viewBox="-2 -2 54 46" aria-hidden="true"><g transform="translate(0, 2)"><path class="star-big" d="M20 0 C20 0 18 9 14 13 C10 17 0 20 0 20 C0 20 10 23 14 27 C18 31 20 40 20 40 C20 40 22 31 26 27 C30 23 40 20 40 20 C40 20 30 17 26 13 C22 9 20 0 20 0Z" fill="#6B7028"/></g><g transform="translate(30, 0)"><path class="star-small" d="M10 0 C10 0 9 4 7 6 C5 8 0 9 0 9 C0 9 5 10 7 12 C9 14 10 18 10 18 C10 18 11 14 13 12 C15 10 20 9 20 9 C20 9 15 8 13 6 C11 4 10 0 10 0Z" fill="#A8AD5C"/></g></svg></span>
         <span class="h1-sub">Herramientas y recursos didácticos sobre empleabilidad y emprendimiento</span>
       </h1>
     </div>
 
-    <!-- Elección de materia: cada opción abre el catálogo ya filtrado -->
+    <!-- La mesa de trabajo: el selector de materia con fichas de herramientas asomando por detrás
+         (las fichas se rellenan desde el catálogo; en móvil no se muestran) -->
+    <div class="desk" id="desk">
     <div class="picker" role="navigation" aria-labelledby="picker-t">
       <h2 class="picker-q" id="picker-t">¿Con qué materia trabajas?</h2>
       <ul class="picker-list">
@@ -417,6 +483,8 @@
       </ul>
       <a class="all-link" href="#catalogo" id="allLink">Ver todo el catálogo</a>
     </div>
+    <p class="note" aria-hidden="true"><svg viewBox="0 0 46 40"><path class="doodle draw" d="M6 36C10 22 20 12 40 6M40 6l-10 1M40 6l-4 9"/></svg><span>Empieza por aquí</span></p>
+    </div>
 
     <div class="hero-more">
       <p class="hero-lede">Esplora nace dentro del aula con un objetivo claro: impulsar al alumnado a trabajar los contenidos de forma interactiva, probando, equivocándose y aprendiendo por el camino.</p>
@@ -428,11 +496,14 @@
 <section class="block catalog" id="explorar" aria-labelledby="explorar-t">
   <div class="wrap">
     <div class="cat-head">
-      <h2 class="sec-title" id="explorar-t">El catálogo.</h2>
+      <h2 class="sec-title" id="explorar-t"><span class="ink-under" id="inkUnder">El catálogo.<svg viewBox="0 0 300 14" preserveAspectRatio="none" aria-hidden="true"><path class="doodle draw" d="M3 9C60 4 140 3 200 6S280 10 297 5"/></svg></span></h2>
       <p class="sec-lede">Entra por tu materia o mira todo el catálogo y fíltralo por temática y por tipo de recurso.</p>
     </div>
     <!-- Solo aparece si en este navegador hay trabajo guardado en algún recurso -->
     <div class="resume" id="seguir" hidden></div>
+    <!-- Marca invisible: cuando la barra pasa por aquí, se queda fija y se le dibuja un borde -->
+    <div class="toolbar-sentinel" id="toolbarSentinel"></div>
+    <div class="toolbar" id="toolbar">
     <div class="finder">
       <nav class="seg" id="seg" aria-label="Qué ver">
         <a href="#ipe1" data-view="ipe1">IPE 1</a>
@@ -445,6 +516,10 @@
         <input type="search" id="q" placeholder="Buscar: nómina, Porter, riesgos…" autocomplete="off" spellcheck="false">
         <button type="button" class="search-clear" id="qClear" aria-label="Borrar la búsqueda" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>
       </div>
+    </div>
+    <!-- Desplegables de temática y tipo (solo en "Todo") y número de resultados, que se anuncia en voz alta -->
+    <div class="filters" id="filters" hidden></div>
+    <p class="sr" id="liveCount" role="status" aria-live="polite"></p>
     </div>
     <div id="stage"><div class="load-msg loading" role="status"><svg viewBox="0 0 40 40" aria-hidden="true"><path fill="currentColor" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg>Cargando el catálogo…</div></div>
   </div>
@@ -527,11 +602,22 @@
 
 <footer>
   <div class="wrap foot">
-    <a class="nav-brand" href="#inicio" aria-label="Esplora, volver al inicio">
-      <svg viewBox="0 0 40 40" aria-hidden="true"><path fill="#6B7028" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg>
-      <b>Esplora</b>
-    </a>
-    <span>esplora.es · <a class="mail" href="mailto:contacto@esplora.es">contacto@esplora.es</a></span>
+    <div class="foot-brand">
+      <a class="nav-brand" href="#inicio" aria-label="Esplora, volver al inicio">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><path fill="#6B7028" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg>
+        <b translate="no">Esplora</b>
+      </a>
+      <p>Herramientas y recursos didácticos sobre empleabilidad y emprendimiento.</p>
+    </div>
+    <nav class="foot-links" aria-label="Pie de página">
+      <a href="#ipe1">IPE 1</a>
+      <a href="#recursos">Tipos de recurso</a>
+      <a href="#ipe2">IPE 2</a>
+      <a href="#proyecto">El proyecto</a>
+      <a href="#catalogo">Todo el catálogo</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <p class="foot-mail"><span translate="no">esplora.es</span><br><a href="mailto:contacto@esplora.es">contacto@esplora.es</a></p>
   </div>
 </footer>
 
@@ -671,7 +757,7 @@ function hasSave(t){
 }
 
 // Barra superior de la ventanita, como la de cada herramienta
-const winBar = t => `<span class="clip-bar"><span><svg viewBox="0 0 40 40" aria-hidden="true"><path fill="currentColor" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg>Esplora</span><span>${t.titulo}</span></span>`;
+const winBar = t => `<span class="clip-bar"><span><svg viewBox="0 0 40 40" aria-hidden="true"><path fill="currentColor" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg><span translate="no">Esplora</span></span><span>${t.titulo}</span></span>`;
 // Etiquetas pequeñas: tiempo aproximado, si guarda el progreso (o si ya está empezada) y si saca informe
 function toolMeta(t){
   const m = [];
@@ -707,7 +793,10 @@ function matches(id, f){
   return words.every(w=>DB.text[id].includes(w));
 }
 const CHEVRON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>';
-function exploreView(){
+// Desplegables de temática y tipo, con el número de resultados (van en la barra que se queda fija)
+const filtersBox = document.getElementById('filters');
+const liveCount = document.getElementById('liveCount');
+function filtersHTML(n){
   const f = {tag:S.tag, tipo:S.tipo, q:S.q};
   const count = patch => DB.order.filter(id=>matches(id, {...f, ...patch})).length;
   const optTema = [{id:'all', nombre:'Todas'}, ...DB.tags].map(x=>
@@ -716,25 +805,42 @@ function exploreView(){
     const soon = x.proximamente && !DB.order.some(id=>DB.tipo[id]===x.id);
     return `<option value="${x.id}"${S.tipo===x.id?' selected':''}>${x.nombre}${x.id==='all' ? '' : soon ? ' (próximamente)' : ' ('+count({tipo:x.id})+')'}</option>`;
   }).join('');
-  const list = DB.order.filter(id=>matches(id, f)).map(id=>({id, ...DB.tools[id]}));
   const q = S.q.trim();
   const filtered = S.tag!=='all' || S.tipo!=='all';
-  const filters = `<div class="filters">
-    <label class="dd${S.tag!=='all'?' on':''}"><span>Temática</span><select id="fTema" data-key="tag">${optTema}</select>${CHEVRON}</label>
+  return `<label class="dd${S.tag!=='all'?' on':''}"><span>Temática</span><select id="fTema" data-key="tag">${optTema}</select>${CHEVRON}</label>
     <label class="dd${S.tipo!=='all'?' on':''}"><span>Tipo</span><select id="fTipo" data-key="tipo" aria-label="Tipo de recurso">${optTipo}</select>${CHEVRON}</label>
     <div class="filters-end">
-      <p class="res-count" role="status">${plural(list.length,'resultado','resultados')}${q ? ` para <mark>${esc(q)}</mark>` : ''}</p>
+      <p class="res-count" aria-hidden="true">${plural(n,'resultado','resultados')}${q ? ` para <mark>${esc(q)}</mark>` : ''}</p>
       ${filtered ? '<button type="button" class="link-btn" data-reset>Quitar filtros</button>' : ''}
-    </div>
-  </div>`;
-  if(list.length) return filters + toolCards(list);
-  // Sin resultados: o es un tipo que aún no tiene nada, o la combinación de filtros no encaja
-  const tp = tipoById(S.tipo);
-  if(tp && !DB.order.some(id=>DB.tipo[id]===tp.id)){
-    return filters + `<div class="empty"><h3>${icon(KIND_ICON[tp.id]||'tool')}${tp.nombre}: próximamente</h3><p>${tp.descripcion||''}</p><button type="button" class="btn-small" data-reset>Ver todo el catálogo</button></div>`;
+    </div>`;
+}
+// Sin filtro de temática ni búsqueda, el catálogo se ordena en grupos por temática para recorrerlo de un vistazo
+function groupedCards(list){
+  const groups = DB.tags.map(x=>({id:x.id, nombre:x.nombre, items:list.filter(t=>DB.tema[t.id]===x.id)})).filter(g=>g.items.length);
+  const rest = list.filter(t=>!DB.tema[t.id]);
+  if(rest.length) groups.push({id:'otros', nombre:'Otros recursos', items:rest});
+  return groups.map(g=>`<section class="group" aria-labelledby="g-${g.id}">
+      <h3 class="group-h" id="g-${g.id}">${g.nombre}<em>${g.items.length}<span class="sr"> ${g.items.length===1?'recurso':'recursos'}</span></em></h3>
+      ${toolCards(g.items)}
+    </section>`).join('');
+}
+function exploreView(){
+  const list = DB.order.filter(id=>matches(id, {tag:S.tag, tipo:S.tipo, q:S.q})).map(id=>({id, ...DB.tools[id]}));
+  const q = S.q.trim();
+  let body;
+  if(list.length){
+    body = (S.tag==='all' && !q) ? groupedCards(list) : toolCards(list);
+  } else {
+    // Sin resultados: o es un tipo que aún no tiene nada, o la combinación de filtros no encaja
+    const tp = tipoById(S.tipo);
+    if(tp && !DB.order.some(id=>DB.tipo[id]===tp.id)){
+      body = `<div class="empty"><h3>${icon(KIND_ICON[tp.id]||'tool')}${tp.nombre}: próximamente</h3><p>${tp.descripcion||''}</p><button type="button" class="btn-small" data-reset>Ver todo el catálogo</button></div>`;
+    } else {
+      const why = q ? `Nada coincide con «${esc(q)}» con estos filtros. Prueba con otra palabra o quita los filtros.` : 'No hay recursos con esta combinación de temática y tipo. Cambia uno de los dos desplegables.';
+      body = `<div class="empty"><h3>${icon('search')}Ningún resultado</h3><p>${why}</p><button type="button" class="btn-small" data-reset>Quitar filtros</button></div>`;
+    }
   }
-  const why = q ? `Nada coincide con «${esc(q)}» con estos filtros. Prueba con otra palabra o quita los filtros.` : 'No hay recursos con esta combinación de temática y tipo. Cambia uno de los dos desplegables.';
-  return filters + `<div class="empty"><h3>${icon('search')}Ningún resultado</h3><p>${why}</p><button type="button" class="btn-small" data-reset>Quitar filtros</button></div>`;
+  return {n:list.length, filters:filtersHTML(list.length), body};
 }
 
 // ---------- Un módulo: todas sus unidades o bloques a la vista ----------
@@ -742,7 +848,6 @@ function exploreView(){
 const unitHash = (m,u) => m.id+'-'+unitWord(m).abrev.toLowerCase()+u.n;
 const linkTo = hash => location.href.split('#')[0]+'#'+hash;
 const copyBtn = (hash, label) => `<button type="button" class="copy-link" data-copy="${hash}" title="Copia un enlace que abre directamente aquí">${icon('link')}<span>${label}</span></button>`;
-
 function moduleView(m){
   const w = unitWord(m);
   const tp = tipoById(m.tipo);
@@ -774,21 +879,34 @@ function moduleView(m){
 
 function render(){
   const m = DB.mods.find(x=>x.id===S.view);
-  stage.innerHTML = m ? moduleView(m) : exploreView();
+  if(m){
+    stage.innerHTML = moduleView(m);
+    filtersBox.hidden = true;
+    filtersBox.innerHTML = '';
+    liveCount.textContent = '';
+  } else {
+    const v = exploreView();
+    filtersBox.innerHTML = v.filters;
+    filtersBox.hidden = false;
+    stage.innerHTML = v.body;
+    // Región que no se vuelve a crear: así los lectores de pantalla anuncian cada cambio de resultados
+    const msg = plural(v.n,'resultado','resultados') + (S.q.trim() ? ' para ' + S.q.trim() : '');
+    if(liveCount.textContent !== msg) liveCount.textContent = msg;
+  }
   document.querySelectorAll('#seg a').forEach(a=>{
     if(a.dataset.view===(m ? m.id : 'todo')) a.setAttribute('aria-current','true'); else a.removeAttribute('aria-current');
   });
 }
 function go(patch){ Object.assign(S, patch); render(); }
 
-// Clics y cambios dentro del catálogo (los controles se crean de nuevo en cada render)
-stage.addEventListener('click', e=>{
+// Clics y cambios en el catálogo (los controles se crean de nuevo en cada render)
+document.getElementById('explorar').addEventListener('click', e=>{
   const b = e.target.closest('button');
   if(!b) return;
   if(b.dataset.copy) return copyLink(b);
   if(b.hasAttribute('data-reset')){ clearSearch(false); go({tag:'all', tipo:'all'}); history.replaceState(null,'','#catalogo'); }
 });
-stage.addEventListener('change', e=>{
+filtersBox.addEventListener('change', e=>{
   const s = e.target.closest('select[data-key]');
   if(!s) return;
   go({[s.dataset.key]: s.value});
@@ -797,6 +915,21 @@ stage.addEventListener('change', e=>{
   if(again) again.focus({preventScroll:true});
 });
 
+// ---------- Portada: fichas reales de herramientas sobre la mesa, detrás del selector ----------
+// Identificadores de data/estructura.json. Son decorativas (las mismas están en el catálogo), por eso no reciben el foco del teclado.
+const DESK = ['pestel', 'canvas', 'casosnomina'];
+function renderDesk(){
+  const list = DESK.map(id=>({id, ...DB.tools[id]})).filter(t=>t.url).slice(0,3);
+  document.getElementById('desk').insertAdjacentHTML('afterbegin', list.map((t,i)=>
+    `<a class="clip n${i+1}" style="--c:${t.color||'#6B7028'};--i:${i}" href="${t.url}" tabindex="-1" aria-hidden="true">
+      ${winBar(t)}
+      <span class="clip-body">
+        <span class="clip-kick">${DB.where[t.id]||''}</span>
+        <span class="clip-h">${t.titular||t.titulo}</span>
+        ${art(t)}
+      </span>
+    </a>`).join(''));
+}
 // ---------- Buscador: busca siempre en todo el catálogo ----------
 const q = document.getElementById('q');
 const qClear = document.getElementById('qClear');
@@ -911,16 +1044,20 @@ function renderResume(){
 addEventListener('pageshow', e=>{ if(e.persisted && DB.order.length){ renderResume(); render(); } });
 
 const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
-// La línea de la sesión de 50 minutos se dibuja cuando aparece en pantalla
-const steps = document.getElementById('steps');
+// Trazos que se dibujan una sola vez al aparecer en pantalla: la línea de la sesión de 50 minutos y el subrayado del catálogo
+const toDraw = [document.getElementById('steps'), document.getElementById('inkUnder')];
+const toolbar = document.getElementById('toolbar');
 if('IntersectionObserver' in window){
-  const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ steps.classList.add('in'); io.disconnect(); } }), {threshold:.3});
-  io.observe(steps);
-} else steps.classList.add('in');
+  const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }), {threshold:.3});
+  toDraw.forEach(el=>io.observe(el));
+  // La barra del catálogo recibe un borde cuando se queda fija bajo la navegación
+  new IntersectionObserver(([e])=>toolbar.classList.toggle('stuck', !e.isIntersecting && e.boundingClientRect.top < 120),
+    {rootMargin:'-71px 0px 0px 0px'}).observe(document.getElementById('toolbarSentinel'));
+} else toDraw.forEach(el=>el.classList.add('in'));
 
 fetch('data/estructura.json', {cache:'no-store'})
   .then(r=>{ if(!r.ok) throw new Error(r.status); return r.json(); })
-  .then(json=>{ load(json); fillPicker(); renderKinds(); renderResume(); if(!applyRoute()) render(); })
+  .then(json=>{ load(json); renderDesk(); fillPicker(); renderKinds(); renderResume(); if(!applyRoute()) render(); })
   .catch(()=>{
     stage.innerHTML = '<div class="empty" role="alert"><h3>No se ha podido cargar el catálogo.</h3><p>Revisa que <code>data/estructura.json</code> existe y no tiene errores de formato (comas o llaves de más). Después, recarga la página.</p></div>';
     document.getElementById('recursos').hidden = true;
