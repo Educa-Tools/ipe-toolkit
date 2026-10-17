@@ -141,8 +141,8 @@ Nace en el aula y arranca en el curso 2026/27. Crece curso a curso.
   Inter, tema claro). Pasarlas a la identidad nueva es un cambio grande:
   pedir confirmación antes.
 - Logotipo e isotipo definitivos: en marca/ (SVG optimizados del kit
-  nuevo, oct-2026). Ya puestos en favicon, cabecera, portada, pie y 404.
-  Pendiente: favicon de las herramientas, avatar e imagen para compartir.
+  nuevo, oct-2026). Ya puestos en favicon (web y herramientas), cabecera, portada, pie y
+  404. Pendiente: avatar e imagen para compartir.
 - Mascota: Explorito, una espora con mochila y lupa, con accesorios
   según el módulo. El diseño actual es solo de referencia.
 - Marca por delante de la persona: sin fotos ni imagen personal.
