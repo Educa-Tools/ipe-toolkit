@@ -36,7 +36,6 @@
     --lime-soft:#E8EDC4;
     --lime-mid:#C5CD78;
     /* Cuadrícula de libreta: el oliva de marca, casi transparente */
-    --grid:rgba(107,112,40,.08);
     --font-display:'Fraunces',Georgia,serif;
     --font-ui:'Inter',-apple-system,'Segoe UI',sans-serif;
     --radius-card:18px;
@@ -90,11 +89,10 @@
 
   /* ---------- Portada: una página de cuaderno de campo ---------- */
   .hero{position:relative;isolation:isolate;padding-block:118px 150px;}
-  /* Cuadrícula de libreta que se desvanece hacia abajo */
+  /* Mosaico tenue de esporas que se desvanece hacia abajo */
   .hero::before{
     content:"";position:absolute;inset:-96px 0 0;z-index:-1;pointer-events:none;
-    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
-    background-size:28px 28px;background-position:center -1px;
+    background-image:url(marca/mosaico-claro.svg);background-size:112px 112px;background-position:center top;
     -webkit-mask-image:linear-gradient(to bottom,#000 50%,transparent 96%);mask-image:linear-gradient(to bottom,#000 50%,transparent 96%);
   }
   /* En escritorio: titular y texto a la izquierda, selector a la derecha. En móvil: titular, selector y texto */
@@ -171,7 +169,7 @@
   /* ---------- Cabecera en tinta: la tapa del cuaderno (el pie es la contratapa) ---------- */
   /* Sube por detrás de la barra de navegación para que la tinta empiece en el borde de la pantalla */
   .hero{background:var(--ink);color:var(--bg);margin-top:calc(-1 * var(--nav-h));padding-top:calc(118px + var(--nav-h));}
-  .hero::before{inset:0;--grid:rgba(232,237,196,.055);}
+  .hero::before{inset:0;}
   .hero :focus-visible{outline-color:var(--lime-mid);}
   .hero .h1-sub{color:var(--bg);}
   .hero-lede{color:var(--lime-soft);}

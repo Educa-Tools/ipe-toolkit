@@ -22,6 +22,7 @@
     l.href = base + 'fuentes/fuentes.css';
     document.head.appendChild(l);
     document.getElementById('favicon').href = base + 'marca/simbolo-oliva.svg';
+    document.documentElement.style.setProperty('--mosaico', 'url(' + base + 'marca/mosaico-oliva.svg)');
   })();
 </script>
 <style>
@@ -36,7 +37,6 @@
     --olive-mid:#A8AD5C;
     --lime-soft:#E8EDC4;
     --lime-mid:#C5CD78;
-    --grid:rgba(107,112,40,.08);
     --font-display:'Fraunces',Georgia,serif;
     --font-ui:'Inter',-apple-system,'Segoe UI',sans-serif;
     --frame:1px solid var(--ink);
@@ -49,9 +49,9 @@
   html,body{min-height:100%;}
   body{
     margin:0;background-color:var(--bg);color:var(--ink);font-family:var(--font-ui);font-size:17px;line-height:1.6;
-    /* La misma cuadrícula de libreta que la portada */
-    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
-    background-size:28px 28px;
+    /* El mismo mosaico de esporas que la portada (la ruta la pone el script de arriba) */
+    background-image:var(--mosaico,none);
+    background-size:112px 112px;
     display:grid;place-items:center;padding:40px 16px;
   }
   a,button{touch-action:manipulation;}
