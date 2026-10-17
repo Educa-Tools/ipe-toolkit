@@ -4,139 +4,196 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#6B7028">
-<title>404 · esplora</title>
-<style>
-  :root {
-    --bg: #F7F5EC;
-    --ink: #2B2D14;
-    --muted: #6A6C4A;
-    --brand: #6B7028;
-    --card: #FFFFFF;
-    --line: #E1DEC9;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #1B1C0E;
-      --ink: #F1EFDC;
-      --muted: #A9AB82;
-      --brand: #A7AE4B;
-      --card: #252714;
-      --line: #3A3C20;
+<meta name="theme-color" content="#FBFCEF">
+<title>Página no encontrada · Esplora</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath fill='%236B7028' d='M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z'/%3E%3C/svg%3E">
+<script>
+  // Esta página puede aparecer en cualquier dirección (esplora.es/lo-que-sea o github.io/<repo>/lo-que-sea).
+  // Se calcula la raíz del sitio para cargar las fuentes y los enlaces desde ahí.
+  (function () {
+    var base = '/';
+    if (location.hostname.slice(-10) === '.github.io') {
+      var seg = location.pathname.split('/')[1];
+      if (seg) base = '/' + seg + '/';
     }
+    window.ESPLORA_BASE = base;
+    var l = document.createElement('link');
+    l.rel = 'stylesheet';
+    l.href = base + 'fuentes/fuentes.css';
+    document.head.appendChild(l);
+  })();
+</script>
+<style>
+  /* Tokens: solo los de branding/brand-kit-especificacion.md (los mismos que la portada) */
+  :root{
+    --bg:#FBFCEF;
+    --surface:#FFFFFF;
+    --ink:#1E1C1A;
+    --ink-soft:#4A463F;
+    --line:#E8E1D6;
+    --olive-deep:#6B7028;
+    --olive-mid:#A8AD5C;
+    --lime-soft:#E8EDC4;
+    --lime-mid:#C5CD78;
+    --grid:rgba(107,112,40,.08);
+    --font-display:'Fraunces',Georgia,serif;
+    --font-ui:'Inter',-apple-system,'Segoe UI',sans-serif;
+    --frame:1px solid var(--ink);
+    --sticker:3px 3px 0 var(--ink);
+    --ease-out:cubic-bezier(.23,1,.32,1);
+    --ease-in-out:cubic-bezier(.77,0,.175,1);
+    color-scheme:light;
   }
-  * { box-sizing: border-box; }
-  html, body { height: 100%; }
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--ink);
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    display: grid;
-    place-items: center;
-    padding: 24px 16px;
+  *{box-sizing:border-box;}
+  html,body{min-height:100%;}
+  body{
+    margin:0;background-color:var(--bg);color:var(--ink);font-family:var(--font-ui);font-size:17px;line-height:1.6;
+    /* La misma cuadrícula de libreta que la portada */
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:28px 28px;
+    display:grid;place-items:center;padding:40px 16px;
   }
-  main { width: 100%; max-width: 560px; text-align: center; }
-  .spore { width: 120px; height: 120px; margin: 0 auto 8px; }
-  .spore svg { width: 100%; height: 100%; overflow: visible; }
-  .sprout { transform-origin: 60px 78px; animation: sway 4s ease-in-out infinite; }
-  @keyframes sway {
-    0%, 100% { transform: rotate(-4deg); }
-    50% { transform: rotate(5deg); }
+  a,button{touch-action:manipulation;}
+  :focus-visible{outline:3px solid var(--ink);outline-offset:3px;}
+  main{width:100%;max-width:560px;display:grid;gap:28px;}
+
+  /* La ficha principal, como las de las herramientas: barra de color arriba y cuerpo de cuaderno */
+  .sheet{background:var(--surface);border:var(--frame);border-radius:18px;box-shadow:var(--sticker);overflow:hidden;rotate:-.6deg;}
+  .bar{display:flex;justify-content:space-between;gap:8px;background:var(--olive-deep);color:#fff;font-size:.7rem;font-weight:700;padding:7px 14px;border-bottom:var(--frame);}
+  .bar svg{width:10px;height:10px;margin-right:5px;vertical-align:-1px;}
+  .sheet-body{padding:30px 32px 32px;text-align:left;}
+  .head{display:flex;align-items:center;gap:18px;margin-bottom:8px;}
+  .code{position:relative;font-family:var(--font-display);font-weight:700;font-size:clamp(3.6rem,15vw,5.4rem);line-height:1;letter-spacing:-.04em;color:var(--ink);margin:0;font-variant-numeric:tabular-nums;}
+  /* Círculo a mano alrededor del 0 central */
+  .code svg{position:absolute;left:31%;top:-6%;width:40%;height:112%;overflow:visible;pointer-events:none;}
+  .doodle{fill:none;stroke:var(--olive-deep);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
+  .draw{stroke-dasharray:180;stroke-dashoffset:180;animation:ink 1s var(--ease-in-out) .4s forwards;}
+  @keyframes ink{to{stroke-dashoffset:0;}}
+  .spore{width:84px;height:84px;flex:none;margin-left:auto;}
+  .spore svg{width:100%;height:100%;overflow:visible;}
+  .sprout{transform-origin:60px 78px;animation:sway 4s ease-in-out infinite;}
+  @keyframes sway{0%,100%{transform:rotate(-5deg);}50%{transform:rotate(6deg);}}
+  h1{font-family:var(--font-display);font-weight:700;font-size:clamp(1.6rem,5vw,2.1rem);line-height:1.12;letter-spacing:-.6px;margin:0 0 10px;}
+  p{margin:0 0 22px;color:var(--ink-soft);}
+  .actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px 22px;}
+  .btn{display:inline-flex;align-items:center;gap:8px;min-height:50px;padding:0 24px;border-radius:999px;background:var(--lime-mid);border:1.5px solid var(--ink);box-shadow:var(--sticker);color:var(--ink);font-weight:700;text-decoration:none;transition:translate .18s var(--ease-out),box-shadow .18s var(--ease-out),scale .18s var(--ease-out);}
+  .btn svg{width:17px;height:17px;}
+  .btn:active{scale:.97;}
+  .link{display:inline-flex;align-items:center;min-height:44px;color:var(--ink);font-weight:600;text-underline-offset:6px;}
+
+  /* Sugerencia: una herramienta al azar, con la misma ventanita que el catálogo */
+  .tip-label{margin:0 0 -16px 6px;font-family:var(--font-display);font-style:italic;font-weight:500;font-size:1.05rem;color:var(--olive-deep);rotate:-2deg;}
+  .tool{display:flex;flex-direction:column;overflow:hidden;text-decoration:none;color:var(--ink);background:var(--bg);border:var(--frame);border-radius:12px;box-shadow:3px 3px 0 var(--ink);rotate:.8deg;transition:translate .2s var(--ease-out),rotate .2s var(--ease-out),box-shadow .2s var(--ease-out),scale .18s var(--ease-out);animation:rise .5s var(--ease-out) .6s backwards;}
+  .tool:active{scale:.98;}
+  @keyframes rise{from{opacity:0;translate:0 10px;}}
+  .tool .bar{background:var(--c);}
+  .tool-body{display:flex;flex-direction:column;gap:6px;padding:14px 16px;}
+  .tool small{font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);}
+  .tool strong{font-family:var(--font-display);font-weight:600;font-size:1.2rem;line-height:1.15;}
+  .tool strong em{font-style:italic;color:var(--c);}
+  .tool span.d{font-size:.9rem;line-height:1.45;color:var(--ink-soft);}
+  .tool .go{display:inline-flex;align-items:center;gap:5px;font-size:.8rem;font-weight:700;margin-top:2px;}
+  .tool .go svg{width:14px;height:14px;color:var(--c);transition:translate .18s var(--ease-out);}
+
+  footer{text-align:center;font-size:.9rem;color:var(--ink-soft);}
+  footer a{color:var(--ink);font-weight:700;text-underline-offset:4px;}
+
+  @media (hover:hover) and (pointer:fine){
+    .btn:hover{translate:-2px -2px;box-shadow:5px 5px 0 var(--ink);}
+    .link:hover,footer a:hover{color:var(--olive-deep);}
+    .tool:hover{translate:0 -4px;rotate:0deg;box-shadow:6px 6px 0 var(--c);}
+    .tool:hover .go svg{translate:3px 0;}
   }
-  .code {
-    font-size: clamp(64px, 18vw, 104px);
-    font-weight: 800;
-    letter-spacing: -0.04em;
-    line-height: 1;
-    color: var(--brand);
-    margin: 0;
+  @media (max-width:480px){
+    .sheet-body{padding:24px 20px 24px;}
+    .spore{width:64px;height:64px;}
   }
-  h1 { font-size: clamp(22px, 5vw, 28px); margin: 12px 0 8px; letter-spacing: -0.01em; }
-  p { color: var(--muted); line-height: 1.55; margin: 0 0 20px; font-size: 16px; }
-  .btn {
-    display: inline-block;
-    background: var(--brand);
-    color: #fff;
-    text-decoration: none;
-    padding: 12px 22px;
-    border-radius: 999px;
-    font-weight: 600;
-    transition: transform .15s ease, opacity .15s ease;
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important;}
+    .draw{stroke-dashoffset:0;}
   }
-  @media (prefers-color-scheme: dark) { .btn { color: #1B1C0E; } }
-  .btn:hover { transform: translateY(-1px); opacity: .92; }
-  .btn:focus-visible, .tool:focus-visible { outline: 3px solid var(--brand); outline-offset: 3px; }
-  .tool {
-    display: none;
-    margin: 28px auto 0;
-    max-width: 420px;
-    text-align: left;
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    padding: 16px 18px;
-    text-decoration: none;
-    color: inherit;
-  }
-  .tool.show { display: block; }
-  .tool small { color: var(--muted); display: block; margin-bottom: 4px; font-size: 13px; }
-  .tool strong { display: block; font-size: 17px; margin-bottom: 2px; }
-  .tool span { color: var(--muted); font-size: 14px; line-height: 1.4; }
-  footer { margin-top: 32px; font-size: 14px; color: var(--muted); letter-spacing: .02em; }
-  @media (prefers-reduced-motion: reduce) { .sprout { animation: none; } }
 </style>
 </head>
 <body>
 <main>
-  <div class="spore" aria-hidden="true">
-    <svg viewBox="0 0 120 120">
-      <ellipse cx="60" cy="100" rx="26" ry="5" fill="currentColor" opacity=".08"/>
-      <circle cx="60" cy="86" r="14" fill="#6B7028"/>
-      <circle cx="55" cy="81" r="3.5" fill="#fff" opacity=".35"/>
-      <g class="sprout">
-        <path d="M60 78 C60 62 60 54 60 44" stroke="#6B7028" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-        <circle cx="60" cy="40" r="5" fill="#6B7028" opacity=".5"/>
-      </g>
-    </svg>
-  </div>
+  <article class="sheet">
+    <div class="bar"><span><svg viewBox="0 0 40 40" aria-hidden="true"><path fill="currentColor" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg><span translate="no">Esplora</span></span><span>Página no encontrada</span></div>
+    <div class="sheet-body">
+      <div class="head">
+        <p class="code" aria-label="Error 404">404<svg viewBox="0 0 60 60" preserveAspectRatio="none" aria-hidden="true"><path class="doodle draw" d="M34 5C18 3 4 14 5 31c1 16 15 25 30 24 14-1 21-12 20-25C54 15 42 4 26 7"/></svg></p>
+        <div class="spore" aria-hidden="true">
+          <svg viewBox="0 0 120 120">
+            <ellipse cx="60" cy="104" rx="26" ry="5" fill="#1E1C1A" opacity=".08"/>
+            <circle cx="60" cy="86" r="15" fill="#6B7028" stroke="#1E1C1A" stroke-width="1.5"/>
+            <circle cx="55" cy="81" r="3.5" fill="#FFFFFF" opacity=".4"/>
+            <g class="sprout">
+              <path d="M60 71 C60 58 60 50 60 40" stroke="#1E1C1A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              <path d="M60 52 C52 50 47 44 47 37 C55 38 60 44 60 52Z" fill="#C5CD78" stroke="#1E1C1A" stroke-width="1.5"/>
+              <path d="M60 46 C67 44 72 38 72 31 C64 32 60 38 60 46Z" fill="#A8AD5C" stroke="#1E1C1A" stroke-width="1.5"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+      <h1>Aquí no ha brotado nada</h1>
+      <p>La espora ha caído en terreno equivocado: esta página no existe, se ha movido o nunca llegó a germinar.</p>
+      <div class="actions">
+        <a class="btn" id="toCatalog" href="/#catalogo">Ir al catálogo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        <a class="link" id="toHome" href="/">Volver a la portada</a>
+      </div>
+    </div>
+  </article>
 
-  <p class="code">404</p>
-  <h1>Aquí no ha brotado nada</h1>
-  <p>La espora ha caído en terreno equivocado. La página que buscas no existe, se ha movido o nunca llegó a germinar.</p>
-  <a class="btn" id="home" href="/">Volver a explorar</a>
-
-  <a class="tool" id="tool" href="#">
-    <small>¿Y si pruebas esto?</small>
-    <strong id="tool-title"></strong>
-    <span id="tool-desc"></span>
+  <p class="tip-label" id="tipLabel" hidden>¿Y si pruebas esta?</p>
+  <a class="tool" id="tool" href="#" hidden>
+    <span class="bar"><span><svg viewBox="0 0 40 40" aria-hidden="true"><path fill="currentColor" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg><span translate="no">Esplora</span></span><span id="toolBar"></span></span>
+    <span class="tool-body">
+      <small id="toolKick"></small>
+      <strong id="toolTitle"></strong>
+      <span class="d" id="toolDesc"></span>
+      <span class="go">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+    </span>
   </a>
 
-  <footer>esplora</footer>
+  <footer><span translate="no">esplora.es</span> · <a href="mailto:contacto@esplora.es">contacto@esplora.es</a></footer>
 </main>
 
 <script>
 (function () {
-  // Funciona tanto en github.io/<repo>/ como en un dominio propio.
-  var base = '/';
-  if (location.hostname.slice(-10) === '.github.io') {
-    var seg = location.pathname.split('/')[1];
-    if (seg) base = '/' + seg + '/';
-  }
-  document.getElementById('home').href = base + '#explorar';
+  var base = window.ESPLORA_BASE || '/';
+  document.getElementById('toCatalog').href = base + '#catalogo';
+  document.getElementById('toHome').href = base;
 
-  // Sugerencia al azar del catálogo (si el JSON no carga, simplemente no se muestra).
+  // Sugerencia al azar del catálogo (si el JSON no carga, simplemente no se muestra)
   fetch(base + 'data/estructura.json')
     .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
     .then(function (data) {
-      var list = Object.values(data.herramientas || {}).filter(function (t) { return t && t.url && t.titulo; });
-      if (!list.length) return;
-      var t = list[Math.floor(Math.random() * list.length)];
+      var tools = data.herramientas || {};
+      var where = {};
+      (data.modulos || []).forEach(function (m) {
+        var abrev = (m.nomUnidad && m.nomUnidad.abrev) || 'UD';
+        (m.unidades || []).forEach(function (u) {
+          (u.herramientas || []).forEach(function (id) { if (!where[id]) where[id] = m.tag + ' · ' + abrev + u.n; });
+        });
+      });
+      var ids = Object.keys(tools).filter(function (id) { return tools[id] && tools[id].url && tools[id].titulo; });
+      if (!ids.length) return;
+      var id = ids[Math.floor(Math.random() * ids.length)];
+      var t = tools[id];
       var a = document.getElementById('tool');
       a.href = base + t.url;
-      document.getElementById('tool-title').textContent = t.titulo;
-      document.getElementById('tool-desc').textContent = t.descripcion || '';
-      a.classList.add('show');
+      a.style.setProperty('--c', t.color || '#6B7028');
+      document.getElementById('toolBar').textContent = t.titulo;
+      document.getElementById('toolKick').textContent = where[id] || '';
+      // El titular trae su palabra destacada entre <em>: se conserva solo esa etiqueta
+      var title = document.getElementById('toolTitle');
+      String(t.titular || t.titulo).split(/(<em>.*?<\/em>)/).forEach(function (part) {
+        var m = part.match(/^<em>(.*)<\/em>$/);
+        if (m) { var em = document.createElement('em'); em.textContent = m[1]; title.appendChild(em); }
+        else title.appendChild(document.createTextNode(part.replace(/<[^>]+>/g, '')));
+      });
+      document.getElementById('toolDesc').textContent = t.descripcion || '';
+      a.hidden = false;
+      document.getElementById('tipLabel').hidden = false;
     })
     .catch(function () {});
 })();
