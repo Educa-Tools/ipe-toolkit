@@ -187,14 +187,19 @@
   .catalog{border-top:var(--frame);}
   .cat-head{margin-bottom:28px;}
   /* Barra de búsqueda y filtros: en escritorio se queda fija bajo la navegación al bajar */
-  .toolbar{position:sticky;top:var(--nav-h);z-index:20;margin:0 -24px 28px;padding:14px 24px;background:rgba(251,252,239,.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .2s ease;}
-  .toolbar.stuck{border-bottom-color:var(--ink);}
+  .toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px;position:sticky;top:var(--nav-h);z-index:20;margin:0 -24px 28px;padding:14px 24px;background:rgba(251,252,239,.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .2s ease;}
+  .toolbar.stuck{border-bottom-color:var(--ink);padding-block:8px;}
+  /* Fija, la barra se vuelve más fina para dejar sitio a las tarjetas */
+  .toolbar.stuck .seg a{min-height:36px;}
+  .toolbar.stuck .search input{min-height:42px;}
+  .toolbar.stuck .dd{min-height:40px;}
+  .toolbar.stuck .dd select{min-height:38px;}
   .toolbar-sentinel{height:1px;margin-bottom:-1px;}
-  .finder{display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px;}
+  .finder{flex:1 1 400px;min-width:0;display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px;}
   .seg{display:inline-flex;gap:4px;padding:4px;background:var(--surface);border:var(--frame);border-radius:var(--radius-pill);}
-  .seg a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 20px;border-radius:var(--radius-pill);text-decoration:none;font-weight:700;font-size:.94rem;color:var(--ink-soft);white-space:nowrap;}
+  .seg a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 18px;border-radius:var(--radius-pill);text-decoration:none;font-weight:700;font-size:.94rem;color:var(--ink-soft);white-space:nowrap;}
   .seg a[aria-current="true"]{background:var(--ink);color:#fff;}
-  .search{position:relative;flex:1 1 300px;}
+  .search{position:relative;flex:1 1 160px;}
   .search svg{position:absolute;left:18px;top:50%;translate:0 -50%;width:19px;height:19px;color:var(--olive-deep);pointer-events:none;}
   .search input{width:100%;min-height:52px;font:inherit;font-size:1rem;color:var(--ink);background:var(--surface);border:var(--frame);border-radius:var(--radius-pill);padding:0 48px;transition:box-shadow .15s var(--ease-out);}
   .search input::placeholder{color:var(--ink-muted);}
@@ -206,12 +211,12 @@
   @media (max-width:520px){.seg{display:grid;grid-template-columns:repeat(3,1fr);width:100%;}.seg a{padding:0 8px;}}
 
   /* Filtros: dos desplegables (temática y tipo de recurso) y el número de resultados */
-  .filters{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:12px;}
+  .filters{flex:0 1 auto;display:flex;flex-wrap:wrap;align-items:center;gap:12px;}
   .dd{position:relative;display:inline-flex;align-items:center;gap:8px;flex:0 1 auto;min-width:0;min-height:46px;padding-left:18px;background:var(--surface);border:var(--frame);border-radius:var(--radius-pill);transition:box-shadow .15s var(--ease-out),background-color .15s ease;}
   .dd:focus-within{box-shadow:var(--sticker);}
   .dd.on{background:var(--lime-soft);}
   .dd > span{flex:none;font-size:.86rem;font-weight:500;color:var(--ink-soft);}
-  .dd select{appearance:none;-webkit-appearance:none;min-width:0;max-width:100%;min-height:44px;margin:0;padding:0 42px 0 0;border:0;background-color:transparent;font:inherit;font-size:.94rem;font-weight:700;color:var(--ink);cursor:pointer;text-overflow:ellipsis;}
+  .dd select{appearance:none;-webkit-appearance:none;min-width:0;max-width:160px;min-height:44px;margin:0;padding:0 42px 0 0;border:0;background-color:transparent;font:inherit;font-size:.94rem;font-weight:700;color:var(--ink);cursor:pointer;text-overflow:ellipsis;}
   .dd select:focus{outline:none;}
   .dd select option{background-color:#FFFFFF;color:#1E1C1A;}
   .dd svg{position:absolute;right:16px;top:50%;translate:0 -50%;width:14px;height:14px;pointer-events:none;}
@@ -220,9 +225,9 @@
   .res-count mark{background:var(--lime-soft);color:var(--ink);padding:0 6px;border-radius:6px;}
   .link-btn{min-height:44px;padding:0 4px;border:0;background:none;cursor:pointer;font-weight:600;font-size:.92rem;color:var(--ink);text-decoration:underline;text-underline-offset:5px;}
   @media (max-width:620px){
-    .filters{display:grid;grid-template-columns:1fr;gap:10px;}
+    .filters{flex:1 1 100%;display:grid;grid-template-columns:1fr;gap:10px;}
     .dd{flex:none;}
-    .dd select{flex:1;}
+    .dd select{flex:1;max-width:none;}
     .filters-end{margin-left:0;justify-content:space-between;}
   }
 
@@ -384,16 +389,30 @@
   .contact-item.is-live{border-style:solid;border-color:var(--ink);}
   .soon-badge{flex:none;font-size:.75rem;font-weight:700;background:var(--lime-mid);color:var(--ink);border-radius:var(--radius-pill);padding:4px 10px;}
 
-  /* ---------- Pie de página ---------- */
-  footer{border-top:var(--frame);padding-block:48px calc(40px + env(safe-area-inset-bottom,0px));}
-  .foot{display:grid;grid-template-columns:1.2fr 1fr auto;gap:28px 48px;align-items:start;color:var(--ink-soft);font-size:.92rem;}
-  .foot-brand p{margin:8px 0 0;max-width:34ch;}
-  .foot .nav-brand b{font-size:1.15rem;}
-  .foot-links{display:grid;grid-template-columns:repeat(2,auto);justify-content:start;gap:0 32px;}
-  .foot-links a{display:inline-flex;align-items:center;min-height:36px;color:var(--ink);font-weight:600;text-decoration:none;}
-  .foot-mail{margin:0;text-align:right;}
-  .foot-mail a{color:var(--ink);font-weight:700;text-underline-offset:4px;}
-  @media (max-width:760px){.foot{grid-template-columns:1fr;}.foot-mail{text-align:left;}}
+  /* ---------- Pie de página: el cierre del cuaderno, en tinta ---------- */
+  footer{position:relative;overflow:hidden;background:var(--ink);color:var(--lime-soft);padding-top:88px;}
+  footer a{color:#FFFFFF;}
+  .foot-top{display:grid;grid-template-columns:1.1fr 1.4fr;gap:48px 72px;align-items:start;}
+  .foot-claim{margin:0 0 26px;font-family:var(--font-display);font-weight:600;font-size:clamp(1.6rem,3vw,2.2rem);line-height:1.15;letter-spacing:-.5px;color:#FFFFFF;max-width:20ch;text-wrap:balance;}
+  .foot-claim em{font-style:italic;color:var(--lime-mid);}
+  .btn-foot{display:inline-flex;align-items:center;gap:10px;min-height:50px;padding:0 24px;border-radius:var(--radius-pill);background:var(--lime-mid);border:1.5px solid var(--lime-mid);box-shadow:3px 3px 0 var(--olive-deep);color:var(--ink)!important;font-weight:700;text-decoration:none;white-space:nowrap;transition:translate .18s var(--ease-out),box-shadow .18s var(--ease-out),scale .18s var(--ease-out);}
+  .btn-foot svg{width:17px;height:17px;}
+  .btn-foot:active{scale:.97;}
+  .foot-cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.5fr);gap:32px;}
+  .foot-cols h3{margin:0 0 12px;font-family:var(--font-display);font-style:italic;font-weight:500;font-size:1.05rem;color:var(--lime-mid);}
+  .foot-cols ul{list-style:none;margin:0;padding:0;}
+  .foot-cols a{display:inline-flex;align-items:center;min-height:38px;font-weight:600;text-decoration:none;}
+  .foot-cols .muted{display:block;margin-top:4px;font-size:.88rem;color:var(--olive-mid);}
+  .foot-cols a.mail{text-decoration:underline;text-decoration-color:var(--olive-mid);text-underline-offset:5px;}
+  /* La marca en grande, recortada al pie como una firma */
+  .foot-mark{display:flex;align-items:flex-start;gap:.06em;margin:28px 0 -0.1em;font-family:var(--font-display);font-weight:700;font-size:clamp(5.5rem,21vw,17.5rem);line-height:.86;letter-spacing:-.05em;color:var(--olive-deep);white-space:nowrap;pointer-events:none;user-select:none;}
+  .foot-mark svg{flex:none;width:.42em;height:.38em;margin-top:.04em;}
+  .foot-bottom{position:relative;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 24px;margin-top:64px;padding:14px 0;border-top:1px solid rgba(232,237,196,.22);font-size:.88rem;color:var(--olive-mid);}
+  .foot-bottom .foot-note{font-family:var(--font-display);font-style:italic;font-size:1rem;color:var(--lime-soft);}
+  .foot-bottom a{display:inline-flex;align-items:center;gap:6px;min-height:44px;font-weight:600;text-decoration:none;}
+  .foot-bottom a svg{width:15px;height:15px;transition:translate .18s var(--ease-out);}
+  @media (max-width:900px){.foot-top{grid-template-columns:1fr;}}
+  @media (max-width:560px){footer{padding-top:64px;}.foot-cols{grid-template-columns:1fr 1fr;}.foot-cols > div:last-child{grid-column:1 / -1;}.foot-bottom{margin-top:44px;}}
 
   /* Efectos al pasar el ratón: solo con ratón de verdad (en móviles y tablets el toque los dispara por error) */
   @media (hover:hover) and (pointer:fine){
@@ -417,7 +436,9 @@
     .resume-item:hover{translate:-2px -2px;box-shadow:3px 3px 0 var(--c);}
     .kind a:hover{color:var(--olive-deep);}
     .contact-item.is-live:hover{translate:0 -2px;}
-    .foot-links a:hover,.foot-mail a:hover{color:var(--olive-deep);}
+    .btn-foot:hover{translate:-2px -2px;box-shadow:5px 5px 0 var(--olive-deep);}
+    .foot-cols a:hover,.foot-bottom a:hover{color:var(--lime-mid);}
+    .foot-bottom a:hover svg{translate:0 -3px;}
   }
 
   /* Quien pida menos movimiento en su ordenador, ve la página quieta y completa */
@@ -513,7 +534,7 @@
       <div class="search" role="search">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
         <label class="sr" for="q">Buscar en el catálogo</label>
-        <input type="search" id="q" placeholder="Buscar: nómina, Porter, riesgos…" autocomplete="off" spellcheck="false">
+        <input type="search" id="q" placeholder="Buscar…" autocomplete="off" spellcheck="false">
         <button type="button" class="search-clear" id="qClear" aria-label="Borrar la búsqueda" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>
       </div>
     </div>
@@ -601,23 +622,44 @@
 </main>
 
 <footer>
-  <div class="wrap foot">
-    <div class="foot-brand">
-      <a class="nav-brand" href="#inicio" aria-label="Esplora, volver al inicio">
-        <svg viewBox="0 0 40 40" aria-hidden="true"><path fill="#6B7028" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg>
-        <b translate="no">Esplora</b>
-      </a>
-      <p>Herramientas y recursos didácticos sobre empleabilidad y emprendimiento.</p>
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <p class="foot-claim">Herramientas para explorar en el aula, <em>probando y equivocándose</em>.</p>
+        <a class="btn-foot" href="#catalogo">Explorar el catálogo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+      <nav class="foot-cols" aria-label="Pie de página">
+        <div>
+          <h3>Explorar</h3>
+          <ul>
+            <li><a href="#ipe1">IPE 1</a></li>
+            <li><a href="#ipe2">IPE 2</a></li>
+            <li><a href="#catalogo">Todo el catálogo</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3><span translate="no">Esplora</span></h3>
+          <ul>
+            <li><a href="#recursos">Tipos de recurso</a></li>
+            <li><a href="#proyecto">El proyecto</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Escríbenos</h3>
+          <ul>
+            <li><a class="mail" href="mailto:contacto@esplora.es">contacto@esplora.es</a></li>
+            <li><span class="muted">LinkedIn · próximamente</span></li>
+          </ul>
+        </div>
+      </nav>
     </div>
-    <nav class="foot-links" aria-label="Pie de página">
-      <a href="#ipe1">IPE 1</a>
-      <a href="#recursos">Tipos de recurso</a>
-      <a href="#ipe2">IPE 2</a>
-      <a href="#proyecto">El proyecto</a>
-      <a href="#catalogo">Todo el catálogo</a>
-      <a href="#contacto">Contacto</a>
-    </nav>
-    <p class="foot-mail"><span translate="no">esplora.es</span><br><a href="mailto:contacto@esplora.es">contacto@esplora.es</a></p>
+    <div class="foot-bottom">
+      <span><span translate="no">esplora.es</span> · Curso 2026/27</span>
+      <span class="foot-note">Hecho dentro del aula, para el aula.</span>
+      <a href="#inicio">Volver arriba <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg></a>
+    </div>
+    <p class="foot-mark" aria-hidden="true" translate="no">Esplora<svg viewBox="-2 -2 54 46"><g transform="translate(0, 2)"><path d="M20 0 C20 0 18 9 14 13 C10 17 0 20 0 20 C0 20 10 23 14 27 C18 31 20 40 20 40 C20 40 22 31 26 27 C30 23 40 20 40 20 C40 20 30 17 26 13 C22 9 20 0 20 0Z" fill="#A8AD5C"/></g><g transform="translate(30, 0)"><path d="M10 0 C10 0 9 4 7 6 C5 8 0 9 0 9 C0 9 5 10 7 12 C9 14 10 18 10 18 C10 18 11 14 13 12 C15 10 20 9 20 9 C20 9 15 8 13 6 C11 4 10 0 10 0Z" fill="#C5CD78"/></g></svg></p>
   </div>
 </footer>
 
