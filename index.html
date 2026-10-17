@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Esplora · Herramientas y recursos didácticos</title>
 <meta name="description" content="Herramientas y recursos didácticos sobre empleabilidad y emprendimiento para IPE 1, IPE 2 y otras materias afines. Se usan en el navegador, sin instalar nada.">
-<meta name="theme-color" content="#FBFCEF">
+<meta name="theme-color" content="#1E1C1A">
 <!-- Cómo se ve el enlace al compartirlo en LinkedIn, Instagram o WhatsApp (la imagen llegará con el logo) -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Esplora">
@@ -172,6 +172,24 @@
     .pick-tag{font-size:1.35rem;}
   }
 
+  /* ---------- Cabecera en tinta: la tapa del cuaderno (el pie es la contratapa) ---------- */
+  /* Sube por detrás de la barra de navegación para que la tinta empiece en el borde de la pantalla */
+  .hero{background:var(--ink);color:var(--bg);margin-top:calc(-1 * var(--nav-h));padding-top:calc(118px + var(--nav-h));}
+  .hero::before{inset:0;--grid:rgba(232,237,196,.055);}
+  .hero :focus-visible{outline-color:var(--lime-mid);}
+  .hero .wordmark{color:var(--bg);}
+  .hero .star-big{fill:var(--lime-mid);}
+  .hero .star-small{fill:var(--olive-mid);}
+  .hero .h1-sub{color:var(--bg);}
+  .hero-lede{color:var(--lime-soft);}
+  .hero-resume{color:var(--lime-soft);}
+  .hero-resume a{color:#FFFFFF;}
+  /* Sobre la tinta, la sombra de pegatina pasa a oliva para que las fichas sigan "despegadas" */
+  .hero .picker{color:var(--ink);box-shadow:4px 4px 0 var(--olive-mid);}
+  .hero .clip{box-shadow:3px 3px 0 var(--olive-deep);}
+  .hero .note{color:var(--lime-mid);}
+  .hero .note .doodle{stroke:var(--lime-mid);}
+  @media (max-width:980px){.hero{padding-top:calc(32px + var(--nav-h));}}
   /* ---------- Secciones ---------- */
   section.block{padding-block:104px;}
   @media (max-width:620px){section.block{padding-block:68px;}}
