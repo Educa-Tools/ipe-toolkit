@@ -2,298 +2,968 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pirámide interactiva · Jerarquía normativa</title>
+<script>/* Esplora: recupera el progreso guardado con el nombre antiguo (educa…) */try{for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(/^educa/.test(k)){var n=k.replace(/^educatools/,'esplora').replace(/^educa/,'esplora');if(localStorage.getItem(n)===null)localStorage.setItem(n,localStorage.getItem(k));}}}catch(e){}</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Pirámide de las fuentes del Derecho del trabajo · Esplora</title>
+<meta name="description" content="Las ocho fuentes del Derecho del trabajo en orden de rango, con su base legal, los principios que resuelven los conflictos entre normas y diez casos prácticos. Contrastado con el BOE.">
+<meta name="theme-color" content="#FBFCEF">
 <link rel="icon" href="marca/simbolo-oliva.svg" type="image/svg+xml">
 <link rel="stylesheet" href="fuentes/fuentes.css">
 <style>
-:root {
-  --canvas: #FBFCEF;
-  --surface: #FFFFFF;
-  --ink: #1F2417;
-  --ink-soft: #4A4F36;
-  --ink-muted: #8A8B6A;
-  --line: #E5E8C8;
-  --line-soft: #EFF1D9;
+  /* Paleta: marca/kit/COLORES.txt. La escala de la pirámide va del oliva más oscuro al más claro. */
+  :root{
+    --bg:#FBFCEF; --surface:#FFFFFF; --surface-2:#F5F6E4;
+    --ink:#1E1C1A; --ink-soft:#4A463F;
+    --line:#E8E1D6;
+    --olive-900:#2B2D14; --olive-800:#4B4F1D; --olive:#6B7028; --olive-600:#8A9136;
+    --olive-400:#A8AD5C; --lime:#C5CD78; --pale:#E8EDC4;
+    --warm:#B5482F; --warm-soft:#F7E9E3;
+    --font-display:'Fraunces',Georgia,serif;
+    --font-ui:'Inter',-apple-system,'Segoe UI',system-ui,sans-serif;
+    --r:18px; --r-sm:12px; --pill:999px;
+    --shadow:0 1px 2px rgba(30,28,26,.05),0 8px 24px -12px rgba(43,45,20,.18);
+    color-scheme:light;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-ui);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  [hidden]{display:none!important;}
+  .wrap{max-width:1040px;margin-inline:auto;padding-inline:20px;}
+  button,input{font-family:inherit;font-size:inherit;color:inherit;}
+  a{color:var(--olive);font-weight:600;text-underline-offset:3px;}
+  a:hover{color:var(--olive-800);}
+  :focus-visible{outline:3px solid var(--ink);outline-offset:3px;border-radius:6px;}
+  [tabindex="-1"]:focus{outline:none;}
+  .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+  h1,h2,h3{font-family:var(--font-display);font-weight:700;line-height:1.15;text-wrap:balance;margin:0;letter-spacing:-.01em;}
+  p{margin:0 0 12px;}
+  strong{font-weight:700;}
+  .print-only{display:none;}
 
-  --olive-soft: #D8DCA0;
-  --olive-deep: #6B7028;
-  --lime-soft: #E8EDC4;
+  /* ---------- Barra superior ---------- */
+  .top{position:sticky;top:0;z-index:20;background:rgba(251,252,239,.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
+  .top-in{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:60px;}
+  .brand{display:inline-flex;align-items:center;min-height:44px;}
+  .brand img{display:block;}
+  .top-nav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;}
+  .top-nav::-webkit-scrollbar{display:none;}
+  .nbtn{display:inline-flex;align-items:center;min-height:44px;padding:0 13px;border-radius:var(--pill);color:var(--ink-soft);font-weight:600;font-size:.92rem;text-decoration:none;white-space:nowrap;}
+  .nbtn:hover{background:var(--pale);color:var(--ink);}
+  @media (max-width:640px){.top-nav .nav-opt{display:none;}.nbtn{padding:0 10px;font-size:.88rem;}}
+  @media (max-width:420px){.top-nav .nav-pyr{display:none;}}
 
-  --tool-soft: #ECE5EC;
-  --tool-mid: #A582AC;
-  --tool-deep: #5D3D66;
-  --tool-ink: #3B2442;
-}
+  main{padding-block:28px 56px;}
+  section{scroll-margin-top:76px;}
+  .sec{margin-top:56px;}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--olive);margin-bottom:10px;}
+  .kicker::before{content:"";width:22px;height:2px;background:currentColor;border-radius:2px;}
+  .sec-h{font-size:clamp(1.55rem,3.4vw,2.1rem);margin-bottom:10px;}
+  .lead{color:var(--ink-soft);max-width:68ch;font-size:1.04rem;}
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+  /* ---------- Portada de la herramienta ---------- */
+  .hero{position:relative;overflow:hidden;background:var(--olive-900);color:var(--bg);border-radius:24px;padding:40px 36px;}
+  .hero::after{content:"";position:absolute;inset:auto -60px -80px auto;width:340px;height:300px;background:linear-gradient(180deg,transparent,rgba(197,205,120,.12));clip-path:polygon(50% 0,100% 100%,0 100%);pointer-events:none;}
+  .hero .kicker{color:var(--lime);}
+  .hero h1{font-size:clamp(2rem,5.2vw,3.1rem);max-width:20ch;margin-bottom:14px;}
+  .hero h1 em{font-style:normal;color:var(--lime);}
+  .hero p{color:var(--pale);max-width:60ch;font-size:1.08rem;}
+  .facts{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 24px;padding:0;list-style:none;}
+  .facts li{display:inline-flex;align-items:center;gap:7px;padding:6px 12px;border-radius:var(--pill);background:rgba(232,237,196,.12);border:1px solid rgba(232,237,196,.22);font-size:.88rem;font-weight:600;color:var(--pale);}
+  .facts b{color:#fff;}
+  .actions{display:flex;flex-wrap:wrap;gap:10px;}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 20px;border-radius:var(--pill);border:1.5px solid transparent;font-weight:700;font-size:.97rem;text-decoration:none;cursor:pointer;transition:background .15s ease,color .15s ease,border-color .15s ease;}
+  .btn svg{width:18px;height:18px;flex-shrink:0;}
+  .btn-lime{background:var(--lime);color:var(--olive-900);}
+  .btn-lime:hover{background:var(--pale);color:var(--olive-900);}
+  .btn-ghost-dark{border-color:rgba(232,237,196,.45);color:var(--pale);background:transparent;}
+  .btn-ghost-dark:hover{background:rgba(232,237,196,.12);color:#fff;}
+  .btn-olive{background:var(--olive);color:var(--bg);}
+  .btn-olive:hover{background:var(--olive-800);color:var(--bg);}
+  .btn-line{background:var(--surface);border-color:var(--line);color:var(--ink);}
+  .btn-line:hover{border-color:var(--olive-400);background:var(--surface-2);color:var(--ink);}
+  .btn[disabled]{opacity:.45;cursor:not-allowed;}
 
-body {
-  font-family: 'Inter', system-ui, sans-serif;
-  background: var(--canvas);
-  color: var(--ink);
-  min-height: 100vh;
-  font-size: 15px;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-}
+  /* ---------- Marco legal ---------- */
+  .basis{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px;}
+  .quote{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;box-shadow:var(--shadow);}
+  .quote .ref{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--olive-800);background:var(--pale);border-radius:var(--pill);padding:3px 10px;margin-bottom:10px;}
+  .quote p{margin:0;font-size:.98rem;color:var(--ink);}
+  .quote q{quotes:"«" "»";}
+  @media (max-width:860px){.basis{grid-template-columns:1fr;}}
 
-.serif { font-family: 'Fraunces', Georgia, serif; }
-.sans { font-family: 'Inter', system-ui, sans-serif; }
+  /* ---------- Pirámide ---------- */
+  .pyr-box{margin-top:22px;background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:28px 24px 22px;box-shadow:var(--shadow);}
+  .pyr-grid{display:grid;grid-template-columns:minmax(0,1fr) 210px;column-gap:22px;}
+  .pyr-cap{grid-column:1;text-align:center;font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);display:flex;align-items:center;justify-content:center;gap:6px;}
+  .pyr-cap svg{width:14px;height:14px;}
+  .pyr-cap.up{margin-bottom:10px;}
+  .pyr-cap.down{margin-top:10px;}
+  .pyr{grid-column:1;list-style:none;margin:0;padding:0;display:grid;gap:5px;}
+  .pyr li{display:flex;justify-content:center;}
+  .band{position:relative;display:block;width:var(--w);min-height:66px;padding:0;border:0;background:none;cursor:pointer;border-radius:4px;}
+  .band .shape{position:absolute;inset:0;background:var(--fill);clip-path:polygon(var(--inset) 0,calc(100% - var(--inset)) 0,100% 100%,0 100%);transition:filter .18s ease,transform .18s ease;}
+  .band:hover .shape{filter:brightness(1.07) saturate(1.05);}
+  .band:active .shape{transform:scaleY(.97);}
+  .band .txt{position:relative;display:flex;align-items:center;justify-content:center;gap:10px;height:100%;min-height:66px;padding:8px calc(var(--inset) + 6px) 8px;color:var(--tc);text-align:center;}
+  .band .num{flex-shrink:0;display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;font-size:.8rem;font-weight:800;background:var(--badge);color:var(--tc);}
+  .band.seen .num{background:var(--tc);color:var(--fill);}
+  .band .nm{display:flex;flex-direction:column;line-height:1.2;}
+  .band .nm b{font-size:1.02rem;font-weight:700;}
+  .band .nm small{font-size:.8rem;font-weight:500;opacity:.88;margin-top:3px;}
+  .brk{grid-column:2;display:flex;flex-direction:column;justify-content:center;padding:6px 0 6px 16px;border-left:2px solid var(--olive-400);position:relative;}
+  .brk::before,.brk::after{content:"";position:absolute;left:-2px;width:10px;height:2px;background:var(--olive-400);}
+  .brk::before{top:0;} .brk::after{bottom:0;}
+  .brk b{font-size:.92rem;line-height:1.3;}
+  .brk span{font-size:.84rem;color:var(--ink-soft);line-height:1.4;margin-top:4px;}
+  .pyr-foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-top:20px;padding-top:16px;border-top:1px solid var(--line);}
+  .meter{display:flex;align-items:center;gap:12px;font-size:.92rem;font-weight:600;color:var(--ink-soft);}
+  .meter .bar{width:140px;height:8px;border-radius:8px;background:var(--surface-2);border:1px solid var(--line);overflow:hidden;}
+  .meter .bar i{display:block;height:100%;width:0;background:var(--olive);border-radius:8px;transition:width .3s ease;}
+  .hint{font-size:.9rem;color:var(--ink-soft);margin:0;}
+  .legend-m{display:none;}
+  @media (max-width:760px){
+    .pyr-box{padding:22px 12px 18px;border-radius:20px;}
+    .pyr-grid{grid-template-columns:1fr;}
+    .brk-col,.pyr-grid > span{display:none!important;}
+    .band .nm small{display:none;}
+    .band .nm b{font-size:.94rem;}
+    .band .txt{gap:7px;padding-inline:calc(var(--inset) + 2px);}
+    .band .num{width:22px;height:22px;font-size:.72rem;}
+    .legend-m{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;}
+    .legend-m div{background:var(--surface-2);border-radius:var(--r-sm);padding:10px 12px;font-size:.84rem;line-height:1.4;color:var(--ink-soft);}
+    .legend-m b{display:block;color:var(--ink);font-size:.86rem;}
+  }
 
-.container { max-width: 760px; margin: 0 auto; padding: 48px 24px 80px; }
+  .outside{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px;}
+  .outside div{background:var(--surface-2);border:1px dashed var(--olive-400);border-radius:var(--r-sm);padding:14px 16px;font-size:.92rem;color:var(--ink-soft);}
+  .outside b{display:block;color:var(--ink);margin-bottom:4px;font-size:.95rem;}
+  @media (max-width:760px){.outside{grid-template-columns:1fr;}}
 
-h1.display {
-  font-family: 'Fraunces', Georgia, serif; font-size: 40px; line-height: 1.1; font-weight: 400;
-  letter-spacing: -0.015em; font-variation-settings: "opsz" 72;
-}
-h1.display em { font-style: italic; font-weight: 300; color: var(--tool-deep); }
+  /* ---------- Principios ---------- */
+  .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin-top:22px;list-style:none;padding:0;}
+  .pcard{display:flex;flex-direction:column;align-items:flex-start;gap:8px;width:100%;height:100%;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;cursor:pointer;box-shadow:var(--shadow);transition:border-color .15s ease,transform .15s ease;}
+  .pcard:hover{border-color:var(--olive-400);transform:translateY(-2px);}
+  .pcard .ref{font-size:.76rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--olive);}
+  .pcard h3{font-size:1.18rem;}
+  .pcard p{margin:0;color:var(--ink-soft);font-size:.94rem;line-height:1.5;}
+  .pcard .go{margin-top:auto;padding-top:6px;display:inline-flex;align-items:center;gap:6px;font-size:.88rem;font-weight:700;color:var(--olive);}
+  .pcard .go svg{width:16px;height:16px;}
+  .pcard.seen .go::after{content:"· Visto";color:var(--ink-soft);font-weight:600;}
 
-.eyebrow { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 2px; }
-.eyebrow-line { display: flex; align-items: center; gap: 12px; margin-bottom: 22px; }
-.eyebrow-line::before { content: ''; width: 40px; height: 1px; background: var(--tool-deep); }
+  /* ---------- Casos ---------- */
+  .case-box{margin-top:22px;background:var(--surface);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);overflow:hidden;}
+  .case-nav{display:flex;flex-wrap:wrap;gap:6px;padding:16px 20px;background:var(--surface-2);border-bottom:1px solid var(--line);align-items:center;}
+  .case-nav .lbl{font-size:.86rem;font-weight:700;color:var(--ink-soft);margin-right:6px;}
+  .dot{width:38px;height:38px;border-radius:50%;border:1.5px solid var(--line);background:var(--surface);font-weight:700;font-size:.88rem;cursor:pointer;display:inline-grid;place-items:center;}
+  .dot:hover{border-color:var(--olive-400);}
+  .dot[aria-current="step"]{border-color:var(--ink);box-shadow:0 0 0 2px var(--ink) inset;}
+  .dot.ok{background:var(--olive);border-color:var(--olive);color:var(--bg);}
+  .dot.ko{background:var(--warm-soft);border-color:var(--warm);color:var(--warm);}
+  .case{padding:26px 26px 22px;}
+  .case-top{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:10px;}
+  .lvl{font-size:.76rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:var(--pill);background:var(--pale);color:var(--olive-800);}
+  .lvl.l2{background:var(--lime);color:var(--olive-900);}
+  .lvl.l3{background:var(--olive-800);color:var(--bg);}
+  .case-n{font-size:.86rem;color:var(--ink-soft);font-weight:600;}
+  .case h3{font-size:1.35rem;margin-bottom:10px;}
+  .case .enun{font-size:1.02rem;max-width:72ch;}
+  .opts{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:10px;}
+  .opt{display:flex;align-items:flex-start;gap:12px;width:100%;text-align:left;padding:14px 16px;border:1.5px solid var(--line);border-radius:var(--r-sm);background:var(--surface);cursor:pointer;font-size:.98rem;line-height:1.45;transition:border-color .15s ease,background .15s ease;}
+  .opt:hover:not([disabled]){border-color:var(--olive-400);background:var(--surface-2);}
+  .opt .k{flex-shrink:0;display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--surface-2);border:1px solid var(--line);font-weight:800;font-size:.85rem;}
+  .opt[disabled]{cursor:default;}
+  .opt.right{border-color:var(--olive);background:var(--pale);}
+  .opt.right .k{background:var(--olive);border-color:var(--olive);color:var(--bg);}
+  .opt.wrong{border-color:var(--warm);background:var(--warm-soft);}
+  .opt.wrong .k{background:var(--warm);border-color:var(--warm);color:#fff;}
+  .fb{margin-top:16px;border-radius:var(--r-sm);padding:16px 18px;border-left:4px solid var(--olive);background:var(--surface-2);}
+  .fb.bad{border-left-color:var(--warm);}
+  .fb h4{margin:0 0 6px;font-size:1rem;}
+  .fb.good h4{color:var(--olive-800);}
+  .fb.bad h4{color:var(--warm);}
+  .fb p{margin:0 0 8px;font-size:.97rem;}
+  .fb .ref{font-size:.84rem;font-weight:700;color:var(--ink-soft);margin:0;}
+  .case-ctl{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;margin-top:20px;}
+  .case-ctl div{display:flex;gap:10px;flex-wrap:wrap;}
 
-.prose-italic { font-family: 'Fraunces', Georgia, serif; font-style: italic; font-weight: 300; line-height: 1.6; color: var(--ink-soft); }
-.prose { font-family: 'Fraunces', Georgia, serif; font-size: 16px; line-height: 1.7; font-weight: 350; color: var(--ink); }
+  /* ---------- Progreso ---------- */
+  .prog{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px;}
+  .stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:var(--shadow);}
+  .stat b{display:block;font-family:var(--font-display);font-size:2rem;line-height:1;color:var(--olive-800);}
+  .stat span{display:block;margin-top:6px;font-size:.92rem;color:var(--ink-soft);}
+  .stat .bar{margin-top:12px;height:8px;border-radius:8px;background:var(--surface-2);border:1px solid var(--line);overflow:hidden;}
+  .stat .bar i{display:block;height:100%;width:0;background:var(--olive);transition:width .3s ease;}
+  .tools{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;}
+  .privacy{margin-top:14px;font-size:.9rem;color:var(--ink-soft);max-width:72ch;}
+  .msg{margin-top:10px;font-size:.92rem;font-weight:600;color:var(--olive-800);min-height:1.5em;}
+  @media (max-width:700px){.prog{grid-template-columns:1fr;}}
 
-.card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; }
+  /* ---------- Ficha (diálogo) ---------- */
+  dialog{border:0;padding:0;width:min(780px,calc(100% - 32px));max-height:min(88vh,920px);border-radius:22px;background:var(--surface);color:var(--ink);box-shadow:0 30px 80px -20px rgba(30,28,26,.45);overflow:hidden;}
+  dialog[open]{display:flex;flex-direction:column;}
+  dialog::backdrop{background:rgba(30,28,26,.55);backdrop-filter:blur(2px);}
+  .d-head{display:flex;align-items:flex-start;gap:14px;padding:22px 22px 18px;background:var(--fill,var(--olive-900));color:var(--tc,var(--bg));}
+  .d-num{flex-shrink:0;display:inline-grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--badge,rgba(255,255,255,.18));font-weight:800;font-size:1.05rem;}
+  .d-tt{flex:1;min-width:0;}
+  .d-tt .ref{display:block;font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.9;margin-bottom:4px;}
+  .d-tt h2{font-size:clamp(1.35rem,3.6vw,1.8rem);}
+  .d-tt p{margin:6px 0 0;font-size:.95rem;opacity:.92;}
+  .xbtn{flex-shrink:0;width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.18);color:inherit;cursor:pointer;display:inline-grid;place-items:center;}
+  .xbtn:hover{background:rgba(255,255,255,.3);}
+  .xbtn svg{width:20px;height:20px;}
+  .d-body{overflow-y:auto;padding:22px 24px 8px;overscroll-behavior:contain;}
+  .d-body h3{font-family:var(--font-ui);font-size:.8rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--olive);margin:22px 0 8px;}
+  .d-body h3:first-child{margin-top:0;}
+  .d-body p{font-size:1rem;}
+  .d-body ul{margin:0 0 8px;padding-left:0;list-style:none;display:grid;gap:9px;}
+  .d-body li{position:relative;padding-left:20px;font-size:.98rem;line-height:1.55;}
+  .d-body li::before{content:"";position:absolute;left:3px;top:.62em;width:7px;height:7px;border-radius:2px;background:var(--olive-400);transform:rotate(45deg);}
+  .tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r-sm);margin-bottom:8px;}
+  table{width:100%;border-collapse:collapse;font-size:.92rem;line-height:1.45;}
+  th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line);}
+  th{background:var(--surface-2);font-weight:700;font-size:.82rem;letter-spacing:.03em;}
+  tr:last-child td{border-bottom:0;}
+  td:first-child{font-weight:700;min-width:120px;}
+  .call{border-radius:var(--r-sm);padding:14px 16px;margin:10px 0;font-size:.98rem;}
+  .call b{display:block;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;}
+  .call.ok{background:var(--pale);}
+  .call.ok b{color:var(--olive-800);}
+  .call.warn{background:var(--warm-soft);}
+  .call.warn b{color:var(--warm);}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 14px;}
+  .chips span{font-size:.82rem;font-weight:600;padding:4px 10px;border-radius:var(--pill);background:var(--surface-2);border:1px solid var(--line);}
+  .d-foot{display:flex;justify-content:space-between;gap:10px;padding:14px 22px;border-top:1px solid var(--line);background:var(--surface-2);}
+  .d-foot .btn{min-height:44px;padding:0 16px;}
+  @media (max-width:640px){
+    dialog{width:100%;max-width:100%;max-height:92vh;margin:auto 0 0;border-radius:22px 22px 0 0;}
+    .d-head{padding:18px 16px 16px;}
+    .d-body{padding:18px 18px 6px;}
+    .d-foot{padding:12px 16px calc(12px + env(safe-area-inset-bottom));}
+    .d-foot .btn span{display:none;}
+  }
 
-.section-label { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 700; color: var(--tool-deep); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; }
+  footer{border-top:1px solid var(--line);padding-block:28px 40px;font-size:.9rem;color:var(--ink-soft);}
+  footer p{max-width:80ch;}
 
-.analogy-card { display: flex; gap: 14px; align-items: flex-start; padding: 18px 20px; border-radius: 14px; background: var(--lime-soft); border: 1px solid var(--olive-soft); margin-bottom: 28px; }
-.analogy-card svg { flex-shrink: 0; color: var(--olive-deep); margin-top: 2px; }
-.analogy-card p { font-family: 'Fraunces', Georgia, serif; font-size: 14.5px; line-height: 1.6; color: var(--ink-soft); }
-.analogy-card .analogy-label { font-family: 'Inter', sans-serif; font-size: 10.5px; font-weight: 700; color: var(--olive-deep); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 5px; display: block; }
+  .fade{animation:fadeUp .35s cubic-bezier(.2,.7,.2,1) both;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+  @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important;}html{scroll-behavior:auto;}}
 
-.en-plata { margin-top: 16px; padding: 12px 16px; background: var(--lime-soft); border-radius: 10px; border-left: 3px solid var(--olive-deep); }
-.en-plata-label { font-family: 'Inter', sans-serif; font-size: 10.5px; font-weight: 700; color: var(--olive-deep); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
-.en-plata-text { font-family: 'Fraunces', Georgia, serif; font-size: 13.5px; line-height: 1.55; color: var(--ink-soft); }
-
-.key-principle { display: flex; gap: 14px; align-items: flex-start; padding: 20px 22px; border-radius: 14px; background: var(--tool-soft); border: 1px solid var(--tool-mid); margin-top: 28px; }
-.key-principle svg { flex-shrink: 0; color: var(--tool-deep); margin-top: 2px; }
-.key-principle .kp-label { font-family: 'Inter', sans-serif; font-size: 10.5px; font-weight: 700; color: var(--tool-ink); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 5px; display: block; }
-.key-principle p { font-family: 'Fraunces', Georgia, serif; font-size: 14.5px; line-height: 1.6; color: var(--tool-ink); }
-
-.pyramid-wrap { display: flex; gap: 30px; align-items: flex-start; flex-wrap: wrap; margin-bottom: 4px; }
-.pyramid-svg-col { flex: 0 0 260px; max-width: 100%; }
-.pyramid-svg-col svg { width: 100%; height: auto; display: block; }
-.pyramid-list-col { flex: 1 1 260px; display: flex; flex-direction: column; gap: 8px; min-width: 240px; }
-
-.pyramid-band { cursor: pointer; stroke: #FBFCEF; stroke-width: 2.5; transition: filter 0.15s ease; }
-.pyramid-band:hover { filter: brightness(1.08); }
-.pyramid-band.active { filter: brightness(1.12); stroke: var(--tool-ink); stroke-width: 3.5; }
-.pyramid-num { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 700; pointer-events: none; text-anchor: middle; dominant-baseline: middle; }
-
-.level-pill { cursor: pointer; border: 1.5px solid transparent; border-radius: 12px; padding: 12px 14px; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; transition: all 0.18s ease; display: flex; align-items: center; gap: 10px; }
-.level-pill:hover { filter: brightness(1.05); }
-.level-pill .num-badge { width: 20px; height: 20px; border-radius: 50%; background: rgba(255,255,255,0.35); display: flex; align-items: center; justify-content: center; font-size: 10.5px; flex-shrink: 0; }
-.level-pill .pill-name { flex: 1; }
-.level-pill .check { flex-shrink: 0; opacity: 0; transition: opacity 0.15s ease; }
-.level-pill.viewed .check { opacity: 1; }
-.level-pill.active { border-color: var(--tool-ink); transform: translateX(4px); box-shadow: 0 6px 16px -8px rgba(59,36,66,0.45); }
-
-.progress-track { font-family: 'Inter', sans-serif; font-size: 12px; color: var(--ink-muted); margin: 18px 0 16px; }
-
-.explain-panel { padding: 24px 26px; margin-top: 6px; min-height: 168px; }
-.explain-placeholder { color: var(--ink-muted); font-family: 'Fraunces', Georgia, serif; font-style: italic; font-size: 15px; }
-.level-title { font-family: 'Fraunces', Georgia, serif; font-size: 22px; font-weight: 400; line-height: 1.2; margin-bottom: 10px; }
-
-@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-.fade { animation: fadeUp 0.3s cubic-bezier(0.4,0,0.2,1); }
-
-@media (max-width: 560px) {
-  h1.display { font-size: 30px; }
-  .container { padding: 36px 18px 60px; }
-  .pyramid-svg-col { flex: 0 0 200px; margin: 0 auto; }
-  .pyramid-wrap { justify-content: center; }
-}
+  /* ---------- Impresión: ficha de estudio ---------- */
+  @media print{
+    @page{size:A4;margin:15mm;}
+    body{background:#fff;font-size:10.5pt;line-height:1.45;}
+    .top,.no-print,footer,dialog{display:none!important;}
+    main{padding:0;}
+    .print-only{display:block;}
+    .ps h1{font-size:20pt;margin-bottom:4pt;}
+    .ps .sub{color:#4A463F;margin-bottom:12pt;}
+    .ps h2{font-size:13pt;margin:14pt 0 6pt;padding-bottom:3pt;border-bottom:1.5pt solid #6B7028;}
+    .ps-lvl{break-inside:avoid;margin-bottom:8pt;padding:7pt 9pt;border:1pt solid #ccc;border-left:5pt solid var(--fill);border-radius:4pt;}
+    .ps-lvl h3{font-size:11pt;margin-bottom:2pt;}
+    .ps-lvl .ref{font-size:8.5pt;font-weight:700;color:#4A463F;margin-bottom:3pt;}
+    .ps-lvl p{margin:0 0 3pt;}
+    .ps-lvl ul{margin:0;padding-left:14pt;}
+    .ps-lvl li{margin-bottom:1.5pt;}
+    .ps-res{width:100%;border-collapse:collapse;}
+    .ps-res td,.ps-res th{border:1pt solid #bbb;padding:4pt 6pt;font-size:9.5pt;}
+    .ps-pyr{display:flex;flex-direction:column;align-items:center;gap:2pt;margin:6pt 0 10pt;}
+    .ps-pyr div{background:var(--fill)!important;color:var(--tc);text-align:center;padding:4pt 0;font-weight:700;font-size:9.5pt;border-radius:2pt;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  }
 </style>
 </head>
 <body>
 
-<div class="container">
-  <div class="eyebrow-line"><span class="eyebrow">IPE 1 · Fuentes del Derecho Laboral</span></div>
-  <h1 class="display fade" style="margin-bottom: 16px;">La <em>jerarquía normativa</em>, explicada</h1>
-  <p class="prose-italic fade" style="font-size: 17px; margin-bottom: 28px;">
-    No todas las normas pesan lo mismo. Descubre, nivel a nivel, qué manda sobre qué en el Derecho Laboral.
-  </p>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  <symbol id="i-print" viewBox="0 0 24 24"><path d="M7 9V3h10v6M7 17H5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2M7 14h10v7H7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-save" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 21h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-open" viewBox="0 0 24 24"><path d="M12 21V9M7 14l5-5 5 5M5 3h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-reset" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-retry" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
 
-  <div class="card fade" style="padding: 22px 24px; margin-bottom: 20px;">
-    <p class="section-label">¿Qué es la jerarquía normativa?</p>
-    <p class="prose" style="font-size: 15px;">
-      Es el orden de importancia entre las distintas normas que regulan una materia. Cuando dos normas dicen cosas distintas sobre lo mismo, <strong>gana la que está más arriba</strong> en la pirámide. Es el principio que evita el caos: sin este orden, cualquier norma podría contradecir a cualquier otra sin que supiéramos cuál aplicar.
-    </p>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="index.html" aria-label="Esplora, volver al catálogo">
+      <img src="marca/logo-horizontal-oliva.svg" alt="" width="114" height="28">
+    </a>
+    <nav class="top-nav" aria-label="Secciones de la herramienta">
+      <a class="nbtn nav-pyr" href="#piramide">Pirámide</a>
+      <a class="nbtn" href="#principios">Principios</a>
+      <a class="nbtn" href="#casos">Casos</a>
+      <a class="nbtn nav-opt" href="#progreso">Mi progreso</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+
+  <div class="no-print">
+    <section class="hero fade" aria-labelledby="t-hero">
+      <span class="kicker">IPE 1 · Bloque 2 · Derecho del trabajo</span>
+      <h1 id="t-hero">Las fuentes del Derecho del trabajo, <em>en orden de rango</em></h1>
+      <p>Qué norma manda sobre cuál, por qué puede un convenio mejorar una ley pero nunca empeorarla y cómo se resuelve un choque entre normas. Toca cada nivel de la pirámide para abrir su ficha.</p>
+      <ul class="facts">
+        <li><b>8</b> fuentes con su base legal</li>
+        <li><b>7</b> principios de aplicación</li>
+        <li><b>10</b> casos prácticos</li>
+        <li>≈ <b>30</b> min</li>
+      </ul>
+      <div class="actions">
+        <a class="btn btn-lime" href="#piramide">Explorar la pirámide <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-ghost-dark" href="#casos">Ir a los casos</a>
+      </div>
+    </section>
+
+    <section class="sec" aria-labelledby="t-base">
+      <span class="kicker">Dónde está escrito</span>
+      <h2 class="sec-h" id="t-base">La jerarquía no es una teoría: es una regla legal</h2>
+      <p class="lead">Tres preceptos sostienen toda la pirámide. Cuando dudes, vuelve a ellos.</p>
+      <div class="basis">
+        <div class="quote"><span class="ref">Constitución · art. 9.3</span><p>«La Constitución garantiza el principio de legalidad, la <strong>jerarquía normativa</strong>, la publicidad de las normas […]».</p></div>
+        <div class="quote"><span class="ref">Código Civil · art. 1.2</span><p>«Carecerán de validez las disposiciones que contradigan otra de <strong>rango superior</strong>».</p></div>
+        <div class="quote"><span class="ref">Estatuto de los Trabajadores · art. 3</span><p>Ordena las fuentes de la relación laboral: <strong>a)</strong> leyes y reglamentos del Estado, <strong>b)</strong> convenios colectivos, <strong>c)</strong> contrato de trabajo y <strong>d)</strong> usos y costumbres locales y profesionales.</p></div>
+      </div>
+    </section>
+
+    <section class="sec" id="piramide" aria-labelledby="t-pyr">
+      <span class="kicker">La pirámide</span>
+      <h2 class="sec-h" id="t-pyr">De la Constitución a la costumbre</h2>
+      <p class="lead">Cada nivel debe respetar a los que tiene encima. Abre una ficha para ver qué es, su base legal, normas reales, cómo se relaciona con las demás y el error más frecuente.</p>
+
+      <div class="pyr-box">
+        <div class="pyr-grid">
+          <p class="pyr-cap up" aria-hidden="true"><svg><use href="#i-up"/></svg> Más rango</p>
+          <span></span>
+          <ol class="pyr" id="pyr" aria-label="Fuentes del Derecho del trabajo, de mayor a menor rango"></ol>
+          <div class="brk-col" id="brk" style="display:grid;grid-template-rows:var(--rows);row-gap:5px;"></div>
+          <p class="pyr-cap down" aria-hidden="true"><svg><use href="#i-down"/></svg> Menos rango</p>
+        </div>
+        <div class="legend-m" aria-hidden="true">
+          <div><b>Niveles 1 a 5</b>Normas internacionales y del Estado</div>
+          <div><b>Niveles 6 a 8</b>Fuentes propias de la relación laboral</div>
+        </div>
+        <div class="pyr-foot">
+          <div class="meter"><span class="bar"><i id="pyrBar"></i></span><span id="pyrTxt">0 de 8 fichas abiertas</span></div>
+          <p class="hint">Con teclado: <kbd>Tab</kbd> para moverte e <kbd>Intro</kbd> para abrir.</p>
+        </div>
+      </div>
+
+      <div class="outside">
+        <div><b>Jurisprudencia</b>No es fuente, pero la doctrina reiterada del Tribunal Supremo complementa el ordenamiento al interpretar las normas (art. 1.6 CC).</div>
+        <div><b>Tribunal Constitucional</b>Su interpretación de la Constitución vincula a todos los jueces y tribunales (art. 5.1 LOPJ).</div>
+        <div><b>Principios generales del Derecho</b>Se aplican en defecto de ley o costumbre e informan todo el ordenamiento (art. 1.4 CC).</div>
+      </div>
+    </section>
+
+    <section class="sec" id="principios" aria-labelledby="t-pri">
+      <span class="kicker">Cómo se aplica</span>
+      <h2 class="sec-h" id="t-pri">Siete principios para resolver un choque entre normas</h2>
+      <p class="lead">La pirámide dice qué norma pesa más. Estos principios dicen qué hacer cuando dos normas regulan lo mismo de forma distinta. En el Derecho del trabajo, la de arriba no siempre gana.</p>
+      <ul class="pgrid" id="pgrid"></ul>
+    </section>
+
+    <section class="sec" id="casos" aria-labelledby="t-cas">
+      <span class="kicker">Ponlo a prueba</span>
+      <h2 class="sec-h" id="t-cas">Diez casos, de básico a avanzado</h2>
+      <p class="lead">Elige la respuesta y lee la explicación con su base legal. Si fallas, puedes volver a intentarlo.</p>
+      <div class="case-box">
+        <div class="case-nav" role="group" aria-label="Casos"><span class="lbl">Caso</span><span id="dots" style="display:contents"></span></div>
+        <div class="case" id="case" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="sec" id="progreso" aria-labelledby="t-pro">
+      <span class="kicker">Mi progreso</span>
+      <h2 class="sec-h" id="t-pro">Lo que llevas hecho</h2>
+      <div class="prog">
+        <div class="stat"><b id="sN">0/8</b><span>fichas de la pirámide abiertas</span><div class="bar"><i id="bN"></i></div></div>
+        <div class="stat"><b id="sP">0/7</b><span>principios consultados</span><div class="bar"><i id="bP"></i></div></div>
+        <div class="stat"><b id="sC">0/10</b><span id="sCt">casos resueltos</span><div class="bar"><i id="bC"></i></div></div>
+      </div>
+      <div class="tools">
+        <button type="button" class="btn btn-olive" id="bPrint"><svg aria-hidden="true"><use href="#i-print"/></svg>Imprimir ficha de estudio</button>
+        <button type="button" class="btn btn-line" id="bExp"><svg aria-hidden="true"><use href="#i-save"/></svg>Guardar progreso en archivo</button>
+        <button type="button" class="btn btn-line" id="bImp"><svg aria-hidden="true"><use href="#i-open"/></svg>Cargar progreso</button>
+        <button type="button" class="btn btn-line" id="bReset"><svg aria-hidden="true"><use href="#i-reset"/></svg>Empezar de cero</button>
+        <input type="file" id="fImp" accept="application/json,.json" hidden>
+      </div>
+      <p class="msg" id="msg" role="status"></p>
+      <p class="privacy">Tu progreso se guarda solo en este navegador. Para seguir en otro equipo, guárdalo en un archivo y cárgalo allí. No se envía nada a ningún servidor.</p>
+    </section>
   </div>
 
-  <div class="analogy-card fade">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 12h.01M18 12h.01M10 12h4"/></svg>
-    <div>
-      <span class="analogy-label">En plata</span>
-      <p>Piénsalo como las reglas de un videojuego online: las reglas del propio motor del juego están por encima de las de un servidor concreto, y las del servidor están por encima de lo que tú y tus colegas pactéis en una partida privada. Podéis inventar vuestras normas para jugar entre vosotros, pero nunca podéis saltaros las del servidor — y mucho menos las del motor del juego.</p>
-    </div>
+  <!-- Ficha de estudio: solo al imprimir -->
+  <div class="print-only ps" id="ps"></div>
+</main>
+
+<footer class="wrap no-print">
+  <p><strong>Normativa contrastada con los textos consolidados del BOE (octubre de 2026):</strong> <a href="https://www.boe.es/buscar/act.php?id=BOE-A-1978-31229" target="_blank" rel="noopener">Constitución Española</a>, <a href="https://www.boe.es/buscar/act.php?id=BOE-A-2015-11430" target="_blank" rel="noopener">Estatuto de los Trabajadores</a> (RDLeg 2/2015) y <a href="https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763" target="_blank" rel="noopener">Código Civil</a>.</p>
+  <p>Herramienta educativa: explica el sistema de fuentes y no sustituye el asesoramiento jurídico sobre un caso real.</p>
+</footer>
+
+<dialog id="dlg" aria-labelledby="dT">
+  <div class="d-head" id="dHead">
+    <span class="d-num" id="dNum" aria-hidden="true"></span>
+    <div class="d-tt"><span class="ref" id="dRef"></span><h2 id="dT"></h2><p id="dSub"></p></div>
+    <button type="button" class="xbtn" id="dX" aria-label="Cerrar la ficha"><svg aria-hidden="true"><use href="#i-x"/></svg></button>
   </div>
-
-  <p class="section-label" style="margin-top: 8px;">Pirámide interactiva: las fuentes del Derecho Laboral</p>
-  <p class="prose" style="font-size: 14.5px; margin-bottom: 20px; color: var(--ink-soft);">Toca cualquier nivel de la pirámide o de la lista para ver de qué se trata.</p>
-
-  <div class="pyramid-wrap fade">
-    <div class="pyramid-svg-col">
-      <svg id="pyramid-svg" viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg"></svg>
-    </div>
-    <div class="pyramid-list-col" id="pyramid-list"></div>
+  <div class="d-body" id="dBody" tabindex="-1"></div>
+  <div class="d-foot">
+    <button type="button" class="btn btn-line" id="dPrev"><svg aria-hidden="true"><use href="#i-left"/></svg><span id="dPrevT">Anterior</span></button>
+    <button type="button" class="btn btn-olive" id="dNext"><span id="dNextT">Siguiente</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
   </div>
-
-  <p class="progress-track" id="progress-text">Has explorado 0/8 niveles</p>
-
-  <div class="card explain-panel fade" id="explain-panel">
-    <p class="explain-placeholder">Toca un nivel de la pirámide o de la lista para empezar a explorar.</p>
-  </div>
-
-  <div class="key-principle fade">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-    <div>
-      <span class="kp-label">Un matiz importante</span>
-      <p>La jerarquía no es solo "la de arriba manda". En Derecho Laboral existe también el <strong>principio de norma más favorable</strong>: una norma de rango inferior puede <em>mejorar</em> lo que dice una superior — nunca empeorarlo. Por eso un convenio colectivo o un contrato de trabajo pueden dar más derechos que la ley, aunque estén más abajo en la pirámide. Lo que no pueden hacer nunca es dar menos.</p>
-    </div>
-  </div>
-</div>
+</dialog>
 
 <script>
 // ═══════════════════════════════════════════════════════════════
-// NIVELES — de mayor a menor rango (id 1 = cúspide, id 8 = base)
+// FUENTES — de mayor a menor rango. fill/tc/badge: color de banda,
+// de texto y del círculo (escala oliva de marca/kit/COLORES.txt).
 // ═══════════════════════════════════════════════════════════════
 const LEVELS = [
-  { id: 1, nombre: "Derecho comunitario", corta: "Normas de la Unión Europea",
-    def: "Reglamentos y directivas aprobados por la Unión Europea. España, al formar parte de la UE, está obligada a cumplirlos e incorporarlos a su propia normativa. Es la fuente más alta: ninguna ley española puede contradecirla.",
-    ejemplo: "La directiva europea sobre tiempo de trabajo y descanso, que luego España traspone a su legislación interna.",
-    color: "#3B2442", text: "#FFFFFF" },
-  { id: 2, nombre: "Constitución española", corta: "La norma suprema del Estado",
-    def: "Aprobada en 1978, es la norma más importante de España. Recoge los derechos laborales básicos —derecho al trabajo, libertad sindical, huelga, negociación colectiva— y ninguna otra norma española puede ir en su contra.",
-    ejemplo: "El artículo 28 CE reconoce la libertad sindical; el artículo 35, el derecho al trabajo y a una remuneración suficiente.",
-    color: "#54405A", text: "#FFFFFF" },
-  { id: 3, nombre: "Tratados internacionales", corta: "Acuerdos con otros países u organismos",
-    def: "Convenios firmados y ratificados por España con otros países o con organismos internacionales. Una vez ratificados, pasan a formar parte de nuestro ordenamiento jurídico y están por encima de las leyes ordinarias.",
-    ejemplo: "Los convenios de la Organización Internacional del Trabajo (OIT), que fijan estándares mínimos en materia laboral a nivel mundial.",
-    color: "#6E5B73", text: "#FFFFFF" },
-  { id: 4, nombre: "Normas con rango de LEY", corta: "Leyes aprobadas por el Parlamento",
-    def: "Normas aprobadas por las Cortes Generales (o por el Gobierno con fuerza de ley, en casos excepcionales). En el ámbito laboral, la más importante con diferencia es el Estatuto de los Trabajadores: la 'ley madre' que regula los derechos y deberes básicos de empresas y trabajadores.",
-    ejemplo: "El Estatuto de los Trabajadores (Real Decreto Legislativo 2/2015), que regula el contrato de trabajo, el salario, la jornada, el despido...",
-    color: "#87778B", text: "#FFFFFF" },
-  { id: 5, nombre: "Reales Decretos", corta: "Normas del Gobierno que desarrollan una ley",
-    def: "El Gobierno los aprueba para desarrollar y concretar en detalle lo que una ley establece de forma más general. No pueden contradecir a la ley que desarrollan, solo aterrizarla.",
-    ejemplo: "El Real Decreto que fija cada año la cuantía del Salario Mínimo Interprofesional (SMI).",
-    color: "#A092A3", text: "#3B2442" },
-  { id: 6, nombre: "Convenio Colectivo", corta: "Pactado entre sindicatos y empresarios",
-    def: "Acuerdo negociado entre los representantes de los trabajadores (sindicatos) y los empresarios de un sector o una empresa. Regula condiciones concretas —salario, jornada, categorías profesionales, permisos— y puede mejorar lo que diga la ley, pero nunca empeorarlo.",
-    ejemplo: "El convenio colectivo del sector de hostelería de tu provincia, que fija salarios y pluses distintos a los de otro sector.",
-    color: "#B9AEBB", text: "#3B2442" },
-  { id: 7, nombre: "Contrato de trabajo", corta: "El acuerdo individual con tu empresa",
-    def: "El pacto concreto entre un trabajador y su empresa. Tiene que respetar lo que diga el convenio colectivo y la ley, pero puede mejorarlo si ambas partes lo acuerdan — por ejemplo, pactando un salario superior al mínimo del convenio.",
-    ejemplo: "Que tu contrato fije 1.600 € al mes cuando el convenio de tu sector marca un mínimo de 1.400 €: mejora lo pactado, así que es válido.",
-    color: "#D3C9D4", text: "#3B2442" },
-  { id: 8, nombre: "Usos y costumbres", corta: "La práctica habitual de un lugar o profesión",
-    def: "Prácticas no escritas, propias de un lugar o de una profesión, que se aplican solo cuando ninguna norma superior regula esa cuestión. Es la fuente más débil de todas: en cuanto exista una ley, un convenio o un contrato que diga algo al respecto, esa norma manda por encima de la costumbre.",
-    ejemplo: "Cómo se reparte tradicionalmente una propina entre el personal de un restaurante, si ni el convenio ni el contrato dicen nada al respecto.",
-    color: "#ECE5EC", text: "#3B2442" },
+  { id:1, nombre:"Constitución Española", corta:"La norma suprema del ordenamiento", ref:"CE de 1978 · arts. 9.1 y 9.3",
+    fill:"#2B2D14", tc:"#FBFCEF", badge:"rgba(251,252,239,.18)",
+    que:"Aprobada en referéndum el 6 de diciembre de 1978 y en vigor desde el 29 de diciembre de ese año, es la norma suprema: la ciudadanía y los poderes públicos están sujetos a ella (art. 9.1 CE) y ninguna norma puede contradecirla. Reconoce los derechos laborales básicos y decide quién puede aprobar normas laborales y con qué rango.",
+    claves:[
+      "<strong>Derechos fundamentales</strong> (sección 1.ª del capítulo II): libertad sindical y huelga (art. 28), además de igualdad y no discriminación (art. 14) e intimidad (art. 18). Se desarrollan por ley orgánica (art. 81) y se protegen con el recurso de amparo ante el Tribunal Constitucional (art. 53.2).",
+      "<strong>Derechos y deberes de la ciudadanía</strong> (sección 2.ª): deber de trabajar y derecho al trabajo, a la libre elección de profesión y a una remuneración suficiente, sin discriminación por razón de sexo (art. 35); negociación colectiva con fuerza vinculante de los convenios y medidas de conflicto colectivo (art. 37). Solo puede regularlos una ley, que debe respetar su contenido esencial (art. 53.1).",
+      "<strong>Principios rectores</strong> (capítulo III): formación, seguridad e higiene en el trabajo, descanso, limitación de la jornada y vacaciones periódicas retribuidas (art. 40.2) y Seguridad Social (art. 41). Orientan a legisladores y jueces, pero solo pueden reclamarse ante un tribunal según lo que digan las leyes que los desarrollan (art. 53.3).",
+      "<strong>Reparto de competencias</strong>: la legislación laboral es competencia exclusiva del Estado; las comunidades autónomas solo la ejecutan (art. 149.1.7.ª). Por eso no hay «leyes laborales autonómicas».",
+      "<strong>Control</strong>: solo el Tribunal Constitucional puede declarar inconstitucional una ley. Si un juez duda de una ley, no puede dejar de aplicarla por su cuenta: plantea una cuestión de inconstitucionalidad (art. 163)."
+    ],
+    normas:[
+      "Art. 7: sindicatos y asociaciones empresariales contribuyen a la defensa de los intereses que les son propios.",
+      "Art. 28.2: derecho a la huelga de los trabajadores para la defensa de sus intereses.",
+      "Art. 35.1: derecho a una remuneración suficiente para satisfacer las necesidades propias y las de la familia.",
+      "Art. 37.1: la ley garantiza el derecho a la negociación colectiva y la fuerza vinculante de los convenios."
+    ],
+    relacion:"Está por encima de todas las normas españolas. Con el Derecho de la UE la relación no es de jerarquía sino de primacía: el Tribunal Constitucional (Declaración 1/2004) distingue la <strong>supremacía</strong> de la Constitución, que es la norma fundamental, de la <strong>primacía</strong> con la que se aplica el Derecho europeo, aceptada por la propia Constitución en su art. 93.",
+    practica:"Una empresa despide a una trabajadora por afiliarse a un sindicato. El despido vulnera un derecho fundamental (art. 28.1 CE) y es nulo: la empresa debe readmitirla y pagarle los salarios dejados de percibir (art. 55.6 ET), además de la indemnización por daños que fije el juez (art. 183 LRJS).",
+    error:"Pensar que todos los derechos laborales de la Constitución se reclaman igual. La libertad sindical y la huelga tienen la máxima protección (amparo); las vacaciones del art. 40.2 son un principio rector y se reclaman a través del Estatuto de los Trabajadores (art. 38).",
+    base:["CE arts. 9, 14, 28, 35, 37, 40 y 53","CE arts. 81, 149.1.7.ª y 163"] },
+
+  { id:2, nombre:"Derecho de la Unión Europea", corta:"Primacía y efecto directo", ref:"CE art. 93 · TFUE art. 288",
+    fill:"#4B4F1D", tc:"#FBFCEF", badge:"rgba(251,252,239,.18)",
+    que:"España ingresó en las Comunidades Europeas el 1 de enero de 1986 y cedió el ejercicio de ciertas competencias (art. 93 CE). El Derecho de la UE se compone del <strong>Derecho originario</strong> —los Tratados (TUE y TFUE) y la Carta de los Derechos Fundamentales de la UE, con su mismo valor jurídico (art. 6 TUE)— y del <strong>Derecho derivado</strong> que aprueban las instituciones europeas.",
+    tabla:{ cab:["Tipo","Qué efecto tiene (art. 288 TFUE)","Ejemplo laboral"], filas:[
+      ["Reglamento","Obligatorio en todos sus elementos y directamente aplicable en cada Estado, sin norma nacional intermedia.","Reglamento (CE) 883/2004, de coordinación de los sistemas de Seguridad Social."],
+      ["Directiva","Obliga en cuanto al resultado; cada Estado decide cómo incorporarla (transposición) dentro de un plazo.","Directiva 2003/88/CE, de tiempo de trabajo; Directiva (UE) 2019/1158, de conciliación."],
+      ["Decisión","Obligatoria solo para sus destinatarios.","Decisiones dirigidas a un Estado o a una empresa concretos."],
+      ["Recomendación y dictamen","No son vinculantes.","Orientan la actuación de los Estados."]
+    ]},
+    claves:[
+      "<strong>Primacía</strong>: si una norma española choca con una europea, el juez aplica la europea y deja sin aplicar la española, sin esperar a que se derogue (TJUE, Costa/ENEL, 1964; Simmenthal, 1978).",
+      "<strong>Efecto directo</strong>: las normas europeas claras, precisas e incondicionales pueden invocarse ante los jueces nacionales (Van Gend en Loos, 1963).",
+      "<strong>Directivas no transpuestas</strong>: pasado el plazo, pueden invocarse frente al Estado y los organismos públicos (efecto vertical), pero no frente a otro particular, como una empresa privada (Marshall, 1986; Faccini Dori, 1994). Entonces el juez interpreta la norma española conforme a la directiva y el Estado puede tener que indemnizar el daño (Francovich, 1991).",
+      "<strong>Límites en lo laboral</strong>: la UE puede fijar condiciones mínimas (art. 153 TFUE), pero no regula las remuneraciones, el derecho de asociación y sindicación, la huelga ni el cierre patronal (art. 153.5 TFUE).",
+      "<strong>Tribunal de Justicia de la UE</strong>: interpreta el Derecho europeo de forma vinculante; los jueces españoles le consultan mediante la cuestión prejudicial (art. 267 TFUE)."
+    ],
+    normas:[
+      "Directiva (UE) 2019/1158, de conciliación: el plazo acabó en agosto de 2022 y España la incorporó con el Real Decreto-ley 5/2023, que creó el permiso parental de 8 semanas (art. 48 bis ET) y el de 5 días por accidente o enfermedad graves de familiares (art. 37.3.b ET).",
+      "Directiva 2003/88/CE, de tiempo de trabajo: la sentencia del TJUE de 14 de mayo de 2019 (asunto C-55/18, CCOO) exige a los Estados un sistema objetivo, fiable y accesible de registro de la jornada. En España ya era obligatorio desde el Real Decreto-ley 8/2019 (art. 34.9 ET).",
+      "Directiva 2001/23/CE, de traspasos de empresas: está detrás del art. 44 ET (sucesión de empresa).",
+      "Directiva 98/59/CE, de despidos colectivos: inspira el periodo de consultas del art. 51 ET."
+    ],
+    relacion:"Se sitúa debajo de la Constitución y por encima de todas las leyes y reglamentos españoles, a los que desplaza si chocan. Algunos manuales la colocan en la cúspide: lo riguroso es decir que el Derecho de la UE tiene <strong>primacía de aplicación</strong> y la Constitución, <strong>supremacía</strong>.",
+    practica:"Para las vacaciones anuales retribuidas, el TJUE reconoce que el art. 31.2 de la Carta de los Derechos Fundamentales se aplica también entre particulares (asuntos Bauer, 2018): un juez puede dejar sin aplicar una norma nacional que haga perder las vacaciones no disfrutadas al terminar el contrato, aunque el empleador sea una empresa privada.",
+    error:"Creer que una directiva obliga directamente a tu empresa desde que se publica. La directiva obliga al Estado; a tu empresa la obliga la norma española que la incorpora.",
+    base:["CE art. 93","TUE art. 6","TFUE arts. 153, 267 y 288"] },
+
+  { id:3, nombre:"Tratados internacionales", corta:"Convenios de la OIT y del Consejo de Europa", ref:"CE arts. 10.2 y 94-96",
+    fill:"#6B7028", tc:"#FBFCEF", badge:"rgba(251,252,239,.2)",
+    que:"Acuerdos que España celebra con otros Estados u organizaciones internacionales. Una vez válidamente celebrados y publicados oficialmente en España, forman parte del ordenamiento interno (art. 96.1 CE). En lo laboral destacan los convenios de la Organización Internacional del Trabajo (OIT) y la Carta Social Europea del Consejo de Europa.",
+    claves:[
+      "<strong>Resistencia frente a la ley</strong>: sus disposiciones solo pueden derogarse, modificarse o suspenderse en la forma que prevea el propio tratado (art. 96.1 CE). Una ley posterior no puede cambiarlos.",
+      "<strong>Control de convencionalidad</strong>: si una ley contradice un tratado, el juez ordinario aplica el tratado y deja de aplicar la ley en ese caso (STC 140/2018). No la anula: solo la desplaza.",
+      "<strong>Por debajo de la Constitución</strong>: un tratado que la contradiga exige revisarla antes de ratificarlo (art. 95 CE).",
+      "<strong>Autorización de las Cortes</strong>: los tratados que afectan a los derechos y deberes del título I necesitan autorización previa de las Cortes Generales (art. 94.1.c CE).",
+      "<strong>Criterio de interpretación</strong>: los derechos fundamentales se interpretan de conformidad con la Declaración Universal de Derechos Humanos y los tratados ratificados por España (art. 10.2 CE)."
+    ],
+    normas:[
+      "Convenios 87 y 98 de la OIT: libertad sindical y negociación colectiva (ratificados por España en 1977).",
+      "Convenio 158 de la OIT: exige una causa justificada para terminar la relación de trabajo (ratificado en 1985).",
+      "Convenios 189, sobre el trabajo doméstico, y 190, sobre la violencia y el acoso en el trabajo (ratificados en 2022).",
+      "Carta Social Europea revisada, ratificada en 2021. En 2024 el Comité Europeo de Derechos Sociales concluyó, ante una reclamación de UGT, que la indemnización española por despido improcedente no garantiza una reparación adecuada (art. 24 de la Carta), lo que ha abierto un debate sobre si los jueces pueden fijar indemnizaciones superiores a las del ET."
+    ],
+    relacion:"Por debajo de la Constitución y del Derecho de la UE, y por encima de las leyes y reglamentos españoles.",
+    practica:"Los convenios de la OIT suelen fijar mínimos que la ley española ya cumple o mejora. Su peso práctico aparece cuando una ley se queda corta: la defensa de una persona trabajadora puede pedir al juez que aplique el tratado por encima de la ley.",
+    error:"Confundir el Consejo de Europa con la Unión Europea. Son organizaciones distintas, con tribunales distintos: el Tribunal Europeo de Derechos Humanos (Estrasburgo) y el Tribunal de Justicia de la UE (Luxemburgo).",
+    base:["CE arts. 10.2, 94, 95 y 96","STC 140/2018"] },
+
+  { id:4, nombre:"Normas con rango de ley", corta:"Las aprueban las Cortes o el Gobierno bajo su control", ref:"CE arts. 81-86 · ET art. 3.1.a",
+    fill:"#8A9136", tc:"#1E1C1A", badge:"rgba(30,28,26,.12)",
+    que:"Son las normas que aprueban las Cortes Generales y las que, en casos tasados, dicta el Gobierno con el mismo valor que una ley. Aquí está el núcleo del Derecho del trabajo: el Estatuto de los Trabajadores, la Ley General de la Seguridad Social y la Ley de Prevención de Riesgos Laborales.",
+    tabla:{ cab:["Tipo","Quién y cómo","Ejemplo laboral"], filas:[
+      ["Ley orgánica (art. 81 CE)","Cortes Generales; mayoría absoluta del Congreso en una votación final sobre el conjunto. Desarrolla derechos fundamentales.","LO 11/1985, de Libertad Sindical; LO 3/2007, para la igualdad efectiva de mujeres y hombres."],
+      ["Ley ordinaria","Cortes Generales; mayoría simple.","Ley 31/1995, de Prevención de Riesgos Laborales; Ley 10/2021, de trabajo a distancia; Ley 3/2023, de Empleo."],
+      ["Real decreto legislativo (arts. 82-85 CE)","Gobierno, por delegación expresa de las Cortes. Suele ser un texto refundido.","RDLeg 2/2015, Estatuto de los Trabajadores; RDLeg 8/2015, Ley General de la Seguridad Social; RDLeg 5/2000, de infracciones y sanciones (LISOS)."],
+      ["Real decreto-ley (art. 86 CE)","Gobierno, en caso de extraordinaria y urgente necesidad. El Congreso debe convalidarlo en 30 días.","RDL 32/2021, de reforma laboral; RDL 8/2019, que implantó el registro de jornada."]
+    ]},
+    claves:[
+      "<strong>Ley orgánica y ley ordinaria no se ordenan por jerarquía, sino por competencia</strong>: cada una tiene sus materias. La ordinaria no puede regular lo reservado a la orgánica (STC 5/1981).",
+      "<strong>El Estatuto de los Trabajadores</strong> es la norma central: contrato, salario, jornada, despido, representación y convenios. Fija la mayoría de los mínimos que convenios y contratos deben respetar.",
+      "<strong>Entre normas del mismo rango</strong>, la posterior deroga a la anterior en lo que la contradiga (art. 2.2 CC) y la especial prevalece sobre la general.",
+      "<strong>Límites del decreto-ley</strong>: no puede afectar al ordenamiento de las instituciones básicas del Estado, a los derechos, deberes y libertades del título I, al régimen de las comunidades autónomas ni al Derecho electoral general (art. 86.1 CE).",
+      "<strong>Huelga</strong>: sigue regulada por el Real Decreto-ley 17/1977, anterior a la Constitución, en la interpretación que hizo de él la STC 11/1981.",
+      "<strong>Tipos de precepto</strong>: muchos fijan mínimos que solo pueden mejorarse (derecho necesario relativo); otros no admiten cambios (derecho necesario absoluto) y otros rigen solo si el convenio o el contrato no dicen otra cosa (derecho dispositivo)."
+    ],
+    relacion:"Por debajo de la Constitución, el Derecho de la UE y los tratados. Por encima de los reglamentos, que solo pueden desarrollarlas, y de convenios y contratos, que deben respetar sus mínimos (art. 3.3 ET).",
+    practica:"El art. 34.1 ET fija una jornada máxima de 40 horas semanales de trabajo efectivo de promedio en cómputo anual. Un convenio puede bajarla a 38; nunca subirla a 42.",
+    error:"Llamar «ley» a cualquier norma. El real decreto que fija el salario mínimo no es una ley, es un reglamento. En cambio, un real decreto-ley o un real decreto legislativo sí tienen rango de ley aunque los apruebe el Gobierno.",
+    base:["CE arts. 81-86","ET art. 3.1.a y 3.3","CC art. 2.2"] },
+
+  { id:5, nombre:"Reglamentos", corta:"Normas del Gobierno que desarrollan las leyes", ref:"CE art. 97 · ET art. 3.2",
+    fill:"#A8AD5C", tc:"#1E1C1A", badge:"rgba(30,28,26,.1)",
+    que:"Normas escritas que dicta el Gobierno con la potestad reglamentaria que le reconoce la Constitución (art. 97 CE). En lo laboral concretan y ejecutan lo que dicen las leyes. Entre ellos también hay orden: los reales decretos del Consejo de Ministros están por encima de las órdenes ministeriales (art. 24 de la Ley 50/1997, del Gobierno).",
+    claves:[
+      "<strong>Desarrollan, no innovan</strong>: «Las disposiciones reglamentarias desarrollarán los preceptos que establecen las normas de rango superior, pero no podrán establecer condiciones de trabajo distintas a las establecidas por las leyes a desarrollar» (art. 3.2 ET).",
+      "<strong>Reglamento ilegal</strong>: los jueces no aplican los reglamentos contrarios a la ley (art. 6 LOPJ) y la jurisdicción contencioso-administrativa puede anularlos (art. 106 CE).",
+      "<strong>Comunidades autónomas</strong>: en materia laboral solo dictan normas para organizar la ejecución de la legislación del Estado (inspección, registro de convenios, mediación), no para cambiar derechos y obligaciones (art. 149.1.7.ª CE).",
+      "<strong>Relaciones laborales especiales</strong>: muchas se regulan por real decreto por mandato del art. 2 ET, como el personal de alta dirección (RD 1382/1985) o el servicio del hogar familiar (RD 1620/2011)."
+    ],
+    normas:[
+      "El real decreto que fija cada año el salario mínimo interprofesional, previa consulta con sindicatos y organizaciones empresariales (art. 27 ET).",
+      "RD 1561/1995, de jornadas especiales de trabajo: amplía o limita la jornada y los descansos en sectores concretos, porque el art. 34.7 ET lo habilita expresamente.",
+      "RD 39/1997, Reglamento de los Servicios de Prevención, que desarrolla la Ley 31/1995.",
+      "RD 902/2020, de igualdad retributiva entre mujeres y hombres (registro retributivo)."
+    ],
+    relacion:"Por debajo de la ley que desarrollan. Por encima de los convenios colectivos y de los contratos, que deben respetar sus mínimos: ningún convenio ni contrato puede pagar menos que el salario mínimo interprofesional.",
+    practica:"Si el SMI de este año supera el salario de tu categoría en el convenio, cobras al menos el SMI aunque el convenio diga menos. La comparación se hace en cómputo anual (art. 27.1 ET).",
+    error:"Creer que un reglamento puede cambiar una ley porque es más reciente. La regla «la norma posterior deroga a la anterior» solo funciona entre normas del mismo rango.",
+    base:["CE arts. 97 y 106","ET arts. 2, 3.2 y 27","LOPJ art. 6"] },
+
+  { id:6, nombre:"Convenios colectivos", corta:"Lo pactan representantes de plantillas y empresas", ref:"CE art. 37.1 · ET arts. 3.1.b y 82-92",
+    fill:"#C5CD78", tc:"#1E1C1A", badge:"rgba(30,28,26,.1)",
+    que:"Acuerdo negociado entre los representantes de las personas trabajadoras y de las empresas para fijar las condiciones de trabajo y de productividad de un sector o de una empresa (art. 82 ET). Es la fuente más característica del Derecho del trabajo: la Constitución garantiza su fuerza vinculante (art. 37.1 CE).",
+    tabla:{ cab:["Tipo","Cómo nace","A quién obliga"], filas:[
+      ["Estatutario","Se negocia con las reglas del título III ET y se registra y publica en el boletín oficial.","A todas las empresas y personas trabajadoras de su ámbito, estén o no afiliadas (art. 82.3 ET)."],
+      ["Extraestatutario","Se negocia al margen de esas reglas.","Solo a quienes lo firman o se adhieren: tiene naturaleza contractual."]
+    ]},
+    claves:[
+      "<strong>Ámbitos</strong>: sectorial (estatal, autonómico o provincial), de empresa o de grupo de empresas. Los acuerdos interprofesionales pueden ordenar la estructura de la negociación (art. 83.2 ET).",
+      "<strong>Legitimación</strong>: solo negocian los sujetos que cumplen los requisitos de representatividad del ET (arts. 87 y 88), y los acuerdos exigen la mayoría de cada una de las dos representaciones (art. 89.3).",
+      "<strong>Respeta la ley y la completa</strong>: debe respetar los mínimos de derecho necesario (art. 3.3 ET), y la ley le encarga muchas materias: periodo de prueba (art. 14), clasificación profesional (art. 22), estructura del salario (art. 26.3) o cuantía de las pagas extraordinarias (art. 31).",
+      "<strong>Concurrencia</strong>: durante su vigencia, un convenio no puede verse afectado por otro de ámbito distinto, salvo pacto conforme al art. 83.2 y lo previsto en el art. 84.2 (art. 84.1 ET).",
+      "<strong>Prioridad del convenio de empresa</strong>, solo en materias tasadas (art. 84.2 ET): horas extraordinarias y trabajo a turnos, horario y distribución del tiempo de trabajo, planificación de las vacaciones, clasificación profesional, modalidades de contratación y conciliación. Desde el RDL 32/2021, <strong>ya no la tiene en la cuantía del salario</strong>.",
+      "<strong>Vigencia</strong>: denunciado y vencido, el convenio sigue aplicándose mientras se negocia el siguiente, salvo pacto (art. 86.3 ET). El convenio nuevo deroga en su integridad al anterior, salvo lo que mantenga expresamente (art. 86.5).",
+      "<strong>Inaplicación («descuelgue»)</strong>: con causas económicas, técnicas, organizativas o de producción y tras un periodo de consultas, la empresa puede dejar de aplicar condiciones como la jornada, el horario, los turnos, la cuantía salarial o las funciones (art. 82.3 ET)."
+    ],
+    normas:[
+      "Convenios provinciales de comercio: tablas salariales por categoría, pluses por domingos y festivos y jornada anual.",
+      "Convenios estatales de sector, como el de grandes almacenes o el de contact center.",
+      "Convenios de empresa, que adaptan la organización del tiempo de trabajo a una plantilla concreta.",
+      "Dónde consultarlos: en el boletín oficial que corresponda (BOE, de la comunidad autónoma o de la provincia) y en el registro público de convenios colectivos (REGCON)."
+    ],
+    relacion:"Por debajo de leyes y reglamentos, cuyos mínimos respeta. Por encima del contrato de trabajo: un contrato no puede pactar condiciones menos favorables que el convenio (art. 3.1.c ET).",
+    practica:"Tu convenio puede subir tu salario por encima del SMI, fijar 38 horas semanales o añadir un plus por trabajar en domingo. No puede darte 25 días naturales de vacaciones ni reducir el descanso entre jornadas por debajo de lo que permiten el ET y sus reglamentos.",
+    error:"Pensar que el convenio solo obliga a quien está afiliado a un sindicato. El convenio estatutario se aplica a todas las personas trabajadoras de su ámbito (art. 82.3 ET).",
+    base:["CE art. 37.1","ET arts. 3.1.b y 82-92","RDL 32/2021"] },
+
+  { id:7, nombre:"Contrato de trabajo", corta:"La voluntad de las partes", ref:"ET arts. 1, 3.1.c, 8 y 9",
+    fill:"#E8EDC4", tc:"#1E1C1A", badge:"rgba(30,28,26,.09)",
+    que:"Acuerdo por el que una persona presta voluntariamente servicios retribuidos por cuenta ajena y dentro del ámbito de organización y dirección de un empleador (art. 1.1 ET). Es la fuente que crea la relación laboral y concreta las condiciones de cada persona: puesto, salario, jornada, centro de trabajo.",
+    claves:[
+      "<strong>Su límite</strong>: rige la voluntad de las partes «siendo su objeto lícito y sin que en ningún caso puedan establecerse en perjuicio del trabajador condiciones menos favorables o contrarias a las disposiciones legales y convenios colectivos» (art. 3.1.c ET).",
+      "<strong>Nulidad parcial</strong>: si una cláusula es ilegal, solo cae esa parte; el resto del contrato sigue siendo válido y se completa con lo que dicen la ley y el convenio (art. 9.1 ET).",
+      "<strong>Forma</strong>: puede celebrarse por escrito o de palabra, aunque muchos deben constar por escrito, y cualquiera de las partes puede exigir que se formalice por escrito en cualquier momento (art. 8 ET).",
+      "<strong>Pactos típicos</strong> (art. 21 ET): plena dedicación; no competencia tras el fin del contrato (máximo 2 años para técnicos y 6 meses para el resto, con interés industrial o comercial efectivo y compensación económica adecuada) y permanencia (máximo 2 años, por escrito, si la empresa ha costeado una especialización).",
+      "<strong>Condición más beneficiosa</strong>: las mejoras que la empresa concede de forma voluntaria y reiterada se incorporan al contrato y no pueden suprimirse de forma unilateral."
+    ],
+    tabla:{ cab:["Cláusula","¿Vale?","Por qué"], filas:[
+      ["Salario de 1.600 € al mes cuando el convenio marca 1.400 €","Sí","Mejora lo que dice el convenio (art. 3.1.c ET)."],
+      ["Periodo de prueba de 9 meses para un puesto de dependiente","Solo hasta el máximo","Rige el límite del convenio o, en su defecto, el del art. 14.1 ET."],
+      ["Renuncia a cobrar las horas extraordinarias ya trabajadas","No","Los derechos mínimos son irrenunciables (art. 3.5 ET)."],
+      ["Compromiso de no afiliarse a ningún sindicato","No","Vulnera la libertad sindical (art. 28.1 CE; art. 17.1 ET)."]
+    ]},
+    relacion:"Por debajo de la ley, los reglamentos y el convenio, a los que solo puede mejorar. Por encima de los usos y costumbres, que solo se aplican si el contrato no dice nada.",
+    practica:"Firmar no convierte en válida una cláusula ilegal: aunque hayas aceptado por escrito un periodo de prueba de 9 meses, solo vale hasta el máximo del convenio o del ET.",
+    error:"«Lo firmé, así que tengo que cumplirlo». La firma no valida lo que va contra la ley o el convenio: esa cláusula es nula y los derechos mínimos no se pueden renunciar (art. 3.5 ET).",
+    base:["ET arts. 1.1, 3.1.c, 3.5, 8, 9.1, 14 y 21"] },
+
+  { id:8, nombre:"Usos y costumbres", corta:"Práctica local y profesional", ref:"ET arts. 3.1.d y 3.4 · CC art. 1.3",
+    fill:"#F5F6E4", tc:"#1E1C1A", badge:"rgba(30,28,26,.08)",
+    que:"Formas de actuar que se repiten de manera general en una localidad o en una profesión y que se tienen por obligatorias. El ET solo admite los usos y costumbres «locales y profesionales» y los coloca en el último lugar.",
+    claves:[
+      "<strong>Carácter subsidiario</strong>: «solo se aplicarán en defecto de disposiciones legales, convencionales o contractuales, a no ser que cuenten con una recepción o remisión expresa» (art. 3.4 ET).",
+      "<strong>Remisión expresa</strong>: el ET los llama en algunos casos, como el preaviso de dimisión, que será «el que señalen los convenios colectivos o la costumbre del lugar» (art. 49.1.d), o la diligencia exigible en el trabajo (art. 20.2).",
+      "<strong>Hay que probarlos</strong>: quien alega una costumbre debe demostrar que existe, y no puede ser contraria a la moral ni al orden público (art. 1.3 CC; art. 281.2 de la Ley de Enjuiciamiento Civil).",
+      "<strong>No es una práctica de empresa</strong>: lo que hace habitualmente una sola empresa no es costumbre. Si es una mejora voluntaria, puede ser una condición más beneficiosa, de origen contractual."
+    ],
+    normas:[
+      "Plazo de preaviso de dimisión en un sector cuyo convenio no lo regula: se acude a la costumbre del lugar.",
+      "Qué se entiende por diligencia o rendimiento normal en un oficio cuando ni las normas ni las órdenes de la empresa lo concretan (art. 20.2 ET)."
+    ],
+    relacion:"En la base de la pirámide: cede ante cualquier ley, reglamento, convenio o contrato que regule la misma cuestión.",
+    practica:"Si tu convenio fija 15 días de preaviso para dimitir y en tu localidad «siempre se ha avisado con un mes», mandan los 15 días del convenio.",
+    error:"Llamar «costumbre» a lo que se hace en tu empresa. Para ser fuente del Derecho, la costumbre tiene que ser general en un lugar o una profesión, y quien la alega debe probarla.",
+    base:["ET arts. 3.1.d, 3.4, 20.2 y 49.1.d","CC art. 1.3"] }
 ];
 
-const N = LEVELS.length;
-const APEX_Y = 10, BASE_Y = 310, HALF_BASE = 190, CENTER_X = 200;
+// Agrupación del art. 3.1 ET (columna lateral en pantallas anchas)
+const GROUPS = [
+  { from:1, to:5, t:"Normas internacionales y del Estado", s:"Fuentes heterónomas: vienen de fuera de la relación laboral." },
+  { from:6, to:8, t:"Fuentes propias de la relación laboral", s:"Autonomía colectiva, voluntad individual y práctica (art. 3.1.b-d ET)." }
+];
 
-function bandGeometry(i) {
-  const yTop = APEX_Y + i * (BASE_Y - APEX_Y) / N;
-  const yBot = APEX_Y + (i + 1) * (BASE_Y - APEX_Y) / N;
-  const wTop = 2 * HALF_BASE * (yTop - APEX_Y) / (BASE_Y - APEX_Y);
-  const wBot = 2 * HALF_BASE * (yBot - APEX_Y) / (BASE_Y - APEX_Y);
-  const xTL = CENTER_X - wTop / 2, xTR = CENTER_X + wTop / 2;
-  const xBL = CENTER_X - wBot / 2, xBR = CENTER_X + wBot / 2;
-  return { yTop, yBot, xTL, xTR, xBL, xBR };
+const PRINCIPLES = [
+  { id:"jer", nombre:"Jerarquía normativa", ref:"CE art. 9.3 · CC art. 1.2 · ET art. 3.2", corta:"La norma inferior no puede contradecir a la superior.",
+    que:"La Constitución garantiza el principio de jerarquía normativa (art. 9.3 CE): una norma de rango inferior no puede contradecir a otra de rango superior y, si lo hace, carece de validez (art. 1.2 CC). En el Derecho del trabajo, las disposiciones legales y reglamentarias «se aplicarán con sujeción estricta al principio de jerarquía normativa» (art. 3.2 ET).",
+    como:["Primero se comprueba que cada norma respeta a las de rango superior.","La norma inferior que contradice a la superior no se aplica en ese punto.","Entre normas del mismo rango no hay jerarquía: se aplican los criterios de modernidad, especialidad o competencia."],
+    ejemplo:"Un real decreto no puede reducir los 30 días naturales de vacaciones que fija el art. 38.1 ET.",
+    matiz:"En lo laboral, la jerarquía convive con la norma más favorable: una norma inferior puede apartarse de la superior para mejorar sus mínimos. Por eso la pirámide no se lee solo de arriba abajo." },
+  { id:"min", nombre:"Norma mínima", ref:"ET art. 3.3", corta:"Los mínimos de derecho necesario se respetan siempre.",
+    que:"Las normas laborales, estatales o pactadas, deben respetar «en todo caso los mínimos de derecho necesario» (art. 3.3 ET). Según cómo se relacionan con las normas inferiores, los preceptos son de tres tipos:",
+    como:["<strong>Derecho necesario absoluto</strong>: no admite cambios, ni a mejor ni a peor. Ejemplo: las reglas de cotización a la Seguridad Social, que ningún pacto puede alterar.","<strong>Derecho necesario relativo</strong>: es un mínimo que solo se puede mejorar. Ejemplos: 30 días naturales de vacaciones (art. 38.1 ET), 12 horas de descanso entre jornadas (art. 34.3 ET) o el salario mínimo interprofesional (art. 27 ET).","<strong>Derecho dispositivo</strong>: rige solo si el convenio o el contrato no dicen otra cosa. Ejemplo: la duración del periodo de prueba del art. 14.1 ET, que se aplica en defecto de pacto en convenio."],
+    ejemplo:"Si un convenio fija 10 horas de descanso entre jornadas, esa cláusula no vale: el art. 34.3 ET garantiza un mínimo de 12, salvo las excepciones del RD 1561/1995.",
+    matiz:"Para saber de qué tipo es un precepto hay que leerlo: expresiones como «en ningún caso», «como mínimo» o «salvo pacto en contrario» lo delatan." },
+  { id:"fav", nombre:"Norma más favorable", ref:"ET art. 3.3", corta:"Ante un conflicto, la más favorable en su conjunto y en cómputo anual.",
+    que:"Los conflictos entre dos o más normas laborales «se resolverán mediante la aplicación de lo más favorable para el trabajador apreciado en su conjunto, y en cómputo anual, respecto de los conceptos cuantificables» (art. 3.3 ET).",
+    como:["Se compara la regulación completa de una materia, no cláusula a cláusula: no se puede «espigar» lo mejor de cada norma.","Las cantidades se comparan sumando todo el año, no mes a mes.","Siempre dentro de los mínimos de derecho necesario: una regulación «más favorable» no puede vulnerar una norma imperativa."],
+    ejemplo:"Para comprobar si el salario del convenio llega al SMI, se suma lo que cobras en el año, pagas extraordinarias incluidas, y se compara con el SMI anual (art. 27.1 ET).",
+    matiz:"Resuelve conflictos entre normas. No sirve para elegir un convenio distinto del que te corresponde: la concurrencia entre convenios tiene sus propias reglas (art. 84 ET)." },
+  { id:"cmb", nombre:"Condición más beneficiosa", ref:"Doctrina del Tribunal Supremo · ET arts. 3.1.c y 41", corta:"Las mejoras voluntarias y consolidadas no se retiran sin más.",
+    que:"Es una mejora que la empresa concede por encima de la ley, el convenio y el contrato, de forma voluntaria, consciente y mantenida en el tiempo. Una vez consolidada, se incorpora al contrato como un derecho adquirido.",
+    como:["Requisitos: voluntad inequívoca de la empresa de concederla (no basta un error o una mera tolerancia) y disfrute reiterado.","Puede ser individual o colectiva, para toda la plantilla o para un grupo.","La empresa no puede suprimirla por su cuenta: necesita acuerdo o seguir el procedimiento de modificación sustancial de condiciones de trabajo (art. 41 ET).","Si es salarial, puede quedar compensada y absorbida por subidas posteriores, siempre que sean homogéneas (art. 26.5 ET)."],
+    ejemplo:"Una empresa entrega desde hace años a toda la plantilla una cesta de Navidad, sin estar obligada y sabiendo que lo hace. No puede eliminarla de un año para otro sin acuerdo o sin seguir el art. 41 ET.",
+    matiz:"No es una costumbre: la condición más beneficiosa nace en una empresa concreta y tiene origen contractual." },
+  { id:"irr", nombre:"Irrenunciabilidad de derechos", ref:"ET art. 3.5", corta:"No se puede renunciar a los derechos mínimos, ni antes ni después.",
+    que:"«Los trabajadores no podrán disponer válidamente, antes o después de su adquisición, de los derechos que tengan reconocidos por disposiciones legales de derecho necesario. Tampoco podrán disponer válidamente de los derechos reconocidos como indisponibles por convenio colectivo» (art. 3.5 ET).",
+    como:["Protege a la parte más débil: evita que la presión por conseguir o conservar el empleo lleve a renunciar a derechos.","Afecta tanto a las renuncias previas (al firmar el contrato) como a las posteriores (al terminar la relación).","Sí cabe transigir sobre derechos dudosos o discutidos, por ejemplo en una conciliación ante el servicio de mediación o el juzgado."],
+    ejemplo:"Firmar «renuncio a mis vacaciones a cambio de 800 €» no es válido: las vacaciones no son sustituibles por compensación económica (art. 38.1 ET), salvo que el contrato termine sin haberlas disfrutado.",
+    matiz:"Renunciar no es lo mismo que no ejercer: nadie te obliga a pedir un permiso al que tienes derecho, pero no puedes firmar que renuncias a él." },
+  { id:"pro", nombre:"In dubio pro operario", ref:"Criterio jurisprudencial de interpretación", corta:"Si una norma es dudosa, la interpretación más favorable.",
+    que:"Cuando una norma admite razonablemente varias interpretaciones, se elige la más favorable para la persona trabajadora.",
+    como:["Solo sirve para interpretar normas dudosas: no permite corregir una norma clara ni crear derechos que no existen.","No se aplica a la valoración de los hechos ni de las pruebas en un juicio.","Los tribunales lo usan con prudencia, después de los criterios generales de interpretación del art. 3.1 CC: sentido de las palabras, contexto, antecedentes, realidad social y finalidad."],
+    ejemplo:"Si un convenio regula un plus «por trabajo en festivo» sin aclarar si incluye los domingos, el juez busca primero la intención de quienes lo negociaron; solo si la duda persiste se inclina por la lectura más favorable.",
+    matiz:"En los convenios colectivos, el Tribunal Supremo da mucho peso a la voluntad de las partes negociadoras: los interpreta combinando las reglas de las leyes y las de los contratos (arts. 3 y 1281 a 1289 CC)." },
+  { id:"mod", nombre:"Modernidad y especialidad", ref:"CC art. 2.2 · ET art. 86.5", corta:"Entre normas del mismo rango, la posterior y la especial.",
+    que:"Resuelven los choques entre normas del mismo rango, donde la jerarquía no ayuda.",
+    como:["<strong>Modernidad</strong>: la ley posterior deroga a la anterior en todo lo que sea incompatible con ella (art. 2.2 CC).","<strong>Especialidad</strong>: la norma específica prevalece sobre la general en su ámbito.","<strong>Sucesión de convenios</strong>: «El convenio que sucede a uno anterior deroga en su integridad a este último, salvo los aspectos que expresamente se mantengan» (art. 86.5 ET)."],
+    ejemplo:"Cuando la reforma laboral de 2021 cambió el régimen de los contratos temporales del art. 15 ET, las reglas anteriores dejaron de aplicarse a los contratos nuevos, con un régimen transitorio para los ya firmados.",
+    matiz:"La modernidad nunca opera contra la jerarquía: una norma inferior posterior no deroga a una superior anterior." }
+];
+
+const CASES = [
+  { id:"c1", nivel:1, titulo:"Vacaciones recortadas",
+    enun:"Lucía trabaja de dependienta en una tienda de ropa. El convenio colectivo que se le aplica establece 25 días naturales de vacaciones al año. ¿Cuántos días le corresponden?",
+    opts:["25 días naturales: el convenio es la norma más específica de su sector.","30 días naturales: el convenio no puede bajar del mínimo del Estatuto de los Trabajadores.","Los que acuerde Lucía con la empresa en su contrato."], ok:1,
+    exp:"El art. 38.1 ET dice que la duración de las vacaciones «en ningún caso» será inferior a 30 días naturales. Es derecho necesario relativo: el convenio puede mejorarlo, pero no empeorarlo (art. 3.3 ET), y en lo que rebaja el mínimo legal no se aplica.",
+    base:"ET arts. 3.3 y 38.1" },
+  { id:"c2", nivel:1, titulo:"Una cláusula imposible",
+    enun:"Al firmar su primer contrato en una empresa de logística, Iker lee: «El trabajador se compromete a no afiliarse a ningún sindicato mientras dure el contrato». ¿Qué ocurre con esa cláusula?",
+    opts:["Es válida, porque Iker la ha aceptado libremente al firmar.","Es nula, y con ella todo el contrato de trabajo.","Es nula, pero el resto del contrato sigue siendo válido."], ok:2,
+    exp:"La libertad sindical es un derecho fundamental (art. 28.1 CE), y el ET declara nulas las cláusulas de los contratos que discriminen por la adhesión o no a sindicatos (art. 17.1 ET). La nulidad afecta solo a esa parte: el contrato sigue en vigor y se completa con lo que dicen la ley y el convenio (art. 9.1 ET).",
+    base:"CE art. 28.1 · ET arts. 9.1 y 17.1" },
+  { id:"c3", nivel:1, titulo:"Vacaciones a cambio de dinero",
+    enun:"La empresa propone a Marta, que tiene un contrato indefinido, firmar un documento por el que renuncia a sus vacaciones de este año a cambio de 900 €. Marta acepta. ¿Es válido?",
+    opts:["Sí, porque las dos partes están de acuerdo y Marta sale ganando.","No: las vacaciones no pueden sustituirse por dinero y los derechos mínimos son irrenunciables.","Sí, siempre que lo apruebe la representación de los trabajadores."], ok:1,
+    exp:"El periodo de vacaciones anuales retribuidas «no es sustituible por compensación económica» (art. 38.1 ET), y el art. 3.5 ET impide renunciar a derechos de derecho necesario. La única excepción es que el contrato termine sin haberlas disfrutado: entonces se pagan en la liquidación.",
+    base:"ET arts. 3.5 y 38.1" },
+  { id:"c4", nivel:2, titulo:"El preaviso de dimisión",
+    enun:"Daniel quiere dejar su trabajo. Su convenio fija 15 días de preaviso. En su localidad, en ese oficio, «siempre se ha avisado con un mes». ¿Con cuánta antelación debe avisar?",
+    opts:["Con un mes: la costumbre del lugar es más antigua que el convenio.","Con 15 días: el convenio prevalece sobre la costumbre.","Sin preaviso: dimitir es un derecho y no se puede condicionar."], ok:1,
+    exp:"Los usos y costumbres solo se aplican en defecto de normas legales, convenios o contratos (art. 3.4 ET). Además, el art. 49.1.d ET remite al preaviso «que señalen los convenios colectivos o la costumbre del lugar»: la costumbre solo entra si el convenio no dice nada.",
+    base:"ET arts. 3.4 y 49.1.d" },
+  { id:"c5", nivel:2, titulo:"Un reglamento que se pasa de la raya",
+    enun:"Imagina que el Gobierno aprueba un real decreto que, con carácter general, reduce a 10 horas el descanso mínimo entre el final de una jornada y el comienzo de la siguiente. El art. 34.3 ET fija 12 horas. ¿Qué se aplica?",
+    opts:["El real decreto, porque es más reciente que el Estatuto.","El Estatuto: un reglamento no puede fijar condiciones distintas a las de la ley que desarrolla.","Lo que decida cada empresa, ya que hay dos normas contradictorias."], ok:1,
+    exp:"El art. 3.2 ET impide que los reglamentos establezcan condiciones de trabajo distintas a las de las leyes que desarrollan, y el criterio de la norma posterior solo funciona entre normas del mismo rango. Los jueces no aplicarían ese real decreto (art. 6 LOPJ) y podría anularse ante la jurisdicción contencioso-administrativa. Matiz: el RD 1561/1995 sí puede modular ese descanso en sectores concretos, porque el propio ET lo habilita (art. 34.7).",
+    base:"ET arts. 3.2, 34.3 y 34.7 · LOPJ art. 6" },
+  { id:"c6", nivel:2, titulo:"Una ley autonómica",
+    enun:"El parlamento de una comunidad autónoma aprueba una ley que concede dos días de permiso retribuido por mudanza a todas las personas trabajadoras de su territorio (el ET reconoce uno, art. 37.3.c). ¿Es válida?",
+    opts:["Sí: mejora un derecho, y las normas laborales siempre se pueden mejorar.","No: la legislación laboral es competencia exclusiva del Estado.","Sí, pero solo para las empresas con sede en esa comunidad."], ok:1,
+    exp:"El art. 149.1.7.ª CE reserva al Estado la legislación laboral; las comunidades autónomas solo la ejecutan. Una ley autonómica que fije derechos laborales invade esa competencia y sería inconstitucional. Ese mismo permiso sí podría ampliarse por convenio colectivo o por contrato.",
+    base:"CE art. 149.1.7.ª · ET art. 37.3.c" },
+  { id:"c7", nivel:3, titulo:"La cesta de Navidad",
+    enun:"Desde hace ocho años, una cadena de supermercados entrega a toda la plantilla una cesta de Navidad. No lo exigen el convenio ni los contratos: lo decidió la dirección y lo ha mantenido cada año. Este año anuncia que la suprime. ¿Puede hacerlo?",
+    opts:["Sí: si no está en el convenio ni en el contrato, es un regalo y se puede retirar.","No por decisión unilateral: es una condición más beneficiosa y necesita acuerdo o el procedimiento del art. 41 ET.","No, nunca: es una costumbre y obliga para siempre."], ok:1,
+    exp:"Una mejora concedida de forma voluntaria, consciente y reiterada se consolida como condición más beneficiosa y se incorpora a los contratos. La empresa solo puede suprimirla con acuerdo o mediante una modificación sustancial de condiciones de trabajo de carácter colectivo, con causas y periodo de consultas (art. 41 ET). No es una costumbre: es la práctica de una empresa concreta, de origen contractual.",
+    base:"ET arts. 3.1.c y 41 · doctrina del Tribunal Supremo" },
+  { id:"c8", nivel:3, titulo:"Quedarse con lo mejor de cada norma",
+    enun:"Dos normas laborales aplicables regulan de forma distinta el salario de Ana: la norma A paga más al mes pero tiene menos pagas extraordinarias; la norma B paga menos al mes pero tiene más pagas. Ana pide el sueldo mensual de A con las pagas de B. ¿Qué hace el juez?",
+    opts:["Le da la razón: en caso de duda se aplica lo más favorable para la trabajadora.","Compara cada norma en su conjunto y en cómputo anual, y aplica entera la que resulte más favorable.","Aplica siempre la norma más reciente."], ok:1,
+    exp:"El art. 3.3 ET ordena aplicar lo más favorable «apreciado en su conjunto, y en cómputo anual, respecto de los conceptos cuantificables». Se suma lo que paga cada norma en el año y se aplica completa la que sale mejor: no se pueden combinar las partes favorables de cada una («espigueo»). El in dubio pro operario es otra cosa: sirve para interpretar una norma dudosa, no para elegir entre normas.",
+    base:"ET art. 3.3" },
+  { id:"c9", nivel:3, titulo:"Un convenio de empresa con salarios más bajos",
+    enun:"Una empresa de distribución firma en 2026 un convenio propio con su comité. Fija salarios un 8 % inferiores a los del convenio provincial del sector que se le venía aplicando. ¿Qué salario se aplica?",
+    opts:["El del convenio de empresa: siempre tiene prioridad sobre el sectorial.","El del convenio sectorial: desde la reforma de 2021, el convenio de empresa no tiene prioridad en la cuantía del salario.","El que elija cada trabajador."], ok:1,
+    exp:"El art. 84.2 ET solo da prioridad al convenio de empresa en materias tasadas: horas extraordinarias y turnos, horario y distribución del tiempo de trabajo, planificación de vacaciones, clasificación profesional, modalidades de contratación y conciliación. El RDL 32/2021 sacó de esa lista la cuantía del salario. En salario manda el sectorial y el convenio de empresa solo puede mejorarlo. Para pagar menos de forma temporal, la vía sería la inaplicación del art. 82.3 ET, con causas y periodo de consultas.",
+    base:"ET arts. 82.3 y 84.2 · RDL 32/2021" },
+  { id:"c10", nivel:3, titulo:"Una directiva que no ha llegado",
+    enun:"Ha vencido el plazo para incorporar una directiva europea que reconoce un nuevo permiso, y España todavía no la ha transpuesto. Sara, que trabaja en una empresa privada, quiere disfrutar ya de ese permiso invocando la directiva. ¿Puede?",
+    opts:["Sí: el Derecho de la UE tiene primacía y obliga a todas las empresas desde que se publica.","No frente a su empresa: la directiva no tiene efecto directo entre particulares, aunque el juez debe interpretar la norma española conforme a ella y el Estado podría tener que indemnizarla.","No: mientras no haya ley española, la directiva no produce ningún efecto."], ok:1,
+    exp:"Las directivas obligan al Estado en cuanto al resultado (art. 288 TFUE). Pasado el plazo, pueden invocarse frente a la Administración (efecto vertical), pero no frente a otro particular (Faccini Dori, 1994). El juez debe interpretar el Derecho español a la luz de la directiva y, si el incumplimiento causa un daño, el Estado puede ser responsable (Francovich, 1991). Ocurrió con la Directiva 2019/1158: el plazo acabó en agosto de 2022 y España la incorporó con el RDL 5/2023.",
+    base:"TFUE art. 288 · jurisprudencia del TJUE" }
+];
+const NIVEL = { 1:"Básico", 2:"Intermedio", 3:"Avanzado" };
+
+// ═══════════════════════════════════════════════════════════════
+// PROGRESO — solo en este navegador; exportable a archivo
+// ═══════════════════════════════════════════════════════════════
+const KEY = "esplora-piramide-v1";
+const S = { niveles:[], principios:[], casos:{} };
+function load(){
+  try{
+    const d = JSON.parse(localStorage.getItem(KEY) || "null");
+    if(d && typeof d === "object") apply(d);
+  }catch(e){}
+}
+function apply(d){
+  const lv = LEVELS.map(l=>l.id), pr = PRINCIPLES.map(p=>p.id);
+  S.niveles = Array.isArray(d.niveles) ? d.niveles.filter(x=>lv.includes(x)) : [];
+  S.principios = Array.isArray(d.principios) ? d.principios.filter(x=>pr.includes(x)) : [];
+  S.casos = {};
+  if(d.casos && typeof d.casos === "object"){
+    CASES.forEach(c=>{ const v = d.casos[c.id]; if(Number.isInteger(v) && v>=0 && v<c.opts.length) S.casos[c.id] = v; });
+  }
+}
+function save(){
+  try{
+    const empty = !S.niveles.length && !S.principios.length && !Object.keys(S.casos).length;
+    if(empty) localStorage.removeItem(KEY);
+    else localStorage.setItem(KEY, JSON.stringify({ v:1, ...S }));
+  }catch(e){}
 }
 
-const state = { selected: null, viewed: new Set() };
+const $ = id => document.getElementById(id);
 
-function renderPyramid() {
-  const svg = document.getElementById("pyramid-svg");
-  svg.innerHTML = "";
-  LEVELS.forEach((lvl, i) => {
-    const g = bandGeometry(i);
-    const poly = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-    poly.setAttribute("points", `${g.xTL},${g.yTop} ${g.xTR},${g.yTop} ${g.xBR},${g.yBot} ${g.xBL},${g.yBot}`);
-    poly.setAttribute("fill", lvl.color);
-    poly.classList.add("pyramid-band");
-    poly.dataset.id = lvl.id;
-    poly.onclick = () => selectLevel(lvl.id);
-    svg.appendChild(poly);
-
-    const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
-    label.setAttribute("x", CENTER_X);
-    label.setAttribute("y", (g.yTop + g.yBot) / 2);
-    label.setAttribute("fill", lvl.text);
-    label.classList.add("pyramid-num");
-    label.textContent = lvl.id;
-    label.style.pointerEvents = "none";
-    svg.appendChild(label);
-  });
+// ═══════════════════════════════════════════════════════════════
+// PIRÁMIDE — cada banda es un botón con forma de trapecio.
+// Ancho de la cúspide: TOP (fracción); la base ocupa el 100 %.
+// ═══════════════════════════════════════════════════════════════
+const TOP = 0.42;
+function renderPyramid(){
+  const N = LEVELS.length;
+  $("pyr").innerHTML = LEVELS.map((l,i)=>{
+    const tf = TOP + (1-TOP)*i/N, bf = TOP + (1-TOP)*(i+1)/N;
+    const inset = ((bf-tf)/2/bf*100).toFixed(2) + "%";
+    const seen = S.niveles.includes(l.id);
+    return `<li><button type="button" class="band${seen?" seen":""}" data-id="${l.id}" aria-haspopup="dialog"
+      style="--w:${(bf*100).toFixed(2)}%;--inset:${inset};--fill:${l.fill};--tc:${l.tc};--badge:${l.badge}">
+      <span class="shape" aria-hidden="true"></span>
+      <span class="txt"><span class="num" aria-hidden="true">${l.id}</span><span class="nm"><b>${l.nombre}</b><small>${l.corta}</small></span><span class="sr">. Nivel ${l.id}${seen?", ficha ya abierta":""}</span></span>
+    </button></li>`;
+  }).join("");
+  // Columna lateral: los corchetes ocupan las mismas filas que sus bandas
+  const brk = $("brk");
+  brk.style.setProperty("--rows", `repeat(${N}, minmax(66px, auto))`);
+  brk.innerHTML = GROUPS.map(g=>`<div class="brk" style="grid-row:${g.from} / ${g.to+1}"><b>${g.t}</b><span>${g.s}</span></div>`).join("");
+  $("pyr").querySelectorAll(".band").forEach(b=>b.addEventListener("click",()=>openLevel(+b.dataset.id)));
 }
 
-function renderList() {
-  const wrap = document.getElementById("pyramid-list");
-  wrap.innerHTML = "";
-  LEVELS.forEach(lvl => {
-    const pill = document.createElement("div");
-    pill.className = "level-pill";
-    pill.dataset.id = lvl.id;
-    pill.style.background = lvl.color;
-    pill.style.color = lvl.text;
-    pill.innerHTML = `
-      <span class="num-badge" style="color:${lvl.text};">${lvl.id}</span>
-      <span class="pill-name">${lvl.nombre}</span>
-      <svg class="check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="${lvl.text}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-    `;
-    pill.onclick = () => selectLevel(lvl.id);
-    wrap.appendChild(pill);
-  });
+// ═══════════════════════════════════════════════════════════════
+// FICHA (diálogo) — compartida por niveles y principios
+// ═══════════════════════════════════════════════════════════════
+const dlg = $("dlg");
+let cur = null;           // { kind:"lvl"|"pri", idx }
+let returnFocus = null;
+
+const list = items => `<ul>${items.map(t=>`<li>${t}</li>`).join("")}</ul>`;
+const table = t => `<div class="tbl-wrap"><table><thead><tr>${t.cab.map(h=>`<th scope="col">${h}</th>`).join("")}</tr></thead><tbody>${t.filas.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+
+function levelBody(l){
+  return `
+    <h3>Qué es</h3><p>${l.que}</p>
+    ${l.tabla && l.id!==7 ? table(l.tabla) : ""}
+    <h3>Claves jurídicas</h3>${list(l.claves)}
+    ${l.normas ? `<h3>Normas reales</h3>${list(l.normas)}` : ""}
+    ${l.id===7 ? `<h3>¿Vale o no vale?</h3>${table(l.tabla)}` : ""}
+    <h3>Con las demás fuentes</h3><p>${l.relacion}</p>
+    <div class="call ok"><b>En la práctica</b>${l.practica}</div>
+    <div class="call warn"><b>Error frecuente</b>${l.error}</div>
+    <h3>Base legal</h3><div class="chips">${l.base.map(b=>`<span>${b}</span>`).join("")}</div>`;
+}
+function principleBody(p){
+  return `
+    <h3>Qué dice</h3><p>${p.que}</p>
+    <h3>Cómo se aplica</h3>${list(p.como)}
+    <div class="call ok"><b>Ejemplo</b>${p.ejemplo}</div>
+    <div class="call warn"><b>Matiz</b>${p.matiz}</div>`;
 }
 
-function selectLevel(id) {
-  state.selected = id;
-  state.viewed.add(id);
+function show(kind, idx){
+  cur = { kind, idx };
+  const arr = kind==="lvl" ? LEVELS : PRINCIPLES;
+  const it = arr[idx];
+  const head = $("dHead");
+  if(kind==="lvl"){
+    head.style.setProperty("--fill", it.fill); head.style.setProperty("--tc", it.tc); head.style.setProperty("--badge", it.badge);
+    head.querySelector(".xbtn").style.background = it.badge;
+    $("dNum").textContent = it.id;
+    $("dRef").textContent = `Nivel ${it.id} de ${LEVELS.length} · ${it.ref}`;
+    $("dSub").textContent = it.corta;
+    $("dBody").innerHTML = levelBody(it);
+    if(!S.niveles.includes(it.id)){ S.niveles.push(it.id); save(); }
+  }else{
+    head.style.setProperty("--fill", "#2B2D14"); head.style.setProperty("--tc", "#FBFCEF"); head.style.setProperty("--badge", "rgba(251,252,239,.18)");
+    head.querySelector(".xbtn").style.background = "";
+    $("dNum").textContent = idx+1;
+    $("dRef").textContent = `Principio ${idx+1} de ${PRINCIPLES.length} · ${it.ref}`;
+    $("dSub").textContent = it.corta;
+    $("dBody").innerHTML = principleBody(it);
+    if(!S.principios.includes(it.id)){ S.principios.push(it.id); save(); }
+  }
+  $("dT").textContent = it.nombre;
+  const prev = arr[idx-1], next = arr[idx+1];
+  $("dPrev").disabled = !prev; $("dNext").disabled = !next;
+  $("dPrevT").textContent = prev ? prev.nombre : "Anterior";
+  $("dNextT").textContent = next ? next.nombre : "Siguiente";
+  $("dPrev").setAttribute("aria-label", prev ? `Anterior: ${prev.nombre}` : "Anterior");
+  $("dNext").setAttribute("aria-label", next ? `Siguiente: ${next.nombre}` : "Siguiente");
+  $("dBody").scrollTop = 0;
+  refresh();
+}
+function openDialog(kind, idx){
+  returnFocus = document.activeElement;
+  show(kind, idx);
+  if(!dlg.open) dlg.showModal();
+  $("dBody").focus({ preventScroll:true });
+}
+const openLevel = id => openDialog("lvl", LEVELS.findIndex(l=>l.id===id));
+$("dX").addEventListener("click", ()=>dlg.close());
+$("dPrev").addEventListener("click", ()=>{ show(cur.kind, cur.idx-1); $("dBody").focus({preventScroll:true}); });
+$("dNext").addEventListener("click", ()=>{ show(cur.kind, cur.idx+1); $("dBody").focus({preventScroll:true}); });
+dlg.addEventListener("click", e=>{ if(e.target===dlg) dlg.close(); });   // clic en el fondo
+dlg.addEventListener("close", ()=>{
+  // Devuelve el foco a la banda o tarjeta de lo último que se ha visto
+  let el = null;
+  if(cur && cur.kind==="lvl") el = document.querySelector(`.band[data-id="${LEVELS[cur.idx].id}"]`);
+  if(cur && cur.kind==="pri") el = document.querySelector(`.pcard[data-id="${PRINCIPLES[cur.idx].id}"]`);
+  (el || returnFocus)?.focus();
+});
 
-  document.querySelectorAll(".pyramid-band").forEach(p => {
-    p.classList.toggle("active", Number(p.dataset.id) === id);
-  });
-  document.querySelectorAll(".level-pill").forEach(p => {
-    p.classList.toggle("active", Number(p.dataset.id) === id);
-    p.classList.toggle("viewed", state.viewed.has(Number(p.dataset.id)));
-  });
-
-  renderExplain(id);
-  updateProgress();
+// ═══════════════════════════════════════════════════════════════
+// PRINCIPIOS
+// ═══════════════════════════════════════════════════════════════
+function renderPrinciples(){
+  $("pgrid").innerHTML = PRINCIPLES.map((p,i)=>`<li><button type="button" class="pcard${S.principios.includes(p.id)?" seen":""}" data-id="${p.id}" aria-haspopup="dialog">
+    <span class="ref">${p.ref}</span><h3>${p.nombre}</h3><p>${p.corta}</p>
+    <span class="go">Abrir <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></button></li>`).join("");
+  $("pgrid").querySelectorAll(".pcard").forEach((b,i)=>b.addEventListener("click",()=>openDialog("pri", i)));
 }
 
-function renderExplain(id) {
-  const lvl = LEVELS.find(l => l.id === id);
-  const panel = document.getElementById("explain-panel");
-  panel.innerHTML = `
-    <div class="fade">
-      <p class="section-label" style="margin-bottom: 6px;">Nivel ${lvl.id} · ${lvl.corta}</p>
-      <h3 class="level-title">${lvl.nombre}</h3>
-      <p class="prose" style="font-size: 15px; margin-bottom: 14px;">${lvl.def}</p>
-      <div class="en-plata">
-        <div class="en-plata-label">Ejemplo</div>
-        <div class="en-plata-text">${lvl.ejemplo}</div>
+// ═══════════════════════════════════════════════════════════════
+// CASOS
+// ═══════════════════════════════════════════════════════════════
+let ci = 0;
+function renderDots(){
+  $("dots").innerHTML = CASES.map((c,i)=>{
+    const a = S.casos[c.id];
+    const st = a===undefined ? "" : (a===c.ok ? " ok" : " ko");
+    const lab = a===undefined ? "sin responder" : (a===c.ok ? "acertado" : "fallado");
+    return `<button type="button" class="dot${st}" data-i="${i}" ${i===ci?'aria-current="step"':""} aria-label="Caso ${i+1}, ${lab}">${i+1}</button>`;
+  }).join("");
+  $("dots").querySelectorAll(".dot").forEach(d=>d.addEventListener("click",()=>{ ci=+d.dataset.i; renderCase(); $("case").querySelector("h3").focus(); }));
+}
+function renderCase(){
+  const c = CASES[ci], a = S.casos[c.id], done = a!==undefined;
+  const L = "ABC";
+  $("case").innerHTML = `
+    <div class="case-top"><span class="lvl l${c.nivel}">${NIVEL[c.nivel]}</span><span class="case-n">Caso ${ci+1} de ${CASES.length}</span></div>
+    <h3 tabindex="-1">${c.titulo}</h3>
+    <p class="enun">${c.enun}</p>
+    <ul class="opts">${c.opts.map((o,i)=>{
+      let cls = "";
+      if(done && i===c.ok) cls = " right";
+      else if(done && i===a) cls = " wrong";
+      return `<li><button type="button" class="opt${cls}" data-i="${i}" ${done?"disabled":""}><span class="k" aria-hidden="true">${L[i]}</span><span>${o}${done&&i===c.ok?'<span class="sr"> (respuesta correcta)</span>':""}${done&&i===a&&a!==c.ok?'<span class="sr"> (tu respuesta)</span>':""}</span></button></li>`;
+    }).join("")}</ul>
+    ${done ? `<div class="fb ${a===c.ok?"good":"bad"}"><h4>${a===c.ok?"Correcto":"No es esa"}</h4><p>${c.exp}</p><p class="ref">Base legal: ${c.base}</p></div>` : ""}
+    <div class="case-ctl">
+      <div>${done && a!==c.ok ? `<button type="button" class="btn btn-line" id="cRetry"><svg aria-hidden="true"><use href="#i-retry"/></svg>Volver a intentarlo</button>` : ""}</div>
+      <div>
+        <button type="button" class="btn btn-line" id="cPrev" ${ci===0?"disabled":""}><svg aria-hidden="true"><use href="#i-left"/></svg>Anterior</button>
+        <button type="button" class="btn btn-olive" id="cNext" ${ci===CASES.length-1?"disabled":""}>Siguiente caso<svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
       </div>
-    </div>
-  `;
+    </div>`;
+  $("case").querySelectorAll(".opt").forEach(b=>b.addEventListener("click",()=>{
+    S.casos[c.id] = +b.dataset.i; save(); renderCase(); renderDots(); refresh();
+    $("case").querySelector(".fb h4")?.setAttribute("tabindex","-1");
+    $("case").querySelector(".fb h4")?.focus();
+  }));
+  $("cRetry")?.addEventListener("click",()=>{ delete S.casos[c.id]; save(); renderCase(); renderDots(); refresh(); $("case").querySelector(".opt").focus(); });
+  $("cPrev").addEventListener("click",()=>{ ci--; renderCase(); renderDots(); $("case").querySelector("h3").focus(); });
+  $("cNext").addEventListener("click",()=>{ ci++; renderCase(); renderDots(); $("case").querySelector("h3").focus(); });
+  renderDots();
 }
 
-function updateProgress() {
-  document.getElementById("progress-text").textContent = `Has explorado ${state.viewed.size}/8 niveles`;
+// ═══════════════════════════════════════════════════════════════
+// RESUMEN, IMPRESIÓN Y ARCHIVO
+// ═══════════════════════════════════════════════════════════════
+function refresh(){
+  const n = S.niveles.length, p = S.principios.length;
+  const answered = Object.keys(S.casos).length;
+  const right = CASES.filter(c=>S.casos[c.id]===c.ok).length;
+  $("pyrBar").style.width = (n/LEVELS.length*100)+"%";
+  $("pyrTxt").textContent = `${n} de ${LEVELS.length} fichas abiertas`;
+  $("sN").textContent = `${n}/${LEVELS.length}`; $("bN").style.width = (n/LEVELS.length*100)+"%";
+  $("sP").textContent = `${p}/${PRINCIPLES.length}`; $("bP").style.width = (p/PRINCIPLES.length*100)+"%";
+  $("sC").textContent = `${right}/${CASES.length}`; $("bC").style.width = (right/CASES.length*100)+"%";
+  $("sCt").textContent = answered ? `casos acertados (${answered} respondidos)` : "casos acertados";
+  document.querySelectorAll(".band").forEach(b=>{
+    const id = +b.dataset.id, seen = S.niveles.includes(id);
+    b.classList.toggle("seen", seen);
+    b.querySelector(".sr").textContent = `. Nivel ${id}${seen?", ficha ya abierta":""}`;
+  });
+  document.querySelectorAll(".pcard").forEach(b=>b.classList.toggle("seen", S.principios.includes(b.dataset.id)));
 }
 
-renderPyramid();
-renderList();
+function buildPrint(){
+  const right = CASES.filter(c=>S.casos[c.id]===c.ok).length;
+  const fecha = new Date().toLocaleDateString("es-ES",{ day:"numeric", month:"long", year:"numeric" });
+  $("ps").innerHTML = `
+    <h1>Fuentes del Derecho del trabajo</h1>
+    <p class="sub">Ficha de estudio · Esplora · ${fecha}</p>
+    <div class="ps-pyr">${LEVELS.map((l,i)=>`<div style="--fill:${l.fill};--tc:${l.tc};width:${(TOP+(1-TOP)*(i+1)/LEVELS.length)*100}%">${l.id}. ${l.nombre}</div>`).join("")}</div>
+    <h2>Las ocho fuentes</h2>
+    ${LEVELS.map(l=>`<div class="ps-lvl" style="--fill:${l.fill}"><h3>${l.id}. ${l.nombre}</h3><p class="ref">${l.ref}</p><p>${l.que}</p>${list(l.claves.slice(0,3))}</div>`).join("")}
+    <h2>Principios de aplicación</h2>
+    ${PRINCIPLES.map(p=>`<div class="ps-lvl" style="--fill:#6B7028"><h3>${p.nombre}</h3><p class="ref">${p.ref}</p><p>${p.que}</p></div>`).join("")}
+    <h2>Mis casos prácticos · ${right} de ${CASES.length} acertados</h2>
+    <table class="ps-res"><thead><tr><th>Caso</th><th>Resultado</th><th>Base legal</th></tr></thead><tbody>
+    ${CASES.map((c,i)=>{ const a=S.casos[c.id]; return `<tr><td>${i+1}. ${c.titulo}</td><td>${a===undefined?"Sin responder":(a===c.ok?"Acertado":"Fallado")}</td><td>${c.base}</td></tr>`; }).join("")}
+    </tbody></table>`;
+}
+window.addEventListener("beforeprint", buildPrint);
+$("bPrint").addEventListener("click", ()=>{ buildPrint(); window.print(); });
+
+const say = t => { $("msg").textContent = t; };
+$("bExp").addEventListener("click", ()=>{
+  const blob = new Blob([JSON.stringify({ herramienta:"esplora-piramide", v:1, fecha:new Date().toISOString().slice(0,10), ...S }, null, 2)], { type:"application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "esplora-piramide-progreso.json";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href), 1000);
+  say("Archivo guardado. Cárgalo otro día o en otro equipo con «Cargar progreso».");
+});
+$("bImp").addEventListener("click", ()=>$("fImp").click());
+$("fImp").addEventListener("change", e=>{
+  const f = e.target.files[0]; if(!f) return;
+  const r = new FileReader();
+  r.onload = ()=>{
+    try{
+      const d = JSON.parse(r.result);
+      if(!d || d.herramienta!=="esplora-piramide") throw 0;
+      apply(d); save(); renderAll(); say("Progreso cargado.");
+    }catch(err){ say("Ese archivo no es un progreso de esta herramienta."); }
+    e.target.value = "";
+  };
+  r.readAsText(f);
+});
+$("bReset").addEventListener("click", ()=>{
+  if(!confirm("Se borrará tu progreso en este navegador. ¿Seguir?")) return;
+  S.niveles = []; S.principios = []; S.casos = {}; save(); ci = 0; renderAll(); say("Progreso borrado.");
+});
+
+function renderAll(){ renderPyramid(); renderPrinciples(); renderCase(); refresh(); }
+load();
+renderAll();
 </script>
-
 </body>
 </html>
