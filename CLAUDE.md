@@ -144,6 +144,11 @@ Nace en el aula y arranca en el curso 2026/27. Crece curso a curso.
   nuevo, oct-2026). Ya puestos en favicon (web y herramientas), cabecera, portada, pie,
   barra superior de las herramientas (logo horizontal oliva o crema) y
   404. Pendiente: avatar e imagen para compartir.
+- Fuente de la marca: marca/kit/ (kit original de la diseñadora, oct-2026:
+  svg/, png/ de 2000 px y COLORES.txt). Toda pieza de marca nueva sale de
+  ahí. Los SVG sueltos de marca/ son copias optimizadas para la web: no se
+  enlaza el kit desde las páginas (pesa más). El zip original está en
+  archivo/ (no se publica).
 - El símbolo (isotipo) se llama «espora». Sustituye a la estrella de cuatro
   puntas antigua; como icono se usa con <use href="#espora">.
 - Mascota: Explorito, una espora con mochila y lupa, con accesorios

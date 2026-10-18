@@ -20,3 +20,6 @@ index-renovada*
 # Variables de entorno y claves
 .env
 .env.*
+
+# Material archivado: se guarda en local, no se publica
+archivo/
