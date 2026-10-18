@@ -1,0 +1,76 @@
+PALETA DE ESPLORA (unificada, oct-2026)
+=======================================
+Fuente única de los colores de la marca. Si un color no está aquí, no se usa.
+
+
+1. COLORES DEL KIT (los de los logotipos, el símbolo y el patrón)
+------------------------------------------------------------------
+Colores exactos extraídos del archivo original del kit.
+
+negro        #1F1D1B   texto principal
+oliva        #6C7128   color de marca (logo, símbolo, botones, enlaces)
+oliva-claro  #A8AD5D   acentos, cursivas de los títulos
+verde-palido #E8EDC4   fondos suaves, etiquetas, texto sobre fondo oscuro
+crema        #FBFCF0   fondo de la web; logo sobre fondo oscuro
+
+La web usa estos mismos colores con una unidad de diferencia en el código
+(no se aprecia a simple vista). Son el mismo color:
+  #1E1C1A = negro   #6B7028 = oliva   #A8AD5C = oliva-claro   #FBFCEF = crema
+
+
+2. TONOS DE APOYO QUE YA USA LA WEB (portada, 404 y herramientas)
+------------------------------------------------------------------
+lima         #C5CD78   detalles sobre fondo oscuro (barras, pie, puntos)
+tinta-suave  #4A463F   texto secundario
+tinta-tenue  #8B847A   texto de ayuda, solo en tamaños grandes o no esenciales
+                       (no llega al contraste AA para texto pequeño sobre crema)
+linea        #E8E1D6   bordes y separadores
+superficie-2 #F5F6E4   fondos de tarjetas y zonas alternas
+blanco       #FFFFFF   tarjetas
+
+
+3. TONOS QUE YA ESTABAN DEFINIDOS EN LA IDENTIDAD (hoy sin uso en la web)
+--------------------------------------------------------------------------
+oliva-oscuro-modo #A7AE4B   verde de marca en modo oscuro
+crema-antigua     #F7F5EC   fondo crema de la identidad provisional
+texto-antiguo     #2B2D14   texto de la identidad provisional
+terracota         #C2683A   acento cálido
+terracota-oscura  #B5482F   acento cálido para texto (más contraste)
+cuerpo-mascota    #8A9136   cuerpo de Explorito
+
+
+4. COLOR PROPIO DE CADA HERRAMIENTA (data/estructura.json)
+------------------------------------------------------------
+Cada herramienta tiene un acento para su barra superior y su ficha en el
+catálogo. Sobre ellos el logo va en crema.
+
+#1672A0  Guía de las condiciones termohigrométricas
+#2B2E4A  Simulador de expedientes PRL
+#2C6E5A  Plan de inversión y financiación
+#2D6A6A  Wizard de determinación de contingencias
+#2E4B8B  Diagnóstico de patologías inespecíficas
+#2F6670  Análisis PORTER
+#3E5778  Análisis PESTEL · Prestaciones de la Seguridad Social · Umbral de rentabilidad
+#4B44A0  Guía del ruido
+#4B4F1D  Ficha inicial de la idea
+#557A35  Casos prácticos de nóminas · Matriz Estrella
+#5D3D66  Mapa interactivo de la Unión Europea · Pirámide de la jerarquía normativa
+#6A3FA0  Ruta al Artículo 22
+#6B7028  Generador de ideas de negocio (el oliva de marca)
+#7A3244  Modelo Canvas
+#8A5232  Guía de las vibraciones
+#8A5A2B  DAFO y CAME
+#8B3A3A  Buscador de enfermedades profesionales
+#8B6430  Selector de forma jurídica
+#946500  Guía de la iluminación
+#B03A78  Buyer Persona
+
+
+ARCHIVOS DEL KIT
+----------------
+svg/: vectoriales para la web.
+png/: transparentes, 2000 px de ancho.
+logo-horizontal = simbolo + Esplora en una linea.
+logotipo = Esplora con el simbolo como 'o'.
+simbolo = solo el simbolo (la «espora»).
+patron.svg = patron repetible (solo SVG).

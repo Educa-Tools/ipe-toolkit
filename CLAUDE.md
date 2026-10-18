@@ -131,9 +131,14 @@ Nace en el aula y arranca en el curso 2026/27. Crece curso a curso.
   2-3 líneas.
 
 ## Identidad visual vigente (provisional)
-- Verde oliva de marca #6B7028 (en modo oscuro #A7AE4B), fondo crema
-  #F7F5EC, texto #2B2D14, acento terracota #C2683A / #B5482F, cuerpo de
-  la mascota #8A9136. No inventes colores nuevos.
+- Paleta única: marca/kit/COLORES.txt (kit + tonos de apoyo de la web +
+  tonos de la identidad anterior + color de cada herramienta). No
+  inventes colores nuevos: si hace falta uno, se añade antes ahí.
+- Base del kit: oliva #6C7128, oliva claro #A8AD5D, verde pálido #E8EDC4,
+  crema #FBFCF0 (fondo), negro #1F1D1B (texto). La web los usa con una
+  unidad de diferencia (#6B7028, #A8AD5C, #FBFCEF, #1E1C1A): mismo color.
+- De la identidad anterior, sin uso hoy: modo oscuro #A7AE4B, terracota
+  #C2683A / #B5482F, cuerpo de la mascota #8A9136.
 - Tipografía system-ui en la web. Versión retro: Alfa Slab One para
   títulos y Courier Prime.
 - Con modo oscuro mediante prefers-color-scheme.
