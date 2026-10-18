@@ -8,7 +8,7 @@
 <link rel="icon" href="marca/simbolo-oliva.svg" type="image/svg+xml">
 <link rel="stylesheet" href="fuentes/fuentes.css">
 <style>
-/* Esplora Labs · Modelo de Porter (versión profesional). Tema claro por decisión de marca.
+/* Esplora · Modelo de Porter (versión profesional). Tema claro por decisión de marca.
    Layout: flujo de pantallas (intro → mapa de 5 fuerzas → detalle por fuerza → análisis → informe). */
 :root {
   --bg: #FBFCEF; --surface: #FFFFFF; --surface-alt: #F5F6E4;
@@ -183,7 +183,7 @@ h3.subtitle { font-family: 'Fraunces', Georgia, serif; font-size: 18px; line-hei
 @media (max-width: 700px) { .viz { grid-template-columns: 1fr; } .score-row { grid-template-columns: 1fr; } }
 @media (max-width: 640px) { .report { padding: 28px 18px; } .frow { grid-template-columns: 1fr auto; } .frow .fc { grid-column: 1 / -1; order: 3; } .rep-title { font-size: 24px; } }
 
-/* ══ Kit v2 Esplora Labs: contraste, tamaños y barra de marca ══ */
+/* ══ Kit v2 Esplora: contraste, tamaños y barra de marca ══ */
 :root{ --kit-bg:#F5F6E4; --kit-ink:#1E1C1A; --kit-soft:#4A463F; --kit-accent:#2F6670; }
 html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-font-smoothing:antialiased; }
 :root{ --ink-faint:#4A463F; --ink-muted:#4A463F; --muted:#4A463F; }
@@ -273,7 +273,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
 </style>
 </head>
 <body>
-<header class="kit-bar"><div class="kit-bar-in"><a href="index.html" aria-label="Esplora Labs, volver al catálogo"><svg width="20" height="20" viewBox="0 0 40 40" aria-hidden="true"><path fill="#C5CD78" d="M20 0C20 0 18 9 14 13C10 17 0 20 0 20C0 20 10 23 14 27C18 31 20 40 20 40C20 40 22 31 26 27C30 23 40 20 40 20C40 20 30 17 26 13C22 9 20 0 20 0Z"/></svg><span>Esplora</span>&nbsp;Labs</a><small><span class="kit-save" id="kitSave" hidden><i></i>Progreso guardado en este navegador</span> &nbsp;Análisis PORTER</small></div></header>
+<header class="kit-bar"><div class="kit-bar-in"><a href="index.html" aria-label="Esplora, volver al catálogo"><img src="marca/logo-horizontal-crema.svg" alt="" width="114" height="28"></a><small><span class="kit-save" id="kitSave" hidden><i></i>Progreso guardado en este navegador</span> &nbsp;Análisis PORTER</small></div></header>
 <!-- INTRO -->
 <div id="screen-intro" class="screen active">
   <div class="container">
@@ -711,7 +711,7 @@ function renderReport() {
     <p class="rp-intro">El <b>modelo de Porter</b> mide lo atractivo que es un sector analizando cinco fuerzas que presionan sobre la rentabilidad: la <b>entrada de nuevos competidores</b>, los <b>productos sustitutivos</b>, el poder de <b>proveedores</b> y de <b>clientes</b> y, en el centro, la <b>rivalidad</b> entre las empresas que ya compiten. Cada fuerza se puntúa de 0 (sin presión) a 10 (presión máxima).</p>
     <div class="p5">${legend}${card(force('E'))}${centro}${card(force('P'))}${card(force('R'), 'ce')}${card(force('C'))}<div></div>${card(force('S'))}<div></div></div>
     ${g()}
-    <div class="rp-foot"><span>Esplora Labs</span><span>${fecha}</span></div>
+    <div class="rp-foot"><span>Esplora</span><span>${fecha}</span></div>
   </article>
   <article class="rp" id="rp2">
     <div class="rp-top"><span>Informe de análisis competitivo</span><span>2 / 2</span></div>
@@ -724,7 +724,7 @@ function renderReport() {
     <p class="sec2">Cómo leer «favorable» y «desfavorable»</p>
     <p class="rp-note">Las valoraciones se hacen <b>desde la perspectiva del modelo de Porter</b>: miden la presión competitiva sobre la rentabilidad del sector. Un factor «favorable» (poca presión) no es beneficioso en cualquier caso, ni uno «desfavorable» es siempre un obstáculo: unas barreras de entrada altas protegen a quien ya compite, pero dificultan la entrada de un negocio nuevo. Interprétalos según la situación de tu proyecto.</p>
     <div class="rec2"><small>Recomendación · ${RIVALIDAD[L].n}</small><b>${RIVALIDAD[L].acc}</b><p>${RIVALIDAD[L].riesgo}</p></div>
-    <div class="rp-foot"><span>Esplora Labs</span><span>${fecha}</span></div>
+    <div class="rp-foot"><span>Esplora</span><span>${fecha}</span></div>
   </article>`;
   ['rp1', 'rp2'].forEach(fitPage);
   if (document.fonts) document.fonts.ready.then(() => ['rp1', 'rp2'].forEach(fitPage));
