@@ -144,6 +144,8 @@ Nace en el aula y arranca en el curso 2026/27. Crece curso a curso.
   nuevo, oct-2026). Ya puestos en favicon (web y herramientas), cabecera, portada, pie,
   barra superior de las herramientas (logo horizontal oliva o crema) y
   404. Pendiente: avatar e imagen para compartir.
+- El símbolo (isotipo) se llama «espora». Sustituye a la estrella de cuatro
+  puntas antigua; como icono se usa con <use href="#espora">.
 - Mascota: Explorito, una espora con mochila y lupa, con accesorios
   según el módulo. El diseño actual es solo de referencia.
 - Marca por delante de la persona: sin fotos ni imagen personal.
