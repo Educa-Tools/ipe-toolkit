@@ -5,21 +5,16 @@
     "estrella":    { "slug": "matriz-estrella", "titulo": "Matriz Estrella", "titular": "La Matriz <em>Estrella</em>", "dibujo": "estrella", "descripcion": "Evalúa tu idea de negocio y detecta sus puntos fuertes y débiles.", "url": "estrella.html", "color": "#557A35", "minutos": 25, "guarda": "esplora-estrella-v1", "informe": true },
     "canvas":      { "slug": "modelo-canvas", "titulo": "Modelo Canvas", "titular": "Diseña tu <em>idea de negocio</em> en nueve bloques.", "dibujo": "canvas", "descripcion": "Construye tu modelo de negocio bloque a bloque, listo para imprimir.", "url": "modelocanvas.html", "color": "#7A3244", "minutos": 50, "guarda": "esplora-canvas-v1", "informe": true },
     "pestel":      { "slug": "analisis-pestel", "titulo": "Análisis PESTEL", "titular": "Mapa <em>PESTEL</em> de impacto", "dibujo": "pestel", "descripcion": "Mapa de impacto de los factores del entorno general, con dossier imprimible.", "url": "pestel.html", "color": "#3E5778", "minutos": 40, "guarda": "esplora-pestel-v1", "informe": true },
-    "porter":      { "slug": "cinco-fuerzas-porter", "titulo": "Análisis de Porter", "titular": "Las cinco fuerzas de <em>Porter</em>", "dibujo": "porter", "descripcion": "Las cinco fuerzas que marcan la competencia en tu sector.", "url": "porter.html", "color": "#2F6670", "minutos": 30, "guarda": "esplora-porter-v1", "informe": true },
     "buyer":       { "slug": "buyer-persona", "titulo": "Buyer Persona", "titular": "Forja a tu <em>cliente ideal</em>", "dibujo": "buyer", "descripcion": "Da forma a tu cliente ideal: quién es, qué necesita y cómo llegar a él.", "url": "buyerpersona.html", "color": "#B03A78", "minutos": 30, "guarda": "esplora_buyer_persona_v1", "informe": true },
     "dafocame":    { "slug": "dafo-came", "titulo": "DAFO y CAME", "titular": "El análisis <em>DAFO</em> y su cruce <em>CAME</em>", "dibujo": "dafo", "descripcion": "Diagnostica tu proyecto con el DAFO y cruza los resultados con el CAME para decidir qué hacer.", "url": "dafocame.html", "color": "#8A5A2B", "minutos": 45, "guarda": "esplora-dafocame-v1", "informe": true },
     "formajuridica":{ "slug": "forma-juridica", "titulo": "Selector de forma jurídica", "titular": "Selector de <em>Forma Jurídica</em>", "dibujo": "forma", "descripcion": "Responde unas preguntas y descubre qué forma jurídica encaja mejor con tu proyecto.", "url": "selector_forma_juridica.html", "color": "#8B6430", "minutos": 20, "guarda": "esplora-formajuridica-v1", "informe": true },
     "inversion":   { "slug": "inversion-financiacion", "titulo": "Plan de inversión y financiación", "titular": "¿Cuánto necesitas para <em>arrancar</em> y de dónde sale?", "dibujo": "balanza", "descripcion": "Elige lo que necesita tu negocio, calcula la amortización y el colchón de tesorería y cuadra la balanza con la financiación.", "url": "inversionfinanciacion.html", "color": "#2C6E5A", "minutos": 50, "guarda": "esplora-expediente", "informe": true },
-    "umbral":      { "slug": "umbral-rentabilidad", "titulo": "Umbral de rentabilidad", "titular": "¿Cuánto tienes que vender para <em>no perder dinero</em>?", "dibujo": "umbral", "descripcion": "Calcula el punto muerto con su gráfico, prueba el «¿y si…?» y, si lo vinculas al plan de inversión, el umbral de caja para pagar el préstamo.", "url": "umbralrentabilidad.html", "color": "#3E5778", "minutos": 40, "guarda": "esplora-umbral-v1", "informe": true },
 
     "patologias":  { "slug": "patologias-inespecificas", "titulo": "Diagnóstico de patologías inespecíficas", "titular": "Diagnóstico de <em>patologías inespecíficas</em>", "dibujo": "patologias", "descripcion": "Empareja seis casos con su patología: fatiga, estrés, burnout, mobbing…", "url": "patologias.html", "color": "#2E4B8B", "minutos": 15 },
     "ruta22":      { "slug": "ruta-articulo-22", "titulo": "Ruta al Artículo 22", "titular": "Ruta al <em>Artículo 22</em>", "dibujo": "ruta", "descripcion": "Repaso exprés de los arts. 17 a 21 de la LPRL en formato de niveles con estrellas.", "url": "rutaarticulo22.html", "color": "#6A3FA0", "minutos": 25, "guarda": "ipe_ruta_art22_progreso_v1" },
     "simuladorprl":{ "slug": "simulador-expedientes-prl", "titulo": "Simulador de expedientes PRL", "titular": "Simulador de <em>Expedientes PRL</em>", "dibujo": "expediente", "descripcion": "Resuelve casos reales y justifica cada respuesta con su artículo de la LPRL.", "url": "simuladorprl.html", "color": "#2B2E4A", "minutos": 30, "guarda": "ipe-expedientes-prl-v1" },
     "enfprofesionales":{ "slug": "enfermedades-profesionales", "titulo": "Buscador de enfermedades profesionales", "titular": "¿Qué enfermedad profesional puede tener <em>tu oficio</em>?", "dibujo": "buscador", "descripcion": "Descubre qué enfermedades profesionales del RD 1299/2006 pueden afectar a tu oficio.", "url": "enfermedadesprofesionales.html", "color": "#8B3A3A", "minutos": 10 },
     "guiaruido":   { "slug": "guia-ruido", "titulo": "Guía del ruido", "titular": "Guía del <em>ruido</em>", "dibujo": "ruido", "descripcion": "Decibelios, los tres escalones del RD 286/2006, simulador de obligaciones y caso práctico para entregar.", "url": "guia-ruido.html", "color": "#4B44A0", "minutos": 40, "guarda": "esplora-guia-ruido-v1", "informe": true },
-    "guialuz":     { "slug": "guia-iluminacion", "titulo": "Guía de la iluminación", "titular": "Guía de la <em>iluminación</em>", "dibujo": "luz", "descripcion": "Lumen y lux, los mínimos del Anexo IV del RD 486/1997, comprobador de lux y caso práctico para entregar.", "url": "guia-iluminacion.html", "color": "#946500", "minutos": 40, "guarda": "esplora-guia-iluminacion-v1", "informe": true },
-    "guiavib":     { "slug": "guia-vibraciones", "titulo": "Guía de las vibraciones", "titular": "Guía de las <em>vibraciones</em>", "dibujo": "vibracion", "descripcion": "Hercios, mano-brazo o cuerpo entero, daños por frecuencia, prevención y caso práctico para entregar.", "url": "guia-vibraciones.html", "color": "#8A5232", "minutos": 35, "guarda": "esplora-guia-vibraciones-v1", "informe": true },
-    "guiatermo":   { "slug": "guia-termohigrometricas", "titulo": "Guía de las condiciones termohigrométricas", "titular": "Condiciones <em>termohigrométricas</em>", "dibujo": "termo", "descripcion": "Temperatura, humedad y ventilación: valores del Anexo III, comprobador y caso práctico para entregar.", "url": "guia-termohigrometricas.html", "color": "#1672A0", "minutos": 40, "guarda": "esplora-guia-termohigrometricas-v1", "informe": true },
 
     "piramide":    { "slug": "jerarquia-normativa", "titulo": "Pirámide de la jerarquía normativa", "titular": "La <em>jerarquía normativa</em>, explicada", "dibujo": "piramide", "descripcion": "Las ocho fuentes del Derecho del trabajo con su base legal, los principios que resuelven los conflictos entre normas y diez casos prácticos.", "url": "piramide.html", "color": "#4B4F1D", "minutos": 30, "guarda": "esplora-piramide-v1", "informe": true },
     "mapaue":      { "slug": "mapa-union-europea", "titulo": "Mapa interactivo de la Unión Europea", "titular": "La <em>Unión Europea</em>, país a país", "dibujo": "ue", "descripcion": "Estados miembro, euro y espacio Schengen, país a país.", "url": "mapaeuropa.html", "color": "#5D3D66", "minutos": 15 },
@@ -39,7 +34,7 @@
       "nombre": "Itinerario Personal para la Empleabilidad I",
       "descripcion": "Prevención de riesgos, derecho del trabajo, Seguridad Social e itinerario profesional.",
       "unidades": [
-        { "n": 1, "titulo": "Prevención de Riesgos Laborales",           "icono": "shield", "herramientas": ["patologias", "ruta22", "simuladorprl", "enfprofesionales", "guiaruido", "guialuz", "guiavib", "guiatermo"] },
+        { "n": 1, "titulo": "Prevención de Riesgos Laborales",           "icono": "shield", "herramientas": ["patologias", "ruta22", "simuladorprl", "enfprofesionales", "guiaruido"] },
         { "n": 2, "titulo": "Derecho del trabajo y Seguridad Social",    "icono": "scale",  "herramientas": ["piramide", "mapaue", "contingencias", "prestaciones", "casosnomina"] },
         { "n": 3, "titulo": "Autoconocimiento e itinerario profesional", "icono": "target", "herramientas": [] }
       ]
@@ -54,8 +49,8 @@
       "descripcion": "Emprendimiento, análisis del entorno, viabilidad e inserción laboral.",
       "unidades": [
         { "n": 1, "titulo": "Emprendimiento, innovación y sostenibilidad", "icono": "bulb",        "herramientas": ["generador", "fichaidea", "estrella", "canvas"] },
-        { "n": 2, "titulo": "Análisis del entorno, sector y mercado",     "icono": "chart",       "herramientas": ["pestel", "porter", "buyer", "dafocame"] },
-        { "n": 3, "titulo": "La viabilidad del proyecto emprendedor",     "icono": "checkshield", "herramientas": ["formajuridica", "inversion", "umbral"] },
+        { "n": 2, "titulo": "Análisis del entorno, sector y mercado",     "icono": "chart",       "herramientas": ["pestel", "buyer", "dafocame"] },
+        { "n": 3, "titulo": "La viabilidad del proyecto emprendedor",     "icono": "checkshield", "herramientas": ["formajuridica", "inversion"] },
         { "n": 4, "titulo": "Empleabilidad e inserción laboral",          "icono": "compass",     "herramientas": [] }
       ]
     }
@@ -69,9 +64,9 @@
 
   "etiquetas": [
     { "id": "idea",      "nombre": "Idea de negocio",            "icono": "bulb",   "herramientas": ["generador", "fichaidea", "estrella", "canvas"] },
-    { "id": "mercado",   "nombre": "Análisis del mercado",       "icono": "chart",  "herramientas": ["pestel", "porter", "buyer", "dafocame"] },
-    { "id": "viabilidad","nombre": "Viabilidad del proyecto emprendedor", "icono": "checkshield", "herramientas": ["formajuridica", "inversion", "umbral"] },
-    { "id": "prl",       "nombre": "Prevención de riesgos",      "icono": "shield", "herramientas": ["patologias", "ruta22", "simuladorprl", "enfprofesionales", "guiaruido", "guialuz", "guiavib", "guiatermo"] },
+    { "id": "mercado",   "nombre": "Análisis del mercado",       "icono": "chart",  "herramientas": ["pestel", "buyer", "dafocame"] },
+    { "id": "viabilidad","nombre": "Viabilidad del proyecto emprendedor", "icono": "checkshield", "herramientas": ["formajuridica", "inversion"] },
+    { "id": "prl",       "nombre": "Prevención de riesgos",      "icono": "shield", "herramientas": ["patologias", "ruta22", "simuladorprl", "enfprofesionales", "guiaruido"] },
     { "id": "laboral",   "nombre": "Laboral y Seguridad Social", "icono": "scale",  "herramientas": ["piramide", "mapaue", "contingencias", "prestaciones", "casosnomina"] }
   ]
 }

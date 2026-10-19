@@ -11,9 +11,6 @@ Cada recurso tiene una ficha (enlace principal) y la herramienta en sí (enlace 
 - [Simulador de expedientes PRL](https://esplora.es/recursos/simulador-expedientes-prl/): Resuelve casos reales y justifica cada respuesta con su artículo de la LPRL. (≈ 30 min) · [abrir](https://esplora.es/simuladorprl.html)
 - [Buscador de enfermedades profesionales](https://esplora.es/recursos/enfermedades-profesionales/): Descubre qué enfermedades profesionales del RD 1299/2006 pueden afectar a tu oficio. (≈ 10 min) · [abrir](https://esplora.es/enfermedadesprofesionales.html)
 - [Guía del ruido](https://esplora.es/recursos/guia-ruido/): Decibelios, los tres escalones del RD 286/2006, simulador de obligaciones y caso práctico para entregar. (≈ 40 min, con informe en PDF) · [abrir](https://esplora.es/guia-ruido.html)
-- [Guía de la iluminación](https://esplora.es/recursos/guia-iluminacion/): Lumen y lux, los mínimos del Anexo IV del RD 486/1997, comprobador de lux y caso práctico para entregar. (≈ 40 min, con informe en PDF) · [abrir](https://esplora.es/guia-iluminacion.html)
-- [Guía de las vibraciones](https://esplora.es/recursos/guia-vibraciones/): Hercios, mano-brazo o cuerpo entero, daños por frecuencia, prevención y caso práctico para entregar. (≈ 35 min, con informe en PDF) · [abrir](https://esplora.es/guia-vibraciones.html)
-- [Guía de las condiciones termohigrométricas](https://esplora.es/recursos/guia-termohigrometricas/): Temperatura, humedad y ventilación: valores del Anexo III, comprobador y caso práctico para entregar. (≈ 40 min, con informe en PDF) · [abrir](https://esplora.es/guia-termohigrometricas.html)
 
 ## IPE 1 · Bloque 2: Derecho del trabajo y Seguridad Social
 
@@ -33,7 +30,6 @@ Cada recurso tiene una ficha (enlace principal) y la herramienta en sí (enlace 
 ## IPE 2 · Unidad didáctica 2: Análisis del entorno, sector y mercado
 
 - [Análisis PESTEL](https://esplora.es/recursos/analisis-pestel/): Mapa de impacto de los factores del entorno general, con dossier imprimible. (≈ 40 min, con informe en PDF) · [abrir](https://esplora.es/pestel.html)
-- [Análisis de Porter](https://esplora.es/recursos/cinco-fuerzas-porter/): Las cinco fuerzas que marcan la competencia en tu sector. (≈ 30 min, con informe en PDF) · [abrir](https://esplora.es/porter.html)
 - [Buyer Persona](https://esplora.es/recursos/buyer-persona/): Da forma a tu cliente ideal: quién es, qué necesita y cómo llegar a él. (≈ 30 min, con informe en PDF) · [abrir](https://esplora.es/buyerpersona.html)
 - [DAFO y CAME](https://esplora.es/recursos/dafo-came/): Diagnostica tu proyecto con el DAFO y cruza los resultados con el CAME para decidir qué hacer. (≈ 45 min, con informe en PDF) · [abrir](https://esplora.es/dafocame.html)
 
@@ -41,4 +37,3 @@ Cada recurso tiene una ficha (enlace principal) y la herramienta en sí (enlace 
 
 - [Selector de forma jurídica](https://esplora.es/recursos/forma-juridica/): Responde unas preguntas y descubre qué forma jurídica encaja mejor con tu proyecto. (≈ 20 min, con informe en PDF) · [abrir](https://esplora.es/selector_forma_juridica.html)
 - [Plan de inversión y financiación](https://esplora.es/recursos/inversion-financiacion/): Elige lo que necesita tu negocio, calcula la amortización y el colchón de tesorería y cuadra la balanza con la financiación. (≈ 50 min, con informe en PDF) · [abrir](https://esplora.es/inversionfinanciacion.html)
-- [Umbral de rentabilidad](https://esplora.es/recursos/umbral-rentabilidad/): Calcula el punto muerto con su gráfico, prueba el «¿y si…?» y, si lo vinculas al plan de inversión, el umbral de caja para pagar el préstamo. (≈ 40 min, con informe en PDF) · [abrir](https://esplora.es/umbralrentabilidad.html)

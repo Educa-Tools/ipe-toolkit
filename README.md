@@ -37,7 +37,7 @@ Cada recurso toma el tipo de su módulo. Si alguno es de otro tipo (por ejemplo,
    - `guarda`: la clave con la que la herramienta guarda el progreso en el navegador (la que aparece en su código como `KEY = '...'`). Con ella la tarjeta dice "Guarda progreso", y si el alumno ya ha escrito algo, "Empezada"; además sale en "Seguir donde lo dejaste".
    - `informe`: pon `true` si la herramienta saca informe para imprimir o guardar en PDF.
 
-   - `slug`: la dirección de su ficha, `esplora.es/recursos/<slug>/`. En minúsculas, sin tildes y con guiones (`"slug": "cinco-fuerzas-porter"`). **No lo cambies una vez publicado**: rompería los enlaces compartidos.
+   - `slug`: la dirección de su ficha, `esplora.es/recursos/<slug>/`. En minúsculas, sin tildes y con guiones (`"slug": "dafo-came"`). **No lo cambies una vez publicado**: rompería los enlaces compartidos.
 
 3. Añade `"miid"` a la lista `"herramientas"` de su unidad (en `modulos`) y de su temática (en `etiquetas`).
 4. Ejecuta el generador desde la carpeta del proyecto (PowerShell 7, no hay que instalar nada más):
@@ -59,7 +59,7 @@ Notas:
 ## Enlaces directos para compartir con la clase
 
 - `https://esplora.es/ipe-1/` e `https://esplora.es/ipe-2/`: página de cada módulo con todos sus recursos.
-- `https://esplora.es/recursos/<slug>/`: ficha de un recurso (por ejemplo, `recursos/cinco-fuerzas-porter/`).
+- `https://esplora.es/recursos/<slug>/`: ficha de un recurso (por ejemplo, `recursos/dafo-came/`).
 
 Y dentro del catálogo interactivo de la portada:
 

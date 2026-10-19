@@ -49,6 +49,8 @@ Dentro de cada sesión se trabaja por **bloques**: Claude termina un bloque, me 
 - [x] Textos marcados como BORRADOR pendiente de revisión jurídica
 **Hecho cuando:** cada recurso tiene URL, título y descripción propios, el sitemap los lista y todas las páginas legales existen y enlazan entre sí.
 
+> Cambio de rumbo (19-oct-2026): el autor va a monetizar parte de Esplora en pocas semanas (pagan docentes o terceros, nunca el alumnado). Porter, Umbral de rentabilidad y las guías de vibraciones, iluminación y termohigrométricas salen de la web pública: copia en `archivo/de-pago/` (no se publica) a la espera de decidir cómo se suben. Quedan 19 recursos gratuitos. Textos legales neutralizados (fuera «sin ánimo de lucro»; la licencia CC vale «salvo que el recurso indique otra cosa»). Pendiente del autor: actualizar en CLAUDE.md «sin versión Pro» y «sin crear cuentas», y crear un repositorio privado para lo de pago.
+
 ## Sesión 2 · Diseño y home · rama `sesion-2-diseno` (2-3 h)
 **Bloque A · Sistema de diseño** (skills: `/apple-design`, `/estetica-rapida`)
 - [ ] Tokens (color, tipografía, espaciado, radios, sombras) en un único archivo
