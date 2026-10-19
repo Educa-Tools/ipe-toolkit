@@ -32,6 +32,8 @@
   body{overflow-x:hidden;}
   /* Al saltar a una sección, el título no queda debajo de la barra fija */
   header[id],section[id],#como-se-usa{scroll-margin-top:calc(var(--nav-h) + 14px);}
+  /* Con el teclado, lo enfocado en el catálogo no queda tapado por la barra de filtros, que también se queda fija */
+  .catalog a,.catalog button{scroll-margin-top:calc(var(--nav-h) + 100px);}
 
   /* Todo lo que se pulsa responde con un leve hundimiento */
   .pick,.mini,.clip,.tool-card,.btn-small,.seg a,.nav-links a,.resume-item,.unit-chip,.copy-link,.contact-item.is-live{transition-property:background-color,color,box-shadow,translate,rotate,scale,border-color;transition-duration:.18s;transition-timing-function:var(--ease-out);}
@@ -118,6 +120,8 @@
   @keyframes tab{from{translate:12px 0;}}
   @keyframes ink{to{stroke-dashoffset:0;}}
   @keyframes fade{from{opacity:0;}}
+  /* Al filtrar, las tarjetas entran con un fundido corto y escalonado: se ve que el catálogo ha cambiado */
+  @keyframes rise{from{opacity:0;translate:0 6px;}}
 
   @media (max-width:980px){
     .hero{padding-block:32px 64px;}
@@ -189,6 +193,8 @@
   .filters{flex:0 1 auto;display:flex;flex-wrap:wrap;align-items:center;gap:12px;}
   .dd{position:relative;display:inline-flex;align-items:center;gap:8px;flex:0 1 auto;min-width:0;min-height:46px;padding-left:18px;background:var(--surface);border:var(--frame);border-radius:var(--radius-pill);transition:box-shadow .15s var(--ease-out),background-color .15s ease;}
   .dd:focus-within{box-shadow:var(--sticker);}
+  /* El mismo anillo de foco que el resto de la web, en el buscador y en los desplegables */
+  .dd:has(select:focus-visible),.search input:focus-visible{outline:3px solid var(--ink);outline-offset:3px;}
   .dd.on{background:var(--lime-soft);}
   .dd > span{flex:none;font-size:.86rem;font-weight:500;color:var(--ink-soft);}
   .dd select{appearance:none;-webkit-appearance:none;min-width:0;max-width:160px;min-height:44px;margin:0;padding:0 42px 0 0;border:0;background-color:transparent;font:inherit;font-size:.94rem;font-weight:700;color:var(--ink);cursor:pointer;text-overflow:ellipsis;}
@@ -320,6 +326,7 @@
   .kind-icon svg{width:24px;height:24px;}
   .kind h3{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;font-family:var(--font-display);font-size:1.45rem;font-weight:700;margin:0;line-height:1.2;}
   .kind h3 small{font-family:var(--font-ui);font-size:.82rem;font-weight:700;color:var(--ink-soft);font-variant-numeric:tabular-nums;}
+  .kind-n{margin:0;font-size:.82rem;font-weight:700;color:var(--ink-soft);font-variant-numeric:tabular-nums;}
   .kind p{margin:0;color:var(--ink-soft);}
   .kind a{justify-self:start;display:inline-flex;align-items:center;min-height:44px;font-weight:700;color:var(--ink);text-underline-offset:5px;}
 
@@ -516,7 +523,7 @@
       <div class="search" role="search">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
         <label class="sr" for="q">Buscar en el catálogo</label>
-        <input type="search" id="q" placeholder="Buscar…" autocomplete="off" spellcheck="false">
+        <input type="search" id="q" name="q" placeholder="Buscar…" autocomplete="off" spellcheck="false">
         <button type="button" class="search-clear" id="qClear" aria-label="Borrar la búsqueda" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>
       </div>
     </div>
@@ -1074,7 +1081,7 @@ function renderKinds(){
     const href = tipos.length===1 ? '#catalogo' : '#tipo-'+tp.id;
     return `<li class="kind">
       <span class="kind-icon">${icon(KIND_ICON[tp.id]||'tool')}</span>
-      <h3>${tp.nombre}<small>${plural(n,'disponible','disponibles')}</small></h3>
+      ${tipos.length>1 ? `<h3>${tp.nombre}<small>${plural(n,'disponible','disponibles')}</small></h3>` : `<p class="kind-n">${plural(n,'disponible','disponibles')}</p>`}
       <p>${tp.descripcion||''}</p>
       <a href="${href}">Ver ${n===1 ? 'el recurso' : 'los '+n}</a>
     </li>`;

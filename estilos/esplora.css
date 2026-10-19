@@ -113,9 +113,9 @@ a,button,select,input,label{touch-action:manipulation}
 .note{margin:18px 0 0;font-size:var(--fs-sm);color:var(--ink-soft)}
 
 /* Títulos de las páginas interiores (la portada y la 404 tienen los suyos) */
-.doc h1{font-family:var(--font-display);font-weight:600;font-size:var(--fs-h1);line-height:1.12;margin:0 0 14px;letter-spacing:-.01em}
+.doc h1{font-family:var(--font-display);font-weight:600;font-size:var(--fs-h1);line-height:1.12;margin:0 0 14px;letter-spacing:-.01em;text-wrap:balance}
 .doc h1 em,.doc h2 em{font-style:italic;color:var(--olive-deep)}
-.doc h2{font-family:var(--font-display);font-weight:600;font-size:var(--fs-h2);line-height:1.25;margin:44px 0 14px}
+.doc h2{font-family:var(--font-display);font-weight:600;font-size:var(--fs-h2);line-height:1.25;margin:44px 0 14px;text-wrap:balance}
 .doc h3{font-size:var(--fs-h3);margin:var(--sp-5) 0 var(--sp-1)}
 
 /* Ficha de recurso: tarjeta con el color de la herramienta en el borde (--c) */
