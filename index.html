@@ -124,22 +124,38 @@
   .demo-body{display:flex;flex-direction:column;gap:8px;padding:12px 14px 14px;font-size:.84rem;line-height:1.35;}
   .demo-body p{margin:0;}
   .demo-q{font-family:var(--font-display);font-weight:600;font-size:1.02rem;line-height:1.15;letter-spacing:-.2px;}
-  .demo-data{color:var(--ink-soft);}
-  .demo-row{display:flex;gap:8px;align-items:center;}
-  .demo-in{flex:1;min-width:0;display:flex;align-items:center;height:34px;padding:0 10px;border:1.5px solid var(--line);border-radius:8px;background:var(--surface);font-weight:600;font-variant-numeric:tabular-nums;}
-  .demo-caret{width:1.5px;height:1.1em;margin-left:1px;background:var(--ink);opacity:0;}
-  .demo[data-paso="escribe"] .demo-caret{opacity:1;animation:parpadeo 1s steps(1) infinite;}
-  .demo-eur{margin-left:auto;color:var(--ink-soft);}
-  .demo-btn{flex:none;height:34px;display:inline-flex;align-items:center;padding:0 14px;border-radius:var(--radius-pill);background:var(--ink);color:var(--bg);font-weight:700;font-size:.8rem;transition:scale .12s var(--ease-out);}
-  .demo[data-paso="pulsa"] .demo-btn{scale:.93;}
+  .demo-q em{font-style:italic;color:var(--c);}
+  /* Balanza: rojo terracota = lo que necesitas (inversión); verde = de dónde sale (financiación) */
+  .bal{display:block;width:100%;height:auto;max-height:150px;overflow:visible;}
+  .bal path,.bal circle{transform-box:view-box;}
+  .bal-pie,.bal-brazo path,.bal-hilo{fill:none;stroke:var(--ink);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;}
+  .bal-pie{fill:var(--ink);}
+  .bal-hilo{stroke-width:1.5;}
+  .bal-brazo circle{fill:var(--ink);}
+  .bal-cuenco{fill:var(--surface-alt);stroke:var(--ink);stroke-width:2.5;}
+  .bal-et{font:700 13px var(--font-ui);fill:var(--ink-soft);text-anchor:middle;}
+  .bal-brazo{transform-box:view-box;transform-origin:150px 44px;transition:rotate .7s cubic-bezier(.34,1.4,.64,1);}
+  .bal-plato{transition:translate .7s cubic-bezier(.34,1.4,.64,1);}
+  .eu circle{stroke:var(--ink);stroke-width:2;}
+  .eu text{font:800 13px var(--font-ui);fill:var(--surface);text-anchor:middle;}
+  .eu.rojo circle{fill:#C2683A;}
+  .eu.verde circle{fill:#557A35;}
+  /* Las monedas caen una tras otra; la balanza se mueve cuando ya han caído */
+  .eu{opacity:0;translate:0 -90px;transition:opacity .2s,translate .45s cubic-bezier(.5,0,.75,0);transition-delay:calc(var(--i) * .32s);}
+  .demo[data-paso="rojo"] .eu.rojo,.demo[data-paso="verde"] .eu{opacity:1;translate:0 0;}
+  .demo[data-paso="verde"] .eu.rojo{transition-delay:0s;}
+  .demo[data-paso="vacio"] .eu{transition:opacity .3s,translate 0s .3s;}
+  .demo[data-paso="rojo"] .bal-brazo{rotate:-9deg;transition-delay:1.15s;}
+  .demo[data-paso="rojo"] .bal-plato.izq{translate:0 15px;transition-delay:1.15s;}
+  .demo[data-paso="rojo"] .bal-plato.der{translate:0 -15px;transition-delay:1.15s;}
+  .demo[data-paso="verde"] .bal-brazo,.demo[data-paso="verde"] .bal-plato{transition-delay:1.15s;}
   .demo-fbs{display:grid;}
   .demo-fb{grid-area:1/1;padding:8px 10px;border-radius:8px;opacity:0;translate:0 4px;transition:opacity .25s var(--ease-out),translate .25s var(--ease-out);}
-  .demo-fb.ko{background:var(--surface-alt);border-left:3px solid var(--c);}
+  .demo-fb.ko{background:var(--surface-alt);border-left:3px solid #C2683A;}
   .demo-fb.ok{background:var(--lime-soft);}
-  .demo[data-paso="ko"] .demo-fb.ko,.demo[data-paso="ok"] .demo-fb.ok{opacity:1;translate:0 0;}
+  .demo[data-paso="rojo"] .demo-fb.ko,.demo[data-paso="verde"] .demo-fb.ok{opacity:1;translate:0 0;transition-delay:1.7s;}
   .demo figcaption{margin-top:12px;font-size:.88rem;color:var(--lime-soft);}
   .demo figcaption a{color:var(--bg);font-weight:700;text-underline-offset:4px;}
-  @keyframes parpadeo{50%{opacity:0;}}
   /* El único momento de entrada de la página: las esporas de cada módulo brotan una tras otra */
   .spores i{animation:brota .4s var(--ease-out) backwards;animation-delay:calc(.25s + var(--k) * 35ms);}
   @keyframes brota{from{scale:0;}}
@@ -510,25 +526,39 @@
       </a>
       <a class="all-link" href="#catalogo" id="allLink">Ver todo el catálogo</a>
     </div>
-    <!-- Una herramienta en acción: un paso real de Casos prácticos de nóminas (caso de Daniel) que se repite:
-         respuesta mal, pista, segundo intento y acierto. Sin JavaScript o con menos movimiento, se ve el acierto quieto -->
-    <figure class="demo" id="demo" style="--c:#557A35" data-paso="ok">
+    <!-- Una herramienta en acción: la balanza de Plan de inversión y financiación. Caen euros rojos (lo que necesitas)
+         y la balanza se inclina; caen euros verdes (de dónde sale) y vuelve a cuadrar. Se repite.
+         Sin JavaScript o con menos movimiento, se ve quieta y cuadrada -->
+    <figure class="demo" id="demo" style="--c:#2C6E5A" data-paso="verde">
       <div class="demo-win" aria-hidden="true">
-        <span class="clip-bar"><span><svg viewBox="28.5 14.5 340.8 372.5"><use href="#simbolo"/></svg><span translate="no">Esplora</span></span><span>Casos prácticos de nóminas</span></span>
+        <span class="clip-bar"><span><svg viewBox="28.5 14.5 340.8 372.5"><use href="#simbolo"/></svg><span translate="no">Esplora</span></span><span>Plan de inversión y financiación</span></span>
         <div class="demo-body">
-          <p class="demo-q">¿Cuál es la prorrata mensual de las pagas extra?</p>
-          <p class="demo-data">Daniel cobra 2 pagas extra de 1.300 €.</p>
-          <div class="demo-row">
-            <span class="demo-in"><span class="demo-txt">216,67</span><i class="demo-caret"></i><span class="demo-eur">€</span></span>
-            <span class="demo-btn">Comprobar</span>
-          </div>
+          <p class="demo-q">¿Cuánto necesitas para <em>arrancar</em> y de dónde sale?</p>
+          <svg class="bal" viewBox="0 0 300 160">
+            <path class="bal-pie" d="M150 44V140M120 146h60l-10-8h-40z"/>
+            <g class="bal-brazo"><path d="M54 44H246"/><circle cx="150" cy="44" r="5"/></g>
+            <g class="bal-plato izq">
+              <path class="bal-hilo" d="M54 44L28 104M54 44L80 104"/><path class="bal-cuenco" d="M20 104h68q-4 14-34 14t-34-14z"/>
+              <g class="eu rojo" style="--i:0"><circle cx="41" cy="92" r="11"/><text x="41" y="96.5">€</text></g>
+              <g class="eu rojo" style="--i:1"><circle cx="67" cy="92" r="11"/><text x="67" y="96.5">€</text></g>
+              <g class="eu rojo" style="--i:2"><circle cx="54" cy="72" r="11"/><text x="54" y="76.5">€</text></g>
+            </g>
+            <g class="bal-plato der">
+              <path class="bal-hilo" d="M246 44L220 104M246 44L272 104"/><path class="bal-cuenco" d="M212 104h68q-4 14-34 14t-34-14z"/>
+              <g class="eu verde" style="--i:0"><circle cx="233" cy="92" r="11"/><text x="233" y="96.5">€</text></g>
+              <g class="eu verde" style="--i:1"><circle cx="259" cy="92" r="11"/><text x="259" y="96.5">€</text></g>
+              <g class="eu verde" style="--i:2"><circle cx="246" cy="72" r="11"/><text x="246" y="76.5">€</text></g>
+            </g>
+            <text class="bal-et" x="54" y="152">Inversión</text>
+            <text class="bal-et" x="246" y="152">Financiación</text>
+          </svg>
           <div class="demo-fbs">
-            <p class="demo-fb ko"><b>Todavía no. Pista:</b> importe de cada paga × número de pagas ÷ 12.</p>
-            <p class="demo-fb ok"><b>¡Correcto!</b> 2 × 1.300 ÷ 12 = 216,67 €.</p>
+            <p class="demo-fb ko"><b>No cuadra:</b> falta dinero para lo que necesitas.</p>
+            <p class="demo-fb ok"><b>¡Cuadra!</b> Todo lo que necesitas tiene de dónde salir.</p>
           </div>
         </div>
       </div>
-      <figcaption>Si fallas, una pista y otro intento. <a href="casosnomina.html">Prueba Casos prácticos de nóminas</a></figcaption>
+      <figcaption>Lo que necesitas a un lado; de dónde sale, al otro. <a href="inversionfinanciacion.html">Prueba Plan de inversión y financiación</a></figcaption>
     </figure>
     </div>
 
@@ -1151,26 +1181,21 @@ addEventListener('pageshow', e=>{ if(e.persisted && DB.order.length){ renderResu
 
 const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// Herramienta en acción: escribe una respuesta mal, sale la pista, corrige y acierta. Se repite solo
-// mientras se ve en pantalla; con menos movimiento se queda quieta en el acierto
+// Herramienta en acción: la balanza se vacía, caen los euros de la inversión y se inclina, caen los de la
+// financiación y cuadra. Se repite solo mientras se ve en pantalla; con menos movimiento se queda quieta y cuadrada
 (function(){
   const fig = document.getElementById('demo');
   if(!fig || calm || !('IntersectionObserver' in window)) return;
-  const txt = fig.querySelector('.demo-txt');
   const wait = ms => new Promise(r=>setTimeout(r, ms));
   let visible = false, seguir = null;
   const enPantalla = () => visible ? Promise.resolve() : new Promise(r=>{ seguir = r; });
   new IntersectionObserver(([e])=>{ visible = e.isIntersecting; if(visible && seguir){ seguir(); seguir = null; } }).observe(fig);
   const paso = p => { fig.dataset.paso = p; };
-  async function escribir(s){ for(const ch of s){ txt.textContent += ch; await wait(120); } }
-  async function borrar(){ while(txt.textContent){ txt.textContent = txt.textContent.slice(0, -1); await wait(45); } }
-  async function comprobar(resultado){ paso('pulsa'); await wait(160); paso(resultado); }
   (async function bucle(){
     for(;;){
-      await enPantalla(); txt.textContent = ''; paso('escribe'); await wait(900);
-      await escribir('1.300'); await wait(500); await comprobar('ko'); await wait(3400);
-      await enPantalla(); paso('escribe'); await borrar(); await wait(300);
-      await escribir('216,67'); await wait(500); await comprobar('ok'); await wait(4200);
+      await enPantalla(); paso('vacio'); await wait(1000);
+      paso('rojo'); await wait(4200);
+      await enPantalla(); paso('verde'); await wait(5000);
     }
   })();
 })();
