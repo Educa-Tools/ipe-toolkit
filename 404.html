@@ -157,7 +157,9 @@
     </span>
   </a>
 
-  <footer><span translate="no">esplora.es</span> · <a href="mailto:contacto@esplora.es">contacto@esplora.es</a></footer>
+  <footer><span translate="no">esplora.es</span> · <a href="mailto:contacto@esplora.es">contacto@esplora.es</a>
+    <nav aria-label="Información legal"><a href="/aviso-legal.html" data-ruta="aviso-legal.html">Aviso legal</a> · <a href="/privacidad.html" data-ruta="privacidad.html">Privacidad</a> · <a href="/cookies.html" data-ruta="cookies.html">Cookies</a> · <a href="/licencia.html" data-ruta="licencia.html">Licencia</a> · <a href="/accesibilidad.html" data-ruta="accesibilidad.html">Accesibilidad</a></nav>
+  </footer>
 </main>
 
 <script>
@@ -165,6 +167,8 @@
   var base = window.ESPLORA_BASE || '/';
   document.getElementById('toCatalog').href = base + '#catalogo';
   document.getElementById('toHome').href = base;
+  // Enlaces legales relativos a la raíz del sitio (esplora.es o la dirección antigua de github.io)
+  Array.prototype.forEach.call(document.querySelectorAll('[data-ruta]'), function (a) { a.href = base + a.getAttribute('data-ruta'); });
 
   // Sugerencia al azar del catálogo (si el JSON no carga, simplemente no se muestra)
   fetch(base + 'data/estructura.json')

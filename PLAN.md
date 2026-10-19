@@ -38,11 +38,15 @@ Dentro de cada sesión se trabaja por **bloques**: Claude termina un bloque, me 
 - [ ] Dar de alta esplora.es en Google Search Console (lo hace el autor; si se verifica por DNS, se toca Cloudflare con confirmación)
 
 **Bloque B · Legal y privacidad**
-- [ ] Aviso legal, privacidad, cookies, licencia, accesibilidad, atribuciones
-- [ ] Enlaces desde el pie de todas las páginas
-- [ ] Banner de cookies solo si hace falta
-- [ ] Texto claro sobre dónde se guarda el progreso y tratamiento de menores
-- [ ] Textos marcados como BORRADOR pendiente de revisión jurídica
+- [x] Aviso legal, privacidad, cookies, licencia, accesibilidad, atribuciones
+  > Nota: `aviso-legal.html`, `privacidad.html`, `cookies.html`, `licencia.html` (licencia y créditos) y `accesibilidad.html`. Antes de publicar, el autor completa nombre, NIF y domicilio (aviso legal) y, si quiere, el nombre de la diseñadora (créditos). El apartado de Cloudflare Web Analytics está escrito pero comentado en `privacidad.html`: se activa a la vez que la analítica.
+- [x] Enlaces desde el pie de todas las páginas
+  > Nota: portada, 404, fichas, páginas de módulo y las 24 herramientas (en estas lo mantiene `scripts/generar.ps1`; no sale al imprimir).
+- [x] Banner de cookies solo si hace falta
+  > Nota: no hace falta. No hay cookies; el localStorage guarda el trabajo que pide el propio usuario y está exento de consentimiento (art. 22.2 LSSI). Si se activa una analítica con cookies, habría que revisarlo.
+- [x] Texto claro sobre dónde se guarda el progreso y tratamiento de menores
+  > Nota: en la política de privacidad y en la portada («Guardar el progreso» enlaza a privacidad). Propuesta pendiente de decidir: varias herramientas piden «Nombre y apellidos» para el informe; bastaría con «Nombre».
+- [x] Textos marcados como BORRADOR pendiente de revisión jurídica
 **Hecho cuando:** cada recurso tiene URL, título y descripción propios, el sitemap los lista y todas las páginas legales existen y enlazan entre sí.
 
 ## Sesión 2 · Diseño y home · rama `sesion-2-diseno` (2-3 h)

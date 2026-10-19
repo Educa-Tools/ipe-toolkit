@@ -14,7 +14,8 @@
                                    <!-- catalogo-generado:inicio --> y :fin
     - sitemap.xml, llms.txt        índices para Google y para los asistentes de IA
     - robots.txt                   añade la línea Sitemap si falta
-    - <herramienta>.html           añade <link rel="canonical"> si falta
+    - <herramienta>.html           añade <link rel="canonical"> si falta y mantiene
+                                   el pie legal entre <!-- pie-legal:inicio --> y :fin
   No borra nada: si sobra una ficha de una herramienta que ya no está, lo avisa.
 #>
 param([string]$Root = (Split-Path -Parent $PSScriptRoot))
@@ -109,6 +110,8 @@ h2{font-family:var(--font-display);font-weight:600;font-size:24px;line-height:1.
 .list small{display:block;margin-top:4px;font-size:14px;font-weight:600;color:var(--olive-deep)}
 footer{margin-top:64px;border-top:1px solid var(--line);padding-block:24px 40px;font-size:15px;color:var(--ink-soft)}
 footer p{margin:4px 0}
+footer .legal{margin-top:12px}
+footer .legal a{display:inline-block;padding-block:6px}
 @media (prefers-reduced-motion:no-preference){.btn,.list a{transition:box-shadow .18s cubic-bezier(.23,1,.32,1)}}
 '@
 
@@ -149,12 +152,17 @@ $css</style>
 "@
 }
 
+# Páginas legales: se enlazan desde el pie de todas las páginas
+$Legales = [ordered]@{ 'aviso-legal.html' = 'Aviso legal'; 'privacidad.html' = 'Privacidad'; 'cookies.html' = 'Cookies'; 'licencia.html' = 'Licencia y créditos'; 'accesibilidad.html' = 'Accesibilidad' }
+function EnlacesLegales($base, [string]$sep) { ($Legales.Keys | ForEach-Object { "<a href=""$base$_"">$($Legales[$_])</a>" }) -join $sep }
+
 function Pie($base) {
 @"
 <footer>
   <div class="wrap">
     <p><span translate="no">Esplora</span> · Herramientas para explorar en el aula · <a href="mailto:contacto@esplora.es">contacto@esplora.es</a></p>
-    <p>Gratis, en el navegador y sin crear cuentas. Licencia CC BY-NC-SA 4.0.</p>
+    <p>Gratis, en el navegador y sin crear cuentas. <a href="$($base)licencia.html">Licencia CC BY-NC-SA 4.0</a>.</p>
+    <p class="legal">$(EnlacesLegales $base ' · ')</p>
   </div>
 </footer>
 </body>
@@ -302,12 +310,24 @@ if ([regex]::IsMatch($idx, $re)) {
   if ($nuevo -ne $idx) { [IO.File]::WriteAllText($rutaIndex, $nuevo, $utf8); "  escrito   index.html (catálogo)" } else { "  igual     index.html (catálogo)" }
 } else { $avisos.Add('index.html no tiene las marcas <!-- catalogo-generado:inicio --> y :fin: no se ha escrito el catálogo en la portada.') }
 
-# ---------- Herramientas: canonical ----------
+# ---------- Herramientas: pie legal y canonical ----------
 "Herramientas"
+$pieLegal = @"
+<!-- pie-legal:inicio (scripts/generar.ps1) -->
+<nav class="pie-legal" aria-label="Información legal" style="clear:both;max-width:880px;margin:32px auto 0;padding:16px 16px 28px;text-align:center;font:14px/1.6 system-ui,-apple-system,'Segoe UI',sans-serif;color:inherit">$(EnlacesLegales '' ' · ')</nav>
+<style>.pie-legal a{color:inherit;display:inline-block;padding-block:6px;text-underline-offset:3px}@media print{.pie-legal{display:none!important}}</style>
+<!-- pie-legal:fin -->
+"@
 foreach ($e in $entradas) {
   $ruta = Join-Path $Root $e.t.url
   if (-not (Test-Path $ruta)) { $avisos.Add("No existe $($e.t.url) («$($e.id)»)."); continue }
   $txt = [IO.File]::ReadAllText($ruta, $utf8)
+  $nl = if ($txt.Contains("`r`n")) { "`r`n" } else { "`n" }
+  $bloque = $pieLegal.Replace("`r`n", "`n").Replace("`n", $nl)
+  $rePie = '(?s)<!-- pie-legal:inicio.*?<!-- pie-legal:fin -->'
+  $nuevo = if ([regex]::IsMatch($txt, $rePie)) { [regex]::Replace($txt, $rePie, { param($x) $bloque }) }
+           else { $i = $txt.LastIndexOf('</body>'); if ($i -lt 0) { $avisos.Add("$($e.t.url) no tiene </body>: sin pie legal."); $txt } else { $txt.Insert($i, "$bloque$nl") } }
+  if ($nuevo -ne $txt) { $txt = $nuevo; [IO.File]::WriteAllText($ruta, $txt, $utf8); "  pie legal $($e.t.url)" }
   if ($txt -match 'rel="canonical"') { continue }
   $hit = [regex]::Match($txt, '(?m)^([ \t]*)<meta name="description"[^>]*>')
   if (-not $hit.Success) { $hit = [regex]::Match($txt, '(?m)^([ \t]*)<title>[^<]*</title>') }
@@ -323,6 +343,7 @@ $urls = @("$Sitio/")
 foreach ($m in $db.modulos) { if ($entradas | Where-Object { $_.m -eq $m }) { $urls += "$Sitio/$(CarpetaModulo $m)/" } }
 foreach ($e in $entradas) { $urls += "$Sitio/recursos/$($e.t.slug)/" }
 foreach ($e in $entradas) { $urls += "$Sitio/$($e.t.url)" }
+foreach ($l in $Legales.Keys) { if (Test-Path (Join-Path $Root $l)) { $urls += "$Sitio/$l" } }
 $xml = "<?xml version=""1.0"" encoding=""UTF-8""?>`n<urlset xmlns=""http://www.sitemaps.org/schemas/sitemap/0.9"">`n" +
   (($urls | ForEach-Object { "  <url><loc>$_</loc></url>" }) -join "`n") + "`n</urlset>`n"
 Escribir 'sitemap.xml' $xml
