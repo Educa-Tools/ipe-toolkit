@@ -23,9 +23,12 @@ Dentro de cada sesión se trabaja por **bloques**: Claude termina un bloque, me 
 - [ ] URLs reales por materia (`/ipe-1`, `/ipe-2`) y por recurso (`/recursos/<slug>`), sin anclas
 - [ ] Prerender del catálogo; fallback `<noscript>` y estado de carga útil. Prioritario: hoy Google y los buscadores de IA que no ejecutan JavaScript solo ven «Cargando el catálogo…»
 - [ ] `sitemap.xml`, `robots.txt`, canonical
+  > Nota: `robots.txt` hecho (todo abierto, incluidos los asistentes de IA; solo se excluyen `docs/` y los .md internos). Al crear el sitemap hay que añadir su línea `Sitemap:`.
 - [ ] `llms.txt`: lista sencilla de las herramientas, una línea cada una, para los buscadores de IA
-- [ ] Nombres de las herramientas con un único patrón (fuera anglicismos como «Wizard» o «Creator», sin mayúsculas sueltas como «PORTER») y título de pestaña «Nombre claro · Esplora» en las 24
-- [ ] Descripción propia en las 24 herramientas (hoy 17 no tienen)
+- [x] Nombres de las herramientas con un único patrón (fuera anglicismos como «Wizard» o «Creator», sin mayúsculas sueltas como «PORTER») y título de pestaña «Nombre claro · Esplora» en las 24
+  > Nota: títulos de pestaña con la palabra que busca un docente y la norma cuando la hay (p. ej. «Guía del ruido en el trabajo (RD 286/2006) · Esplora»). En el catálogo, «Análisis de Porter» y «Asistente de determinación de contingencias».
+- [x] Descripción propia en las 24 herramientas (hoy 17 no tienen)
+  > Nota: 19 descripciones nuevas o reescritas (unos 150 caracteres, dicen que es gratis); se mantienen las 5 que ya estaban bien (ficha de la idea, pirámide, mapa UE, prestaciones y nóminas).
 - [ ] Open Graph y Twitter cards
   > Nota: la portada ya los tiene; faltan las 24 herramientas y la imagen para compartir (pendiente de la marca).
 - [x] Favicon y página 404 propia
