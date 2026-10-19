@@ -285,6 +285,13 @@
   .btn-small{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;margin-top:6px;cursor:pointer;font-weight:700;font-size:.92rem;color:var(--ink);background:var(--lime-mid);border:1.5px solid var(--ink);border-radius:var(--radius-pill);box-shadow:var(--sticker);}
   .load-msg{background:var(--surface);border:1px dashed var(--ink-muted);border-radius:var(--radius-card);padding:28px;color:var(--ink-soft);text-align:center;}
   .loading{display:flex;align-items:center;justify-content:center;gap:10px;}
+  /* Catálogo ya escrito en la página (scripts/generar.ps1): lo ven los buscadores
+     y quien no tenga JavaScript; al cargar, el catálogo interactivo lo sustituye */
+  .pre-cat{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-card);padding:20px 24px;}
+  .pre-cat h3{font-family:var(--font-display);font-size:1.3rem;margin:8px 0 4px;}
+  .pre-cat h4{font-size:1rem;margin:14px 0 4px;}
+  .pre-cat ul{margin:0;padding-left:20px;color:var(--ink-soft);}
+  .pre-cat a{color:var(--ink);font-weight:600;}
   .loading img{width:20px;height:22px;animation:spin .9s linear infinite;}
   @keyframes spin{to{rotate:360deg;}}
 
@@ -547,7 +554,50 @@
     <div class="filters" id="filters" hidden></div>
     <p class="sr" id="liveCount" role="status" aria-live="polite"></p>
     </div>
-    <div id="stage"><div class="load-msg loading" role="status"><img src="marca/simbolo-oliva.svg" alt="" width="20" height="22">Cargando el catálogo…</div></div>
+    <div id="stage">
+<!-- catalogo-generado:inicio -->
+<div class="pre-cat">
+<section class="pre-mod"><h3><a href="ipe-1/">IPE 1 · Itinerario Personal para la Empleabilidad I</a></h3>
+<h4>Bloque 1 · Prevención de Riesgos Laborales</h4><ul>
+<li><a href="recursos/patologias-inespecificas/">Diagnóstico de patologías inespecíficas</a>: Empareja seis casos con su patología: fatiga, estrés, burnout, mobbing…</li>
+<li><a href="recursos/ruta-articulo-22/">Ruta al Artículo 22</a>: Repaso exprés de los arts. 17 a 21 de la LPRL en formato de niveles con estrellas.</li>
+<li><a href="recursos/simulador-expedientes-prl/">Simulador de expedientes PRL</a>: Resuelve casos reales y justifica cada respuesta con su artículo de la LPRL.</li>
+<li><a href="recursos/enfermedades-profesionales/">Buscador de enfermedades profesionales</a>: Descubre qué enfermedades profesionales del RD 1299/2006 pueden afectar a tu oficio.</li>
+<li><a href="recursos/guia-ruido/">Guía del ruido</a>: Decibelios, los tres escalones del RD 286/2006, simulador de obligaciones y caso práctico para entregar.</li>
+<li><a href="recursos/guia-iluminacion/">Guía de la iluminación</a>: Lumen y lux, los mínimos del Anexo IV del RD 486/1997, comprobador de lux y caso práctico para entregar.</li>
+<li><a href="recursos/guia-vibraciones/">Guía de las vibraciones</a>: Hercios, mano-brazo o cuerpo entero, daños por frecuencia, prevención y caso práctico para entregar.</li>
+<li><a href="recursos/guia-termohigrometricas/">Guía de las condiciones termohigrométricas</a>: Temperatura, humedad y ventilación: valores del Anexo III, comprobador y caso práctico para entregar.</li>
+</ul>
+<h4>Bloque 2 · Derecho del trabajo y Seguridad Social</h4><ul>
+<li><a href="recursos/jerarquia-normativa/">Pirámide de la jerarquía normativa</a>: Las ocho fuentes del Derecho del trabajo con su base legal, los principios que resuelven los conflictos entre normas y diez casos prácticos.</li>
+<li><a href="recursos/mapa-union-europea/">Mapa interactivo de la Unión Europea</a>: Estados miembro, euro y espacio Schengen, país a país.</li>
+<li><a href="recursos/determinacion-contingencias/">Asistente de determinación de contingencias</a>: Recorre el procedimiento: calificación, EVI, INSS, reclamación previa y vía judicial.</li>
+<li><a href="recursos/prestaciones-seguridad-social/">Prestaciones de la Seguridad Social</a>: Incapacidad temporal, nacimiento y desempleo: ficha, comprobador de requisitos, calculadora, casos y glosario.</li>
+<li><a href="recursos/casos-practicos-nominas/">Casos prácticos de nóminas</a>: Cinco casos guiados con datos de 2026: clasificar percepciones, comprobar el SMI, calcular bases, cuotas y líquido, y cazar errores en una nómina.</li>
+</ul>
+</section>
+<section class="pre-mod"><h3><a href="ipe-2/">IPE 2 · Itinerario Personal para la Empleabilidad II</a></h3>
+<h4>Unidad didáctica 1 · Emprendimiento, innovación y sostenibilidad</h4><ul>
+<li><a href="recursos/generador-ideas-negocio/">Generador de ideas de negocio</a>: Encuentra y afina una idea de negocio a partir de tus intereses.</li>
+<li><a href="recursos/ficha-idea-negocio/">Ficha inicial de la idea</a>: Describe tu idea en ocho pasos guiados, con ejemplos y vista previa en directo, y descárgala en una ficha PDF.</li>
+<li><a href="recursos/matriz-estrella/">Matriz Estrella</a>: Evalúa tu idea de negocio y detecta sus puntos fuertes y débiles.</li>
+<li><a href="recursos/modelo-canvas/">Modelo Canvas</a>: Construye tu modelo de negocio bloque a bloque, listo para imprimir.</li>
+</ul>
+<h4>Unidad didáctica 2 · Análisis del entorno, sector y mercado</h4><ul>
+<li><a href="recursos/analisis-pestel/">Análisis PESTEL</a>: Mapa de impacto de los factores del entorno general, con dossier imprimible.</li>
+<li><a href="recursos/cinco-fuerzas-porter/">Análisis de Porter</a>: Las cinco fuerzas que marcan la competencia en tu sector.</li>
+<li><a href="recursos/buyer-persona/">Buyer Persona</a>: Da forma a tu cliente ideal: quién es, qué necesita y cómo llegar a él.</li>
+<li><a href="recursos/dafo-came/">DAFO y CAME</a>: Diagnostica tu proyecto con el DAFO y cruza los resultados con el CAME para decidir qué hacer.</li>
+</ul>
+<h4>Unidad didáctica 3 · La viabilidad del proyecto emprendedor</h4><ul>
+<li><a href="recursos/forma-juridica/">Selector de forma jurídica</a>: Responde unas preguntas y descubre qué forma jurídica encaja mejor con tu proyecto.</li>
+<li><a href="recursos/inversion-financiacion/">Plan de inversión y financiación</a>: Elige lo que necesita tu negocio, calcula la amortización y el colchón de tesorería y cuadra la balanza con la financiación.</li>
+<li><a href="recursos/umbral-rentabilidad/">Umbral de rentabilidad</a>: Calcula el punto muerto con su gráfico, prueba el «¿y si…?» y, si lo vinculas al plan de inversión, el umbral de caja para pagar el préstamo.</li>
+</ul>
+</section>
+</div>
+<!-- catalogo-generado:fin -->
+    </div>
   </div>
 </section>
 

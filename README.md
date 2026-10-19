@@ -37,8 +37,17 @@ Cada recurso toma el tipo de su módulo. Si alguno es de otro tipo (por ejemplo,
    - `guarda`: la clave con la que la herramienta guarda el progreso en el navegador (la que aparece en su código como `KEY = '...'`). Con ella la tarjeta dice "Guarda progreso", y si el alumno ya ha escrito algo, "Empezada"; además sale en "Seguir donde lo dejaste".
    - `informe`: pon `true` si la herramienta saca informe para imprimir o guardar en PDF.
 
+   - `slug`: la dirección de su ficha, `esplora.es/recursos/<slug>/`. En minúsculas, sin tildes y con guiones (`"slug": "cinco-fuerzas-porter"`). **No lo cambies una vez publicado**: rompería los enlaces compartidos.
+
 3. Añade `"miid"` a la lista `"herramientas"` de su unidad (en `modulos`) y de su temática (en `etiquetas`).
-4. Guarda (commit) y sube a `main`. En uno o dos minutos está en la web.
+4. Ejecuta el generador desde la carpeta del proyecto (PowerShell 7, no hay que instalar nada más):
+
+```
+pwsh scripts/generar.ps1
+```
+
+   Crea o actualiza la ficha de la herramienta, las páginas `ipe-1/` e `ipe-2/`, el catálogo escrito dentro de la portada, `sitemap.xml` y `llms.txt`, y añade la etiqueta canonical a la herramienta si le falta. Al final avisa si algo no cuadra (una herramienta sin unidad, un slug repetido…). Los archivos generados no se editan a mano: se cambia el JSON y se vuelve a ejecutar.
+5. Guarda (commit) y sube a `main`. En uno o dos minutos está en la web.
 
 Usa siempre rutas relativas (`archivo.html`, no `/archivo.html`), para que funcionen tanto en `esplora.es` como en la dirección antigua.
 
@@ -48,6 +57,11 @@ Notas:
 - Separa los elementos con **comas**, sin coma después del último. Si la web muestra un aviso de error, casi siempre es eso.
 
 ## Enlaces directos para compartir con la clase
+
+- `https://esplora.es/ipe-1/` e `https://esplora.es/ipe-2/`: página de cada módulo con todos sus recursos.
+- `https://esplora.es/recursos/<slug>/`: ficha de un recurso (por ejemplo, `recursos/cinco-fuerzas-porter/`).
+
+Y dentro del catálogo interactivo de la portada:
 
 - `https://esplora.es/#ipe2` abre IPE 2; `#ipe1` abre IPE 1.
 - `https://esplora.es/#ipe2-ud1` baja a la Unidad didáctica 1 de IPE 2; `#ipe1-b2` baja al Bloque 2 de IPE 1.

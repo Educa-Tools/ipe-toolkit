@@ -20,17 +20,19 @@ Dentro de cada sesión se trabaja por **bloques**: Claude termina un bloque, me 
 
 ## Sesión 1 · Cimientos: rutas + legal · rama `sesion-1-cimientos` (2-3 h)
 **Bloque A · Rutas y SEO** (skills: `/seo-audit`, `/ai-seo`, `/site-architecture`)
-- [ ] URLs reales por materia (`/ipe-1`, `/ipe-2`) y por recurso (`/recursos/<slug>`), sin anclas
-- [ ] Prerender del catálogo; fallback `<noscript>` y estado de carga útil. Prioritario: hoy Google y los buscadores de IA que no ejecutan JavaScript solo ven «Cargando el catálogo…»
-- [ ] `sitemap.xml`, `robots.txt`, canonical
-  > Nota: `robots.txt` hecho (todo abierto, incluidos los asistentes de IA; solo se excluyen `docs/` y los .md internos). Al crear el sitemap hay que añadir su línea `Sitemap:`.
-- [ ] `llms.txt`: lista sencilla de las herramientas, una línea cada una, para los buscadores de IA
+- [x] URLs reales por materia (`/ipe-1`, `/ipe-2`) y por recurso (`/recursos/<slug>`), sin anclas
+  > Nota: las genera `scripts/generar.ps1` desde `data/estructura.json` (campo nuevo `slug`; cómo usarlo en el README). La portada mantiene sus anclas (`#ipe1`…) para el catálogo interactivo y los enlaces ya compartidos; si sus botones pasan a llevar a `/ipe-1/`, se decide al reordenar el menú en la Sesión 2.
+- [x] Prerender del catálogo; fallback `<noscript>` y estado de carga útil. Prioritario: hoy Google y los buscadores de IA que no ejecutan JavaScript solo ven «Cargando el catálogo…»
+  > Nota: la portada lleva el catálogo escrito como lista de enlaces a las fichas (en lugar de «Cargando…»); el JavaScript lo sustituye por el catálogo interactivo al cargar.
+- [x] `sitemap.xml`, `robots.txt`, canonical
+  > Nota: sitemap con 51 direcciones (portada, IPE 1 y 2, 24 fichas, 24 herramientas). Canonical en las herramientas, fichas y páginas de módulo. `robots.txt` todo abierto, incluidos los asistentes de IA; solo excluye `docs/` y los .md internos.
+- [x] `llms.txt`: lista sencilla de las herramientas, una línea cada una, para los buscadores de IA
 - [x] Nombres de las herramientas con un único patrón (fuera anglicismos como «Wizard» o «Creator», sin mayúsculas sueltas como «PORTER») y título de pestaña «Nombre claro · Esplora» en las 24
   > Nota: títulos de pestaña con la palabra que busca un docente y la norma cuando la hay (p. ej. «Guía del ruido en el trabajo (RD 286/2006) · Esplora»). En el catálogo, «Análisis de Porter» y «Asistente de determinación de contingencias».
 - [x] Descripción propia en las 24 herramientas (hoy 17 no tienen)
   > Nota: 19 descripciones nuevas o reescritas (unos 150 caracteres, dicen que es gratis); se mantienen las 5 que ya estaban bien (ficha de la idea, pirámide, mapa UE, prestaciones y nóminas).
 - [ ] Open Graph y Twitter cards
-  > Nota: la portada ya los tiene; faltan las 24 herramientas y la imagen para compartir (pendiente de la marca).
+  > Nota: los tienen la portada, las fichas y las páginas de módulo; faltan las 24 herramientas y la imagen para compartir (pendiente de la marca).
 - [x] Favicon y página 404 propia
   > Nota: hechos fuera del plan con el logotipo nuevo (commits 3212ed2, ec39eb8 y adee401).
 - [ ] Dar de alta esplora.es en Google Search Console (lo hace el autor; si se verifica por DNS, se toca Cloudflare con confirmación)

@@ -8,3 +8,5 @@ Disallow: /docs/
 Disallow: /CLAUDE.md
 Disallow: /PLAN.md
 Disallow: /README.md
+
+Sitemap: https://esplora.es/sitemap.xml
