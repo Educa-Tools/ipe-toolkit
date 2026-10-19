@@ -123,19 +123,25 @@
   .pick-tx small{font-size:.86rem;color:var(--ink-soft);line-height:1.4;}
   .pick-go{display:flex;color:var(--ink);transition:translate .18s var(--ease-out);}
   .pick-go svg{width:18px;height:18px;}
+  /* Con el teclado, la opción con el foco se resalta igual que al pasar el ratón */
+  .pick:focus-visible{background:var(--olive-deep);color:var(--bg);}
+  .pick:focus-visible .pick-tx small,.pick:focus-visible .pick-go{color:var(--bg);}
   .all-link{display:inline-flex;align-items:center;min-height:44px;margin:2px 0 0 22px;font-weight:600;font-size:.95rem;color:var(--ink);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:6px;font-variant-numeric:tabular-nums;}
   .doodle{fill:none;stroke:var(--olive-deep);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
   .draw{stroke-dasharray:140;stroke-dashoffset:140;}
 
   /* Tres miniaturas de herramientas bajo el selector: en fila, sin superponerse */
-  .minis{list-style:none;margin:22px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;}
+  .minis{list-style:none;margin:22px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;}
   .minis:empty{display:none;}
   .minis li{display:flex;}
-  .mini{flex:1;display:flex;flex-direction:column;overflow:hidden;text-decoration:none;color:var(--ink);background:var(--bg);border-radius:10px;box-shadow:3px 3px 0 var(--olive-deep);}
-  .mini-bar{display:flex;align-items:center;height:16px;padding:0 8px;background:var(--c);color:#fff;}
-  .mini-bar svg{width:8px;height:8px;}
-  .mini .clip-art{width:auto;max-width:none;margin:10px 10px 0;}
-  .mini-t{padding:6px 10px 10px;font-size:.76rem;font-weight:700;line-height:1.3;}
+  /* Las mismas tarjetas del catálogo, resumidas: barra, módulo, titular y dibujo */
+  .mini{flex:1;display:flex;flex-direction:column;overflow:hidden;text-decoration:none;color:var(--ink);background:var(--bg);border:var(--frame);border-radius:10px;box-shadow:3px 3px 0 var(--olive-deep);}
+  .mini .clip-bar{font-size:.58rem;padding:5px 8px;}
+  .mini .clip-bar > span:last-child{display:none;}
+  .mini .clip-body{gap:4px;padding:8px 9px 10px;}
+  .mini .clip-kick{font-size:.54rem;letter-spacing:.1em;}
+  .mini .clip-h{font-size:.84rem;line-height:1.15;letter-spacing:-.2px;}
+  .mini .clip-art{margin-top:auto;padding-top:6px;}
   /* El único momento de entrada de la página: los separadores se deslizan desde el borde, en cascada */
   .pick-tag{animation:tab .55s var(--ease-out) backwards;}
   .picker-list li:nth-child(1) .pick-tag{animation-delay:.15s;}
@@ -416,7 +422,8 @@
   @media (hover:hover) and (pointer:fine){
     .nav-links a:hover{background:var(--lime-soft);}
     .nav-links a.nav-cta:hover{background:var(--olive-deep);}
-    .pick:hover{background:var(--surface);}
+    .pick:hover{background:var(--olive-deep);color:var(--bg);}
+    .pick:hover .pick-tx small,.pick:hover .pick-go{color:var(--bg);}
     .pick:hover .pick-go{translate:3px 0;}
     .pick:hover .pick-tag{translate:-6px 0;}
     .mini:hover{translate:0 -3px;box-shadow:4px 5px 0 var(--c);}
@@ -483,7 +490,7 @@
          y, debajo, tres miniaturas de herramientas variadas (se rellenan desde el catálogo) -->
     <div class="desk" id="desk">
     <div class="picker" role="navigation" aria-labelledby="picker-t">
-      <h2 class="picker-q" id="picker-t">¿Con qué materia trabajas?</h2>
+      <h2 class="picker-q" id="picker-t">¿Con qué módulo trabajas?</h2>
       <ul class="picker-list">
         <li><a class="pick" href="#ipe1">
           <span class="pick-tag t1">IPE 1</span>
@@ -1036,9 +1043,12 @@ const MINIS = ['guiaruido', 'piramide', 'inversion'];
 function renderMinis(){
   document.getElementById('minis').innerHTML = MINIS.map(id=>({id, ...DB.tools[id]})).filter(t=>t.url).map(t=>
     `<li><a class="mini" style="--c:${t.color||'#6B7028'}" href="${t.url}">
-      <span class="mini-bar" aria-hidden="true"><svg viewBox="28.5 14.5 340.8 372.5"><use href="#simbolo"/></svg></span>
-      ${art(t)}
-      <span class="mini-t">${t.titulo}</span>
+      ${winBar(t)}
+      <span class="clip-body">
+        <span class="clip-kick">${DB.where[t.id]||''}</span>
+        <span class="clip-h">${t.titular||t.titulo}</span>
+        ${art(t)}
+      </span>
     </a></li>`).join('');
 }
 function fillPicker(){
