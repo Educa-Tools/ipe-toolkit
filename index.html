@@ -36,8 +36,8 @@
   .catalog a,.catalog button{scroll-margin-top:calc(var(--nav-h) + 100px);}
 
   /* Todo lo que se pulsa responde con un leve hundimiento */
-  .pick,.mini,.clip,.tool-card,.btn-small,.seg a,.nav-links a,.resume-item,.unit-chip,.copy-link,.contact-item.is-live{transition-property:background-color,color,box-shadow,translate,rotate,scale,border-color;transition-duration:.18s;transition-timing-function:var(--ease-out);}
-  .pick:active,.btn-small:active,.seg a:active,.nav-links a:active,.unit-chip:active,.copy-link:active,.contact-item.is-live:active{scale:.97;}
+  .door,.other,.mini,.clip,.tool-card,.btn-small,.seg a,.nav-links a,.resume-item,.unit-chip,.copy-link,.contact-item.is-live{transition-property:background-color,color,box-shadow,translate,rotate,scale,border-color;transition-duration:.18s;transition-timing-function:var(--ease-out);}
+  .door:active,.other:active,.btn-small:active,.seg a:active,.nav-links a:active,.unit-chip:active,.copy-link:active,.contact-item.is-live:active{scale:.97;}
   .tool-card:active,.clip:active,.resume-item:active{scale:.98;}
 
   /* ---------- Barra superior flotante (píldora) ---------- */
@@ -78,26 +78,36 @@
   .hero-resume{margin:20px 0 0;font-size:.95rem;color:var(--ink-soft);}
   .hero-resume a{color:var(--ink);font-weight:700;text-underline-offset:4px;}
 
-  /* Selector de materia: un índice de cuaderno. Cada materia es un separador cuya pestaña asoma por el borde */
-  .picker{position:relative;background:var(--bg);border-radius:16px;box-shadow:var(--sticker);padding:18px 18px 6px 0;}
-  .picker-q{font-family:var(--font-display);font-weight:600;font-size:1.2rem;line-height:1.2;margin:0 0 12px 22px;letter-spacing:-.2px;}
-  .picker-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px;}
-  .pick{display:grid;grid-template-columns:78px 1fr auto;align-items:center;gap:14px;min-height:60px;padding:6px 10px 6px 0;text-decoration:none;color:var(--ink);border-radius:0 12px 12px 0;}
-  /* La pestaña: sale 14px por fuera de la hoja y se estira un poco más al pasar por encima */
-  .pick-tag{display:flex;align-items:center;justify-content:center;height:46px;margin-left:-14px;border-radius:10px 4px 4px 10px;background:var(--tc);color:var(--tx);font-family:var(--font-display);font-weight:700;font-size:1.18rem;line-height:1;letter-spacing:-.4px;white-space:nowrap;transition:translate .22s var(--ease-out);}
-  .pick-tag svg{width:26px;height:26px;}
-  .t1{--tc:var(--olive-deep);--tx:var(--bg);}
-  .t2{--tc:var(--olive-mid);--tx:var(--ink);}
-  .t3{--tc:var(--lime-soft);--tx:var(--ink);}
-  .pick-tx{display:flex;flex-direction:column;min-width:0;}
-  .pick-tx b{font-weight:700;font-size:.97rem;line-height:1.3;text-wrap:balance;}
-  .pick-tx small{font-size:.86rem;color:var(--ink-soft);line-height:1.4;}
-  .pick-go{display:flex;color:var(--ink);transition:translate .18s var(--ease-out);}
-  .pick-go svg{width:18px;height:18px;}
-  /* Con el teclado, la opción con el foco se resalta igual que al pasar el ratón */
-  .pick:focus-visible{background:var(--olive-deep);color:var(--bg);}
-  .pick:focus-visible .pick-tx small,.pick:focus-visible .pick-go{color:var(--bg);}
-  .all-link{display:inline-flex;align-items:center;min-height:44px;margin:2px 0 0 22px;font-weight:600;font-size:.95rem;color:var(--ink);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:6px;font-variant-numeric:tabular-nums;}
+  /* Selector de módulo: una tarjeta grande por módulo. Las esporas de colores son sus herramientas, una por herramienta y con su color */
+  .picker{color:var(--bg);}
+  .picker-q{font-family:var(--font-display);font-weight:600;font-size:1.35rem;line-height:1.2;letter-spacing:-.01em;margin:0 0 16px;}
+  .doors{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .doors li{display:flex;}
+  .door{flex:1;display:flex;flex-direction:column;min-height:212px;padding:18px 18px 16px;border-radius:var(--radius-card);text-decoration:none;border:var(--frame);box-shadow:4px 4px 0 var(--sh);}
+  .door-1{background:var(--olive-deep);color:var(--bg);--sh:var(--lime-mid);--sb:var(--bg);}
+  .door-2{background:var(--lime-mid);color:var(--ink);--sh:var(--olive-mid);--sb:var(--ink);}
+  .door-tag{font-family:var(--font-display);font-weight:800;font-size:2.3rem;line-height:.95;letter-spacing:-.03em;}
+  .door-lema{font-family:var(--font-display);font-style:italic;font-weight:500;font-size:1.05rem;line-height:1.2;margin-top:4px;}
+  .door-desc{font-size:.84rem;line-height:1.4;margin-top:10px;}
+  .door-foot{margin-top:auto;padding-top:14px;display:flex;flex-direction:column;align-items:flex-start;gap:8px;}
+  .spores{display:flex;flex-wrap:wrap;gap:4px;}
+  .spores i{width:11px;height:11px;border-radius:50% 50% 50% 4px;background:var(--s);border:1.5px solid var(--sb);transition:translate .3s var(--ease-out);transition-delay:calc(var(--k) * 18ms);}
+  .door-n{font-size:.8rem;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap;}
+  /* La tercera puerta, para quien da otra materia: ancha y en verde pálido, para que se vea sin competir con los módulos */
+  .other{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;margin-top:14px;min-height:64px;padding:12px 16px;border-radius:var(--radius-card);border:var(--frame);background:var(--lime-soft);color:var(--ink);text-decoration:none;box-shadow:4px 4px 0 var(--olive-mid);}
+  .other-ic{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--bg);border:var(--frame);}
+  .other-ic svg{width:22px;height:22px;}
+  .other b{display:block;font-family:var(--font-display);font-weight:700;font-size:1.1rem;line-height:1.2;}
+  .other small{display:block;font-size:.84rem;color:var(--ink-soft);line-height:1.35;}
+  .other-go{display:flex;transition:translate .18s var(--ease-out);}
+  .other-go svg{width:18px;height:18px;}
+  .door:focus-visible,.other:focus-visible{outline-offset:4px;}
+  .all-link{display:inline-flex;align-items:center;min-height:44px;margin-top:10px;font-weight:600;font-size:.95rem;color:var(--bg);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:6px;font-variant-numeric:tabular-nums;}
+  @media (max-width:480px){
+    .door{min-height:0;padding:16px 14px 14px;}
+    .door-tag{font-size:2rem;}
+    .door-desc{display:none;}
+  }
   .doodle{fill:none;stroke:var(--olive-deep);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
   .draw{stroke-dasharray:140;stroke-dashoffset:140;}
 
@@ -112,12 +122,9 @@
   .mini .clip-kick{font-size:.58rem;letter-spacing:.12em;}
   .mini .clip-h{font-size:.98rem;line-height:1.14;letter-spacing:-.3px;}
   .mini .clip-art{margin-top:auto;padding-top:6px;}
-  /* El único momento de entrada de la página: los separadores se deslizan desde el borde, en cascada */
-  .pick-tag{animation:tab .55s var(--ease-out) backwards;}
-  .picker-list li:nth-child(1) .pick-tag{animation-delay:.15s;}
-  .picker-list li:nth-child(2) .pick-tag{animation-delay:.24s;}
-  .picker-list li:nth-child(3) .pick-tag{animation-delay:.33s;}
-  @keyframes tab{from{translate:12px 0;}}
+  /* El único momento de entrada de la página: las esporas de cada módulo brotan una tras otra */
+  .spores i{animation:brota .4s var(--ease-out) backwards;animation-delay:calc(.25s + var(--k) * 35ms);}
+  @keyframes brota{from{scale:0;}}
   @keyframes ink{to{stroke-dashoffset:0;}}
   @keyframes fade{from{opacity:0;}}
   /* Al filtrar, las tarjetas entran con un fundido corto y escalonado: se ve que el catálogo ha cambiado */
@@ -127,15 +134,8 @@
     .hero{padding-block:32px 64px;}
     .hero-grid{grid-template-columns:1fr;row-gap:32px;}
     .desk,.hero-more{grid-column:auto;grid-row:auto;}
-    .desk{max-width:440px;margin-left:12px;}
+    .desk{max-width:440px;}
     .h1-sub{margin-top:16px;}
-  }
-  @media (max-width:520px){
-    .picker{padding:18px 14px 8px 0;}
-    .picker-q{margin-left:16px;}
-    .all-link{margin-left:16px;}
-    .pick{grid-template-columns:58px 1fr auto;gap:12px;}
-    .pick-tag{font-size:1rem;height:44px;margin-left:-10px;}
   }
 
   /* ---------- Cabecera en tinta: la tapa del cuaderno (el pie es la contratapa) ---------- */
@@ -149,7 +149,6 @@
   .hero-resume{color:var(--lime-soft);}
   .hero-resume a{color:var(--surface);}
   /* Sobre la tinta, la sombra de pegatina pasa a oliva */
-  .hero .picker{color:var(--ink);box-shadow:5px 5px 0 var(--olive-deep);}
   @media (max-width:980px){.hero{padding-top:calc(32px + var(--nav-h));}}
   /* ---------- Secciones ---------- */
   section.block{padding-block:104px;}
@@ -404,12 +403,12 @@
   @media (hover:hover) and (pointer:fine){
     .nav-links a:hover{background:var(--lime-soft);}
     .nav-links a.nav-cta:hover{background:var(--olive-deep);}
-    .pick:hover{background:var(--olive-deep);color:var(--bg);}
-    .pick:hover .pick-tx small,.pick:hover .pick-go{color:var(--bg);}
-    .pick:hover .pick-go{translate:3px 0;}
-    .pick:hover .pick-tag{translate:-6px 0;}
+    .door:hover{translate:-2px -4px;box-shadow:7px 8px 0 var(--sh);}
+    .door:hover .spores i{translate:0 -3px;}
+    .other:hover{translate:-2px -2px;box-shadow:6px 6px 0 var(--olive-mid);}
+    .other:hover .other-go{translate:3px 0;}
     .mini:hover{translate:0 -3px;box-shadow:4px 5px 0 var(--c);}
-    .all-link:hover{color:var(--olive-deep);}
+    .all-link:hover{color:var(--lime-mid);}
     .seg a:not([aria-current="true"]):hover{background:var(--lime-soft);color:var(--ink);}
     .search-clear:hover{background:var(--lime-soft);color:var(--ink);}
     .dd:hover{background:var(--lime-soft);}
@@ -473,23 +472,25 @@
     <div class="desk" id="desk">
     <div class="picker" role="navigation" aria-labelledby="picker-t">
       <h2 class="picker-q" id="picker-t">¿Con qué módulo trabajas?</h2>
-      <ul class="picker-list">
-        <li><a class="pick" href="#ipe1">
-          <span class="pick-tag t1">IPE 1</span>
-          <span class="pick-tx"><b>Prevención de riesgos, Derecho del trabajo y Seguridad Social</b></span>
-          <span class="pick-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+      <ul class="doors">
+        <li><a class="door door-1" href="#ipe1">
+          <span class="door-tag">IPE 1</span>
+          <span class="door-lema">Trabajo por cuenta ajena</span>
+          <span class="door-desc">Prevención de riesgos, Derecho del trabajo y Seguridad Social</span>
+          <span class="door-foot"><span class="spores" data-mod="ipe1" aria-hidden="true"></span><span class="door-n" data-n-mod="ipe1">11 herramientas</span></span>
         </a></li>
-        <li><a class="pick" href="#ipe2">
-          <span class="pick-tag t2">IPE 2</span>
-          <span class="pick-tx"><b>Idea de negocio, viabilidad y empleabilidad</b></span>
-          <span class="pick-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
-        </a></li>
-        <li><a class="pick" href="#tematicas">
-          <span class="pick-tag t3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><polygon points="14.5,9.5 10.5,10.5 9.5,14.5 13.5,13.5"/></svg></span>
-          <span class="pick-tx"><b>Doy otra materia</b><small>Busca por temática</small></span>
-          <span class="pick-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        <li><a class="door door-2" href="#ipe2">
+          <span class="door-tag">IPE 2</span>
+          <span class="door-lema">Emprendimiento</span>
+          <span class="door-desc">Idea de negocio, viabilidad y empleabilidad</span>
+          <span class="door-foot"><span class="spores" data-mod="ipe2" aria-hidden="true"></span><span class="door-n" data-n-mod="ipe2">9 herramientas</span></span>
         </a></li>
       </ul>
+      <a class="other" href="#tematicas">
+        <span class="other-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg></span>
+        <span><b>¿Das otra materia?</b><small>Busca por temática: idea de negocio, mercado, prevención…</small></span>
+        <span class="other-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
       <a class="all-link" href="#catalogo" id="allLink">Ver todo el catálogo</a>
     </div>
     <ul class="minis" id="minis" aria-label="Algunas herramientas"></ul>
@@ -1069,7 +1070,14 @@ function renderMinis(){
 }
 function fillPicker(){
   const total = DB.order.filter(id=>DB.tools[id].url).length;
-  document.getElementById('allLink').textContent = `Ver todo el catálogo (${total})`;
+  // Esporas de cada módulo: una por herramienta, con su color, en el orden de sus unidades
+  for(const m of DB.mods){
+    const ids = [...new Set(m.unidades.flatMap(u=>u.herramientas||[]))].filter(id=>DB.tools[id] && DB.tools[id].url);
+    const box = document.querySelector(`.spores[data-mod="${m.id}"]`);
+    if(box) box.innerHTML = ids.map((id,k)=>`<i style="--s:${DB.tools[id].color||'#6B7028'};--k:${k}"></i>`).join('');
+    const n = document.querySelector(`[data-n-mod="${m.id}"]`);
+    if(n) n.textContent = plural(ids.length,'herramienta','herramientas');
+  }
 }
 function renderKinds(){
   const tipos = tiposConRecursos();
