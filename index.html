@@ -71,6 +71,8 @@
   .wordmark{display:block;width:clamp(240px,40vw,460px);height:auto;}
   .h1-sub{display:block;margin-top:22px;font-family:var(--font-display);font-weight:500;font-size:clamp(1.45rem,2.7vw,2.05rem);line-height:1.18;letter-spacing:-.4px;max-width:25ch;text-wrap:balance;}
   .hero-lede{font-size:1.12rem;line-height:1.65;color:var(--ink-soft);max-width:46ch;margin:0;}
+  /* Lo práctico, justo debajo: gratis, para quién y qué se lleva el alumnado */
+  .hero-facts{font-size:1rem;line-height:1.6;max-width:46ch;margin:16px 0 0;font-weight:500;}
   .hero-resume{margin:20px 0 0;font-size:.95rem;color:var(--ink-soft);}
   .hero-resume a{color:var(--ink);font-weight:700;text-underline-offset:4px;}
 
@@ -139,6 +141,7 @@
   .hero :focus-visible{outline-color:var(--lime-mid);}
   .hero .h1-sub{color:var(--bg);}
   .hero-lede{color:var(--lime-soft);}
+  .hero-facts{color:var(--bg);}
   .hero-resume{color:var(--lime-soft);}
   .hero-resume a{color:var(--surface);}
   /* Sobre la tinta, la sombra de pegatina pasa a oliva */
@@ -315,7 +318,6 @@
   .kind-icon{grid-row:span 3;width:52px;height:52px;border-radius:14px;border:var(--frame);background:var(--lime-soft);color:var(--olive-deep);display:flex;align-items:center;justify-content:center;rotate:-4deg;}
   .kind:nth-child(2) .kind-icon{rotate:3deg;}
   .kind-icon svg{width:24px;height:24px;}
-  .kind.soon .kind-icon{background:var(--surface);border-style:dashed;}
   .kind h3{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;font-family:var(--font-display);font-size:1.45rem;font-weight:700;margin:0;line-height:1.2;}
   .kind h3 small{font-family:var(--font-ui);font-size:.82rem;font-weight:700;color:var(--ink-soft);font-variant-numeric:tabular-nums;}
   .kind p{margin:0;color:var(--ink-soft);}
@@ -365,7 +367,6 @@
   .contact-item .ct span{display:block;font-weight:700;font-size:1.05rem;overflow-wrap:break-word;word-break:normal;}
   a.contact-item{color:inherit;text-decoration:none;}
   .contact-item.is-live{border-style:solid;border-color:var(--ink);}
-  .soon-badge{flex:none;font-size:.75rem;font-weight:700;background:var(--lime-mid);color:var(--ink);border-radius:var(--radius-pill);padding:4px 10px;}
 
   /* ---------- Pie de página: el cierre del cuaderno, en tinta ---------- */
   footer{position:relative;overflow:hidden;background:var(--ink) url(marca/mosaico-claro.svg) center top / 112px 112px;color:var(--lime-soft);padding-top:88px;}
@@ -478,7 +479,7 @@
         </a></li>
         <li><a class="pick" href="#tematicas">
           <span class="pick-tag t3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><polygon points="14.5,9.5 10.5,10.5 9.5,14.5 13.5,13.5"/></svg></span>
-          <span class="pick-tx"><b>Doy otra materia</b><small>Busca por temática o por tipo de recurso</small></span>
+          <span class="pick-tx"><b>Doy otra materia</b><small>Busca por temática</small></span>
           <span class="pick-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
         </a></li>
       </ul>
@@ -489,6 +490,7 @@
 
     <div class="hero-more">
       <p class="hero-lede">Esplora nace dentro del aula con un objetivo claro: impulsar al alumnado a trabajar los contenidos de forma interactiva, probando, equivocándose y aprendiendo por el camino.</p>
+      <p class="hero-facts">Gratis, para IPE 1 e IPE 2 de FP. El alumnado lo abre en el navegador sin crear cuentas, guarda su trabajo y, en <span data-n="informe">13</span> de las <span data-n="total">20</span> herramientas, se lleva un informe para entregar.</p>
       <p class="hero-resume" id="heroResume" hidden></p>
     </div>
   </div>
@@ -498,7 +500,7 @@
   <div class="wrap">
     <div class="cat-head">
       <h2 class="sec-title" id="explorar-t"><span class="ink-under" id="inkUnder">El catálogo.<svg viewBox="0 0 300 14" preserveAspectRatio="none" aria-hidden="true"><path class="doodle draw" d="M3 9C60 4 140 3 200 6S280 10 297 5"/></svg></span></h2>
-      <p class="sec-lede">Entra por tu materia o mira todo el catálogo y fíltralo por temática y por tipo de recurso.</p>
+      <p class="sec-lede">Entra por tu materia o mira todo el catálogo y fíltralo por temática.</p>
     </div>
     <!-- Solo aparece si en este navegador hay trabajo guardado en algún recurso -->
     <div class="resume" id="seguir" hidden></div>
@@ -568,7 +570,7 @@
 <section class="block kinds" id="recursos" aria-labelledby="recursos-t">
   <div class="wrap kinds-grid">
     <div>
-      <h2 class="sec-title" id="recursos-t">Tres tipos de recurso.</h2>
+      <h2 class="sec-title" id="recursos-t">Herramientas interactivas.</h2>
       <p class="sec-lede">Todo funciona en el navegador del aula o del móvil, sin instalar nada y sin crear cuentas.</p>
     </div>
     <ul class="kind-list" id="kindList"></ul>
@@ -594,7 +596,7 @@
         <span class="step-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1-4.5L15.5 5a2 2 0 0 1 3 0l.5.5a2 2 0 0 1 0 3L8.5 19z"/><line x1="13.5" y1="7" x2="17" y2="10.5"/></svg></span>
         <span class="step-when">Durante la clase</span>
         <h3>Probar y equivocarse</h3>
-        <p>Hay margen para corregir y una segunda visión antes de dar una respuesta por buena.</p>
+        <p>Hay margen para equivocarse. En los casos de nóminas, por ejemplo, un error abre una pista y otro intento, y tras dos fallos se puede ver la solución.</p>
       </li>
       <li class="step">
         <span class="step-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h10a1 1 0 0 1 1 1v17l-6-4-6 4V4a1 1 0 0 1 1-1z"/></svg></span>
@@ -606,7 +608,7 @@
         <span class="step-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><rect x="7" y="14" width="10" height="7" fill="#E8EDC4"/></svg></span>
         <span class="step-when">Para entregar</span>
         <h3>Imprimir el informe</h3>
-        <p>Muchas herramientas generan un informe listo para imprimir o guardar en PDF.</p>
+        <p><span data-n="informe">13</span> de las <span data-n="total">20</span> herramientas generan un informe listo para imprimir o guardar en PDF.</p>
       </li>
     </ol>
   </div>
@@ -700,7 +702,7 @@ const ICONS = {
 };
 const icon = n => '<svg class="ic ic-'+n+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'+(ICONS[n]||'')+'</svg>';
 // Icono de cada tipo de recurso (los ids están en "tipos" de data/estructura.json)
-const KIND_ICON = {herramienta:'grid', aula:'book', material:'slides'};
+const KIND_ICON = {herramienta:'grid', material:'slides'};
 
 // Mini dibujos a línea fina (160 x 56), uno por herramienta. var(--c) es el color de cada herramienta.
 // Para una herramienta nueva: elige uno de estos nombres en su "dibujo" o añade aquí uno nuevo.
@@ -748,10 +750,12 @@ const stage = document.getElementById('stage');
 const pad = n => String(n).padStart(2,'0');
 const plural = (n, sing, plu) => n + ' ' + (n===1 ? sing : plu);
 
-const UNIT_DEF = {sing:'Unidad didáctica', plural:'unidades didácticas', abrev:'UD', este:'esta'};
+const UNIT_DEF = {sing:'Unidad didáctica', plural:'unidades didácticas', abrev:'UD', corto:'Unidad', este:'esta'};
 const unitWord = m => ({...UNIT_DEF, ...(m && m.nomUnidad || {})});
 const toolsOf = ids => (ids||[]).map(id=>({id, ...DB.tools[id]})).filter(t=>t.url);
 const tipoById = id => DB.tipos.find(x=>x.id===id);
+// Solo se muestran los tipos que ya tienen algún recurso: lo que no existe no se enseña
+const tiposConRecursos = () => DB.tipos.filter(tp=>DB.order.some(id=>DB.tipo[id]===tp.id && DB.tools[id].url));
 const tipoName = (tp, n) => n===1 ? tp.sing.toLowerCase() : tp.nombre.toLowerCase();
 
 function load(json){
@@ -763,12 +767,12 @@ function load(json){
   // Texto en el que busca el buscador: nombre, descripción, módulo, unidad, tipo y temática de cada recurso
   const addText = (id, s) => { DB.text[id] = (DB.text[id]||'') + ' ' + norm(s); };
   Object.entries(DB.tools).forEach(([id,t])=>{
-    addText(id, [t.titulo, t.titular, t.descripcion].join(' '));
+    addText(id, [t.titulo, t.titular, t.pregunta, t.descripcion].join(' '));
     if(t.tipo) DB.tipo[id] = t.tipo;   // un recurso puede indicar su propio tipo
   });
   DB.mods.forEach(m=>m.unidades.forEach(u=>(u.herramientas||[]).forEach(id=>{
     if(!DB.tools[id]) return;
-    if(!DB.where[id]) DB.where[id] = m.tag+' · '+unitWord(m).abrev+u.n;
+    if(!DB.where[id]) DB.where[id] = m.tag+' · '+unitWord(m).corto+' '+u.n;
     if(!DB.tipo[id] && m.tipo) DB.tipo[id] = m.tipo;  // si no, hereda el de su módulo
     if(!DB.order.includes(id)) DB.order.push(id);
     addText(id, [m.tag, m.nombre, unitWord(m).sing, u.titulo].join(' '));
@@ -829,7 +833,7 @@ function toolCards(list){
       ${winBar(t)}
       <span class="clip-body">
         <span class="clip-kick">${DB.where[t.id]||''}</span>
-        <span class="clip-h">${t.titular||t.titulo}</span>
+        <span class="clip-h">${t.pregunta||t.titular||t.titulo}</span>
         ${art(t)}
         ${t.descripcion ? `<span class="win-desc">${t.descripcion}</span>` : ''}
         ${toolMeta(t)}
@@ -856,14 +860,14 @@ function filtersHTML(n){
   const count = patch => DB.order.filter(id=>matches(id, {...f, ...patch})).length;
   const optTema = [{id:'all', nombre:'Todas'}, ...DB.tags].map(x=>
     `<option value="${x.id}"${S.tag===x.id?' selected':''}>${x.nombre}${x.id==='all' ? '' : ' ('+count({tag:x.id})+')'}</option>`).join('');
-  const optTipo = [{id:'all', nombre:'Todos'}, ...DB.tipos].map(x=>{
-    const soon = x.proximamente && !DB.order.some(id=>DB.tipo[id]===x.id);
-    return `<option value="${x.id}"${S.tipo===x.id?' selected':''}>${x.nombre}${x.id==='all' ? '' : soon ? ' (próximamente)' : ' ('+count({tipo:x.id})+')'}</option>`;
-  }).join('');
+  // Con un solo tipo con recursos, el desplegable de tipo no aporta nada y no se muestra
+  const tipos = tiposConRecursos();
+  const optTipo = [{id:'all', nombre:'Todos'}, ...tipos].map(x=>
+    `<option value="${x.id}"${S.tipo===x.id?' selected':''}>${x.nombre}${x.id==='all' ? '' : ' ('+count({tipo:x.id})+')'}</option>`).join('');
   const q = S.q.trim();
   const filtered = S.tag!=='all' || S.tipo!=='all';
   return `<label class="dd${S.tag!=='all'?' on':''}"><span>Temática</span><select id="fTema" data-key="tag">${optTema}</select>${CHEVRON}</label>
-    <label class="dd${S.tipo!=='all'?' on':''}"><span>Tipo</span><select id="fTipo" data-key="tipo" aria-label="Tipo de recurso">${optTipo}</select>${CHEVRON}</label>
+    ${tipos.length>1 ? `<label class="dd${S.tipo!=='all'?' on':''}"><span>Tipo</span><select id="fTipo" data-key="tipo" aria-label="Tipo de recurso">${optTipo}</select>${CHEVRON}</label>` : ''}
     <div class="filters-end">
       <p class="res-count" aria-hidden="true">${plural(n,'resultado','resultados')}${q ? ` para <mark>${esc(q)}</mark>` : ''}</p>
       ${filtered ? '<button type="button" class="link-btn" data-reset>Quitar filtros</button>' : ''}
@@ -886,14 +890,9 @@ function exploreView(){
   if(list.length){
     body = (S.tag==='all' && !q) ? groupedCards(list) : toolCards(list);
   } else {
-    // Sin resultados: o es un tipo que aún no tiene nada, o la combinación de filtros no encaja
-    const tp = tipoById(S.tipo);
-    if(tp && !DB.order.some(id=>DB.tipo[id]===tp.id)){
-      body = `<div class="empty"><h3>${icon(KIND_ICON[tp.id]||'tool')}${tp.nombre}: próximamente</h3><p>${tp.descripcion||''}</p><button type="button" class="btn-small" data-reset>Ver todo el catálogo</button></div>`;
-    } else {
-      const why = q ? `Nada coincide con «${esc(q)}» con estos filtros. Prueba con otra palabra o quita los filtros.` : 'No hay recursos con esta combinación de temática y tipo. Cambia uno de los dos desplegables.';
-      body = `<div class="empty"><h3>${icon('search')}Ningún resultado</h3><p>${why}</p><button type="button" class="btn-small" data-reset>Quitar filtros</button></div>`;
-    }
+    // Sin resultados: la combinación de búsqueda y filtros no encaja
+    const why = q ? `Nada coincide con «${esc(q)}» con estos filtros. Prueba con otra palabra o quita los filtros.` : 'No hay recursos con esta combinación de filtros. Cambia alguno de los desplegables.';
+    body = `<div class="empty"><h3>${icon('search')}Ningún resultado</h3><p>${why}</p><button type="button" class="btn-small" data-reset>Quitar filtros</button></div>`;
   }
   return {n:list.length, filters:filtersHTML(list.length), body};
 }
@@ -999,7 +998,9 @@ function findRoute(h){
   if(h==='tematicas') return {view:'todo', tag:'all', tipo:'all', focus:true};
   let r;
   if((r = h.match(/^tema-(.+)$/)) && DB.tags.some(x=>x.id===r[1])) return {view:'todo', tag:r[1], tipo:'all'};
-  if((r = h.match(/^tipo-(.+)$/)) && DB.tipos.some(x=>x.id===r[1])) return {view:'todo', tag:'all', tipo:r[1]};
+  if((r = h.match(/^tipo-(.+)$/)) && tiposConRecursos().some(x=>x.id===r[1])) return {view:'todo', tag:'all', tipo:r[1]};
+  // Enlaces antiguos (#tipo-aula, o un tipo aún sin recursos): todo el catálogo
+  if(/^tipo-/.test(h)) return {view:'todo', tag:'all', tipo:'all'};
   return null;
 }
 function applyRoute(){
@@ -1054,7 +1055,7 @@ function renderMinis(){
       ${winBar(t)}
       <span class="clip-body">
         <span class="clip-kick">${DB.where[t.id]||''}</span>
-        <span class="clip-h">${t.titular||t.titulo}</span>
+        <span class="clip-h">${t.pregunta||t.titular||t.titulo}</span>
         ${art(t)}
       </span>
     </a></li>`).join('');
@@ -1064,15 +1065,25 @@ function fillPicker(){
   document.getElementById('allLink').textContent = `Ver todo el catálogo (${total})`;
 }
 function renderKinds(){
-  document.getElementById('kindList').innerHTML = DB.tipos.map(tp=>{
+  const tipos = tiposConRecursos();
+  const nums = ['', 'Un', 'Dos', 'Tres', 'Cuatro'];
+  document.getElementById('recursos-t').textContent = tipos.length===1 ? tipos[0].nombre+'.' : (nums[tipos.length]||tipos.length)+' tipos de recurso.';
+  document.getElementById('kindList').innerHTML = tipos.map(tp=>{
     const n = DB.order.filter(id=>DB.tipo[id]===tp.id && DB.tools[id].url).length;
-    return `<li class="kind${n?'':' soon'}">
+    // Con un solo tipo, el enlace lleva al catálogo entero (es lo mismo)
+    const href = tipos.length===1 ? '#catalogo' : '#tipo-'+tp.id;
+    return `<li class="kind">
       <span class="kind-icon">${icon(KIND_ICON[tp.id]||'tool')}</span>
-      <h3>${tp.nombre}<small>${n ? plural(n,'disponible','disponibles') : 'Próximamente'}</small></h3>
+      <h3>${tp.nombre}<small>${plural(n,'disponible','disponibles')}</small></h3>
       <p>${tp.descripcion||''}</p>
-      ${n ? `<a href="#tipo-${tp.id}">Ver ${n===1 ? 'el recurso' : 'los '+n}</a>` : ''}
+      <a href="${href}">Ver ${n===1 ? 'el recurso' : 'los '+n}</a>
     </li>`;
   }).join('');
+  // Cifras exactas del texto: herramientas con informe y total
+  const total = DB.order.filter(id=>DB.tools[id].url).length;
+  const conInforme = DB.order.filter(id=>DB.tools[id].url && DB.tools[id].informe).length;
+  document.querySelectorAll('[data-n="informe"]').forEach(e=>e.textContent = conInforme);
+  document.querySelectorAll('[data-n="total"]').forEach(e=>e.textContent = total);
 }
 
 // ---------- Seguir donde lo dejaste ----------

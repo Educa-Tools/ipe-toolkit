@@ -159,9 +159,9 @@
       var tools = data.herramientas || {};
       var where = {};
       (data.modulos || []).forEach(function (m) {
-        var abrev = (m.nomUnidad && m.nomUnidad.abrev) || 'UD';
+        var corto = (m.nomUnidad && m.nomUnidad.corto) || 'Unidad';
         (m.unidades || []).forEach(function (u) {
-          (u.herramientas || []).forEach(function (id) { if (!where[id]) where[id] = m.tag + ' · ' + abrev + u.n; });
+          (u.herramientas || []).forEach(function (id) { if (!where[id]) where[id] = m.tag + ' · ' + corto + ' ' + u.n; });
         });
       });
       var ids = Object.keys(tools).filter(function (id) { return tools[id] && tools[id].url && tools[id].titulo; });
@@ -175,7 +175,7 @@
       document.getElementById('toolKick').textContent = where[id] || '';
       // El titular trae su palabra destacada entre <em>: se conserva solo esa etiqueta
       var title = document.getElementById('toolTitle');
-      String(t.titular || t.titulo).split(/(<em>.*?<\/em>)/).forEach(function (part) {
+      String(t.pregunta || t.titular || t.titulo).split(/(<em>.*?<\/em>)/).forEach(function (part) {
         var m = part.match(/^<em>(.*)<\/em>$/);
         if (m) { var em = document.createElement('em'); em.textContent = m[1]; title.appendChild(em); }
         else title.appendChild(document.createTextNode(part.replace(/<[^>]+>/g, '')));

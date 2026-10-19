@@ -13,7 +13,7 @@ Herramientas interactivas y recursos para **Itinerario Personal para la Empleabi
 - `data/estructura.json` — **todo el contenido**, en cuatro bloques:
   - `herramientas`: el catálogo. Cada herramienta tiene un identificador corto y sus datos.
   - `modulos`: IPE 1 e IPE 2 (en el orden en que salen en la portada), con sus unidades y la lista de herramientas de cada una (por identificador, en el orden en que deben aparecer). Cada módulo lleva su `lema` (la frase corta del selector "¿Con qué materia trabajas?") y su `tipo` de recurso.
-  - `tipos`: los tipos de recurso del filtro "Tipo de recurso": `herramienta` (herramientas interactivas, las de IPE 2), `aula` (recursos de aula, los de IPE 1) y `material` (materiales didácticos: diapositivas y capítulos). Un tipo con `"proximamente": true` y sin recursos sale como "Próximamente".
+  - `tipos`: los tipos de recurso, según el boceto: `herramienta` (herramientas interactivas: se usan en el navegador, guardan lo que escribe el alumnado y la mayoría dan un informe) y `material` (materiales didácticos: píldoras, guías, casos prácticos, boletines y diapositivas). Un tipo sin ningún recurso no se muestra en la portada; con un solo tipo con recursos, tampoco sale el desplegable «Tipo».
   - `etiquetas`: las temáticas del filtro "Temática", también con su lista de herramientas.
 
 Cada recurso toma el tipo de su módulo. Si alguno es de otro tipo (por ejemplo, unas diapositivas de IPE 1), ponle `"tipo": "material"` en su línea de `herramientas`.
@@ -26,10 +26,11 @@ Cada recurso toma el tipo de su módulo. Si alguno es de otro tipo (por ejemplo,
 2. En `data/estructura.json`, dentro de `"herramientas"`, añade una línea:
 
 ```json
-"miid": { "titulo": "Nombre", "titular": "El titular de su <em>página</em>", "dibujo": "pestel", "descripcion": "Una frase sobre qué hace.", "url": "archivo.html", "color": "#3E5778" },
+"miid": { "titulo": "Nombre", "titular": "El titular de su <em>página</em>", "pregunta": "¿Qué pregunta <em>responde</em>?", "dibujo": "pestel", "descripcion": "Una frase sobre qué hace.", "url": "archivo.html", "color": "#3E5778" },
 ```
 
-   - `titular`: el titular grande que sale en la ventanita de la portada. Copia el de la propia herramienta; lo que vaya entre `<em>` y `</em>` sale en cursiva y en su color. Si lo omites, se usa el `titulo`.
+   - `titular`: el titular grande de la ficha del recurso (`recursos/<slug>/`). Copia el de la propia herramienta; lo que vaya entre `<em>` y `</em>` sale en cursiva y en su color. Si lo omites, se usa el `titulo`.
+   - `pregunta`: el titular de su tarjeta en la portada (y en la 404), siempre en forma de pregunta y sin repetir el nombre, que ya sale en la barra de la tarjeta. Si lo omites, se usa el `titular`.
    - `dibujo`: el mini dibujo de la ventanita. Elige uno de los que ya existen (`idea`, `ficha`, `estrella`, `canvas`, `pestel`, `porter`, `buyer`, `dafo`, `forma`, `patologias`, `ruta`, `expediente`, `buscador`, `piramide`, `ue`, `contingencias`, `prestaciones`, `nomina`, `balanza`) o pide uno nuevo. Si lo omites, sale un dibujo genérico.
 
    Campos opcionales para las etiquetas pequeñas de la tarjeta:
