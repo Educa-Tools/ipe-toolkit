@@ -14,6 +14,7 @@
     "ruta22":      { "slug": "ruta-articulo-22", "titulo": "Ruta al Artículo 22", "titular": "Ruta al <em>Artículo 22</em>", "dibujo": "ruta", "descripcion": "Repaso exprés de los arts. 17 a 21 de la LPRL en formato de niveles con estrellas.", "url": "rutaarticulo22.html", "color": "#6A3FA0", "minutos": 25, "guarda": "ipe_ruta_art22_progreso_v1" },
     "simuladorprl":{ "slug": "simulador-expedientes-prl", "titulo": "Simulador de expedientes PRL", "titular": "Simulador de <em>Expedientes PRL</em>", "dibujo": "expediente", "descripcion": "Resuelve casos reales y justifica cada respuesta con su artículo de la LPRL.", "url": "simuladorprl.html", "color": "#2B2E4A", "minutos": 30, "guarda": "ipe-expedientes-prl-v1" },
     "enfprofesionales":{ "slug": "enfermedades-profesionales", "titulo": "Buscador de enfermedades profesionales", "titular": "¿Qué enfermedad profesional puede tener <em>tu oficio</em>?", "dibujo": "buscador", "descripcion": "Descubre qué enfermedades profesionales del RD 1299/2006 pueden afectar a tu oficio.", "url": "enfermedadesprofesionales.html", "color": "#8B3A3A", "minutos": 10 },
+    "orgpreventiva":{ "slug": "organizacion-preventiva", "titulo": "Organización de la prevención en la empresa", "titular": "¿Quién hace la <em>prevención</em> en la empresa?", "dibujo": "organigrama", "descripcion": "Las cinco modalidades del RD 39/1997, el Anexo I, un simulador que dice qué le toca a cada empresa y tres casos para entregar.", "url": "organizacion-preventiva.html", "color": "#2F6670", "minutos": 45, "guarda": "esplora-organizacion-preventiva-v1", "informe": true },
     "guiaruido":   { "slug": "guia-ruido", "titulo": "Guía del ruido", "titular": "Guía del <em>ruido</em>", "dibujo": "ruido", "descripcion": "Decibelios, los tres escalones del RD 286/2006, simulador de obligaciones y caso práctico para entregar.", "url": "guia-ruido.html", "color": "#4B44A0", "minutos": 40, "guarda": "esplora-guia-ruido-v1", "informe": true },
 
     "piramide":    { "slug": "jerarquia-normativa", "titulo": "Pirámide de la jerarquía normativa", "titular": "La <em>jerarquía normativa</em>, explicada", "dibujo": "piramide", "descripcion": "Las ocho fuentes del Derecho del trabajo con su base legal, los principios que resuelven los conflictos entre normas y diez casos prácticos.", "url": "piramide.html", "color": "#4B4F1D", "minutos": 30, "guarda": "esplora-piramide-v1", "informe": true },
@@ -34,7 +35,7 @@
       "nombre": "Itinerario Personal para la Empleabilidad I",
       "descripcion": "Prevención de riesgos, derecho del trabajo, Seguridad Social e itinerario profesional.",
       "unidades": [
-        { "n": 1, "titulo": "Prevención de Riesgos Laborales",           "icono": "shield", "herramientas": ["patologias", "ruta22", "simuladorprl", "enfprofesionales", "guiaruido"] },
+        { "n": 1, "titulo": "Prevención de Riesgos Laborales",           "icono": "shield", "herramientas": ["patologias", "ruta22", "simuladorprl", "orgpreventiva", "enfprofesionales", "guiaruido"] },
         { "n": 2, "titulo": "Derecho del trabajo y Seguridad Social",    "icono": "scale",  "herramientas": ["piramide", "mapaue", "contingencias", "prestaciones", "casosnomina"] },
         { "n": 3, "titulo": "Autoconocimiento e itinerario profesional", "icono": "target", "herramientas": [] }
       ]
@@ -66,7 +67,7 @@
     { "id": "idea",      "nombre": "Idea de negocio",            "icono": "bulb",   "herramientas": ["generador", "fichaidea", "estrella", "canvas"] },
     { "id": "mercado",   "nombre": "Análisis del mercado",       "icono": "chart",  "herramientas": ["pestel", "buyer", "dafocame"] },
     { "id": "viabilidad","nombre": "Viabilidad del proyecto emprendedor", "icono": "checkshield", "herramientas": ["formajuridica", "inversion"] },
-    { "id": "prl",       "nombre": "Prevención de riesgos",      "icono": "shield", "herramientas": ["patologias", "ruta22", "simuladorprl", "enfprofesionales", "guiaruido"] },
+    { "id": "prl",       "nombre": "Prevención de riesgos",      "icono": "shield", "herramientas": ["patologias", "ruta22", "simuladorprl", "orgpreventiva", "enfprofesionales", "guiaruido"] },
     { "id": "laboral",   "nombre": "Laboral y Seguridad Social", "icono": "scale",  "herramientas": ["piramide", "mapaue", "contingencias", "prestaciones", "casosnomina"] }
   ]
 }

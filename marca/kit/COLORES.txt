@@ -49,7 +49,7 @@ catálogo. Sobre ellos el logo va en crema.
 #2C6E5A  Plan de inversión y financiación
 #2D6A6A  Wizard de determinación de contingencias
 #2E4B8B  Diagnóstico de patologías inespecíficas
-#2F6670  Análisis PORTER
+#2F6670  Análisis PORTER · Organización de la prevención en la empresa
 #3E5778  Análisis PESTEL · Prestaciones de la Seguridad Social · Umbral de rentabilidad
 #4B44A0  Guía del ruido
 #4B4F1D  Ficha inicial de la idea

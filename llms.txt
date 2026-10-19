@@ -9,6 +9,7 @@ Cada recurso tiene una ficha (enlace principal) y la herramienta en sí (enlace 
 - [Diagnóstico de patologías inespecíficas](https://esplora.es/recursos/patologias-inespecificas/): Empareja seis casos con su patología: fatiga, estrés, burnout, mobbing… (≈ 15 min) · [abrir](https://esplora.es/patologias.html)
 - [Ruta al Artículo 22](https://esplora.es/recursos/ruta-articulo-22/): Repaso exprés de los arts. 17 a 21 de la LPRL en formato de niveles con estrellas. (≈ 25 min) · [abrir](https://esplora.es/rutaarticulo22.html)
 - [Simulador de expedientes PRL](https://esplora.es/recursos/simulador-expedientes-prl/): Resuelve casos reales y justifica cada respuesta con su artículo de la LPRL. (≈ 30 min) · [abrir](https://esplora.es/simuladorprl.html)
+- [Organización de la prevención en la empresa](https://esplora.es/recursos/organizacion-preventiva/): Las cinco modalidades del RD 39/1997, el Anexo I, un simulador que dice qué le toca a cada empresa y tres casos para entregar. (≈ 45 min, con informe en PDF) · [abrir](https://esplora.es/organizacion-preventiva.html)
 - [Buscador de enfermedades profesionales](https://esplora.es/recursos/enfermedades-profesionales/): Descubre qué enfermedades profesionales del RD 1299/2006 pueden afectar a tu oficio. (≈ 10 min) · [abrir](https://esplora.es/enfermedadesprofesionales.html)
 - [Guía del ruido](https://esplora.es/recursos/guia-ruido/): Decibelios, los tres escalones del RD 286/2006, simulador de obligaciones y caso práctico para entregar. (≈ 40 min, con informe en PDF) · [abrir](https://esplora.es/guia-ruido.html)
 
