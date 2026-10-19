@@ -6617,6 +6617,1234 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     vr:'Especialízate en un país (por ejemplo, Suecia u Holanda para el pádel) y en su idioma.' });
   } // fin de Actividades Físicas y Deportivas
 
+  // ===================== HOSTELERÍA Y TURISMO =====================
+  FAM.hosteleria = {
+    ciclos: {
+      'Actividades de Panadería y Pastelería': 'bpp',
+      'Alojamiento y Lavandería': 'alo',
+      'Cocina y Restauración': 'cyr',
+      'Cocina y Gastronomía': 'cg',
+      'Comercialización de Productos Alimentarios': 'cpa',
+      'Servicios en Restauración': 'sr',
+      'Agencias de Viajes y Gestión de Eventos': 'av',
+      'Dirección de Cocina': 'dc',
+      'Dirección de Servicios de Restauración': 'dsr',
+      'Gestión de Alojamientos Turísticos': 'gat',
+      'Guía, Información y Asistencias Turísticas': 'git'
+    },
+    labels: { bpp: 'Actividades de Panadería y Pastelería (Grado Básico)', alo: 'Alojamiento y Lavandería (Grado Básico)', cyr: 'Cocina y Restauración (Grado Básico)', cg: 'Cocina y Gastronomía', cpa: 'Comercialización de Productos Alimentarios', sr: 'Servicios en Restauración', av: 'Agencias de Viajes y Gestión de Eventos', dc: 'Dirección de Cocina', dsr: 'Dirección de Servicios de Restauración', gat: 'Gestión de Alojamientos Turísticos', git: 'Guía, Información y Asistencias Turísticas' },
+    defecto: { basico: 'cyr', medio: 'cg', superior: 'dc' },
+    afin: { cyr: ['cg'], bpp: ['cg'], cg: ['dc'], dc: ['cg'], sr: ['dsr'], dsr: ['sr'], alo: ['gat'] },
+    fuentes: {
+      gat: 'el registro de turismo de tu comunidad autónoma, el INE (coyuntura turística hotelera), Exceltur y la asociación de hoteles o de viviendas turísticas de tu provincia',
+      av: 'la normativa de agencias de viajes de tu comunidad autónoma, la Asociación Corporativa de Agencias de Viajes Especializadas (ACAVE), Turespaña y el INE (Frontur y Egatur)',
+      git: 'la normativa de guías de turismo de tu comunidad autónoma, la oficina de turismo de tu ciudad, Turespaña y el INE (Frontur y Egatur)',
+      _: 'Hostelería de España, la asociación de hostelería de tu provincia, la Agencia Española de Seguridad Alimentaria y Nutrición (AESAN) y la Ley 1/2025 de prevención del desperdicio alimentario'
+    }
+  };
+  { const { A, H, N } = banco('hosteleria');
+
+  // ---------- COCINA ----------
+  A({ id:'ho1', cics:['cg','dc','cyr'], t:'Catering para empresas, celebraciones y eventos pequeños', n:'Catering',
+    d:'Preparas comidas para reuniones de empresa, celebraciones familiares, presentaciones y eventos de 10 a 150 personas: menús cerrados, cócteles y cajas de comida individuales. Necesitas una cocina inscrita en el registro sanitario (Reglamento (CE) 852/2004, art. 6; RD 191/2011). Modelo: 15-45 € por persona con margen del 30-40 % tras materia prima y personal.',
+    m:'proyecto', cli:'empresas, oficinas, asociaciones y familias que celebran algo', pb:'dar de comer bien a un grupo sin complicarse',
+    val:'Comida rica y bien presentada para tu evento, entregada a tiempo y sin que tengas que ocuparte de nada.',
+    inv:[3000,12000], ar:'2-3 meses', r:2, e:['local','domicilio'], h:3, am:2, tg:['gastronomia'], k:['ventas','rrss'], s:['organizacion','creatividad','personas'],
+    why:'Ofertas gastronómicas, Técnicas culinarias, Productos culinarios y Seguridad e higiene en la manipulación de alimentos: tu ciclo te prepara para producir en volumen con seguridad.',
+    reto:'Montar una cocina propia es caro. Empieza alquilando una cocina profesional por horas o un obrador compartido que ya esté registrado.',
+    paso:'Pregunta a 5 empresas de tu zona dónde encargan la comida de sus reuniones y cuánto pagan. Haz un menú de prueba para un evento de conocidos.',
+    vr:'Especialízate en cajas de comida individuales para oficinas: sencillo de producir y con pedidos que se repiten cada semana.' });
+
+  A({ id:'ho2', cics:['cg','dc'], t:'Cocina de comida para llevar con producto local', n:'Comida para llevar',
+    d:'Abres una cocina centrada en comida para llevar y reparto propio: platos de cuchara, menús semanales y comida casera de calidad con producto local, sin sala o con una barra pequeña. Modelo: menú de 9-15 € y suscripción semanal para familias y oficinas.',
+    m:'producto', cli:'personas que trabajan y no tienen tiempo de cocinar, familias y oficinas', pb:'comer casero y sano sin cocinar todos los días',
+    val:'Comida casera y de producto local, lista para calentar, sin el precio de un restaurante.',
+    inv:[8000,25000], ar:'3-4 meses', r:2, e:['local','domicilio'], h:4, am:1, tg:['gastronomia','sostenibilidad'], k:['rrss','marketing'], s:['organizacion','creatividad'],
+    why:'Preelaboración y conservación de alimentos, Técnicas culinarias y Ofertas gastronómicas: sabes producir, conservar y presentar con seguridad.',
+    reto:'Las plataformas de reparto se llevan una gran comisión. Construye clientela propia con pedidos por web o WhatsApp y reparto en tu barrio.',
+    paso:'Haz durante 3 semanas un menú semanal para 10 personas conocidas a precio de coste y apunta qué platos repiten.',
+    vr:'Especialízate en un público (deportistas, mayores, oficinas) con un menú pensado para ellos.' });
+
+  A({ id:'ho3', cics:['cg','cyr','dc'], t:'Chef a domicilio y clases de cocina', n:'Cocina privada',
+    d:'Cocinas en casa del cliente para cenas especiales, celebraciones pequeñas y alojamientos turísticos de lujo, y das clases de cocina a grupos y empresas. Modelo: 40-90 € por persona en cenas y 35-70 € por persona en clases.',
+    m:'experiencia', cli:'familias que celebran algo, turistas en villas y apartamentos y empresas que buscan actividades de equipo', pb:'disfrutar de una comida de restaurante en casa',
+    val:'Una cena de restaurante en tu casa, sin cocinar ni recoger, con un chef que te lo cuenta todo.',
+    inv:[1000,4000], ar:'1-2 meses', r:1, e:['domicilio'], h:2, am:2, tg:['gastronomia','viajes'], k:['idiomas','rrss'], s:['creatividad','personas'],
+    why:'Técnicas culinarias, Productos culinarios, Postres en restauración y Ofertas gastronómicas: diseñas y ejecutas un menú completo.',
+    reto:'Cocinar en cocinas ajenas exige improvisar y transportar alimentos con seguridad. Lleva tu equipo básico y controla la cadena de frío.',
+    paso:'Cocina una cena para 6 personas conocidas, hazle buenas fotos y pide reseña. Contacta con 2 gestores de villas turísticas.',
+    vr:'Ofrece clases de cocina tradicional a turistas extranjeros, en varios idiomas.' });
+
+  A({ id:'ho4', cics:['dc','dsr'], t:'Asesoría a restaurantes: carta, escandallos y rentabilidad', n:'Consultoría gastronómica',
+    d:'Muchos restaurantes no saben cuánto les cuesta cada plato. Revisas la carta, haces escandallos, ajustas precios, organizas compras y producción y ayudas a cumplir el plan de prevención del desperdicio alimentario (Ley 1/2025, art. 6.4.a). Modelo: proyecto de 600-3.000 € y seguimiento mensual.',
+    m:'proyecto', cli:'restaurantes y bares con cocina que trabajan mucho y ganan poco', pb:'saber qué platos dan dinero y cuáles lo pierden',
+    val:'Sabes cuánto ganas con cada plato, compras mejor y tiras menos comida.',
+    inv:[300,1500], ar:'2 meses', r:2, e:['local'], h:2, am:3, tg:['gastronomia'], k:['contabilidad','ofimatica'], s:['organizacion','resolucion','liderazgo'],
+    why:'Gestión de la producción en cocina, Control del aprovisionamiento de materias primas y Gestión administrativa y comercial en restauración: es la parte de gestión de tu ciclo.',
+    reto:'El hostelero desconfía de quien no ha llevado una cocina. Gana experiencia como jefe de cocina y empieza con un análisis gratuito de 5 platos.',
+    paso:'Haz el escandallo de 5 platos de un restaurante conocido con sus precios reales y enséñales cuánto ganan con cada uno.',
+    vr:'Especialízate en aperturas: diseña la carta y la cocina de restaurantes que van a abrir.' });
+
+  A({ id:'ho5', cics:['dc','cg'], t:'Food truck o puesto en mercados gastronómicos', n:'Cocina sobre ruedas',
+    d:'Cocinas una especialidad concreta en una caravana o un puesto en mercados gastronómicos, ferias, festivales y eventos privados. Necesitas permisos municipales y registro sanitario. Modelo: ticket medio de 8-14 € y caterings privados.',
+    m:'producto', cli:'público de ferias, festivales, mercados gastronómicos y bodas', pb:'comer algo especial y rápido en un evento',
+    val:'Una especialidad que no encuentras en otro sitio, hecha al momento y con calidad.',
+    inv:[10000,35000], ar:'3-4 meses', r:3, e:['local'], h:4, am:3, tg:['gastronomia','musica','viajes'], k:['rrss'], s:['creatividad','organizacion'],
+    why:'Ofertas gastronómicas, Productos culinarios y Seguridad e higiene: diseñas una oferta corta, rápida y segura.',
+    reto:'Los permisos municipales y el calendario de eventos mandan. Valida con un puesto alquilado en mercados gastronómicos antes de comprar el vehículo.',
+    paso:'Consulta el calendario de ferias y festivales de tu comunidad y cuánto cuesta un puesto. Prueba tu especialidad en un mercado gastronómico.',
+    vr:'Céntrate en bodas y eventos privados: precio cerrado y sin depender del tiempo ni del público.' });
+
+  A({ id:'ho6', cics:['bpp','cg'], t:'Repostería por encargo para cafeterías y celebraciones', n:'Repostería de encargo',
+    d:'Haces tartas, bizcochos, galletas y dulces por encargo para cumpleaños y celebraciones y suministras a cafeterías de tu zona. Necesitas un obrador inscrito en el registro sanitario. Modelo: tartas de 25-80 € y suministro semanal a cafeterías.',
+    m:'producto', cli:'familias que celebran algo y cafeterías que no tienen obrador', pb:'tener una tarta o unos dulces caseros y bonitos',
+    val:'Repostería casera y bonita, hecha a tu gusto y para tu celebración.',
+    inv:[3000,10000], ar:'2 meses', r:1, e:['local'], h:3, am:1, tg:['gastronomia','arte'], k:['rrss','fotovideo'], s:['creatividad','tecnica'],
+    why:'Procesos básicos de pastelería y repostería y Postres en restauración: tu ciclo te da la técnica.',
+    reto:'No puedes vender lo que haces en una cocina doméstica. Alquila horas en un obrador registrado mientras empiezas.',
+    paso:'Pregunta a 5 cafeterías de tu barrio si comprarían repostería casera y qué cantidad. Haz muestras y déjalas probar.',
+    vr:'Especialízate en un producto estrella (tartas de queso, galletas decoradas) y véndelo también online en tu ciudad.' });
+
+  // ---------- COMERCIALIZACIÓN DE PRODUCTOS ALIMENTARIOS ----------
+  A({ id:'ho7', cics:['cpa','bpp'], t:'Tienda de producto local y gourmet con degustación', n:'Tienda gourmet',
+    d:'Abres una tienda de productos de tu zona y gourmet (quesos, embutidos, conservas, vinos, aceites) con degustaciones, cestas regalo y pequeña barra. Modelo: margen del 30-45 % sobre producto y cestas de empresa en Navidad.',
+    m:'producto', cli:'vecinos que valoran el producto de calidad, turistas y empresas que regalan', pb:'encontrar buen producto local con alguien que aconseje',
+    val:'El mejor producto de tu tierra, elegido y explicado por alguien que lo conoce, y para regalar.',
+    inv:[10000,30000], ar:'3-4 meses', r:2, e:['local','online'], h:4, am:2, tg:['gastronomia','viajes'], k:['ventas','rrss'], s:['ventas','personas'],
+    why:'Constitución de pequeños negocios alimentarios, Dinamización del punto de venta y Gestión de un comercio alimentario: tu ciclo está hecho para esto.',
+    reto:'El stock caduca y se inmoviliza dinero. Empieza con surtido corto, compra a productores con frecuencia y vende cestas a empresas.',
+    paso:'Contacta con 10 productores de tu comarca, pregunta condiciones y márgenes y monta una cesta de muestra para enseñar a 3 empresas.',
+    vr:'Empieza con venta online de cestas regalo de productores locales antes de abrir tienda.' });
+
+  A({ id:'ho8', cics:['cpa'], t:'Cestas de productores locales por suscripción', n:'Circuito corto',
+    d:'Agrupas a productores de tu zona (verdura, fruta, huevos, queso, pan) y vendes cestas semanales o quincenales por suscripción con reparto o puntos de recogida. Modelo: cesta de 25-45 € con margen del 20-30 %.',
+    m:'suscripcion', cli:'familias que quieren producto fresco y de cercanía', pb:'comer producto local y de temporada sin ir a cada productor',
+    val:'Producto fresco de tu zona en casa cada semana, sabiendo de dónde viene.',
+    inv:[2000,6000], ar:'2-3 meses', r:2, e:['online','domicilio'], h:3, am:2, tg:['sostenibilidad','gastronomia'], k:['rrss','marketing'], s:['organizacion','ventas'],
+    why:'Logística de productos alimentarios, Comercio electrónico en negocios alimentarios y Seguridad y calidad alimentaria en el comercio: es tu ciclo en un modelo nuevo.',
+    reto:'La logística semanal y la cadena de frío son exigentes. Empieza con puntos de recogida en comercios amigos.',
+    paso:'Reúne a 3 productores y 15 familias interesadas y haz 4 semanas de prueba con reparto propio.',
+    vr:'Ofrece cestas a oficinas como fruta para la plantilla.' });
+
+  // ---------- SERVICIOS EN RESTAURACIÓN / DIRECCIÓN DE SALA ----------
+  A({ id:'ho9', cics:['sr','dsr'], t:'Barra móvil y coctelería para eventos', n:'Coctelería de eventos',
+    d:'Montas barras de coctelería y bebidas en bodas, fiestas privadas, eventos de empresa y presentaciones, con carta propia, cristalería y bartenders. Modelo: precio por persona (15-35 €) o por horas de barra.',
+    m:'proyecto', cli:'novios, organizadores de eventos, empresas y particulares', pb:'tener una barra de calidad en su evento',
+    val:'Una barra profesional con cócteles de autor que hace que tu evento se recuerde.',
+    inv:[3000,10000], ar:'2 meses', r:2, e:['local','domicilio'], h:3, am:3, tg:['musica','gastronomia'], k:['rrss'], s:['personas','creatividad'],
+    why:'Operaciones básicas en bar-cafetería, Servicios en bar-cafetería y Técnicas de comunicación en restauración: dominas la barra y el trato.',
+    reto:'Vender alcohol en eventos tiene sus normas según el lugar. Trabaja con el espacio o el catering del evento y no sirvas a menores.',
+    paso:'Diseña una carta de 6 cócteles y ofrécete gratis o a coste en una fiesta de conocidos. Pide fotos y reseña.',
+    vr:'Ofrece talleres de coctelería para empresas y despedidas.' });
+
+  A({ id:'ho10', cics:['dsr','sr'], t:'Catas y formación de vino para restaurantes y aficionados', n:'Sumillería',
+    d:'Organizas catas para aficionados, empresas y turistas, haces cartas de vinos para restaurantes y formas a su personal de sala. Modelo: catas de 25-60 € por persona, cartas de vino por proyecto y formación por horas.',
+    m:'formacion', cli:'aficionados al vino, restaurantes, hoteles, vinotecas y empresas', pb:'conocer y disfrutar el vino, o venderlo mejor en el restaurante',
+    val:'Aprendes a disfrutar el vino sin pedantería, o tu restaurante vende más y mejor vino.',
+    inv:[1000,4000], ar:'1-2 meses', r:1, e:['local'], h:2, am:3, tg:['gastronomia','viajes'], k:['idiomas','ventas'], s:['personas','ventas'],
+    why:'Sumillería, El vino y su servicio y Planificación y dirección de servicios: tu ciclo te prepara como sumiller.',
+    reto:'Hay mucha competencia en catas. Diferénciate con temas concretos (vinos de tu zona, maridajes) y una forma de contar cercana.',
+    paso:'Organiza una cata de 5 vinos de tu comarca para 10 personas y pide valoración. Ofrécete a revisar la carta de vinos de un restaurante.',
+    vr:'Ofrece catas a turistas extranjeros en colaboración con hoteles.' });
+
+  A({ id:'ho11', cics:['dsr'], t:'Consultoría de sala y aperturas de restaurantes', n:'Dirección de sala externa',
+    d:'Ayudas a restaurantes que abren o que tienen problemas de servicio: organización de sala, protocolos, formación del equipo, reservas, experiencia del cliente y gestión de reseñas. Modelo: proyecto de 800-4.000 €.',
+    m:'proyecto', cli:'restaurantes que abren, grupos de restauración pequeños y hoteles', pb:'dar un servicio de sala profesional desde el primer día',
+    val:'Un servicio de sala organizado y un equipo formado que hace que los clientes vuelvan.',
+    inv:[300,1500], ar:'2-3 meses', r:2, e:['local'], h:3, am:3, tg:['gastronomia'], k:['gestion_personas'], s:['liderazgo','organizacion','personas'],
+    why:'Planificación y dirección de servicios y eventos, Recursos humanos y dirección de equipos y Gestión de la calidad: es tu ciclo.',
+    reto:'Hace falta experiencia demostrable. Trabaja varios años como jefe de sala y documenta los resultados.',
+    paso:'Analiza las reseñas de 10 restaurantes de tu zona y apunta qué quejas se repiten sobre el servicio. Prepara una propuesta para uno.',
+    vr:'Especialízate en formación de personal de sala, que todos los restaurantes necesitan y pocos hacen bien.' });
+
+  A({ id:'ho12', cics:['sr','cyr'], t:'Servicio de sala y montaje para eventos', n:'Sala de eventos',
+    d:'Ofreces a caterings, fincas de bodas y organizadores de eventos el servicio completo de sala: montaje, servicio de mesas, barra y recogida, con un equipo que coordinas tú. Modelo: precio por evento o por hora de servicio.',
+    m:'proyecto', cli:'caterings, fincas de bodas, hoteles y organizadores de eventos', pb:'contar con un servicio de sala profesional en eventos',
+    val:'Un equipo de sala profesional y coordinado para tu evento, sin buscar camareros uno a uno.',
+    inv:[1000,4000], ar:'1-2 meses', r:2, e:['local'], h:3, am:2, tg:['musica'], k:['gestion_personas'], s:['organizacion','liderazgo','personas'],
+    why:'Servicios en restaurante y eventos especiales y Operaciones básicas en restaurante: sabes servir y organizar un servicio.',
+    reto:'Ceder trabajadores a otra empresa solo lo puede hacer una empresa de trabajo temporal autorizada. Ofrece un servicio completo dirigido por ti, no «prestar camareros».',
+    paso:'Pregunta a 3 caterings o fincas de bodas cómo consiguen personal de sala y qué problemas tienen.',
+    vr:'Especialízate en bodas: temporada larga y clientes que pagan por un servicio perfecto.' });
+
+  // ---------- ALOJAMIENTO ----------
+  A({ id:'ho13', cics:['gat','alo'], t:'Gestión integral de pisos turísticos para propietarios', n:'Gestión de alojamientos',
+    d:'Gestionas viviendas turísticas de propietarios que no tienen tiempo: anuncios, precios, reservas, llegada de huéspedes, limpieza, mantenimiento y trámites con el registro de turismo de tu comunidad autónoma (el registro único estatal fue anulado por el Tribunal Supremo en 2026). Modelo: comisión del 15-25 % sobre los ingresos.',
+    m:'comision', cli:'propietarios de viviendas turísticas que viven lejos o no tienen tiempo', pb:'sacar rendimiento a su vivienda sin ocuparse de nada',
+    val:'Tu vivienda alquilada, bien cuidada y con buenas reseñas, sin que tengas que ocuparte de nada.',
+    inv:[1000,4000], ar:'2 meses', r:2, e:['local','online'], h:3, am:2, tg:['viajes'], k:['idiomas','marketing'], s:['organizacion','personas','resolucion'],
+    why:'Recepción y reservas, Gestión del departamento de pisos y Marketing turístico: llevas un alojamiento completo.',
+    reto:'Las normas de vivienda turística cambian mucho por comunidad y municipio, y en algunas zonas hay limitaciones. Comprueba qué viviendas pueden operar legalmente antes de aceptarlas.',
+    paso:'Consulta la normativa de vivienda turística de tu comunidad y tu ayuntamiento. Pregunta a 3 propietarios qué les cuesta más de gestionar.',
+    vr:'Especialízate en alojamientos rurales, donde hay menos competencia de gestoras grandes.' });
+
+  A({ id:'ho14', cics:['gat'], t:'Reservas directas y gestión de precios para hoteles pequeños', n:'Revenue management',
+    d:'Ayudas a hoteles pequeños, hostales y casas rurales a ajustar sus precios según la demanda, reducir la dependencia de las grandes plataformas, mejorar su web de reservas y gestionar reseñas. Modelo: cuota mensual de 150-600 € o porcentaje del aumento de ingresos.',
+    m:'cuota', cli:'hoteles pequeños, hostales y casas rurales', pb:'llenar más y a mejor precio pagando menos comisiones',
+    val:'Más reservas directas, mejores precios y menos comisión para las plataformas.',
+    inv:[300,1500], ar:'1-2 meses', r:1, e:['online'], h:2, am:4, tg:['viajes','tecnologia'], k:['marketing','ofimatica'], s:['digital','resolucion'],
+    why:'Recepción y reservas, Marketing turístico y Dirección de alojamientos turísticos: sabes cómo se llena un hotel.',
+    reto:'El propietario quiere ver resultados rápido. Pacta objetivos medibles (ocupación, precio medio) y enséñalos cada mes.',
+    paso:'Analiza los precios de 5 hoteles pequeños de tu zona durante un mes y prepara para uno una propuesta de precios por temporada.',
+    vr:'Especialízate en casas rurales de una comarca y ofrece la gestión de reservas a toda una asociación.' });
+
+  A({ id:'ho15', cics:['alo','gat'], t:'Lavandería y lencería para alojamientos turísticos', n:'Lavandería profesional',
+    d:'Lavas, planchas y repones la ropa de cama y toallas de pisos turísticos, casas rurales y hoteles pequeños, con recogida y entrega, y alquilas juegos de lencería. Modelo: precio por juego o por kilo y alquiler de lencería.',
+    m:'cuota', cli:'gestores de pisos turísticos, casas rurales y hoteles pequeños', pb:'tener la ropa de cama siempre limpia y a tiempo entre huéspedes',
+    val:'Lencería impecable entregada a tiempo para cada huésped, sin lavadoras ni plancha.',
+    inv:[8000,25000], ar:'3-4 meses', r:2, e:['local'], h:4, am:2, tg:['viajes'], k:['gestion_personas'], s:['organizacion','tecnica'],
+    why:'Lavado y secado de ropa, Planchado y embolsado y Lavandería y mantenimiento de lencería en el alojamiento: es tu ciclo.',
+    reto:'Las máquinas industriales y el local son caros. Empieza alquilando máquinas en una lavandería de autoservicio y crece con clientes fijos.',
+    paso:'Pregunta a 5 gestores de pisos turísticos cómo lavan la ropa y cuánto pagan por juego.',
+    vr:'Ofrece alquiler de lencería: el cliente no compra ropa de cama y tú controlas la calidad.' });
+
+  // ---------- AGENCIAS DE VIAJES Y EVENTOS ----------
+  A({ id:'ho16', cics:['av'], t:'Organización de bodas y eventos privados', n:'Wedding planner',
+    d:'Organizas bodas, comuniones, aniversarios y eventos de empresa: presupuesto, proveedores, espacio, decoración, calendario y coordinación del día. Modelo: honorarios fijos (800-4.000 €) o porcentaje del presupuesto.',
+    m:'proyecto', cli:'parejas que se casan, familias y empresas', pb:'organizar un evento sin estrés y sin pasarse de presupuesto',
+    val:'Tu evento perfecto y sin estrés, con alguien que se ocupa de todo y de todos.',
+    inv:[500,2500], ar:'2-3 meses', r:2, e:['local','online'], h:3, am:3, tg:['arte','moda'], k:['rrss','gestion_personas'], s:['organizacion','creatividad','personas'],
+    why:'Protocolo y relaciones públicas, Gestión de productos turísticos y Marketing turístico: sabes coordinar proveedores y crear una experiencia.',
+    reto:'Es un sector basado en la confianza y el porfolio. Empieza con eventos de conocidos y construye una red de proveedores fiables.',
+    paso:'Organiza un evento de conocidos (una fiesta, un aniversario) como si fuera profesional y documenta el resultado.',
+    vr:'Especialízate en bodas de destino para parejas extranjeras que se casan en tu zona.' });
+
+  A({ id:'ho17', cics:['av','git'], t:'Agencia de viajes especializada en un nicho', n:'Viajes de nicho',
+    d:'Creas una agencia online especializada en un tipo de viaje que conoces bien: viajes para mayores, para personas con discapacidad, de aventura, gastronómicos o para grupos escolares. Abrir una agencia exige declaración responsable y una garantía según tu comunidad autónoma. Modelo: margen o comisión por viaje.',
+    m:'comision', cli:'personas con necesidades o aficiones concretas que no encuentran viajes a su medida', pb:'viajar a su manera sin organizar todo',
+    val:'Un viaje pensado para ti por alguien que conoce tu tipo de viaje de verdad.',
+    inv:[3000,12000], ar:'3-4 meses', r:3, e:['online'], h:3, am:4, tg:['viajes'], k:['idiomas','marketing'], s:['organizacion','ventas'],
+    why:'Gestión de productos turísticos, Venta de servicios turísticos, Destinos turísticos y Dirección de entidades de intermediación turística: es tu ciclo.',
+    reto:'Requisitos legales y garantías. Empieza como agente asociado a una agencia existente antes de abrir la tuya.',
+    paso:'Elige un nicho, diseña un viaje completo con precio y pregunta a 10 personas de ese público si lo comprarían.',
+    vr:'Trabaja con asociaciones (de mayores, deportivas, culturales) que organizan viajes para sus socios.' });
+
+  // ---------- GUÍA E INFORMACIÓN TURÍSTICA ----------
+  A({ id:'ho18', cics:['git','av'], t:'Visitas guiadas temáticas en tu ciudad o comarca', n:'Guía turístico',
+    d:'Diseñas y guías visitas temáticas que no hace nadie: rutas de leyendas, de arquitectura, de gastronomía, de cine, nocturnas o para familias, en varios idiomas. Algunas comunidades exigen habilitación oficial para guiar en monumentos. Modelo: 12-30 € por persona o precio por grupo.',
+    m:'experiencia', cli:'turistas nacionales y extranjeros, grupos escolares y empresas', pb:'conocer la ciudad de una forma original y bien contada',
+    val:'Conoces la ciudad de una forma que no viene en las guías, contada por alguien que la vive.',
+    inv:[300,1500], ar:'1-2 meses', r:1, e:['local'], h:2, am:2, tg:['viajes','arte'], k:['idiomas','rrss'], s:['personas','creatividad','idiomas'],
+    why:'Procesos de guía y asistencia turística, Recursos turísticos y Diseño de productos turísticos: es tu ciclo.',
+    reto:'Infórmate de si tu comunidad exige habilitación de guía oficial y en qué espacios. Diferénciate de los tours gratuitos por calidad y tema.',
+    paso:'Diseña una ruta temática de 90 minutos y hazla gratis para 10 personas. Publícala después en una plataforma de actividades.',
+    vr:'Ofrece rutas privadas para cruceristas y grupos de empresa.' });
+
+  A({ id:'ho19', cics:['git','av'], t:'Diseño de productos turísticos para pueblos y comarcas', n:'Desarrollo turístico local',
+    d:'Ayudas a ayuntamientos, comarcas y asociaciones a crear productos turísticos: rutas, experiencias con productores, señalización, material informativo y su venta. Modelo: proyectos de 1.000-10.000 € financiados por ayuntamientos y fondos de desarrollo rural.',
+    m:'proyecto', cli:'ayuntamientos rurales, comarcas, grupos de acción local y asociaciones de empresarios', pb:'atraer visitantes con propuestas que se puedan vender',
+    val:'Tu pueblo o comarca con experiencias turísticas que atraen visitantes y dejan dinero en el territorio.',
+    inv:[300,1500], ar:'3-4 meses', r:2, e:['local'], h:2, am:3, tg:['viajes','naturaleza'], k:['marketing','diseno'], s:['creatividad','organizacion'],
+    why:'Diseño de productos turísticos, Servicios de información turística y Marketing turístico son módulos de tu ciclo.',
+    reto:'Depende de presupuestos públicos y convocatorias. Aprende a trabajar con los grupos de acción local de tu comarca.',
+    paso:'Diseña una ruta de un día por tu comarca con 4 experiencias reales y preséntala a tu ayuntamiento o grupo de acción local.',
+    vr:'Gestiona tú la venta de las experiencias que diseñas, con una comisión.' });
+
+  // ---------- HÍBRIDAS ----------
+  H({ id:'ho_h1', pref:['cg','dc','cyr'], t:'Comida preparada para deportistas', n:'Nutrición deportiva casera',
+    d:'Preparas menús semanales para deportistas y personas que entrenan, con raciones y equilibrio pensados para su objetivo, en colaboración con nutricionistas y gimnasios. Modelo: menús semanales de 50-90 € con reparto.',
+    m:'suscripcion', cli:'personas que entrenan, gimnasios, clubes y equipos', pb:'comer bien para entrenar sin cocinar cada día',
+    val:'Tu comida de la semana pensada para entrenar, rica y lista en la nevera.',
+    inv:[3000,10000], ar:'2-3 meses', r:2, e:['domicilio','local'], h:3, am:2, tg:['deporte','gastronomia'], k:['rrss'], s:['organizacion','creatividad'],
+    why:'Conoces el deporte; tu ciclo te da la técnica culinaria, la conservación y la seguridad alimentaria.',
+    reto:'Las pautas de dieta las da un nutricionista: colabora con uno y no prometas resultados de salud.',
+    paso:'Ofrece en un gimnasio de tu zona una semana de prueba de menús para 10 socios.',
+    vr:'Ofrece el servicio a clubes deportivos para sus equipos.' });
+
+  H({ id:'ho_h2', pref:['cg','dc'], t:'Cocina de aprovechamiento y kilómetro cero', n:'Cocina sostenible',
+    d:'Restaurante, catering o conservas basados en producto de cercanía y aprovechamiento total (excedentes de productores, partes menos valoradas, fermentados y conservas), con desperdicio mínimo. Modelo: menú o producto con precio medio-alto apoyado en la historia.',
+    m:'producto', cli:'personas que valoran la sostenibilidad y la cocina de producto', pb:'comer bien sin desperdiciar y apoyando a productores locales',
+    val:'Cocina de producto local que no desperdicia nada y te cuenta de dónde viene cada ingrediente.',
+    inv:[5000,20000], ar:'3-4 meses', r:3, e:['local'], h:4, am:2, tg:['sostenibilidad','gastronomia'], k:['rrss','marketing'], s:['creatividad','organizacion'],
+    why:'Tu compromiso con la sostenibilidad da sentido al proyecto; tu ciclo te da la preelaboración, la conservación y la creatividad culinaria.',
+    reto:'Depender del producto de temporada complica la carta. Diseña una carta corta y cambiante y explica el porqué al cliente.',
+    paso:'Pregunta a 3 productores de tu zona qué excedentes tiran o venden mal y diseña 3 platos o conservas con ellos.',
+    vr:'Empieza con conservas de aprovechamiento que se venden en tiendas y mercados.' });
+
+  H({ id:'ho_h3', pref:['git','cg'], t:'Rutas gastronómicas guiadas para turistas', n:'Turismo gastronómico',
+    d:'Guías rutas de tapas, mercados y productores en tu ciudad o comarca, con historia, degustaciones y visitas a obradores y bodegas, en varios idiomas. Modelo: 45-90 € por persona con degustaciones incluidas.',
+    m:'experiencia', cli:'turistas extranjeros y nacionales, grupos de empresa y cruceristas', pb:'conocer la gastronomía local auténtica',
+    val:'Comes como un local, descubres sitios que no salen en las guías y entiendes lo que comes.',
+    inv:[500,2000], ar:'1-2 meses', r:1, e:['local'], h:2, am:2, tg:['gastronomia','viajes'], k:['idiomas','rrss'], s:['personas','idiomas'],
+    why:'Te apasiona la gastronomía; tu ciclo te da el diseño de productos turísticos o el conocimiento culinario.',
+    reto:'Acuerdos con bares y productores: negocia precio cerrado por persona y cuida que la experiencia sea igual cada día.',
+    paso:'Diseña una ruta de 4 paradas, negocia con los locales y hazla con 6 amigos. Ajusta tiempos y precio.',
+    vr:'Ofrece la ruta a empresas como actividad de equipo o cena de empresa.' });
+
+  H({ id:'ho_h4', pref:['cg','sr','dc'], t:'Catering para festivales, rodajes y giras', n:'Catering de producción',
+    d:'Das de comer a equipos de festivales, rodajes, conciertos y giras: comidas a pie de escenario o de set, horarios imposibles y dietas variadas. Modelo: precio por persona y día.',
+    m:'proyecto', cli:'productoras audiovisuales, promotoras de conciertos y festivales', pb:'alimentar bien a su equipo en horarios y lugares difíciles',
+    val:'Tu equipo bien alimentado a cualquier hora y en cualquier sitio, para que el rodaje o el concierto salgan bien.',
+    inv:[5000,15000], ar:'3 meses', r:2, e:['local'], h:4, am:3, tg:['musica','arte'], k:['gestion_personas'], s:['organizacion','resolucion'],
+    why:'Te gusta la música y el espectáculo; tu ciclo te da la producción culinaria y la logística de catering.',
+    reto:'Necesitas cocina móvil o base registrada y mucha logística. Empieza con rodajes pequeños de tu comunidad.',
+    paso:'Contacta con la film commission de tu comunidad y con 2 promotoras de conciertos y pregunta quién les da el catering.',
+    vr:'Especialízate en dietas especiales en rodajes (veganas, sin gluten), que muchos caterings resuelven mal.' });
+
+  H({ id:'ho_h5', pref:['gat','cg'], t:'Picnics y experiencias gastronómicas en la naturaleza', n:'Gastronomía al aire libre',
+    d:'Preparas picnics de calidad, comidas en el campo y experiencias gastronómicas en espacios naturales, viñedos y campings, para turistas, parejas y empresas. Modelo: 30-70 € por persona.',
+    m:'experiencia', cli:'turistas, parejas, glampings, campings y empresas', pb:'comer bien en la naturaleza sin preparar nada',
+    val:'Un picnic de restaurante en un sitio precioso, con todo preparado y recogido.',
+    inv:[1000,4000], ar:'1-2 meses', r:1, e:['local'], h:2, am:2, tg:['naturaleza','viajes'], k:['rrss'], s:['creatividad','organizacion'],
+    why:'Te gusta la naturaleza; tu ciclo te da la cocina, la conservación de alimentos y la atención al cliente.',
+    reto:'Transporte y cadena de frío. Diseña un menú que aguante bien y llévalo en neveras profesionales.',
+    paso:'Pregunta a 2 glampings o casas rurales de tu zona si ofrecerían picnics a sus huéspedes.',
+    vr:'Ofrece picnics en bodegas y almazaras como experiencia de enoturismo.' });
+
+  H({ id:'ho_h6', pref:['cyr','cg'], t:'Cocina con colectivos e inserción laboral', n:'Cocina social',
+    d:'Creas un proyecto de restauración o catering que forma y da trabajo a personas en riesgo de exclusión, con apoyo de entidades sociales. Puede tomar la forma de empresa de inserción o cooperativa. Modelo: venta de menús y catering más contratos públicos reservados.',
+    m:'proyecto', cli:'ayuntamientos, entidades sociales, empresas con responsabilidad social y particulares', pb:'consumir con impacto social sin renunciar a la calidad',
+    val:'Comida rica que además da oportunidades de trabajo a personas que las necesitan.',
+    inv:[3000,12000], ar:'4-6 meses', r:2, e:['local'], h:4, am:2, tg:['social','gastronomia'], k:['gestion_personas'], s:['liderazgo','personas'],
+    why:'Te mueve lo social; tu ciclo te da la cocina, la organización de producción y la enseñanza del oficio.',
+    reto:'La gestión de una empresa social es exigente. Apóyate en una entidad con experiencia y en las ayudas a empresas de inserción.',
+    paso:'Pregunta a una entidad social de tu zona si tienen programas de formación en cocina y si les interesaría un proyecto conjunto.',
+    vr:'Ofrece catering a empresas con criterios sociales en sus compras.' });
+
+  H({ id:'ho_h7', pref:['cg','bpp'], t:'Pastelería artística y tartas de diseño', n:'Pastelería creativa',
+    d:'Diseñas tartas y dulces artísticos para bodas, cumpleaños y eventos de marca: modelado, pintura comestible, piezas a medida. Modelo: tartas de 60-500 € según tamaño y diseño.',
+    m:'producto', cli:'parejas, familias, organizadores de eventos y marcas', pb:'tener una tarta única que sea el centro del evento',
+    val:'Una tarta que es una obra de arte y además está buenísima.',
+    inv:[3000,8000], ar:'2 meses', r:2, e:['local'], h:3, am:2, tg:['arte','diy'], k:['diseno','rrss'], s:['creatividad','tecnica'],
+    why:'Tu sensibilidad artística marca la diferencia; tu ciclo te da la técnica de pastelería.',
+    reto:'Trabajo muy laborioso: calcula bien las horas y cobra el diseño. Necesitas obrador registrado.',
+    paso:'Haz 3 tartas de diseño, fotografíalas como un profesional y contacta con 3 organizadoras de bodas.',
+    vr:'Imparte talleres de decoración de tartas para aficionados.' });
+
+  H({ id:'ho_h8', pref:['cg','dc','git'], t:'Clases de cocina y contenido gastronómico online', n:'Cocina digital',
+    d:'Creas recetas, vídeos y cursos de cocina online para un público concreto (cocina rápida, sin gluten, tradicional de tu tierra) y los monetizas con cursos, colaboraciones con marcas y talleres en directo. Modelo: cursos de 20-80 € y colaboraciones.',
+    m:'formacion', cli:'aficionados a la cocina y personas que quieren aprender un tipo de cocina concreto', pb:'aprender a cocinar algo concreto de forma práctica',
+    val:'Aprendes a cocinar lo que quieres, paso a paso, con alguien que sabe explicarlo.',
+    inv:[500,2500], ar:'3-6 meses', r:2, e:['online'], h:2, am:5, tg:['tecnologia','gastronomia'], k:['fotovideo','rrss','marketing'], s:['creatividad','digital'],
+    why:'Te atrae lo digital; tu ciclo te da la técnica culinaria y la capacidad de explicarla con rigor.',
+    reto:'Hay mucha competencia y los ingresos tardan en llegar. Elige un nicho muy concreto y publica con constancia.',
+    paso:'Publica 10 vídeos cortos de recetas de tu nicho durante un mes y mide qué funciona.',
+    vr:'Combina el contenido online con clases presenciales en tu ciudad.' });
+
+  // ---------- EMERGENTES ----------
+  N({ id:'ho_n1', t:'Plan de prevención del desperdicio alimentario para hostelería', n:'Desperdicio cero',
+    d:'Desde la Ley 1/2025, todos los agentes de la cadena alimentaria deben tener un plan de prevención de pérdidas y desperdicio (art. 6.4.a) y la hostelería debe permitir que el cliente se lleve lo que no consume sin coste adicional, en envases aptos (art. 8). Ayudas a restaurantes, hoteles y comedores a hacer el plan, medir lo que tiran, ajustar raciones y organizar donaciones. Modelo: proyecto de 300-1.500 € y seguimiento.',
+    m:'proyecto', cli:'restaurantes, hoteles, comedores colectivos y caterings', pb:'cumplir la ley y tirar menos comida (y dinero)',
+    val:'Cumples la ley, tiras menos comida y ahorras en compras.',
+    inv:[300,1500], ar:'1-2 meses', r:1, e:['local'], h:2, am:3, tg:['sostenibilidad','gastronomia'], k:['ofimatica'], s:['organizacion','resolucion'],
+    why:'Tu formación en gestión de la producción, aprovisionamiento y seguridad alimentaria es justo lo que hace falta para un buen plan.',
+    reto:'Muchos establecimientos no saben que están obligados. Explícalo con datos de lo que tiran y cuánto les cuesta.',
+    paso:'Pesa durante una semana lo que se tira en la cocina de un restaurante conocido y calcula su coste anual.',
+    vr:'Combínalo con la asesoría de escandallos: menos desperdicio y más margen.' });
+
+  N({ id:'ho_n2', t:'Comidas texturizadas y adaptadas para residencias y hospitales', n:'Cocina adaptada',
+    d:'Elaboras comidas con texturas adaptadas (para personas con dificultad para tragar) y menús para dietas especiales, apetecibles y nutritivas, para residencias, hospitales y familias. Modelo: suministro diario o semanal por contrato.',
+    m:'suscripcion', cli:'residencias, centros de día, hospitales y familias con mayores', pb:'dar de comer bien a personas con dificultades para tragar',
+    val:'Comida adaptada que es segura, nutritiva y que de verdad apetece comer.',
+    inv:[8000,25000], ar:'4-6 meses', r:3, e:['local'], h:4, am:3, tg:['social','gastronomia'], k:['ventas'], s:['tecnica','organizacion'],
+    why:'Tu técnica culinaria, la conservación y la seguridad alimentaria, aplicadas a un público con necesidades especiales que crece cada año.',
+    reto:'Las texturas deben ser seguras para cada grado de dificultad. Trabaja con logopedas y nutricionistas y sigue escalas reconocidas.',
+    paso:'Pregunta a 2 residencias cómo preparan la comida texturizada y qué problemas tienen.',
+    vr:'Vende comida texturizada envasada a familias que cuidan a mayores en casa.' });
+
+  N({ id:'ho_n3', t:'Experiencias de agroturismo con productores', n:'Turismo con productores',
+    d:'Organizas experiencias en las que el turista vive el trabajo del campo y del obrador: vendimia, elaboración de queso, recogida de aceituna, pesca con marineros, con comida final. Modelo: 40-120 € por persona con reparto con los productores.',
+    m:'experiencia', cli:'turistas urbanos y extranjeros, familias y empresas', pb:'vivir el origen de los alimentos de forma auténtica',
+    val:'Vives un día como productor y comes lo que has ayudado a hacer.',
+    inv:[500,2500], ar:'2-3 meses', r:2, e:['local'], h:3, am:3, tg:['viajes','naturaleza','gastronomia'], k:['idiomas','marketing'], s:['organizacion','personas'],
+    why:'El diseño de productos turísticos y el conocimiento gastronómico de tu familia profesional son la base para crear la experiencia.',
+    reto:'Coordinar productores y temporadas. Cierra acuerdos por escrito y ofrece actividades distintas en cada estación.',
+    paso:'Habla con 3 productores de tu comarca y diseña una experiencia de medio día con cada uno.',
+    vr:'Vende las experiencias a agencias de viajes extranjeras especializadas.' });
+  } // fin de Hostelería y Turismo
+
+  // ===================== INDUSTRIAS ALIMENTARIAS =====================
+  FAM.alimentaria = {
+    ciclos: {
+      'Actividades de Panadería y Pastelería': 'bpp',
+      'Industrias Alimentarias': 'bia',
+      'Aceites de Oliva y Vinos': 'aov',
+      'Elaboración de Productos Alimenticios': 'epa',
+      'Panadería, Repostería y Confitería': 'prc',
+      'Procesos y Calidad en la Industria Alimentaria': 'pci',
+      'Vitivinicultura': 'viti'
+    },
+    labels: { bpp: 'Actividades de Panadería y Pastelería (Grado Básico)', bia: 'Industrias Alimentarias (Grado Básico)', aov: 'Aceites de Oliva y Vinos', epa: 'Elaboración de Productos Alimenticios', prc: 'Panadería, Repostería y Confitería', pci: 'Procesos y Calidad en la Industria Alimentaria', viti: 'Vitivinicultura' },
+    defecto: { basico: 'bia', medio: 'epa', superior: 'pci' },
+    afin: { bpp: ['prc'], bia: ['epa'], prc: ['bpp'], aov: ['viti'], viti: ['aov'] },
+    fuentes: {
+      viti: 'el consejo regulador de la denominación de origen de tu zona, la Organización Interprofesional del Vino de España, la Asociación Española de Enología y la ruta del vino de tu comarca',
+      aov: 'el consejo regulador de la denominación de origen de tu zona, la Interprofesional del Aceite de Oliva Español, la Agencia de Información y Control Alimentarios (AICA) y los paneles de cata oficiales',
+      pci: 'la Agencia Española de Seguridad Alimentaria y Nutrición (AESAN), la Federación Española de Industrias de Alimentación y Bebidas (FIAB), los centros tecnológicos alimentarios de tu comunidad y el reglamento de información alimentaria (Reglamento (UE) 1169/2011)',
+      _: 'el Registro General Sanitario de Empresas Alimentarias y Alimentos (RD 191/2011), la Agencia Española de Seguridad Alimentaria y Nutrición (AESAN), la asociación de panaderos o de industrias alimentarias de tu provincia y los programas de venta de proximidad de tu comunidad'
+    }
+  };
+  { const { A, H, N } = banco('alimentaria');
+
+  // ---------- PANADERÍA, REPOSTERÍA Y CONFITERÍA ----------
+  A({ id:'al1', cics:['prc','bpp'], t:'Obrador artesano de pan de masa madre', n:'Panadería artesana',
+    d:'Abres un obrador de pan de fermentación larga, masa madre y harinas de calidad, con venta en mostrador, a restaurantes y en tiendas de barrio. Mucha gente busca pan de verdad y está dispuesta a pagarlo. Necesitas registro sanitario (Reglamento (CE) 852/2004, art. 6; RD 191/2011). Modelo: pan de 3-6 € la pieza con margen alto sobre materia prima.',
+    m:'producto', cli:'vecinos que buscan pan de calidad, restaurantes y tiendas de producto local', pb:'encontrar pan artesano de verdad cerca de casa',
+    val:'Pan de masa madre de verdad, hecho cada día cerca de tu casa, que dura y sabe a pan.',
+    inv:[15000,40000], ar:'4-6 meses', r:3, e:['local'], h:4, am:2, tg:['gastronomia'], k:['rrss','ventas'], s:['tecnica','organizacion'],
+    why:'Materias primas y procesos en panadería, Elaboración de panadería-bollería y Productos de obrador: dominas la fermentación y el horno.',
+    reto:'Horarios muy duros y hornos caros. Empieza alquilando un obrador por horas o vendiendo a restaurantes antes de abrir tienda.',
+    paso:'Haz pan de masa madre durante un mes para 10 familias conocidas y 2 restaurantes, y apunta qué repiten y cuánto pagarían.',
+    vr:'Empieza con suministro a restaurantes y tiendas (sin tienda propia) y abre mostrador cuando tengas volumen.' });
+
+  A({ id:'al2', cics:['prc','bpp'], t:'Pastelería y bollería para cafeterías y hoteles', n:'Obrador de suministro',
+    d:'Elaboras bollería, pasteles, tartas y galletas para cafeterías, hoteles y restaurantes que quieren producto artesano sin obrador propio, con reparto diario. Modelo: tarifa por pieza con pedidos fijos semanales.',
+    m:'producto', cli:'cafeterías de especialidad, hoteles, restaurantes y tiendas', pb:'ofrecer dulces artesanos sin tener obrador',
+    val:'Bollería y pastelería artesana en tu barra cada mañana, sin obrador ni pastelero propio.',
+    inv:[8000,25000], ar:'3-4 meses', r:2, e:['local'], h:4, am:2, tg:['gastronomia'], k:['ventas'], s:['tecnica','organizacion'],
+    why:'Procesos básicos de pastelería y repostería, Elaboración de confitería y Productos de obrador: produces con regularidad y calidad.',
+    reto:'El reparto diario y los pedidos que cambian complican la producción. Cierra pedidos con antelación y fija un mínimo por cliente.',
+    paso:'Lleva muestras a 5 cafeterías de tu zona y pregunta qué compran hoy, a quién y a qué precio.',
+    vr:'Especialízate en un producto que las cafeterías de especialidad buscan y pocos hacen bien (croissant de mantequilla, bollería nórdica).' });
+
+  A({ id:'al3', cics:['prc','epa'], t:'Productos sin gluten y para dietas especiales', n:'Obrador especializado',
+    d:'Elaboras pan, repostería y platos sin gluten, sin lactosa o veganos en un obrador dedicado (para evitar contaminación cruzada) y los vendes en tienda, online y a restaurantes. Modelo: precio superior al convencional con margen del 50-60 %.',
+    m:'producto', cli:'personas celíacas o con intolerancias, familias y restaurantes', pb:'encontrar productos seguros y ricos para su dieta',
+    val:'Pan y dulces sin gluten seguros de verdad, hechos en un obrador dedicado, que además están buenos.',
+    inv:[10000,30000], ar:'4-6 meses', r:3, e:['local','online'], h:4, am:3, tg:['gastronomia','social'], k:['rrss','marketing'], s:['tecnica','organizacion'],
+    why:'Materias primas y procesos, Elaboración de panadería-bollería y Seguridad e higiene en la manipulación: sabes formular y evitar contaminaciones.',
+    reto:'Declarar «sin gluten» exige cumplir el límite legal y controlarlo. Analiza tus productos en un laboratorio y separa totalmente la producción.',
+    paso:'Contacta con la asociación de celíacos de tu comunidad y pregunta qué productos echan en falta en tu zona.',
+    vr:'Vende online a toda España productos que aguanten envío (galletas, panes envasados, mezclas de harinas).' });
+
+  // ---------- ELABORACIÓN DE PRODUCTOS ALIMENTICIOS ----------
+  A({ id:'al4', cics:['epa','bia'], t:'Conservas y mermeladas artesanas con producto local', n:'Conservas artesanas',
+    d:'Elaboras conservas vegetales, mermeladas, salsas, encurtidos o patés con producto de tu zona y de temporada, con una marca cuidada. Vendes en tiendas gourmet, mercados, online y a empresas en Navidad. Necesitas registro sanitario y cumplir el etiquetado (Reglamento (UE) 1169/2011, art. 9). Modelo: 4-9 € por tarro con margen del 50-65 %.',
+    m:'producto', cli:'tiendas gourmet, turistas, personas que regalan y empresas', pb:'encontrar productos artesanos de su tierra con calidad',
+    val:'El sabor de tu tierra en un tarro, hecho con producto local y receta propia.',
+    inv:[5000,15000], ar:'3-4 meses', r:2, e:['local','online'], h:3, am:4, tg:['gastronomia','sostenibilidad'], k:['diseno','rrss'], s:['tecnica','creatividad','ventas'],
+    why:'Tratamientos de transformación y conservación, Procesado de productos alimentarios y Venta y comercialización de productos alimentarios: es tu ciclo completo.',
+    reto:'La esterilización mal hecha es un riesgo sanitario serio. Valida cada receta con un laboratorio y empieza en un obrador compartido registrado.',
+    paso:'Elige 3 recetas con producto de tu zona, haz una tirada pequeña en un obrador compartido y llévala a 5 tiendas gourmet.',
+    vr:'Ofrece conservas a productores agrarios con su propia fruta o verdura (elaboración a maquila).' });
+
+  A({ id:'al5', cics:['epa','pci'], t:'Elaboración a maquila para pequeños productores', n:'Obrador compartido',
+    d:'Muchos agricultores y ganaderos quieren transformar su producto (zumos, conservas, quesos, mermeladas) pero no tienen obrador. Tú tienes el obrador registrado y elaboras para ellos con su materia prima y su marca, o alquilas el obrador por horas. Modelo: precio por kilo transformado o por hora de obrador.',
+    m:'cuota', cli:'agricultores, ganaderos, cooperativas pequeñas y emprendedores alimentarios', pb:'transformar su producto sin montar una industria',
+    val:'Tu producto transformado con tu marca y con garantías sanitarias, sin construir un obrador.',
+    inv:[20000,60000], ar:'6-9 meses', r:3, e:['local'], h:4, am:2, tg:['sostenibilidad','naturaleza'], k:['gestion_personas'], s:['organizacion','tecnica'],
+    why:'Operaciones de acondicionado de materias primas, Procesos tecnológicos en la industria alimentaria y Principios de mantenimiento: sabes montar y operar una línea polivalente.',
+    reto:'Inversión alta. Busca apoyo de ayuntamientos y grupos de acción local, que a veces ceden naves o financian obradores compartidos.',
+    paso:'Pregunta a 5 productores de tu comarca qué transformarían si tuvieran un obrador cerca y cuánto pagarían por kilo.',
+    vr:'Empieza gestionando un obrador municipal o de una cooperativa en lugar de construir uno.' });
+
+  A({ id:'al6', cics:['epa','bia'], t:'Zumos, gazpachos y productos frescos para tiendas y hostelería', n:'Frescos elaborados',
+    d:'Elaboras zumos prensados en frío, gazpachos, cremas, hummus y otros productos frescos de vida corta para tiendas de barrio, cafeterías, gimnasios y oficinas, con reparto propio. Modelo: precio por unidad con pedidos fijos.',
+    m:'producto', cli:'tiendas de alimentación, cafeterías, gimnasios y oficinas', pb:'ofrecer productos frescos y saludables hechos cerca',
+    val:'Productos frescos y saludables hechos ayer, cerca de ti, sin conservantes.',
+    inv:[8000,20000], ar:'3-4 meses', r:2, e:['local'], h:3, am:2, tg:['deporte','gastronomia'], k:['ventas'], s:['organizacion','tecnica'],
+    why:'Operaciones de acondicionado, Tratamientos de conservación y Operaciones y control de almacén: sabes producir fresco con seguridad.',
+    reto:'Vida útil corta: produce bajo pedido, controla la cadena de frío y establece la fecha de caducidad con análisis.',
+    paso:'Pregunta a 5 tiendas y cafeterías de tu zona qué frescos elaborados venderían y cuántas unidades por semana.',
+    vr:'Especialízate en un producto estrella (gazpacho o zumo verde) y véndelo a cadenas regionales.' });
+
+  // ---------- PROCESOS Y CALIDAD ----------
+  A({ id:'al7', cics:['pci'], t:'Consultoría de seguridad alimentaria y calidad para pymes', n:'Calidad alimentaria',
+    d:'Ayudas a obradores, restaurantes, carnicerías y pymes alimentarias con su plan de autocontrol (APPCC), formación de manipuladores, preparación de inspecciones y certificaciones que piden los distribuidores (IFS, BRCGS). Modelo: proyecto de 400-3.000 € y cuota de mantenimiento.',
+    m:'cuota', cli:'obradores, carnicerías, restaurantes, caterings y pymes alimentarias', pb:'cumplir la seguridad alimentaria y pasar inspecciones y auditorías',
+    val:'Tu plan de autocontrol al día, tu equipo formado y las inspecciones y auditorías superadas a la primera.',
+    inv:[500,2000], ar:'1-2 meses', r:1, e:['local','online'], h:2, am:3, tg:[], k:['ofimatica'], s:['organizacion','resolucion'],
+    why:'Gestión de calidad y ambiental en la industria alimentaria, Nutrición y seguridad alimentaria y Control microbiológico y sensorial: es tu ciclo.',
+    reto:'Muchas pymes solo llaman cuando hay una inspección. Ofrece mantenimiento anual con visitas para que el plan no se quede en papel.',
+    paso:'Pregunta a 5 obradores o carnicerías de tu zona quién les hizo el plan de autocontrol y si lo actualizan.',
+    vr:'Especialízate en preparar a pymes para certificaciones que exigen las cadenas de supermercados.' });
+
+  A({ id:'al8', cics:['pci','epa'], t:'Desarrollo de nuevos productos para pymes alimentarias', n:'Innovación alimentaria',
+    d:'Ayudas a pymes alimentarias a lanzar productos nuevos: formulación, pruebas, vida útil, análisis sensorial, etiquetado y escalado a producción. Modelo: proyecto de 1.500-10.000 € por producto.',
+    m:'proyecto', cli:'pymes alimentarias, obradores y marcas pequeñas', pb:'lanzar productos nuevos sin departamento de I+D',
+    val:'Tu producto nuevo listo para fabricar y vender, con su vida útil y etiqueta comprobadas.',
+    inv:[1000,5000], ar:'3-4 meses', r:2, e:['local','online'], h:3, am:3, tg:['tecnologia','gastronomia'], k:['ofimatica'], s:['creatividad','tecnica','resolucion'],
+    why:'Innovación alimentaria, Tecnología alimentaria, Biotecnología alimentaria y Análisis de alimentos: es la parte más creativa de tu ciclo.',
+    reto:'Los proyectos son largos y el cliente no siempre tiene dinero. Trabaja por fases y apóyate en ayudas a la innovación y centros tecnológicos.',
+    paso:'Pregunta a 3 pymes alimentarias de tu zona qué producto nuevo les gustaría lanzar y qué les frena.',
+    vr:'Especialízate en reformular productos para reducir azúcar o sal, algo que muchas empresas necesitan.' });
+
+  A({ id:'al9', cics:['pci','epa','bia'], t:'Etiquetado y cumplimiento normativo de alimentos', n:'Etiquetado alimentario',
+    d:'Revisas y preparas etiquetas de productos alimentarios: información obligatoria y alérgenos (Reglamento (UE) 1169/2011, art. 9), tabla nutricional, declaraciones permitidas y registro sanitario, para pequeños productores y marcas. Modelo: 80-300 € por etiqueta.',
+    m:'proyecto', cli:'pequeños productores, obradores, marcas nuevas y tiendas que envasan', pb:'tener etiquetas correctas para vender sin problemas',
+    val:'Etiquetas que cumplen la normativa, para que vendas sin miedo a una inspección o una retirada.',
+    inv:[200,1000], ar:'1 mes', r:1, e:['online'], h:1, am:4, tg:[], k:['ofimatica','diseno'], s:['organizacion','tecnica'],
+    why:'Nutrición y seguridad alimentaria, Gestión de calidad y Análisis de alimentos: sabes qué debe llevar una etiqueta y cómo calcularlo.',
+    reto:'Un error en un alérgeno es grave. Revisa siempre las fichas técnicas de todos los ingredientes y deja por escrito qué te ha facilitado el cliente.',
+    paso:'Revisa las etiquetas de 10 productos artesanos de un mercado de tu zona y apunta los errores. Ofrece la corrección a sus productores.',
+    vr:'Combínalo con el diseño gráfico de la etiqueta en colaboración con un diseñador.' });
+
+  // ---------- VITIVINICULTURA ----------
+  A({ id:'al10', cics:['viti','aov'], t:'Enólogo externo para pequeñas bodegas y viticultores', n:'Enología externa',
+    d:'Muchas bodegas pequeñas y viticultores que quieren elaborar su vino no tienen enólogo. Llevas su vendimia, elaboración, análisis, crianza, embotellado y documentación del consejo regulador. Modelo: cuota anual por bodega (2.000-10.000 €) o precio por campaña.',
+    m:'cuota', cli:'bodegas pequeñas, cooperativas y viticultores que elaboran su propio vino', pb:'elaborar un vino de calidad sin contratar un enólogo a tiempo completo',
+    val:'Tu vino elaborado con criterio técnico, análisis y control, sin enólogo en plantilla.',
+    inv:[2000,8000], ar:'3-4 meses', r:2, e:['local'], h:3, am:3, tg:['gastronomia','naturaleza'], k:['ventas'], s:['tecnica','organizacion'],
+    why:'Vinificaciones, Estabilización, crianza y envasado, Análisis enológico y Legislación vitivinícola: es tu ciclo completo.',
+    reto:'El trabajo se concentra en vendimia. Ten pocos clientes cercanos y planifica la campaña con mucha antelación.',
+    paso:'Pregunta en el consejo regulador de tu zona cuántas bodegas pequeñas hay y contacta con 3 para preguntar quién les lleva la enología.',
+    vr:'Ofrece análisis enológicos rápidos durante la vendimia a viticultores y bodegas de la zona.' });
+
+  A({ id:'al11', cics:['viti','aov'], t:'Enoturismo: visitas, catas y experiencias en bodega', n:'Enoturismo',
+    d:'Diseñas y gestionas la oferta de enoturismo de bodegas que no saben venderla: visitas guiadas, catas, vendimia para visitantes, maridajes y eventos, y su venta online. Modelo: 15-60 € por visitante o gestión con porcentaje.',
+    m:'experiencia', cli:'bodegas y almazaras, turistas y empresas', pb:'atraer visitantes y vender más vino en la propia bodega',
+    val:'Visitas que enamoran al visitante y venden vino directamente en la bodega.',
+    inv:[500,2000], ar:'2-3 meses', r:2, e:['local'], h:3, am:3, tg:['viajes','gastronomia'], k:['idiomas','marketing'], s:['personas','ventas'],
+    why:'Cata y cultura vitivinícola, Comercialización y logística y Viticultura: conoces el vino de la cepa a la copa.',
+    reto:'Muchas bodegas pequeñas no tienen instalaciones para visitas. Empieza con experiencias sencillas en el viñedo y catas en el exterior.',
+    paso:'Contacta con la ruta del vino de tu zona y pregunta qué bodegas quieren mejorar sus visitas. Diseña una experiencia de 2 horas.',
+    vr:'Vende experiencias de enoturismo a agencias de viajes extranjeras.' });
+
+  // ---------- ACEITES DE OLIVA Y VINOS ----------
+  A({ id:'al12', cics:['aov'], t:'Aceite de oliva virgen extra premium con marca propia', n:'Aceite de autor',
+    d:'Seleccionas aceite de cosecha temprana de una almazara de tu zona (o lo elaboras con tu propia aceituna a maquila) y creas una marca premium con envase cuidado para tiendas gourmet, restaurantes, regalo de empresa y exportación. Modelo: 12-30 € por botella de 500 ml.',
+    m:'producto', cli:'tiendas gourmet, restaurantes, empresas que regalan y compradores extranjeros', pb:'encontrar un aceite excepcional con historia',
+    val:'Un aceite de oliva excepcional, de origen conocido, que se nota en cada plato.',
+    inv:[5000,15000], ar:'4-6 meses', r:3, e:['online','local'], h:3, am:5, tg:['gastronomia'], k:['idiomas','marketing','diseno'], s:['ventas','creatividad'],
+    why:'Extracción de aceite de oliva, Acondicionamiento de aceites de oliva, Análisis sensorial y Venta y comercialización: sabes elegir, cuidar y vender un gran aceite.',
+    reto:'El envasado de aceite exige registro como envasador y cumplir la norma de calidad del aceite. Empieza envasando en una almazara registrada.',
+    paso:'Cata los aceites de 3 almazaras de tu zona, elige uno y prepara 20 botellas de prueba para tiendas gourmet.',
+    vr:'Vende por suscripción el aceite de cada cosecha (temprano, de temporada) a clientes particulares.' });
+
+  A({ id:'al13', cics:['aov','viti'], t:'Análisis sensorial y catas para almazaras y bodegas', n:'Panel de cata',
+    d:'Ofreces catas técnicas y análisis sensorial a almazaras y bodegas para controlar la calidad de cada partida, preparar concursos y formar a su personal, y catas divulgativas para el público. Modelo: precio por muestra o por sesión.',
+    m:'proyecto', cli:'almazaras, bodegas, cooperativas y tiendas especializadas', pb:'saber la calidad real de su producto y mejorarla',
+    val:'Conoces la calidad real de cada partida y sabes qué hacer para mejorarla.',
+    inv:[1000,4000], ar:'2-3 meses', r:2, e:['local'], h:2, am:3, tg:['gastronomia'], k:['ventas'], s:['tecnica','personas'],
+    why:'Análisis sensorial, Materias primas y productos en la industria oleícola y vinícola: tu ciclo te forma como catador.',
+    reto:'La clasificación oficial del aceite la hacen paneles reconocidos. Ofrece control interno y formación, y fórmate para acceder a un panel oficial.',
+    paso:'Pregunta a 3 almazaras de tu zona cómo controlan la calidad sensorial de sus partidas antes de venderlas.',
+    vr:'Organiza catas para turistas y empresas en colaboración con almazaras.' });
+
+  A({ id:'al14', cics:['aov','epa'], t:'Microcervecería, sidra o bebidas artesanas', n:'Bebidas artesanas',
+    d:'Elaboras cerveza artesana, sidra, vermut o kombucha con una receta propia y vendes en bares de tu zona, tiendas y online. Las bebidas alcohólicas exigen inscribirse a efectos de impuestos especiales además del registro sanitario. Modelo: margen sobre botella y barril, y visitas con cata.',
+    m:'producto', cli:'bares, restaurantes, tiendas especializadas y aficionados', pb:'encontrar bebidas artesanas de calidad y con identidad local',
+    val:'Una bebida artesana con identidad local, hecha cerca y con mimo.',
+    inv:[15000,40000], ar:'4-6 meses', r:3, e:['local','online'], h:4, am:3, tg:['gastronomia','musica'], k:['marketing','rrss'], s:['tecnica','creatividad','ventas'],
+    why:'Elaboración de otras bebidas y derivados, Análisis sensorial y Operaciones y control de almacén: dominas la fermentación y el control.',
+    reto:'Muchas marcas compiten y los trámites fiscales son exigentes. Empieza elaborando en una fábrica de otro (modelo «gipsy») antes de montar la tuya.',
+    paso:'Infórmate en la Agencia Tributaria de los requisitos de impuestos especiales y busca una fábrica que elabore para terceros. Haz una receta y pruébala en 3 bares.',
+    vr:'Haz bebidas sin alcohol o de baja graduación, que crecen y tienen menos trámites fiscales.' });
+
+  // ---------- INDUSTRIAS ALIMENTARIAS / PANADERÍA BÁSICO ----------
+  A({ id:'al15', cics:['bia','bpp'], t:'Puesto de venta de producto elaborado en mercados de abastos', n:'Mercado de abastos',
+    d:'Abres un puesto en un mercado de abastos con productos elaborados por ti o por obradores cercanos: pan, empanadas, platos preparados, encurtidos, y das vida al mercado con degustaciones. Modelo: venta directa con margen del 35-55 %.',
+    m:'producto', cli:'vecinos y visitantes del mercado de abastos de tu barrio', pb:'comprar producto elaborado de calidad en su mercado de siempre',
+    val:'Producto elaborado de calidad, cerca de casa y con alguien que te cuenta cómo está hecho.',
+    inv:[3000,10000], ar:'2-3 meses', r:2, e:['local'], h:4, am:1, tg:['gastronomia','social'], k:['ventas'], s:['personas','ventas'],
+    why:'Elaboración de productos alimentarios, Operaciones auxiliares de almacenaje y Dispensación: produces y vendes con seguridad.',
+    reto:'Muchos mercados tienen poco tráfico. Elige uno que se esté renovando y coordina con otros puestos para atraer público.',
+    paso:'Pregunta en el mercado de abastos de tu barrio qué puestos están libres, cuánto cuestan y qué producto falta.',
+    vr:'Combina el puesto con pedidos por WhatsApp y entrega a domicilio a clientes del barrio.' });
+
+  A({ id:'al16', cics:['bia','epa'], t:'Operario polivalente para obradores y pequeñas industrias por campañas', n:'Servicios de producción',
+    d:'Las pequeñas industrias alimentarias (conserveras, embutidos, turrones, frutas) tienen campañas con mucho trabajo. Te especializas en dar apoyo cualificado en esas campañas a varias empresas: producción, envasado, limpieza y control de almacén. Modelo: precio por jornada o por campaña.',
+    m:'cuota', cli:'conserveras, fábricas de turrones, embutidos, almazaras y centrales hortofrutícolas', pb:'cubrir picos de producción con personal que ya sabe trabajar',
+    val:'Personal formado en seguridad alimentaria para tus campañas, que llega sabiendo trabajar.',
+    inv:[200,800], ar:'1 mes', r:1, e:['local'], h:4, am:2, tg:[], k:['otro_oficio'], s:['organizacion','tecnica'],
+    why:'Operaciones auxiliares en la industria alimentaria, Limpieza y mantenimiento de instalaciones y equipos y Operaciones auxiliares de almacenaje: es tu ciclo.',
+    reto:'Si trabajas siempre para la misma empresa con horario fijo, lo correcto es un contrato. Úsalo como paso para conocer el sector y especializarte.',
+    paso:'Haz una lista de las industrias alimentarias de tu comarca y sus campañas, y pregunta en 3 cómo cubren los picos.',
+    vr:'Fórmate como manipulador de alimentos con nivel avanzado y como carretillero: te abren más puertas.' });
+
+  // ---------- HÍBRIDAS ----------
+  H({ id:'al_h1', pref:['epa','pci','prc'], t:'Snacks y barritas para deportistas', n:'Alimentación deportiva',
+    d:'Desarrollas y elaboras snacks, barritas, bebidas y geles con ingredientes naturales para deportistas, y los vendes en tiendas deportivas, gimnasios, carreras y online. Modelo: margen del 50-65 % sobre producto.',
+    m:'producto', cli:'corredores, ciclistas, gimnasios, tiendas deportivas y organizadores de carreras', pb:'encontrar alimentación deportiva natural y que siente bien',
+    val:'Energía para entrenar con ingredientes naturales, probada por deportistas como tú.',
+    inv:[5000,15000], ar:'4-6 meses', r:3, e:['online','local'], h:3, am:4, tg:['deporte'], k:['marketing','rrss'], s:['creatividad','tecnica'],
+    why:'Conoces el deporte y lo que necesita un deportista; tu ciclo te da la formulación, la conservación y el etiquetado.',
+    reto:'Las declaraciones de salud y nutricionales están muy reguladas. No prometas efectos que no estén autorizados.',
+    paso:'Formula 2 barritas, pide a 10 deportistas que las prueben en entrenamientos y apunta qué cambiarían.',
+    vr:'Ofrece barritas personalizadas para carreras y clubes como avituallamiento oficial.' });
+
+  H({ id:'al_h2', pref:['epa','pci'], t:'Productos hechos con excedentes y subproductos', n:'Alimentación circular',
+    d:'Conviertes excedentes de fruta, pan del día anterior, subproductos de la industria (bagazo de cerveza, piel de fruta) en productos nuevos: harinas, snacks, mermeladas, galletas. Colaboras con productores e industrias que pagarían por no tirar. Modelo: venta de producto y acuerdos con empresas.',
+    m:'producto', cli:'consumidores con conciencia ambiental, tiendas, e industrias con excedentes', pb:'aprovechar alimentos que se tiran',
+    val:'Productos ricos hechos con alimentos que se iban a tirar, con una historia que cuenta algo.',
+    inv:[5000,15000], ar:'4-6 meses', r:3, e:['local','online'], h:3, am:4, tg:['sostenibilidad'], k:['marketing'], s:['creatividad','resolucion'],
+    why:'Tu compromiso con la sostenibilidad da sentido al proyecto; tu ciclo te da los procesos de transformación y conservación.',
+    reto:'Los excedentes deben ser aptos para consumo y trazables. Firma acuerdos con los proveedores y controla cada lote.',
+    paso:'Pregunta a 3 panaderías, fruterías o cerveceras de tu zona qué excedentes tiran y cuánto. Haz un prototipo con uno.',
+    vr:'Ofrece a industrias un servicio de transformación de sus subproductos con su marca.' });
+
+  H({ id:'al_h3', pref:['viti','aov','epa'], t:'Gastronomía y enoturismo para viajeros extranjeros', n:'Turismo gastronómico',
+    d:'Diseñas rutas y experiencias para viajeros extranjeros que combinan bodegas, almazaras, queserías y obradores de tu zona, con catas y comidas, en varios idiomas. Modelo: precio por persona y día con margen sobre proveedores.',
+    m:'experiencia', cli:'viajeros extranjeros, agencias especializadas en turismo gastronómico y cruceros', pb:'conocer la gastronomía española de verdad, desde dentro',
+    val:'Conoces cómo se hace el vino, el aceite y el queso de verdad, y lo pruebas con quien lo hace.',
+    inv:[500,2500], ar:'3-4 meses', r:2, e:['local'], h:3, am:4, tg:['viajes','gastronomia'], k:['idiomas','marketing'], s:['personas','idiomas','organizacion'],
+    why:'Te gusta viajar; tu ciclo te da el conocimiento técnico del vino, el aceite o los alimentos para explicarlo con autoridad.',
+    reto:'Vender paquetes completos exige ser agencia de viajes. Ofrece las experiencias y deja el paquete a una agencia colaboradora.',
+    paso:'Diseña una experiencia de un día con 3 productores de tu comarca y ofrécela a una agencia de viajes especializada.',
+    vr:'Especialízate en un mercado (estadounidense, nórdico) y en su idioma.' });
+
+  H({ id:'al_h4', pref:['epa','pci'], t:'Premios y snacks naturales para perros', n:'Alimentación para mascotas',
+    d:'Elaboras premios y snacks naturales para perros (deshidratados, galletas) y los vendes en tiendas de mascotas, peluquerías caninas y online. Los alimentos para animales tienen su propia normativa y exigen registro del establecimiento. Modelo: margen del 50-65 %.',
+    m:'producto', cli:'dueños de perros que cuidan la alimentación, tiendas y peluquerías caninas', pb:'dar a su perro premios naturales y de calidad',
+    val:'Premios naturales para tu perro, con ingredientes que reconoces y sin aditivos innecesarios.',
+    inv:[5000,15000], ar:'4-6 meses', r:3, e:['online','local'], h:3, am:4, tg:['animales'], k:['rrss','marketing'], s:['creatividad','tecnica'],
+    why:'Te encantan los animales; tu ciclo te da la transformación y conservación de alimentos y el control de calidad.',
+    reto:'La alimentación animal tiene registros y etiquetado específicos. Infórmate en la consejería de agricultura de tu comunidad antes de vender.',
+    paso:'Pregunta a 3 tiendas de mascotas qué premios naturales venden y cuáles piden más los clientes.',
+    vr:'Haz tartas de cumpleaños para perros: producto de regalo con mucho margen.' });
+
+  H({ id:'al_h5', pref:['prc','bpp'], t:'Galletas decoradas y dulces personalizados para marcas y eventos', n:'Repostería de diseño',
+    d:'Decoras galletas, cupcakes y dulces con logos, mensajes y diseños para empresas, bodas, bautizos y presentaciones de producto. Modelo: 2-6 € por galleta y pedidos de empresa.',
+    m:'producto', cli:'empresas, organizadores de eventos, familias y marcas', pb:'tener un detalle dulce personalizado y bonito',
+    val:'Un detalle dulce, bonito y con tu mensaje, que todo el mundo fotografía.',
+    inv:[2000,6000], ar:'2 meses', r:1, e:['local','online'], h:3, am:3, tg:['arte','diy'], k:['diseno','rrss'], s:['creatividad','tecnica'],
+    why:'Tu sensibilidad artística es la diferencia; tu ciclo te da la técnica de repostería y confitería.',
+    reto:'Trabajo minucioso y lento. Calcula bien el tiempo por pieza y necesitas obrador registrado.',
+    paso:'Decora 20 galletas con el logo de una empresa conocida y regálaselas a cambio de fotos y opinión.',
+    vr:'Imparte talleres de decoración de galletas para adultos y niños.' });
+
+  H({ id:'al_h6', pref:['bia','epa'], t:'Obrador de inserción laboral', n:'Alimentación con impacto',
+    d:'Creas, junto a una entidad social, un obrador (pan, galletas, conservas) que forma y contrata a personas con discapacidad o en riesgo de exclusión, con productos de calidad que se venden por sí mismos. Modelo: venta de producto y contratos públicos reservados.',
+    m:'producto', cli:'consumidores, empresas con criterios sociales y administraciones', pb:'comprar productos de calidad con impacto social',
+    val:'Productos buenos de verdad que además dan trabajo a personas que lo necesitan.',
+    inv:[5000,20000], ar:'4-6 meses', r:2, e:['local'], h:4, am:3, tg:['social'], k:['gestion_personas'], s:['liderazgo','personas','organizacion'],
+    why:'Te mueve lo social; tu ciclo te da la producción alimentaria y la capacidad de enseñar el oficio.',
+    reto:'La gestión de una empresa social es exigente. Apóyate en una entidad con experiencia y en las ayudas a centros especiales de empleo o empresas de inserción.',
+    paso:'Pregunta a una entidad social de tu zona si tienen proyectos de empleo en alimentación y si les interesaría colaborar.',
+    vr:'Vende lotes de Navidad a empresas con criterios sociales en sus compras.' });
+
+  H({ id:'al_h7', pref:['epa','aov'], t:'Productos con plantas y frutos silvestres', n:'Productos del monte',
+    d:'Elaboras productos con plantas aromáticas, setas, frutos y hierbas de tu zona: licores, infusiones, sales aromatizadas, conservas de setas. La recolección en el monte suele necesitar permiso y hay especies protegidas. Modelo: venta en tiendas, mercados y turismo.',
+    m:'producto', cli:'turistas, tiendas gourmet y personas que buscan productos naturales', pb:'llevarse el sabor del monte de una zona',
+    val:'El sabor del monte de tu tierra, recolectado con respeto y elaborado con cuidado.',
+    inv:[3000,10000], ar:'3-4 meses', r:2, e:['local','online'], h:3, am:3, tg:['naturaleza','gastronomia'], k:['rrss'], s:['tecnica','creatividad'],
+    why:'Te gusta la naturaleza; tu ciclo te da la transformación, la conservación y la seguridad alimentaria.',
+    reto:'Confundir una seta o una planta puede ser grave. Trabaja con recolectores expertos y con permisos, y analiza cada lote.',
+    paso:'Infórmate en tu comunidad de los permisos de recolección y haz una prueba con una planta aromática fácil de identificar.',
+    vr:'Combínalo con talleres de recolección guiados por expertos.' });
+
+  // ---------- EMERGENTES ----------
+  N({ id:'al_n1', t:'Fermentados: kombucha, kéfir, kimchi y encurtidos vivos', n:'Alimentos fermentados',
+    d:'Elaboras alimentos y bebidas fermentados de forma controlada y los vendes en tiendas, restaurantes y online, y das talleres. Es una tendencia en crecimiento que exige rigor en la fermentación. Modelo: margen alto sobre producto y talleres.',
+    m:'producto', cli:'tiendas ecológicas, restaurantes, cafeterías y personas interesadas en la alimentación', pb:'encontrar fermentados de calidad y seguros',
+    val:'Fermentados hechos con rigor y sabor, seguros y con historia.',
+    inv:[5000,15000], ar:'3-4 meses', r:3, e:['local','online'], h:3, am:3, tg:['gastronomia','sostenibilidad'], k:['rrss'], s:['tecnica','creatividad'],
+    why:'Los procesos bioquímicos y el control microbiológico de tu familia profesional son justo lo que separa un fermentado seguro de uno peligroso.',
+    reto:'Las fermentaciones descontroladas son un riesgo. Controla pH, temperatura y lotes, y no hagas afirmaciones de salud no autorizadas.',
+    paso:'Elabora 3 fermentados con control de pH y pide a 3 cafeterías o tiendas ecológicas que los prueben.',
+    vr:'Ofrece fermentados para restaurantes con recetas a medida.' });
+
+  N({ id:'al_n2', t:'Alimentos vegetales y alternativas a la proteína animal', n:'Proteína vegetal',
+    d:'Desarrollas productos vegetales con legumbres y cereales de tu zona: hummus, hamburguesas vegetales, bebidas vegetales, tempeh, para tiendas, restaurantes y comedores. Modelo: venta de producto y elaboración para marcas.',
+    m:'producto', cli:'tiendas, restaurantes, comedores escolares y consumidores que reducen carne', pb:'comer proteína vegetal rica y de origen cercano',
+    val:'Proteína vegetal sabrosa, con legumbres de aquí y sin ingredientes raros.',
+    inv:[8000,25000], ar:'4-6 meses', r:3, e:['local','online'], h:4, am:3, tg:['sostenibilidad','gastronomia'], k:['marketing'], s:['creatividad','tecnica'],
+    why:'La formulación, la tecnología alimentaria y la innovación de tu familia profesional te permiten crear productos que compitan en sabor.',
+    reto:'Mucha competencia de grandes marcas. Diferénciate con legumbre local, pocos ingredientes y canal de proximidad.',
+    paso:'Formula una hamburguesa o paté vegetal con legumbre de tu zona y haz una cata con 15 personas.',
+    vr:'Ofrece platos vegetales a comedores escolares y residencias, que deben ampliar las opciones vegetales.' });
+
+  N({ id:'al_n3', t:'Trazabilidad digital y venta directa para pequeños productores', n:'Origen verificable',
+    d:'Ayudas a productores y obradores a contar el origen de sus productos con códigos QR, fichas de lote, fotos del proceso y venta online directa, y a cumplir la trazabilidad. Modelo: implantación y cuota mensual.',
+    m:'cuota', cli:'pequeños productores, obradores y cooperativas', pb:'demostrar el origen de su producto y vender directo',
+    val:'Tus clientes ven de dónde viene cada producto y te compran directamente.',
+    inv:[500,2500], ar:'2-3 meses', r:2, e:['online'], h:2, am:4, tg:['tecnologia','sostenibilidad'], k:['programacion','marketing'], s:['digital','organizacion'],
+    why:'La trazabilidad y la gestión de la calidad de tu familia profesional, unidas a herramientas digitales sencillas.',
+    reto:'Los productores pequeños tienen poco tiempo y presupuesto. Ofrece una solución sencilla que se actualice desde el móvil.',
+    paso:'Haz una ficha de origen con QR para el producto de un productor conocido y mide cuántos clientes la escanean.',
+    vr:'Ofrece la solución a cooperativas para todos sus socios.' });
+  } // fin de Industrias Alimentarias
+
+  // ===================== AGRARIA =====================
+  FAM.agraria = {
+    ciclos: {
+      'Actividades Agropecuarias': 'bap',
+      'Agro-jardinería y Composiciones Florales': 'bjar',
+      'Aprovechamientos Forestales': 'bfor',
+      'Actividades Ecuestres': 'ecu',
+      'Aprovechamiento y Conservación del Medio Natural': 'acmn',
+      'Jardinería y Floristería': 'jyf',
+      'Producción Agroecológica': 'pae',
+      'Producción Agropecuaria': 'pap',
+      'Ganadería y Asistencia en Sanidad Animal': 'gasa',
+      'Gestión Forestal y del Medio Natural': 'gfmn',
+      'Paisajismo y Medio Rural': 'pmr'
+    },
+    labels: { bap: 'Actividades Agropecuarias (Grado Básico)', bjar: 'Agro-jardinería y Composiciones Florales (Grado Básico)', bfor: 'Aprovechamientos Forestales (Grado Básico)', ecu: 'Actividades Ecuestres', acmn: 'Aprovechamiento y Conservación del Medio Natural', jyf: 'Jardinería y Floristería', pae: 'Producción Agroecológica', pap: 'Producción Agropecuaria', gasa: 'Ganadería y Asistencia en Sanidad Animal', gfmn: 'Gestión Forestal y del Medio Natural', pmr: 'Paisajismo y Medio Rural' },
+    defecto: { basico: 'bap', medio: 'pap', superior: 'gasa' },
+    afin: { bap: ['pap', 'pae'], bjar: ['jyf'], bfor: ['acmn'], gfmn: ['acmn'], acmn: ['gfmn'], pmr: ['jyf'], pae: ['pap'], pap: ['pae'] },
+    fuentes: {
+      pae: 'el organismo de control de la producción ecológica de tu comunidad autónoma, el Reglamento (UE) 2018/848, la Sociedad Española de Agricultura Ecológica (SEAE) y los grupos de consumo de tu zona',
+      gasa: 'los colegios de veterinarios de tu provincia, las asociaciones de criadores de razas de tu comunidad, la consejería de agricultura y ganadería y las cooperativas ganaderas',
+      gfmn: 'la asociación de propietarios forestales de tu comunidad, PEFC España y FSC España, el servicio forestal de tu comunidad autónoma y el Inventario Forestal Nacional',
+      acmn: 'el servicio de espacios naturales de tu comunidad autónoma, la federación de caza y pesca de tu comunidad y los grupos de acción local',
+      jyf: 'la Asociación Española de Empresas de Jardinería (ASEJA), la asociación de floristas de tu provincia y los viveros de tu zona',
+      pmr: 'la Asociación Española de Paisajistas, ASEJA y los departamentos de parques y jardines de los ayuntamientos de tu zona',
+      _: 'la consejería de agricultura de tu comunidad autónoma, las cooperativas agrarias de tu comarca, las organizaciones agrarias y los grupos de acción local'
+    }
+  };
+  { const { A, H, N } = banco('agraria');
+
+  // ---------- JARDINERÍA Y PAISAJISMO ----------
+  A({ id:'ag1', cics:['jyf','bjar','pmr'], t:'Mantenimiento de jardines por cuota mensual', n:'Jardinería',
+    d:'Mantienes jardines de viviendas, comunidades de vecinos, urbanizaciones, hoteles y empresas: poda, siega, riego, abonado y tratamientos. Para aplicar productos fitosanitarios profesionales necesitas el carné de usuario profesional (RD 1311/2012, art. 18). Modelo: cuota mensual de 40-400 € según superficie.',
+    m:'cuota', cli:'propietarios de viviendas con jardín, comunidades, urbanizaciones y hoteles', pb:'tener el jardín cuidado todo el año sin ocuparse',
+    val:'Tu jardín siempre cuidado, con el mismo jardinero que lo conoce, por una cuota fija.',
+    inv:[3000,10000], ar:'1-2 meses', r:1, e:['domicilio','local'], h:3, am:1, tg:['naturaleza'], k:['atencion_cliente'], s:['tecnica','organizacion'],
+    why:'Mantenimiento y mejora de jardines y zonas verdes, Control fitosanitario y Taller y equipos de tracción: es tu ciclo.',
+    reto:'Trabajo estacional y con mucha competencia informal. Ofrece contratos anuales y cuida la imagen (furgoneta, uniforme, puntualidad).',
+    paso:'Pregunta a 3 administradores de fincas quién mantiene los jardines de sus comunidades y si están contentos. Ofrece un presupuesto a uno.',
+    vr:'Especialízate en riego automático y su mantenimiento: ahorras agua al cliente y tienes un servicio diferencial.' });
+
+  A({ id:'ag2', cics:['jyf','bjar'], t:'Floristería para bodas, eventos y empresas', n:'Arte floral',
+    d:'Diseñas y montas la decoración floral de bodas, eventos, restaurantes y hoteles, y ofreces suscripciones de flores para oficinas y comercios. Modelo: bodas de 500-4.000 €, suscripciones semanales de 20-60 €.',
+    m:'proyecto', cli:'novios, organizadores de eventos, hoteles, restaurantes y oficinas', pb:'decorar con flores de forma bonita y sin complicaciones',
+    val:'Flores que transforman tu evento o tu espacio, diseñadas para ti y montadas sin que te preocupes.',
+    inv:[2000,8000], ar:'2 meses', r:2, e:['local'], h:3, am:2, tg:['arte','moda'], k:['rrss','fotovideo'], s:['creatividad','personas'],
+    why:'Composiciones florales y con plantas, Establecimientos de floristería y Técnicas de venta en jardinería y floristería: es tu ciclo.',
+    reto:'La flor es perecedera y los eventos concentran el trabajo. Compra según pedidos cerrados y trabaja sin tienda al principio.',
+    paso:'Haz 3 composiciones de boda, fotografíalas con un fotógrafo y contacta con 3 organizadoras de bodas y fincas.',
+    vr:'Cultiva tus propias flores de temporada: margen mayor y un argumento de sostenibilidad.' });
+
+  A({ id:'ag3', cics:['pmr','jyf'], t:'Diseño de jardines sostenibles y de bajo consumo de agua', n:'Paisajismo',
+    d:'Diseñas y ejecutas jardines adaptados al clima, con plantas autóctonas, riego eficiente y poco mantenimiento, para viviendas, empresas, hoteles y ayuntamientos. Con las sequías, cada vez se pide más. Modelo: diseño de 300-2.000 € y ejecución por presupuesto.',
+    m:'proyecto', cli:'propietarios de viviendas con jardín, empresas, hoteles y ayuntamientos', pb:'tener un jardín bonito que gaste poca agua',
+    val:'Un jardín bonito todo el año que consume poca agua y necesita poco mantenimiento.',
+    inv:[2000,8000], ar:'2-3 meses', r:2, e:['domicilio','local'], h:3, am:3, tg:['naturaleza','sostenibilidad','arte'], k:['diseno'], s:['creatividad','tecnica'],
+    why:'Diseño de jardines y restauración del paisaje, Botánica agronómica y Planificación de cultivos: diseñas con criterio técnico.',
+    reto:'El cliente piensa en césped verde. Enseña ejemplos reales de jardines sostenibles y el ahorro en agua.',
+    paso:'Rediseña el jardín de un conocido con plantas de bajo consumo y calcula cuánta agua ahorraría al año.',
+    vr:'Ofrece cubiertas y muros verdes para edificios y comercios.' });
+
+  A({ id:'ag4', cics:['pmr'], t:'Mantenimiento de céspedes deportivos y campos de golf', n:'Césped deportivo',
+    d:'Mantienes césped natural de campos de fútbol, golf, pádel y zonas deportivas de ayuntamientos y clubes: siega, aireado, resiembra, riego y tratamientos. Modelo: contrato anual por campo.',
+    m:'cuota', cli:'ayuntamientos, clubes deportivos y campos de golf', pb:'tener el césped en buen estado para jugar',
+    val:'Un césped siempre en condiciones de juego, con un mantenimiento profesional y planificado.',
+    inv:[5000,20000], ar:'3-4 meses', r:2, e:['local'], h:4, am:2, tg:['deporte','naturaleza'], k:['otro_oficio'], s:['tecnica','organizacion'],
+    why:'Conservación de jardines y céspedes deportivos, Maquinaria e instalaciones agroforestales y Fitopatología: es un módulo de tu ciclo.',
+    reto:'La maquinaria es cara y los ayuntamientos contratan por licitación. Empieza con clubes privados y alquila maquinaria.',
+    paso:'Pregunta a 3 clubes de fútbol o golf de tu zona quién mantiene su césped y cuánto pagan.',
+    vr:'Especialízate en la recuperación de céspedes dañados, un servicio puntual bien pagado.' });
+
+  // ---------- PRODUCCIÓN AGROECOLÓGICA / AGROPECUARIA ----------
+  A({ id:'ag5', cics:['pae','pap','bap'], t:'Huerta ecológica con venta directa por suscripción', n:'Huerta de cercanía',
+    d:'Cultivas verdura ecológica en 1-3 hectáreas y la vendes directamente en cestas semanales, mercados y a restaurantes. La certificación ecológica la controla el organismo de tu comunidad (Reglamento (UE) 2018/848) y la venta directa de pequeñas cantidades tiene normas simplificadas (RD 1086/2020). Modelo: cestas de 15-30 € por semana con 40-80 familias.',
+    m:'suscripcion', cli:'familias que quieren verdura ecológica de cercanía, grupos de consumo y restaurantes', pb:'comer verdura ecológica y fresca de alguien de confianza',
+    val:'Verdura ecológica recién cogida cada semana, de un huerto que puedes visitar.',
+    inv:[5000,20000], ar:'4-6 meses', r:2, e:['local','domicilio'], h:4, am:2, tg:['sostenibilidad','naturaleza','gastronomia'], k:['rrss','ventas'], s:['tecnica','organizacion'],
+    why:'Implantación de cultivos ecológicos, Producción vegetal ecológica, Manejo sanitario del agrosistema y Comercialización de productos agroecológicos: es tu ciclo completo.',
+    reto:'Acceder a tierra y agua es lo más difícil, y los primeros años son duros. Busca bancos de tierra, cesiones y ayudas a la incorporación de jóvenes agricultores.',
+    paso:'Busca en tu comarca bancos de tierras o fincas en cesión y pregunta a 20 familias si se apuntarían a una cesta semanal.',
+    vr:'Combina la huerta con visitas y talleres para familias, que pagan por la experiencia.' });
+
+  A({ id:'ag6', cics:['pae'], t:'Asesoría para pasar a producción ecológica', n:'Conversión a ecológico',
+    d:'Acompañas a agricultores y ganaderos que quieren pasarse a ecológico: plan de conversión, manejo de suelo y plagas, documentación para la certificación y búsqueda de canales de venta. Modelo: proyecto de 500-2.500 € y visitas de seguimiento.',
+    m:'proyecto', cli:'agricultores y ganaderos convencionales y cooperativas', pb:'pasarse a ecológico sin perder la cosecha ni la cabeza',
+    val:'Pasas a ecológico con un plan claro, sin errores en la certificación y con a quién vender.',
+    inv:[300,1500], ar:'2-3 meses', r:2, e:['local'], h:2, am:3, tg:['sostenibilidad'], k:['ofimatica'], s:['tecnica','organizacion','personas'],
+    why:'Producción vegetal y ganadera ecológica, Manejo sanitario del agrosistema y Comercialización de productos agroecológicos son módulos de tu ciclo.',
+    reto:'Los agricultores confían en quien ha trabajado la tierra. Gana experiencia en una explotación ecológica y muestra casos reales.',
+    paso:'Pregunta a 3 agricultores de tu comarca si han pensado en pasarse a ecológico y qué les frena.',
+    vr:'Trabaja con cooperativas que quieren abrir una línea ecológica.' });
+
+  A({ id:'ag7', cics:['pap','bap','pae'], t:'Servicios agrícolas a terceros: poda, tratamientos y recolección', n:'Empresa de servicios agrarios',
+    d:'Haces trabajos agrícolas para propietarios que no tienen tiempo o maquinaria: poda, tratamientos, desbroces, recolección, plantación. Para aplicar productos fitosanitarios necesitas el carné de usuario profesional del nivel que corresponda (RD 1311/2012, art. 18). Modelo: precio por hectárea, por árbol o por jornada.',
+    m:'proyecto', cli:'propietarios de fincas pequeñas, agricultores a tiempo parcial y herederos de tierras', pb:'mantener su finca sin tiempo ni maquinaria',
+    val:'Tu finca trabajada a tiempo y bien, sin que tengas que comprar maquinaria ni dejar tu trabajo.',
+    inv:[5000,25000], ar:'2-3 meses', r:2, e:['local'], h:4, am:2, tg:['naturaleza'], k:['otro_oficio'], s:['tecnica','organizacion'],
+    why:'Implantación de cultivos, Producción agrícola, Control fitosanitario y Taller y equipos de tracción: es tu ciclo.',
+    reto:'Maquinaria cara y trabajo estacional. Alquila maquinaria al principio y combina cultivos con calendarios distintos.',
+    paso:'Pregunta en la cooperativa de tu comarca qué propietarios necesitan servicios y qué precios se pagan.',
+    vr:'Especialízate en un cultivo de tu zona (olivo, viña, frutal) y en su poda, que exige oficio.' });
+
+  A({ id:'ag8', cics:['pap','pae'], t:'Gallinas camperas y huevos con venta directa', n:'Avicultura de pequeña escala',
+    d:'Crías gallinas en libertad (camperas o ecológicas) y vendes huevos y, si quieres, carne de pollo de corral a tiendas, restaurantes y particulares. Los huevos deben pasar por un centro de embalaje autorizado, salvo las excepciones de venta directa que fije tu comunidad. Modelo: margen por docena y venta directa.',
+    m:'producto', cli:'familias, tiendas de producto local y restaurantes', pb:'comer huevos de gallinas bien criadas y de cerca',
+    val:'Huevos de gallinas que viven al aire libre, de una granja que puedes visitar.',
+    inv:[8000,25000], ar:'4-6 meses', r:2, e:['local'], h:4, am:2, tg:['animales','naturaleza'], k:['rrss'], s:['tecnica','organizacion'],
+    why:'Fundamentos zootécnicos y Producción de leche, huevos y animales para vida: sabes manejar una granja pequeña.',
+    reto:'Registro de la explotación, bienestar animal y sanidad. Infórmate en tu consejería de agricultura de los requisitos antes de comprar animales.',
+    paso:'Pregunta en tu consejería de agricultura qué necesita una granja pequeña de gallinas y pregunta a 3 tiendas si comprarían tus huevos.',
+    vr:'Alquila gallinas a familias y colegios con su gallinero y cuidado incluido.' });
+
+  A({ id:'ag9', cics:['bap','pap'], t:'Servicio de sustitución en explotaciones ganaderas', n:'Relevo ganadero',
+    d:'Los ganaderos casi nunca libran. Ofreces sustituciones para que puedan descansar, ponerse enfermos o irse de vacaciones: ordeño, alimentación, limpieza y cuidado del ganado, como autónomo o a través de una cooperativa. Modelo: precio por jornada (100-180 €) o bolsa de días.',
+    m:'cuota', cli:'ganaderos de vacuno, ovino y caprino y cooperativas ganaderas', pb:'poder descansar sabiendo que el ganado está atendido',
+    val:'Puedes librar o irte unos días con la tranquilidad de que tu ganado está en buenas manos.',
+    inv:[300,1500], ar:'1 mes', r:1, e:['local'], h:3, am:2, tg:['animales'], k:['otro_oficio'], s:['tecnica','personas'],
+    why:'Operaciones auxiliares de cría y alimentación del ganado, Manejo de la producción ganadera y Mantenimiento e higiene en instalaciones: es tu ciclo.',
+    reto:'Responsabilidad alta sobre animales que no son tuyos. Empieza acompañando al ganadero y conoce cada explotación antes de quedarte solo.',
+    paso:'Pregunta en la cooperativa ganadera de tu comarca si hay servicio de sustitución y cuántos ganaderos lo pedirían.',
+    vr:'Organiza con otros jóvenes una cooperativa de sustitución para toda la comarca.' });
+
+  // ---------- GANADERÍA Y ASISTENCIA EN SANIDAD ANIMAL ----------
+  A({ id:'ag10', cics:['gasa'], t:'Auxiliar veterinario y gestión de clínicas veterinarias', n:'Clínica veterinaria',
+    d:'Trabajas en clínicas veterinarias como auxiliar y, con experiencia, llevas la gestión de clínicas pequeñas: agenda, stock, facturación, comunicación con los clientes y apoyo en consulta. Modelo: cuota mensual por clínica o por horas.',
+    m:'cuota', cli:'clínicas veterinarias pequeñas y hospitales veterinarios', pb:'tener la clínica organizada y apoyo cualificado en consulta',
+    val:'Tu clínica organizada y con apoyo cualificado, para que el veterinario se dedique a los animales.',
+    inv:[300,1500], ar:'1 mes', r:1, e:['local'], h:3, am:2, tg:['animales'], k:['ofimatica','atencion_cliente'], s:['organizacion','personas'],
+    why:'Asistencia a la atención veterinaria, Bioseguridad y Gestión de centros veterinarios son módulos de tu ciclo.',
+    reto:'Los actos clínicos son del veterinario. Tú apoyas y gestionas, y dejas claro hasta dónde llega tu papel.',
+    paso:'Pregunta a 5 clínicas veterinarias de tu zona quién les lleva la gestión y qué les quita más tiempo.',
+    vr:'Ofrece la gestión a varias clínicas pequeñas como servicio externo.' });
+
+  A({ id:'ag11', cics:['gasa','pap'], t:'Asesoría ganadera: reproducción, bienestar y bioseguridad', n:'Servicios ganaderos',
+    d:'Ayudas a explotaciones ganaderas con la reproducción (control de celos, partos, registros), el plan de bienestar animal, la bioseguridad y la gestión de datos de la granja, en coordinación con su veterinario. Modelo: cuota mensual por explotación.',
+    m:'cuota', cli:'explotaciones ganaderas, cooperativas y asociaciones de criadores', pb:'mejorar la productividad y cumplir las normas de bienestar y bioseguridad',
+    val:'Más productividad, menos bajas y la documentación de bienestar y bioseguridad al día.',
+    inv:[500,2500], ar:'2-3 meses', r:2, e:['local'], h:3, am:2, tg:['animales'], k:['ofimatica'], s:['tecnica','organizacion'],
+    why:'Organización y control de la reproducción y cría, Gestión de la producción animal, Saneamiento ganadero y Bioseguridad: es tu ciclo.',
+    reto:'Los ganaderos desconfían de quien no conoce su granja. Empieza con una mejora concreta y medible.',
+    paso:'Pregunta a 3 ganaderos de tu comarca qué les preocupa más (reproducción, bajas, papeles) y ofrece ayuda con uno.',
+    vr:'Especialízate en un tipo de ganado o en una raza autóctona con su asociación de criadores.' });
+
+  A({ id:'ag12', cics:['ecu','gasa'], t:'Cría, recría y pupilaje de caballos', n:'Centro ecuestre',
+    d:'Cuidas caballos de otros propietarios (pupilaje), crías y recrías potros y preparas caballos para la venta o la competición. Modelo: pupilaje de 150-450 € al mes por caballo y venta de caballos preparados.',
+    m:'cuota', cli:'propietarios de caballos, jinetes y criadores', pb:'tener su caballo bien cuidado y preparado',
+    val:'Tu caballo cuidado, alimentado y trabajado por profesionales, aunque tú no puedas ir cada día.',
+    inv:[10000,40000], ar:'4-6 meses', r:3, e:['local'], h:4, am:2, tg:['animales','naturaleza'], k:['otro_oficio'], s:['tecnica','organizacion'],
+    why:'Reproducción, cría y recría de équidos, Alimentación y manejo general y Desbrave y doma: es tu ciclo.',
+    reto:'Instalaciones caras y trabajo diario sin festivos. Empieza trabajando en un centro existente o alquilando boxes.',
+    paso:'Pregunta en 2 centros hípicos de tu zona cuánto cuesta el pupilaje y si tienen lista de espera.',
+    vr:'Especialízate en la recría de potros para criadores que no tienen espacio.' });
+
+  A({ id:'ag13', cics:['ecu'], t:'Herrador y cuidado de cascos', n:'Herraje',
+    d:'Herras y recortas cascos en las cuadras de tus clientes con una furgoneta equipada. Un oficio con mucha demanda y pocos profesionales. Modelo: 60-150 € por herraje completo cada 6-8 semanas.',
+    m:'cuota', cli:'propietarios de caballos, centros hípicos y criadores', pb:'tener los cascos de su caballo bien cuidados y a tiempo',
+    val:'Cascos bien herrados y recortados a su tiempo, por un profesional que viene a tu cuadra.',
+    inv:[4000,12000], ar:'2-3 meses', r:1, e:['domicilio','local'], h:3, am:2, tg:['animales'], k:['otro_oficio'], s:['tecnica','resolucion'],
+    why:'Herrado de équidos y Mantenimiento físico, cuidados e higiene equina son módulos de tu ciclo.',
+    reto:'Trabajo físicamente muy exigente y con riesgo. Aprende junto a un herrador con experiencia antes de ir por tu cuenta.',
+    paso:'Pregunta a 3 propietarios o centros hípicos cuánto tardan en conseguir herrador y cuánto pagan.',
+    vr:'Especialízate en herraje terapéutico en colaboración con veterinarios.' });
+
+  // ---------- FORESTAL Y MEDIO NATURAL ----------
+  A({ id:'ag14', cics:['gfmn','acmn','bfor'], t:'Trabajos forestales y prevención de incendios', n:'Servicios forestales',
+    d:'Haces desbroces, clareos, podas forestales, cortafuegos y limpieza de franjas alrededor de viviendas y urbanizaciones, que en muchas comunidades son obligatorias. Trabajas para propietarios, comunidades de montes, urbanizaciones y administraciones. Modelo: precio por hectárea o por trabajo.',
+    m:'proyecto', cli:'propietarios forestales, comunidades de montes, urbanizaciones y ayuntamientos', pb:'reducir el riesgo de incendio y mantener el monte',
+    val:'Tu monte o tu parcela limpios y menos expuestos al fuego, con el trabajo bien hecho y documentado.',
+    inv:[5000,20000], ar:'2-3 meses', r:2, e:['local'], h:4, am:2, tg:['naturaleza'], k:['otro_oficio'], s:['tecnica','organizacion','liderazgo'],
+    why:'Defensa contra incendios forestales, Gestión de montes y Maquinaria e instalaciones agroforestales: es tu ciclo.',
+    reto:'Trabajo duro, con maquinaria peligrosa y épocas en las que no se puede trabajar por riesgo de incendio. Fórmate en seguridad y planifica el calendario.',
+    paso:'Consulta en tu comunidad autónoma la normativa de franjas de protección alrededor de viviendas y pregunta a 2 urbanizaciones quién las limpia.',
+    vr:'Ofrece el servicio con pastoreo de ganado para el desbroce, en colaboración con ganaderos.' });
+
+  A({ id:'ag15', cics:['gfmn'], t:'Gestión de montes privados y certificación forestal', n:'Gestión forestal',
+    d:'Muchos propietarios de montes no saben qué hacer con ellos. Les haces el plan de gestión, organizas cortas y ventas de madera, gestionas ayudas y la certificación forestal sostenible (PEFC o FSC). Modelo: cuota anual por propietario o porcentaje sobre las ventas.',
+    m:'cuota', cli:'propietarios forestales privados, comunidades de montes vecinales y asociaciones forestales', pb:'sacar rendimiento a su monte y cuidarlo',
+    val:'Tu monte con un plan, cuidado y dando ingresos, sin que tengas que entender de madera.',
+    inv:[1000,4000], ar:'3-4 meses', r:2, e:['local'], h:2, am:3, tg:['naturaleza','sostenibilidad'], k:['ofimatica'], s:['organizacion','tecnica'],
+    why:'Gestión de montes, Gestión de los aprovechamientos del medio forestal, Topografía agraria y Botánica agronómica: es tu ciclo.',
+    reto:'Los planes de gestión pueden requerir firma de un técnico universitario según tu comunidad. Colabora con uno y céntrate en la gestión diaria.',
+    paso:'Contacta con la asociación de propietarios forestales de tu comunidad y pregunta qué servicios necesitan sus socios.',
+    vr:'Agrupa a pequeños propietarios para vender la madera juntos y conseguir mejor precio.' });
+
+  A({ id:'ag16', cics:['acmn','gfmn'], t:'Gestión de cotos de caza y pesca', n:'Gestión cinegética',
+    d:'Gestionas cotos de caza y tramos de pesca: plan cinegético, censos, repoblaciones, guardería, organización de jornadas y atención a cazadores y pescadores. Modelo: contrato anual con el titular del coto o porcentaje sobre jornadas.',
+    m:'cuota', cli:'titulares de cotos, sociedades de cazadores y propietarios de fincas', pb:'tener el coto bien gestionado y cumpliendo la normativa',
+    val:'Tu coto bien gestionado, con la caza en equilibrio y los papeles en orden.',
+    inv:[1000,5000], ar:'3-4 meses', r:2, e:['local'], h:3, am:2, tg:['naturaleza','animales'], k:['otro_oficio'], s:['organizacion','tecnica'],
+    why:'Conservación de las especies cinegéticas y piscícolas, Gestión cinegética y Gestión de la pesca continental son módulos de tu ciclo.',
+    reto:'Para hacer de guarda de caza hace falta la habilitación correspondiente en tu comunidad. Infórmate y fórmate antes.',
+    paso:'Pregunta a 2 sociedades de cazadores o titulares de cotos de tu comarca quién les gestiona el coto.',
+    vr:'Organiza turismo de pesca o de observación de fauna en los mismos espacios.' });
+
+  A({ id:'ag17', cics:['acmn','bfor'], t:'Guía e interpretación en espacios naturales', n:'Uso público del medio natural',
+    d:'Guías rutas interpretativas, observación de fauna y flora, y actividades de educación ambiental en espacios naturales para turistas, colegios y empresas. Modelo: 15-40 € por persona o precio por grupo.',
+    m:'experiencia', cli:'turistas, colegios, familias y empresas', pb:'conocer la naturaleza con alguien que la explique',
+    val:'Descubres el espacio natural con alguien que te enseña a ver lo que nunca habías visto.',
+    inv:[500,2000], ar:'1-2 meses', r:1, e:['local'], h:2, am:2, tg:['naturaleza','viajes'], k:['idiomas','rrss'], s:['personas','liderazgo'],
+    why:'Uso público en espacios naturales, Aprovechamiento del medio natural y Técnicas de educación ambiental: es tu ciclo.',
+    reto:'Algunos espacios protegidos exigen autorización para actividades guiadas. Infórmate en el espacio natural.',
+    paso:'Diseña una ruta de observación de 2 horas y ofrécela gratis a un grupo. Pregunta en el espacio natural qué permisos necesitas.',
+    vr:'Especialízate en observación de aves o de fauna, que atrae turistas extranjeros todo el año.' });
+
+  A({ id:'ag18', cics:['bfor','acmn'], t:'Recolección y venta de productos forestales', n:'Productos del monte',
+    d:'Recolectas y vendes productos del monte: setas, castañas, piñas, resina, plantas aromáticas, leña y planta de vivero, a tiendas, restaurantes y empresas transformadoras. La recolección necesita permiso del propietario o de la administración. Modelo: venta por kilo.',
+    m:'producto', cli:'restaurantes, tiendas, empresas transformadoras y particulares', pb:'conseguir productos del monte de calidad y legales',
+    val:'Productos del monte de tu zona, recolectados con permiso y con cuidado.',
+    inv:[500,3000], ar:'1-2 meses', r:2, e:['local'], h:3, am:2, tg:['naturaleza','gastronomia'], k:['otro_oficio'], s:['tecnica','organizacion'],
+    why:'Recolección de productos forestales, Silvicultura y plagas y Trabajos de aprovechamientos forestales son módulos de tu ciclo.',
+    reto:'Trabajo estacional y con normas de recolección en cada comunidad. Consigue los permisos y no recolectes especies protegidas.',
+    paso:'Infórmate de los permisos de recolección de tu comunidad y pregunta a 3 restaurantes qué productos del monte comprarían.',
+    vr:'Recupera la resinación de pinares: una actividad tradicional que vuelve a tener demanda.' });
+
+  // ---------- HÍBRIDAS ----------
+  H({ id:'ag_h1', pref:['pae','pap','jyf'], t:'Microverdes y hierbas frescas para restaurantes', n:'Cultivo para la alta cocina',
+    d:'Cultivas microverdes, brotes, flores comestibles y hierbas aromáticas frescas para restaurantes, cafeterías y tiendas gourmet, en un espacio pequeño o invernadero. Modelo: venta semanal por bandeja o por suscripción.',
+    m:'suscripcion', cli:'restaurantes, cafeterías de especialidad, hoteles y tiendas gourmet', pb:'tener hierbas y brotes frescos de calidad cada semana',
+    val:'Hierbas, brotes y flores comestibles recién cortados cada semana, de un productor cercano.',
+    inv:[2000,8000], ar:'2-3 meses', r:2, e:['local'], h:3, am:2, tg:['gastronomia'], k:['ventas'], s:['tecnica','organizacion'],
+    why:'Te gusta la gastronomía; tu ciclo te da la producción vegetal, el manejo de cultivos y el control de plagas.',
+    reto:'Producto delicado y clientes exigentes. Asegura la regularidad del suministro antes de crecer.',
+    paso:'Cultiva 3 variedades de microverdes y llévalas a 5 restaurantes para que las prueben.',
+    vr:'Vende kits de cultivo en casa para particulares.' });
+
+  H({ id:'ag_h2', pref:['pap','pae','gasa','ecu'], t:'Agroturismo en tu explotación', n:'Agroturismo',
+    d:'Abres tu explotación a visitantes: visitas guiadas, actividades con animales, recogida de fruta, talleres de queso o pan, alojamiento rural o comida de producto propio. Modelo: precio por actividad y venta directa en la granja.',
+    m:'experiencia', cli:'familias urbanas, colegios, turistas y empresas', pb:'vivir el campo de verdad',
+    val:'Vives un día en una granja de verdad y te llevas lo que se produce allí.',
+    inv:[3000,15000], ar:'3-4 meses', r:2, e:['local'], h:3, am:2, tg:['viajes','naturaleza','animales'], k:['idiomas','rrss'], s:['personas','organizacion'],
+    why:'Te gusta el turismo y el campo; tu ciclo te da el conocimiento de la explotación para enseñarla con rigor.',
+    reto:'Recibir visitantes exige seguro, normas de seguridad y, según la actividad, registro de turismo. Infórmate en tu comunidad.',
+    paso:'Organiza una visita gratuita para un grupo de familias y pregunta cuánto pagarían.',
+    vr:'Trabaja con colegios: visitas escolares todo el curso.' });
+
+  H({ id:'ag_h3', pref:['gasa','pap'], t:'Residencia y guardería para perros en el medio rural', n:'Residencia canina',
+    d:'Aprovechas espacio en el campo para una residencia y guardería de perros: estancias en vacaciones, guardería de día, paseos y educación básica. Necesitas el registro de núcleo zoológico de tu comunidad. Modelo: 15-30 € por día y bonos.',
+    m:'experiencia', cli:'dueños de perros que viajan o trabajan muchas horas', pb:'dejar a su perro bien cuidado cuando no pueden estar',
+    val:'Tu perro feliz en el campo, cuidado por alguien formado, mientras tú viajas o trabajas.',
+    inv:[8000,25000], ar:'3-4 meses', r:2, e:['local'], h:4, am:2, tg:['animales'], k:['rrss'], s:['personas','organizacion'],
+    why:'Te encantan los animales; tu ciclo te da el manejo, la bioseguridad y la atención veterinaria básica.',
+    reto:'Instalaciones y núcleo zoológico autorizados, ruidos y vecinos. Busca un lugar adecuado y consulta los requisitos antes de invertir.',
+    paso:'Pregunta en tu consejería qué requisitos tiene un núcleo zoológico y a 10 dueños de perros dónde los dejan en vacaciones.',
+    vr:'Empieza con guardería de día y paseos, que necesita menos instalaciones.' });
+
+  H({ id:'ag_h4', pref:['pap','gfmn','pmr'], t:'Drones y agricultura de precisión', n:'Agricultura digital',
+    d:'Con drones y sensores haces mapas de cultivos, detectas problemas de riego o plagas y ayudas a aplicar solo donde hace falta, para cooperativas y explotaciones medianas. El uso de drones para aplicar productos fitosanitarios tiene restricciones: infórmate antes. Modelo: precio por hectárea mapeada.',
+    m:'proyecto', cli:'cooperativas, explotaciones medianas y grandes y técnicos agrícolas', pb:'saber qué pasa en cada parte de su finca para ahorrar agua y productos',
+    val:'Ves en un mapa qué zonas de tu finca necesitan agua o tratamiento, y gastas solo donde hace falta.',
+    inv:[5000,15000], ar:'3-4 meses', r:3, e:['local'], h:3, am:3, tg:['tecnologia','naturaleza'], k:['fotovideo','programacion'], s:['tecnica','digital'],
+    why:'Te atrae la tecnología; tu ciclo te da el conocimiento agronómico para interpretar los mapas, que es lo que de verdad aporta valor.',
+    reto:'Volar drones exige registro como operador en AESA y formación de piloto. Calcula ese coste antes de comprar.',
+    paso:'Infórmate en AESA del registro y pregunta a la cooperativa de tu comarca si contratarían mapas de cultivo.',
+    vr:'Ofrece el servicio a aseguradoras agrarias para valorar daños tras tormentas.' });
+
+  H({ id:'ag_h5', pref:['pae','jyf'], t:'Compostaje comunitario y huertos urbanos', n:'Agricultura urbana',
+    d:'Diseñas y dinamizas huertos urbanos y compostaje comunitario en barrios, colegios, empresas y comunidades de vecinos, con talleres y mantenimiento. Los ayuntamientos deben recoger por separado los biorresiduos (Ley 7/2022, art. 25) y muchos promueven el compostaje. Modelo: proyectos con ayuntamientos, colegios y empresas.',
+    m:'proyecto', cli:'ayuntamientos, colegios, comunidades de vecinos y empresas', pb:'crear un huerto o un compostaje que funcione y no se abandone',
+    val:'Un huerto o compostaje que la gente usa y cuida, con alguien que lo dinamiza.',
+    inv:[500,2500], ar:'2-3 meses', r:1, e:['local'], h:2, am:2, tg:['sostenibilidad','social'], k:['gestion_personas'], s:['personas','tecnica'],
+    why:'Tu compromiso con la sostenibilidad te mueve; tu ciclo te da el manejo del suelo y los cultivos.',
+    reto:'Muchos huertos se abandonan. Diseña con la comunidad y ofrece dinamización durante el primer año.',
+    paso:'Propón a tu instituto o a una comunidad de vecinos un huerto o compostaje piloto y documenta el resultado.',
+    vr:'Ofrece huertos en empresas como actividad de bienestar.' });
+
+  H({ id:'ag_h6', pref:['jyf','pmr','bjar'], t:'Jardines verticales y plantas para interiores', n:'Interiorismo vegetal',
+    d:'Diseñas, instalas y mantienes jardines verticales, muros vegetales y plantas de interior en oficinas, hoteles, restaurantes y tiendas. Modelo: proyecto de instalación y cuota mensual de mantenimiento.',
+    m:'cuota', cli:'oficinas, hoteles, restaurantes, tiendas y estudios de interiorismo', pb:'tener espacios con plantas que siempre estén bien',
+    val:'Espacios vivos con plantas que siempre están perfectas, sin preocuparte de regarlas.',
+    inv:[2000,8000], ar:'2 meses', r:2, e:['local'], h:2, am:2, tg:['arte','sostenibilidad'], k:['diseno'], s:['creatividad','tecnica'],
+    why:'Tu sensibilidad artística marca la diferencia; tu ciclo te da el conocimiento de las plantas, el riego y los sustratos.',
+    reto:'Las plantas de interior mueren si no se mantienen. Vende siempre el mantenimiento junto con la instalación.',
+    paso:'Diseña una propuesta de plantas para la oficina de una empresa conocida y calcula instalación y mantenimiento.',
+    vr:'Alquila plantas para eventos y ferias.' });
+
+  H({ id:'ag_h7', pref:['bap','pap','ecu'], t:'Huertos y granja educativa para colegios y personas con discapacidad', n:'Granja escuela',
+    d:'Organizas actividades en un huerto o granja para colegios, centros de educación especial y asociaciones: cuidado de animales, siembra, recolección y talleres. Modelo: precio por alumno y día o programas con entidades.',
+    m:'experiencia', cli:'colegios, centros de educación especial, asociaciones y campamentos', pb:'acercar el campo y los animales a niños y personas con discapacidad',
+    val:'Niños y adultos que aprenden haciendo en el campo, con animales y plantas de verdad.',
+    inv:[3000,12000], ar:'3-4 meses', r:2, e:['local'], h:3, am:2, tg:['social','animales'], k:['gestion_personas'], s:['personas','organizacion'],
+    why:'Te mueve lo social; tu ciclo te da el manejo de cultivos y animales para organizar actividades seguras.',
+    reto:'Trabajar con menores exige el certificado negativo del Registro Central de Delincuentes Sexuales (Ley Orgánica 1/1996, art. 13.5) y seguro. Adapta las actividades a cada grupo.',
+    paso:'Ofrece una visita gratuita a un colegio o asociación de tu zona y pide valoración al profesorado.',
+    vr:'Organiza campamentos de granja en vacaciones.' });
+
+  // ---------- EMERGENTES ----------
+  N({ id:'ag_n1', t:'Biomasa forestal y aprovechamiento de restos de poda', n:'Biomasa',
+    d:'Recoges restos de poda, desbroces y limpiezas forestales y los conviertes en astilla o leña para calderas de biomasa de ayuntamientos, hoteles y viviendas, cerrando el ciclo con la prevención de incendios. Modelo: venta por tonelada y servicio de recogida.',
+    m:'producto', cli:'ayuntamientos con calderas de biomasa, hoteles rurales, comunidades y particulares', pb:'tener combustible local y barato y deshacerse de restos de poda',
+    val:'Combustible local y barato que además limpia el monte y reduce el riesgo de incendio.',
+    inv:[15000,50000], ar:'6-9 meses', r:3, e:['local'], h:4, am:2, tg:['sostenibilidad','naturaleza'], k:['otro_oficio'], s:['tecnica','organizacion'],
+    why:'Los trabajos forestales, la maquinaria agroforestal y la prevención de incendios de tu familia profesional te permiten cerrar el ciclo.',
+    reto:'Maquinaria cara y logística compleja. Empieza asociado con un ayuntamiento o cooperativa que ya tenga calderas.',
+    paso:'Pregunta en tu ayuntamiento y en 2 hoteles rurales si usan biomasa y de dónde la compran.',
+    vr:'Ofrece astillado de restos de poda a agricultores para usarlo como acolchado.' });
+
+  N({ id:'ag_n2', t:'Agricultura regenerativa y mejora del suelo', n:'Suelo vivo',
+    d:'Asesoras a agricultores en prácticas que mejoran el suelo y retienen agua: cubiertas vegetales, menos laboreo, compost, rotaciones y pastoreo planificado, y mides los resultados. Modelo: asesoría por explotación y seguimiento anual.',
+    m:'cuota', cli:'agricultores, cooperativas y bodegas que quieren mejorar su suelo', pb:'producir con un suelo más fértil y gastando menos agua',
+    val:'Un suelo más vivo que retiene agua y produce con menos insumos.',
+    inv:[500,2500], ar:'3-4 meses', r:3, e:['local'], h:2, am:3, tg:['sostenibilidad','naturaleza'], k:['ofimatica'], s:['tecnica','personas'],
+    why:'Los fundamentos agronómicos, el manejo del agrosistema y la producción ecológica de tu familia profesional son la base.',
+    reto:'Los resultados tardan años. Empieza con parcelas de prueba y mide con datos para convencer.',
+    paso:'Convence a un agricultor de tu zona para probar una cubierta vegetal en una parcela y mide la humedad del suelo frente a otra sin cubierta.',
+    vr:'Trabaja con bodegas que quieren certificar prácticas sostenibles.' });
+
+  N({ id:'ag_n3', t:'Cultivo en interior y agricultura vertical a pequeña escala', n:'Cultivo en interior',
+    d:'Cultivas hojas, hierbas y fresas en interior con luz LED y sistemas hidropónicos, cerca de las ciudades, para tiendas y restaurantes que quieren producto fresco todo el año. Modelo: venta semanal a clientes fijos.',
+    m:'producto', cli:'restaurantes, tiendas y supermercados locales', pb:'tener producto fresco local todo el año',
+    val:'Producto fresco cultivado cerca, todo el año, sin depender del clima.',
+    inv:[10000,30000], ar:'6-9 meses', r:3, e:['local'], h:4, am:2, tg:['tecnologia','sostenibilidad'], k:['programacion'], s:['tecnica','resolucion'],
+    why:'La producción vegetal y la sanidad vegetal de tu familia profesional, combinadas con tecnología de control de clima.',
+    reto:'El coste de la energía puede hacerlo inviable. Calcula bien el consumo y empieza con cultivos de mucho valor.',
+    paso:'Monta un pequeño sistema hidropónico en casa, cultiva un ciclo de lechuga o albahaca y calcula coste por unidad.',
+    vr:'Combínalo con placas solares para reducir el coste energético.' });
+  } // fin de Agraria
+
+  // ===================== MARÍTIMO-PESQUERA =====================
+  FAM.maritima = {
+    ciclos: {
+      'Actividades Marítimo-Pesqueras': 'bmp',
+      'Mantenimiento de Embarcaciones Deportivas y de Recreo': 'bemb',
+      'Cultivos Acuícolas': 'cac',
+      'Mantenimiento y Control de la Maquinaria de Buques y Embarcaciones': 'mcm',
+      'Navegación y Pesca de Litoral': 'npl',
+      'Operaciones Subacuáticas e Hiperbáricas': 'osh',
+      'Acuicultura': 'acu',
+      'Organización del Mantenimiento de Maquinaria de Buques y Embarcaciones': 'omm',
+      'Transporte Marítimo y Pesca de Altura': 'tmp'
+    },
+    labels: { bmp: 'Actividades Marítimo-Pesqueras (Grado Básico)', bemb: 'Mantenimiento de Embarcaciones Deportivas y de Recreo (Grado Básico)', cac: 'Cultivos Acuícolas', mcm: 'Mantenimiento y Control de la Maquinaria de Buques y Embarcaciones', npl: 'Navegación y Pesca de Litoral', osh: 'Operaciones Subacuáticas e Hiperbáricas', acu: 'Acuicultura', omm: 'Organización del Mantenimiento de Maquinaria de Buques y Embarcaciones', tmp: 'Transporte Marítimo y Pesca de Altura' },
+    defecto: { basico: 'bmp', medio: 'npl', superior: 'tmp' },
+    afin: { bmp: ['npl'], cac: ['acu'], acu: ['cac'], mcm: ['omm'], omm: ['mcm'], bemb: ['mcm'], tmp: ['npl'] },
+    fuentes: {
+      acu: 'la Asociación Empresarial de Acuicultura de España (APROMAR), la Junta Asesora Nacional de Cultivos Marinos (JACUMAR), la consejería de pesca de tu comunidad y el Observatorio Español de Acuicultura',
+      cac: 'la Asociación Empresarial de Acuicultura de España (APROMAR), las organizaciones de productores de mejillón y la consejería de pesca de tu comunidad',
+      osh: 'la Dirección General de la Marina Mercante (titulaciones de buceo profesional), las empresas de trabajos subacuáticos y las autoridades portuarias de tu costa',
+      _: 'la cofradía de pescadores de tu puerto, la consejería de pesca de tu comunidad autónoma, el Ministerio de Agricultura, Pesca y Alimentación y el grupo de acción local pesquero de tu costa'
+    }
+  };
+  { const { A, H, N } = banco('maritima');
+
+  // ---------- PESCA ----------
+  A({ id:'mp1', cics:['npl','bmp','tmp'], t:'Pesca artesanal con marca de calidad y venta a restaurantes', n:'Pesca de bajura',
+    d:'Faenas con una embarcación de artes menores (propia o en sociedad) y diferencias tu pescado con una marca de calidad, trazabilidad y relación directa con restaurantes y pescaderías. La primera venta del pescado fresco se hace en lonja o establecimiento autorizado (RD 418/2015). Modelo: precio de lonja más primas por calidad y acuerdos de compra con restaurantes.',
+    m:'producto', cli:'restaurantes que buscan pescado de día, pescaderías y consumidores exigentes', pb:'conseguir pescado del día de calidad con origen conocido',
+    val:'Pescado del día capturado de forma artesanal, con nombre del barco y del puerto.',
+    inv:[20000,80000], ar:'6-12 meses', r:3, e:['local'], h:4, am:3, tg:['naturaleza','gastronomia','sostenibilidad'], k:['ventas','rrss'], s:['tecnica','resolucion'],
+    why:'Pesca de litoral, Técnicas de navegación y comunicaciones, Despacho y administración del buque y Seguridad marítima: es tu ciclo.',
+    reto:'El barco, la licencia y el acceso a caladeros son caros y limitados. Empieza enrolado en un barco y busca relevo generacional de armadores que se jubilan.',
+    paso:'Habla con la cofradía de tu puerto sobre barcos en venta, licencias disponibles y ayudas al relevo generacional del sector pesquero.',
+    vr:'Únete con otros pescadores para vender juntos con una marca de calidad del puerto.' });
+
+  A({ id:'mp2', cics:['npl','tmp','bmp'], t:'Pesca-turismo y turismo marinero', n:'Pesca-turismo',
+    d:'Embarcas a turistas en salidas de pesca profesional para que vivan el oficio, o haces rutas de turismo marinero por el puerto, la lonja y la cultura pesquera, con degustación. Está regulado por el RD 239/2019 y por la normativa de tu comunidad autónoma. Modelo: 40-100 € por persona.',
+    m:'experiencia', cli:'turistas nacionales y extranjeros, colegios y empresas', pb:'conocer la pesca y el mar de verdad',
+    val:'Vives una jornada de pesca real con marineros y entiendes de dónde viene el pescado.',
+    inv:[1000,5000], ar:'3-4 meses', r:2, e:['local'], h:3, am:3, tg:['viajes','naturaleza','gastronomia'], k:['idiomas','rrss'], s:['personas','idiomas'],
+    why:'Navegación, Seguridad marítima, Pesca de litoral y Atención sanitaria a bordo: conoces el oficio y la seguridad para enseñarlo.',
+    reto:'La embarcación debe estar autorizada para llevar turistas y hay límites de plazas y de zonas. Empieza con turismo marinero en tierra mientras tramitas la pesca-turismo.',
+    paso:'Pregunta en la cofradía de tu puerto y en la consejería de pesca qué barcos están autorizados para pesca-turismo y cómo se tramita.',
+    vr:'Combina la salida con una comida del pescado capturado en un restaurante del puerto.' });
+
+  A({ id:'mp3', cics:['npl','tmp'], t:'Patrón de embarcaciones de recreo, chárter y excursiones', n:'Patrón profesional',
+    d:'Con tu titulación profesional, gobiernas embarcaciones de chárter con patrón, excursiones marítimas, traslados de barcos y transporte de pasajeros en zonas turísticas. Trabajas por temporada para empresas o por tu cuenta con una embarcación. Modelo: tarifa por día de patrón (150-300 €) o excursiones por persona.',
+    m:'proyecto', cli:'empresas de chárter, propietarios de barcos, turistas y empresas de excursiones', pb:'navegar con un patrón profesional y de confianza',
+    val:'Navegas tranquilo con un patrón profesional que conoce la costa y la seguridad.',
+    inv:[500,3000], ar:'1-2 meses', r:2, e:['local'], h:3, am:3, tg:['viajes','naturaleza'], k:['idiomas'], s:['liderazgo','personas','idiomas'],
+    why:'Técnicas de navegación y comunicaciones, Técnicas de maniobra, Procedimientos de guardia y Seguridad marítima: es tu ciclo.',
+    reto:'Trabajo estacional. Combina el verano con traslados de barcos y mantenimiento en invierno.',
+    paso:'Pregunta en 3 empresas de chárter de tu costa si buscan patrones y qué titulación exigen.',
+    vr:'Haz traslados de barcos entre puertos y países (deliveries), muy demandados en primavera y otoño.' });
+
+  A({ id:'mp4', cics:['tmp','npl'], t:'Servicios marítimos a piscifactorías, puertos y obras', n:'Servicios en el mar',
+    d:'Con una embarcación de trabajo das servicio a piscifactorías, bateas, obras marítimas y puertos: transporte de personal y material, fondeos, apoyo a buceadores y vigilancia. Modelo: precio por día o contrato de servicio.',
+    m:'cuota', cli:'piscifactorías, bateas, empresas de obras marítimas y autoridades portuarias', pb:'contar con embarcación y patrón cuando los necesitan',
+    val:'Embarcación y patrón profesionales disponibles para tu trabajo en el mar.',
+    inv:[20000,80000], ar:'6-9 meses', r:3, e:['local'], h:4, am:3, tg:['naturaleza'], k:['otro_oficio'], s:['tecnica','organizacion'],
+    why:'Maniobra y estiba, Navegación, gobierno y comunicaciones del buque y Control de las emergencias: es tu ciclo.',
+    reto:'La embarcación es una gran inversión. Empieza como patrón para una empresa que ya da estos servicios.',
+    paso:'Pregunta a 2 piscifactorías o empresas de obras marítimas de tu costa cómo resuelven el transporte por mar.',
+    vr:'Especialízate en servicios a la acuicultura, que crece y necesita apoyo diario.' });
+
+  A({ id:'mp5', cics:['bmp','npl'], t:'Marisqueo y venta a través de la cofradía', n:'Marisqueo',
+    d:'Trabajas como mariscador o mariscadora a pie o a flote en tu zona, con el permiso de marisqueo de tu comunidad y en el plan de explotación de la cofradía, y mejoras tus ingresos con venta directa autorizada y turismo marinero. Modelo: venta del marisco en lonja.',
+    m:'producto', cli:'lonjas, depuradoras, restaurantes y pescaderías', pb:'conseguir marisco fresco de la zona con trazabilidad',
+    val:'Marisco de la zona, extraído de forma sostenible y con trazabilidad.',
+    inv:[500,3000], ar:'2-3 meses', r:2, e:['local'], h:3, am:2, tg:['naturaleza','gastronomia'], k:['otro_oficio'], s:['tecnica','organizacion'],
+    why:'Pesca con artes de enmalle y marisqueo y Seguridad en barcos de pesca son módulos de tu ciclo.',
+    reto:'El acceso está limitado por permisos y planes de explotación. Infórmate en la cofradía de cómo acceder a un permiso.',
+    paso:'Pregunta en la cofradía de tu zona cómo se consigue el permiso de marisqueo y cuántas plazas hay.',
+    vr:'Combínalo con rutas guiadas de marisqueo para turistas.' });
+
+  // ---------- ACUICULTURA ----------
+  A({ id:'mp6', cics:['cac','acu'], t:'Cultivo de mejillón, ostra o algas', n:'Cultivo marino',
+    d:'Cultivas mejillón, ostra, almeja o algas en una concesión marina o batea (con autorización de tu comunidad) y vendes a depuradoras, restaurantes y empresas transformadoras. Modelo: venta por kilo con ciclos de cultivo de 1-2 años.',
+    m:'producto', cli:'depuradoras, conserveras, restaurantes y empresas de alimentación y cosmética', pb:'conseguir producto del mar cultivado de forma sostenible y local',
+    val:'Marisco o algas cultivados de forma sostenible en tu costa, con trazabilidad completa.',
+    inv:[20000,80000], ar:'12-24 meses', r:3, e:['local'], h:4, am:3, tg:['naturaleza','sostenibilidad','gastronomia'], k:['otro_oficio'], s:['tecnica','organizacion'],
+    why:'Técnicas de engorde de moluscos, Técnicas de cultivos auxiliares e Instalaciones y equipos de cultivo: es tu ciclo.',
+    reto:'Las concesiones son escasas y el primer ciclo tarda en dar ingresos. Empieza trabajando en una batea y busca concesiones en traspaso.',
+    paso:'Pregunta en la consejería de pesca de tu comunidad cómo se obtiene una concesión y si hay bateas en venta o traspaso.',
+    vr:'Cultiva algas para alimentación y cosmética, un mercado nuevo con menos competencia.' });
+
+  A({ id:'mp7', cics:['acu','cac'], t:'Servicio técnico externo de sanidad y calidad para piscifactorías', n:'Técnico acuícola',
+    d:'Das apoyo técnico a piscifactorías pequeñas y medianas: control de calidad del agua, seguimiento sanitario, alimentación, registros y planes de bioseguridad, en coordinación con su veterinario. Modelo: cuota mensual por instalación.',
+    m:'cuota', cli:'piscifactorías de trucha, dorada, lubina y rodaballo y criaderos de moluscos', pb:'mantener la producción sana y los registros al día',
+    val:'Tu producción más sana y controlada, con los registros al día ante cualquier inspección.',
+    inv:[1000,5000], ar:'3-4 meses', r:2, e:['local'], h:3, am:3, tg:['naturaleza','animales'], k:['ofimatica'], s:['tecnica','organizacion'],
+    why:'Técnicas analíticas y métodos de control sanitario en acuicultura, Gestión medioambiental y Técnicas y gestión de la producción: es tu ciclo.',
+    reto:'Las piscifactorías grandes tienen su personal. Céntrate en las pequeñas y medianas y en las de agua dulce del interior.',
+    paso:'Haz una lista de las piscifactorías de tu comunidad y pregunta a 2 cómo controlan la calidad del agua y la sanidad.',
+    vr:'Ofrece análisis de agua y formación al personal como servicios sueltos.' });
+
+  A({ id:'mp8', cics:['acu','cac'], t:'Acuarios: tienda especializada y mantenimiento para empresas', n:'Acuarofilia',
+    d:'Montas y mantienes acuarios en oficinas, restaurantes, clínicas y hogares, y vendes peces, plantas y material con asesoramiento experto. Modelo: instalación por proyecto y cuota mensual de mantenimiento (40-200 €).',
+    m:'cuota', cli:'oficinas, restaurantes, clínicas, hoteles y aficionados', pb:'tener un acuario bonito y sano sin ocuparse',
+    val:'Un acuario espectacular y sano, mantenido por un profesional.',
+    inv:[3000,12000], ar:'2-3 meses', r:2, e:['local','domicilio'], h:3, am:2, tg:['animales','arte'], k:['ventas','rrss'], s:['tecnica','creatividad'],
+    why:'Acuarofilia y Técnicas y gestión de la producción de peces son módulos de tu ciclo.',
+    reto:'La venta de animales tiene requisitos (núcleo zoológico) y especies protegidas o invasoras prohibidas. Infórmate antes de abrir tienda.',
+    paso:'Pregunta a 5 restaurantes, clínicas u oficinas si tendrían un acuario con mantenimiento incluido.',
+    vr:'Empieza solo con mantenimiento a domicilio y empresas, sin tienda.' });
+
+  A({ id:'mp9', cics:['cac','acu'], t:'Turismo acuícola: visitas a bateas y piscifactorías', n:'Turismo acuícola',
+    d:'Organizas visitas guiadas a bateas, criaderos y piscifactorías, con explicación del cultivo y degustación, en colaboración con productores. El turismo acuícola está regulado por el RD 239/2019 y por tu comunidad autónoma. Modelo: 20-60 € por persona.',
+    m:'experiencia', cli:'turistas, colegios y empresas', pb:'conocer de dónde viene el marisco y el pescado de cultivo',
+    val:'Ves cómo se cultiva el mejillón o la ostra y lo pruebas recién sacado.',
+    inv:[500,3000], ar:'2-3 meses', r:2, e:['local'], h:3, am:2, tg:['viajes','gastronomia','naturaleza'], k:['idiomas'], s:['personas','idiomas'],
+    why:'Conoces los cultivos marinos y puedes explicarlos con rigor, que es lo que diferencia una visita de calidad.',
+    reto:'Necesitas acuerdos con productores y embarcación autorizada para llevar visitantes. Empieza en instalaciones en tierra.',
+    paso:'Pregunta a 2 productores de tu costa si abrirían sus instalaciones a visitas a cambio de un porcentaje.',
+    vr:'Ofrece la visita a colegios como salida didáctica sobre el mar.' });
+
+  // ---------- MANTENIMIENTO DE MAQUINARIA DE BUQUES ----------
+  A({ id:'mp10', cics:['mcm','omm','bemb'], t:'Mantenimiento de motores y maquinaria en puerto', n:'Taller náutico',
+    d:'Reparas y mantienes motores, propulsión, generadores, bombas y sistemas eléctricos de barcos pesqueros y de recreo en el propio puerto. Modelo: hora de taller (40-60 €) y contratos anuales con armadores.',
+    m:'cuota', cli:'armadores de pesca, propietarios de barcos de recreo y puertos deportivos', pb:'tener el barco listo para salir sin perder jornadas',
+    val:'Tu barco reparado en el puerto y a tiempo para la próxima marea o la próxima salida.',
+    inv:[5000,20000], ar:'2-3 meses', r:2, e:['local'], h:4, am:2, tg:['motor','naturaleza'], k:['otro_oficio'], s:['tecnica','resolucion'],
+    why:'Mantenimiento de la planta propulsora y maquinaria auxiliar, Mantenimiento de las instalaciones eléctricas y Regulación de automatismos: es tu ciclo.',
+    reto:'Urgencias que no esperan (un pesquero parado pierde dinero cada día). Ten repuestos de los motores más comunes y acuerdos con proveedores.',
+    paso:'Pregunta en la cofradía y en el puerto deportivo de tu zona quién repara los motores y cuánto tarda.',
+    vr:'Hazte servicio oficial de una marca de motores marinos en tu puerto.' });
+
+  A({ id:'mp11', cics:['omm','mcm'], t:'Planificación del mantenimiento de flotas pesqueras', n:'Superintendencia técnica',
+    d:'Armadores con varios barcos necesitan planificar varadas, inspecciones, certificados y mantenimiento preventivo. Te ocupas de la planificación, los presupuestos y el seguimiento de los trabajos como técnico externo. Modelo: cuota mensual por barco.',
+    m:'cuota', cli:'armadores con varios barcos, organizaciones de productores y cooperativas pesqueras', pb:'tener la flota en regla y sin averías inesperadas',
+    val:'Tu flota con el mantenimiento planificado, los certificados al día y menos días parada.',
+    inv:[500,2500], ar:'2-3 meses', r:2, e:['local'], h:3, am:3, tg:[], k:['ofimatica','gestion_personas'], s:['organizacion','liderazgo'],
+    why:'Planificación del mantenimiento de maquinaria de buques, Organización del mantenimiento en seco y Organización de la guardia de máquinas: es tu ciclo.',
+    reto:'Hace falta experiencia a bordo para ganarse la confianza de los armadores. Navega unos años como jefe de máquinas antes.',
+    paso:'Pregunta a 2 armadores de tu puerto cómo planifican las varadas y quién se ocupa de los certificados.',
+    vr:'Especialízate en la transición a motores más eficientes y combustibles alternativos.' });
+
+  A({ id:'mp12', cics:['mcm','omm'], t:'Frío y climatización a bordo', n:'Frío naval',
+    d:'Instalas y mantienes las cámaras de frío, fábricas de hielo y climatización de pesqueros, mercantes y barcos de recreo. Para manipular gases fluorados necesitas el certificado personal (RD 115/2017). Modelo: proyectos y contratos de mantenimiento.',
+    m:'proyecto', cli:'armadores de pesca, astilleros y propietarios de barcos de recreo', pb:'conservar la captura y tener a bordo un frío fiable',
+    val:'Frío fiable a bordo para que la captura llegue en perfecto estado a puerto.',
+    inv:[3000,10000], ar:'2-3 meses', r:2, e:['local'], h:3, am:3, tg:[], k:['otro_oficio'], s:['tecnica','resolucion'],
+    why:'Instalación y mantenimiento de maquinaria de frío y climatización en buques es un módulo de tu ciclo.',
+    reto:'Pocos especialistas y trabajos urgentes antes de cada marea. Organiza bien la disponibilidad y los repuestos.',
+    paso:'Pregunta en tu puerto quién mantiene las cámaras de frío de los pesqueros y cuánto tardan en venir.',
+    vr:'Ofrece revisiones antes de las campañas de pesca.' });
+
+  // ---------- OPERACIONES SUBACUÁTICAS ----------
+  A({ id:'mp13', cics:['osh'], t:'Trabajos subacuáticos en puertos: limpieza, inspección y reparaciones', n:'Buceo profesional',
+    d:'Haces trabajos bajo el agua en puertos y barcos: limpieza de cascos y hélices, inspección de muelles y fondeos, recuperación de objetos, pequeñas reparaciones y soldadura. Hace falta la titulación de buceo profesional. Modelo: precio por trabajo o por jornada.',
+    m:'proyecto', cli:'puertos deportivos, autoridades portuarias, armadores y propietarios de barcos', pb:'resolver trabajos bajo el agua sin sacar el barco',
+    val:'Tu casco limpio, tu hélice revisada o tu fondeo comprobado, sin sacar el barco del agua.',
+    inv:[5000,20000], ar:'2-3 meses', r:3, e:['local'], h:3, am:3, tg:['naturaleza','deporte'], k:['otro_oficio'], s:['tecnica','resolucion'],
+    why:'Intervención hiperbárica, Reparaciones y reflotamientos, Corte y soldadura y Fisiopatología del buceo: es tu ciclo.',
+    reto:'El buceo profesional es de riesgo: nunca se trabaja solo, hay que cumplir los procedimientos y tener seguro. Empieza en una empresa de trabajos subacuáticos.',
+    paso:'Pregunta en el puerto deportivo de tu zona quién limpia los cascos de los barcos y cuánto cobra.',
+    vr:'Ofrece limpieza periódica de cascos por suscripción a propietarios de barcos.' });
+
+  A({ id:'mp14', cics:['osh','acu'], t:'Mantenimiento subacuático de piscifactorías y bateas', n:'Buceo en acuicultura',
+    d:'Mantienes bajo el agua las instalaciones de acuicultura: revisión y reparación de redes, fondeos, cabos y estructuras, retirada de peces muertos e inspecciones. Modelo: contrato mensual por instalación.',
+    m:'cuota', cli:'piscifactorías marinas y productores de mejillón', pb:'mantener sus instalaciones submarinas en buen estado',
+    val:'Tus instalaciones revisadas y reparadas bajo el agua con regularidad, para evitar escapes y pérdidas.',
+    inv:[5000,20000], ar:'3-4 meses', r:3, e:['local'], h:4, am:3, tg:['naturaleza'], k:['otro_oficio'], s:['tecnica','organizacion'],
+    why:'Intervención hiperbárica, Construcción y obra hidráulica y Navegación: tu ciclo te prepara para trabajar en estas instalaciones.',
+    reto:'Trabajo duro, en exterior y con mal tiempo. Necesitas equipo, embarcación de apoyo y un equipo de al menos tres personas.',
+    paso:'Pregunta a 2 piscifactorías o asociaciones de productores de tu costa cómo mantienen sus redes y fondeos.',
+    vr:'Usa vehículos submarinos teledirigidos para inspecciones y reserva el buceo para las reparaciones.' });
+
+  // ---------- GRADO BÁSICO ----------
+  A({ id:'mp15', cics:['bemb','bmp'], t:'Mantenimiento básico de barcos en puertos deportivos', n:'Cuidado de embarcaciones',
+    d:'Limpias, pintas el casco con antiincrustante, pules, revisas cabos y velas y vigilas barcos de propietarios que no viven cerca. Modelo: precio por trabajo y cuota mensual de vigilancia y limpieza.',
+    m:'cuota', cli:'propietarios de barcos de recreo, sobre todo los que viven lejos', pb:'tener el barco cuidado y listo sin estar pendiente',
+    val:'Tu barco cuidado y vigilado todo el año, listo para cuando llegues.',
+    inv:[1000,4000], ar:'1-2 meses', r:1, e:['local'], h:2, am:2, tg:['naturaleza','viajes'], k:['idiomas'], s:['tecnica','organizacion'],
+    why:'Protección y embellecimiento de superficies de embarcaciones, Mantenimiento básico de aparejos y Mantenimiento básico de la planta propulsora: es tu ciclo.',
+    reto:'Trabajo estacional. Vende contratos de todo el año a propietarios que no viven cerca.',
+    paso:'Pregunta en el puerto deportivo de tu zona cuántos propietarios viven fuera y quién les cuida el barco.',
+    vr:'Atiende a propietarios extranjeros con barco en España: pagan bien por un servicio de confianza.' });
+
+  // ---------- HÍBRIDAS ----------
+  H({ id:'mp_h1', pref:['npl','bmp','tmp'], t:'Venta directa de pescado y conservas del propio barco', n:'Del mar a la mesa',
+    d:'Además de vender en lonja, transformas parte de la captura en conservas, ahumados o preparados (con un obrador colaborador autorizado) y la vendes con la marca del barco a tiendas, restaurantes y online. Modelo: margen sobre producto transformado.',
+    m:'producto', cli:'tiendas gourmet, restaurantes y consumidores que valoran el origen', pb:'comprar producto del mar con origen y calidad garantizados',
+    val:'Conservas y preparados del pescado de un barco concreto, con su historia y su calidad.',
+    inv:[5000,15000], ar:'4-6 meses', r:2, e:['local','online'], h:3, am:4, tg:['gastronomia'], k:['marketing','rrss'], s:['ventas','creatividad'],
+    why:'Te gusta la gastronomía; tu ciclo te da el conocimiento del producto desde que se pesca.',
+    reto:'Transformar alimentos exige registro sanitario. Trabaja con una conservera o un obrador autorizado que elabore para ti.',
+    paso:'Pregunta a una conservera de tu zona si elabora para terceros y cuánto cuesta una tirada pequeña.',
+    vr:'Vende cajas de pescado del día por suscripción a familias de tu comarca.' });
+
+  H({ id:'mp_h2', pref:['npl','tmp'], t:'Salidas de avistamiento de cetáceos y aves marinas', n:'Turismo de naturaleza marina',
+    d:'Organizas salidas en barco para observar delfines, ballenas y aves marinas, con explicación científica y respeto a la fauna. La observación de cetáceos tiene normas de protección (RD 1727/2007). Modelo: 30-70 € por persona.',
+    m:'experiencia', cli:'turistas, familias, colegios y aficionados a la naturaleza', pb:'ver fauna marina de forma responsable',
+    val:'Ves delfines y aves marinas en libertad, con un patrón que respeta a los animales y te lo explica.',
+    inv:[5000,30000], ar:'4-6 meses', r:3, e:['local'], h:3, am:3, tg:['naturaleza','animales','viajes'], k:['idiomas'], s:['personas','idiomas'],
+    why:'Te apasiona la naturaleza; tu ciclo te da la navegación, la seguridad marítima y la titulación para llevar pasajeros.',
+    reto:'Hay que cumplir las distancias y normas de observación y la embarcación debe estar autorizada para pasajeros.',
+    paso:'Busca si en tu costa hay avistamientos habituales y qué empresas operan. Lee las normas del RD 1727/2007.',
+    vr:'Colabora con universidades o asociaciones que estudian cetáceos: tus salidas les sirven para recoger datos.' });
+
+  H({ id:'mp_h3', pref:['npl','bemb'], t:'Escuela de vela, pesca deportiva o actividades náuticas', n:'Náutica deportiva',
+    d:'Enseñas vela ligera, navegación, pesca deportiva desde barco o actividades como kayak de mar, para niños, adultos y empresas. Modelo: cursos de 80-300 € y salidas por persona.',
+    m:'formacion', cli:'familias, jóvenes, adultos aficionados y empresas', pb:'aprender a navegar o pescar con seguridad',
+    val:'Aprendes a navegar o a pescar con alguien que vive del mar y sabe enseñarlo con seguridad.',
+    inv:[5000,20000], ar:'3-4 meses', r:2, e:['local'], h:3, am:2, tg:['deporte','naturaleza'], k:['idiomas'], s:['personas','liderazgo'],
+    why:'Te gusta el deporte; tu ciclo te da la navegación, la seguridad y el conocimiento del mar.',
+    reto:'Enseñar vela puede exigir titulación de técnico deportivo. Colabora con un club náutico o una escuela autorizada.',
+    paso:'Pregunta en el club náutico de tu zona si buscan monitores o patrones para sus cursos.',
+    vr:'Organiza campamentos náuticos en verano.' });
+
+  H({ id:'mp_h4', pref:['osh','npl','bmp'], t:'Limpieza de fondos marinos y retirada de redes perdidas', n:'Mar limpio',
+    d:'Retiras redes y aparejos perdidos, plásticos y residuos de fondos marinos, playas y puertos, para ayuntamientos, puertos y programas de conservación, y conviertes parte del material en productos reciclados. Modelo: proyectos financiados por administraciones, fundaciones y empresas.',
+    m:'proyecto', cli:'ayuntamientos costeros, autoridades portuarias, fundaciones ambientales y empresas', pb:'recuperar el mar limpio',
+    val:'Fondos y playas sin redes ni basura, y material que vuelve a tener uso.',
+    inv:[3000,12000], ar:'3-6 meses', r:2, e:['local'], h:3, am:3, tg:['sostenibilidad','naturaleza'], k:['gestion_personas'], s:['tecnica','organizacion'],
+    why:'Tu compromiso ambiental da sentido al proyecto; tu ciclo te da el buceo o la navegación y la seguridad para hacerlo bien.',
+    reto:'Depende de financiación. Combina contratos públicos, fundaciones y empresas que quieren patrocinar acciones ambientales.',
+    paso:'Pregunta en la cofradía de tu puerto qué hacen con las redes viejas y si hay programas de recogida.',
+    vr:'Fabrica productos con redes recicladas (pulseras, bolsas) con una marca que cuente su origen.' });
+
+  H({ id:'mp_h5', pref:['osh','omm'], t:'Inspección submarina con vehículos teledirigidos', n:'Robótica submarina',
+    d:'Con un vehículo submarino teledirigido (ROV) con cámara inspeccionas cascos, muelles, piscifactorías, tuberías y presas sin necesidad de bucear, y entregas informes con vídeo. Modelo: precio por inspección.',
+    m:'proyecto', cli:'puertos, piscifactorías, aseguradoras, armadores y empresas de agua', pb:'ver qué pasa bajo el agua de forma rápida y segura',
+    val:'Ves el estado de tu instalación bajo el agua en horas, con vídeo y sin riesgos.',
+    inv:[5000,20000], ar:'3-4 meses', r:3, e:['local'], h:2, am:3, tg:['tecnologia'], k:['fotovideo'], s:['tecnica','digital'],
+    why:'Te atrae la tecnología; tu ciclo te da el conocimiento del medio y de las instalaciones para interpretar lo que ves.',
+    reto:'Equipo caro y clientes que hay que convencer. Empieza con inspecciones de cascos en puertos deportivos.',
+    paso:'Pregunta a 2 aseguradoras náuticas o piscifactorías si contratarían inspecciones submarinas con vídeo.',
+    vr:'Combina el vehículo con buceo para hacer inspección y reparación en un solo servicio.' });
+
+  H({ id:'mp_h6', pref:['acu','cac','bmp'], t:'Educación marina para colegios y familias', n:'Divulgación del mar',
+    d:'Organizas talleres, salidas al puerto, visitas a la lonja y actividades sobre pesca sostenible, acuicultura y vida marina para colegios, campamentos y familias. Modelo: precio por alumno o por actividad.',
+    m:'formacion', cli:'colegios, campamentos, ayuntamientos y familias', pb:'que los niños conozcan y cuiden el mar',
+    val:'Niños que conocen el mar y el trabajo de la gente que vive de él.',
+    inv:[500,2000], ar:'2 meses', r:1, e:['local'], h:2, am:2, tg:['social','naturaleza'], k:['rrss'], s:['personas','creatividad'],
+    why:'Te mueve lo social; tu ciclo te da el conocimiento del mar, la pesca y la acuicultura.',
+    reto:'Trabajar con menores exige el certificado negativo del Registro Central de Delincuentes Sexuales (Ley Orgánica 1/1996, art. 13.5) y seguro.',
+    paso:'Diseña una actividad de 2 horas sobre la pesca de tu puerto y ofrécela a un colegio.',
+    vr:'Organiza campamentos marineros en verano.' });
+
+  H({ id:'mp_h7', pref:['bemb','mcm','omm'], t:'Electrificación de embarcaciones pequeñas', n:'Náutica eléctrica',
+    d:'Cambias motores de gasolina de barcos pequeños, lanchas de pesca y embarcaciones de alquiler por motores eléctricos con baterías, en zonas donde se limita el motor de combustión (embalses, reservas). Modelo: proyecto de 2.000-15.000 € por embarcación.',
+    m:'proyecto', cli:'propietarios de embarcaciones pequeñas, empresas de alquiler y embalses con restricciones', pb:'navegar sin ruido ni combustible',
+    val:'Navegas en silencio, sin humo ni combustible, donde los motores de gasolina ya no pueden ir.',
+    inv:[5000,15000], ar:'3-4 meses', r:3, e:['local'], h:3, am:3, tg:['sostenibilidad','motor'], k:['otro_oficio'], s:['tecnica','resolucion'],
+    why:'Te importa la sostenibilidad; tu ciclo te da la propulsión, la electricidad y los automatismos a bordo.',
+    reto:'Las baterías de litio a bordo exigen seguridad y algunas modificaciones pueden necesitar legalización. Infórmate antes.',
+    paso:'Pregunta a 2 empresas de alquiler de barcas en embalses o puertos qué motores usan y si les interesaría electrificar.',
+    vr:'Ofrece alquiler de barcas eléctricas en un embalse o puerto tranquilo.' });
+
+  // ---------- EMERGENTES ----------
+  N({ id:'mp_n1', t:'Algas para alimentación, cosmética y agricultura', n:'Economía azul',
+    d:'Cultivas o recolectas de forma autorizada algas y las transformas para alimentación, cosmética o abonos, vendiéndolas a restaurantes, tiendas, laboratorios y agricultores. Es un mercado nuevo en España con mucho potencial. Modelo: venta por kilo de alga fresca o transformada.',
+    m:'producto', cli:'restaurantes, tiendas gourmet, laboratorios de cosmética y agricultores ecológicos', pb:'conseguir algas de calidad de origen local',
+    val:'Algas cultivadas en tu costa, con trazabilidad, para la cocina, la piel o el campo.',
+    inv:[10000,40000], ar:'9-12 meses', r:3, e:['local'], h:4, am:4, tg:['sostenibilidad','gastronomia'], k:['marketing'], s:['tecnica','creatividad'],
+    why:'Las técnicas de cultivo, la gestión medioambiental y el control sanitario de tu familia profesional son la base para un sector nuevo.',
+    reto:'Hace falta autorización de cultivo o recolección y desarrollar el mercado. Empieza con una pequeña producción y clientes de restauración.',
+    paso:'Pregunta en la consejería de pesca de tu comunidad cómo se autoriza el cultivo de algas y contacta con 3 restaurantes interesados.',
+    vr:'Desarrolla productos derivados (sal de algas, snacks) con más valor añadido.' });
+
+  N({ id:'mp_n2', t:'Acuaponía: peces y verduras en el mismo sistema', n:'Acuaponía',
+    d:'Montas un sistema en el que los peces abonan con sus residuos el cultivo de verduras sin tierra, y vendes ambos productos a restaurantes y tiendas. También instalas sistemas para colegios y particulares. Modelo: venta de producto y proyectos de instalación.',
+    m:'producto', cli:'restaurantes, tiendas, colegios y aficionados', pb:'producir alimentos frescos de forma eficiente en poco espacio',
+    val:'Peces y verduras frescos de un sistema que ahorra agua y espacio.',
+    inv:[5000,20000], ar:'6-9 meses', r:3, e:['local'], h:3, am:2, tg:['sostenibilidad','tecnologia'], k:['programacion'], s:['tecnica','resolucion'],
+    why:'Las técnicas de producción de peces y el control de la calidad del agua de tu familia profesional, combinadas con el cultivo vegetal.',
+    reto:'Equilibrar peces y plantas exige aprendizaje y la venta de pescado tiene requisitos sanitarios. Empieza con un sistema pequeño.',
+    paso:'Monta un sistema de acuaponía pequeño en casa o en tu centro educativo y documenta un ciclo completo.',
+    vr:'Vende sistemas educativos a colegios con formación incluida.' });
+
+  N({ id:'mp_n3', t:'Mantenimiento para la eólica marina y nuevas energías del mar', n:'Energía en el mar',
+    d:'La eólica marina flotante empieza a desarrollarse en España. Te formas en seguridad offshore y trabajas para empresas de mantenimiento, transporte de técnicos y servicios marítimos de estos parques. Modelo: empleo especializado o subcontrata de servicios marítimos.',
+    m:'proyecto', cli:'empresas de eólica marina, astilleros y empresas de servicios marítimos', pb:'contar con profesionales del mar formados para trabajar en parques marinos',
+    val:'Profesionales del mar con formación offshore para un sector que necesita gente.',
+    inv:[1000,5000], ar:'6-12 meses', r:3, e:['local'], h:4, am:5, tg:['sostenibilidad','tecnologia'], k:['idiomas'], s:['tecnica','organizacion'],
+    why:'La navegación, el mantenimiento de maquinaria y la seguridad marítima de tu familia profesional son lo que piden estas empresas.',
+    reto:'El sector está empezando en España y muchos proyectos están en trámite. Fórmate en seguridad offshore y busca experiencia en otros países.',
+    paso:'Busca qué proyectos de eólica marina hay en tu costa y qué formación de seguridad piden las empresas del sector.',
+    vr:'Especialízate en el transporte de técnicos a los parques, un servicio que necesitará embarcaciones y patrones.' });
+  } // fin de Marítimo-Pesquera
+
   // ===========================================================
   // MOTOR DE RECOMENDACIÓN (común a todas las familias del motor enriquecido)
   // Puntúa cada idea con TODAS las respuestas, elige de forma ponderada
