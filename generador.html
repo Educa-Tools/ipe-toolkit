@@ -5311,6 +5311,1312 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     vr:'Crea una línea de producto decorativo hecho con residuos de una fábrica conocida, contando su origen.' });
   } // fin de Vidrio y Cerámica
 
+  // ===================== SANIDAD =====================
+  // Familia muy regulada: cada idea se limita a lo que el título permite hacer por cuenta propia
+  // y avisa cuando hace falta otro profesional o una autorización sanitaria.
+  FAM.sanidad = {
+    ciclos: {
+      'Cuidados Auxiliares de Enfermería': 'tcae',
+      'Emergencias Sanitarias': 'tes',
+      'Farmacia y Parafarmacia': 'far',
+      'Anatomía Patológica y Citodiagnóstico': 'lab',
+      'Laboratorio Clínico y Biomédico': 'lab',
+      'Audiología Protésica': 'aud',
+      'Dietética': 'die',
+      'Documentación y Administración Sanitarias': 'doc',
+      'Higiene Bucodental': 'hb',
+      'Imagen para el Diagnóstico y Medicina Nuclear': 'img',
+      'Radioterapia y Dosimetría': 'img',
+      'Ortoprótesis y Productos de Apoyo': 'orto',
+      'Prótesis Dentales': 'pd'
+    },
+    labels: { tcae: 'Cuidados Auxiliares de Enfermería', tes: 'Emergencias Sanitarias', far: 'Farmacia y Parafarmacia', lab: 'Laboratorio Clínico y Biomédico', aud: 'Audiología Protésica', die: 'Dietética', doc: 'Documentación y Administración Sanitarias', hb: 'Higiene Bucodental', img: 'Imagen para el Diagnóstico y Medicina Nuclear', orto: 'Ortoprótesis y Productos de Apoyo', pd: 'Prótesis Dentales' },
+    defecto: { basico: 'tcae', medio: 'tcae', superior: 'doc' },
+    afin: { tes: ['tcae'], tcae: ['tes'] },
+    fuentes: {
+      pd: 'el Consejo General de Colegios de Protésicos Dentales, el colegio de tu comunidad, la Ley 10/1986 (art. 2) y la consejería de sanidad (licencia de laboratorio)',
+      hb: 'el Consejo General de Colegios de Higienistas Dentales, la Ley 10/1986 (art. 3) y los programas de salud bucodental de tu comunidad autónoma',
+      aud: 'la asociación de audioprotesistas (ANA), la consejería de sanidad de tu comunidad (autorización de establecimientos) y la Sociedad Española de Otorrinolaringología',
+      orto: 'la Federación Española de Ortesistas Protesistas (FEDOP), la consejería de sanidad de tu comunidad y el catálogo de prestación ortoprotésica de tu servicio de salud',
+      die: 'la Agencia Española de Seguridad Alimentaria y Nutrición (AESAN), el reglamento de información alimentaria (Reglamento (UE) 1169/2011) y la asociación de técnicos en dietética',
+      img: 'el Consejo de Seguridad Nuclear (acreditaciones de operador y supervisor), la Sociedad Española de Protección Radiológica y la asociación de técnicos de imagen (AETR)',
+      _: 'la consejería de sanidad de tu comunidad autónoma (autorizaciones de centros y servicios), los colegios y asociaciones profesionales de tu ciclo y el Observatorio de las Ocupaciones del SEPE'
+    }
+  };
+  { const { A, H, N } = banco('sanidad');
+
+  // ---------- CUIDADOS AUXILIARES DE ENFERMERÍA / EMERGENCIAS SANITARIAS ----------
+  A({ id:'sa1', cics:['tcae','tes'], t:'Cuidados y acompañamiento a domicilio y en el hospital', n:'Cuidados personales',
+    d:'Cuidas y acompañas a personas mayores, convalecientes o recién operadas en casa y durante ingresos hospitalarios: higiene, movilización, alimentación, control de la medicación pautada y compañía, también de noche. Modelo: 14-20 €/hora o noches de hospital a 80-130 €, con bonos para familias.',
+    m:'cuota', cli:'familias con mayores o convalecientes y personas que viven solas tras una operación', pb:'cuidar a un familiar en casa o en el hospital cuando no pueden estar',
+    val:'Tu familiar atendido por una persona formada en cuidados, que te informa cada día y no le deja solo.',
+    inv:[300,1500], ar:'1 mes', r:1, e:['domicilio'], h:3, am:1, tg:['social'], k:['atencion_cliente'], s:['personas','organizacion'],
+    why:'Técnicas básicas de enfermería, Promoción de la salud y apoyo psicológico al paciente e Higiene del medio hospitalario: es tu ciclo aplicado fuera del hospital.',
+    reto:'No puedes hacer actos que corresponden a enfermería (curas complejas, medicación inyectable). Déjalo claro a las familias y contrata un seguro de responsabilidad civil.',
+    paso:'Pregunta en 2 centros de salud, una asociación de mayores y la parroquia de tu barrio si les piden recomendación de cuidadoras. Prepara una tarjeta con tus servicios y precios.',
+    vr:'Especialízate en acompañamiento hospitalario nocturno: muy demandado, con poca competencia profesional y precio por noche.' });
+
+  A({ id:'sa2', cics:['tcae'], t:'Auxiliar por horas para consultas privadas', n:'Apoyo a clínicas',
+    d:'Muchas consultas pequeñas (dentales, de podología, de fisioterapia, de medicina estética) necesitan apoyo en horas punta o para cubrir vacaciones: preparar el instrumental, esterilizar, ayudar en consulta, recibir pacientes. Trabajas como autónoma para varias. Modelo: 15-22 €/hora con bolsa de horas por clínica.',
+    m:'cuota', cli:'clínicas dentales, de podología, fisioterapia y medicina estética pequeñas', pb:'cubrir picos de trabajo y vacaciones sin contratar a nadie más',
+    val:'Una auxiliar formada que conoce tu clínica y cubre tus picos de trabajo y vacaciones sin contratos nuevos.',
+    inv:[200,800], ar:'1 mes', r:1, e:['local'], h:2, am:2, tg:[], k:['atencion_cliente','ofimatica'], s:['organizacion','personas'],
+    why:'Técnicas de ayuda odontológica/estomatológica, Higiene del medio hospitalario y limpieza del material y Operaciones administrativas y documentación sanitaria: es tu ciclo.',
+    reto:'Trabajar para varias clínicas exige coordinar horarios con cuidado. Si una te pide horario fijo y exclusividad, es una relación laboral y debería contratarte.',
+    paso:'Llama a 10 clínicas dentales y de podología de tu zona y pregunta cómo cubren las vacaciones de su auxiliar.',
+    vr:'Ofrécete como apoyo en esterilización y control del instrumental, una tarea que muchas clínicas pequeñas tienen desatendida.' });
+
+  A({ id:'sa3', cics:['tes','tcae'], t:'Formación en primeros auxilios y uso del desfibrilador', n:'Formación en emergencias',
+    d:'Impartes cursos prácticos de primeros auxilios, reanimación y uso del desfibrilador para empresas, colegios, gimnasios, comunidades y familias. El uso de desfibriladores fuera del ámbito sanitario está regulado (RD 365/2009) y cada comunidad autónoma fija qué formación acreditada exige. Modelo: 25-60 € por persona o 300-900 € por curso en empresa.',
+    m:'formacion', cli:'empresas, colegios, gimnasios, centros deportivos, comunidades de vecinos y familias con bebés', pb:'saber actuar ante una emergencia y cumplir lo que exige la normativa',
+    val:'Tu equipo sabe qué hacer en los primeros minutos de una emergencia, que son los que salvan vidas.',
+    inv:[1500,5000], ar:'2 meses', r:1, e:['local'], h:2, am:3, tg:['social','deporte'], k:['atencion_cliente'], s:['personas','organizacion','liderazgo'],
+    why:'Atención sanitaria inicial en situaciones de emergencia, Apoyo psicológico y Planes de emergencias: enseñas lo que practicas en el ciclo.',
+    reto:'Para dar cursos de desfibrilador acreditados tienes que hacerlo a través de una entidad formadora autorizada por tu comunidad. Infórmate antes de anunciarlos.',
+    paso:'Consulta en la web de sanidad de tu comunidad qué exige para la formación en desfibriladores. Ofrece un taller de 2 horas de primeros auxilios a una AMPA.',
+    vr:'Especialízate en primeros auxilios pediátricos para familias y escuelas infantiles: muy demandado y fácil de comunicar.' });
+
+  A({ id:'sa4', cics:['tes'], t:'Cobertura sanitaria de eventos deportivos y culturales', n:'Servicios preventivos',
+    d:'Las carreras, conciertos, fiestas y eventos deportivos necesitan un dispositivo sanitario preventivo. Diseñas el plan, coordinas al personal y trabajas con una empresa de ambulancias autorizada que aporta los vehículos. Modelo: precio por evento según horas y recursos.',
+    m:'proyecto', cli:'organizadores de carreras, clubes, ayuntamientos, salas de conciertos y promotores de eventos', pb:'cumplir la cobertura sanitaria obligatoria del evento sin complicarse',
+    val:'Tu evento con un dispositivo sanitario bien dimensionado, coordinado y con alguien que responde.',
+    inv:[1000,5000], ar:'2-3 meses', r:2, e:['local'], h:3, am:3, tg:['deporte','musica'], k:['gestion_personas'], s:['organizacion','liderazgo','personas'],
+    why:'Planes de emergencias y dispositivos de riesgos previsibles, Logística sanitaria y Teleemergencias: diseñar y coordinar un dispositivo es tu ciclo.',
+    reto:'El transporte sanitario exige autorización de la empresa y de los vehículos. Trabaja siempre con una empresa autorizada y céntrate en la planificación y coordinación.',
+    paso:'Pregunta a 3 organizadores de carreras o fiestas de tu zona quién les cubre la parte sanitaria y cuánto pagan. Busca una empresa de ambulancias con la que colaborar.',
+    vr:'Ofrece también el plan de autoprotección y la formación del voluntariado del evento.' });
+
+  // ---------- FARMACIA Y PARAFARMACIA ----------
+  A({ id:'sa5', cics:['far'], t:'Parafarmacia especializada con tienda física y online', n:'Parafarmacia',
+    d:'Abres una parafarmacia centrada en un público concreto (dermocosmética, bebé y maternidad, deportistas, personas con intolerancias) con asesoramiento experto. Los medicamentos, también los que no necesitan receta, solo pueden venderse en farmacias, también por internet (RD 870/2013). Modelo: margen del 25-40 % sobre producto.',
+    m:'producto', cli:'personas que buscan consejo experto en cuidado de la piel, bebés, deporte o alimentación especial', pb:'encontrar los productos adecuados con alguien que sepa aconsejar',
+    val:'Productos elegidos para tu caso, con el consejo de alguien formado, sin la prisa de una gran superficie.',
+    inv:[8000,25000], ar:'3-4 meses', r:2, e:['local','online'], h:4, am:3, tg:['moda','deporte'], k:['ventas','rrss'], s:['ventas','personas','organizacion'],
+    why:'Dispensación de productos parafarmacéuticos, Disposición y venta de productos y Promoción de la salud son módulos de tu ciclo.',
+    reto:'Competencia de farmacias y grandes tiendas online. Diferénciate por especialización y asesoramiento, y controla el stock: inmoviliza mucho dinero.',
+    paso:'Visita 5 farmacias y parafarmacias de tu zona y apunta qué categoría tienen peor atendida. Calcula el stock mínimo para empezar en esa categoría.',
+    vr:'Empieza solo online en un nicho muy concreto (por ejemplo, cosmética para pieles atópicas) antes de abrir local.' });
+
+  A({ id:'sa6', cics:['far'], t:'Apoyo externo a farmacias: compras, stock y escaparates', n:'Gestión de farmacia',
+    d:'Las farmacias pequeñas no tienen tiempo para gestionar bien el stock, las compras, las caducidades y la parte de venta libre. Lo haces por horas: análisis de rotación, pedidos, colocación de lineales, escaparates y campañas de temporada. Modelo: cuota mensual de 150-600 € por farmacia.',
+    m:'cuota', cli:'farmacias rurales y de barrio con poco personal', pb:'tener el stock bajo control y vender más en parafarmacia',
+    val:'Menos producto caducado, menos dinero inmovilizado y una parafarmacia que vende más.',
+    inv:[300,1500], ar:'1-2 meses', r:1, e:['local'], h:2, am:2, tg:[], k:['ofimatica','ventas'], s:['organizacion','ventas'],
+    why:'Oficina de farmacia, Disposición y venta de productos y Dispensación de productos parafarmacéuticos: conoces cómo funciona una farmacia por dentro.',
+    reto:'La farmacia es responsabilidad del farmacéutico titular: tú apoyas la gestión, no la dispensación. Firma un contrato claro de lo que haces.',
+    paso:'Pregunta a 3 farmacias de pueblo o de barrio qué tarea les quita más tiempo. Ofrece un análisis gratuito de caducidades y rotación.',
+    vr:'Especialízate en farmacias rurales de una comarca: varias, cerca, con las mismas necesidades.' });
+
+  // ---------- HIGIENE BUCODENTAL ----------
+  A({ id:'sa7', cics:['hb'], t:'Programas de salud bucodental en colegios, residencias y empresas', n:'Educación en salud oral',
+    d:'Los higienistas pueden actuar por sí mismos en promoción de la salud y educación sanitaria bucodental (Ley 10/1986, art. 3.1). Diseñas y ejecutas programas para colegios, escuelas infantiles, residencias y empresas: revisiones de higiene, talleres, consejos y derivación al dentista. Modelo: precio por programa (300-3.000 €) pagado por el centro, el ayuntamiento o un patrocinador.',
+    m:'proyecto', cli:'colegios, escuelas infantiles, residencias de mayores, ayuntamientos y empresas', pb:'mejorar la salud bucodental de su gente sin desplazarles a una consulta',
+    val:'Niños, mayores o trabajadores con mejor salud bucodental, gracias a un programa práctico y cercano.',
+    inv:[500,2000], ar:'2 meses', r:1, e:['local'], h:2, am:3, tg:['social'], k:['atencion_cliente'], s:['personas','organizacion','creatividad'],
+    why:'Educación para la salud oral, Epidemiología en salud oral y Exploración de la cavidad oral: tu ciclo te prepara exactamente para esto.',
+    reto:'Los centros tienen poco presupuesto. Busca financiación de ayuntamientos o patrocinio de clínicas y marcas, sin convertir el programa en publicidad.',
+    paso:'Diseña un taller de 45 minutos para niños de 6-8 años y ofrécelo gratis a un colegio. Pide al centro una valoración por escrito.',
+    vr:'Especialízate en residencias de mayores: la higiene bucal de las personas dependientes está muy desatendida y afecta a su salud general.' });
+
+  A({ id:'sa8', cics:['hb'], t:'Higienista por horas para varias clínicas dentales', n:'Higienista autónoma',
+    d:'Muchas clínicas no tienen pacientes suficientes para un higienista a jornada completa. Trabajas como autónoma en 3-5 clínicas, con días fijos en cada una, haciendo limpiezas, revisiones de higiene y educación del paciente. Las funciones técnico-asistenciales se hacen como colaboradora del dentista (Ley 10/1986, art. 3.2). Modelo: precio por día o por paciente.',
+    m:'cuota', cli:'clínicas dentales pequeñas sin higienista a jornada completa', pb:'ofrecer higiene dental profesional sin contratar a alguien todo el día',
+    val:'Tu clínica tiene higienista los días que la necesita, con pacientes mejor cuidados y la agenda del dentista más libre.',
+    inv:[300,1500], ar:'1 mes', r:1, e:['local'], h:3, am:2, tg:[], k:['atencion_cliente'], s:['tecnica','personas','organizacion'],
+    why:'Intervención bucodental, Conservadora, periodoncia, cirugía e implantes y Educación para la salud oral: es tu trabajo en la clínica.',
+    reto:'Si una clínica te fija horario, medios y exclusividad, la relación es laboral. Trabaja de verdad para varias y factura con claridad.',
+    paso:'Llama a 10 clínicas dentales pequeñas de tu zona y pregunta si tienen higienista y cuántas limpiezas hacen a la semana.',
+    vr:'Especialízate en mantenimiento periodontal y de implantes, que se repite cada pocos meses y fideliza al paciente.' });
+
+  // ---------- PRÓTESIS DENTALES ----------
+  A({ id:'sa9', cics:['pd'], t:'Laboratorio de prótesis dental propio con flujo digital', n:'Laboratorio dental',
+    d:'Los laboratorios de prótesis dental los dirigen de forma autónoma los protésicos titulados (Ley 10/1986, art. 2.3), siempre fabricando según la prescripción del dentista. Montas un laboratorio pequeño con escáner y diseño digital, que trabaja para clínicas de tu zona. Necesitas la licencia sanitaria de tu comunidad. Modelo: precio por trabajo (coronas, férulas, prótesis) según tarifa pactada con cada clínica.',
+    m:'producto', cli:'clínicas dentales independientes de tu provincia', pb:'conseguir prótesis de calidad, a tiempo y con un laboratorio cercano',
+    val:'Prótesis precisas y a tiempo, de un laboratorio cercano con el que puedes hablar de cada caso.',
+    inv:[15000,40000], ar:'4-6 meses', r:3, e:['local'], h:4, am:3, tg:['tecnologia'], k:['diseno','ventas'], s:['tecnica','organizacion','resolucion'],
+    why:'Laboratorio de prótesis dentales, Diseño funcional de prótesis, Prótesis sobre implantes y Restauraciones y recubrimientos estéticos: tu título te permite dirigir tu propio laboratorio.',
+    reto:'La inversión en equipos digitales es alta y las clínicas grandes trabajan con laboratorios grandes. Empieza externalizando el fresado y céntrate en clínicas independientes.',
+    paso:'Pregunta a 5 clínicas independientes de tu zona con qué laboratorio trabajan, qué plazos tienen y qué les falla. Infórmate en tu consejería de sanidad de la licencia de laboratorio.',
+    vr:'Especialízate en férulas de descarga y aparatos de ortodoncia: menos inversión inicial y mucho volumen.' });
+
+  A({ id:'sa10', cics:['pd'], t:'Diseño digital de prótesis para otros laboratorios', n:'Diseño CAD dental',
+    d:'Muchos laboratorios y clínicas con escáner no tienen tiempo ni manos para diseñar. Diseñas a distancia coronas, puentes, férulas y estructuras con programas de diseño dental y envías el archivo listo para fresar o imprimir. Modelo: precio por unidad diseñada (5-25 €) y cuota mensual por volumen.',
+    m:'cuota', cli:'laboratorios de prótesis dental y clínicas con escáner intraoral', pb:'tener los diseños listos a tiempo sin contratar a un diseñador',
+    val:'Tus diseños listos en horas, hechos por un protésico que entiende la función y la estética.',
+    inv:[3000,10000], ar:'2-3 meses', r:2, e:['online'], h:2, am:4, tg:['tecnologia'], k:['diseno'], s:['tecnica','digital'],
+    why:'Diseño funcional de prótesis y Prótesis sobre implantes: diseñar bien exige saber cómo funciona una boca, que es lo que aprendes en el ciclo.',
+    reto:'Las licencias de los programas de diseño dental son caras. Empieza trabajando con la licencia de un laboratorio y crece cuando tengas cartera.',
+    paso:'Pregunta a 3 laboratorios si externalizan el diseño digital y cuánto pagan por unidad. Prepara 5 diseños de muestra.',
+    vr:'Trabaja para laboratorios de otros países con tu misma normativa europea: el diseño viaja por internet.' });
+
+  // ---------- AUDIOLOGÍA PROTÉSICA ----------
+  A({ id:'sa11', cics:['aud'], t:'Centro auditivo propio con atención a domicilio y en residencias', n:'Centro auditivo',
+    d:'Abres un centro de audioprótesis (con la autorización sanitaria de tu comunidad) para evaluar la audición, adaptar audífonos y hacer el seguimiento, y vas a domicilio y residencias donde muchas personas mayores no pueden desplazarse. Modelo: margen sobre audífonos y revisiones periódicas.',
+    m:'producto', cli:'personas mayores con pérdida de audición, sus familias y residencias', pb:'oír mejor sin desplazarse y con alguien que haga el seguimiento',
+    val:'Vuelves a oír bien, con un audífono bien adaptado y revisiones cerca de casa o en tu residencia.',
+    inv:[15000,40000], ar:'4-6 meses', r:3, e:['local','domicilio'], h:4, am:2, tg:['social'], k:['atencion_cliente','ventas'], s:['personas','tecnica','ventas'],
+    why:'Elección y adaptación de prótesis auditivas, Atención al hipoacúsico y Audición y comunicación verbal: tu título es el que exige este tipo de establecimiento.',
+    reto:'Las cadenas tienen mucha publicidad. Gana con cercanía, seguimiento y atención a domicilio, y cuida la licencia sanitaria y el equipamiento obligatorio.',
+    paso:'Pregunta en tu consejería de sanidad qué necesita un centro auditivo para abrir. Visita 2 residencias y pregunta cómo resuelven las revisiones de audífonos.',
+    vr:'Empieza solo con servicio en residencias y a domicilio, asociado a un centro autorizado, antes de abrir local.' });
+
+  A({ id:'sa12', cics:['aud'], t:'Protectores auditivos a medida para músicos, industria y ocio', n:'Protección auditiva',
+    d:'Tomas impresiones y fabricas protectores auditivos a medida: para músicos y técnicos de sonido, trabajadores de industrias ruidosas (la protección frente al ruido es obligatoria en el trabajo, RD 286/2006), nadadores, motoristas y personas que duermen con ruido. Modelo: 80-200 € por par y acuerdos con empresas.',
+    m:'producto', cli:'músicos, salas de conciertos, empresas industriales, servicios de prevención y deportistas', pb:'protegerse del ruido sin dejar de oír bien',
+    val:'Protectores hechos a la medida de tu oído, cómodos todo el día y que protegen sin aislarte.',
+    inv:[3000,8000], ar:'2 meses', r:2, e:['local','domicilio'], h:2, am:3, tg:['musica','motor'], k:['ventas'], s:['tecnica','personas'],
+    why:'Elaboración de moldes y protectores auditivos y Acústica y elementos de protección sonora son módulos de tu ciclo.',
+    reto:'Las empresas compran a servicios de prevención. Alíate con ellos y ofrece campañas en la propia empresa.',
+    paso:'Pregunta a 3 bandas o escuelas de música de tu zona si usan protección auditiva. Pregunta a un servicio de prevención cómo compran los protectores a medida.',
+    vr:'Haz campañas en festivales y conservatorios: muchos clientes en un solo día.' });
+
+  // ---------- ORTOPRÓTESIS Y PRODUCTOS DE APOYO ----------
+  A({ id:'sa13', cics:['orto'], t:'Ortopedia técnica de barrio con productos de apoyo y alquiler', n:'Ortopedia',
+    d:'Abres una ortopedia (con autorización sanitaria) que asesora, adapta y alquila productos de apoyo: sillas de ruedas, grúas, camas articuladas, andadores y ayudas para el baño, y elabora ortesis a medida con prescripción. Modelo: venta, alquiler mensual de equipos y prestaciones del catálogo ortoprotésico de tu servicio de salud.',
+    m:'producto', cli:'personas mayores, personas con discapacidad, familias cuidadoras y hospitales', pb:'conseguir rápido el producto de apoyo adecuado y bien adaptado',
+    val:'El producto de apoyo adecuado, adaptado a la persona y a la casa, y en alquiler si solo lo necesitas unos meses.',
+    inv:[15000,40000], ar:'4-6 meses', r:3, e:['local','domicilio'], h:4, am:2, tg:['social'], k:['atencion_cliente','ventas'], s:['personas','tecnica','organizacion'],
+    why:'Adaptación de productos de apoyo, Elaboración y adaptación de productos ortésicos a medida y Atención psicosocial: tu título es el que pide una ortopedia técnica.',
+    reto:'Stock caro y cobros lentos de las prestaciones públicas. Empieza con alquiler de equipos (se amortizan) y asesoramiento a domicilio.',
+    paso:'Pregunta en tu consejería de sanidad qué requisitos tiene un establecimiento de ortopedia. Habla con 2 trabajadoras sociales de hospital sobre qué les cuesta conseguir a las familias.',
+    vr:'Ofrece el alquiler de equipos para el alta hospitalaria con entrega a domicilio en 24 horas.' });
+
+  A({ id:'sa14', cics:['orto'], t:'Plantillas y ortesis a medida para deportistas', n:'Ortopedia deportiva',
+    d:'Elaboras plantillas, rodilleras y ortesis a medida para deportistas a partir de la prescripción de médicos y podólogos, trabajando con clubes, fisioterapeutas y tiendas de running. Modelo: 90-250 € por plantilla u ortesis y acuerdos con clubes.',
+    m:'producto', cli:'corredores, clubes deportivos, fisioterapeutas, podólogos y tiendas de running', pb:'tener plantillas u ortesis bien adaptadas a su deporte',
+    val:'Plantillas y ortesis hechas a tu medida y a tu deporte, ajustadas por alguien que entiende la biomecánica.',
+    inv:[5000,15000], ar:'3 meses', r:2, e:['local'], h:3, am:3, tg:['deporte'], k:['ventas'], s:['tecnica','personas'],
+    why:'Biomecánica y patología aplicada, Diseño y moldeado anatómico y Elaboración de productos ortésicos a medida: sabes fabricar y adaptar con precisión.',
+    reto:'Los productos a medida se elaboran con prescripción de un profesional sanitario. Trabaja en red con podólogos y médicos del deporte.',
+    paso:'Pregunta a 3 podólogos y 2 fisioterapeutas de tu zona con qué ortopedia trabajan y qué plazos les dan.',
+    vr:'Usa escaneado e impresión 3D para fabricar más rápido y ofrecer ortesis más ligeras.' });
+
+  // ---------- DIETÉTICA ----------
+  A({ id:'sa15', cics:['die'], t:'Menús, alérgenos y seguridad alimentaria para comedores y restaurantes', n:'Gestión dietética de comedores',
+    d:'Planificas menús equilibrados para comedores escolares, residencias, escuelas infantiles y empresas de catering, y ayudas a restaurantes a informar de los 14 alérgenos (Reglamento (UE) 1169/2011, art. 9.1.c; RD 126/2015 para alimentos no envasados) y a llevar su plan de autocontrol. Modelo: cuota mensual por centro (80-400 €) o proyecto cerrado.',
+    m:'cuota', cli:'comedores escolares, residencias, escuelas infantiles, caterings y restaurantes', pb:'ofrecer menús equilibrados y seguros y cumplir la normativa de alérgenos',
+    val:'Menús equilibrados, información de alérgenos correcta y un plan de seguridad alimentaria al día.',
+    inv:[300,1500], ar:'1-2 meses', r:1, e:['local','online'], h:2, am:3, tg:['gastronomia'], k:['ofimatica'], s:['organizacion','personas'],
+    why:'Alimentación equilibrada, Control alimentario, Microbiología e higiene alimentaria y Organización del gabinete de dietética: es tu ciclo.',
+    reto:'Las dietas para enfermedades concretas las pauta un profesional sanitario competente: tú planificas menús colectivos y adaptaciones con su supervisión. Revisa siempre las fichas técnicas de los proveedores.',
+    paso:'Revisa la carta de 5 restaurantes de tu zona y comprueba si informan de los alérgenos. Ofrece al que peor lo tenga hacerle la ficha de su carta.',
+    vr:'Especialízate en escuelas infantiles y residencias, con menús adaptados por edades y texturas.' });
+
+  A({ id:'sa16', cics:['die'], t:'Educación alimentaria en colegios, empresas y asociaciones', n:'Promoción de la salud',
+    d:'Diseñas e impartes talleres de alimentación saludable: leer etiquetas, preparar desayunos y meriendas, comer bien con poco presupuesto, cocinar para personas con diabetes o celiaquía. Para colegios, AMPAs, empresas, asociaciones de pacientes y ayuntamientos. Modelo: 150-500 € por taller o programas trimestrales.',
+    m:'formacion', cli:'colegios, AMPAs, empresas con programas de bienestar, asociaciones de pacientes y ayuntamientos', pb:'que su gente coma mejor con consejos prácticos y fiables',
+    val:'Aprendes a comer mejor con ideas prácticas y fiables, sin modas ni milagros.',
+    inv:[300,1500], ar:'1-2 meses', r:1, e:['local','online'], h:2, am:3, tg:['gastronomia','social'], k:['rrss'], s:['personas','creatividad'],
+    why:'Educación sanitaria y promoción para la salud, Alimentación equilibrada y Dietoterapia: enseñas con base científica.',
+    reto:'Hay mucha desinformación y competencia de influencers. Gana con rigor, ejemplos prácticos y fuentes oficiales como AESAN.',
+    paso:'Prepara un taller de 1 hora sobre «leer etiquetas en el supermercado» y ofrécelo gratis a una AMPA o asociación.',
+    vr:'Ofrece el taller a empresas como parte de sus planes de bienestar: se paga mejor.' });
+
+  // ---------- DOCUMENTACIÓN Y ADMINISTRACIÓN SANITARIAS ----------
+  A({ id:'sa17', cics:['doc'], t:'Codificación clínica y gestión documental para hospitales y clínicas', n:'Documentación clínica externa',
+    d:'Codificas diagnósticos y procedimientos, revisas la calidad de los informes y gestionas archivos de historia clínica para clínicas privadas, mutuas y hospitales con picos de trabajo, a menudo en remoto. Los datos de salud son una categoría especial protegida (Reglamento General de Protección de Datos, art. 9). Modelo: precio por episodio codificado o por hora.',
+    m:'cuota', cli:'hospitales privados, clínicas, mutuas y aseguradoras de salud', pb:'tener la documentación clínica codificada y en orden a tiempo',
+    val:'Tus episodios codificados con rigor y a tiempo, y tu archivo clínico ordenado y seguro.',
+    inv:[500,2000], ar:'1-2 meses', r:1, e:['online'], h:3, am:4, tg:[], k:['ofimatica'], s:['organizacion','tecnica'],
+    why:'Codificación sanitaria, Extracción de diagnósticos y procedimientos, Terminología clínica y Archivo y documentación sanitarios: es el centro de tu ciclo.',
+    reto:'Trabajas con datos muy sensibles: firma contratos de encargado del tratamiento, usa equipos seguros y nunca saques datos de los sistemas del cliente.',
+    paso:'Pregunta a 3 clínicas u hospitales privados de tu zona cómo codifican y si externalizan. Mira ofertas de codificación en remoto para ver precios.',
+    vr:'Especialízate en codificación de urgencias o de cirugía ambulatoria, donde más volumen hay.' });
+
+  A({ id:'sa18', cics:['doc'], t:'Gestión administrativa de clínicas privadas pequeñas', n:'Administración sanitaria',
+    d:'Llevas la parte administrativa de clínicas pequeñas (fisioterapia, psicología, podología, dental): agenda, facturación a aseguradoras, cobros pendientes, protección de datos y atención telefónica, en remoto o por horas. Modelo: cuota mensual de 200-700 € por clínica.',
+    m:'cuota', cli:'clínicas de fisioterapia, psicología, podología y dentales con 1-5 profesionales', pb:'que la parte administrativa no les quite tiempo de pacientes',
+    val:'Tú atiendes pacientes; la agenda, la facturación a aseguradoras y los cobros los lleva alguien que sabe.',
+    inv:[300,1500], ar:'1 mes', r:1, e:['online','local'], h:2, am:3, tg:[], k:['ofimatica','contabilidad'], s:['organizacion','personas'],
+    why:'Gestión de pacientes, Gestión administrativa sanitaria y Atención psicosocial al paciente-usuario son módulos de tu ciclo.',
+    reto:'Muchas clínicas usan programas distintos. Aprende los 2-3 más usados en tu zona y cuida mucho la confidencialidad.',
+    paso:'Pregunta a 5 clínicas pequeñas cuánto tiempo dedican a facturar a aseguradoras y cuántos cobros tienen pendientes.',
+    vr:'Especialízate en facturación a aseguradoras y mutuas: es lo que más dinero hace perder a las clínicas.' });
+
+  // ---------- LABORATORIO CLÍNICO / ANATOMÍA PATOLÓGICA ----------
+  A({ id:'sa19', cics:['lab'], t:'Laboratorio de análisis para clínicas veterinarias', n:'Laboratorio veterinario',
+    d:'Las clínicas veterinarias envían muchas analíticas fuera y esperan días. Montas un laboratorio de proximidad (o das servicio dentro de las clínicas) de hematología, bioquímica, orina, citología y parasitología animal, con recogida diaria. Modelo: precio por prueba y acuerdos con clínicas.',
+    m:'cuota', cli:'clínicas veterinarias, hospitales veterinarios y explotaciones ganaderas', pb:'tener resultados de análisis rápidos y fiables',
+    val:'Resultados el mismo día, de un laboratorio cercano que entiende lo que necesita el veterinario.',
+    inv:[10000,30000], ar:'4-6 meses', r:3, e:['local'], h:4, am:3, tg:['animales'], k:['ventas'], s:['tecnica','organizacion'],
+    why:'Técnicas de análisis hematológico, Análisis bioquímico, Microbiología clínica y Procesamiento citológico: las técnicas son las mismas que en el laboratorio humano.',
+    reto:'Equipos caros y competencia de grandes laboratorios. Empieza ofreciendo tus horas a clínicas que ya tienen analizadores y crece con ellas.',
+    paso:'Pregunta a 5 clínicas veterinarias de tu zona dónde envían las analíticas, cuánto tardan y cuánto pagan.',
+    vr:'Especialízate en citología y parasitología, que muchas clínicas no hacen y necesitan rápido.' });
+
+  A({ id:'sa20', cics:['lab','die'], t:'Control microbiológico de alimentos y superficies para hostelería', n:'Laboratorio de seguridad alimentaria',
+    d:'Restaurantes, obradores, comedores y pequeñas industrias deben comprobar que sus procesos de higiene funcionan. Tomas muestras de alimentos, superficies y manos, las analizas o las envías a un laboratorio acreditado y entregas un informe con recomendaciones. Modelo: cuota mensual o trimestral por establecimiento.',
+    m:'cuota', cli:'restaurantes, obradores, comedores colectivos, caterings y pequeñas industrias alimentarias', pb:'demostrar que su cocina es segura y pasar las inspecciones',
+    val:'Sabes que tu cocina es segura, y lo puedes demostrar con datos en una inspección.',
+    inv:[3000,10000], ar:'2-3 meses', r:2, e:['local'], h:3, am:2, tg:['gastronomia'], k:['ofimatica'], s:['tecnica','organizacion'],
+    why:'Técnicas generales de laboratorio, Microbiología clínica y Gestión de muestras biológicas: las técnicas microbiológicas son las mismas.',
+    reto:'Los análisis oficiales los hacen laboratorios acreditados. Combina tu toma de muestras y asesoramiento con un laboratorio acreditado colaborador.',
+    paso:'Pregunta a 5 restaurantes u obradores de tu zona si hacen análisis de superficies y quién se los hace.',
+    vr:'Combínalo con el plan de autocontrol y la formación de manipuladores: un único proveedor de seguridad alimentaria.' });
+
+  // ---------- IMAGEN PARA EL DIAGNÓSTICO / RADIOTERAPIA ----------
+  A({ id:'sa21', cics:['img'], t:'Técnico de radiología para clínicas veterinarias y dentales', n:'Imagen diagnóstica en clínicas pequeñas',
+    d:'Cada vez más clínicas veterinarias y dentales tienen rayos X, escáner dental o ecógrafo, pero nadie con formación específica para sacarles partido. Haces las pruebas por horas, revisas la calidad de imagen y formas al personal. Operar equipos de rayos X exige la acreditación correspondiente del Consejo de Seguridad Nuclear (RD 1085/2009). Modelo: precio por hora o por estudio.',
+    m:'cuota', cli:'clínicas veterinarias, clínicas dentales y centros de fisioterapia con equipos de imagen', pb:'hacer pruebas de imagen de calidad y con seguridad radiológica',
+    val:'Imágenes de calidad a la primera, con menos repeticiones y menos radiación para pacientes y personal.',
+    inv:[500,2000], ar:'2 meses', r:1, e:['local'], h:2, am:2, tg:['animales'], k:['atencion_cliente'], s:['tecnica','personas'],
+    why:'Técnicas de radiología simple, Protección radiológica y Fundamentos físicos y equipos: es tu especialidad, aplicada fuera del hospital.',
+    reto:'Hay pocos clientes por zona. Combina varias clínicas y ofrece también la formación del personal en protección radiológica.',
+    paso:'Pregunta a 5 clínicas veterinarias y dentales de tu zona qué equipos de imagen tienen y quién los maneja.',
+    vr:'Trabaja con una empresa de protección radiológica autorizada haciendo controles de calidad de equipos.' });
+
+  A({ id:'sa22', cics:['img','lab'], t:'Técnico itinerante para centros de diagnóstico y unidades móviles', n:'Diagnóstico por la imagen',
+    d:'Centros privados de diagnóstico, unidades móviles (mamografía, resonancia) y mutuas necesitan técnicos para cubrir turnos, campañas y vacaciones. Trabajas como autónomo o a través de una pequeña empresa de servicios para varios centros. Modelo: precio por turno o por campaña.',
+    m:'cuota', cli:'centros privados de diagnóstico, unidades móviles y mutuas', pb:'cubrir turnos y campañas con técnicos cualificados',
+    val:'Técnicos acreditados para tus turnos y campañas, sin aumentar la plantilla.',
+    inv:[300,1500], ar:'1-2 meses', r:1, e:['local'], h:3, am:3, tg:['viajes'], k:['atencion_cliente'], s:['tecnica','organizacion'],
+    why:'Técnicas de tomografía computarizada, Técnicas de imagen por resonancia magnética y Atención al paciente: tu ciclo te prepara para varios equipos.',
+    reto:'Este sector se basa sobre todo en el empleo por cuenta ajena; trabajar por tu cuenta exige experiencia y contactos. Úsalo como paso tras unos años en un centro.',
+    paso:'Haz una lista de los centros de diagnóstico privados y unidades móviles de tu comunidad y mira cómo cubren sus turnos.',
+    vr:'Especialízate en resonancia o mamografía, donde más cuesta encontrar técnicos.' });
+
+  // ---------- HÍBRIDAS ----------
+  H({ id:'sa_h1', pref:['tes','tcae'], t:'Personal sanitario para campamentos, colonias y viajes escolares', n:'Salud en el tiempo libre',
+    d:'Los campamentos, colonias, viajes escolares y competiciones necesitan alguien con formación sanitaria que atienda pequeñas lesiones, controle medicaciones y alergias y coordine con urgencias. Trabajas por temporadas o creas una pequeña bolsa de profesionales. Modelo: precio por día o por campamento.',
+    m:'proyecto', cli:'empresas de campamentos, colegios, asociaciones juveniles y clubes deportivos', pb:'tener a alguien preparado ante cualquier problema de salud durante la actividad',
+    val:'Las familias tranquilas sabiendo que hay alguien preparado para atender a sus hijos.',
+    inv:[200,1000], ar:'1-2 meses', r:1, e:['local'], h:3, am:3, tg:['naturaleza','viajes','deporte'], k:['atencion_cliente'], s:['personas','organizacion'],
+    why:'Te gusta el tiempo libre y la naturaleza; tu ciclo te da la atención inicial, los primeros auxilios y la gestión de la medicación.',
+    reto:'Trabajo muy concentrado en verano. Combínalo con eventos deportivos y viajes escolares durante el curso.',
+    paso:'Llama a 3 empresas de campamentos de tu comunidad y pregunta cómo cubren la atención sanitaria y cuánto pagan.',
+    vr:'Crea una bolsa de profesionales sanitarios para campamentos y cobra por gestionarla.' });
+
+  H({ id:'sa_h2', pref:['tcae','tes'], t:'Acompañamiento en viajes para personas mayores o con dependencia', n:'Viajes acompañados',
+    d:'Acompañas a personas mayores o con dependencia en viajes, desplazamientos a consultas lejanas, bodas, vacaciones o traslados de residencia, ocupándote de sus cuidados y su seguridad. Modelo: precio por día más gastos.',
+    m:'proyecto', cli:'familias con mayores que quieren viajar o desplazarse, residencias y agencias de viajes', pb:'que su familiar pueda viajar con seguridad y bien atendido',
+    val:'Tu familiar viaja tranquilo y cuidado por alguien formado, y tú no tienes que dejarlo todo para acompañarle.',
+    inv:[200,1000], ar:'1 mes', r:1, e:['domicilio'], h:2, am:4, tg:['viajes','social'], k:['idiomas'], s:['personas','organizacion'],
+    why:'Te gusta viajar; tu ciclo te da los cuidados básicos, la movilización y el apoyo psicológico al paciente.',
+    reto:'Responsabilidad alta fuera de casa. Contrata un seguro, lleva un informe de salud de la persona y un protocolo de emergencias.',
+    paso:'Pregunta a 2 agencias de viajes y a 2 residencias si les piden acompañantes para viajes de mayores.',
+    vr:'Colabora con agencias especializadas en viajes adaptados como acompañante sanitario.' });
+
+  H({ id:'sa_h3', pref:['die'], t:'Cocina sin alérgenos: obrador o asesoría para restaurantes', n:'Gastronomía segura',
+    d:'Asesoras a restaurantes y obradores para crear opciones seguras sin gluten, sin lactosa o sin otros alérgenos (recetas, proveedores, separación en cocina, formación), o produces tú mismo productos sin alérgenos. Modelo: proyecto de asesoría (300-1.500 €) o venta de producto.',
+    m:'proyecto', cli:'restaurantes, obradores, hoteles y familias con alergias alimentarias', pb:'ofrecer o encontrar comida segura para personas con alergias',
+    val:'Comida segura y rica para personas con alergias, sin sustos ni contaminaciones cruzadas.',
+    inv:[500,3000], ar:'2 meses', r:2, e:['local'], h:2, am:3, tg:['gastronomia'], k:['ventas'], s:['creatividad','organizacion'],
+    why:'Te gusta la gastronomía; tu ciclo te da el control alimentario, la higiene y la dietoterapia para hacerlo con rigor.',
+    reto:'Un error con un alérgeno puede ser grave. Documenta cada proceso y forma a todo el personal, no solo al cocinero.',
+    paso:'Pregunta en una asociación de celíacos o de alergias de tu zona qué restaurantes recomiendan y qué les falta.',
+    vr:'Crea una certificación propia de «cocina segura» para restaurantes de tu ciudad.' });
+
+  H({ id:'sa_h4', pref:['lab','die'], t:'Talleres de ciencia y salud para colegios', n:'Divulgación científica',
+    d:'Llevas el laboratorio a los colegios: talleres de microbiología (las bacterias de las manos), extracción de ADN de una fruta, el cuerpo humano, alimentación y salud. Para colegios, institutos, bibliotecas, museos y campamentos. Modelo: 150-400 € por taller.',
+    m:'formacion', cli:'colegios, institutos, bibliotecas, museos de ciencia y campamentos', pb:'que los alumnos aprendan ciencia de forma práctica',
+    val:'Alumnos que hacen ciencia de verdad, con material de laboratorio y alguien que sabe usarlo.',
+    inv:[1000,3000], ar:'1-2 meses', r:1, e:['local'], h:2, am:2, tg:['tecnologia','diy','social'], k:['rrss'], s:['personas','creatividad'],
+    why:'Te gusta enseñar y la tecnología; tu ciclo te da técnicas de laboratorio y biología para preparar experimentos seguros.',
+    reto:'Trabajar con menores exige el certificado negativo del Registro Central de Delincuentes Sexuales (Ley Orgánica 1/1996, art. 13.5) y materiales seguros.',
+    paso:'Diseña un taller de 1 hora sobre microbios en las manos y ofrécelo gratis en un colegio o biblioteca.',
+    vr:'Organiza campamentos de ciencia en vacaciones escolares.' });
+
+  H({ id:'sa_h5', pref:['orto','tcae','far','aud'], t:'Adaptación del hogar y productos de apoyo para mayores', n:'Hogar accesible',
+    d:'Visitas casas de personas mayores o con movilidad reducida, valoras riesgos (caídas, baño, escaleras) y recomiendas e instalas productos de apoyo: asideros, alzas, sillas de ducha, camas articuladas. Modelo: valoración de 40-80 € y margen sobre productos e instalación.',
+    m:'proyecto', cli:'familias con mayores, personas con discapacidad, servicios sociales y terapeutas ocupacionales', pb:'que la casa sea segura sin hacer obras',
+    val:'Tu casa más segura en días, con los productos adecuados y bien colocados.',
+    inv:[1000,4000], ar:'1-2 meses', r:1, e:['domicilio'], h:2, am:2, tg:['social','diy'], k:['atencion_cliente'], s:['personas','tecnica'],
+    why:'Te mueve lo social; tu ciclo te da los productos de apoyo, la biomecánica o los cuidados para recomendar con criterio.',
+    reto:'No sustituyes a un terapeuta ocupacional. Trabaja en red con ellos y con servicios sociales.',
+    paso:'Haz una lista de comprobación de 20 riesgos en casa y prueba a usarla en la casa de un familiar mayor.',
+    vr:'Ofrece un paquete «vuelta a casa tras el hospital» con productos e instalación en 48 horas.' });
+
+  H({ id:'sa_h6', pref:['hb','pd'], t:'Protectores bucales a medida para deportes de contacto', n:'Salud oral deportiva',
+    d:'Organizas, junto a clínicas dentales, campañas en clubes de rugby, boxeo, artes marciales, hockey y baloncesto para tomar impresiones y hacer protectores bucales a medida, con educación sobre traumatismos dentales. Modelo: 50-120 € por protector y acuerdos con clubes.',
+    m:'producto', cli:'clubes de deportes de contacto, federaciones y deportistas', pb:'proteger los dientes de forma cómoda y eficaz',
+    val:'Protectores cómodos y a tu medida que de verdad protegen, y que no te quitas en mitad del partido.',
+    inv:[1000,4000], ar:'2 meses', r:2, e:['local'], h:2, am:3, tg:['deporte'], k:['ventas'], s:['tecnica','personas'],
+    why:'Conoces el deporte de contacto; tu ciclo te da la toma de impresiones, la fabricación o la educación en salud oral.',
+    reto:'Coordina con un dentista los casos que lo necesiten y cumple lo que exija tu comunidad para fabricar productos a medida.',
+    paso:'Pregunta en 3 clubes de deportes de contacto qué protectores usan y cuántos jugadores tienen.',
+    vr:'Haz protectores personalizados con los colores del club como producto oficial.' });
+
+  H({ id:'sa_h7', pref:['doc','img'], t:'Gestión digital y protección de datos para clínicas', n:'Salud digital',
+    d:'Ayudas a clínicas pequeñas a digitalizar la historia clínica, montar la cita online y la teleconsulta y cumplir la protección de datos de salud. Modelo: implantación de 400-2.000 € y cuota de soporte.',
+    m:'proyecto', cli:'clínicas de fisioterapia, psicología, podología, dentales y veterinarias', pb:'digitalizarse cumpliendo la protección de datos de salud',
+    val:'Tu clínica digital, con cita online e historia clínica segura, y cumpliendo la normativa de datos.',
+    inv:[300,1500], ar:'1-2 meses', r:1, e:['online','local'], h:2, am:3, tg:['tecnologia'], k:['ofimatica','programacion'], s:['digital','organizacion'],
+    why:'Te atrae la tecnología; tu ciclo te da los sistemas de información sanitarios y el tratamiento de la documentación clínica.',
+    reto:'Los datos de salud son especialmente protegidos (Reglamento General de Protección de Datos, art. 9). Elige programas que cumplan y explica al cliente sus obligaciones.',
+    paso:'Pregunta a 3 clínicas pequeñas qué programa usan para la historia clínica y si dan cita online.',
+    vr:'Especialízate en un tipo de clínica (fisioterapia, psicología) con una configuración estándar.' });
+
+  // ---------- EMERGENTES ----------
+  N({ id:'sa_n1', t:'Coordinación de cuidados para familias con mayores', n:'Gestor de cuidados',
+    d:'Muchas familias se pierden entre citas médicas, ayudas de dependencia, cuidadoras y residencias. Eres su coordinador: organizas cuidados, citas, medicación, trámites y te comunicas con los profesionales. Modelo: valoración inicial y cuota mensual (100-400 €).',
+    m:'cuota', cli:'familias con mayores dependientes, sobre todo hijos que viven lejos', pb:'organizar los cuidados de un familiar sin perderse ni agotarse',
+    val:'Una persona que coordina todos los cuidados de tu familiar y te mantiene informado.',
+    inv:[300,1500], ar:'2-3 meses', r:2, e:['domicilio','online'], h:2, am:2, tg:['social'], k:['gestion_personas','atencion_cliente'], s:['organizacion','personas','resolucion'],
+    why:'Tu formación sanitaria te permite entender diagnósticos, medicación y necesidades, y hablar el idioma de médicos y enfermeras.',
+    reto:'Figura nueva y difícil de explicar. Empieza con familias conocidas y cuenta casos reales (con permiso).',
+    paso:'Entrevista a 5 personas con padres mayores sobre qué les cuesta más de organizar sus cuidados.',
+    vr:'Ofrece el servicio a empresas como beneficio para sus empleados con padres mayores.' });
+
+  N({ id:'sa_n2', t:'Impresión 3D de ortesis y productos de apoyo', n:'Ortopedia digital',
+    d:'Escaneas la parte del cuerpo y diseñas e imprimes en 3D ortesis ligeras y transpirables, adaptadores para utensilios y productos de apoyo personalizados, con prescripción cuando corresponde. Modelo: precio por producto y servicio a ortopedias.',
+    m:'producto', cli:'ortopedias, terapeutas ocupacionales, hospitales y personas con necesidades específicas', pb:'conseguir ortesis y productos de apoyo más ligeros y a medida',
+    val:'Ortesis y adaptaciones hechas a tu medida exacta, más ligeras y en menos tiempo.',
+    inv:[3000,10000], ar:'3-4 meses', r:3, e:['local','online'], h:3, am:4, tg:['tecnologia','diy'], k:['diseno'], s:['tecnica','creatividad'],
+    why:'Diseño y moldeado anatómico y Elaboración de productos ortésicos a medida, con herramientas digitales.',
+    reto:'Los productos sanitarios a medida tienen requisitos de fabricación y autorización. Infórmate en la consejería de sanidad o trabaja para una ortopedia autorizada.',
+    paso:'Busca un centro tecnológico o ortopedia de tu comunidad que use impresión 3D y pregunta qué perfiles necesitan.',
+    vr:'Ofrece adaptadores 3D para utensilios (cubiertos, bolígrafos) a terapeutas ocupacionales.' });
+
+  N({ id:'sa_n3', t:'Teleasistencia y vigilancia de salud a distancia para mayores', n:'Cuidados conectados',
+    d:'Con sensores sencillos, pulseras y videollamadas haces seguimiento de personas mayores que viven solas: recordatorios de medicación, detección de caídas, llamadas diarias y aviso a la familia o a emergencias. Modelo: cuota mensual de 25-60 € por persona.',
+    m:'suscripcion', cli:'familias con mayores que viven solos y ayuntamientos pequeños', pb:'saber que su familiar está bien sin estar allí',
+    val:'Tu familiar sigue en su casa y alguien formado está pendiente de él cada día.',
+    inv:[2000,8000], ar:'3-4 meses', r:3, e:['online','domicilio'], h:3, am:3, tg:['tecnologia','social'], k:['programacion','atencion_cliente'], s:['personas','digital','organizacion'],
+    why:'Tu formación sanitaria te permite interpretar las alertas y actuar con criterio, que es lo que falta en muchos servicios solo tecnológicos.',
+    reto:'Datos de salud y responsabilidad ante una emergencia. Define protocolos claros y coordina con el 112 y la familia.',
+    paso:'Prueba con un familiar mayor un sistema sencillo (pulsera con aviso y llamada diaria) durante un mes y apunta qué funciona.',
+    vr:'Ofrece el servicio a ayuntamientos rurales con muchos mayores que viven solos.' });
+  } // fin de Sanidad
+
+  // ===================== SERVICIOS SOCIOCULTURALES Y A LA COMUNIDAD =====================
+  FAM.sociocultural = {
+    ciclos: {
+      'Actividades Domésticas y Limpieza de Edificios': 'bas',
+      'Atención a Personas en Situación de Dependencia': 'dep',
+      'Servicios Funerarios': 'fun',
+      'Animación Sociocultural y Turística': 'asc',
+      'Educación Infantil': 'ei',
+      'Formación para la Movilidad Segura y Sostenible': 'mov',
+      'Integración Social': 'is',
+      'Mediación Comunicativa': 'mc',
+      'Promoción de Igualdad de Género': 'ig'
+    },
+    labels: { bas: 'Actividades Domésticas y Limpieza de Edificios (Grado Básico)', dep: 'Atención a Personas en Situación de Dependencia', fun: 'Servicios Funerarios', asc: 'Animación Sociocultural y Turística', ei: 'Educación Infantil', mov: 'Formación para la Movilidad Segura y Sostenible', is: 'Integración Social', mc: 'Mediación Comunicativa', ig: 'Promoción de Igualdad de Género' },
+    defecto: { basico: 'bas', medio: 'dep', superior: 'is' },
+    afin: { bas: ['dep'], is: ['asc'], asc: ['is'] },
+    fuentes: {
+      ei: 'la consejería de educación de tu comunidad (requisitos de centros de primer ciclo), las normas de tu ayuntamiento sobre ludotecas y espacios de ocio infantil y las asociaciones de escuelas infantiles',
+      ig: 'el Instituto de las Mujeres, la Ley Orgánica 3/2007 (art. 45), el registro de planes de igualdad (RD 901/2020) y el servicio de igualdad de tu ayuntamiento',
+      mov: 'la Dirección General de Tráfico (DGT), la Ley 9/2025 de Movilidad Sostenible (art. 26), las autoescuelas de tu zona y la concejalía de movilidad de tu ayuntamiento',
+      mc: 'la Confederación Estatal de Personas Sordas (CNSE), la Fundación ONCE, Plena Inclusión (lectura fácil) y la Ley 6/2022 de accesibilidad cognitiva',
+      fun: 'la Asociación Nacional de Servicios Funerarios (PANASEF), la normativa de sanidad mortuoria de tu comunidad autónoma y los tanatorios de tu zona',
+      _: 'los servicios sociales de tu ayuntamiento, la consejería de servicios sociales de tu comunidad autónoma, las plataformas del tercer sector y el Observatorio de las Ocupaciones del SEPE'
+    }
+  };
+  { const { A, H, N } = banco('sociocultural');
+
+  // ---------- ACTIVIDADES DOMÉSTICAS Y LIMPIEZA (Grado Básico) ----------
+  A({ id:'so1', cics:['bas'], t:'Limpieza profesional de viviendas, oficinas y pisos turísticos', n:'Limpieza profesional',
+    d:'Limpias viviendas, oficinas, comunidades y pisos turísticos con método y productos profesionales, y haces limpiezas especiales: fin de obra, mudanza, cristales. Para pisos turísticos, cambias la ropa y revisas el piso entre huéspedes. Modelo: 14-20 €/hora o precio por servicio (piso turístico de 25-60 € por limpieza).',
+    m:'cuota', cli:'familias, oficinas pequeñas, comunidades de vecinos y gestores de pisos turísticos', pb:'tener la casa, la oficina o el piso turístico limpio sin preocuparse',
+    val:'Limpieza profesional y fiable, con la misma persona de confianza y un precio claro.',
+    inv:[500,2000], ar:'1 mes', r:1, e:['domicilio','local'], h:3, am:1, tg:[], k:['atencion_cliente'], s:['organizacion','personas'],
+    why:'Limpieza de domicilios particulares, edificios, oficinas y locales y Limpieza con máquinas: es tu ciclo, y una limpieza bien organizada se nota.',
+    reto:'Trabajo físico y mucha competencia informal. Diferénciate por fiabilidad, puntualidad y un seguro de responsabilidad civil que puedes enseñar al cliente.',
+    paso:'Pregunta a 3 gestores de pisos turísticos de tu zona quién les limpia y qué problemas tienen. Ofrece una limpieza de prueba.',
+    vr:'Especialízate en pisos turísticos: limpieza, ropa de cama y revisión del piso en un solo servicio, con mucha demanda en temporada.' });
+
+  A({ id:'so2', cics:['bas','dep'], t:'Ayuda doméstica a domicilio: plancha, comida y tareas del hogar', n:'Servicios del hogar',
+    d:'Haces las tareas del hogar que más pesan a familias ocupadas y personas mayores: plancha, colada, comida para varios días, orden y compras. Modelo: 14-18 €/hora o bonos mensuales, y recogida y entrega de plancha.',
+    m:'cuota', cli:'familias con poco tiempo, personas mayores que viven solas y personas recién operadas', pb:'tener la casa en orden, la ropa planchada y comida hecha sin dedicarle horas',
+    val:'Tu casa en orden, la ropa planchada y comida casera para la semana, con alguien de confianza.',
+    inv:[300,1500], ar:'1 mes', r:1, e:['domicilio'], h:2, am:1, tg:['gastronomia'], k:['atencion_cliente'], s:['organizacion','personas'],
+    why:'Mantenimiento de prendas de vestir y ropa de hogar, Cocina doméstica y Actividades de apoyo a personas no dependientes: son los servicios que vas a dar.',
+    reto:'Si trabajas siempre para una misma familia con horario fijo, la relación es de empleo del hogar. Como autónoma, trabaja para varias y con servicios definidos.',
+    paso:'Ofrece en tu barrio un servicio de plancha con recogida y entrega y cuenta cuántos pedidos tienes en un mes.',
+    vr:'Ofrece comida casera para la semana a personas mayores que viven solas, con entrega a domicilio.' });
+
+  // ---------- ATENCIÓN A PERSONAS EN SITUACIÓN DE DEPENDENCIA ----------
+  A({ id:'so3', cics:['dep','bas'], t:'Atención y acompañamiento a domicilio de personas mayores', n:'Ayuda a domicilio',
+    d:'Ayudas a personas mayores o dependientes en su casa: aseo, movilización, comida, medicación pautada, compras, paseos y compañía, informando a la familia. Si quieres trabajar para el servicio público de ayuda a domicilio, tu empresa tendrá que estar acreditada por tu comunidad autónoma. Modelo: 15-21 €/hora con bonos mensuales.',
+    m:'cuota', cli:'familias con mayores dependientes y personas mayores que viven solas', pb:'que su familiar siga en casa bien atendido',
+    val:'Tu familiar sigue en su casa, bien cuidado por una profesional formada que te mantiene informado.',
+    inv:[300,1500], ar:'1 mes', r:1, e:['domicilio'], h:3, am:1, tg:['social'], k:['atencion_cliente'], s:['personas','organizacion'],
+    why:'Apoyo domiciliario, Atención higiénica, Atención sanitaria y Atención y apoyo psicosocial: es tu ciclo, y el envejecimiento hace que esta sea una de las profesiones con más demanda.',
+    reto:'Es un trabajo físico y emocional. Cuida tus horarios, tu espalda y pon límites claros con las familias desde el principio.',
+    paso:'Pregunta en servicios sociales, en el centro de salud y en una asociación de mayores si reciben peticiones de cuidadoras. Prepara tarjetas con tu formación y tarifas.',
+    vr:'Cuando tengas más clientes de los que puedes atender, forma un pequeño equipo de profesionales tituladas y coordínalo.' });
+
+  A({ id:'so4', cics:['dep'], t:'Respiro familiar y apoyo a personas cuidadoras', n:'Respiro familiar',
+    d:'Quien cuida a un familiar dependiente casi nunca descansa. Ofreces respiro: te quedas con la persona unas horas, un fin de semana o unas vacaciones, y das formación práctica a la familia (movilizaciones, higiene, manejo de la conducta). Modelo: precio por hora o por estancia y talleres para cuidadores.',
+    m:'cuota', cli:'familias cuidadoras, asociaciones de alzhéimer y párkinson y servicios sociales', pb:'que la persona cuidadora pueda descansar sin dejar solo a su familiar',
+    val:'Descansas sabiendo que tu familiar está con una profesional que conoce su rutina.',
+    inv:[300,1500], ar:'1 mes', r:1, e:['domicilio'], h:2, am:1, tg:['social'], k:['atencion_cliente'], s:['personas','resolucion'],
+    why:'Organización de la atención a las personas en situación de dependencia, Destrezas sociales y Características y necesidades de las personas en situación de dependencia: sabes sustituir al cuidador con calidad.',
+    reto:'Los cuidadores tienen poco dinero. Busca que asociaciones y ayuntamientos financien programas de respiro.',
+    paso:'Contacta con la asociación de alzhéimer de tu zona y pregunta qué necesitan más las familias cuidadoras.',
+    vr:'Organiza talleres de formación para cuidadores familiares financiados por asociaciones o ayuntamientos.' });
+
+  // ---------- SERVICIOS FUNERARIOS ----------
+  A({ id:'so5', cics:['fun'], t:'Ceremonias de despedida civiles y personalizadas', n:'Ceremonias de despedida',
+    d:'Cada vez más familias quieren despedidas civiles y personales: diseñas y conduces la ceremonia, preparas textos, música, fotografías y la participación de la familia, en tanatorios, cementerios o espacios naturales. Modelo: 200-600 € por ceremonia y colaboración con funerarias.',
+    m:'proyecto', cli:'familias que quieren una despedida civil o personalizada y funerarias que no tienen este servicio', pb:'despedir a un ser querido con una ceremonia que le represente',
+    val:'Una despedida que habla de la persona, cuidada en cada detalle, para que la familia pueda empezar el duelo en paz.',
+    inv:[300,1500], ar:'1-2 meses', r:1, e:['local'], h:2, am:2, tg:['social','musica'], k:['atencion_cliente'], s:['personas','creatividad','organizacion'],
+    why:'Protocolo y ceremonias funerarias y Destrezas sociales: sabes organizar y conducir una ceremonia con respeto.',
+    reto:'Es un momento muy delicado: necesitas sensibilidad y saber manejar las emociones de la familia. Fórmate en acompañamiento en el duelo.',
+    paso:'Pregunta a 3 funerarias de tu zona cuántas familias piden ceremonias civiles y quién las conduce.',
+    vr:'Ofrece también ceremonias de aniversario y de esparcimiento de cenizas.' });
+
+  A({ id:'so6', cics:['fun'], t:'Tanatoestética y servicios técnicos para funerarias', n:'Servicios funerarios externos',
+    d:'Trabajas como autónomo para funerarias y tanatorios pequeños: tanatoestética, preparación de difuntos, traslados y apoyo en cremaciones, cubriendo picos y guardias. Modelo: precio por servicio o por guardia.',
+    m:'proyecto', cli:'funerarias y tanatorios pequeños de tu provincia', pb:'cubrir servicios técnicos sin ampliar la plantilla',
+    val:'Servicios técnicos hechos con profesionalidad y respeto, cuando los necesitas.',
+    inv:[1000,4000], ar:'1-2 meses', r:1, e:['local'], h:3, am:2, tg:[], k:['otro_oficio'], s:['tecnica','organizacion'],
+    why:'Tanatoestética, Cremación y Transporte, manipulación y exposición del féretro: es tu ciclo.',
+    reto:'Guardias a cualquier hora. Organízate con otros profesionales para repartir disponibilidad.',
+    paso:'Pregunta a 3 funerarias pequeñas de tu provincia cómo cubren los picos y las guardias.',
+    vr:'Especialízate en tanatoestética de calidad, muy valorada por las familias.' });
+
+  A({ id:'so7', cics:['fun'], t:'Servicios funerarios para mascotas', n:'Despedida de mascotas',
+    d:'Ofreces a las familias una despedida digna de su mascota: recogida en casa o en la clínica, cremación (con un crematorio autorizado), urnas y recuerdos, y pequeña ceremonia. Modelo: 80-300 € según tamaño y servicio y acuerdos con veterinarias.',
+    m:'proyecto', cli:'familias con mascotas y clínicas veterinarias', pb:'despedirse de su mascota con respeto',
+    val:'Una despedida respetuosa para tu mascota, sin trámites y con un recuerdo para la familia.',
+    inv:[2000,8000], ar:'2-3 meses', r:2, e:['domicilio','local'], h:2, am:2, tg:['animales'], k:['atencion_cliente'], s:['personas','organizacion'],
+    why:'Prestaciones de servicios funerarios, Protocolo y Destrezas sociales: el saber hacer es el mismo, adaptado a las mascotas.',
+    reto:'La cremación de animales exige instalaciones autorizadas. Trabaja con un crematorio de animales autorizado y ocúpate tú de la atención y la logística.',
+    paso:'Pregunta a 5 clínicas veterinarias qué ofrecen a las familias cuando muere una mascota y con quién trabajan.',
+    vr:'Ofrece recuerdos personalizados (huellas, fotos, joyas con cenizas) como producto aparte.' });
+
+  // ---------- ANIMACIÓN SOCIOCULTURAL Y TURÍSTICA ----------
+  A({ id:'so8', cics:['asc'], t:'Animación turística para hoteles y campings', n:'Animación hotelera',
+    d:'Diseñas y das la animación de hoteles, campings y resorts: miniclub infantil, actividades deportivas y culturales, espectáculos de noche y excursiones. Empiezas como animador y creas una pequeña empresa que coloca equipos en varios establecimientos. Modelo: contrato por temporada con cada hotel.',
+    m:'cuota', cli:'hoteles vacacionales, campings y resorts', pb:'que los huéspedes, sobre todo las familias, disfruten y repitan',
+    val:'Huéspedes que disfrutan, niños entretenidos y mejores reseñas, con un equipo de animación profesional.',
+    inv:[1000,4000], ar:'2-3 meses', r:2, e:['local'], h:4, am:3, tg:['viajes','musica','deporte'], k:['idiomas','gestion_personas'], s:['personas','creatividad','liderazgo'],
+    why:'Animación turística, Actividades de ocio y tiempo libre y Dinamización grupal: es tu ciclo en el turismo.',
+    reto:'Trabajo de temporada y con horarios largos. Firma contratos de toda la temporada y busca hoteles abiertos todo el año.',
+    paso:'Pregunta a 3 hoteles o campings de tu zona si tienen animación, quién la hace y qué les gustaría mejorar.',
+    vr:'Especialízate en animación para familias en campings, un segmento que crece.' });
+
+  A({ id:'so9', cics:['asc','is'], t:'Programas de envejecimiento activo para ayuntamientos y residencias', n:'Ocio para mayores',
+    d:'Diseñas e impartes programas de envejecimiento activo: memoria, baile, actividad física suave, nuevas tecnologías, talleres culturales y salidas. Para ayuntamientos, centros de día, residencias y asociaciones. Modelo: contratos con entidades por programa o por trimestre.',
+    m:'proyecto', cli:'ayuntamientos, centros de día, residencias y asociaciones de mayores', pb:'ofrecer a los mayores actividades que les mantengan activos y conectados',
+    val:'Mayores más activos, más conectados y con ganas de volver cada semana.',
+    inv:[300,1500], ar:'2 meses', r:1, e:['local'], h:2, am:2, tg:['social','musica'], k:['gestion_personas'], s:['personas','creatividad','organizacion'],
+    why:'Animación y gestión cultural, Dinamización grupal y Desarrollo comunitario: sabes diseñar programas para grupos y hacerlos participativos.',
+    reto:'Los ayuntamientos contratan por licitación y pagan despacio. Empieza con residencias privadas y asociaciones.',
+    paso:'Prepara un programa de 8 sesiones y preséntalo en 2 residencias o centros de día de tu zona.',
+    vr:'Especialízate en actividades intergeneracionales con colegios: muy valoradas por ambas partes.' });
+
+  A({ id:'so10', cics:['asc','ei'], t:'Campamentos urbanos y actividades de ocio para niños y jóvenes', n:'Ocio educativo',
+    d:'Organizas campamentos urbanos en vacaciones, actividades de fin de semana y fiestas temáticas para niños y jóvenes, en colegios, polideportivos o espacios naturales. Modelo: 80-180 € por semana y niño, con convenios con ayuntamientos y AMPAs.',
+    m:'experiencia', cli:'familias con hijos de 4-14 años, AMPAs y ayuntamientos', pb:'conciliar en vacaciones con actividades que les gusten a los niños',
+    val:'Tus hijos se lo pasan bien y aprenden en vacaciones mientras tú trabajas.',
+    inv:[2000,6000], ar:'2-3 meses', r:2, e:['local'], h:3, am:2, tg:['naturaleza','deporte','arte'], k:['gestion_personas','rrss'], s:['personas','creatividad','organizacion'],
+    why:'Actividades de ocio y tiempo libre, Intervención socioeducativa con jóvenes y Dinamización grupal: sabes diseñar y dirigir actividades para grupos.',
+    reto:'Trabajar con menores exige el certificado negativo del Registro Central de Delincuentes Sexuales (Ley Orgánica 1/1996, art. 13.5), seguro y ratios de monitores. Cada comunidad regula las actividades juveniles.',
+    paso:'Pregunta a 2 AMPAs de tu zona qué hacen las familias en Semana Santa y verano y cuánto pagan.',
+    vr:'Haz campamentos temáticos (ciencia, cine, naturaleza) que se diferencian de la oferta genérica.' });
+
+  // ---------- EDUCACIÓN INFANTIL ----------
+  A({ id:'so11', cics:['ei'], t:'Ludoteca y espacio de juego y conciliación', n:'Espacio infantil',
+    d:'Abres un espacio de juego educativo para niños de 3-12 años por horas: tardes, fines de semana, cumpleaños y talleres. No es una escuela infantil (que necesita autorización educativa), sino un espacio de ocio regulado por tu ayuntamiento o comunidad. Modelo: precio por hora (5-10 €), bonos y cumpleaños.',
+    m:'experiencia', cli:'familias con niños pequeños que necesitan conciliar o buscan planes', pb:'dejar a sus hijos unas horas en un sitio seguro y educativo',
+    val:'Tus hijos juegan y aprenden en un sitio seguro mientras tú haces recados o trabajas.',
+    inv:[8000,20000], ar:'3-4 meses', r:2, e:['local'], h:4, am:1, tg:['social','arte'], k:['rrss'], s:['personas','creatividad','organizacion'],
+    why:'El juego infantil y su metodología, Expresión y comunicación y Autonomía personal y salud infantil: sabes diseñar actividades por edades.',
+    reto:'El local, el seguro y los requisitos municipales son el principal coste. Consulta en tu ayuntamiento qué licencia necesitas antes de alquilar.',
+    paso:'Pregunta en tu ayuntamiento qué requisitos tiene una ludoteca. Haz una encuesta a 20 familias de tu barrio sobre qué horarios usarían.',
+    vr:'Empieza con cumpleaños y talleres de fin de semana en un local alquilado por horas.' });
+
+  A({ id:'so12', cics:['ei'], t:'Cuidado infantil profesional a domicilio', n:'Canguro profesional',
+    d:'Cuidas niños en su casa con formación de educadora infantil: tardes, noches, fines de semana, acompañamiento al colegio y actividades educativas. Puedes crear una pequeña agencia con otras educadoras. Modelo: 10-16 €/hora, bonos mensuales y servicio en hoteles y bodas.',
+    m:'cuota', cli:'familias con hijos de 0-10 años, hoteles y organizadores de bodas', pb:'dejar a sus hijos con alguien formado y de confianza',
+    val:'Tus hijos con una educadora titulada que les cuida y estimula, no solo les vigila.',
+    inv:[200,1000], ar:'1 mes', r:1, e:['domicilio'], h:2, am:1, tg:['social'], k:['idiomas'], s:['personas','creatividad'],
+    why:'Desarrollo cognitivo y motor, Desarrollo socio afectivo, Autonomía personal y salud infantil y Primeros auxilios: tu formación es la garantía que buscan las familias.',
+    reto:'Trabajar con menores exige el certificado negativo del Registro Central de Delincuentes Sexuales (Ley Orgánica 1/1996, art. 13.5). Llévalo siempre y enséñalo.',
+    paso:'Ofrece tus servicios en grupos de familias de tu barrio y en 2 escuelas infantiles para las tardes. Apunta cuántas familias repiten.',
+    vr:'Ofrece canguro en inglés: las familias pagan más por hora.' });
+
+  A({ id:'so13', cics:['ei'], t:'Talleres de crianza y estimulación para familias con bebés', n:'Crianza y primera infancia',
+    d:'Impartes talleres para familias con bebés y niños pequeños: estimulación temprana, juego, sueño, alimentación complementaria (con información oficial), masaje infantil, rabietas y límites. En tu espacio, en centros cívicos o en línea. Modelo: 15-40 € por sesión o ciclos de 4-6 sesiones.',
+    m:'formacion', cli:'familias con bebés y niños de 0-6 años, ayuntamientos y centros de salud', pb:'criar con más seguridad y menos agobio',
+    val:'Ideas prácticas y fiables para criar con más calma, compartiendo con otras familias.',
+    inv:[500,2000], ar:'1-2 meses', r:1, e:['local','online'], h:2, am:3, tg:['social','diy'], k:['rrss'], s:['personas','creatividad'],
+    why:'Didáctica de la educación infantil, Desarrollo cognitivo y motor e Intervención con familias son módulos de tu ciclo.',
+    reto:'Hay mucha información contradictoria. Usa fuentes oficiales y no des consejos médicos: deriva al pediatra lo que corresponda.',
+    paso:'Organiza un taller gratuito de 1 hora sobre juego con bebés en una biblioteca o centro cívico y pide valoración a las familias.',
+    vr:'Ofrece talleres a empresas para sus empleados con hijos pequeños.' });
+
+  // ---------- INTEGRACIÓN SOCIAL ----------
+  A({ id:'so14', cics:['is'], t:'Servicios de inserción sociolaboral para entidades y ayuntamientos', n:'Inserción laboral',
+    d:'Diseñas y ejecutas itinerarios de inserción laboral para personas desempleadas de larga duración, jóvenes, personas migrantes o con discapacidad: orientación, habilidades, búsqueda de empleo, contacto con empresas. Trabajas para ayuntamientos, entidades sociales y programas financiados. Modelo: contrato por programa o subvención.',
+    m:'proyecto', cli:'ayuntamientos, entidades sociales y programas de empleo', pb:'que las personas que atienden encuentren trabajo',
+    val:'Más personas encuentran empleo gracias a un acompañamiento cercano y a la relación con empresas de la zona.',
+    inv:[300,1500], ar:'3-4 meses', r:2, e:['local'], h:3, am:2, tg:['social'], k:['gestion_personas'], s:['personas','organizacion','resolucion'],
+    why:'Inserción sociolaboral, Metodología de la intervención social y Habilidades sociales: diseñar y acompañar itinerarios es tu ciclo.',
+    reto:'Dependes de convocatorias públicas. Asóciate con una entidad social o crea una cooperativa para poder optar a programas.',
+    paso:'Pregunta en servicios sociales y en 2 entidades del tercer sector de tu zona qué programas de empleo llevan y si necesitan técnicos.',
+    vr:'Crea relación con empresas de un sector con falta de personal (hostelería, logística) para conectar a tus usuarios.' });
+
+  A({ id:'so15', cics:['is','ig'], t:'Mediación vecinal y comunitaria', n:'Mediación comunitaria',
+    d:'Ayudas a resolver conflictos de convivencia en comunidades de vecinos, barrios y espacios públicos: ruidos, uso de zonas comunes, convivencia intercultural. Trabajas para ayuntamientos, administradores de fincas y entidades. Modelo: precio por caso o contrato con el ayuntamiento.',
+    m:'proyecto', cli:'ayuntamientos, administradores de fincas, comunidades de vecinos y asociaciones', pb:'resolver conflictos de convivencia sin llegar a juicio',
+    val:'Conflictos de convivencia resueltos hablando, sin juicios y con acuerdos que se cumplen.',
+    inv:[300,1500], ar:'2-3 meses', r:2, e:['local'], h:2, am:2, tg:['social'], k:['atencion_cliente'], s:['personas','resolucion'],
+    why:'Mediación comunitaria, Habilidades sociales y Desarrollo comunitario: sabes facilitar acuerdos entre partes.',
+    reto:'La mediación civil y mercantil tiene su propia regulación para mediadores inscritos. Céntrate en la mediación comunitaria y fórmate si quieres ampliar.',
+    paso:'Pregunta a 3 administradores de fincas cuántos conflictos vecinales gestionan al año y cómo los resuelven.',
+    vr:'Ofrece a ayuntamientos un servicio de mediación en barrios con programas de convivencia.' });
+
+  // ---------- MEDIACIÓN COMUNICATIVA ----------
+  A({ id:'so16', cics:['mc'], t:'Adaptación de documentos a lectura fácil y accesibilidad cognitiva', n:'Lectura fácil',
+    d:'Adaptas a lectura fácil folletos, señalización, webs, contratos y documentos de ayuntamientos, museos, hospitales y empresas, y validas el resultado con personas usuarias. La accesibilidad cognitiva forma parte de la accesibilidad universal (Real Decreto Legislativo 1/2013, art. 5 bis, añadido por la Ley 6/2022). Modelo: precio por página o por proyecto.',
+    m:'proyecto', cli:'ayuntamientos, museos, hospitales, empresas de servicios y entidades sociales', pb:'que todo el mundo entienda su información',
+    val:'Tu información la entiende todo el mundo, también personas con discapacidad intelectual, mayores o que están aprendiendo el idioma.',
+    inv:[300,1500], ar:'2 meses', r:1, e:['online','local'], h:2, am:4, tg:['social'], k:['ofimatica'], s:['personas','organizacion','creatividad'],
+    why:'Técnicas de intervención comunicativa, Sistemas aumentativos y alternativos de comunicación e Intervención con personas con dificultades de comunicación: es tu especialidad.',
+    reto:'La lectura fácil tiene pautas y se valida con personas usuarias. Fórmate en la norma de lectura fácil y trabaja con un grupo de validación.',
+    paso:'Adapta a lectura fácil un folleto de tu ayuntamiento y enséñaselo junto al original. Pregunta a Plena Inclusión de tu comunidad cómo validan.',
+    vr:'Especialízate en señalización accesible de edificios públicos y museos (pictogramas y rutas).' });
+
+  A({ id:'so17', cics:['mc','is'], t:'Mediación comunicativa para personas sordas y sordociegas', n:'Apoyo a la comunicación',
+    d:'Acompañas y apoyas la comunicación de personas sordas, sordociegas o con dificultades de comunicación en gestiones, consultas, formación y ocio, y asesoras a entidades para hacer sus actividades accesibles. Trabajas para asociaciones, administraciones y familias. Modelo: precio por hora o contrato con entidades.',
+    m:'cuota', cli:'asociaciones de personas sordas, administraciones, centros educativos y familias', pb:'que las personas con dificultades de comunicación participen en igualdad',
+    val:'Personas sordas y sordociegas que hacen sus gestiones y participan en actividades sin barreras.',
+    inv:[300,1500], ar:'1-2 meses', r:1, e:['local','domicilio'], h:2, am:2, tg:['social'], k:['idiomas'], s:['personas','resolucion'],
+    why:'Lengua de signos, Intervención socioeducativa con personas sordociegas y Técnicas de intervención comunicativa: es tu ciclo.',
+    reto:'Distingue tu papel del de intérprete: haces mediación y apoyo a la comunicación. Coordínate con intérpretes cuando haga falta.',
+    paso:'Contacta con la federación de personas sordas de tu comunidad y pregunta qué servicios de apoyo faltan.',
+    vr:'Ofrece a museos, teatros y festivales hacer accesibles sus actividades.' });
+
+  // ---------- PROMOCIÓN DE IGUALDAD DE GÉNERO ----------
+  A({ id:'so18', cics:['ig'], t:'Apoyo técnico a empresas en planes de igualdad', n:'Consultoría de igualdad',
+    d:'Las empresas de 50 o más personas trabajadoras deben tener un plan de igualdad (Ley Orgánica 3/2007, art. 45.2), negociado y registrado (RD 901/2020), y todas deben llevar un registro retributivo (RD 902/2020). Ayudas a hacer el diagnóstico, preparar medidas, protocolos contra el acoso y hacer el seguimiento, junto a consultoras laborales. Modelo: proyecto de 1.500-6.000 € por plan y seguimiento anual.',
+    m:'proyecto', cli:'empresas de 50 a 250 personas trabajadoras, consultoras laborales y gestorías', pb:'cumplir la obligación de tener un plan de igualdad que funcione de verdad',
+    val:'Tu plan de igualdad hecho con rigor, negociado y registrado, y con medidas que se cumplen.',
+    inv:[500,2000], ar:'2-3 meses', r:2, e:['online','local'], h:2, am:3, tg:['social'], k:['ofimatica','gestion_personas'], s:['organizacion','personas','resolucion'],
+    why:'Ámbitos de intervención para la promoción de igualdad, Promoción del empleo femenino y Prevención de la violencia de género son módulos de tu ciclo.',
+    reto:'Las consultoras grandes tienen la confianza de las empresas. Alíate con gestorías y despachos laborales y aporta la parte técnica de igualdad.',
+    paso:'Busca en el registro de planes de igualdad empresas de tu provincia y pregunta a 2 gestorías laborales cómo hacen los planes de sus clientes.',
+    vr:'Especialízate en protocolos de prevención del acoso sexual y por razón de sexo, que necesitan todas las empresas.' });
+
+  A({ id:'so19', cics:['ig','is'], t:'Talleres de coeducación y prevención de la violencia de género', n:'Educación en igualdad',
+    d:'Impartes talleres de igualdad, relaciones sanas, prevención de la violencia de género y uso seguro de redes en institutos, colegios, asociaciones juveniles y empresas. Modelo: 150-500 € por taller o programas financiados por ayuntamientos y fondos del Pacto de Estado contra la Violencia de Género.',
+    m:'formacion', cli:'institutos, colegios, ayuntamientos, asociaciones juveniles y empresas', pb:'prevenir la violencia y educar en igualdad',
+    val:'Jóvenes y adultos que reconocen las señales de una relación de control y saben pedir ayuda.',
+    inv:[300,1500], ar:'1-2 meses', r:1, e:['local'], h:2, am:2, tg:['social'], k:['rrss'], s:['personas','creatividad','liderazgo'],
+    why:'Prevención de la violencia de género, Intervención socioeducativa para la igualdad e Información y comunicación con perspectiva de género son módulos de tu ciclo.',
+    reto:'Trabajar con menores exige el certificado negativo del Registro Central de Delincuentes Sexuales (Ley Orgánica 1/1996, art. 13.5). Adapta cada taller a la edad y coordina con el centro los casos que detectes.',
+    paso:'Pregunta en el área de igualdad de tu ayuntamiento qué talleres financian en institutos y quién los imparte.',
+    vr:'Ofrece talleres sobre violencia digital (control por el móvil, difusión de imágenes), muy demandados por los institutos.' });
+
+  // ---------- FORMACIÓN PARA LA MOVILIDAD SEGURA Y SOSTENIBLE ----------
+  A({ id:'so20', cics:['mov'], t:'Profesor de formación vial para nichos que las autoescuelas no atienden', n:'Formación vial especializada',
+    d:'El título de Técnico Superior en Formación para la Movilidad Segura y Sostenible (RD 174/2021) te prepara como profesor de formación vial. Trabajas en autoescuelas o te especializas en lo que falta: conductores con miedo a conducir, reciclaje de mayores, conducción en ciudad, moto y bicicleta. Modelo: precio por clase o paquete.',
+    m:'formacion', cli:'personas con miedo a conducir, mayores que quieren seguir conduciendo con seguridad y autoescuelas', pb:'conducir con seguridad y confianza',
+    val:'Vuelves a conducir con confianza, con un profesor que entiende tu miedo o tu situación.',
+    inv:[1000,6000], ar:'2-3 meses', r:2, e:['local','domicilio'], h:3, am:2, tg:['motor'], k:['atencion_cliente'], s:['personas','organizacion'],
+    why:'Didáctica de la enseñanza práctica de la conducción, Técnicas de conducción y Seguridad vial son módulos de tu ciclo.',
+    reto:'Para enseñar en una autoescuela necesitas además la autorización correspondiente; para clases con vehículo de doble mando, una autoescuela que te dé cobertura. Empieza colaborando con una.',
+    paso:'Pregunta a 3 autoescuelas de tu zona si tienen alumnos con miedo a conducir o mayores que piden reciclaje y si te subcontratarían.',
+    vr:'Ofrece cursos de conducción eficiente a empresas con flotas: ahorran combustible y reducen accidentes.' });
+
+  A({ id:'so21', cics:['mov'], t:'Educación vial y planes de movilidad para colegios y empresas', n:'Movilidad sostenible',
+    d:'Impartes educación vial en colegios y ayudas a empresas y centros con más de 200 trabajadores (o 100 por turno), que deben tener un plan de movilidad sostenible al trabajo (Ley 9/2025, art. 26): encuestas, propuestas de transporte, bici y coche compartido, y formación en seguridad vial. Modelo: talleres por sesión y proyectos para empresas.',
+    m:'proyecto', cli:'colegios, ayuntamientos, empresas y polígonos industriales', pb:'moverse de forma más segura y sostenible y cumplir la ley',
+    val:'Un plan de movilidad que tu plantilla usa de verdad y menos accidentes de camino al trabajo.',
+    inv:[300,1500], ar:'2-3 meses', r:2, e:['local','online'], h:2, am:3, tg:['sostenibilidad','deporte'], k:['ofimatica'], s:['organizacion','personas'],
+    why:'Movilidad segura y sostenible, Educación vial y Didáctica de la formación para la seguridad vial son módulos de tu ciclo.',
+    reto:'El plazo legal de los planes de movilidad se ha discutido; compruébalo en el BOE antes de usarlo como argumento. Alíate con consultoras de prevención.',
+    paso:'Haz una lista de 10 empresas de tu provincia con más de 200 trabajadores en un centro y pregunta a 2 si ya tienen plan de movilidad.',
+    vr:'Especialízate en caminos escolares seguros con ayuntamientos y AMPAs.' });
+
+  // ---------- HÍBRIDAS ----------
+  H({ id:'so_h1', pref:['is','asc','ei'], t:'Deporte inclusivo y actividades adaptadas', n:'Deporte para todas las personas',
+    d:'Organizas actividades deportivas adaptadas e inclusivas para personas con discapacidad, mayores o en riesgo de exclusión, con clubes, asociaciones y ayuntamientos. Modelo: programas por trimestre pagados por entidades o financiados por convocatorias.',
+    m:'proyecto', cli:'asociaciones de discapacidad, clubes deportivos, ayuntamientos y centros educativos', pb:'que todas las personas puedan hacer deporte',
+    val:'Deporte en el que nadie se queda fuera, con actividades adaptadas a cada persona.',
+    inv:[500,2000], ar:'2 meses', r:1, e:['local'], h:2, am:2, tg:['deporte','social'], k:['gestion_personas'], s:['personas','liderazgo','creatividad'],
+    why:'Te gusta el deporte; tu ciclo te da la intervención social y la dinamización de grupos para adaptarlo.',
+    reto:'Depende de financiación. Combina entidades sociales, clubes y convocatorias de deporte inclusivo.',
+    paso:'Contacta con una asociación de discapacidad de tu zona y pregunta qué actividades deportivas echan en falta.',
+    vr:'Organiza una jornada anual de deporte inclusivo con patrocinio de empresas.' });
+
+  H({ id:'so_h2', pref:['dep','is','asc'], t:'Actividades asistidas con animales para residencias y centros', n:'Animales y bienestar',
+    d:'Con perros adiestrados para ello, organizas actividades de bienestar y estimulación en residencias, centros de día, colegios de educación especial y hospitales, en coordinación con sus profesionales. Modelo: precio por sesión (60-150 €).',
+    m:'proyecto', cli:'residencias, centros de día, colegios de educación especial y asociaciones', pb:'ofrecer actividades que motiven y estimulen a las personas que atienden',
+    val:'Sesiones que motivan, relajan y despiertan sonrisas, coordinadas con los profesionales del centro.',
+    inv:[2000,6000], ar:'3-4 meses', r:2, e:['local'], h:2, am:2, tg:['animales','social'], k:['otro_oficio'], s:['personas','creatividad'],
+    why:'Te encantan los animales; tu ciclo te da la intervención con personas y el diseño de actividades con objetivos.',
+    reto:'Necesitas un perro adecuado y formado, seguro y requisitos higiénicos. Fórmate en intervenciones asistidas con animales y no hables de «terapia» si no la dirige un profesional sanitario.',
+    paso:'Pregunta a 2 residencias de tu zona si han hecho actividades con animales y qué les pareció.',
+    vr:'Ofrece programas de lectura con perros en colegios y bibliotecas.' });
+
+  H({ id:'so_h3', pref:['asc','ei'], t:'Educación ambiental y actividades en la naturaleza', n:'Educación ambiental',
+    d:'Diseñas actividades de educación ambiental para colegios, campamentos, ayuntamientos y espacios naturales: rutas interpretativas, huertos escolares, talleres de reciclaje y voluntariado ambiental. Modelo: precio por actividad o programa.',
+    m:'experiencia', cli:'colegios, ayuntamientos, espacios naturales protegidos y empresas', pb:'acercar la naturaleza y la sostenibilidad a niños y adultos',
+    val:'Experiencias en la naturaleza que se recuerdan y cambian hábitos.',
+    inv:[500,2000], ar:'2 meses', r:1, e:['local'], h:2, am:2, tg:['naturaleza','sostenibilidad'], k:['rrss'], s:['personas','creatividad','organizacion'],
+    why:'Te gusta la naturaleza; tu ciclo te da la dinamización de grupos y la intervención socioeducativa.',
+    reto:'Actividad muy estacional. Combina colegios en primavera y otoño con campamentos en verano y empresas.',
+    paso:'Diseña una ruta interpretativa de 2 horas en un espacio natural cercano y ofrécela a un colegio.',
+    vr:'Ofrece voluntariado ambiental corporativo a empresas.' });
+
+  H({ id:'so_h4', pref:['asc','is'], t:'Talleres artísticos comunitarios', n:'Arte y comunidad',
+    d:'Organizas proyectos artísticos participativos en barrios, residencias y centros: murales colectivos, teatro comunitario, fotografía, cerámica. Con ayuntamientos, asociaciones y fundaciones. Modelo: proyectos financiados por convocatorias culturales y sociales.',
+    m:'proyecto', cli:'ayuntamientos, asociaciones vecinales, fundaciones y centros sociales', pb:'unir a la comunidad con proyectos que la representen',
+    val:'Un barrio que se reconoce en lo que ha creado junto.',
+    inv:[500,2000], ar:'3 meses', r:2, e:['local'], h:2, am:2, tg:['arte','social','musica'], k:['diseno','fotovideo'], s:['creatividad','personas','liderazgo'],
+    why:'Tu sensibilidad artística es la herramienta; tu ciclo te da la animación cultural y el desarrollo comunitario.',
+    reto:'Depende de convocatorias. Aprende a escribir proyectos y busca varias fuentes de financiación.',
+    paso:'Presenta un proyecto de mural colectivo a la asociación vecinal de tu barrio y al ayuntamiento.',
+    vr:'Combina el proyecto con un evento final abierto al barrio.' });
+
+  H({ id:'so_h5', pref:['bas','dep'], t:'Cocina comunitaria y comidas para mayores', n:'Cocina social',
+    d:'Preparas comidas caseras para personas mayores que viven solas, con entrega a domicilio o en un comedor comunitario, y talleres de cocina para personas en riesgo de exclusión. Necesitas una cocina registrada y cumplir la normativa de higiene alimentaria. Modelo: menú diario de 6-9 € y contratos con ayuntamientos.',
+    m:'suscripcion', cli:'personas mayores que viven solas, ayuntamientos y entidades sociales', pb:'comer bien cada día sin tener que cocinar',
+    val:'Comida casera, equilibrada y entregada cada día, con alguien que comprueba que estás bien.',
+    inv:[3000,10000], ar:'3 meses', r:2, e:['domicilio','local'], h:3, am:2, tg:['gastronomia','social'], k:['atencion_cliente'], s:['organizacion','personas'],
+    why:'Te gusta la gastronomía; tu ciclo te da la cocina doméstica y la atención a personas.',
+    reto:'Hace falta una cocina registrada sanitariamente y formación en manipulación de alimentos. Empieza alquilando una cocina profesional por horas.',
+    paso:'Pregunta en servicios sociales si hay mayores que necesitan comida a domicilio y quién la sirve hoy.',
+    vr:'Combina comida y acompañamiento: la entrega diaria es también una visita de control.' });
+
+  H({ id:'so_h6', pref:['is','mc','dep'], t:'Alfabetización digital para colectivos vulnerables', n:'Inclusión digital',
+    d:'Enseñas a mayores, personas migrantes y personas en riesgo de exclusión a usar el móvil para trámites, banca, cita médica y búsqueda de empleo, y a evitar estafas. Para ayuntamientos, bibliotecas, entidades sociales y bancos. Modelo: talleres por sesión o programas financiados.',
+    m:'formacion', cli:'ayuntamientos, bibliotecas, entidades sociales y fundaciones de bancos', pb:'que nadie se quede fuera por no saber usar la tecnología',
+    val:'Personas que hacen sus trámites solas, se defienden de las estafas y no se quedan atrás.',
+    inv:[300,1500], ar:'1-2 meses', r:1, e:['local'], h:2, am:2, tg:['tecnologia','social'], k:['ofimatica'], s:['personas','digital'],
+    why:'Te gusta la tecnología; tu ciclo te da la intervención social y la comunicación con personas con distintas necesidades.',
+    reto:'Grupos con niveles muy distintos. Trabaja con grupos pequeños y materiales en lectura fácil.',
+    paso:'Ofrece un taller gratuito de 1 hora sobre «pedir cita médica desde el móvil» en un centro de mayores o una biblioteca.',
+    vr:'Ofrece el programa a fundaciones bancarias, que financian proyectos de inclusión financiera.' });
+
+  H({ id:'so_h7', pref:['dep','asc'], t:'Viajes y salidas adaptadas para mayores y personas con discapacidad', n:'Ocio accesible',
+    d:'Organizas salidas culturales, excursiones y viajes cortos adaptados para mayores y personas con discapacidad, con monitores formados, transporte accesible y ritmo adecuado, junto a una agencia de viajes. Modelo: precio por plaza y contratos con asociaciones y residencias.',
+    m:'experiencia', cli:'asociaciones de mayores y de discapacidad, residencias y familias', pb:'viajar y salir con seguridad y adaptado a sus necesidades',
+    val:'Viajes y salidas en las que todo está pensado para ti, para que solo te preocupes de disfrutar.',
+    inv:[1000,4000], ar:'2-3 meses', r:2, e:['local'], h:3, am:3, tg:['viajes','social'], k:['gestion_personas'], s:['organizacion','personas'],
+    why:'Te gusta viajar; tu ciclo te da la atención a personas dependientes y la organización de actividades de ocio.',
+    reto:'Vender paquetes de viaje exige ser agencia de viajes. Organiza las actividades y el acompañamiento y deja la venta del viaje a una agencia colaboradora.',
+    paso:'Pregunta a 2 asociaciones de mayores o de discapacidad qué salidas les gustaría hacer y qué se lo impide.',
+    vr:'Especialízate en turismo accesible en tu comunidad para visitantes de fuera.' });
+
+  // ---------- EMERGENTES ----------
+  N({ id:'so_n1', t:'Dinamización de viviendas colaborativas para mayores', n:'Cohousing senior',
+    d:'Crecen los proyectos de vivienda colaborativa de personas mayores que quieren envejecer juntas. Acompañas a grupos en la convivencia, organizas la vida comunitaria, los cuidados compartidos y las actividades. Modelo: contrato con la cooperativa o asociación.',
+    m:'cuota', cli:'cooperativas de vivienda colaborativa de mayores y grupos que quieren crear una', pb:'convivir bien y organizar los cuidados entre todos',
+    val:'Una comunidad que funciona, con convivencia cuidada y cuidados organizados.',
+    inv:[300,1500], ar:'4-6 meses', r:3, e:['local'], h:2, am:3, tg:['social','sostenibilidad'], k:['gestion_personas'], s:['personas','organizacion','liderazgo'],
+    why:'La dinamización de grupos, la mediación y la atención a personas mayores de tu familia profesional son lo que estos proyectos necesitan.',
+    reto:'Hay pocos proyectos todavía. Ponte en contacto con las redes de vivienda colaborativa y ofrece apoyo a los grupos que están empezando.',
+    paso:'Busca proyectos de vivienda colaborativa de mayores en tu comunidad y pregunta qué apoyo necesitan.',
+    vr:'Ofrece talleres de convivencia y toma de decisiones a grupos que están formándose.' });
+
+  N({ id:'so_n2', t:'Plataforma local de cuidadoras verificadas', n:'Cuidados de confianza',
+    d:'Creas un servicio local que conecta a familias con cuidadoras y educadoras tituladas y verificadas (formación, referencias, certificado de delitos sexuales cuando trabajen con menores), con sustituciones y seguimiento. Modelo: cuota de alta a las familias y comisión por servicio.',
+    m:'plataforma', cli:'familias que buscan cuidadoras de mayores o de niños y profesionales tituladas que buscan clientes', pb:'encontrar una cuidadora formada y de confianza rápido',
+    val:'Cuidadoras tituladas y verificadas, con sustitución si falla alguien, sin buscar a ciegas por internet.',
+    inv:[1000,5000], ar:'4-6 meses', r:3, e:['online','local'], h:3, am:2, tg:['social','tecnologia'], k:['marketing','gestion_personas'], s:['organizacion','personas','digital'],
+    why:'Conoces la profesión desde dentro y sabes qué formación y qué cualidades buscar, que es la clave de la confianza.',
+    reto:'Si fijas horarios y das órdenes a las cuidadoras, la relación puede ser laboral. Asesórate sobre el modelo antes de empezar.',
+    paso:'Reúne a 10 profesionales tituladas de tu zona y prueba a cubrir a mano las peticiones de 5 familias durante un mes.',
+    vr:'Empieza como cooperativa de cuidadoras: más sencillo y con mejores condiciones para todas.' });
+
+  N({ id:'so_n3', t:'Acompañamiento en el duelo y planificación del final de la vida', n:'Final de vida',
+    d:'Acompañas a familias en el duelo con grupos de apoyo y recursos, y ayudas a personas a planificar su final de vida: documento de voluntades anticipadas, deseos para la despedida, legado digital. En colaboración con funerarias, asociaciones y profesionales. Modelo: sesiones, talleres y servicios a funerarias.',
+    m:'proyecto', cli:'familias en duelo, funerarias, asociaciones y personas mayores', pb:'afrontar la pérdida y dejar las cosas preparadas',
+    val:'Apoyo cercano en el duelo y la tranquilidad de dejarlo todo preparado.',
+    inv:[300,1500], ar:'3-4 meses', r:2, e:['local','online'], h:2, am:3, tg:['social'], k:['atencion_cliente'], s:['personas','organizacion'],
+    why:'Las destrezas sociales, el protocolo de ceremonias y la atención psicosocial de tu familia profesional son la base.',
+    reto:'El acompañamiento psicológico clínico corresponde a profesionales sanitarios. Ofrece apoyo y grupos, y deriva cuando haga falta.',
+    paso:'Pregunta a 2 funerarias si ofrecen apoyo a las familias tras el funeral y si lo subcontratarían.',
+    vr:'Ofrece talleres de planificación del final de vida en centros de mayores.' });
+  } // fin de Servicios Socioculturales y a la Comunidad
+
+  // ===================== IMAGEN PERSONAL =====================
+  FAM.imagen_personal = {
+    ciclos: {
+      'Peluquería y Estética': 'bas',
+      'Estética y Belleza': 'est',
+      'Peluquería y Cosmética Capilar': 'pel',
+      'Asesoría de Imagen Personal y Corporativa': 'aip',
+      'Caracterización y Maquillaje Profesional': 'car',
+      'Estilismo y Dirección de Peluquería': 'edp',
+      'Estética Integral y Bienestar': 'eib',
+      'Termalismo y Bienestar': 'ter'
+    },
+    labels: { bas: 'Peluquería y Estética (Grado Básico)', est: 'Estética y Belleza', pel: 'Peluquería y Cosmética Capilar', aip: 'Asesoría de Imagen Personal y Corporativa', car: 'Caracterización y Maquillaje Profesional', edp: 'Estilismo y Dirección de Peluquería', eib: 'Estética Integral y Bienestar', ter: 'Termalismo y Bienestar' },
+    defecto: { basico: 'bas', medio: 'est', superior: 'eib' },
+    afin: { bas: ['est', 'pel'], edp: ['pel'], eib: ['est'], ter: ['eib'] },
+    fuentes: {
+      car: 'la Academia de Cine, las productoras y escuelas de artes escénicas de tu comunidad, las asociaciones de maquilladores y ferias como Expocosmética',
+      eib: 'la normativa sanitaria de tu comunidad autónoma sobre centros de estética y micropigmentación, el Reglamento europeo de cosméticos (Reglamento (CE) 1223/2009) y ferias como Cosmobeauty',
+      ter: 'la Asociación Nacional de Balnearios (ANBAL), los hoteles con spa de tu comunidad y ferias de turismo de salud',
+      _: 'la asociación de peluquerías o centros de estética de tu provincia, el Reglamento europeo de cosméticos (Reglamento (CE) 1223/2009), ferias como Salón Look o Cosmobeauty y el Observatorio de las Ocupaciones del SEPE'
+    }
+  };
+  { const { A, H, N } = banco('imagen_personal');
+
+  // ---------- PELUQUERÍA ----------
+  A({ id:'ip1', cics:['pel','edp','bas'], t:'Peluquería o barbería especializada en un estilo', n:'Salón especializado',
+    d:'Abres un salón con una especialidad clara que te diferencie de las peluquerías de siempre: barbería, rizos naturales, color y mechas, corte para hombre clásico o peluquería sostenible con cosmética natural. Modelo: precio por servicio con ticket medio de 25-70 €, bonos de mantenimiento y venta de productos.',
+    m:'experiencia', cli:'personas que buscan un servicio experto en su tipo de pelo o estilo', pb:'encontrar a alguien que domine de verdad su tipo de pelo o estilo',
+    val:'Un salón donde dominan tu tipo de pelo o tu estilo, con resultados que no consigues en una peluquería generalista.',
+    inv:[10000,30000], ar:'3-4 meses', r:2, e:['local'], h:4, am:1, tg:['moda'], k:['rrss','ventas'], s:['tecnica','personas','creatividad'],
+    why:'Técnicas de corte del cabello, Coloración capilar, Peluquería y estilismo masculino y Marketing y venta en Imagen Personal: tienes el oficio y la base para venderlo.',
+    reto:'El local y la reforma son la mayor inversión. Empieza alquilando un sillón en un salón o en un espacio de belleza compartido hasta tener clientela propia.',
+    paso:'Mira en Google Maps las peluquerías de tu barrio y sus reseñas: busca qué especialidad nadie cubre bien. Haz 10 servicios a modelos y fotografíalos.',
+    vr:'Empieza a domicilio o en un sillón alquilado y abre tu local cuando tengas agenda llena.' });
+
+  A({ id:'ip2', cics:['pel','bas','edp'], t:'Peluquería a domicilio y en residencias', n:'Peluquería móvil',
+    d:'Vas a casa de personas mayores, personas con movilidad reducida y familias con poco tiempo, y das servicio semanal en residencias y centros de día. Modelo: precio por servicio (15-40 €) y acuerdos con residencias para atender a varios residentes el mismo día.',
+    m:'cuota', cli:'personas mayores, residencias, centros de día y familias sin tiempo', pb:'arreglarse el pelo sin desplazarse',
+    val:'Tu peluquera de confianza viene a casa o a la residencia, y te ves bien sin salir.',
+    inv:[500,2000], ar:'1 mes', r:1, e:['domicilio'], h:2, am:1, tg:['social'], k:['atencion_cliente'], s:['personas','tecnica','organizacion'],
+    why:'Lavado y cambios de forma del cabello, Técnicas de corte y Peluquería en cuidados especiales: sabes adaptarte a personas mayores o con dificultades.',
+    reto:'Muchos desplazamientos. Agrupa citas por zonas y llega a acuerdos con residencias para ir un día fijo.',
+    paso:'Pregunta a 3 residencias de tu zona cómo resuelven la peluquería de los residentes y cuánto pagan las familias.',
+    vr:'Ofrece también estética de manos y pies en residencias: el mismo día, el doble de servicios.' });
+
+  A({ id:'ip3', cics:['edp','pel','car'], t:'Peluquería y peinados para novias, eventos y producciones', n:'Peluquería de eventos',
+    d:'Peinas a novias, invitadas, modelos y presentadores en bodas, sesiones de fotos, desfiles, rodajes y televisión, a domicilio o en el set. Modelo: 80-300 € por novia con prueba, precio por persona en invitadas y por jornada en producciones.',
+    m:'proyecto', cli:'novias, organizadoras de bodas, fotógrafos, agencias de moda y productoras', pb:'tener un peinado perfecto que aguante todo el día o toda la grabación',
+    val:'El peinado perfecto para tu día o tu producción, que aguanta y luce en las fotos.',
+    inv:[1000,4000], ar:'1-2 meses', r:1, e:['domicilio','local'], h:2, am:3, tg:['moda','arte'], k:['rrss','fotovideo'], s:['creatividad','tecnica','personas'],
+    why:'Peinados para producciones audiovisuales y de moda, Peinados y recogidos y Estilismo en peluquería: es tu especialidad.',
+    reto:'Trabajo de fin de semana y temporada de bodas concentrada. Combínalo con producciones y con el salón el resto del año.',
+    paso:'Haz 5 recogidos a modelos, fotografíalos con un fotógrafo de tu zona y prepara un porfolio. Contacta con 3 organizadoras de bodas.',
+    vr:'Haz equipo con una maquilladora y ofreced paquete de novia completo.' });
+
+  A({ id:'ip4', cics:['edp','pel'], t:'Cuidado capilar especializado: caída, cuero cabelludo y tratamientos', n:'Tricología estética',
+    d:'Te especializas en el estudio y cuidado del cabello y el cuero cabelludo: análisis con microcámara, tratamientos para caspa, grasa y debilidad, y asesoramiento cosmético, derivando al dermatólogo lo que sea médico. Modelo: análisis de 30-60 € y bonos de tratamiento.',
+    m:'cuota', cli:'personas preocupadas por la caída o la salud de su pelo', pb:'cuidar el pelo y el cuero cabelludo con criterio',
+    val:'Sabes qué le pasa a tu pelo y cómo cuidarlo, con un seguimiento que se nota.',
+    inv:[3000,10000], ar:'2-3 meses', r:2, e:['local'], h:3, am:2, tg:['moda'], k:['ventas'], s:['tecnica','personas'],
+    why:'Dermotricología, Tratamientos capilares y Recursos técnicos y cosméticos son módulos de tu ciclo.',
+    reto:'La caída de pelo puede tener causas médicas: no diagnostiques. Trabaja en red con dermatólogos y deriva siempre que haga falta.',
+    paso:'Pregunta a 2 dermatólogos o farmacias de tu zona si recomendarían un servicio de cuidado capilar estético.',
+    vr:'Ofrece el análisis capilar como servicio a otras peluquerías.' });
+
+  // ---------- ESTÉTICA ----------
+  A({ id:'ip5', cics:['est','bas'], t:'Estudio de uñas, manos y pies', n:'Manicura y pedicura',
+    d:'Abres un estudio especializado en uñas (esmaltado semipermanente, uñas artificiales, diseño), manos y pies, con agenda online y servicio rápido. Modelo: servicios de 15-50 € y suscripción mensual de mantenimiento.',
+    m:'experiencia', cli:'personas que se hacen las uñas con frecuencia', pb:'tener las uñas perfectas con cita rápida y buen trato',
+    val:'Uñas perfectas y duraderas, con cita cuando te viene bien y diseños a tu gusto.',
+    inv:[3000,10000], ar:'2 meses', r:1, e:['local'], h:3, am:1, tg:['moda','arte'], k:['rrss'], s:['tecnica','creatividad','personas'],
+    why:'Estética de manos y pies y Técnicas de uñas artificiales son módulos de tu ciclo.',
+    reto:'Mucha competencia de bajo precio. Diferénciate por higiene, durabilidad y diseño, y cuida la ventilación del local.',
+    paso:'Haz 10 diseños de uñas a modelos y publícalos. Mira precios y reseñas de los estudios de tu zona.',
+    vr:'Empieza alquilando una cabina en un salón de peluquería.' });
+
+  A({ id:'ip6', cics:['est','eib'], t:'Estética a domicilio y para eventos', n:'Estética móvil',
+    d:'Haces maquillaje, depilación, manicura y tratamientos faciales a domicilio, en hoteles y en eventos (bodas, despedidas, empresas). Modelo: precio por servicio y paquetes para eventos.',
+    m:'proyecto', cli:'novias, invitadas, hoteles, organizadores de eventos y personas con poco tiempo', pb:'arreglarse sin desplazarse',
+    val:'Tu sesión de estética donde estés, con la misma calidad que en cabina.',
+    inv:[1000,3000], ar:'1 mes', r:1, e:['domicilio'], h:2, am:2, tg:['moda'], k:['rrss'], s:['personas','tecnica'],
+    why:'Maquillaje, Depilación, Técnicas de higiene facial y Estética de manos y pies: llevas tu cabina contigo.',
+    reto:'Material portátil y desplazamientos. Agrupa citas y cobra el desplazamiento aparte.',
+    paso:'Ofrece un servicio de maquillaje para una boda o evento de conocidos y pide fotos y reseña.',
+    vr:'Haz acuerdos con hoteles para atender a sus huéspedes.' });
+
+  A({ id:'ip7', cics:['eib','est'], t:'Centro de estética avanzada con aparatología', n:'Estética integral',
+    d:'Abres un centro de tratamientos faciales y corporales con aparatología (radiofrecuencia, presoterapia, electroestimulación) y técnicas manuales. Algunas técnicas y aparatos (como ciertos láseres) exigen en muchas comunidades supervisión sanitaria: infórmate antes de comprarlos. Modelo: bonos de tratamiento de 150-600 €.',
+    m:'experiencia', cli:'personas que buscan tratamientos faciales y corporales con resultados', pb:'cuidar su piel y su cuerpo con tratamientos profesionales',
+    val:'Tratamientos personalizados con aparatología profesional y alguien que sabe cuándo funcionan y cuándo no.',
+    inv:[15000,40000], ar:'4-6 meses', r:3, e:['local'], h:4, am:2, tg:['moda'], k:['ventas','rrss'], s:['tecnica','ventas','personas'],
+    why:'Aparatología estética, Tratamientos estéticos integrales, Dermoestética y Drenaje estético: dominas la cabina avanzada.',
+    reto:'La aparatología es cara y se queda antigua rápido. Empieza con alquiler o renting de equipos y con técnicas manuales.',
+    paso:'Pregunta en tu consejería de sanidad qué requisitos tiene un centro de estética y qué técnicas exigen supervisión sanitaria.',
+    vr:'Especialízate en un tipo de tratamiento (facial avanzado, corporal) y conviértete en referente.' });
+
+  A({ id:'ip8', cics:['eib'], t:'Micropigmentación de cejas, labios y reconstrucción', n:'Micropigmentación',
+    d:'Haces micropigmentación estética (cejas, ojos, labios) y reconstrucción de areolas y cejas tras tratamientos oncológicos, en colaboración con asociaciones y unidades de mama. La micropigmentación está regulada por la normativa sanitaria de cada comunidad autónoma, que exige formación específica y autorización del local. Modelo: 150-400 € por tratamiento con retoque.',
+    m:'proyecto', cli:'personas que quieren cejas o labios definidos y personas tras un tratamiento oncológico', pb:'mejorar o reconstruir rasgos de forma natural y duradera',
+    val:'Unas cejas o unos labios naturales que duran, o recuperar tu imagen tras un tratamiento difícil.',
+    inv:[3000,8000], ar:'2-3 meses', r:2, e:['local'], h:2, am:2, tg:['arte','social'], k:['rrss','fotovideo'], s:['tecnica','creatividad','personas'],
+    why:'Micropigmentación, Procesos fisiológicos y de higiene y Dermoestética: es un módulo de tu ciclo.',
+    reto:'Cumple la normativa higiénico-sanitaria de tu comunidad (formación, local autorizado, consentimiento). Practica mucho antes de trabajar con clientes.',
+    paso:'Consulta en tu comunidad autónoma la normativa de tatuaje y micropigmentación. Contacta con una asociación de mujeres con cáncer de mama.',
+    vr:'Especialízate en micropigmentación reconstructiva: muy valorada y con poca oferta profesional.' });
+
+  A({ id:'ip9', cics:['eib','ter','est'], t:'Masaje estético y bienestar para hoteles y empresas', n:'Bienestar a domicilio',
+    d:'Ofreces masajes estéticos y de relajación y tratamientos de bienestar en hoteles sin spa, empresas (pausas de bienestar), eventos y a domicilio. Modelo: precio por sesión (40-70 €) y contratos con hoteles y empresas.',
+    m:'cuota', cli:'hoteles sin spa, empresas con programas de bienestar y particulares', pb:'ofrecer bienestar sin tener instalaciones propias',
+    val:'Un rato de bienestar profesional donde estés, sin instalaciones ni complicaciones.',
+    inv:[1000,3000], ar:'1-2 meses', r:1, e:['domicilio','local'], h:2, am:2, tg:['viajes'], k:['idiomas'], s:['personas','tecnica'],
+    why:'Masaje estético, Drenaje estético y técnicas por presión y Estética hidrotermal: tu ciclo te prepara para tratamientos de bienestar.',
+    reto:'El masaje terapéutico corresponde a fisioterapeutas: ofrece masaje estético y de bienestar y no prometas curar.',
+    paso:'Pregunta a 3 hoteles sin spa de tu zona si ofrecerían masajes a sus huéspedes.',
+    vr:'Ofrece sesiones de 15 minutos en empresas: llegan a muchas personas en un día.' });
+
+  A({ id:'ip10', cics:['est','eib'], t:'Marca propia de cosmética natural', n:'Cosmética de autor',
+    d:'Formulas y fabricas (o encargas a un laboratorio) una línea corta de cosmética natural: jabones, cremas, aceites, bálsamos. Para vender cosmética hace falta una persona responsable, un informe de seguridad y notificar cada producto en el portal europeo (Reglamento (CE) 1223/2009, arts. 4, 10 y 13). Modelo: venta online, en tiendas y en tu cabina.',
+    m:'producto', cli:'personas que buscan cosmética natural y tiendas de producto local', pb:'encontrar cosmética natural fiable y bien hecha',
+    val:'Cosmética natural formulada por una profesional de la estética, con ingredientes claros y resultados reales.',
+    inv:[3000,12000], ar:'4-6 meses', r:3, e:['online','local'], h:3, am:4, tg:['sostenibilidad','moda'], k:['rrss','marketing'], s:['creatividad','ventas','digital'],
+    why:'Perfumería y cosmética natural, Cosmetología para Estética y Belleza y Marketing y venta en Imagen Personal: tu ciclo te da la base para formular y vender.',
+    reto:'Los requisitos legales de la cosmética son estrictos. Empieza con marca blanca de un laboratorio autorizado que te haga el informe de seguridad.',
+    paso:'Busca 2 laboratorios de cosmética en marca blanca y pide condiciones para una tirada pequeña. Pregunta a 3 tiendas si venderían tu marca.',
+    vr:'Haz una línea para profesionales (cabina) antes que para consumidor final: menos marketing y pedidos más grandes.' });
+
+  // ---------- TERMALISMO Y BIENESTAR ----------
+  A({ id:'ip11', cics:['ter','eib'], t:'Gestión y dinamización de spas de hoteles', n:'Gestión de spa',
+    d:'Muchos hoteles tienen spa pero no saben sacarle partido. Te ocupas de la carta de tratamientos, el personal, los circuitos, la venta a clientes de fuera y el mantenimiento del agua con el técnico. Modelo: contrato de gestión con fijo y porcentaje sobre ventas.',
+    m:'comision', cli:'hoteles con spa, balnearios pequeños y centros de bienestar', pb:'que el spa sea rentable y no solo un servicio de cortesía',
+    val:'Tu spa lleno también entre semana, con una carta atractiva y bien gestionada.',
+    inv:[1000,4000], ar:'2-3 meses', r:2, e:['local'], h:4, am:3, tg:['viajes'], k:['gestion_personas','ventas'], s:['organizacion','liderazgo','ventas'],
+    why:'Estética hidrotermal, Técnicas de hidrocinesia y Dinamización grupal: conoces el agua, los tratamientos y la gestión de grupos.',
+    reto:'Hace falta experiencia para que un hotel te confíe su spa. Empieza como responsable contratado y propón el modelo de gestión con resultados.',
+    paso:'Analiza la web y las reseñas del spa de 3 hoteles de tu zona y prepara una propuesta de mejora para uno.',
+    vr:'Especialízate en vender el spa a clientes locales (bonos, empresas, regalos), no solo a huéspedes.' });
+
+  A({ id:'ip12', cics:['ter'], t:'Actividad acuática y bienestar para personas mayores', n:'Bienestar en el agua',
+    d:'Organizas sesiones de actividad física suave en el agua, relajación y circuitos de bienestar adaptados a mayores en piscinas municipales, balnearios, residencias con piscina y centros deportivos. Modelo: precio por sesión o programas trimestrales con ayuntamientos.',
+    m:'formacion', cli:'ayuntamientos, centros deportivos, balnearios y asociaciones de mayores', pb:'mantener a los mayores activos en el agua con seguridad',
+    val:'Mayores más ágiles y con menos dolores, en sesiones seguras y agradables en el agua.',
+    inv:[300,1500], ar:'1-2 meses', r:1, e:['local'], h:2, am:2, tg:['social','deporte'], k:['atencion_cliente'], s:['personas','organizacion'],
+    why:'Acondicionamiento físico en el agua, Técnicas de hidrocinesia y Características y necesidades de las personas en situación de dependencia: es tu ciclo.',
+    reto:'Coordina con la instalación la seguridad (socorrista) y adapta cada sesión a las limitaciones del grupo.',
+    paso:'Ofrece una sesión gratuita en una piscina municipal o una residencia con piscina de tu zona.',
+    vr:'Ofrece programas en balnearios para grupos del turismo de mayores.' });
+
+  // ---------- ASESORÍA DE IMAGEN ----------
+  A({ id:'ip13', cics:['aip'], t:'Asesoría de imagen personal: colorimetría, armario y compras', n:'Asesora de imagen',
+    d:'Ayudas a personas a sentirse bien con su imagen: estudio de color y de estilo, revisión del armario, armario cápsula y compras acompañadas, en persona u online. Modelo: sesiones de 80-300 € y paquetes completos.',
+    m:'proyecto', cli:'personas en cambio de etapa (nuevo trabajo, separación, maternidad, jubilación) y profesionales con imagen pública', pb:'saber qué le favorece y vestirse con seguridad',
+    val:'Sabes qué te favorece, tu armario funciona y te vistes cada mañana en dos minutos.',
+    inv:[500,2000], ar:'1-2 meses', r:1, e:['domicilio','online','local'], h:2, am:3, tg:['moda'], k:['rrss'], s:['creatividad','personas'],
+    why:'Diseño de imagen integral, Estilismo en vestuario y complementos y Asesoría estética son módulos de tu ciclo.',
+    reto:'Hay muchas «asesoras» sin formación en redes. Gana confianza con casos reales, antes y después y una metodología clara.',
+    paso:'Haz un estudio de color y de armario gratis a 3 personas, documenta el antes y el después y pídeles reseña.',
+    vr:'Ofrece talleres de imagen en empresas, asociaciones y programas de empleo.' });
+
+  A({ id:'ip14', cics:['aip'], t:'Imagen profesional y protocolo para empresas', n:'Imagen corporativa',
+    d:'Trabajas con empresas en la imagen de su gente y sus actos: uniformes y código de vestimenta, imagen de equipos que atienden al público, preparación de portavoces y protocolo de eventos. Modelo: proyectos de 500-5.000 € y formación.',
+    m:'proyecto', cli:'empresas con atención al público, hoteles, despachos, ayuntamientos y organizadores de eventos', pb:'transmitir una imagen profesional coherente',
+    val:'Tu equipo transmite la imagen de tu marca, y tus actos salen impecables.',
+    inv:[500,2000], ar:'2-3 meses', r:2, e:['local','online'], h:2, am:3, tg:['moda'], k:['ventas','gestion_personas'], s:['organizacion','personas','liderazgo'],
+    why:'Imagen corporativa, Protocolo y organización de eventos, Usos sociales y Habilidades comunicativas son módulos de tu ciclo.',
+    reto:'Vender a empresas lleva tiempo. Empieza con un taller corto de imagen profesional y crece con proyectos.',
+    paso:'Ofrece a una empresa conocida un taller de 1 hora sobre imagen en la atención al cliente y pide valoración.',
+    vr:'Especialízate en preparar a candidatos para entrevistas de trabajo, en colaboración con servicios de empleo.' });
+
+  // ---------- CARACTERIZACIÓN Y MAQUILLAJE ----------
+  A({ id:'ip15', cics:['car'], t:'Maquillaje y caracterización para cine, teatro y publicidad', n:'Caracterización audiovisual',
+    d:'Trabajas como maquillador y caracterizador por proyectos en rodajes de series, cine, publicidad, videoclips, teatro y ópera, primero como ayudante y después como jefe de equipo. Modelo: tarifa por jornada (150-350 €) o por proyecto.',
+    m:'proyecto', cli:'productoras audiovisuales, publicidad, teatros, compañías y fotógrafos', pb:'caracterizar personajes con calidad y a tiempo',
+    val:'Personajes creíbles y maquillajes que aguantan la jornada de rodaje.',
+    inv:[1500,5000], ar:'2-3 meses', r:2, e:['local'], h:3, am:4, tg:['arte','musica'], k:['fotovideo','rrss'], s:['creatividad','tecnica','organizacion'],
+    why:'Caracterización de personajes, Maquillaje profesional, Efectos especiales a través del maquillaje y Planificación y proyectos: es tu ciclo.',
+    reto:'Trabajo irregular y basado en contactos. Ofrécete como ayudante en cortometrajes y escuelas de cine para hacer porfolio.',
+    paso:'Caracteriza 3 personajes diferentes, fotografíalos bien y contacta con escuelas de cine y productoras de tu comunidad.',
+    vr:'Combina producciones con maquillaje de novias o eventos para tener ingresos estables.' });
+
+  A({ id:'ip16', cics:['car'], t:'Prótesis, efectos especiales y maquillaje para ocio y eventos', n:'Efectos especiales',
+    d:'Fabricas prótesis, heridas y efectos especiales y caracterizas para pasajes del terror, parques temáticos, recreaciones históricas, Halloween, carnavales y escape rooms, y vendes prótesis online. Modelo: venta de piezas y servicios por evento.',
+    m:'producto', cli:'parques temáticos, escape rooms, organizadores de eventos, compañías y aficionados al cosplay', pb:'conseguir efectos y caracterizaciones realistas',
+    val:'Efectos realistas que hacen la experiencia inolvidable.',
+    inv:[1500,5000], ar:'2 meses', r:2, e:['local','online'], h:3, am:4, tg:['arte','tecnologia'], k:['diseno','rrss'], s:['creatividad','tecnica'],
+    why:'Creación de prótesis faciales y corporales, Efectos especiales y Productos de caracterización: es tu especialidad.',
+    reto:'Muy estacional (Halloween, carnaval). Vende prótesis online todo el año y busca clientes fijos como escape rooms.',
+    paso:'Fabrica 3 prótesis de efectos, haz fotos y ofrece tus servicios a 2 escape rooms o pasajes del terror de tu zona.',
+    vr:'Imparte talleres de maquillaje de efectos especiales para aficionados y cosplayers.' });
+
+  // ---------- HÍBRIDAS ----------
+  H({ id:'ip_h1', pref:['pel','bas','est'], t:'Peluquería y estética canina', n:'Peluquería de mascotas',
+    d:'Tus técnicas de corte, lavado y secado sirven también para mascotas. Te formas en peluquería canina y abres un salón o un servicio móvil con furgoneta adaptada. Modelo: 25-70 € por servicio según tamaño y raza y bonos.',
+    m:'cuota', cli:'dueños de perros y gatos, clínicas veterinarias y residencias caninas', pb:'tener a su mascota cuidada sin estrés',
+    val:'Tu mascota limpia, bien cortada y tratada con cariño, sin esperas ni estrés.',
+    inv:[3000,12000], ar:'2-3 meses', r:2, e:['local','domicilio'], h:3, am:1, tg:['animales'], k:['rrss'], s:['tecnica','personas'],
+    why:'Te encantan los animales; tu ciclo te da la técnica de corte, lavado, secado y la atención al cliente.',
+    reto:'Hace falta formación específica en peluquería canina y manejo de animales. Hazla antes de empezar y cumple los requisitos municipales del local.',
+    paso:'Busca una formación de peluquería canina en tu zona y pregunta a 3 clínicas veterinarias si derivarían clientes.',
+    vr:'Empieza con servicio móvil: menos inversión y mucha demanda de dueños sin tiempo.' });
+
+  H({ id:'ip_h2', pref:['aip','edp'], t:'Estilismo para tiendas, marcas y sesiones de moda', n:'Estilismo de moda',
+    d:'Haces el estilismo de sesiones de fotos de tiendas online, catálogos, marcas pequeñas y campañas en redes: eliges y combinas ropa, peinado y maquillaje y coordinas la sesión. Modelo: precio por sesión o por jornada.',
+    m:'proyecto', cli:'tiendas online de moda, marcas pequeñas, fotógrafos y agencias', pb:'que sus productos luzcan en las fotos',
+    val:'Fotos de producto que venden, con estilismo cuidado y coherente con tu marca.',
+    inv:[500,2000], ar:'1-2 meses', r:2, e:['local'], h:2, am:3, tg:['moda','arte'], k:['fotovideo','rrss'], s:['creatividad','organizacion'],
+    why:'Te apasiona la moda; tu ciclo te da el estilismo en vestuario, peluquería y estudio de la imagen.',
+    reto:'Sector muy basado en porfolio y contactos. Colabora en sesiones de fotógrafos que empiezan para construirlo.',
+    paso:'Organiza una sesión de fotos con una tienda de ropa de tu barrio y ofrécele las fotos para su web.',
+    vr:'Ofrece estilismo de escaparates para tiendas de moda locales.' });
+
+  H({ id:'ip_h3', pref:['car','est','edp'], t:'Maquillaje y peluquería para bandas, videoclips y escenarios', n:'Imagen para la música',
+    d:'Preparas la imagen de músicos y bandas para conciertos, videoclips, sesiones de fotos y festivales: maquillaje que aguanta los focos, peinados y caracterizaciones. Modelo: precio por jornada o por proyecto.',
+    m:'proyecto', cli:'músicos, bandas, productoras de videoclips, festivales y salas', pb:'tener una imagen potente en el escenario y en la cámara',
+    val:'Una imagen que aguanta los focos y el sudor y que funciona en cámara.',
+    inv:[500,2000], ar:'1-2 meses', r:2, e:['local'], h:2, am:3, tg:['musica','arte'], k:['rrss','fotovideo'], s:['creatividad','personas'],
+    why:'Te gusta la música; tu ciclo te da el maquillaje profesional, la caracterización y la peluquería para producciones.',
+    reto:'Trabajo de noche y presupuestos bajos en bandas emergentes. Combínalo con producciones mejor pagadas.',
+    paso:'Ofrécete para preparar a una banda de tu zona en su próximo concierto o videoclip y pide créditos y fotos.',
+    vr:'Haz acuerdos con salas y festivales para tener un camerino de maquillaje.' });
+
+  H({ id:'ip_h4', pref:['est','eib','aip'], t:'Cuidado estético para personas en tratamiento oncológico', n:'Estética oncológica',
+    d:'Acompañas a personas en tratamiento oncológico con cuidados estéticos adaptados: piel sensible, uñas, cejas y pestañas, pelucas y pañuelos, maquillaje corrector, en colaboración con asociaciones y unidades de oncología. Modelo: sesiones a precio cerrado y programas financiados por asociaciones.',
+    m:'proyecto', cli:'personas en tratamiento oncológico, asociaciones de pacientes y hospitales', pb:'sentirse bien con su imagen durante el tratamiento',
+    val:'Cuidados adaptados que te ayudan a reconocerte en el espejo durante el tratamiento.',
+    inv:[1000,3000], ar:'2-3 meses', r:2, e:['local','domicilio'], h:2, am:2, tg:['social'], k:['atencion_cliente'], s:['personas','tecnica'],
+    why:'Te mueve lo social; tu ciclo te da la cosmetología, el maquillaje y la estética adaptada.',
+    reto:'Necesitas formación específica en estética oncológica y coordinación con el equipo médico del paciente.',
+    paso:'Contacta con la asociación contra el cáncer de tu provincia y pregunta qué servicios de imagen ofrecen a los pacientes.',
+    vr:'Ofrece talleres de imagen en hospitales de día y asociaciones.' });
+
+  H({ id:'ip_h5', pref:['pel','edp','est'], t:'Salón de belleza sostenible', n:'Belleza sostenible',
+    d:'Abres o transformas un salón con criterios de sostenibilidad: cosmética natural certificada, ahorro de agua, reciclaje de envases y del pelo cortado, energía renovable. Lo comunicas como valor diferencial. Modelo: servicios con precio algo superior y venta de productos.',
+    m:'experiencia', cli:'personas que valoran la sostenibilidad y buscan cosmética natural', pb:'cuidarse sin renunciar a sus valores',
+    val:'Te cuidas en un salón coherente con tus valores, con cosmética natural y sin derroche.',
+    inv:[8000,25000], ar:'3-4 meses', r:2, e:['local'], h:4, am:1, tg:['sostenibilidad','moda'], k:['rrss','marketing'], s:['creatividad','personas'],
+    why:'Tu compromiso con la sostenibilidad da sentido a la marca; tu ciclo te da la cosmetología y la técnica.',
+    reto:'El «greenwashing» destruye la confianza. Mide y cuenta solo lo que haces de verdad.',
+    paso:'Haz una lista de 10 medidas sostenibles para un salón y calcula el coste de cada una.',
+    vr:'Ofrece talleres de cosmética casera natural a clientes.' });
+
+  H({ id:'ip_h6', pref:['aip','est'], t:'Asesoría de imagen online y colorimetría a distancia', n:'Imagen digital',
+    d:'Haces estudios de color y estilo por videollamada a partir de fotos con luz natural, y vendes guías personalizadas, armarios cápsula y listas de compra con enlaces. Modelo: 40-150 € por estudio y productos digitales.',
+    m:'producto', cli:'personas de toda España que quieren mejorar su imagen sin desplazarse', pb:'saber qué les favorece sin salir de casa',
+    val:'Tu guía de colores y estilo personalizada, desde casa y por una fracción del precio presencial.',
+    inv:[300,1500], ar:'1-2 meses', r:1, e:['online'], h:2, am:5, tg:['tecnologia','moda'], k:['rrss','fotovideo','marketing'], s:['digital','creatividad'],
+    why:'Te atrae lo digital; tu ciclo te da el diseño de imagen integral y el estilismo.',
+    reto:'La luz y la cámara del cliente pueden engañar en el color. Da instrucciones claras para las fotos y repite si hace falta.',
+    paso:'Haz 5 estudios de color por videollamada gratis y pide reseñas. Mide cuántas personas piden después el servicio de pago.',
+    vr:'Crea un curso online de «conoce tu estilo» para vender sin límite de horas.' });
+
+  H({ id:'ip_h7', pref:['eib','ter'], t:'Spa y estética en hoteles de zonas turísticas', n:'Belleza para viajeros',
+    d:'Gestionas el servicio de estética y bienestar de hoteles y apartamentos turísticos: tratamientos en la habitación, paquetes para bodas de destino y servicios para grupos, con atención en varios idiomas. Modelo: porcentaje sobre servicios o contrato con el hotel.',
+    m:'comision', cli:'hoteles de zonas turísticas, organizadores de bodas de destino y turoperadores', pb:'ofrecer bienestar y belleza a sus huéspedes',
+    val:'Tus huéspedes reciben tratamientos de calidad sin salir del hotel.',
+    inv:[1000,4000], ar:'2 meses', r:2, e:['local'], h:3, am:3, tg:['viajes'], k:['idiomas'], s:['personas','idiomas'],
+    why:'Te gusta viajar y trabajar con gente de fuera; tu ciclo te da la estética, el masaje y la estética hidrotermal.',
+    reto:'Muy estacional. Trabaja en zonas con temporada larga y combina con clientes locales en invierno.',
+    paso:'Pregunta a 3 hoteles de tu zona turística si ofrecen estética a sus huéspedes y quién la da.',
+    vr:'Especialízate en bodas de destino para parejas extranjeras.' });
+
+  // ---------- EMERGENTES ----------
+  N({ id:'ip_n4', t:'Formación online para profesionales de la belleza', n:'Academia digital de belleza',
+    d:'Graba cursos cortos y prácticos para otros profesionales y para aficionados: una técnica concreta de color, recogidos de novia, uñas, maquillaje de efectos o gestión de un salón. Los vendes en una plataforma de cursos o en tu web y los acompañas de clases en directo. Modelo: cursos de 20-150 € y suscripción mensual a una comunidad.',
+    m:'formacion', cli:'profesionales de la peluquería y la estética que quieren aprender técnicas nuevas, y aficionados', pb:'aprender una técnica concreta sin desplazarse ni pagar un curso presencial caro',
+    val:'Aprendes una técnica concreta, paso a paso y a tu ritmo, de alguien que la usa cada día.',
+    inv:[500,2500], ar:'2-3 meses', r:2, e:['online'], h:2, am:5, tg:['tecnologia','moda'], k:['fotovideo','rrss','marketing'], s:['creatividad','digital'],
+    why:'El oficio que aprendes en tu ciclo, sumado a saber explicarlo con claridad, se puede vender muchas veces sin estar presente.',
+    reto:'Hay muchos cursos gratis en redes. Diferénciate con una técnica muy concreta, buen vídeo y resolución de dudas en directo.',
+    paso:'Graba un tutorial gratuito de 5 minutos sobre una técnica que domines y publícalo. Mide cuántas personas preguntan si das un curso completo.',
+    vr:'Ofrece formación presencial en salones de otras ciudades a partir de tus seguidores online.' });
+  N({ id:'ip_n1', t:'Espacio de belleza compartido: alquiler de sillones y cabinas', n:'Coworking de belleza',
+    d:'Montas un local con sillones de peluquería y cabinas de estética que alquilas por días o meses a profesionales autónomos, con recepción, reservas y productos compartidos. Modelo: alquiler de 250-600 €/mes por puesto.',
+    m:'plataforma', cli:'peluqueras, esteticistas, barberos y maquilladoras autónomas', pb:'trabajar por su cuenta sin montar un local entero',
+    val:'Tu propio puesto profesional en un local bonito, sin la inversión de abrir un salón.',
+    inv:[15000,40000], ar:'4-6 meses', r:3, e:['local'], h:3, am:1, tg:['moda'], k:['gestion_personas','marketing'], s:['organizacion','liderazgo'],
+    why:'Conoces lo que necesita un profesional de la imagen para trabajar bien y sabes gestionar un salón.',
+    reto:'Necesitas llenar los puestos para cubrir el alquiler. Consigue compromisos de 3-4 profesionales antes de firmar el local.',
+    paso:'Pregunta a 10 profesionales autónomas de tu zona si alquilarían un puesto y cuánto pagarían.',
+    vr:'Empieza con un local pequeño de 3-4 puestos y tú en uno de ellos.' });
+
+  N({ id:'ip_n2', t:'Barbería con suscripción mensual', n:'Barbería por suscripción',
+    d:'Una barbería donde el cliente paga una cuota mensual con cortes y arreglos de barba ilimitados o fijos, reservas por app y ambiente cuidado. Ingresos previsibles y clientes fieles. Modelo: suscripción de 25-50 € al mes.',
+    m:'suscripcion', cli:'hombres que se cortan el pelo o arreglan la barba cada 2-3 semanas', pb:'ir siempre arreglado sin pensar en cada pago',
+    val:'Siempre arreglado por una cuota fija, con cita cuando te viene bien.',
+    inv:[10000,25000], ar:'3-4 meses', r:2, e:['local'], h:4, am:1, tg:['moda'], k:['rrss','marketing'], s:['tecnica','personas','ventas'],
+    why:'Peluquería y estilismo masculino y Técnicas de corte: dominas el servicio que se repite cada pocas semanas.',
+    reto:'Si la agenda se satura, los suscriptores se enfadan. Limita plazas y cuida la puntualidad.',
+    paso:'Pregunta a 20 hombres de tu entorno cada cuánto se cortan el pelo y cuánto pagarían al mes por cortes ilimitados.',
+    vr:'Ofrece la suscripción a empresas para sus empleados.' });
+
+  N({ id:'ip_n3', t:'Estética y cuidado masculino', n:'Estética para hombres',
+    d:'Cada vez más hombres se cuidan la piel, se depilan o se hacen tratamientos, pero no se sienten cómodos en centros pensados para mujeres. Abres un espacio o una línea de servicios pensados para ellos: faciales, depilación, manos, cejas y asesoría de cosmética. Modelo: servicios y bonos.',
+    m:'experiencia', cli:'hombres que quieren cuidarse y no encuentran un espacio pensado para ellos', pb:'cuidarse sin sentirse fuera de lugar',
+    val:'Un espacio pensado para hombres, con tratamientos explicados sin rodeos.',
+    inv:[5000,15000], ar:'3 meses', r:2, e:['local'], h:3, am:1, tg:['moda','deporte'], k:['rrss'], s:['tecnica','personas'],
+    why:'Las técnicas de estética y la cosmetología de tu ciclo, aplicadas a un público que crece.',
+    reto:'Es un público que hay que convencer. Empieza dentro de una barbería o un gimnasio.',
+    paso:'Pregunta a 2 barberías o gimnasios de tu zona si les interesaría un servicio de estética masculina.',
+    vr:'Haz un acuerdo con gimnasios para ofrecer depilación y cuidado de la piel a sus socios.' });
+  } // fin de Imagen Personal
+
+  // ===================== ACTIVIDADES FÍSICAS Y DEPORTIVAS =====================
+  FAM.deportiva = {
+    ciclos: {
+      'Acceso y Conservación en Instalaciones Deportivas': 'bas',
+      'Actividades Ecuestres': 'ecu',
+      'Guía en el Medio Natural y de Tiempo Libre': 'guia',
+      'Acondicionamiento Físico': 'af',
+      'Enseñanza y Animación Sociodeportiva': 'eas'
+    },
+    labels: { bas: 'Acceso y Conservación en Instalaciones Deportivas (Grado Básico)', ecu: 'Actividades Ecuestres', guia: 'Guía en el Medio Natural y de Tiempo Libre', af: 'Acondicionamiento Físico', eas: 'Enseñanza y Animación Sociodeportiva' },
+    defecto: { basico: 'bas', medio: 'guia', superior: 'af' },
+    afin: { af: ['eas'], eas: ['af'] },
+    fuentes: {
+      guia: 'el registro de empresas de turismo activo de tu comunidad autónoma, la federación de montaña de tu comunidad, la Asociación Nacional de Empresas de Turismo Activo (ANETA) y los espacios naturales protegidos de tu zona',
+      ecu: 'la Real Federación Hípica Española y la federación de tu comunidad, las asociaciones de turismo ecuestre y el registro de explotaciones equinas de tu consejería de agricultura',
+      af: 'la ley de profesiones del deporte de tu comunidad autónoma (si la tiene; por ejemplo, Madrid, Ley 6/2016), el Consejo General de la Educación Física y Deportiva y el Observatorio de las Ocupaciones del SEPE',
+      _: 'el área de deportes de tu ayuntamiento, las federaciones deportivas de tu comunidad, la ley de profesiones del deporte de tu comunidad (si la tiene) y el Observatorio de las Ocupaciones del SEPE'
+    }
+  };
+  { const { A, H, N } = banco('deportiva');
+
+  // ---------- ACONDICIONAMIENTO FÍSICO (Grado Superior) ----------
+  A({ id:'af1', cics:['af','eas'], t:'Entrenamiento personal y en grupos reducidos', n:'Entrenador personal',
+    d:'Entrenas a personas una a una o en grupos de 2-6, en parques, a domicilio o en un espacio alquilado por horas, con valoración inicial, plan y seguimiento. En varias comunidades autónomas la ley exige una titulación concreta para ejercer como preparador físico o entrenador personal (por ejemplo, en Madrid, la Ley 6/2016). Modelo: sesión de 30-50 € y bonos o cuota mensual.',
+    m:'cuota', cli:'personas de 30-60 años que quieren ponerse en forma con un plan y no les motiva el gimnasio', pb:'ponerse en forma con constancia y sin lesionarse',
+    val:'Un plan hecho para ti, alguien que te acompaña y resultados que se notan.',
+    inv:[500,2500], ar:'1 mes', r:1, e:['domicilio','local','online'], h:2, am:1, tg:['deporte'], k:['rrss','ventas'], s:['personas','organizacion'],
+    why:'Fitness en sala de entrenamiento polivalente, Valoración de la condición física e intervención en accidentes y Control postural, bienestar y mantenimiento funcional: es tu ciclo.',
+    reto:'Mucha competencia de entrenadores sin titulación. Comunica tu formación, mide resultados y especialízate en un público concreto.',
+    paso:'Entrena gratis a 3 personas durante un mes, mide su evolución con pruebas sencillas y pídeles una reseña.',
+    vr:'Entrena grupos pequeños en vez de una persona: cobras menos a cada uno y ganas más por hora.' });
+
+  A({ id:'af2', cics:['af'], t:'Entrenamiento de fuerza y salud para personas mayores', n:'Ejercicio para mayores',
+    d:'Diseñas programas de fuerza, equilibrio y movilidad para mayores de 60 años, que ayudan a prevenir caídas y a mantener la autonomía, en centros de mayores, residencias, ayuntamientos, gimnasios o a domicilio. Modelo: grupos con cuota mensual (25-50 €) y contratos con entidades.',
+    m:'cuota', cli:'personas mayores, residencias, centros de día, ayuntamientos y gimnasios', pb:'mantenerse fuertes y autónomos y evitar caídas',
+    val:'Más fuerza, mejor equilibrio y más autonomía en el día a día, con sesiones seguras y adaptadas.',
+    inv:[500,2000], ar:'1-2 meses', r:1, e:['local','domicilio'], h:2, am:2, tg:['social','deporte'], k:['atencion_cliente'], s:['personas','organizacion'],
+    why:'Control postural, bienestar y mantenimiento funcional, Valoración de la condición física y Habilidades sociales: sabes adaptar el ejercicio a cada persona.',
+    reto:'Personas con patologías y medicación: pide información de salud, adapta cada sesión y coordina con su médico o fisioterapeuta cuando haga falta.',
+    paso:'Ofrece una clase gratuita en el centro de mayores de tu barrio y haz pruebas sencillas de fuerza y equilibrio al empezar y al mes.',
+    vr:'Ofrece el programa a ayuntamientos como actividad municipal: grupos grandes y contrato estable.' });
+
+  A({ id:'af3', cics:['af','eas'], t:'Estudio boutique de entrenamiento funcional o pilates', n:'Estudio de entrenamiento',
+    d:'Abres un estudio pequeño (60-150 m²) con clases reducidas de entrenamiento funcional, pilates o fuerza, reservas por app y un ambiente cercano que los gimnasios grandes no tienen. Modelo: cuota mensual de 60-120 € por 2-3 clases a la semana.',
+    m:'experiencia', cli:'personas que quieren entrenar en grupo pequeño con seguimiento', pb:'entrenar con atención personalizada sin pagar un entrenador personal',
+    val:'Clases pequeñas donde el entrenador te conoce por tu nombre y corrige cada movimiento.',
+    inv:[15000,40000], ar:'3-4 meses', r:3, e:['local'], h:4, am:1, tg:['deporte'], k:['rrss','marketing'], s:['personas','liderazgo','organizacion'],
+    why:'Actividades especializadas de acondicionamiento físico, Fitness en sala y Control postural: dominas el diseño de clases y la corrección técnica.',
+    reto:'El alquiler y el equipamiento son caros y necesitas unos 60-100 socios para cubrir costes. Valida con clases en espacio alquilado antes de firmar un local.',
+    paso:'Alquila una sala por horas, da clases durante 2 meses y cuenta cuántas personas pagarían una cuota mensual.',
+    vr:'Especialízate en un público (embarazo y posparto, mayores, corredores) para destacar frente a las cadenas.' });
+
+  A({ id:'af4', cics:['af','eas','bas'], t:'Actividades acuáticas para piscinas municipales y privadas', n:'Actividad acuática',
+    d:'Das clases de aquagym, natación para adultos, actividad acuática para embarazadas y mayores en piscinas municipales, de urbanizaciones, hoteles y gimnasios. Modelo: precio por clase o contrato con la instalación por temporada.',
+    m:'cuota', cli:'piscinas municipales, gimnasios con piscina, urbanizaciones y hoteles', pb:'ofrecer actividades en el agua que llenen la piscina',
+    val:'Tu piscina con actividades que atraen socios y llenan horarios vacíos.',
+    inv:[300,1500], ar:'1 mes', r:1, e:['local'], h:2, am:2, tg:['deporte','social'], k:['atencion_cliente'], s:['personas','organizacion'],
+    why:'Acondicionamiento físico en el agua y Técnicas de hidrocinesia son módulos de tu ciclo.',
+    reto:'Depende de que la piscina te dé horarios. Firma acuerdos por temporada y ten el título de socorrista si te lo piden.',
+    paso:'Pregunta a 3 piscinas de tu zona qué actividades tienen y qué horarios están vacíos.',
+    vr:'Especialízate en matronatación (bebés con sus familias), muy demandada.' });
+
+  // ---------- ENSEÑANZA Y ANIMACIÓN SOCIODEPORTIVA (Grado Superior) ----------
+  A({ id:'af5', cics:['eas','af'], t:'Escuela multideporte y extraescolares deportivas', n:'Deporte escolar',
+    d:'Organizas extraescolares deportivas en colegios (multideporte, iniciación a deportes, psicomotricidad) con monitores contratados por ti, y gestionas la relación con las AMPAs. Modelo: 20-35 € al mes por niño, con contratos por curso.',
+    m:'cuota', cli:'AMPAs, colegios y ayuntamientos', pb:'ofrecer actividades deportivas de calidad sin gestionarlas ellos',
+    val:'Extraescolares deportivas bien organizadas, con monitores formados y sin trabajo para la AMPA.',
+    inv:[1000,4000], ar:'2-3 meses', r:2, e:['local'], h:3, am:2, tg:['deporte','social'], k:['gestion_personas'], s:['organizacion','liderazgo','personas'],
+    why:'Metodología de la enseñanza de actividades físico-deportivas, Planificación de la animación sociodeportiva y Juegos y actividades físico-recreativas: es tu ciclo.',
+    reto:'Trabajar con menores exige el certificado negativo del Registro Central de Delincuentes Sexuales (Ley Orgánica 1/1996, art. 13.5) a todo el equipo, seguros y monitores formados.',
+    paso:'Pregunta a 3 AMPAs de tu zona qué extraescolares tienen, quién las organiza y qué piden las familias.',
+    vr:'Añade campus en vacaciones escolares con los mismos colegios.' });
+
+  A({ id:'af6', cics:['eas','guia'], t:'Campus deportivos en vacaciones', n:'Campus deportivo',
+    d:'Organizas campus de día en Navidad, Semana Santa y verano para niños de 4-14 años: multideporte, piscina, juegos y actividades en la naturaleza, en instalaciones municipales o colegios. Modelo: 90-180 € por semana y niño.',
+    m:'experiencia', cli:'familias con hijos de 4-14 años, AMPAs y ayuntamientos', pb:'conciliar en vacaciones con actividades que les gusten a los niños',
+    val:'Tus hijos se divierten haciendo deporte en vacaciones, con monitores formados.',
+    inv:[2000,6000], ar:'3 meses', r:2, e:['local'], h:3, am:2, tg:['deporte','naturaleza'], k:['gestion_personas','rrss'], s:['organizacion','liderazgo','personas'],
+    why:'Actividades físico-deportivas de equipo, individuales y de implementos, Dinamización grupal y Planificación de la animación sociodeportiva: sabes montarlo entero.',
+    reto:'Requiere instalaciones, seguros, ratios de monitores y el certificado negativo de delitos sexuales de todo el equipo. Empieza con un grupo pequeño.',
+    paso:'Pregunta en tu ayuntamiento qué instalaciones se pueden alquilar en vacaciones y calcula el precio por niño.',
+    vr:'Haz campus temáticos (pádel, surf, escalada) que se diferencian de la oferta genérica.' });
+
+  A({ id:'af7', cics:['eas'], t:'Actividad física adaptada e inclusiva', n:'Deporte inclusivo',
+    d:'Diseñas y das actividades físicas para personas con discapacidad, salud mental o en riesgo de exclusión, con asociaciones, centros ocupacionales, ayuntamientos y clubes. Modelo: programas por trimestre pagados por entidades o financiados por convocatorias.',
+    m:'proyecto', cli:'asociaciones de discapacidad, centros ocupacionales, ayuntamientos y clubes', pb:'que todas las personas puedan hacer deporte',
+    val:'Deporte en el que nadie se queda fuera, adaptado a cada persona.',
+    inv:[500,2000], ar:'2 meses', r:1, e:['local'], h:2, am:2, tg:['social','deporte'], k:['gestion_personas'], s:['personas','creatividad'],
+    why:'Actividades físico-deportivas para la inclusión social y Metodología de la enseñanza: es un módulo de tu ciclo.',
+    reto:'Depende de financiación. Combina varias entidades y convocatorias.',
+    paso:'Pregunta a una asociación de discapacidad de tu zona qué actividades deportivas echan en falta.',
+    vr:'Organiza una liga o jornada inclusiva anual con patrocinio de empresas.' });
+
+  A({ id:'af8', cics:['eas','af'], t:'Deporte en la empresa y team building activo', n:'Bienestar corporativo',
+    d:'Organizas programas de actividad física para empresas: clases en la oficina o al aire libre, retos de pasos, carreras solidarias, jornadas de equipo con actividades deportivas. Modelo: cuota mensual por empresa o precio por evento.',
+    m:'cuota', cli:'empresas con programas de bienestar o que quieren cohesionar equipos', pb:'mejorar la salud y el ambiente de su plantilla',
+    val:'Una plantilla más activa, más sana y más unida, con actividades que de verdad apetecen.',
+    inv:[500,2000], ar:'2 meses', r:2, e:['local'], h:2, am:3, tg:['deporte'], k:['ventas','gestion_personas'], s:['organizacion','personas','ventas'],
+    why:'Planificación de la animación sociodeportiva, Dinamización grupal y Juegos y actividades físico-recreativas: diseñas actividades para grupos.',
+    reto:'Vender a empresas lleva tiempo. Empieza con un evento de equipo y propón después el programa continuo.',
+    paso:'Ofrece a una empresa conocida una jornada de team building activo a precio de prueba y pide valoración.',
+    vr:'Ofrece «pausas activas» de 15 minutos en la oficina por videollamada.' });
+
+  // ---------- GUÍA EN EL MEDIO NATURAL (Grado Medio) ----------
+  A({ id:'af9', cics:['guia'], t:'Empresa de turismo activo: senderismo y rutas en bici', n:'Turismo activo',
+    d:'Organizas rutas guiadas de senderismo, bicicleta y actividades en la naturaleza para turistas, grupos de empresa y colegios. Las empresas de turismo activo deben inscribirse en el registro de tu comunidad autónoma y tener seguro de responsabilidad civil. Modelo: 20-60 € por persona y salida.',
+    m:'experiencia', cli:'turistas, grupos de amigos, empresas y colegios', pb:'conocer la naturaleza con seguridad y alguien que la explique',
+    val:'Rutas seguras y bien explicadas por alguien que conoce cada rincón.',
+    inv:[1500,6000], ar:'2-3 meses', r:2, e:['local'], h:3, am:2, tg:['naturaleza','viajes'], k:['idiomas','rrss'], s:['personas','liderazgo','organizacion'],
+    why:'Guía de baja y media montaña, Guía de bicicleta, Organización de itinerarios y Socorrismo en el medio natural: es tu ciclo.',
+    reto:'Actividad estacional y dependiente del tiempo. Combina turistas en temporada con colegios y empresas el resto del año.',
+    paso:'Consulta los requisitos del registro de turismo activo de tu comunidad. Diseña 3 rutas y ofrécelas en una plataforma de actividades.',
+    vr:'Especialízate en rutas temáticas (gastronómicas, fotográficas, nocturnas) que se diferencian.' });
+
+  A({ id:'af10', cics:['guia'], t:'Actividades acuáticas guiadas: kayak, paddle surf y barranquismo', n:'Aventura en el agua',
+    d:'Organizas salidas guiadas de kayak, paddle surf, barranquismo o espeleología según tu zona y tu formación, con alquiler de material. Modelo: 25-70 € por persona y salida.',
+    m:'experiencia', cli:'turistas, grupos de amigos, despedidas y empresas', pb:'vivir una aventura en el agua con seguridad',
+    val:'Aventura de verdad con un guía que te da seguridad y te enseña.',
+    inv:[4000,15000], ar:'2-3 meses', r:2, e:['local'], h:3, am:2, tg:['naturaleza','deporte'], k:['idiomas'], s:['liderazgo','personas'],
+    why:'Guía en el medio natural acuático, Maniobras con cuerdas y Socorrismo en el medio natural: tu ciclo te habilita para guiar con seguridad.',
+    reto:'Algunas actividades y espacios necesitan permisos específicos y titulaciones deportivas adicionales. Infórmate en tu comunidad y en el espacio natural.',
+    paso:'Pregunta en el espacio natural o el embalse de tu zona qué permisos hacen falta. Calcula el material mínimo para grupos de 8.',
+    vr:'Ofrece «primeros pasos» en paddle surf o kayak para familias.' });
+
+  A({ id:'af11', cics:['guia','eas'], t:'Salidas a la naturaleza para colegios', n:'Escuela en la naturaleza',
+    d:'Diseñas y guías salidas didácticas para colegios: rutas de interpretación, orientación, juegos en la naturaleza y convivencias de varios días en albergues. Modelo: precio por alumno y día.',
+    m:'experiencia', cli:'colegios, institutos y AMPAs', pb:'hacer salidas educativas al aire libre seguras y bien organizadas',
+    val:'Salidas que los alumnos recuerdan, con objetivos educativos y toda la seguridad.',
+    inv:[500,2000], ar:'2 meses', r:1, e:['local'], h:2, am:2, tg:['naturaleza','social'], k:['gestion_personas'], s:['personas','organizacion','liderazgo'],
+    why:'Organización de itinerarios, Atención a grupos y Técnicas de tiempo libre: sabes guiar grupos de niños con seguridad.',
+    reto:'Trabajar con menores exige el certificado negativo del Registro Central de Delincuentes Sexuales (Ley Orgánica 1/1996, art. 13.5) y seguro. Diseña cada salida con el profesorado.',
+    paso:'Diseña una salida de un día con objetivos del currículo y preséntala a 3 colegios de tu zona.',
+    vr:'Ofrece convivencias de final de curso con albergues de tu comarca.' });
+
+  // ---------- ACTIVIDADES ECUESTRES (Grado Medio) ----------
+  A({ id:'af12', cics:['ecu','guia'], t:'Rutas a caballo y turismo ecuestre', n:'Turismo ecuestre',
+    d:'Organizas rutas a caballo de una hora a varios días para turistas y aficionados, con caballos propios o de un centro colaborador, y actividades de iniciación. Modelo: 25-60 € por hora de ruta y paquetes de varios días.',
+    m:'experiencia', cli:'turistas, aficionados a la equitación y grupos', pb:'disfrutar de la naturaleza a caballo con seguridad',
+    val:'Rutas a caballo seguras, con caballos bien cuidados y un guía que conoce el terreno.',
+    inv:[5000,20000], ar:'3-4 meses', r:2, e:['local'], h:4, am:2, tg:['animales','naturaleza'], k:['idiomas'], s:['personas','liderazgo'],
+    why:'Guía ecuestre, Técnicas de equitación, Organización de itinerarios y Atención a grupos son módulos de tu ciclo.',
+    reto:'Los caballos cuestan todos los días, haya clientes o no. Empieza como guía en un centro existente y registra la actividad como turismo activo.',
+    paso:'Pregunta a 2 centros hípicos de tu zona si organizan rutas y si necesitan guía. Calcula el coste mensual de mantener un caballo.',
+    vr:'Combina rutas con alojamiento rural para paquetes de fin de semana.' });
+
+  A({ id:'af13', cics:['ecu'], t:'Cuidado, doma y pupilaje de caballos', n:'Servicios ecuestres',
+    d:'Cuidas, alimentas, ejercitas y domas caballos de propietarios que no tienen tiempo, en tu instalación o en la suya. También doma de potros y preparación para concursos. Modelo: pupilaje mensual (150-450 € por caballo) y doma por meses.',
+    m:'cuota', cli:'propietarios de caballos, criadores y jinetes de competición', pb:'tener su caballo bien cuidado y trabajado sin dedicarle todos los días',
+    val:'Tu caballo cuidado, ejercitado y domado por alguien formado, aunque tú no puedas ir cada día.',
+    inv:[3000,15000], ar:'2-3 meses', r:2, e:['local'], h:4, am:2, tg:['animales'], k:['otro_oficio'], s:['tecnica','organizacion'],
+    why:'Alimentación, manejo general y primeros auxilios de équidos, Desbrave y doma a la cuerda de potros y Adiestramiento: es tu ciclo.',
+    reto:'Trabajo de todos los días, también festivos. Organízate con otra persona para las ausencias.',
+    paso:'Pregunta en 2 centros hípicos de tu zona cuánto cuesta el pupilaje y si tienen plazas libres o lista de espera.',
+    vr:'Especialízate en doma de potros para criadores de tu zona.' });
+
+  A({ id:'af14', cics:['ecu'], t:'Herrador y cuidado de cascos', n:'Herraje',
+    d:'El herrador es un oficio con mucha demanda y pocos profesionales. Herras y recortas cascos en las cuadras de tus clientes, con furgoneta equipada. Modelo: 60-150 € por herraje completo y visitas periódicas cada 6-8 semanas.',
+    m:'cuota', cli:'propietarios de caballos, centros hípicos y criadores', pb:'tener los cascos de su caballo bien cuidados y a tiempo',
+    val:'Cascos bien herrados y recortados a su tiempo, por un profesional que viene a tu cuadra.',
+    inv:[4000,12000], ar:'2-3 meses', r:1, e:['domicilio','local'], h:3, am:2, tg:['animales'], k:['otro_oficio'], s:['tecnica','resolucion'],
+    why:'Herrado de équidos, Alimentación y manejo general de équidos y Mantenimiento físico, cuidados e higiene equina: es un módulo entero de tu ciclo.',
+    reto:'Trabajo físicamente muy exigente y con riesgo de coces. Aprende junto a un herrador con experiencia antes de ir por tu cuenta.',
+    paso:'Pregunta a 3 propietarios o centros hípicos cuánto tardan en conseguir herrador y cuánto pagan.',
+    vr:'Especialízate en herraje terapéutico en colaboración con veterinarios.' });
+
+  // ---------- ACCESO Y CONSERVACIÓN EN INSTALACIONES DEPORTIVAS (Grado Básico) ----------
+  A({ id:'af15', cics:['bas'], t:'Mantenimiento y atención en instalaciones deportivas pequeñas', n:'Gestión de instalaciones',
+    d:'Te ocupas del día a día de instalaciones deportivas pequeñas: pistas de pádel de urbanizaciones y clubes, polideportivos de pueblos, piscinas de verano: apertura, control de accesos, reservas, limpieza, pequeñas reparaciones y material. Modelo: contrato mensual con el club, la urbanización o el ayuntamiento.',
+    m:'cuota', cli:'clubes, urbanizaciones con instalaciones deportivas y ayuntamientos pequeños', pb:'tener la instalación abierta, limpia y en orden sin personal propio',
+    val:'Tu instalación siempre abierta a su hora, limpia y con todo funcionando.',
+    inv:[300,1500], ar:'1 mes', r:1, e:['local'], h:3, am:1, tg:['deporte'], k:['atencion_cliente'], s:['organizacion','personas','tecnica'],
+    why:'Acceso de usuarios y organización de la instalación, Reparación de averías y reposición de enseres y Atención al cliente: es tu ciclo.',
+    reto:'Horarios de tarde y fin de semana. Pacta horarios claros y busca varios clientes cercanos.',
+    paso:'Pregunta a 2 urbanizaciones o clubes de tu zona cómo gestionan la apertura, las reservas y el mantenimiento de sus pistas.',
+    vr:'Gestiona las reservas online de varias instalaciones de urbanizaciones a la vez.' });
+
+  A({ id:'af16', cics:['bas','eas'], t:'Organización de torneos y ligas de pádel, fútbol 7 y otros deportes', n:'Ligas y torneos',
+    d:'Organizas ligas y torneos para adultos aficionados: pádel, fútbol 7, baloncesto 3x3, con calendario, resultados, reservas de pistas y trofeos. Modelo: inscripción por equipo o jugador y patrocinio de comercios.',
+    m:'experiencia', cli:'aficionados adultos, clubes, empresas y ayuntamientos', pb:'jugar competiciones bien organizadas sin encargarse de nada',
+    val:'Juegas en una liga bien organizada, con resultados al día y sin pelearte por las pistas.',
+    inv:[500,2000], ar:'1-2 meses', r:1, e:['local','online'], h:2, am:2, tg:['deporte'], k:['rrss','ofimatica'], s:['organizacion','personas'],
+    why:'Asistencia en la organización de espacios, actividades y reparto de material y Atención al cliente: sabes organizar una instalación y su actividad.',
+    reto:'Necesitas pistas a buen precio. Llega a acuerdos por temporada con clubes o el ayuntamiento.',
+    paso:'Organiza un torneo de pádel o fútbol 7 de un día con conocidos y apunta costes, ingresos y quién repetiría.',
+    vr:'Haz ligas entre empresas: se pagan mejor y tienen patrocinio fácil.' });
+
+  // ---------- HÍBRIDAS ----------
+  H({ id:'af_h1', pref:['af'], t:'Entrenamiento online con planes y seguimiento', n:'Entrenamiento a distancia',
+    d:'Entrenas a distancia con planes personalizados, vídeos, corrección por videollamada y seguimiento con una app, para personas de toda España. Modelo: cuota mensual de 30-90 € por persona.',
+    m:'suscripcion', cli:'personas que entrenan en casa o en su gimnasio y quieren un plan y seguimiento', pb:'entrenar con un plan profesional sin pagar un entrenador presencial',
+    val:'Tu plan profesional y alguien que revisa cómo entrenas, estés donde estés.',
+    inv:[300,1500], ar:'1-2 meses', r:2, e:['online'], h:2, am:5, tg:['tecnologia','deporte'], k:['rrss','fotovideo','marketing'], s:['digital','personas'],
+    why:'Te atrae lo digital; tu ciclo te da la valoración de la condición física y la programación del entrenamiento.',
+    reto:'Hay muchísima competencia online. Especialízate en un público concreto y muestra resultados reales.',
+    paso:'Ofrece un mes gratis de entrenamiento online a 5 personas y mide su evolución y si pagarían.',
+    vr:'Especialízate en corredores populares que preparan su primera media maratón.' });
+
+  H({ id:'af_h2', pref:['guia','af'], t:'Entrenamiento para trail running y montaña', n:'Deporte de montaña',
+    d:'Preparas a corredores y montañeros para carreras de montaña, travesías y retos: planes de entrenamiento, salidas técnicas, técnica de bajada, uso de bastones y seguridad. Modelo: cuota mensual y salidas guiadas.',
+    m:'cuota', cli:'corredores de montaña, montañeros y personas que preparan un reto', pb:'prepararse para un reto de montaña con seguridad',
+    val:'Llegas a tu reto preparado, con técnica y sabiendo moverte con seguridad en la montaña.',
+    inv:[500,2000], ar:'1-2 meses', r:1, e:['local','online'], h:2, am:3, tg:['naturaleza','deporte'], k:['rrss'], s:['personas','liderazgo'],
+    why:'Te gusta la montaña; tu ciclo te da la guía de montaña, la organización de itinerarios y el socorrismo en el medio natural.',
+    reto:'Los accidentes en montaña son serios. Ten seguro, conoce la meteorología y no lleves a nadie más allá de su nivel.',
+    paso:'Organiza una salida técnica gratis para un club de corredores de tu zona y ofrece después un plan de pago.',
+    vr:'Organiza viajes a carreras de montaña famosas con una agencia de viajes.' });
+
+  H({ id:'af_h3', pref:['eas','af'], t:'Clases de baile fitness y actividad con música', n:'Fitness con música',
+    d:'Das clases de actividades con soporte musical (baile fitness, step, coreografías) en gimnasios, ayuntamientos, asociaciones y empresas, y sesiones para mayores con música de su época. Modelo: precio por clase o cuota mensual del grupo.',
+    m:'cuota', cli:'gimnasios, ayuntamientos, asociaciones y residencias', pb:'hacer ejercicio de forma divertida',
+    val:'Haces ejercicio sin darte cuenta, bailando y en buen ambiente.',
+    inv:[300,1500], ar:'1 mes', r:1, e:['local'], h:2, am:2, tg:['musica','deporte'], k:['rrss'], s:['personas','creatividad','liderazgo'],
+    why:'Te gusta la música; tu ciclo incluye módulos de actividades de acondicionamiento físico con soporte musical.',
+    reto:'Usar música en clases públicas puede requerir licencias de derechos de autor de la instalación. Compruébalo con cada centro.',
+    paso:'Ofrece una clase gratuita en un centro cívico o asociación y mide cuántas personas vuelven.',
+    vr:'Haz clases de baile para mayores en residencias y centros de día.' });
+
+  H({ id:'af_h4', pref:['eas','guia'], t:'Deporte como herramienta social para jóvenes', n:'Deporte e inclusión juvenil',
+    d:'Usas el deporte para trabajar con jóvenes en riesgo: ligas de barrio, deporte nocturno, talleres de valores y mentoría, con ayuntamientos y entidades sociales. Modelo: programas financiados por ayuntamientos, fundaciones y convocatorias.',
+    m:'proyecto', cli:'ayuntamientos, entidades sociales y fundaciones', pb:'dar a los jóvenes alternativas sanas y oportunidades',
+    val:'Jóvenes que encuentran en el deporte un grupo, unas normas y una oportunidad.',
+    inv:[500,2000], ar:'3 meses', r:2, e:['local'], h:2, am:2, tg:['social','deporte'], k:['gestion_personas'], s:['personas','liderazgo'],
+    why:'Te mueve el impacto social; tu ciclo te da actividades para la inclusión social y metodología de la enseñanza.',
+    reto:'Depende de financiación. Aprende a escribir proyectos y combina varias fuentes.',
+    paso:'Pregunta en servicios sociales o juventud de tu ayuntamiento qué programas deportivos tienen para jóvenes.',
+    vr:'Organiza una liga de barrio con patrocinio de comercios locales.' });
+
+  H({ id:'af_h5', pref:['guia','af'], t:'Deporte con perros: canicross y senderismo con mascotas', n:'Deporte con mascotas',
+    d:'Organizas entrenamientos y salidas de canicross, bikejoring y senderismo con perros, enseñando a dueño y perro a correr juntos con seguridad. Modelo: cuota mensual de grupo y salidas de fin de semana.',
+    m:'cuota', cli:'dueños de perros activos y clubes caninos', pb:'hacer deporte con su perro de forma segura',
+    val:'Entrenas con tu perro, los dos más en forma y con una técnica que no os lesiona.',
+    inv:[500,2000], ar:'1-2 meses', r:1, e:['local'], h:2, am:2, tg:['animales','deporte','naturaleza'], k:['rrss'], s:['personas','liderazgo'],
+    why:'Te encantan los animales; tu ciclo te da la guía en el medio natural y el entrenamiento.',
+    reto:'Hay que cuidar la salud del perro (calor, almohadillas) y el reglamento de los espacios naturales sobre perros.',
+    paso:'Organiza una salida gratuita de canicross con dueños de perros de tu zona y pregunta cuántos repetirían.',
+    vr:'Vende material de canicross (arneses, cinturones) a tus alumnos.' });
+
+  H({ id:'af_h6', pref:['guia','eas'], t:'Viajes deportivos organizados', n:'Turismo deportivo',
+    d:'Organizas, junto a una agencia de viajes, viajes para practicar deporte: semanas de pádel, campamentos de running, rutas en bici por etapas, esquí para grupos. Tú diseñas y guías la parte deportiva. Modelo: precio por plaza con margen sobre la parte deportiva.',
+    m:'experiencia', cli:'aficionados al deporte, clubes y grupos de amigos', pb:'viajar haciendo su deporte sin organizar nada',
+    val:'Viajas haciendo tu deporte favorito, con todo organizado y un entrenador contigo.',
+    inv:[1000,4000], ar:'3-4 meses', r:2, e:['local'], h:3, am:4, tg:['viajes','deporte'], k:['idiomas','marketing'], s:['organizacion','personas','liderazgo'],
+    why:'Te gusta viajar; tu ciclo te da la organización de itinerarios, la atención a grupos y el entrenamiento.',
+    reto:'Vender paquetes de viaje exige ser agencia de viajes. Diseña la parte deportiva y deja la venta del paquete a una agencia colaboradora.',
+    paso:'Pregunta a 2 clubes de tu zona si harían un viaje deportivo y a una agencia si colaboraría contigo.',
+    vr:'Especialízate en un deporte y un destino y repite el viaje cada temporada.' });
+
+  H({ id:'af_h7', pref:['af','eas'], t:'Carreras y eventos deportivos con gastronomía local', n:'Eventos deportivos',
+    d:'Organizas carreras populares, rutas en bici y eventos deportivos que combinan deporte y producto local (avituallamientos con productos de la zona, comida final con productores). Modelo: inscripciones, patrocinios y venta de productos.',
+    m:'experiencia', cli:'corredores y ciclistas populares, ayuntamientos y productores locales', pb:'vivir un evento deportivo diferente y con sabor local',
+    val:'Un evento deportivo que se recuerda por el ambiente y por lo bien que se come al final.',
+    inv:[2000,8000], ar:'4-6 meses', r:3, e:['local'], h:3, am:3, tg:['gastronomia','deporte'], k:['marketing','gestion_personas'], s:['organizacion','liderazgo','ventas'],
+    why:'Te gusta la gastronomía; tu ciclo te da la planificación de actividades, la gestión de grupos y la seguridad.',
+    reto:'Los eventos necesitan permisos, seguros y dispositivo sanitario. Empieza con un evento pequeño y con el ayuntamiento como socio.',
+    paso:'Diseña una carrera de 5 km con avituallamiento de productos locales y preséntala a tu ayuntamiento.',
+    vr:'Convierte el evento en un circuito de varias pruebas en distintos pueblos de la comarca.' });
+
+  // ---------- EMERGENTES ----------
+  N({ id:'af_n1', t:'Programas de ejercicio coordinados con centros de salud', n:'Ejercicio para la salud',
+    d:'Cada vez más servicios de salud recomiendan ejercicio físico para personas con enfermedades crónicas (diabetes, hipertensión, dolor de espalda). Diseñas programas de ejercicio supervisado en coordinación con centros de salud, ayuntamientos y asociaciones de pacientes. Modelo: contratos con ayuntamientos y cuotas de grupo.',
+    m:'cuota', cli:'ayuntamientos, asociaciones de pacientes, centros de salud y mutuas', pb:'que las personas con enfermedades crónicas hagan ejercicio seguro y constante',
+    val:'Ejercicio seguro y adaptado para personas con enfermedades crónicas, en coordinación con su equipo de salud.',
+    inv:[500,2000], ar:'3-4 meses', r:2, e:['local'], h:2, am:2, tg:['social','deporte'], k:['gestion_personas'], s:['personas','organizacion'],
+    why:'La valoración de la condición física y el control postural de tu formación te permiten adaptar el ejercicio con seguridad.',
+    reto:'No sustituyes al profesional sanitario: trabaja con su indicación y sus límites, y documenta cada sesión.',
+    paso:'Pregunta en tu centro de salud si recomiendan ejercicio a pacientes y dónde los derivan.',
+    vr:'Ofrece el programa a mutuas y aseguradoras como prevención.' });
+
+  N({ id:'af_n2', t:'Entrenamiento con datos: pruebas de rendimiento y análisis', n:'Rendimiento con datos',
+    d:'Haces pruebas de condición física y análisis de datos (pulsómetros, potencia, GPS, vídeo) para deportistas populares, clubes y equipos de base, y conviertes los datos en recomendaciones claras. Modelo: pruebas de 50-150 € y seguimiento mensual.',
+    m:'proyecto', cli:'ciclistas, corredores y triatletas populares y clubes de base', pb:'entender sus datos y entrenar mejor',
+    val:'Por fin entiendes los datos de tu reloj y sabes qué cambiar en tu entrenamiento.',
+    inv:[1500,6000], ar:'2-3 meses', r:2, e:['local','online'], h:2, am:4, tg:['tecnologia','deporte'], k:['ofimatica','programacion'], s:['tecnica','digital'],
+    why:'La valoración de la condición física de tu ciclo, unida al análisis de datos, es lo que muchos deportistas buscan y no encuentran.',
+    reto:'Los equipos de laboratorio son caros. Empieza con pruebas de campo y análisis de los datos que ya tiene el deportista.',
+    paso:'Analiza los datos de reloj de 3 amigos corredores o ciclistas y prepara un informe con 3 recomendaciones.',
+    vr:'Ofrece el servicio a clubes de base para seguir a sus deportistas jóvenes.' });
+
+  N({ id:'af_n3', t:'Turismo de pádel y deporte para visitantes extranjeros', n:'Turismo deportivo internacional',
+    d:'España atrae a muchos aficionados extranjeros al pádel, el golf, la bici y el running. Organizas clínicas, partidos con jugadores locales y estancias deportivas para visitantes, con clubes y hoteles. Modelo: precio por clínica o paquete deportivo.',
+    m:'experiencia', cli:'turistas extranjeros aficionados al pádel, la bici o el running, hoteles y clubes', pb:'jugar y mejorar en su deporte durante sus vacaciones',
+    val:'Vacaciones en las que juegas, mejoras y conoces jugadores locales, con todo organizado.',
+    inv:[1000,4000], ar:'3-4 meses', r:3, e:['local'], h:3, am:5, tg:['viajes','deporte'], k:['idiomas','marketing'], s:['idiomas','personas','organizacion'],
+    why:'Tu formación en enseñanza deportiva y organización de actividades, con idiomas, te permite atender a un público internacional que paga bien.',
+    reto:'Hace falta idiomas y contactos con hoteles y clubes. Empieza con clínicas sueltas en un club de tu zona turística.',
+    paso:'Pregunta a 2 hoteles de tu zona si sus clientes extranjeros piden actividades deportivas y a un club si colaboraría.',
+    vr:'Especialízate en un país (por ejemplo, Suecia u Holanda para el pádel) y en su idioma.' });
+  } // fin de Actividades Físicas y Deportivas
+
   // ===========================================================
   // MOTOR DE RECOMENDACIÓN (común a todas las familias del motor enriquecido)
   // Puntúa cada idea con TODAS las respuestas, elige de forma ponderada
@@ -5500,6 +6806,8 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     const hayTags = P.tags.length + P.tagsInf.length > 0;
     let ch = candidatos('hibrido', P).map(x => {
       if (sector && x.idea.m === sector.idea.m) x.s -= 1.2;
+      // Si la híbrida está pensada para otros ciclos de la familia, pierde prioridad.
+      if (x.idea.pref && x.idea.pref.indexOf(P.ck) < 0) x.s -= 1.5;
       const hit = x.idea.tg.some(t => P.tags.indexOf(t) > -1 || P.tagsInf.indexOf(t) > -1);
       if (hayTags && !hit) x.s -= 4;
       return x;
