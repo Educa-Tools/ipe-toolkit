@@ -167,25 +167,85 @@
   /* ---------- Revisión final ---------- */
   .review{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:28px;align-items:start;}
   @media (max-width:880px){.review{grid-template-columns:1fr;}}
-  .doc.big .doc-head{padding:26px 28px 22px;}
-  .doc.big .doc-head small{font-size:.74rem;}
-  .doc.big .doc-head h3{font-size:clamp(1.6rem,4vw,2.2rem);}
-  .doc.big .doc-head p{font-size:.95rem;}
-  .doc.big .doc-grid{gap:10px;padding:16px;}
-  .doc.big .blk{min-height:0;padding:14px 16px 14px 18px;}
-  .doc.big .blk b{font-size:.72rem;}
-  .doc.big .blk p{font-size:.98rem;line-height:1.5;-webkit-line-clamp:unset;display:block;}
-  .blk .edit{position:absolute;top:8px;right:8px;min-height:32px;padding:0 10px;border-radius:var(--pill);border:1px solid var(--line);background:var(--surface);font-size:.78rem;font-weight:700;color:var(--ink-soft);cursor:pointer;}
-  .blk .edit:hover{border-color:var(--olive-400);color:var(--ink);}
   @media (max-width:560px){.doc-grid{grid-template-columns:1fr;}}
+  .paper-h{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;font-size:.8rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);}
+  .paper-wrap{position:relative;width:100%;overflow:hidden;border-radius:6px;}
+
+  /* ---------- Hoja A4 imprimible ---------- */
+  .sheet{width:210mm;height:297mm;background:#fff;color:var(--ink);display:flex;flex-direction:column;overflow:hidden;transform-origin:0 0;box-shadow:0 2px 4px rgba(30,28,26,.06),0 24px 60px -24px rgba(43,45,20,.35);font-size:10.5pt;line-height:1.42;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .sh-head{position:relative;overflow:hidden;background:var(--olive-900);color:var(--bg);padding:11mm 14mm 9mm;}
+  .sh-spore{position:absolute;right:-16mm;top:-14mm;width:86mm;height:auto;opacity:.55;transform:rotate(-12deg);}
+  .sh-spore2{position:absolute;right:52mm;bottom:-10mm;width:22mm;height:auto;opacity:.35;transform:rotate(30deg);}
+  .sh-top{position:relative;display:flex;align-items:center;gap:4mm;margin-bottom:7mm;}
+  .sh-top img{height:7mm;width:auto;display:block;}
+  .sh-top span{font-size:7.5pt;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--lime);padding-left:4mm;border-left:1px solid rgba(232,237,196,.35);}
+  .sh-head h1{position:relative;font-size:30pt;line-height:1.05;max-width:150mm;margin-bottom:3mm;color:#fff;overflow-wrap:anywhere;}
+  .sh-team{position:relative;margin:0 0 5mm;font-size:10.5pt;color:var(--pale);max-width:150mm;}
+  .sh-team b{color:#fff;}
+  .sh-meta{position:relative;display:flex;align-items:center;gap:3mm;flex-wrap:wrap;font-size:8.5pt;color:var(--pale);}
+  .sh-pill{display:inline-flex;align-items:center;gap:2mm;padding:1.4mm 3.6mm;border-radius:99px;background:var(--lime);color:var(--olive-900);font-weight:800;font-size:8.5pt;}
+  .sh-pill svg{width:3.6mm;height:3.6mm;}
+  .sh-band{height:2.2mm;background:linear-gradient(90deg,var(--olive) 0 40%,var(--olive-400) 40% 70%,var(--lime) 70%);}
+  .sh-body{flex:1;display:flex;flex-direction:column;gap:6.5mm;padding:8mm 14mm 0;min-height:0;}
+  .sh-notes{flex:1;display:flex;flex-direction:column;min-height:22mm;}
+  .sh-notes h2{margin-bottom:2.4mm;}
+  .sheet.no-notes .sh-notes{display:none;}
+  .sh-lines{flex:1;border-radius:3mm;border:0.3mm solid var(--line);background:repeating-linear-gradient(to bottom,transparent 0 7.4mm,var(--line) 7.4mm 7.7mm);background-origin:content-box;padding:2mm 4mm;}
+  .sh-sec h2{display:flex;align-items:center;gap:2.6mm;font-size:13pt;margin-bottom:3.2mm;}
+  .sh-sec h2 i{font-style:normal;display:inline-grid;place-items:center;width:6.4mm;height:6.4mm;border-radius:50%;background:var(--olive-800);color:var(--bg);font-family:var(--font-ui);font-size:8.5pt;font-weight:800;}
+  .sh-sec h2 small{font-family:var(--font-ui);font-size:8pt;font-weight:600;color:var(--ink-soft);margin-left:auto;letter-spacing:0;}
+  .flow{display:grid;grid-template-columns:1fr 6mm 1fr 6mm 1fr;align-items:stretch;}
+  .flow .arw{display:grid;place-items:center;color:var(--olive-400);}
+  .flow .arw svg{width:5mm;height:5mm;}
+  .sc{position:relative;border-radius:3mm;padding:3.6mm 4mm 4mm;background:var(--surface-2);border-top:1.4mm solid var(--olive);}
+  .sc:nth-of-type(1){border-top-color:var(--olive-800);}
+  .sc:nth-of-type(3){border-top-color:var(--olive-400);}
+  .sc-l{display:flex;align-items:center;gap:2mm;font-size:7.5pt;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--olive-800);margin-bottom:2mm;}
+  .sc-l svg{width:4.4mm;height:4.4mm;color:var(--olive);flex-shrink:0;}
+  .sc p{margin:0;overflow-wrap:anywhere;}
+  .sc p.empty{color:#7A746A;font-style:italic;}
+  .vs{display:grid;grid-template-columns:1fr 10mm 1.2fr;align-items:stretch;}
+  .vs .arw{display:grid;place-items:center;}
+  .vs .arw span{display:grid;place-items:center;width:8mm;height:8mm;border-radius:50%;background:var(--olive-800);color:var(--bg);}
+  .vs .arw svg{width:4.4mm;height:4.4mm;}
+  .sc.old{background:#fff;border:0.3mm dashed var(--olive-400);border-top:0.3mm dashed var(--olive-400);}
+  .sc.old .sc-l{color:var(--ink-soft);}
+  .sc.new{background:var(--pale);border-top-color:var(--olive-800);}
+  .ways-row{display:flex;flex-wrap:wrap;gap:1.8mm;margin-top:3mm;}
+  .ways-row span{display:inline-flex;align-items:center;gap:1.4mm;padding:1.1mm 3mm;border-radius:99px;border:0.3mm solid var(--line);font-size:7.5pt;font-weight:600;color:var(--ink-soft);}
+  .ways-row span.on{background:var(--olive-800);border-color:var(--olive-800);color:#fff;}
+  .ways-row span.on::before{content:"";width:1.6mm;height:1.6mm;border-radius:50%;background:var(--lime);}
+  .trio{display:grid;grid-template-columns:repeat(3,1fr);gap:4mm;}
+  .sc.risk{background:var(--warm-soft);border-top-color:var(--warm);}
+  .sc.risk .sc-l,.sc.risk .sc-l svg{color:var(--warm);}
+  .sh-foot{display:flex;align-items:center;justify-content:space-between;gap:6mm;margin:6mm 14mm 0;padding:4mm 0 7mm;border-top:0.3mm solid var(--line);font-size:8pt;color:var(--ink-soft);}
+  .sh-next{display:flex;align-items:center;gap:3mm;}
+  .sh-next b{display:inline-grid;place-items:center;width:7mm;height:7mm;border-radius:50%;background:var(--pale);color:var(--olive-800);}
+  .sh-next b svg{width:3.8mm;height:3.8mm;}
+  .sh-next strong{color:var(--ink);}
+  .sh-foot .lic{text-align:right;}
+
+  @media print{
+    @page{size:A4;margin:0;}
+    html,body{background:#fff!important;margin:0;}
+    .top,.intro,.stepper,.bar,body > footer,.side,.paper-h,dialog,.sr{display:none!important;}
+    main.wrap{padding:0!important;max-width:none!important;margin:0!important;}
+    .review{display:block!important;}
+    .paper-wrap{height:auto!important;overflow:visible!important;border-radius:0!important;}
+    .sheet{transform:none!important;box-shadow:none!important;}
+  }
   .side{display:flex;flex-direction:column;gap:12px;position:sticky;top:84px;}
   .side .card{padding:22px;}
   .side h2{font-size:1.3rem;margin-bottom:6px;}
   .side p{font-size:.94rem;color:var(--ink-soft);}
   .side .btn{width:100%;}
   .check{list-style:none;margin:0 0 6px;padding:0;display:grid;gap:6px;font-size:.92rem;}
-  .check li{display:flex;gap:8px;align-items:flex-start;}
-  .check svg{width:18px;height:18px;flex-shrink:0;margin-top:3px;}
+  .check li{display:flex;gap:8px;align-items:center;}
+  .check li span{flex:1;}
+  .check .ed{min-height:32px;padding:0 10px;border-radius:var(--pill);border:1px solid var(--line);background:var(--surface);font-size:.78rem;font-weight:700;color:var(--ink-soft);cursor:pointer;}
+  .check .ed:hover{border-color:var(--olive-400);color:var(--ink);}
+  .side .hint{font-size:.84rem;color:var(--ink-soft);margin:-4px 0 0;text-align:center;}
+  .check svg{width:18px;height:18px;flex-shrink:0;}
   .check .y svg{color:var(--olive);}
   .check .n svg{color:var(--warm);}
   .status{min-height:1.5em;font-size:.92rem;font-weight:600;color:var(--olive-800);margin:0;text-align:center;}
@@ -225,6 +285,14 @@
   <symbol id="i-pdf" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 21h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-save" viewBox="0 0 24 24"><path d="M5 3h11l3 3v15H5zM8 3v6h8V3M8 21v-7h8v7" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
   <symbol id="i-open" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v6M12 16.5v.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M3 7.5 12 3l9 4.5v9L12 21l-9-4.5zM3 7.5l9 4.5 9-4.5M12 12v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4z" fill="currentColor"/></symbol>
+  <symbol id="i-team" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17" cy="9" r="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M2.5 20c1-3.5 3.5-5 6.5-5s5.5 1.5 6.5 5M15.5 14.5c2.8-.4 5 1 6 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-tool" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9 8V5h6v3M3 13h18" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3 2 20h20zM12 10v4M12 17v.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
   <symbol id="i-new" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
 </svg>
 
@@ -274,13 +342,11 @@
 
 <input type="file" id="fileIn" accept="application/json,.json" hidden>
 
-<script src="lib/jspdf.umd.min.js"></script>
 <script>
 (function(){
   "use strict";
 
-  // Clave de siempre: así no se pierden las fichas que ya estaban empezadas
-  var STORAGE_KEY = "ficha-idea-draft-v1";
+  var STORAGE_KEY = "esplora-fichaidea-v1";
 
   var STEPS = [
     { id:"team", kind:"team", tab:"Equipo", short:"Equipo",
@@ -563,18 +629,95 @@
   }
 
   // ---------- Revisión final ----------
+  // La hoja A4 que se ve en la revisión y que sale al imprimir o guardar en PDF
+  function sc(cls, icon, label, value){
+    var v = (value || "").trim();
+    return '<div class="sc' + (cls ? " " + cls : "") + '"><div class="sc-l"><svg aria-hidden="true"><use href="#' + icon + '"/></svg>' + label + '</div>' +
+      '<p class="' + (v ? "" : "empty") + '">' + (v ? esc(v) : "Sin completar") + '</p></div>';
+  }
+  function sheetHTML(){
+    var arrow = '<div class="arw" aria-hidden="true"><svg><use href="#i-arrow"/></svg></div>';
+    var fecha = new Date().toLocaleDateString("es-ES", { day:"numeric", month:"long", year:"numeric" });
+    var ways = STEPS[6].options.map(function(o){ return '<span class="' + (data.novedadTipo === o.v ? "on" : "") + '">' + o.v + '</span>'; }).join("");
+    return '<article class="sheet" id="sheet" aria-label="Ficha imprimible">' +
+      '<header class="sh-head">' +
+        '<img class="sh-spore" src="marca/simbolo-oliva.svg" alt=""><img class="sh-spore2" src="marca/simbolo-oliva.svg" alt="">' +
+        '<div class="sh-top"><img src="marca/logo-horizontal-crema.svg" alt="Esplora"><span>Ficha de idea de negocio</span></div>' +
+        '<h1>' + (data.nombre.trim() ? esc(data.nombre) : "Idea sin nombre") + '</h1>' +
+        '<p class="sh-team"><b>' + (data.equipo.trim() ? esc(data.equipo) : "Equipo sin nombre") + '</b>' + (data.integrantes.trim() ? " · " + esc(data.integrantes) : "") + '</p>' +
+        '<div class="sh-meta">' + (data.novedadTipo ? '<span class="sh-pill"><svg aria-hidden="true"><use href="#i-spark"/></svg>' + esc(data.novedadTipo) + '</span>' : "") + '<span>' + fecha + '</span></div>' +
+      '</header><div class="sh-band"></div>' +
+      '<div class="sh-body">' +
+        '<section class="sh-sec"><h2><i>1</i>La idea en tres pasos<small>Problema · Cliente · Oferta</small></h2><div class="flow">' +
+          sc("", "i-alert", "El problema", data.problema) + arrow + sc("", "i-user", "Quién lo sufre", data.cliente) + arrow + sc("", "i-box", "Lo que ofrecemos", data.oferta) +
+        '</div></section>' +
+        '<section class="sh-sec"><h2><i>2</i>Lo que nos hace diferentes</h2><div class="vs">' +
+          sc("old", "i-clock", "Cómo se resuelve hoy", data.competencia) +
+          '<div class="arw" aria-hidden="true"><span><svg><use href="#i-arrow"/></svg></span></div>' +
+          sc("new", "i-spark", "Nuestra novedad", data.novedadTexto) +
+        '</div><div class="ways-row" aria-label="Vía de innovación">' + ways + '</div></section>' +
+        '<section class="sh-sec"><h2><i>3</i>Equipo y viabilidad</h2><div class="trio">' +
+          sc("", "i-team", "Por qué nosotros", data.equipo2) + sc("", "i-tool", "Para arrancar necesitamos", data.viabilidadNecesita) + sc("risk", "i-warn", "Mayor riesgo o duda", data.viabilidadRiesgo) +
+        '</div></section>' +
+        '<section class="sh-sec sh-notes"><h2><i>4</i>Notas de la puesta en común<small>Preguntas, ideas y mejoras que salgan en clase</small></h2><div class="sh-lines"></div></section>' +
+      '</div>' +
+      '<footer class="sh-foot"><div class="sh-next"><b aria-hidden="true"><svg><use href="#i-arrow"/></svg></b><span><strong>Siguiente paso:</strong> Matriz Estrella, para puntuar la idea<br>y descubrir sus puntos fuertes y débiles.</span></div>' +
+        '<div class="lic">IPE 2 · Ficha inicial de la idea<br>esplora.es · CC BY-NC-SA 4.0</div></footer>' +
+    '</article>';
+  }
+  // Escala la hoja para que quepa en pantalla (al imprimir sale a tamaño real)
+  // Ajusta la letra para que todo quepa en una hoja: primero con el recuadro de notas
+  // y, si no basta, sin él. Los títulos largos también se reducen.
+  function fitText(){
+    var sh = $("sheet"); if(!sh) return;
+    var body = sh.querySelector(".sh-body"), h1 = sh.querySelector(".sh-head h1");
+    var n = data.nombre.trim().length;
+    h1.style.fontSize = n > 44 ? "19pt" : n > 28 ? "24pt" : "";
+    var sizes = [10.5, 10, 9.5, 9, 8.5, 8];
+    var over = function(){ return body.scrollHeight > body.clientHeight + 1; };
+    for(var pass = 0; pass < 2; pass++){
+      sh.classList.toggle("no-notes", pass === 1);
+      for(var i = 0; i < sizes.length; i++){
+        if(pass === 0 && sizes[i] < 9) break;
+        sh.style.fontSize = sizes[i] + "pt";
+        if(!over()) return;
+      }
+    }
+  }
+  window.addEventListener("beforeprint", fitText);
+
+  function fitSheet(){
+    var wrap = $("paperWrap"), sh = $("sheet");
+    if(!wrap || !sh) return;
+    fitText();
+    var s = Math.min(1, wrap.clientWidth / sh.offsetWidth);
+    sh.style.transform = "scale(" + s + ")";
+    wrap.style.height = (sh.offsetHeight * s) + "px";
+  }
+  window.addEventListener("resize", fitSheet);
+
+  function printSheet(){
+    var old = document.title;
+    document.title = "Ficha de idea - " + (data.nombre.trim() || "sin nombre") + " - " + (data.equipo.trim() || "equipo");
+    window.addEventListener("afterprint", function restore(){ document.title = old; window.removeEventListener("afterprint", restore); });
+    window.print();
+  }
+
   function renderReview(){
-    var checks = STEPS.slice(1).map(function(s, i){
-      var ok = !missing(i + 1);
-      return '<li class="' + (ok ? "y" : "n") + '"><svg aria-hidden="true"><use href="#' + (ok ? "i-ok" : "i-dash") + '"/></svg>' + esc(s.tab) + (ok ? "" : " (incompleto)") + '</li>';
+    var checks = STEPS.map(function(s, i){
+      var ok = !missing(i);
+      return '<li class="' + (ok ? "y" : "n") + '"><svg aria-hidden="true"><use href="#' + (ok ? "i-ok" : "i-dash") + '"/></svg><span>' + esc(s.tab) + (ok ? "" : " (incompleto)") + '</span>' +
+        '<button type="button" class="ed" data-go="' + i + '" aria-label="Editar: ' + esc(s.tab) + '">Editar</button></li>';
     }).join("");
     $("view").innerHTML =
       '<div class="review fade">' +
-        '<div><h2 class="sr" id="stepQ" tabindex="-1">Revisión de la ficha</h2>' + docHTML(true) + '</div>' +
+        '<div><h2 class="sr" id="stepQ" tabindex="-1">Revisión de la ficha</h2><p class="paper-h">Así queda vuestra ficha (A4)</p>' +
+        '<div class="paper-wrap" id="paperWrap">' + sheetHTML() + '</div></div>' +
         '<aside class="side">' +
-          '<div class="card"><h2>Vuestra ficha está lista</h2><p>Leedla en voz alta: si algo no se entiende a la primera, pulsad «Editar» en ese bloque.</p>' +
+          '<div class="card"><h2>Vuestra ficha está lista</h2><p>Leedla en voz alta: si algo no se entiende a la primera, editad ese apartado.</p>' +
           '<ul class="check" aria-label="Estado de cada apartado">' + checks + '</ul></div>' +
-          '<button type="button" class="btn btn-olive" id="bPdf"><svg aria-hidden="true"><use href="#i-pdf"/></svg>Descargar la ficha en PDF</button>' +
+          '<button type="button" class="btn btn-olive" id="bPdf"><svg aria-hidden="true"><use href="#i-pdf"/></svg>Descargar en PDF o imprimir</button>' +
+          '<p class="hint">En la ventana que se abre, elegid «Guardar como PDF».</p>' +
           '<button type="button" class="btn btn-line" id="bExport"><svg aria-hidden="true"><use href="#i-save"/></svg>Guardar en un archivo</button>' +
           '<button type="button" class="btn btn-line" id="bImport"><svg aria-hidden="true"><use href="#i-open"/></svg>Cargar desde un archivo</button>' +
           '<button type="button" class="btn btn-line" id="bNew"><svg aria-hidden="true"><use href="#i-new"/></svg>Empezar una ficha nueva</button>' +
@@ -582,8 +725,10 @@
           '<a class="next-step" href="estrella.html"><span><small>Siguiente paso</small><b>Matriz Estrella</b></span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>' +
         '</aside>' +
       '</div>';
-    $("view").querySelectorAll(".edit").forEach(function(b){ b.addEventListener("click", function(){ go(+b.dataset.go); }); });
-    $("bPdf").addEventListener("click", function(){ handleDownload($("bPdf")); });
+    $("view").querySelectorAll(".ed").forEach(function(b){ b.addEventListener("click", function(){ go(+b.dataset.go); }); });
+    $("bPdf").addEventListener("click", printSheet);
+    fitSheet();
+    if(document.fonts && document.fonts.ready) document.fonts.ready.then(fitSheet);
     $("bExport").addEventListener("click", exportFile);
     $("bImport").addEventListener("click", function(){ $("fileIn").click(); });
     $("bNew").addEventListener("click", function(){ $("dlgReset").showModal(); });
@@ -658,7 +803,7 @@
     }
   });
 
-  // ---------- PDF (una hoja A4) ----------
+  // ---------- Nombre de archivo ----------
   function slug(text){
     return (text || "ficha")
       .toLowerCase()
@@ -667,95 +812,6 @@
       .replace(/(^-|-$)/g, "") || "ficha";
   }
 
-  function handleDownload(btn){
-    if(typeof window.jspdf === "undefined"){
-      setStatus("No se pudo cargar el generador de PDF. Probad a recargar la página.", true);
-      return;
-    }
-    btn.disabled = true;
-    setStatus("Generando el PDF…");
-    try{
-      var blob = buildPDF(data);
-      var url = URL.createObjectURL(blob);
-      var a = document.createElement("a");
-      a.href = url; a.download = slug(data.equipo) + "-" + slug(data.nombre) + ".pdf";
-      document.body.appendChild(a); a.click(); a.remove();
-      setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
-      setStatus("Ficha descargada. ¡A por la Matriz Estrella!");
-    }catch(err){
-      setStatus("Algo falló al generar el PDF. Probad de nuevo.", true);
-    }
-    btn.disabled = false;
-  }
-
-  function buildPDF(d){
-    // Ficha de una sola hoja A4: cabecera de color y ocho bloques en dos columnas.
-    // Si el texto es largo, la letra se reduce para que todo quepa en la hoja.
-    var jsPDF = window.jspdf.jsPDF;
-    var doc = new jsPDF({ unit:"mm", format:"a4" });
-    var W = doc.internal.pageSize.getWidth(), H = doc.internal.pageSize.getHeight();
-    var M = 14, GAP = 5, colW = (W - M * 2 - GAP) / 2;
-    var OLIVE = [75, 79, 29], OLIVE2 = [107, 112, 40], LIME = [232, 237, 196], ALT = [245, 246, 228], INK = [30, 28, 26], SOFT = [74, 70, 63];
-
-    var sections = BLOCKS.map(function(b){ return { label:b.label.toUpperCase(), value:b.get(d) }; });
-
-    // Cabecera
-    var headH = 46;
-    doc.setFillColor.apply(doc, OLIVE); doc.rect(0, 0, W, headH, "F");
-    doc.setFillColor.apply(doc, OLIVE2); doc.rect(0, headH, W, 2.2, "F");
-    doc.setFont("helvetica", "bold"); doc.setFontSize(8.5); doc.setTextColor(197, 205, 120);
-    doc.text("FICHA DE IDEA DE NEGOCIO", M, 13);
-    doc.text("ESPLORA", W - M, 13, { align:"right" });
-    doc.setFontSize(22); doc.setTextColor(255, 255, 255);
-    var title = doc.splitTextToSize(d.nombre || "Idea sin nombre", W - M * 2);
-    if(title.length > 2){ doc.setFontSize(17); title = doc.splitTextToSize(d.nombre, W - M * 2).slice(0, 2); }
-    doc.text(title, M, 24);
-    var today = new Date();
-    var dateStr = String(today.getDate()).padStart(2, "0") + "/" + String(today.getMonth() + 1).padStart(2, "0") + "/" + today.getFullYear();
-    doc.setFont("helvetica", "normal"); doc.setFontSize(10); doc.setTextColor(232, 237, 196);
-    var team = (d.equipo || "Equipo sin nombre") + (d.integrantes ? "  ·  " + d.integrantes : "") + "  ·  " + dateStr;
-    doc.text(doc.splitTextToSize(team, W - M * 2)[0], M, headH - 6);
-
-    // Medir con un tamaño de letra y reducir hasta que quepa en la hoja
-    var top = headH + 10, bottom = H - 16, fs = 11, layout;
-    function measure(fs){
-      var lh = fs * 0.43, rows = [], y = top;
-      for(var r = 0; r < sections.length; r += 2){
-        var hs = [0, 1].map(function(c){
-          var s = sections[r + c]; doc.setFont("helvetica", "normal"); doc.setFontSize(fs);
-          var lines = doc.splitTextToSize(((s.value || "—").trim() || "—"), colW - 10);
-          return { s:s, lines:lines, h:11 + lines.length * lh + 5 };
-        });
-        var h = Math.max(hs[0].h, hs[1].h);
-        rows.push({ y:y, h:h, cells:hs, lh:lh }); y += h + GAP;
-      }
-      return { rows:rows, end:y - GAP };
-    }
-    do { layout = measure(fs); fs -= 0.5; } while(layout.end > bottom && fs >= 7.5);
-    fs += 0.5;
-
-    layout.rows.forEach(function(row, ri){
-      row.cells.forEach(function(cell, c){
-        var x = M + c * (colW + GAP);
-        doc.setFillColor.apply(doc, ALT); doc.roundedRect(x, row.y, colW, row.h, 2.5, 2.5, "F");
-        doc.setFillColor.apply(doc, OLIVE2); doc.rect(x, row.y, 2.2, row.h, "F");
-        doc.setFillColor.apply(doc, LIME); doc.roundedRect(x + 6, row.y + 4, 7, 5, 1, 1, "F");
-        doc.setFont("helvetica", "bold"); doc.setFontSize(7.5); doc.setTextColor.apply(doc, OLIVE);
-        doc.text(String(ri * 2 + c + 1).padStart(2, "0"), x + 9.5, row.y + 7.6, { align:"center" });
-        doc.setFontSize(8.5); doc.text(cell.s.label, x + 16, row.y + 7.8);
-        doc.setFont("helvetica", "normal"); doc.setFontSize(fs); doc.setTextColor.apply(doc, INK);
-        doc.text(cell.lines, x + 6, row.y + 15);
-      });
-    });
-
-    // Pie
-    doc.setDrawColor(232, 225, 214); doc.setLineWidth(0.3); doc.line(M, H - 12, W - M, H - 12);
-    doc.setFont("helvetica", "normal"); doc.setFontSize(8); doc.setTextColor.apply(doc, SOFT);
-    doc.text("Itinerario Personal para la Empleabilidad II · Ficha inicial de la idea", M, H - 7);
-    doc.text("Siguiente paso: Matriz Estrella", W - M, H - 7, { align:"right" });
-
-    return doc.output("blob");
-  }
 
   loadDraft();
   saveDraft();
