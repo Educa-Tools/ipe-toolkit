@@ -16,6 +16,8 @@
     - robots.txt                   añade la línea Sitemap si falta
     - <herramienta>.html           añade <link rel="canonical"> si falta y mantiene
                                    el pie legal entre <!-- pie-legal:inicio --> y :fin
+    - herramientas y legales       etiquetas para compartir (imagen marca/compartir.png)
+                                   entre <!-- compartir:inicio --> y :fin
   No borra nada: si sobra una ficha de una herramienta que ya no está, lo avisa.
 #>
 param([string]$Root = (Split-Path -Parent $PSScriptRoot))
@@ -25,6 +27,14 @@ $Sitio = 'https://esplora.es'
 $Marca = '<!-- Generado por scripts/generar.ps1 desde data/estructura.json: no lo edites a mano. -->'
 $utf8 = New-Object System.Text.UTF8Encoding($false)
 $avisos = [System.Collections.Generic.List[string]]::new()
+# Imagen que sale al compartir un enlace (WhatsApp, LinkedIn, X…): la misma en todas las páginas
+$ImagenCompartir = @"
+<meta property="og:image" content="$Sitio/marca/compartir.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Esplora: herramientas y recursos didácticos sobre empleabilidad y emprendimiento">
+<meta name="twitter:card" content="summary_large_image">
+"@
 
 # ---------- Utilidades ----------
 function Esc([string]$s) { if ($null -eq $s) { return '' }; $s.Replace('&','&amp;').Replace('<','&lt;').Replace('>','&gt;').Replace('"','&quot;') }
@@ -86,7 +96,7 @@ $Marca
 <meta property="og:url" content="$Sitio/$($o.ruta)">
 <meta property="og:title" content="$(Esc $o.titulo)">
 <meta property="og:description" content="$(Esc $o.desc)">
-<meta name="twitter:card" content="summary">
+$ImagenCompartir
 <meta name="theme-color" content="#FBFCEF">
 <link rel="icon" href="$($o.base)marca/simbolo-oliva.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="$($o.base)marca/apple-touch-icon.png">
@@ -287,6 +297,35 @@ foreach ($e in $entradas) {
   $nl = if ($txt.Contains("`r`n")) { "`r`n" } else { "`n" }
   $txt = $txt.Insert($hit.Index + $hit.Length, "$nl$($hit.Groups[1].Value)<link rel=""canonical"" href=""$Sitio/$($e.t.url)"">")
   [IO.File]::WriteAllText($ruta, $txt, $utf8); "  canonical $($e.t.url)"
+}
+
+# ---------- Herramientas y páginas legales: etiquetas para compartir ----------
+# Bloque marcado justo debajo del canonical, con el título y la descripción de la propia página
+"Compartir"
+$paraCompartir = @($entradas | ForEach-Object { $_.t.url } | Select-Object -Unique) + @($Legales.Keys)
+foreach ($url in $paraCompartir) {
+  $ruta = Join-Path $Root $url
+  if (-not (Test-Path $ruta)) { continue }
+  $txt = [IO.File]::ReadAllText($ruta, $utf8)
+  $nl = if ($txt.Contains("`r`n")) { "`r`n" } else { "`n" }
+  $can = [regex]::Match($txt, '(?m)^([ \t]*)<link rel="canonical" href="([^"]*)">')
+  if (-not $can.Success) { $avisos.Add("$url no tiene canonical: sin etiquetas para compartir."); continue }
+  $tit = [regex]::Match($txt, '<title>([^<]*)</title>').Groups[1].Value
+  $des = [regex]::Match($txt, '<meta name="description" content="([^"]*)"').Groups[1].Value
+  $sang = $can.Groups[1].Value
+  $lineas = @('<!-- compartir:inicio (scripts/generar.ps1) -->',
+    '<meta property="og:type" content="website">',
+    '<meta property="og:site_name" content="Esplora">',
+    '<meta property="og:locale" content="es_ES">',
+    "<meta property=""og:url"" content=""$($can.Groups[2].Value)"">",
+    "<meta property=""og:title"" content=""$tit"">",
+    "<meta property=""og:description"" content=""$des"">") +
+    @($ImagenCompartir.Replace("`r`n", "`n").Split("`n")) + @('<!-- compartir:fin -->')
+  $bloque = ($lineas | ForEach-Object { "$sang$_" }) -join $nl
+  $re = '(?s)[ \t]*<!-- compartir:inicio.*?<!-- compartir:fin -->'
+  $nuevo = if ([regex]::IsMatch($txt, $re)) { [regex]::Replace($txt, $re, { param($x) $bloque }) }
+           else { $txt.Insert($can.Index + $can.Length, "$nl$bloque") }
+  if ($nuevo -ne $txt) { [IO.File]::WriteAllText($ruta, $nuevo, $utf8); "  compartir $url" }
 }
 
 # ---------- sitemap.xml ----------
