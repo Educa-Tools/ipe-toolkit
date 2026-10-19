@@ -532,7 +532,7 @@
         <button type="button" class="search-clear" id="qClear" aria-label="Borrar la búsqueda" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>
       </div>
     </div>
-    <!-- Desplegables de temática y tipo (solo en "Todo") y número de resultados, que se anuncia en voz alta -->
+    <!-- Desplegables de temática, duración y tipo (solo en "Todo") y número de resultados, que se anuncia en voz alta -->
     <div class="filters" id="filters" hidden></div>
     <p class="sr" id="liveCount" role="status" aria-live="polite"></p>
     </div>
@@ -757,7 +757,7 @@ const art = t => '<svg class="clip-art" viewBox="0 0 160 56" aria-hidden="true">
 // DB: el catálogo ya preparado. tipo y tema: el tipo de recurso y la primera temática de cada uno.
 let DB = {tools:{}, mods:[], tags:[], tipos:[], where:{}, tipo:{}, tema:{}, text:{}, order:[]};
 // S: lo que se está viendo. view = 'todo' o el id de un módulo; tag y tipo = 'all' o un id.
-let S = {view:'todo', tag:'all', tipo:'all', q:''};
+let S = {view:'todo', tag:'all', tipo:'all', dur:'all', q:''};
 const stage = document.getElementById('stage');
 const pad = n => String(n).padStart(2,'0');
 const plural = (n, sing, plu) => n + ' ' + (n===1 ? sing : plu);
@@ -854,31 +854,41 @@ function toolCards(list){
     </a></li>`;}).join('') + '</ul>';
 }
 
-// ---------- Todo el catálogo: búsqueda + temática + tipo de recurso ----------
+// ---------- Todo el catálogo: búsqueda + temática + duración + tipo de recurso ----------
+// Duración pensada para una sesión de 50 minutos: cabe con otra actividad, ocupa media sesión o casi toda
+const DURACIONES = [
+  {id:'corta', nombre:'Hasta 20 min', ok:m=>m<=20},
+  {id:'media', nombre:'De 21 a 35 min', ok:m=>m>20 && m<=35},
+  {id:'larga', nombre:'Más de 35 min', ok:m=>m>35}
+];
 function matches(id, f){
   const t = DB.tools[id];
   if(!t || !t.url) return false;
   if(f.tag!=='all'){ const x = DB.tags.find(x=>x.id===f.tag); if(!x || !(x.herramientas||[]).includes(id)) return false; }
+  if(f.dur!=='all'){ const d = DURACIONES.find(d=>d.id===f.dur); if(!d || !t.minutos || !d.ok(t.minutos)) return false; }
   if(f.tipo!=='all' && DB.tipo[id]!==f.tipo) return false;
   const words = norm(f.q).split(/\s+/).filter(w=>w.length>=2);
   return words.every(w=>DB.text[id].includes(w));
 }
 const CHEVRON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>';
-// Desplegables de temática y tipo, con el número de resultados (van en la barra que se queda fija)
+// Desplegables de temática, duración y tipo, con el número de resultados (van en la barra que se queda fija)
 const filtersBox = document.getElementById('filters');
 const liveCount = document.getElementById('liveCount');
 function filtersHTML(n){
-  const f = {tag:S.tag, tipo:S.tipo, q:S.q};
+  const f = {tag:S.tag, tipo:S.tipo, dur:S.dur, q:S.q};
   const count = patch => DB.order.filter(id=>matches(id, {...f, ...patch})).length;
   const optTema = [{id:'all', nombre:'Todas'}, ...DB.tags].map(x=>
     `<option value="${x.id}"${S.tag===x.id?' selected':''}>${x.nombre}${x.id==='all' ? '' : ' ('+count({tag:x.id})+')'}</option>`).join('');
+  const optDur = [{id:'all', nombre:'Cualquiera'}, ...DURACIONES].map(x=>
+    `<option value="${x.id}"${S.dur===x.id?' selected':''}>${x.nombre}${x.id==='all' ? '' : ' ('+count({dur:x.id})+')'}</option>`).join('');
   // Con un solo tipo con recursos, el desplegable de tipo no aporta nada y no se muestra
   const tipos = tiposConRecursos();
   const optTipo = [{id:'all', nombre:'Todos'}, ...tipos].map(x=>
     `<option value="${x.id}"${S.tipo===x.id?' selected':''}>${x.nombre}${x.id==='all' ? '' : ' ('+count({tipo:x.id})+')'}</option>`).join('');
   const q = S.q.trim();
-  const filtered = S.tag!=='all' || S.tipo!=='all';
+  const filtered = S.tag!=='all' || S.tipo!=='all' || S.dur!=='all';
   return `<label class="dd${S.tag!=='all'?' on':''}"><span>Temática</span><select id="fTema" data-key="tag">${optTema}</select>${CHEVRON}</label>
+    <label class="dd${S.dur!=='all'?' on':''}"><span>Duración</span><select id="fDur" data-key="dur">${optDur}</select>${CHEVRON}</label>
     ${tipos.length>1 ? `<label class="dd${S.tipo!=='all'?' on':''}"><span>Tipo</span><select id="fTipo" data-key="tipo" aria-label="Tipo de recurso">${optTipo}</select>${CHEVRON}</label>` : ''}
     <div class="filters-end">
       <p class="res-count" aria-hidden="true">${plural(n,'resultado','resultados')}${q ? ` para <mark>${esc(q)}</mark>` : ''}</p>
@@ -896,7 +906,7 @@ function groupedCards(list){
     </section>`).join('');
 }
 function exploreView(){
-  const list = DB.order.filter(id=>matches(id, {tag:S.tag, tipo:S.tipo, q:S.q})).map(id=>({id, ...DB.tools[id]}));
+  const list = DB.order.filter(id=>matches(id, {tag:S.tag, tipo:S.tipo, dur:S.dur, q:S.q})).map(id=>({id, ...DB.tools[id]}));
   const q = S.q.trim();
   let body;
   if(list.length){
@@ -970,7 +980,7 @@ document.getElementById('explorar').addEventListener('click', e=>{
   const b = e.target.closest('button');
   if(!b) return;
   if(b.dataset.copy) return copyLink(b);
-  if(b.hasAttribute('data-reset')){ clearSearch(false); go({tag:'all', tipo:'all'}); history.replaceState(null,'','#catalogo'); }
+  if(b.hasAttribute('data-reset')){ clearSearch(false); go({tag:'all', tipo:'all', dur:'all'}); history.replaceState(null,'','#catalogo'); }
 });
 filtersBox.addEventListener('change', e=>{
   const s = e.target.closest('select[data-key]');
@@ -1019,7 +1029,7 @@ function applyRoute(){
   const r = findRoute(currentHash());
   if(!r) return false;
   if(S.q) clearSearch(false);
-  const patch = {view:r.view};
+  const patch = {view:r.view, dur:'all'};
   if(r.tag) patch.tag = r.tag;
   if(r.tipo) patch.tipo = r.tipo;
   go(patch);
