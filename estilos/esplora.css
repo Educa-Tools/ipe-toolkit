@@ -1,0 +1,174 @@
+/* Esplora · hoja de estilos común
+   La cargan la portada, la 404, las fichas de recurso, las páginas de IPE 1 e
+   IPE 2 y las páginas legales. Las herramientas todavía no (usan el kit anterior).
+   Colores: solo los de marca/kit/COLORES.txt. Si hace falta uno nuevo, se añade
+   antes allí. Lo propio de una sola página se queda en esa página, pero usando
+   estos tokens. */
+
+/* ---------- 1. Tokens ---------- */
+:root{
+  /* Color (COLORES.txt: kit, con una unidad de diferencia, y tonos de apoyo) */
+  --bg:#FBFCEF;            /* crema: fondo */
+  --surface:#FFFFFF;       /* blanco: tarjetas */
+  --surface-alt:#F5F6E4;   /* superficie-2: zonas alternas */
+  --ink:#1E1C1A;           /* negro: texto principal */
+  --ink-soft:#4A463F;      /* tinta-suave: texto secundario (9:1 sobre crema) */
+  --ink-muted:#8B847A;     /* tinta-tenue: solo texto grande o no esencial (3,6:1) */
+  --line:#E8E1D6;          /* línea: bordes y separadores */
+  --olive-deep:#6B7028;    /* oliva: marca, botones, enlaces (5,1:1 sobre crema) */
+  --olive-mid:#A8AD5C;     /* oliva-claro: solo sobre fondo oscuro (2,3:1 sobre crema) */
+  --lime-soft:#E8EDC4;     /* verde-pálido: fondos suaves, texto sobre oscuro */
+  --lime-mid:#C5CD78;      /* lima: detalles sobre fondo oscuro */
+  --on-olive:#FBFCEF;      /* texto sobre oliva */
+
+  /* Tipografía */
+  --font-display:'Fraunces',Georgia,serif;
+  --font-ui:'Inter',-apple-system,'Segoe UI',sans-serif;
+  --fs-xs:13px;
+  --fs-sm:15px;
+  --fs-base:17px;
+  --fs-lg:19px;
+  --fs-h3:18px;
+  --fs-h2:24px;
+  --fs-h1:clamp(32px,6vw,46px);
+  --lh-tight:1.15;
+  --lh-base:1.6;
+
+  /* Espaciado (múltiplos de 4) */
+  --sp-1:4px;
+  --sp-2:8px;
+  --sp-3:12px;
+  --sp-4:16px;
+  --sp-5:24px;
+  --sp-6:32px;
+  --sp-7:48px;
+  --sp-8:64px;
+
+  /* Radios */
+  --radius-xs:6px;
+  --radius-sm:12px;
+  --radius-md:14px;
+  --radius-card:18px;
+  --radius-pill:999px;
+
+  /* Estilo "cuaderno": marco fino en tinta y sombra pegatina (dura, sin difuminar) */
+  --frame:1px solid var(--ink);
+  --sticker:3px 3px 0 var(--ink);
+  --sticker-lift:5px 5px 0 var(--ink);
+
+  /* Movimiento: arranca rápido y frena suave */
+  --ease-out:cubic-bezier(.23,1,.32,1);
+  --ease-in-out:cubic-bezier(.77,0,.175,1);
+  --dur-fast:.18s;
+
+  /* Mínimo para que algo se pulse bien con el dedo */
+  --tap:44px;
+
+  color-scheme:light;
+}
+
+/* ---------- 2. Base ---------- */
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-ui);font-size:var(--fs-base);line-height:var(--lh-base)}
+[hidden]{display:none!important}
+a{color:inherit;text-underline-offset:3px}
+button{font-family:inherit}
+a,button,select,input,label{touch-action:manipulation}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+
+/* Ancho del contenido: 880 px por defecto; la portada es más ancha y los textos legales más estrechos */
+.wrap{max-width:var(--wrap,880px);margin-inline:auto;padding-inline:var(--sp-5)}
+@media (max-width:620px){.wrap{padding-inline:var(--sp-4)}}
+.ancho{--wrap:1160px}
+.texto{--wrap:760px}
+
+/* Solo para lectores de pantalla */
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+/* Saltar al contenido */
+.skip{position:absolute;left:var(--sp-3);top:-60px;z-index:50;background:var(--ink);color:var(--surface);font-weight:700;padding:var(--sp-3) 18px;border-radius:var(--radius-pill);text-decoration:none}
+.skip:focus{top:var(--sp-3)}
+
+/* ---------- 3. Componentes ---------- */
+
+/* Botón principal (oliva) y su variante lima; el secundario es un enlace grande */
+.btn{display:inline-flex;align-items:center;gap:var(--sp-2);min-height:48px;padding:10px 22px;border-radius:var(--radius-pill);background:var(--olive-deep);color:var(--on-olive);border:var(--frame);box-shadow:var(--sticker);font-weight:700;text-decoration:none}
+.btn svg{width:17px;height:17px}
+.btn-lima{background:var(--lime-mid);color:var(--ink);border-width:1.5px}
+.btn-sec{display:inline-flex;align-items:center;min-height:48px;padding:10px 6px;font-weight:600;text-underline-offset:4px}
+.actions{display:flex;flex-wrap:wrap;gap:var(--sp-3);align-items:center;margin:0}
+
+/* Cabecera de las páginas interiores: logo y enlace al catálogo */
+.top{border-bottom:1px solid var(--line);background:var(--bg)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:var(--sp-4);min-height:var(--sp-8)}
+.top a{display:inline-flex;align-items:center;min-height:var(--tap)}
+.top .link{font-weight:600;text-decoration:none;border-bottom:2px solid var(--olive-deep);min-height:auto;padding-block:var(--sp-1)}
+
+/* Migas de pan */
+.crumbs ol{list-style:none;display:flex;flex-wrap:wrap;gap:var(--sp-1) var(--sp-2);margin:28px 0 0;padding:0;font-size:var(--fs-sm);color:var(--ink-soft)}
+.crumbs li+li::before{content:"›";margin-right:var(--sp-2);color:var(--ink-soft)}
+
+/* Antetítulo y entradilla */
+.eyebrow{margin:28px 0 6px;font-size:14px;font-weight:600;letter-spacing:.02em;color:var(--olive-deep)}
+.lede{font-size:var(--fs-lg);color:var(--ink-soft);margin:0 0 22px;max-width:62ch}
+.note{margin:18px 0 0;font-size:var(--fs-sm);color:var(--ink-soft)}
+
+/* Títulos de las páginas interiores (la portada y la 404 tienen los suyos) */
+.doc h1{font-family:var(--font-display);font-weight:600;font-size:var(--fs-h1);line-height:1.12;margin:0 0 14px;letter-spacing:-.01em}
+.doc h1 em,.doc h2 em{font-style:italic;color:var(--olive-deep)}
+.doc h2{font-family:var(--font-display);font-weight:600;font-size:var(--fs-h2);line-height:1.25;margin:44px 0 14px}
+.doc h3{font-size:var(--fs-h3);margin:var(--sp-5) 0 var(--sp-1)}
+
+/* Ficha de recurso: tarjeta con el color de la herramienta en el borde (--c) */
+.ficha{background:var(--surface);border:var(--frame);border-left:8px solid var(--c,var(--olive-deep));border-radius:var(--radius-card);box-shadow:var(--sticker);padding:var(--sp-5) 26px 26px;margin-top:22px}
+.ficha .eyebrow{margin-top:0}
+@media (max-width:620px){.ficha{padding:20px 18px 22px;border-left-width:6px}}
+
+/* Datos rápidos de una ficha (duración, nivel…) */
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:var(--sp-3);margin:0 0 var(--sp-5);padding:0}
+.facts div{background:var(--surface-alt);border-radius:var(--radius-sm);padding:10px 14px}
+.facts dt{font-size:var(--fs-xs);font-weight:600;color:var(--ink-soft);margin:0}
+.facts dd{margin:0;font-weight:600}
+
+/* Tarjeta de recurso en lista (páginas de módulo y «relacionados») */
+.list{list-style:none;margin:0;padding:0;display:grid;gap:var(--sp-3)}
+.list a{display:block;background:var(--surface);border:var(--frame);border-left:6px solid var(--c,var(--olive-deep));border-radius:var(--radius-md);padding:14px 18px;text-decoration:none}
+.list b{display:block;font-size:var(--fs-h3)}
+.list span{display:block;color:var(--ink-soft);font-size:16px}
+.list small{display:block;margin-top:var(--sp-1);font-size:14px;font-weight:600;color:var(--olive-deep)}
+
+/* Pie de las páginas interiores */
+.doc footer{margin-top:var(--sp-8);border-top:1px solid var(--line);padding-block:var(--sp-5) 40px;font-size:var(--fs-sm);color:var(--ink-soft)}
+.doc footer p{margin:var(--sp-1) 0}
+.doc footer .legal{margin-top:var(--sp-3)}
+.doc footer .legal a{display:inline-block;padding-block:6px}
+.legal-links{display:flex;flex-wrap:wrap;gap:var(--sp-1) var(--sp-4);margin:0 0 var(--sp-2);padding:0;list-style:none}
+.legal-links li+li{margin-top:0}
+.legal-links a{display:inline-block;padding-block:6px}
+.legal-links a[aria-current]{font-weight:700;text-decoration:none}
+
+/* ---------- 4. Páginas de texto (legales) ---------- */
+.texto{line-height:1.65}
+.texto h1{margin:36px 0 var(--sp-2);font-size:clamp(32px,6vw,44px);line-height:var(--lh-tight);letter-spacing:0}
+.texto h2{font-size:23px;line-height:1.3;margin:36px 0 var(--sp-2)}
+.texto p,.texto li{max-width:68ch}
+.texto ul{padding-left:22px}
+.texto li+li{margin-top:var(--sp-1)}
+.fecha{color:var(--ink-soft);font-size:var(--fs-sm);margin:0 0 var(--sp-2)}
+/* Aviso de borrador */
+.draft{background:var(--lime-soft);border:var(--frame);border-radius:var(--radius-md);padding:14px 18px;margin:20px 0 var(--sp-2);font-size:var(--fs-sm)}
+.draft p{margin:var(--sp-1) 0}
+/* Dato que falta por completar */
+.todo{background:none;border:1px dashed var(--olive-deep);border-radius:var(--sp-1);padding:0 var(--sp-1);color:var(--ink);font-weight:600}
+.tabla{width:100%;border-collapse:collapse;font-size:var(--fs-sm);margin:var(--sp-3) 0}
+.tabla th,.tabla td{text-align:left;vertical-align:top;border-bottom:1px solid var(--line);padding:var(--sp-2) 10px var(--sp-2) 0}
+.tabla th{font-weight:600}
+
+/* ---------- 5. Respuesta al pasar y al pulsar ---------- */
+@media (hover:hover) and (pointer:fine){
+  .btn:hover{box-shadow:var(--sticker-lift)}
+  .list a:hover{box-shadow:var(--sticker)}
+}
+.btn:active{scale:.97}
+@media (prefers-reduced-motion:no-preference){
+  .btn,.list a{transition:box-shadow var(--dur-fast) var(--ease-out),scale var(--dur-fast) var(--ease-out)}
+}
