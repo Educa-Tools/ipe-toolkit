@@ -1,12 +1,7 @@
 # Esplora · esplora.es
 # Todo el contenido de la web está abierto a buscadores y asistentes de IA.
-# Se excluyen solo las notas internas del proyecto (siguen siendo públicas en
-# el repositorio, pero no tienen sentido como resultado de búsqueda).
 
 User-agent: *
-Disallow: /docs/
-Disallow: /CLAUDE.md
-Disallow: /PLAN.md
-Disallow: /README.md
+Disallow:
 
 Sitemap: https://esplora.es/sitemap.xml

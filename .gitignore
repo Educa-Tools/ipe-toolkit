@@ -23,3 +23,11 @@ index-renovada*
 
 # Material archivado: se guarda en local, no se publica
 archivo/
+
+# Notas internas del proyecto: viven en interno/ (repositorio privado
+# Educa-Tools/esplora-interno) y no se publican
+interno/
+CLAUDE.md
+PLAN.md
+docs/
+branding/
