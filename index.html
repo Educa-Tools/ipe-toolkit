@@ -131,16 +131,15 @@
   .draw{stroke-dasharray:140;stroke-dashoffset:140;}
 
   /* Tres miniaturas de herramientas bajo el selector: en fila, sin superponerse */
-  .minis{list-style:none;margin:22px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;}
+  .minis{list-style:none;margin:22px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;}
   .minis:empty{display:none;}
   .minis li{display:flex;}
   /* Las mismas tarjetas del catálogo, resumidas: barra, módulo, titular y dibujo */
   .mini{flex:1;display:flex;flex-direction:column;overflow:hidden;text-decoration:none;color:var(--ink);background:var(--bg);border:var(--frame);border-radius:10px;box-shadow:3px 3px 0 var(--olive-deep);}
-  .mini .clip-bar{font-size:.58rem;padding:5px 8px;}
-  .mini .clip-bar > span:last-child{display:none;}
-  .mini .clip-body{gap:4px;padding:8px 9px 10px;}
-  .mini .clip-kick{font-size:.54rem;letter-spacing:.1em;}
-  .mini .clip-h{font-size:.84rem;line-height:1.15;letter-spacing:-.2px;}
+  .mini .clip-bar{font-size:.6rem;padding:5px 9px;}
+  .mini .clip-body{gap:5px;padding:10px 12px 12px;}
+  .mini .clip-kick{font-size:.58rem;letter-spacing:.12em;}
+  .mini .clip-h{font-size:.98rem;line-height:1.14;letter-spacing:-.3px;}
   .mini .clip-art{margin-top:auto;padding-top:6px;}
   /* El único momento de entrada de la página: los separadores se deslizan desde el borde, en cascada */
   .pick-tag{animation:tab .55s var(--ease-out) backwards;}
@@ -1038,8 +1037,8 @@ function copyLink(b){
 }
 
 // ---------- Portada: total del catálogo, miniaturas y tipos de recurso ----------
-// Identificadores de data/estructura.json: una de cada bloque o unidad, para que se vea la variedad
-const MINIS = ['guiaruido', 'piramide', 'inversion'];
+// Identificadores de data/estructura.json: una de IPE 2 y otra de IPE 1
+const MINIS = ['canvas', 'contingencias'];
 function renderMinis(){
   document.getElementById('minis').innerHTML = MINIS.map(id=>({id, ...DB.tools[id]})).filter(t=>t.url).map(t=>
     `<li><a class="mini" style="--c:${t.color||'#6B7028'}" href="${t.url}">
