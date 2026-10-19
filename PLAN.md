@@ -39,7 +39,7 @@ Dentro de cada sesión se trabaja por **bloques**: Claude termina un bloque, me 
 
 **Bloque B · Legal y privacidad**
 - [x] Aviso legal, privacidad, cookies, licencia, accesibilidad, atribuciones
-  > Nota: `aviso-legal.html`, `privacidad.html`, `cookies.html`, `licencia.html` (licencia y créditos) y `accesibilidad.html`. Antes de publicar, el autor completa nombre, NIF y domicilio (aviso legal) y, si quiere, el nombre de la diseñadora (créditos). El apartado de Cloudflare Web Analytics está escrito pero comentado en `privacidad.html`: se activa a la vez que la analítica.
+  > Nota: `aviso-legal.html`, `privacidad.html`, `cookies.html`, `licencia.html` (licencia y créditos) y `accesibilidad.html`. Aviso legal provisional sin datos personales (titular: «el autor del proyecto» + correo), válido mientras no haya actividad económica. Antes de empezar a cobrar, el autor decide con su asesoría cómo figurar (autónomo con domiciliación o sociedad) y se completa con nombre o razón social, NIF/CIF y domicilio; no escribir datos personales en el repo antes de decidirlo (quedan en el historial público). Créditos de la diseñadora: si quiere aparecer. El apartado de Cloudflare Web Analytics está escrito pero comentado en `privacidad.html`: se activa a la vez que la analítica.
 - [x] Enlaces desde el pie de todas las páginas
   > Nota: portada, 404, fichas, páginas de módulo y las 24 herramientas (en estas lo mantiene `scripts/generar.ps1`; no sale al imprimir).
 - [x] Banner de cookies solo si hace falta
