@@ -2,596 +2,663 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ficha de Idea</title>
+<script>/* Esplora: recupera el progreso guardado con el nombre antiguo (educa…) */try{for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(/^educa/.test(k)){var n=k.replace(/^educatools/,'esplora').replace(/^educa/,'esplora');if(localStorage.getItem(n)===null)localStorage.setItem(n,localStorage.getItem(k));}}}catch(e){}</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Ficha inicial de la idea · Esplora</title>
+<meta name="description" content="Describe tu idea de negocio en ocho pasos: problema, cliente, oferta, competencia, novedad, equipo y viabilidad. Con ejemplos, vista previa en directo y ficha en PDF.">
+<meta name="theme-color" content="#FBFCEF">
 <link rel="icon" href="marca/simbolo-oliva.svg" type="image/svg+xml">
+<link rel="stylesheet" href="fuentes/fuentes.css">
 <style>
-  @import url('fuentes/fuentes.css');
-
+  /* Paleta: marca/kit/COLORES.txt */
   :root{
-    --bg: #FBFCEF;
-    --card: #FFFFFF;
-    --card-alt: #F5F6E4;
-    --card-line: #E8E1D6;
-    --line-soft: #EEEFD8;
-    --ink: #1E1C1A;
-    --ink-soft: #4A463F;
-    --ink-faint: #8B847A;
-    --accent: #6B7028;
-    --accent-soft: #E8EDC4;
-    --accent-mid: #A8AD5C;
-    --accent-ink: #4B4F1D;
-    --danger: #A6432F;
-    --shadow: rgba(30,28,26,0.08);
-    --radius-card: 18px;
-    --radius-pill: 999px;
-    color-scheme: light;
+    --bg:#FBFCEF; --surface:#FFFFFF; --surface-2:#F5F6E4;
+    --ink:#1E1C1A; --ink-soft:#4A463F;
+    --line:#E8E1D6;
+    --olive-900:#2B2D14; --olive-800:#4B4F1D; --olive:#6B7028; --olive-400:#A8AD5C;
+    --lime:#C5CD78; --pale:#E8EDC4;
+    --warm:#B5482F; --warm-soft:#F7E9E3;
+    --font-display:'Fraunces',Georgia,serif;
+    --font-ui:'Inter',-apple-system,'Segoe UI',system-ui,sans-serif;
+    --r:20px; --r-sm:12px; --pill:999px;
+    --shadow:0 1px 2px rgba(30,28,26,.05),0 10px 30px -14px rgba(43,45,20,.22);
+    color-scheme:light;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-ui);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  [hidden]{display:none!important;}
+  button,input,textarea{font-family:inherit;font-size:inherit;color:inherit;}
+  a{color:var(--olive);font-weight:600;text-underline-offset:3px;}
+  :focus-visible{outline:3px solid var(--ink);outline-offset:3px;border-radius:6px;}
+  [tabindex="-1"]:focus{outline:none;}
+  .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+  h1,h2,h3{font-family:var(--font-display);font-weight:700;line-height:1.15;text-wrap:balance;margin:0;letter-spacing:-.01em;}
+  p{margin:0 0 12px;}
+  .wrap{max-width:1120px;margin-inline:auto;padding-inline:20px;}
+
+  /* ---------- Barra superior ---------- */
+  .top{position:sticky;top:0;z-index:20;background:rgba(251,252,239,.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
+  .top-in{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:60px;}
+  .brand{display:inline-flex;align-items:center;min-height:44px;}
+  .brand img{display:block;}
+  .saved{display:inline-flex;align-items:center;gap:8px;font-size:.88rem;font-weight:600;color:var(--ink-soft);}
+  .saved i{width:8px;height:8px;border-radius:50%;background:var(--olive);}
+  @media (max-width:520px){.saved .long{display:none;}}
+
+  main{padding-block:28px 56px;}
+
+  /* ---------- Cabecera ---------- */
+  .intro{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 28px;margin-bottom:24px;}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--olive);margin-bottom:10px;}
+  .kicker::before{content:"";width:22px;height:2px;background:currentColor;border-radius:2px;}
+  .intro h1{font-size:clamp(2rem,5vw,2.9rem);margin-bottom:10px;}
+  .intro h1 em{font-style:normal;color:var(--olive);}
+  .intro p{color:var(--ink-soft);max-width:58ch;margin:0;font-size:1.04rem;}
+  .route{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:.86rem;font-weight:600;color:var(--ink-soft);}
+  .route a,.route span{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 12px;border-radius:var(--pill);border:1px solid var(--line);background:var(--surface);text-decoration:none;color:var(--ink-soft);}
+  .route a:hover{border-color:var(--olive-400);color:var(--ink);}
+  .route span.here{background:var(--olive-800);border-color:var(--olive-800);color:var(--bg);}
+  .route svg{width:14px;height:14px;color:var(--olive-400);}
+
+  /* ---------- Pasos ---------- */
+  .stepper{display:flex;gap:6px;list-style:none;margin:0 0 18px;padding:0;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;}
+  .stepper::-webkit-scrollbar{display:none;}
+  @media (min-width:941px){.stepper{flex-wrap:wrap;}}
+  .step-b{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 13px 0 6px;border-radius:var(--pill);border:1px solid var(--line);background:var(--surface);font-size:.86rem;font-weight:600;color:var(--ink-soft);white-space:nowrap;cursor:pointer;}
+  .step-b .n{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--surface-2);font-size:.78rem;font-weight:800;color:var(--ink-soft);}
+  .step-b:hover:not([disabled]){border-color:var(--olive-400);}
+  .step-b[disabled]{cursor:default;opacity:.55;}
+  .step-b.done .n{background:var(--olive);color:var(--bg);}
+  .step-b[aria-current="step"]{border-color:var(--olive-800);background:var(--olive-800);color:var(--bg);}
+  .step-b[aria-current="step"] .n{background:var(--lime);color:var(--olive-900);}
+  .bar{height:6px;border-radius:6px;background:var(--surface-2);border:1px solid var(--line);overflow:hidden;margin-bottom:22px;}
+  .bar i{display:block;height:100%;width:0;background:var(--olive);border-radius:6px;transition:width .35s ease;}
+
+  /* ---------- Rejilla: paso + vista previa ---------- */
+  .shell{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:28px;align-items:start;}
+  .shell.full{grid-template-columns:minmax(0,1fr);}
+  @media (max-width:940px){.shell{grid-template-columns:minmax(0,1fr);}}
+
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:30px 30px 24px;}
+  .tag{display:inline-flex;align-items:center;gap:8px;font-size:.78rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--olive-800);background:var(--pale);border-radius:var(--pill);padding:4px 12px 4px 4px;margin-bottom:16px;}
+  .tag b{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--olive-800);color:var(--bg);font-size:.74rem;}
+  .q{font-size:clamp(1.4rem,3.4vw,1.85rem);margin-bottom:8px;}
+  .helper{color:var(--ink-soft);margin-bottom:18px;max-width:60ch;}
+
+  .field{margin-bottom:16px;}
+  .field label{display:block;font-weight:700;font-size:.95rem;margin-bottom:8px;}
+  .field label .opt{font-weight:500;color:var(--ink-soft);}
+  input[type="text"],textarea{width:100%;padding:13px 15px;border:1.5px solid var(--line);border-radius:var(--r-sm);background:var(--surface-2);font-size:1.02rem;line-height:1.5;color:var(--ink);transition:border-color .15s ease,background .15s ease,box-shadow .15s ease;}
+  textarea{min-height:120px;resize:vertical;}
+  input[type="text"]:hover,textarea:hover{border-color:var(--olive-400);}
+  input[type="text"]:focus,textarea:focus{outline:none;background:var(--surface);border-color:var(--olive);box-shadow:0 0 0 4px rgba(168,173,92,.3);}
+  ::placeholder{color:#7A746A;}
+  .foot{display:flex;justify-content:space-between;gap:10px;margin-top:6px;font-size:.84rem;color:var(--ink-soft);}
+  .foot .need{color:var(--olive-800);font-weight:600;}
+  .foot .need.ok{color:var(--ink-soft);font-weight:500;}
+  .foot .over{color:var(--warm);font-weight:700;}
+
+  /* Vías de innovación */
+  .ways{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin-bottom:18px;}
+  .way{display:flex;flex-direction:column;gap:4px;text-align:left;padding:14px 15px;border:1.5px solid var(--line);border-radius:var(--r-sm);background:var(--surface);cursor:pointer;transition:border-color .15s ease,background .15s ease;}
+  .way:hover{border-color:var(--olive-400);background:var(--surface-2);}
+  .way b{font-size:.98rem;display:flex;align-items:center;justify-content:space-between;gap:8px;}
+  .way span{font-size:.86rem;color:var(--ink-soft);line-height:1.4;}
+  .way .ck{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--line);flex-shrink:0;display:inline-grid;place-items:center;}
+  .way .ck svg{width:12px;height:12px;opacity:0;}
+  .way[aria-pressed="true"]{border-color:var(--olive);background:var(--pale);}
+  .way[aria-pressed="true"] .ck{background:var(--olive);border-color:var(--olive);color:var(--bg);}
+  .way[aria-pressed="true"] .ck svg{opacity:1;}
+
+  /* Pista con ejemplo */
+  .tip{display:grid;grid-template-columns:auto 1fr;gap:12px;margin:6px 0 4px;padding:16px 18px;border-radius:var(--r-sm);background:var(--surface-2);border:1px dashed var(--olive-400);}
+  .tip svg{width:22px;height:22px;color:var(--olive);margin-top:2px;}
+  .tip p{margin:0;font-size:.94rem;line-height:1.5;}
+  .tip p + p{margin-top:6px;}
+  .tip .lbl{display:block;font-size:.74rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--olive-800);margin-bottom:4px;}
+  .tip .bad{color:var(--warm);font-weight:700;}
+  .tip .good{color:var(--olive-800);font-weight:700;}
+
+  .nav{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:22px;padding-top:18px;border-top:1px solid var(--line);}
+  .nav-r{display:flex;align-items:center;gap:12px;}
+  .kbd{font-size:.82rem;color:var(--ink-soft);}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border-radius:var(--pill);border:1.5px solid transparent;font-weight:700;font-size:.98rem;text-decoration:none;cursor:pointer;transition:background .15s ease,border-color .15s ease,color .15s ease,transform .1s ease;}
+  .btn:active:not([disabled]){transform:translateY(1px);}
+  .btn svg{width:18px;height:18px;flex-shrink:0;}
+  .btn-olive{background:var(--olive-800);color:var(--bg);}
+  .btn-olive:hover:not([disabled]){background:var(--olive-900);}
+  .btn-line{background:var(--surface);border-color:var(--line);color:var(--ink);}
+  .btn-line:hover:not([disabled]){border-color:var(--olive-400);background:var(--surface-2);}
+  .btn[disabled]{opacity:.4;cursor:not-allowed;}
+  @media (max-width:520px){.card{padding:22px 18px 18px;border-radius:20px;}.kbd{display:none;}.btn{padding:0 18px;}}
+
+  /* ---------- Vista previa de la ficha ---------- */
+  .preview{position:sticky;top:84px;}
+  .preview-h{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;font-size:.8rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);}
+  .preview-h span{display:inline-flex;align-items:center;gap:8px;}
+  .preview-h span::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--olive-400);box-shadow:0 0 0 4px rgba(168,173,92,.25);}
+  .doc{background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow);}
+  .doc-head{background:var(--olive-800);color:var(--bg);padding:18px 20px 16px;border-bottom:3px solid var(--olive);}
+  .doc-head small{display:flex;justify-content:space-between;gap:10px;font-size:.68rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--lime);}
+  .doc-head h3{font-size:1.35rem;margin:8px 0 6px;overflow-wrap:anywhere;}
+  .doc-head h3.empty{color:rgba(232,237,196,.55);}
+  .doc-head p{margin:0;font-size:.82rem;color:var(--pale);overflow-wrap:anywhere;}
+  .doc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px;}
+  .blk{position:relative;background:var(--surface-2);border-radius:10px;padding:10px 11px 10px 14px;min-height:74px;border-left:3px solid var(--olive);transition:box-shadow .2s ease,background .2s ease;}
+  .blk b{display:flex;align-items:center;gap:6px;font-size:.62rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--olive-800);margin-bottom:4px;}
+  .blk b i{font-style:normal;display:inline-grid;place-items:center;min-width:20px;height:16px;border-radius:4px;background:var(--pale);font-size:.6rem;}
+  .blk p{margin:0;font-size:.8rem;line-height:1.4;color:var(--ink);overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;}
+  .blk p.empty{color:#7A746A;font-style:italic;}
+  .blk.now{background:var(--pale);box-shadow:0 0 0 2px var(--olive) inset;}
+  .preview details{margin-top:0;}
+  .preview summary{display:none;}
+  @media (max-width:940px){
+    .preview{position:static;}
+    .preview details{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:4px 14px;}
+    .preview summary{display:flex;align-items:center;justify-content:space-between;min-height:52px;cursor:pointer;font-weight:700;list-style:none;}
+    .preview summary::-webkit-details-marker{display:none;}
+    .preview summary::after{content:"+";font-size:1.4rem;font-weight:500;color:var(--olive);}
+    .preview details[open] summary::after{content:"–";}
+    .preview details[open]{padding-bottom:14px;}
+    .preview-h{display:none;}
   }
 
-  *{ box-sizing: border-box; }
-  body{
-    background: var(--bg);
-    color: var(--ink);
-    font-family: 'Inter', system-ui, sans-serif;
-    padding-inline: 16px;
-    padding-block: 28px 48px;
-    min-height: 100%;
-  }
-  .wrap{ max-width: 620px; margin-inline: auto; display:flex; flex-direction:column; gap: 18px; }
+  /* ---------- Revisión final ---------- */
+  .review{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:28px;align-items:start;}
+  @media (max-width:880px){.review{grid-template-columns:1fr;}}
+  .doc.big .doc-head{padding:26px 28px 22px;}
+  .doc.big .doc-head small{font-size:.74rem;}
+  .doc.big .doc-head h3{font-size:clamp(1.6rem,4vw,2.2rem);}
+  .doc.big .doc-head p{font-size:.95rem;}
+  .doc.big .doc-grid{gap:10px;padding:16px;}
+  .doc.big .blk{min-height:0;padding:14px 16px 14px 18px;}
+  .doc.big .blk b{font-size:.72rem;}
+  .doc.big .blk p{font-size:.98rem;line-height:1.5;-webkit-line-clamp:unset;display:block;}
+  .blk .edit{position:absolute;top:8px;right:8px;min-height:32px;padding:0 10px;border-radius:var(--pill);border:1px solid var(--line);background:var(--surface);font-size:.78rem;font-weight:700;color:var(--ink-soft);cursor:pointer;}
+  .blk .edit:hover{border-color:var(--olive-400);color:var(--ink);}
+  @media (max-width:560px){.doc-grid{grid-template-columns:1fr;}}
+  .side{display:flex;flex-direction:column;gap:12px;position:sticky;top:84px;}
+  .side .card{padding:22px;}
+  .side h2{font-size:1.3rem;margin-bottom:6px;}
+  .side p{font-size:.94rem;color:var(--ink-soft);}
+  .side .btn{width:100%;}
+  .check{list-style:none;margin:0 0 6px;padding:0;display:grid;gap:6px;font-size:.92rem;}
+  .check li{display:flex;gap:8px;align-items:flex-start;}
+  .check svg{width:18px;height:18px;flex-shrink:0;margin-top:3px;}
+  .check .y svg{color:var(--olive);}
+  .check .n svg{color:var(--warm);}
+  .status{min-height:1.5em;font-size:.92rem;font-weight:600;color:var(--olive-800);margin:0;text-align:center;}
+  .status.err{color:var(--warm);}
+  .next-step{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--olive-900);color:var(--pale);border-radius:var(--r);padding:18px 20px;text-decoration:none;}
+  .next-step:hover{background:var(--olive-800);color:#fff;}
+  .next-step small{display:block;font-size:.74rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--lime);}
+  .next-step b{font-family:var(--font-display);font-size:1.15rem;color:#fff;}
+  .next-step svg{width:22px;height:22px;flex-shrink:0;}
 
-  /* header */
-  .masthead{ display:flex; flex-direction:column; gap:4px; }
-  .eyebrow{
-    font-family:'Inter', sans-serif; font-weight: 600;
-    font-size: 13.5px; letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--ink-faint);
-  }
-  h1{
-    font-family:'Fraunces', Georgia, serif;
-    font-weight: 700;
-    font-size: clamp(28px, 6vw, 36px);
-    margin: 0; letter-spacing: -0.01em;
-    text-wrap: balance;
-  }
-  .sub{ font-size: 16px; color: var(--ink-soft); max-width: 46ch; line-height:1.5; }
+  footer{border-top:1px solid var(--line);padding-block:24px 36px;font-size:.88rem;color:var(--ink-soft);}
+  footer p{max-width:80ch;margin:0;}
 
-  /* progress */
-  .progress{ display:flex; align-items:center; gap: 6px; flex-wrap: wrap; }
-  .dot{
-    width: 10px; height:10px; border-radius: 50%;
-    background: var(--card-line);
-    flex: 0 0 auto;
-    transition: background .2s, transform .2s;
-  }
-  .dot[data-state="done"]{ background: var(--accent); }
-  .dot[data-state="current"]{ background: var(--accent-mid); transform: scale(1.35); }
-  .progress-label{
-    font-family:'Inter', sans-serif; font-weight: 500; font-size: 13.5px; color: var(--ink-faint);
-    margin-inline-start: 4px; letter-spacing: 0.02em;
-  }
+  dialog{border:0;border-radius:20px;padding:24px;max-width:min(420px,calc(100% - 32px));box-shadow:0 30px 80px -20px rgba(30,28,26,.45);}
+  dialog::backdrop{background:rgba(30,28,26,.5);}
+  dialog h2{font-size:1.3rem;margin-bottom:8px;}
+  dialog p{color:var(--ink-soft);}
+  dialog .row{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;margin-top:18px;}
+  .btn-warm{background:var(--warm);color:#fff;}
+  .btn-warm:hover{background:#9A3C27;}
 
-  /* card */
-  .card{
-    background: var(--card);
-    border: 1px solid var(--card-line);
-    border-radius: var(--radius-card);
-    padding: 28px 26px 24px;
-    box-shadow: 0 12px 28px -18px var(--shadow), 0 2px 8px -4px var(--shadow);
-    position: relative;
-  }
-  .card-tab{
-    font-family:'Inter', sans-serif; font-weight: 600; font-size: 13.5px;
-    letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--accent-ink); background: var(--accent-soft);
-    display:inline-flex; padding: 4px 10px; border-radius: var(--radius-pill);
-    margin-bottom: 16px;
-  }
-  .question{
-    font-family:'Fraunces', Georgia, serif;
-    font-weight: 600; font-size: clamp(19px, 4.4vw, 23px);
-    line-height: 1.35; margin: 0 0 6px; text-wrap: balance;
-  }
-  .helper{ font-size: 15.5px; color: var(--ink-soft); margin: 0 0 16px; line-height:1.5; }
-
-  input[type="text"], textarea{
-    width: 100%;
-    font-family: 'Inter', sans-serif;
-    font-size: 17px;
-    color: var(--ink);
-    background: transparent;
-    border: none;
-    border-bottom: 1.5px solid var(--card-line);
-    padding: 8px 2px 10px;
-    resize: vertical;
-    line-height: 1.5;
-  }
-  input[type="text"]:focus, textarea:focus{
-    outline: none; border-bottom-color: var(--accent);
-  }
-  textarea{ min-height: 84px; }
-  ::placeholder{ color: var(--ink-faint); }
-
-  .field-foot{
-    display:flex; justify-content: flex-end; align-items:baseline;
-    margin-top: 6px; font-family:'Inter', sans-serif; font-size: 13.5px;
-    color: var(--ink-faint);
-  }
-  .field-foot.over{ color: var(--danger); }
-  .field-group + .field-group{ margin-top: 16px; }
-
-  .chips{ display:flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
-  .chip{
-    font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 500;
-    padding: 7px 12px; border-radius: var(--radius-pill);
-    border: 1.5px solid var(--card-line); background: transparent; color: var(--ink-soft);
-    cursor: pointer; transition: all .15s;
-  }
-  .chip:hover{ border-color: var(--accent); }
-  .chip[aria-pressed="true"]{
-    background: var(--accent); border-color: var(--accent); color: #fff;
-  }
-
-  .team-row{ display:flex; flex-direction:column; gap: 16px; }
-
-  /* nav */
-  .nav{ display:flex; justify-content: space-between; align-items:center; gap: 10px; margin-top: 20px; }
-  button{ font-family: 'Inter', sans-serif; cursor:pointer; }
-  .btn{
-    font-size: 16px; font-weight: 600; padding: 10px 20px; border-radius: var(--radius-pill);
-    border: 1.5px solid var(--accent); background: var(--accent); color: #fff;
-    transition: opacity .15s, transform .1s;
-  }
-  .btn:active{ transform: translateY(1px); }
-  .btn[disabled]{ opacity: .35; cursor: not-allowed; }
-  .btn.ghost{ background: transparent; color: var(--ink-soft); border-color: var(--card-line); }
-  .btn.ghost:hover{ border-color: var(--ink-soft); color: var(--ink); }
-  .btn.wide{ width: 100%; }
-
-  .keyhint{ font-family:'Inter', sans-serif; font-weight: 500; font-size: 13.5px; color: var(--ink-faint); }
-
-  /* review */
-  .review-grid{ display:flex; flex-direction:column; gap: 14px; }
-  .review-item{
-    border-bottom: 1px dashed var(--card-line); padding-bottom: 12px;
-    display:flex; flex-direction:column; gap: 3px;
-  }
-  .review-item:last-child{ border-bottom:none; padding-bottom:0; }
-  .review-label{
-    font-family:'Inter', sans-serif; font-weight: 600; font-size: 13.5px;
-    letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-ink);
-    display:flex; justify-content: space-between; gap: 8px;
-  }
-  .review-label button{
-    font-family: inherit; font-size: 13.5px; text-transform: uppercase; letter-spacing: 0.06em;
-    background:none; border:none; color: var(--ink-faint); text-decoration: underline;
-    padding:0;
-  }
-  .review-label button:hover{ color: var(--accent); }
-  .review-value{ font-size: 16.5px; line-height: 1.5; white-space: pre-wrap; }
-  .review-value.empty{ color: var(--ink-faint); font-style: italic; }
-
-  .review-actions{ display:flex; flex-direction:column; gap:10px; margin-top: 20px; }
-  .status-line{
-    font-family:'Inter', sans-serif; font-size: 14.5px; color: var(--ink-soft);
-    text-align:center; min-height: 14px;
-  }
-  .status-line.err{ color: var(--danger); }
-
-  @media (max-width: 420px){
-    .card{ padding: 22px 18px 20px; }
-    .nav{ flex-wrap: wrap; }
-  }
-
-/* ══ Kit v2 Esplora: contraste, tamaños y barra de marca ══ */
-:root{ --kit-bg:#F5F6E4; --kit-ink:#1E1C1A; --kit-soft:#4A463F; --kit-accent:#4B4F1D; }
-html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-font-smoothing:antialiased; }
-:root{ --ink-faint:#4A463F; --ink-muted:#4A463F; --muted:#4A463F; }
-.kit-bar{ background:var(--kit-accent); color:#fff; margin:0; }
-.kit-bar-in{ max-width:1100px; margin:0 auto; padding:0 20px; min-height:54px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
-.kit-bar a{ display:inline-flex; align-items:center; gap:8px; color:#fff; text-decoration:none; font-family:'Fraunces',Georgia,serif; font-weight:700; font-size:16px; }
-.kit-bar a span{ color:#E8EDC4; }
-.kit-bar small{ font-family:'Inter',system-ui,sans-serif; font-size:14px; font-weight:600; color:rgba(255,255,255,.85); text-align:right; }
-.kit-save{ display:inline-flex; align-items:center; gap:6px; }
-.kit-save i{ width:8px; height:8px; border-radius:50%; background:#C5CD78; display:inline-block; }
-@media print{ .kit-bar{ display:none !important; } }
-@media (max-width:640px){ .kit-save{ display:none !important; } .kit-bar small{ font-size:13.5px; } }
-body{ padding-top:0 !important; } .kit-bar{ margin:0 -16px 26px; } .wrap{ max-width:680px !important; }</style>
+  .fade{animation:fadeUp .3s cubic-bezier(.2,.7,.2,1) both;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+  @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important;}}
+</style>
 </head>
 <body>
-<header class="kit-bar"><div class="kit-bar-in"><a href="index.html" aria-label="Esplora, volver al catálogo"><img src="marca/logo-horizontal-crema.svg" alt="" width="114" height="28"></a><small><span class="kit-save" id="kitSave" hidden><i></i>Progreso guardado en este navegador</span> &nbsp;Ficha inicial de la idea</small></div></header>
-<div class="wrap">
-  <header class="masthead">
-    <span class="eyebrow">Fase 3 · Brainstorming de idea de negocio</span>
-    <h1>Ficha de Idea</h1>
-    <p class="sub">Rellenad una ficha por idea. Si una respuesta no se entiende de un vistazo, aún está borrosa: afinadla.</p>
-  </header>
 
-  <div class="progress" id="progress" role="list" aria-label="Progreso del formulario"></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-ok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="m8 12 3 3 5-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-dash" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 12h8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-pdf" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 21h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-save" viewBox="0 0 24 24"><path d="M5 3h11l3 3v15H5zM8 3v6h8V3M8 21v-7h8v7" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-open" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-new" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
+</svg>
 
-  <main class="card" id="card"></main>
-</div>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="index.html" aria-label="Esplora, volver al catálogo">
+      <img src="marca/logo-horizontal-oliva.svg" alt="" width="114" height="28">
+    </a>
+    <span class="saved" id="saved" hidden><i aria-hidden="true"></i>Guardado<span class="long"> en este navegador</span></span>
+  </div>
+</header>
+
+<main class="wrap" id="main">
+  <div class="intro">
+    <div>
+      <span class="kicker">IPE 2 · Unidad 1 · Idea de negocio</span>
+      <h1>Ficha inicial de <em>la idea</em></h1>
+      <p>Ocho preguntas para pasar de «tenemos una idea» a una ficha que se entiende de un vistazo. Si una respuesta no se entiende a la primera, todavía está borrosa: afinadla.</p>
+    </div>
+    <nav class="route" aria-label="Itinerario de la idea de negocio">
+      <a href="generador.html">Generador de ideas</a>
+      <svg aria-hidden="true"><use href="#i-chev"/></svg>
+      <span class="here" aria-current="page">Ficha de la idea</span>
+      <svg aria-hidden="true"><use href="#i-chev"/></svg>
+      <a href="estrella.html">Matriz Estrella</a>
+    </nav>
+  </div>
+
+  <ol class="stepper" id="stepper" aria-label="Pasos de la ficha"></ol>
+  <div class="bar" aria-hidden="true"><i id="barFill"></i></div>
+
+  <div id="view"></div>
+</main>
+
+<footer class="wrap">
+  <p>Lo que escribís se guarda solo en este navegador y no se envía a ningún servidor. Para seguir en otro equipo, guardad la ficha en un archivo desde la revisión final y cargadla allí.</p>
+</footer>
+
+<dialog id="dlgReset" aria-labelledby="dlgResetT">
+  <h2 id="dlgResetT">¿Empezar una ficha nueva?</h2>
+  <p>Se borrará la ficha actual de este navegador. Si queréis conservarla, descargad antes el PDF o guardadla en un archivo.</p>
+  <div class="row">
+    <button type="button" class="btn btn-line" id="dlgNo">Cancelar</button>
+    <button type="button" class="btn btn-warm" id="dlgYes">Borrar y empezar</button>
+  </div>
+</dialog>
+
+<input type="file" id="fileIn" accept="application/json,.json" hidden>
 
 <script src="lib/jspdf.umd.min.js"></script>
 <script>
 (function(){
   "use strict";
 
+  // Clave de siempre: así no se pierden las fichas que ya estaban empezadas
   var STORAGE_KEY = "ficha-idea-draft-v1";
 
   var STEPS = [
-    { id: "team", kind: "team", tab: "Equipo" },
-    { id: "nombre", kind: "text", tab: "01 · Nombre",
-      q: "¿Cómo se llama (de momento) vuestra idea?",
-      helper: "Un nombre provisional vale. Ya le daréis vueltas más adelante.",
-      placeholder: "Ej. EcoRuta, Fixly, TallerVerde…", min: 2, max: 60 },
-    { id: "problema", kind: "textarea", tab: "02 · Problema",
-      q: "¿Qué problema o necesidad resuelve?",
-      helper: "En una frase: qué falla, qué falta o qué molesta hoy en día.",
-      placeholder: "Escribid el problema tal cual lo viviría vuestro cliente…", min: 15, max: 220 },
-    { id: "cliente", kind: "textarea", tab: "03 · Cliente",
-      q: "¿Quién tiene ese problema?",
-      helper: "Describid a una persona concreta, no “todo el mundo”: edad, contexto, hábitos.",
-      placeholder: "Ej. Estudiantes de FP que se mueven en transporte público y llegan tarde…", min: 15, max: 220 },
-    { id: "oferta", kind: "textarea", tab: "04 · Oferta",
-      q: "¿Qué ofrecéis exactamente?",
-      helper: "Producto o servicio, en una frase clara.",
-      placeholder: "Ofrecemos…", min: 10, max: 220 },
-    { id: "competencia", kind: "textarea", tab: "05 · Competencia",
-      q: "¿Cómo se resuelve hoy ese problema?",
-      helper: "Alternativas o competidores que ya existen, aunque sea “apañárselas como se puede”.",
-      placeholder: "Hoy en día la gente…", min: 10, max: 220 },
-    { id: "novedad", kind: "chips", tab: "06 · Novedad",
-      q: "¿Qué tiene de nuevo o diferente?",
-      helper: "Elegid la vía de innovación que mejor encaje y explicadla en una frase.",
-      options: ["Producto nuevo", "Proceso mejor", "Modelo de negocio nuevo", "Nuevo mercado", "Combinación de varias"],
-      placeholder: "En qué consiste esa novedad, en concreto…", max: 220 },
-    { id: "equipo2", kind: "textarea", tab: "07 · Equipo",
-      q: "¿Por qué vosotros?",
-      helper: "Formación, contactos, habilidades o experiencia que ya tenéis.",
-      placeholder: "Nuestro equipo aporta…", min: 10, max: 220 },
-    { id: "viabilidad", kind: "double", tab: "08 · Viabilidad",
-      q: "Primera impresión de viabilidad",
-      helper: "Sin miedo: cuanto antes salga la duda, antes se resuelve.",
-      fields: [
-        { key: "necesita", label: "¿Qué necesitaríais para arrancar?", placeholder: "Dinero, permisos, un local, herramientas…" },
-        { key: "riesgo", label: "¿Cuál es vuestra mayor duda o riesgo?", placeholder: "Lo que más os preocupa de esta idea…" }
-      ], min: 8, max: 180 }
+    { id:"team", kind:"team", tab:"Equipo", short:"Equipo",
+      q:"¿Quiénes firmáis la ficha?",
+      helper:"Rellenad una ficha por idea. Si tenéis varias, haced una para cada una y comparadlas después.",
+      tip:{ txt:"Basta con el nombre del equipo. Los integrantes son opcionales: con el nombre de pila es suficiente." } },
+    { id:"nombre", kind:"text", tab:"Nombre", short:"Nombre",
+      q:"¿Cómo se llama (de momento) vuestra idea?",
+      helper:"Un nombre provisional vale. Ya le daréis vueltas más adelante.",
+      label:"Nombre de la idea", placeholder:"Ej.: Cena en Caja, Turno Fit, Repara Ya…", min:2, max:60,
+      tip:{ txt:"Mejor corto y fácil de decir en voz alta. Si dudáis entre dos, apuntad uno y seguid: lo importante viene ahora." } },
+    { id:"problema", kind:"textarea", tab:"Problema", short:"Problema",
+      q:"¿Qué problema o necesidad resuelve?",
+      helper:"En una frase: qué falla, qué falta o qué molesta hoy.",
+      label:"El problema", placeholder:"Escribid el problema tal y como lo viviría vuestro cliente…", min:15, max:220,
+      tip:{ bad:"La gente pierde el tiempo.", good:"Quienes trabajan a turnos no encuentran gimnasios abiertos a su hora." } },
+    { id:"cliente", kind:"textarea", tab:"Cliente", short:"Cliente",
+      q:"¿Quién tiene ese problema?",
+      helper:"Describid a una persona concreta, no «todo el mundo»: edad, situación, hábitos.",
+      label:"El cliente", placeholder:"Ej.: estudiantes de FP que se mueven en transporte público y…", min:15, max:220,
+      tip:{ bad:"Jóvenes.", good:"Estudiantes de 18 a 24 años que comparten piso y cocinan poco por falta de tiempo." } },
+    { id:"oferta", kind:"textarea", tab:"Oferta", short:"Oferta",
+      q:"¿Qué ofrecéis exactamente?",
+      helper:"Producto o servicio, en una frase que entendería cualquiera.",
+      label:"Lo que ofrecéis", placeholder:"Ofrecemos…", min:10, max:220,
+      tip:{ bad:"Una app para todo.", good:"Una caja semanal con cinco cenas listas para calentar, pensada para pisos compartidos." } },
+    { id:"competencia", kind:"textarea", tab:"Competencia", short:"Competencia",
+      q:"¿Cómo se resuelve hoy ese problema?",
+      helper:"Alternativas o competidores que ya existen, aunque sea «apañárselas como se puede».",
+      label:"Cómo se resuelve hoy", placeholder:"Hoy la gente…", min:10, max:220,
+      tip:{ txt:"Si os sale «no hay competencia», buscad mejor: siempre hay una alternativa, aunque sea un apaño casero o no hacer nada." } },
+    { id:"novedad", kind:"chips", tab:"Novedad", short:"Novedad",
+      q:"¿Qué tiene de nuevo o de diferente?",
+      helper:"Elegid la vía de innovación que mejor encaje y explicadla en una frase.",
+      options:[
+        { v:"Producto nuevo", d:"Algo que no existía o que mejora claramente lo que hay." },
+        { v:"Proceso mejor", d:"Lo mismo, pero más rápido, más barato o más sostenible." },
+        { v:"Modelo de negocio nuevo", d:"Otra forma de cobrar o de llegar al cliente: suscripción, alquiler…" },
+        { v:"Nuevo mercado", d:"Algo que ya existe, para un público o un lugar que no lo tiene." },
+        { v:"Combinación de varias", d:"Vuestra idea mezcla dos o más de estas vías." }
+      ],
+      label:"En qué consiste la novedad", placeholder:"En qué consiste esa novedad, en concreto…", min:8, max:220,
+      tip:{ txt:"Innovar no es solo inventar algo nunca visto: también es hacerlo más barato, más rápido, para otro público o cobrándolo de otra forma." } },
+    { id:"equipo2", kind:"textarea", tab:"Por qué vosotros", short:"Por qué vosotros",
+      q:"¿Por qué vosotros?",
+      helper:"Formación, contactos, habilidades o experiencia que ya tenéis.",
+      label:"Lo que aporta el equipo", placeholder:"Nuestro equipo aporta…", min:10, max:220,
+      tip:{ txt:"Pensad en lo que ya sabéis hacer por vuestro ciclo (atención al cliente, redes sociales, escaparatismo…) y en a quién conocéis." } },
+    { id:"viabilidad", kind:"double", tab:"Viabilidad", short:"Viabilidad",
+      q:"Primera impresión de viabilidad",
+      helper:"Sin miedo: cuanto antes salga la duda, antes se resuelve.",
+      fields:[
+        { key:"viabilidadNecesita", label:"¿Qué necesitaríais para arrancar?", placeholder:"Dinero, permisos, un local, herramientas…" },
+        { key:"viabilidadRiesgo", label:"¿Cuál es vuestra mayor duda o riesgo?", placeholder:"Lo que más os preocupa de esta idea…" }
+      ], min:8, max:180,
+      tip:{ txt:"Una duda bien escrita vale más que un «todo irá bien». Es justo lo que pondréis a prueba en la Matriz Estrella." } }
+  ];
+  var REVIEW = STEPS.length;
+
+  // Bloques de la ficha: mismo orden que el PDF. "go" = paso donde se edita.
+  var BLOCKS = [
+    { label:"Problema que resuelve", get:function(d){ return d.problema; }, go:2 },
+    { label:"Cliente objetivo", get:function(d){ return d.cliente; }, go:3 },
+    { label:"Qué ofrecemos", get:function(d){ return d.oferta; }, go:4 },
+    { label:"Cómo se resuelve hoy", get:function(d){ return d.competencia; }, go:5 },
+    { label:"Qué tiene de nuevo", get:function(d){ return d.novedadTipo ? d.novedadTipo + (d.novedadTexto ? " — " + d.novedadTexto : "") : d.novedadTexto; }, go:6 },
+    { label:"Por qué nosotros", get:function(d){ return d.equipo2; }, go:7 },
+    { label:"Para arrancar necesitamos", get:function(d){ return d.viabilidadNecesita; }, go:8 },
+    { label:"Mayor riesgo o duda", get:function(d){ return d.viabilidadRiesgo; }, go:8 }
   ];
 
-  var TOTAL = STEPS.length + 1; // + review screen
-  var data = {
-    equipo: "", integrantes: "",
-    nombre: "", problema: "", cliente: "", oferta: "", competencia: "",
-    novedadTipo: "", novedadTexto: "",
-    equipo2: "",
-    viabilidadNecesita: "", viabilidadRiesgo: ""
+  var EMPTY = {
+    equipo:"", integrantes:"",
+    nombre:"", problema:"", cliente:"", oferta:"", competencia:"",
+    novedadTipo:"", novedadTexto:"",
+    equipo2:"",
+    viabilidadNecesita:"", viabilidadRiesgo:""
   };
+  var data = Object.assign({}, EMPTY);
   var step = 0;
 
+  function $(id){ return document.getElementById(id); }
+  function esc(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
+  function len(v){ return (v || "").trim().length; }
+
+  function sanitize(src){
+    var out = Object.assign({}, EMPTY);
+    if(src && typeof src === "object"){
+      Object.keys(EMPTY).forEach(function(k){ if(typeof src[k] === "string") out[k] = src[k]; });
+    }
+    return out;
+  }
   function loadDraft(){
     try{
-      var raw = localStorage.getItem(STORAGE_KEY);
-      if(!raw) return;
-      var parsed = JSON.parse(raw);
+      var parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
       if(parsed && typeof parsed === "object"){
-        Object.assign(data, parsed.data || {});
-        if(typeof parsed.step === "number") step = Math.min(parsed.step, TOTAL - 1);
+        data = sanitize(parsed.data);
+        if(typeof parsed.step === "number") step = Math.max(0, Math.min(parsed.step, REVIEW));
       }
-    }catch(e){ /* ignore, start fresh */ }
+    }catch(e){}
   }
   function saveDraft(){
-    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify({ data: data, step: step })); var ks=document.getElementById("kitSave"); if(ks) ks.hidden=false; }
-    catch(e){ /* storage unavailable, continue without persistence */ }
+    try{
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ data:data, step:step }));
+      $("saved").hidden = !Object.keys(EMPTY).some(function(k){ return len(data[k]); });
+    }catch(e){}
   }
 
-  var progressEl = document.getElementById("progress");
-  var cardEl = document.getElementById("card");
-
-  function renderProgress(){
-    progressEl.innerHTML = "";
-    for(var i = 0; i < TOTAL; i++){
-      var dot = document.createElement("span");
-      dot.className = "dot";
-      dot.setAttribute("role", "listitem");
-      dot.dataset.state = i < step ? "done" : (i === step ? "current" : "upcoming");
-      progressEl.appendChild(dot);
+  // Validación por paso: devuelve lo que falta (texto) o "" si está completo
+  function missing(i){
+    var s = STEPS[i];
+    if(!s) return "";
+    if(s.kind === "team") return len(data.equipo) >= 2 ? "" : "Escribid el nombre del equipo.";
+    if(s.kind === "text" || s.kind === "textarea"){
+      var n = s.min - len(data[s.id]);
+      return n > 0 ? "Faltan " + n + " caracteres para poder seguir." : "";
     }
-    var label = document.createElement("span");
-    label.className = "progress-label";
-    label.textContent = step < STEPS.length
-      ? (step + 1) + " / " + STEPS.length
-      : "Revisión final";
-    progressEl.appendChild(label);
-  }
-
-  function isStepValid(s){
-    if(s.kind === "team") return (data.equipo || "").trim().length >= 2;
-    if(s.kind === "text") return (data[s.id] || "").trim().length >= s.min;
-    if(s.kind === "textarea") return (data[s.id] || "").trim().length >= s.min;
-    if(s.kind === "chips") return !!data.novedadTipo && (data.novedadTexto || "").trim().length >= 8;
-    if(s.kind === "double") return s.fields.every(function(f){
-      var key = "viabilidad" + f.key.charAt(0).toUpperCase() + f.key.slice(1);
-      return (data[key] || "").trim().length >= s.min;
-    });
-    return true;
-  }
-
-  function renderStep(){
-    renderProgress();
-    cardEl.innerHTML = "";
-
-    if(step >= STEPS.length){
-      renderReview();
-      return;
+    if(s.kind === "chips"){
+      if(!data.novedadTipo) return "Elegid una vía de innovación.";
+      var m = s.min - len(data.novedadTexto);
+      return m > 0 ? "Faltan " + m + " caracteres en la explicación." : "";
     }
-
-    var s = STEPS[step];
-    var tab = document.createElement("span");
-    tab.className = "card-tab";
-    tab.textContent = s.tab;
-    cardEl.appendChild(tab);
-
-    var q = document.createElement("h2");
-    q.className = "question";
-    q.textContent = s.q;
-    cardEl.appendChild(q);
-
-    var helper = document.createElement("p");
-    helper.className = "helper";
-    helper.textContent = s.helper;
-    cardEl.appendChild(helper);
-
-    if(s.kind === "team"){
-      var row = document.createElement("div");
-      row.className = "team-row";
-      row.appendChild(makeField({
-        tag: "input", id: "equipo", value: data.equipo,
-        placeholder: "Nombre del equipo", max: 40
-      }));
-      row.appendChild(makeField({
-        tag: "textarea", id: "integrantes", value: data.integrantes,
-        placeholder: "Integrantes del equipo (opcional)", max: 160, optional: true
-      }));
-      cardEl.appendChild(row);
-    } else if(s.kind === "text"){
-      cardEl.appendChild(makeField({ tag: "input", id: s.id, value: data[s.id], placeholder: s.placeholder, max: s.max }));
-    } else if(s.kind === "textarea"){
-      cardEl.appendChild(makeField({ tag: "textarea", id: s.id, value: data[s.id], placeholder: s.placeholder, max: s.max }));
-    } else if(s.kind === "chips"){
-      var chips = document.createElement("div");
-      chips.className = "chips";
-      s.options.forEach(function(opt){
-        var chip = document.createElement("button");
-        chip.type = "button";
-        chip.className = "chip";
-        chip.textContent = opt;
-        chip.setAttribute("aria-pressed", data.novedadTipo === opt ? "true" : "false");
-        chip.addEventListener("click", function(){
-          data.novedadTipo = opt;
-          saveDraft();
-          renderStep();
-        });
-        chips.appendChild(chip);
-      });
-      cardEl.appendChild(chips);
-      cardEl.appendChild(makeField({ tag: "textarea", id: "novedadTexto", value: data.novedadTexto, placeholder: s.placeholder, max: s.max }));
-    } else if(s.kind === "double"){
-      s.fields.forEach(function(f, idx){
-        var key = "viabilidad" + f.key.charAt(0).toUpperCase() + f.key.slice(1);
-        var group = document.createElement("div");
-        group.className = "field-group";
-        var label = document.createElement("p");
-        label.className = "helper";
-        label.style.marginBottom = "8px";
-        label.style.fontWeight = "600";
-        label.style.color = "var(--ink)";
-        label.textContent = f.label;
-        group.appendChild(label);
-        group.appendChild(makeField({ tag: "textarea", id: key, value: data[key], placeholder: f.placeholder, max: s.max }));
-        cardEl.appendChild(group);
-      });
-    }
-
-    var nav = document.createElement("div");
-    nav.className = "nav";
-
-    var back = document.createElement("button");
-    back.className = "btn ghost";
-    back.textContent = "← Atrás";
-    back.disabled = step === 0;
-    back.addEventListener("click", function(){ step = Math.max(0, step - 1); saveDraft(); renderStep(); });
-    nav.appendChild(back);
-
-    var right = document.createElement("div");
-    right.style.display = "flex";
-    right.style.alignItems = "center";
-    right.style.gap = "10px";
-
-    var hint = document.createElement("span");
-    hint.className = "keyhint";
-    hint.textContent = "Enter ↵";
-    right.appendChild(hint);
-
-    var next = document.createElement("button");
-    next.className = "btn";
-    next.textContent = step === STEPS.length - 1 ? "Revisar ficha →" : "Siguiente →";
-    next.disabled = !isStepValid(s);
-    next.addEventListener("click", function(){ step++; saveDraft(); renderStep(); });
-    right.appendChild(next);
-
-    nav.appendChild(right);
-    cardEl.appendChild(nav);
-
-    var firstInput = cardEl.querySelector("input, textarea, .chip");
-    if(firstInput && (step > 0 || s.kind !== "team")) {
-      var toFocus = cardEl.querySelector("input[type=text], textarea");
-      if(toFocus) toFocus.focus();
-    }
-  }
-
-  function makeField(opts){
-    var wrap = document.createElement("div");
-    wrap.className = "field-group";
-    var el = document.createElement(opts.tag);
-    el.id = "f-" + opts.id;
-    el.placeholder = opts.placeholder;
-    if(opts.max) el.maxLength = opts.max;
-    if(opts.tag === "input") el.type = "text";
-    el.value = opts.value || "";
-    el.addEventListener("input", function(){
-      data[opts.id] = el.value;
-      saveDraft();
-      updateFoot(foot, el.value, opts.max, opts.optional);
-      updateNextState();
-    });
-    el.addEventListener("keydown", function(e){
-      if(opts.tag === "input" && e.key === "Enter"){
-        e.preventDefault();
-        var next = cardEl.querySelector(".nav .btn:not(.ghost)");
-        if(next && !next.disabled) next.click();
+    if(s.kind === "double"){
+      for(var f = 0; f < s.fields.length; f++){
+        var k = s.min - len(data[s.fields[f].key]);
+        if(k > 0) return "Completad las dos respuestas (mínimo " + s.min + " caracteres cada una).";
       }
-    });
-    wrap.appendChild(el);
-
-    var foot = document.createElement("div");
-    foot.className = "field-foot";
-    wrap.appendChild(foot);
-    updateFoot(foot, el.value, opts.max, opts.optional);
-
-    return wrap;
-  }
-
-  function updateFoot(foot, value, max, optional){
-    var len = (value || "").length;
-    foot.innerHTML = "";
-    if(optional){
-      var left = document.createElement("span");
-      left.textContent = "opcional";
-      left.style.marginInlineEnd = "auto";
-      foot.appendChild(left);
     }
-    var right = document.createElement("span");
-    right.textContent = len + (max ? " / " + max : "");
-    foot.appendChild(right);
-    foot.classList.toggle("over", !!max && len >= max);
+    return "";
+  }
+  function firstIncomplete(){
+    for(var i = 0; i < STEPS.length; i++) if(missing(i)) return i;
+    return REVIEW;
   }
 
-  function updateNextState(){
-    var s = STEPS[step];
-    if(!s) return;
-    var next = cardEl.querySelector(".nav .btn:not(.ghost)");
-    if(next) next.disabled = !isStepValid(s);
-  }
-
-  function reviewRow(label, value, jumpIndex){
-    var item = document.createElement("div");
-    item.className = "review-item";
-    var lab = document.createElement("div");
-    lab.className = "review-label";
-    var labText = document.createElement("span");
-    labText.textContent = label;
-    lab.appendChild(labText);
-    var edit = document.createElement("button");
-    edit.type = "button";
-    edit.textContent = "editar";
-    edit.addEventListener("click", function(){ step = jumpIndex; saveDraft(); renderStep(); });
-    lab.appendChild(edit);
-    item.appendChild(lab);
-    var val = document.createElement("div");
-    val.className = "review-value" + (value ? "" : " empty");
-    val.textContent = value || "— sin completar —";
-    item.appendChild(val);
-    return item;
-  }
-
-  function renderReview(){
-    var tab = document.createElement("span");
-    tab.className = "card-tab";
-    tab.textContent = "Revisión";
-    cardEl.appendChild(tab);
-
-    var q = document.createElement("h2");
-    q.className = "question";
-    q.textContent = data.equipo ? "Ficha de " + data.equipo : "Vuestra ficha de idea";
-    cardEl.appendChild(q);
-
-    var helper = document.createElement("p");
-    helper.className = "helper";
-    helper.textContent = "Revisadla con calma antes de descargarla. Si algo no se entiende a la primera, afinadlo.";
-    cardEl.appendChild(helper);
-
-    var grid = document.createElement("div");
-    grid.className = "review-grid";
-    grid.appendChild(reviewRow("Idea", data.nombre, 1));
-    grid.appendChild(reviewRow("Problema", data.problema, 2));
-    grid.appendChild(reviewRow("Cliente", data.cliente, 3));
-    grid.appendChild(reviewRow("Oferta", data.oferta, 4));
-    grid.appendChild(reviewRow("Competencia", data.competencia, 5));
-    grid.appendChild(reviewRow("Novedad", data.novedadTipo ? (data.novedadTipo + " — " + data.novedadTexto) : "", 6));
-    grid.appendChild(reviewRow("Por qué vosotros", data.equipo2, 7));
-    grid.appendChild(reviewRow("Para arrancar", data.viabilidadNecesita, 8));
-    grid.appendChild(reviewRow("Mayor riesgo", data.viabilidadRiesgo, 8));
-    cardEl.appendChild(grid);
-
-    var actions = document.createElement("div");
-    actions.className = "review-actions";
-
-    var dlBtn = document.createElement("button");
-    dlBtn.className = "btn wide";
-    dlBtn.textContent = "Descargar ficha en PDF";
-    dlBtn.addEventListener("click", function(){ handleDownload(dlBtn, status); });
-    actions.appendChild(dlBtn);
-
-    var backBtn = document.createElement("button");
-    backBtn.className = "btn ghost wide";
-    backBtn.textContent = "← Seguir editando";
-    backBtn.addEventListener("click", function(){ step = STEPS.length - 1; saveDraft(); renderStep(); });
-    actions.appendChild(backBtn);
-
-    var resetBtn = document.createElement("button");
-    resetBtn.className = "btn ghost wide";
-    resetBtn.textContent = "Empezar una ficha nueva";
-    resetBtn.addEventListener("click", function(){
-      if(!confirmReset()) return;
-      resetAll();
+  // ---------- Pasos y barra ----------
+  function renderStepper(){
+    var reach = firstIncomplete();
+    var html = STEPS.map(function(s, i){
+      var done = !missing(i), cur = i === step, can = i <= reach;
+      return '<li><button type="button" class="step-b' + (done ? " done" : "") + '" data-i="' + i + '"' +
+        (cur ? ' aria-current="step"' : "") + (can ? "" : " disabled") +
+        ' aria-label="Paso ' + (i + 1) + ': ' + esc(s.tab) + (done ? ", completado" : "") + '"><span class="n" aria-hidden="true">' +
+        (done && !cur ? '<svg width="14" height="14"><use href="#i-check"/></svg>' : (i + 1)) + '</span>' + esc(s.short) + '</button></li>';
+    }).join("");
+    html += '<li><button type="button" class="step-b' + (reach === REVIEW ? " done" : "") + '" data-i="' + REVIEW + '"' +
+      (step === REVIEW ? ' aria-current="step"' : "") + (reach === REVIEW ? "" : " disabled") +
+      '><span class="n" aria-hidden="true">✓</span>Revisión</button></li>';
+    $("stepper").innerHTML = html;
+    $("stepper").querySelectorAll(".step-b").forEach(function(b){
+      b.addEventListener("click", function(){ go(+b.dataset.i); });
     });
-    actions.appendChild(resetBtn);
-
-    var status = document.createElement("div");
-    status.className = "status-line";
-    actions.appendChild(status);
-
-    cardEl.appendChild(actions);
+    var doneCount = STEPS.filter(function(_, i){ return !missing(i); }).length;
+    $("barFill").style.width = (doneCount / STEPS.length * 100) + "%";
+    var curBtn = $("stepper").querySelector('[aria-current="step"]');
+    if(curBtn && curBtn.scrollIntoView) curBtn.scrollIntoView({ block:"nearest", inline:"nearest" });
   }
 
-  var pendingReset = false;
-  function confirmReset(){
-    // page-native confirmation (browser confirm() is unavailable in this view)
-    if(pendingReset) { pendingReset = false; return true; }
-    pendingReset = true;
-    var status = cardEl.querySelector(".status-line");
-    if(status){
-      status.textContent = "Pulsa otra vez para confirmar: se borrará todo.";
-      status.classList.remove("err");
-    }
-    setTimeout(function(){ pendingReset = false; }, 3500);
-    return false;
-  }
-
-  function resetAll(){
-    Object.keys(data).forEach(function(k){ data[k] = ""; });
-    step = 0;
+  function go(i){
+    step = Math.max(0, Math.min(i, REVIEW));
     saveDraft();
-    renderStep();
+    render(true);
   }
 
+  // ---------- Vista previa ----------
+  function docHTML(big, now){
+    var team = data.equipo ? esc(data.equipo) + (data.integrantes ? " · " + esc(data.integrantes) : "") : "Equipo sin nombre";
+    var blocks = BLOCKS.map(function(b, i){
+      var v = (b.get(data) || "").trim();
+      var isNow = !big && now === b.go;
+      return '<div class="blk' + (isNow ? " now" : "") + '"><b><i>' + String(i + 1).padStart(2, "0") + '</i>' + b.label + '</b>' +
+        '<p class="' + (v ? "" : "empty") + '">' + (v ? esc(v) : "Pendiente") + '</p>' +
+        (big ? '<button type="button" class="edit" data-go="' + b.go + '" aria-label="Editar: ' + b.label + '">Editar</button>' : "") + '</div>';
+    }).join("");
+    return '<div class="doc' + (big ? " big" : "") + '"><div class="doc-head"><small><span>Ficha de idea de negocio</span><span>Esplora</span></small>' +
+      '<h3 class="' + (data.nombre.trim() ? "" : "empty") + '">' + (data.nombre.trim() ? esc(data.nombre) : "Vuestra idea") + '</h3>' +
+      '<p>' + team + '</p></div><div class="doc-grid">' + blocks + '</div></div>';
+  }
+  function refreshPreview(){
+    var el = $("docLive");
+    if(el) el.innerHTML = docHTML(false, step);
+  }
+
+  // ---------- Un paso ----------
+  function fieldHTML(id, label, value, opts){
+    var tag = opts.input ? "input" : "textarea";
+    var attrs = 'id="f-' + id + '" data-key="' + id + '" maxlength="' + opts.max + '" placeholder="' + esc(opts.placeholder || "") + '"' +
+      (opts.describe ? ' aria-describedby="foot-' + id + '"' : "");
+    var ctrl = tag === "input"
+      ? '<input type="text" ' + attrs + ' value="' + esc(value) + '" autocomplete="off">'
+      : '<textarea ' + attrs + '>' + esc(value) + '</textarea>';
+    return '<div class="field"><label for="f-' + id + '">' + label + (opts.optional ? ' <span class="opt">(opcional)</span>' : "") + '</label>' + ctrl +
+      '<div class="foot" id="foot-' + id + '"><span class="need"></span><span class="cnt"></span></div></div>';
+  }
+  function tipHTML(t){
+    if(!t) return "";
+    var body = t.txt ? '<p>' + t.txt + '</p>'
+      : '<p><span class="bad">Flojo:</span> «' + t.bad + '»</p><p><span class="good">Mejor:</span> «' + t.good + '»</p>';
+    return '<div class="tip"><svg aria-hidden="true"><use href="#i-bulb"/></svg><div><span class="lbl">Pista</span>' + body + '</div></div>';
+  }
+
+  function renderStep(focus){
+    var s = STEPS[step];
+    var body = "";
+    if(s.kind === "team"){
+      body = fieldHTML("equipo", "Nombre del equipo", data.equipo, { input:true, max:40, placeholder:"Ej.: Equipo Norte", describe:true }) +
+             fieldHTML("integrantes", "Integrantes", data.integrantes, { max:160, placeholder:"Ej.: Ana, Iker y Sara", optional:true, describe:true });
+    }else if(s.kind === "text" || s.kind === "textarea"){
+      body = fieldHTML(s.id, s.label, data[s.id], { input:s.kind === "text", max:s.max, placeholder:s.placeholder, describe:true });
+    }else if(s.kind === "chips"){
+      body = '<div class="ways" role="group" aria-label="Vía de innovación">' + s.options.map(function(o){
+        return '<button type="button" class="way" data-v="' + esc(o.v) + '" aria-pressed="' + (data.novedadTipo === o.v) + '"><b>' + o.v +
+          '<span class="ck" aria-hidden="true"><svg><use href="#i-check"/></svg></span></b><span>' + o.d + '</span></button>';
+      }).join("") + '</div>' +
+      fieldHTML("novedadTexto", s.label, data.novedadTexto, { max:s.max, placeholder:s.placeholder, describe:true });
+    }else if(s.kind === "double"){
+      body = s.fields.map(function(f){ return fieldHTML(f.key, f.label, data[f.key], { max:s.max, placeholder:f.placeholder, describe:true }); }).join("");
+    }
+
+    var last = step === STEPS.length - 1;
+    $("cardStep").innerHTML =
+      '<span class="tag"><b>' + (step + 1) + '</b>' + esc(s.tab) + ' · paso ' + (step + 1) + ' de ' + STEPS.length + '</span>' +
+      '<h2 class="q" id="stepQ" tabindex="-1">' + s.q + '</h2>' +
+      '<p class="helper">' + s.helper + '</p>' + body + tipHTML(s.tip) +
+      '<div class="nav"><button type="button" class="btn btn-line" id="bBack"' + (step === 0 ? " disabled" : "") + '><svg aria-hidden="true"><use href="#i-left"/></svg>Atrás</button>' +
+      '<div class="nav-r"><span class="kbd" aria-hidden="true">Ctrl + Intro</span><button type="button" class="btn btn-olive" id="bNext">' +
+      (last ? "Revisar la ficha" : "Siguiente") + '<svg aria-hidden="true"><use href="#i-arrow"/></svg></button></div></div>' +
+      '<p class="sr" id="liveNeed" aria-live="polite"></p>';
+
+    var card = $("cardStep");
+    card.querySelectorAll("[data-key]").forEach(function(el){
+      var key = el.dataset.key;
+      updateFoot(el);
+      el.addEventListener("input", function(){
+        data[key] = el.value;
+        saveDraft(); updateFoot(el); updateNext(); refreshPreview(); renderStepper();
+      });
+      el.addEventListener("keydown", function(e){
+        var submit = (e.key === "Enter" && (el.tagName === "INPUT" || e.ctrlKey || e.metaKey));
+        if(submit){ e.preventDefault(); var n = $("bNext"); if(!n.disabled) n.click(); }
+      });
+    });
+    card.querySelectorAll(".way").forEach(function(w){
+      w.addEventListener("click", function(){
+        data.novedadTipo = w.dataset.v;
+        card.querySelectorAll(".way").forEach(function(x){ x.setAttribute("aria-pressed", x === w ? "true" : "false"); });
+        saveDraft(); updateNext(); refreshPreview(); renderStepper();
+      });
+    });
+    $("bBack").addEventListener("click", function(){ go(step - 1); });
+    $("bNext").addEventListener("click", function(){ if(!missing(step)) go(step + 1); });
+    updateNext();
+
+    if(focus){
+      var first = card.querySelector("input,textarea");
+      (first || $("stepQ")).focus({ preventScroll:true });
+    }
+  }
+
+  function updateFoot(el){
+    var foot = $("foot-" + el.dataset.key);
+    if(!foot) return;
+    var key = el.dataset.key, n = len(el.value), max = +el.getAttribute("maxlength");
+    var s = STEPS[step], min = 0;
+    if(s.kind === "team" && key === "equipo") min = 2;
+    else if(s.kind === "text" || s.kind === "textarea" || s.kind === "chips" || s.kind === "double") min = s.min;
+    var need = foot.querySelector(".need"), cnt = foot.querySelector(".cnt");
+    if(min){
+      need.textContent = n >= min ? "Listo" : "Mínimo " + min + " caracteres";
+      need.classList.toggle("ok", n >= min);
+    }else need.textContent = "";
+    cnt.innerHTML = el.value.length >= max ? '<span class="over">' + el.value.length + " / " + max + "</span>" : el.value.length + " / " + max;
+  }
+  function updateNext(){
+    var m = missing(step), n = $("bNext");
+    if(!n) return;
+    n.disabled = !!m;
+    $("liveNeed").textContent = m;
+    n.title = m;
+  }
+
+  // ---------- Revisión final ----------
+  function renderReview(){
+    var checks = STEPS.slice(1).map(function(s, i){
+      var ok = !missing(i + 1);
+      return '<li class="' + (ok ? "y" : "n") + '"><svg aria-hidden="true"><use href="#' + (ok ? "i-ok" : "i-dash") + '"/></svg>' + esc(s.tab) + (ok ? "" : " (incompleto)") + '</li>';
+    }).join("");
+    $("view").innerHTML =
+      '<div class="review fade">' +
+        '<div><h2 class="sr" id="stepQ" tabindex="-1">Revisión de la ficha</h2>' + docHTML(true) + '</div>' +
+        '<aside class="side">' +
+          '<div class="card"><h2>Vuestra ficha está lista</h2><p>Leedla en voz alta: si algo no se entiende a la primera, pulsad «Editar» en ese bloque.</p>' +
+          '<ul class="check" aria-label="Estado de cada apartado">' + checks + '</ul></div>' +
+          '<button type="button" class="btn btn-olive" id="bPdf"><svg aria-hidden="true"><use href="#i-pdf"/></svg>Descargar la ficha en PDF</button>' +
+          '<button type="button" class="btn btn-line" id="bExport"><svg aria-hidden="true"><use href="#i-save"/></svg>Guardar en un archivo</button>' +
+          '<button type="button" class="btn btn-line" id="bImport"><svg aria-hidden="true"><use href="#i-open"/></svg>Cargar desde un archivo</button>' +
+          '<button type="button" class="btn btn-line" id="bNew"><svg aria-hidden="true"><use href="#i-new"/></svg>Empezar una ficha nueva</button>' +
+          '<p class="status" id="status" role="status"></p>' +
+          '<a class="next-step" href="estrella.html"><span><small>Siguiente paso</small><b>Matriz Estrella</b></span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>' +
+        '</aside>' +
+      '</div>';
+    $("view").querySelectorAll(".edit").forEach(function(b){ b.addEventListener("click", function(){ go(+b.dataset.go); }); });
+    $("bPdf").addEventListener("click", function(){ handleDownload($("bPdf")); });
+    $("bExport").addEventListener("click", exportFile);
+    $("bImport").addEventListener("click", function(){ $("fileIn").click(); });
+    $("bNew").addEventListener("click", function(){ $("dlgReset").showModal(); });
+  }
+
+  // ---------- Pintado general ----------
+  function render(focus){
+    renderStepper();
+    if(step >= REVIEW){
+      renderReview();
+      if(focus) $("stepQ").focus({ preventScroll:true });
+    }else{
+      if(!$("cardStep")){
+        $("view").innerHTML =
+          '<div class="shell"><section class="card fade" id="cardStep" aria-labelledby="stepQ"></section>' +
+          '<aside class="preview" aria-label="Vista previa de la ficha"><div class="preview-h"><span>Vista previa en directo</span></div>' +
+          '<details id="pvDet"><summary>Ver cómo va la ficha</summary><div id="docLive"></div></details></aside></div>';
+        syncDetails();
+      }
+      renderStep(focus);
+      refreshPreview();
+    }
+    if(focus) window.scrollTo({ top:0, behavior:"auto" });
+  }
+  // En pantalla ancha la vista previa siempre está abierta; en móvil, plegada
+  var mq = window.matchMedia("(min-width: 941px)");
+  function syncDetails(){ var d = $("pvDet"); if(d) d.open = mq.matches; }
+  if(mq.addEventListener) mq.addEventListener("change", syncDetails);
+
+  // ---------- Archivo y reinicio ----------
   function setStatus(msg, isErr){
-    var status = cardEl.querySelector(".status-line");
-    if(!status) return;
-    status.textContent = msg;
-    status.classList.toggle("err", !!isErr);
+    var st = $("status"); if(!st) return;
+    st.textContent = msg; st.classList.toggle("err", !!isErr);
   }
+  function exportFile(){
+    var blob = new Blob([JSON.stringify({ herramienta:"esplora-fichaidea", v:1, fecha:new Date().toISOString().slice(0,10), data:data }, null, 2)], { type:"application/json" });
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = slug(data.equipo) + "-" + slug(data.nombre) + ".json";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function(){ URL.revokeObjectURL(a.href); }, 2000);
+    setStatus("Archivo guardado. Cargadlo otro día o en otro equipo.");
+  }
+  $("fileIn").addEventListener("change", function(e){
+    var f = e.target.files[0]; if(!f) return;
+    var r = new FileReader();
+    r.onload = function(){
+      try{
+        var d = JSON.parse(r.result);
+        if(!d || d.herramienta !== "esplora-fichaidea") throw 0;
+        data = sanitize(d.data); step = firstIncomplete(); saveDraft(); render(true);
+        setStatus("Ficha cargada.");
+      }catch(err){ setStatus("Ese archivo no es una ficha de idea de Esplora.", true); }
+      e.target.value = "";
+    };
+    r.readAsText(f);
+  });
+  $("dlgNo").addEventListener("click", function(){ $("dlgReset").close(); });
+  $("dlgYes").addEventListener("click", function(){
+    $("dlgReset").close();
+    data = Object.assign({}, EMPTY); step = 0;
+    try{ localStorage.removeItem(STORAGE_KEY); }catch(e){}
+    $("saved").hidden = true;
+    $("view").innerHTML = "";
+    render(true);
+  });
 
+  // Ctrl + Intro avanza también fuera de los campos
+  document.addEventListener("keydown", function(e){
+    if(e.key === "Enter" && (e.ctrlKey || e.metaKey) && step < REVIEW && !e.target.dataset.key){
+      var n = $("bNext"); if(n && !n.disabled) n.click();
+    }
+  });
+
+  // ---------- PDF (una hoja A4) ----------
   function slug(text){
     return (text || "ficha")
       .toLowerCase()
@@ -600,45 +667,37 @@ body{ padding-top:0 !important; } .kit-bar{ margin:0 -16px 26px; } .wrap{ max-wi
       .replace(/(^-|-$)/g, "") || "ficha";
   }
 
-  function handleDownload(btn, status){
+  function handleDownload(btn){
     if(typeof window.jspdf === "undefined"){
       setStatus("No se pudo cargar el generador de PDF. Probad a recargar la página.", true);
       return;
     }
     btn.disabled = true;
-    var originalText = btn.textContent;
-    btn.textContent = "Generando…";
-    setStatus("");
-
+    setStatus("Generando el PDF…");
     try{
       var blob = buildPDF(data);
-      offerDownload(blob, slug(data.equipo) + "-" + slug(data.nombre) + ".pdf", btn, originalText);
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.href = url; a.download = slug(data.equipo) + "-" + slug(data.nombre) + ".pdf";
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
+      setStatus("Ficha descargada. ¡A por la Matriz Estrella!");
     }catch(err){
-      setStatus("Algo falló generando el PDF. Probad de nuevo.", true);
-      btn.disabled = false;
-      btn.textContent = originalText;
+      setStatus("Algo falló al generar el PDF. Probad de nuevo.", true);
     }
+    btn.disabled = false;
   }
 
   function buildPDF(d){
     // Ficha de una sola hoja A4: cabecera de color y ocho bloques en dos columnas.
     // Si el texto es largo, la letra se reduce para que todo quepa en la hoja.
     var jsPDF = window.jspdf.jsPDF;
-    var doc = new jsPDF({ unit: "mm", format: "a4" });
+    var doc = new jsPDF({ unit:"mm", format:"a4" });
     var W = doc.internal.pageSize.getWidth(), H = doc.internal.pageSize.getHeight();
     var M = 14, GAP = 5, colW = (W - M * 2 - GAP) / 2;
     var OLIVE = [75, 79, 29], OLIVE2 = [107, 112, 40], LIME = [232, 237, 196], ALT = [245, 246, 228], INK = [30, 28, 26], SOFT = [74, 70, 63];
 
-    var sections = [
-      { label: "PROBLEMA QUE RESUELVE", value: d.problema },
-      { label: "CLIENTE OBJETIVO", value: d.cliente },
-      { label: "QUÉ OFRECEMOS", value: d.oferta },
-      { label: "CÓMO SE RESUELVE HOY", value: d.competencia },
-      { label: "QUÉ TIENE DE NUEVO", value: (d.novedadTipo ? d.novedadTipo + " — " : "") + (d.novedadTexto || "") },
-      { label: "POR QUÉ NOSOTROS", value: d.equipo2 },
-      { label: "PARA ARRANCAR NECESITAMOS", value: d.viabilidadNecesita },
-      { label: "MAYOR RIESGO O DUDA", value: d.viabilidadRiesgo }
-    ];
+    var sections = BLOCKS.map(function(b){ return { label:b.label.toUpperCase(), value:b.get(d) }; });
 
     // Cabecera
     var headH = 46;
@@ -646,10 +705,10 @@ body{ padding-top:0 !important; } .kit-bar{ margin:0 -16px 26px; } .wrap{ max-wi
     doc.setFillColor.apply(doc, OLIVE2); doc.rect(0, headH, W, 2.2, "F");
     doc.setFont("helvetica", "bold"); doc.setFontSize(8.5); doc.setTextColor(197, 205, 120);
     doc.text("FICHA DE IDEA DE NEGOCIO", M, 13);
-    doc.text("ESPLORA", W - M, 13, { align: "right" });
+    doc.text("ESPLORA", W - M, 13, { align:"right" });
     doc.setFontSize(22); doc.setTextColor(255, 255, 255);
     var title = doc.splitTextToSize(d.nombre || "Idea sin nombre", W - M * 2);
-    if (title.length > 2) { doc.setFontSize(17); title = doc.splitTextToSize(d.nombre, W - M * 2).slice(0, 2); }
+    if(title.length > 2){ doc.setFontSize(17); title = doc.splitTextToSize(d.nombre, W - M * 2).slice(0, 2); }
     doc.text(title, M, 24);
     var today = new Date();
     var dateStr = String(today.getDate()).padStart(2, "0") + "/" + String(today.getMonth() + 1).padStart(2, "0") + "/" + today.getFullYear();
@@ -661,18 +720,18 @@ body{ padding-top:0 !important; } .kit-bar{ margin:0 -16px 26px; } .wrap{ max-wi
     var top = headH + 10, bottom = H - 16, fs = 11, layout;
     function measure(fs){
       var lh = fs * 0.43, rows = [], y = top;
-      for (var r = 0; r < sections.length; r += 2){
+      for(var r = 0; r < sections.length; r += 2){
         var hs = [0, 1].map(function(c){
           var s = sections[r + c]; doc.setFont("helvetica", "normal"); doc.setFontSize(fs);
           var lines = doc.splitTextToSize(((s.value || "—").trim() || "—"), colW - 10);
-          return { s: s, lines: lines, h: 11 + lines.length * lh + 5 };
+          return { s:s, lines:lines, h:11 + lines.length * lh + 5 };
         });
         var h = Math.max(hs[0].h, hs[1].h);
-        rows.push({ y: y, h: h, cells: hs, lh: lh }); y += h + GAP;
+        rows.push({ y:y, h:h, cells:hs, lh:lh }); y += h + GAP;
       }
-      return { rows: rows, end: y - GAP };
+      return { rows:rows, end:y - GAP };
     }
-    do { layout = measure(fs); fs -= 0.5; } while (layout.end > bottom && fs >= 7.5);
+    do { layout = measure(fs); fs -= 0.5; } while(layout.end > bottom && fs >= 7.5);
     fs += 0.5;
 
     layout.rows.forEach(function(row, ri){
@@ -682,7 +741,7 @@ body{ padding-top:0 !important; } .kit-bar{ margin:0 -16px 26px; } .wrap{ max-wi
         doc.setFillColor.apply(doc, OLIVE2); doc.rect(x, row.y, 2.2, row.h, "F");
         doc.setFillColor.apply(doc, LIME); doc.roundedRect(x + 6, row.y + 4, 7, 5, 1, 1, "F");
         doc.setFont("helvetica", "bold"); doc.setFontSize(7.5); doc.setTextColor.apply(doc, OLIVE);
-        doc.text(String(ri * 2 + c + 1).padStart(2, "0"), x + 9.5, row.y + 7.6, { align: "center" });
+        doc.text(String(ri * 2 + c + 1).padStart(2, "0"), x + 9.5, row.y + 7.6, { align:"center" });
         doc.setFontSize(8.5); doc.text(cell.s.label, x + 16, row.y + 7.8);
         doc.setFont("helvetica", "normal"); doc.setFontSize(fs); doc.setTextColor.apply(doc, INK);
         doc.text(cell.lines, x + 6, row.y + 15);
@@ -693,57 +752,14 @@ body{ padding-top:0 !important; } .kit-bar{ margin:0 -16px 26px; } .wrap{ max-wi
     doc.setDrawColor(232, 225, 214); doc.setLineWidth(0.3); doc.line(M, H - 12, W - M, H - 12);
     doc.setFont("helvetica", "normal"); doc.setFontSize(8); doc.setTextColor.apply(doc, SOFT);
     doc.text("Itinerario Personal para la Empleabilidad II · Ficha inicial de la idea", M, H - 7);
-    doc.text("Siguiente paso: Matriz Estrella", W - M, H - 7, { align: "right" });
+    doc.text("Siguiente paso: Matriz Estrella", W - M, H - 7, { align:"right" });
 
     return doc.output("blob");
-
-  }
-
-  function offerDownload(blob, filename, btn, originalText){
-    if(window.claude && window.claude.use){
-      window.claude.use("downloads").then(function(downloads){
-        if(!downloads){ fallbackDownload(blob, filename, btn, originalText); return; }
-        downloads.save({ filename: filename, data: blob }).then(function(){
-          setStatus("Ficha descargada. ¡A por la matriz estrella!", false);
-          btn.disabled = false;
-          btn.textContent = originalText;
-        }).catch(function(err){
-          if(err && err.code === "declined"){
-            setStatus("Descarga cancelada.", false);
-          } else {
-            setStatus("No se pudo guardar el PDF. Probad de nuevo.", true);
-          }
-          btn.disabled = false;
-          btn.textContent = originalText;
-        });
-      }).catch(function(){
-        fallbackDownload(blob, filename, btn, originalText);
-      });
-    } else {
-      fallbackDownload(blob, filename, btn, originalText);
-    }
-  }
-
-  function fallbackDownload(blob, filename, btn, originalText){
-    try{
-      var url = URL.createObjectURL(blob);
-      var a = document.createElement("a");
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
-      setStatus("Ficha descargada. ¡A por la matriz estrella!", false);
-    }catch(e){
-      setStatus("No se pudo generar la descarga en esta vista.", true);
-    }
-    btn.disabled = false;
-    btn.textContent = originalText;
   }
 
   loadDraft();
-  renderStep();
+  saveDraft();
+  render(false);
 })();
 </script>
 </body>
