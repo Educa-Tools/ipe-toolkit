@@ -66,6 +66,18 @@ catálogo. Sobre ellos el logo va en crema.
 #B03A78  Buyer Persona
 
 
+5. COLORES INTERNOS DE UNA HERRAMIENTA QUE SALEN EN LA PORTADA
+----------------------------------------------------------------
+Zonas del mapa de Análisis PESTEL (pestel.html), copiados tal cual para la
+animación de la portada. Color de la zona / fondo suave.
+
+#A84539 / #F4E0DC   Planificar
+#3E5778 / #E4E8F0   Monitorear
+#B88534 / #F7EDD8   Vigilar
+#557A35 / #E5EDDB   Investigar
+#8A8B6A / #EFF1D9   Ignorar
+
+
 ARCHIVOS DEL KIT
 ----------------
 svg/: vectoriales para la web.
