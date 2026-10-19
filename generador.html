@@ -2783,6 +2783,1206 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     vr:'Empieza con un remolque pequeño o un stand plegable y cámbialo a furgoneta cuando el calendario esté completo.' });
   } // fin de Comercio y Marketing
 
+  // ===================== INFORMÁTICA Y COMUNICACIONES =====================
+  // Módulos según TodoFP (plan de formación vigente), consultado el 19-oct-2026.
+  FAM.informatica = {
+    ciclos: {
+      'Informática y Comunicaciones': 'bas', 'Informática de Oficina': 'bas',
+      'Sistemas Microinformáticos y Redes': 'smr',
+      'Administración de Sistemas Informáticos en Red': 'asir',
+      'Desarrollo de Aplicaciones Web': 'daw',
+      'Desarrollo de Aplicaciones Multiplataforma': 'dam'
+    },
+    labels: { bas: 'Informática y Comunicaciones (Grado Básico)', smr: 'Sistemas Microinformáticos y Redes', asir: 'Administración de Sistemas Informáticos en Red', daw: 'Desarrollo de Aplicaciones Web', dam: 'Desarrollo de Aplicaciones Multiplataforma' },
+    defecto: { basico: 'bas', medio: 'smr', superior: 'daw' },
+    afin: { bas: ['smr'], daw: ['dam'], dam: ['daw'] },
+    fuentes: {
+      asir: 'INCIBE (sección «Protege tu empresa» y la línea 017), el CCN-CERT, las guías de la Agencia Española de Protección de Datos y el Observatorio de las Ocupaciones del SEPE',
+      daw: 'el ONTSI (Observatorio Nacional de Tecnología y Sociedad), las ofertas de InfoJobs y LinkedIn de tu provincia y las comunidades de desarrolladores de tu ciudad',
+      dam: 'el ONTSI (Observatorio Nacional de Tecnología y Sociedad), las ofertas de InfoJobs y LinkedIn de tu provincia y las comunidades de desarrolladores de tu ciudad',
+      _: 'INCIBE (sección «Protege tu empresa»), el Observatorio de las Ocupaciones del SEPE y las asociaciones de empresas TIC de tu comunidad autónoma'
+    }
+  };
+  { const { A, H, N } = banco('informatica');
+
+  // ---------- SISTEMAS MICROINFORMÁTICOS Y REDES (Grado Medio) ----------
+  A({ id:'inf1', cics:['smr','asir','bas'], t:'Mantenimiento informático por cuota para pequeñas empresas y despachos', n:'Soporte técnico externalizado',
+    d:'Te conviertes en el «departamento de informática» de 8-15 negocios pequeños sin técnico propio (gestorías, clínicas, academias, talleres): mantenimiento preventivo, copias de seguridad, antivirus, impresoras, wifi y soporte remoto cuando algo falla. Modelo: cuota mensual por equipo (15-35 €) o por empresa (90-300 €), más intervenciones fuera de contrato a 30-45 €/h.',
+    m:'cuota', cli:'gestorías, clínicas, academias y pequeños despachos de tu zona sin informático propio', pb:'el mantenimiento de los ordenadores y la red',
+    val:'Tus equipos funcionan, tus datos tienen copia y, si algo falla, alguien de confianza lo arregla el mismo día por una cuota fija.',
+    inv:[800,3000], ar:'1-2 meses', r:1, e:['local','domicilio','online'], h:2, am:2, tg:[], k:['atencion_cliente','ventas'], s:['tecnica','resolucion','personas'],
+    why:'Es tu ciclo aplicado tal cual: Montaje y mantenimiento de equipo, Sistemas operativos monopuesto y en red, Redes locales y Seguridad informática son exactamente lo que necesita una oficina pequeña para no parar.',
+    reto:'Que la cuota se convierta en «barra libre» de llamadas. Define por escrito qué incluye, el tiempo de respuesta y qué se cobra aparte, y usa una herramienta de acceso remoto para no desplazarte por todo.',
+    paso:'Haz una lista de 20 negocios de tu zona con 3-10 ordenadores y pregunta a 3 cómo resuelven hoy las averías y cuánto les cuesta. Prepara una oferta de una página con dos cuotas.',
+    vr:'Especialízate en un tipo de cliente (clínicas dentales, despachos de abogados, academias) y aprende su software: es más fácil vender y cobrar más.' });
+
+  A({ id:'inf2', cics:['smr','bas'], t:'Servicio técnico a domicilio para particulares y personas mayores', n:'Soporte tecnológico doméstico',
+    d:'Vas a casa a resolver lo que la gente no sabe hacer: wifi que no llega, ordenador lento, móvil nuevo que hay que configurar, impresora, televisión inteligente, copias de fotos o cuentas bloqueadas. Modelo: visita de 30-50 € (primera hora) o bonos de 4 visitas a 100-160 €, y soporte por videollamada para dudas pequeñas.',
+    m:'proyecto', cli:'particulares y familias, sobre todo personas mayores y sus hijos, que no se apañan con la tecnología', pb:'los problemas con el ordenador, el móvil y el wifi de casa',
+    val:'Alguien paciente y de confianza que viene a casa, lo deja funcionando y te explica cómo usarlo sin hacerte sentir torpe.',
+    inv:[300,1500], ar:'1 mes', r:1, e:['domicilio'], h:1, am:1, tg:['social'], k:['atencion_cliente'], s:['personas','tecnica','resolucion'],
+    why:'Montaje y mantenimiento de equipo, Sistemas operativos monopuesto y Redes locales te dan la base técnica; el valor está en combinarla con paciencia y trato cercano, que es lo que más valora este cliente.',
+    reto:'Ingresos pequeños por visita y muchas horas de desplazamiento. Agrupa las visitas por barrios, vende bonos y ofrece videollamada para lo que no exige ir.',
+    paso:'Deja una nota en el centro de mayores, la asociación de vecinos y 3 comercios del barrio ofreciendo una primera revisión a precio reducido. Apunta qué problemas se repiten.',
+    vr:'Alíate con tiendas de electrónica de tu zona: ellas venden el aparato y tú lo instalas y configuras en casa del cliente.' });
+
+  A({ id:'inf3', cics:['smr','bas'], t:'Reacondicionado y venta de ordenadores con garantía', n:'Informática de segunda vida',
+    d:'Compras equipos que las empresas renuevan (lotes de portátiles y sobremesas de 4-6 años), los revisas, cambias disco por SSD y amplías memoria, instalas el sistema y los vendes con 12 meses de garantía a estudiantes, familias y asociaciones. El fin del soporte de Windows 10 (octubre de 2025) dejó muchos equipos válidos que solo necesitan actualizarse o pasar a Linux. Modelo: margen de 60-150 € por equipo.',
+    m:'producto', cli:'estudiantes, familias y asociaciones que necesitan un ordenador fiable sin pagar uno nuevo', pb:'conseguir un ordenador que funcione bien con poco presupuesto',
+    val:'Un ordenador revisado, rápido y con garantía por la mitad de lo que cuesta uno nuevo, y con alguien a quien llamar si falla.',
+    inv:[1000,4000], ar:'1-2 meses', r:2, e:['online','local'], h:2, am:3, tg:['sostenibilidad','tecnologia'], k:['ventas','rrss'], s:['tecnica','organizacion','ventas'],
+    why:'Montaje y mantenimiento de sistemas y componentes informáticos y Operaciones auxiliares para la configuración y la explotación: diagnosticar, cambiar piezas e instalar sistemas es justo lo que practicas en el ciclo.',
+    reto:'Comprar lotes con piezas defectuosas y que la garantía se coma el margen. Prueba cada equipo con un protocolo fijo antes de venderlo y no compres lotes sin ver una muestra.',
+    paso:'Pregunta a 5 empresas o centros de tu zona qué hacen con los ordenadores que retiran. Compra 2 equipos usados, reacondiciónalos y anota coste, horas y precio al que se venden.',
+    vr:'Vende a asociaciones y ayuntamientos lotes para aulas o programas sociales, con borrado certificado de datos como servicio extra para la empresa que los retira.' });
+
+  A({ id:'inf4', cics:['smr','asir'], t:'Wifi profesional, cableado y cámaras para negocios, comunidades y alojamientos', n:'Redes para pequeños espacios',
+    d:'Diseñas e instalas redes que funcionan de verdad: wifi con varios puntos de acceso en hoteles pequeños, casas rurales, academias y oficinas, red de invitados separada, cableado y cámaras de vigilancia. Modelo: proyecto de 300-2.000 € según tamaño, más mantenimiento remoto opcional de 20-60 €/mes.',
+    m:'proyecto', cli:'alojamientos pequeños, academias, oficinas y comunidades con una wifi que no llega o se cae', pb:'tener una red estable en todo el local',
+    val:'Wifi estable en todas las habitaciones o aulas, red separada para clientes y alguien que la vigila a distancia.',
+    inv:[800,3000], ar:'1-2 meses', r:1, e:['local','domicilio'], h:2, am:2, tg:['viajes'], k:['ventas'], s:['tecnica','resolucion','organizacion'],
+    why:'Redes locales, Servicios en red y Seguridad informática: sabes medir cobertura, separar redes, configurar puntos de acceso y dejar la instalación documentada.',
+    reto:'Si las cámaras o alarmas se conectan a una central receptora o centro de control, solo puede instalarlas una empresa de seguridad privada (Ley 5/2014, art. 5.1.f). Sin esa conexión quedan fuera de esa ley (art. 6.1.b), pero tendrás que cumplir la protección de datos en la videovigilancia.',
+    paso:'Pide permiso a 2 alojamientos o academias de tu zona para medir su wifi con una app gratuita y entrégales un informe de una página con las zonas muertas y una propuesta.',
+    vr:'Especialízate en alojamiento turístico: wifi para huéspedes, cerraduras electrónicas y soporte en fines de semana, que es cuando más falla.' });
+
+  A({ id:'inf5', cics:['bas','smr'], t:'Digitalización de archivos y documentos para despachos y comercios', n:'Archivo digital',
+    d:'Escaneas, ordenas y subes a la nube el papel acumulado de gestorías, comunidades de vecinos, asociaciones y pequeños negocios (facturas, expedientes, contratos), con carpetas claras y copia de seguridad. Modelo: precio por caja o por página (proyecto de 200-1.500 €) y mantenimiento mensual del archivo.',
+    m:'proyecto', cli:'despachos, asociaciones y comunidades con armarios llenos de papel', pb:'encontrar documentos y liberar espacio sin perder nada',
+    val:'Encuentras cualquier documento en segundos, ganas espacio en la oficina y tus papeles tienen copia de seguridad.',
+    inv:[300,1500], ar:'1 mes', r:1, e:['local','online'], h:1, am:2, tg:[], k:['ofimatica'], s:['organizacion','tecnica'],
+    why:'Ofimática y archivo de documentos y Operaciones auxiliares para la configuración y la explotación: clasificar, nombrar con criterio y dejar todo accesible es un trabajo ordenado que se aprende en tu ciclo.',
+    reto:'Manejas datos personales de terceros: firma un contrato de encargado del tratamiento con cada cliente (Reglamento General de Protección de Datos, art. 28) y no saques documentos del local sin acuerdo.',
+    paso:'Ofrece digitalizar gratis una caja de documentos de una asociación de tu barrio y cronometra cuánto tardas. Con ese tiempo calcula tu precio por caja.',
+    vr:'Añade la gestión de facturas digitales: cada mes recoges las facturas del cliente, las escaneas y se las dejas listas a su gestoría.' });
+
+  // ---------- ADMINISTRACIÓN DE SISTEMAS INFORMÁTICOS EN RED (Grado Superior) ----------
+  A({ id:'inf6', cics:['asir','smr'], t:'Ciberseguridad básica por cuota para pymes y autónomos', n:'Seguridad para pequeñas empresas',
+    d:'Las pymes son blanco fácil de estafas por correo, secuestro de datos y robos de cuentas. Ofreces un paquete cerrado: revisión inicial, copias de seguridad que se comprueban, doble factor en todas las cuentas, actualización de equipos, formación de 1 hora al equipo y plan de qué hacer si les atacan. Modelo: revisión inicial de 250-600 € y cuota de 60-200 €/mes.',
+    m:'cuota', cli:'pymes de 3-30 personas sin responsable de seguridad (comercios, despachos, clínicas, talleres)', pb:'protegerse de estafas, virus y robos de datos',
+    val:'Si mañana os atacan, tenéis copia para recuperar los datos y un plan de qué hacer, y el equipo sabe reconocer una estafa.',
+    inv:[500,2500], ar:'2-3 meses', r:2, e:['online','local'], h:2, am:3, tg:[], k:['ventas','atencion_cliente'], s:['resolucion','organizacion','personas'],
+    why:'Seguridad y alta disponibilidad, Administración de sistemas operativos y Servicios de red e Internet: sabes endurecer equipos, montar copias y vigilar accesos, que es lo que una pyme necesita y no sabe pedir.',
+    reto:'Vender seguridad cuesta porque «nunca pasa nada» hasta que pasa. Enseña casos reales cercanos y apóyate en los recursos gratuitos de INCIBE. La ley española que traspone la Directiva NIS2 está en trámite, no vigente: no la uses como argumento de miedo.',
+    paso:'Prepara una lista de comprobación de 15 puntos con la guía de INCIBE para pymes y pásala gratis a 3 negocios conocidos. Lo que encuentres será tu argumento de venta.',
+    vr:'Ofrece simulacros de correos de estafa y formación trimestral al personal: es lo que más reduce incidentes y se vende bien a gestorías y clínicas.' });
+
+  A({ id:'inf7', cics:['asir'], t:'Administración de servidores, correo y nube para pymes', n:'Sistemas gestionados',
+    d:'Migras a pequeñas empresas del servidor viejo del armario y del correo gratuito a un entorno ordenado en la nube (Microsoft 365, Google Workspace o servidores propios virtualizados), con usuarios, permisos, copias y vigilancia. Modelo: migración de 400-2.500 € y cuota de administración de 80-300 €/mes.',
+    m:'cuota', cli:'pymes con un servidor antiguo, correos sin control y archivos repartidos en varios ordenadores', pb:'tener los archivos, el correo y los accesos ordenados y seguros',
+    val:'Todo el equipo trabaja desde cualquier sitio con sus archivos y correo, con permisos claros y copia diaria.',
+    inv:[500,2000], ar:'2-3 meses', r:2, e:['online'], h:2, am:3, tg:[], k:['ofimatica'], s:['tecnica','organizacion','resolucion'],
+    why:'Implantación de sistemas operativos, Planificación y administración de redes, Servicios de red e Internet y Administración de sistemas gestores de bases de datos: es el núcleo de tu ciclo aplicado a empresas pequeñas.',
+    reto:'Un error en una migración puede dejar a una empresa sin correo un día entero. Haz siempre un plan con vuelta atrás, migra en fin de semana y prueba antes con una cuenta.',
+    paso:'Monta en tu casa un entorno de prueba (dominio, usuarios, carpetas compartidas, copia automática) y documenta el proceso: será tu demostración y tu guía de trabajo.',
+    vr:'Hazte partner de un proveedor de nube: algunos pagan comisión por licencia vendida y te dan formación y certificaciones gratuitas.' });
+
+  A({ id:'inf8', cics:['asir','smr','daw'], t:'Adaptación de pequeños negocios a la facturación con Verifactu', n:'Facturación digital obligatoria',
+    d:'Los programas de facturación tendrán que cumplir el reglamento de sistemas de facturación (Verifactu): según el Real Decreto-ley 15/2025, las sociedades desde el 1 de enero de 2027 y el resto de obligados, autónomos incluidos, desde el 1 de julio de 2027. Ayudas a comercios y autónomos a elegir programa, migrar sus datos, configurarlo y formarse. Modelo: proyecto de 150-600 € por negocio y soporte posterior.',
+    m:'proyecto', cli:'autónomos y pequeños comercios que facturan con hojas de cálculo o programas antiguos', pb:'adaptar la facturación a la nueva obligación sin líos',
+    val:'Llegas a la fecha con un programa que cumple, tus datos pasados y alguien que te ha enseñado a usarlo.',
+    inv:[200,1000], ar:'1-2 meses', r:1, e:['online','local'], h:1, am:3, tg:[], k:['contabilidad','ofimatica'], s:['organizacion','personas','resolucion'],
+    why:'Implantación de aplicaciones web y Gestión de bases de datos: sabes instalar, configurar y migrar datos entre programas, y explicarlo a alguien que no es técnico.',
+    reto:'La fecha ya se ha aplazado dos veces y puede volver a cambiar: compruébala en el BOE antes de cada campaña. Trabaja junto a gestorías, que son quienes tienen la confianza del cliente.',
+    paso:'Compara 4 programas de facturación que ya se anuncian compatibles con Verifactu (precio, facilidad, si importan datos) y haz una tabla de una página para enseñarla a gestorías.',
+    vr:'Ofrece el servicio a gestorías como subcontrata: ellas tienen cientos de clientes que adaptar y poco tiempo para hacerlo.' });
+
+  // ---------- DESARROLLO DE APLICACIONES WEB (Grado Superior) ----------
+  A({ id:'inf9', cics:['daw','dam'], t:'Webs y tiendas online para negocios locales con mantenimiento incluido', n:'Desarrollo web para pymes',
+    d:'Haces webs rápidas, accesibles y fáciles de actualizar para negocios de tu zona (restaurantes, talleres, academias, clínicas), con reservas o tienda si hace falta, y te ocupas del dominio, las copias y las actualizaciones. Modelo: web de 600-2.500 € y cuota de mantenimiento de 25-90 €/mes.',
+    m:'proyecto', cli:'negocios locales con una web antigua, lenta o que no se ve bien en el móvil', pb:'tener una web que traiga clientes y no dé problemas',
+    val:'Una web rápida que se ve bien en el móvil, que puedes actualizar tú y que alguien mantiene segura cada mes.',
+    inv:[300,1500], ar:'1-2 meses', r:1, e:['online'], h:2, am:3, tg:[], k:['diseno','marketing'], s:['digital','creatividad','resolucion'],
+    why:'Desarrollo web en entorno cliente y servidor, Diseño de interfaces web y Despliegue de aplicaciones web: haces la web completa y la pones en marcha sin depender de nadie.',
+    reto:'Hay mucha competencia barata. Diferénciate por velocidad, accesibilidad y mantenimiento. Comprueba si a tu cliente le aplica la ley de accesibilidad de productos y servicios (Ley 11/2023, arts. 1 y 2): para algunos es obligatoria y para ti es un argumento de venta.',
+    paso:'Analiza la web de 10 negocios de tu zona con PageSpeed Insights y una herramienta de accesibilidad. Rehaz la portada del peor y enséñasela como propuesta.',
+    vr:'Especialízate en un sector (restaurantes, autoescuelas, clínicas) con una plantilla propia: entregas antes y cobras por resultado, no por horas.' });
+
+  A({ id:'inf10', cics:['daw','dam'], t:'Herramientas internas a medida para empresas pequeñas', n:'Software a medida',
+    d:'Muchas pymes viven en hojas de cálculo que se rompen: partes de trabajo, inventario, reservas, presupuestos. Les haces una aplicación web sencilla a su medida (o con herramientas de bajo código) que sustituye esas hojas y conecta con lo que ya usan. Modelo: proyecto de 1.000-6.000 € más soporte mensual.',
+    m:'proyecto', cli:'talleres, empresas de servicios e instaladoras que gestionan todo con hojas de cálculo y papel', pb:'organizar partes, presupuestos e inventario sin errores',
+    val:'Dejas de perder partes y presupuestos: todo el equipo apunta en el mismo sitio desde el móvil y tú ves el estado real del negocio.',
+    inv:[300,1500], ar:'2-3 meses', r:2, e:['online','local'], h:3, am:3, tg:[], k:['programacion','ofimatica'], s:['resolucion','digital','organizacion'],
+    why:'Programación, Bases de datos, Entornos de desarrollo y Desarrollo web en entorno servidor: sabes modelar los datos de un negocio y convertirlos en una aplicación usable.',
+    reto:'El alcance se dispara si no lo cierras. Escribe una lista de funciones con el cliente, entrega una primera versión pequeña en 3-4 semanas y presupuesta aparte cada ampliación.',
+    paso:'Pide a un negocio conocido la hoja de cálculo que más usa, entrevista a quien la rellena y dibuja en papel la aplicación que la sustituiría. Calcula cuántas horas al mes les ahorraría.',
+    vr:'Cuando hayas hecho la misma herramienta para 3 empresas del mismo sector, conviértela en un producto con suscripción mensual.' });
+
+  // ---------- DESARROLLO DE APLICACIONES MULTIPLATAFORMA (Grado Superior) ----------
+  A({ id:'inf11', cics:['dam','daw','asir'], t:'Implantación de un programa de gestión (ERP) en pymes', n:'Consultoría ERP',
+    d:'Implantas programas de gestión empresarial de código abierto (como Odoo) en pequeñas empresas: ventas, compras, almacén, facturación y clientes en un solo sistema. Configuras, migras datos, adaptas informes y formas al equipo. Modelo: implantación de 1.500-8.000 € más soporte y mejoras por cuota.',
+    m:'proyecto', cli:'pymes de 5-50 personas que usan varios programas sueltos que no se hablan entre sí', pb:'tener ventas, almacén y facturación en un único sistema',
+    val:'Un solo programa para vender, comprar, facturar y controlar el almacén, configurado para tu forma de trabajar.',
+    inv:[500,2500], ar:'3-4 meses', r:2, e:['online','local'], h:3, am:4, tg:[], k:['contabilidad','programacion'], s:['organizacion','resolucion','personas'],
+    why:'Sistemas de gestión empresarial y Acceso a datos son módulos de tu ciclo: sabes instalar, adaptar y programar módulos de un ERP y mover datos entre sistemas.',
+    reto:'Los proyectos de ERP fallan por el cambio de hábitos, no por la técnica. Dedica tiempo a formar y a acompañar el primer mes, y no prometas fechas sin conocer los datos del cliente.',
+    paso:'Instala la versión gratuita de Odoo, configura una empresa ficticia de tu sector favorito (ventas, almacén, facturas) y graba un vídeo de 5 minutos enseñándola.',
+    vr:'Especialízate en un sector (distribución alimentaria, talleres, academias) y crea módulos propios que puedas reutilizar y vender.' });
+
+  A({ id:'inf12', cics:['dam','daw'], t:'Apps sencillas para clubes, asociaciones y pequeños negocios', n:'Desarrollo de apps móviles',
+    d:'Desarrollas aplicaciones móviles pequeñas y útiles: reservas para un club, tarjeta de fidelización de una cafetería, avisos para las familias de una academia, inscripciones para un evento. Modelo: proyecto de 1.500-6.000 € y cuota de mantenimiento y publicación en tiendas de apps.',
+    m:'proyecto', cli:'clubes, asociaciones, academias y negocios con clientela fija que quieren estar en el móvil de sus usuarios', pb:'comunicarse con sus usuarios y gestionar reservas desde el móvil',
+    val:'Tu club o negocio en el móvil de cada socio: reservas, avisos y fidelización sin depender de grupos de WhatsApp.',
+    inv:[300,1500], ar:'2-4 meses', r:2, e:['online'], h:3, am:4, tg:['deporte'], k:['programacion','diseno'], s:['digital','creatividad','resolucion'],
+    why:'Programación multimedia y dispositivos móviles, Desarrollo de interfaces y Programación de servicios y procesos: haces una app completa, con su parte de servidor, y la publicas.',
+    reto:'Muchas veces una web bien hecha basta y es más barata. Sé honesto con el cliente: propón app solo cuando aporte algo (notificaciones, uso sin conexión, tarjeta de socio).',
+    paso:'Elige un club o asociación cercana, pregunta qué gestionan por WhatsApp o papel y haz en una semana un prototipo navegable de 4 pantallas para enseñárselo.',
+    vr:'Haz una app plantilla para un tipo de cliente (clubes de pádel, academias de baile) y véndela por suscripción en lugar de desarrollarla cada vez.' });
+
+  // ---------- HÍBRIDAS: informática + afición ----------
+  H({ id:'inf_h1', pref:['smr','bas'], t:'PCs gaming y equipos de streaming montados a medida', n:'Montaje gaming',
+    d:'Asesoras, montas y configuras ordenadores para jugar, editar vídeo o hacer directos: eliges piezas según presupuesto, montas, optimizas temperaturas y ruido y dejas configurado el programa de emisión. Modelo: tarifa de montaje de 60-150 € más margen en piezas, y puesta a punto de equipos ya existentes.',
+    m:'producto', cli:'jugadores, streamers y creadores de contenido que no quieren arriesgarse a montar su equipo', pb:'tener un equipo potente y bien montado sin equivocarse con las piezas',
+    val:'Un equipo pensado para tus juegos y tu presupuesto, montado y probado, con alguien que lo conoce si algo falla.',
+    inv:[1000,5000], ar:'1-2 meses', r:2, e:['online','local'], h:2, am:3, tg:['tecnologia','musica'], k:['rrss','fotovideo'], s:['tecnica','digital','ventas'],
+    why:'Tu afición te da criterio sobre piezas, juegos y comunidad; tu ciclo pone el oficio: montaje y mantenimiento de equipos, sistemas operativos y redes.',
+    reto:'El margen en piezas es pequeño y los precios cambian cada semana. Cobra el montaje aparte y no acumules stock de tarjetas gráficas.',
+    paso:'Monta o pon a punto el equipo de 2 amigos, graba el proceso y publícalo. Pregunta en 3 comunidades de jugadores cuánto pagarían por un montaje profesional.',
+    vr:'Ofrece «puesta a punto gaming» a domicilio (limpieza, pasta térmica, drivers, optimización) a un precio cerrado: es el servicio que más se repite.' });
+
+  H({ id:'inf_h2', pref:['daw','dam'], t:'Gestión digital para clubes deportivos: inscripciones, cuotas y calendario', n:'Software para clubes',
+    d:'Los clubes de barrio gestionan socios, cuotas y partidos con papel y WhatsApp. Les montas una plataforma sencilla: alta de socios, cobro de cuotas, calendario, avisos a familias y resultados. Modelo: suscripción de 20-80 €/mes por club, con alta inicial.',
+    m:'suscripcion', cli:'clubes deportivos de base, escuelas de fútbol, pádel o artes marciales y sus juntas directivas voluntarias', pb:'gestionar socios, cuotas y avisos a las familias',
+    val:'El club cobra a tiempo, las familias reciben los avisos en el móvil y la junta deja de perder tardes con hojas de cálculo.',
+    inv:[500,2500], ar:'3-4 meses', r:2, e:['online'], h:3, am:4, tg:['deporte'], k:['programacion'], s:['digital','organizacion','personas'],
+    why:'Conoces cómo funciona un club desde dentro; tu ciclo te da las herramientas: bases de datos, desarrollo web y móvil y despliegue de aplicaciones.',
+    reto:'Los clubes tienen poco dinero y los dirigen voluntarios. Empieza gratis con 2-3 clubes a cambio de opiniones y crece por recomendación entre federaciones y ligas.',
+    paso:'Entrevista a 3 personas de juntas directivas de clubes de tu zona y apunta las 5 tareas que más tiempo les quitan. Diseña solo la solución a la primera.',
+    vr:'Céntrate en un solo deporte con necesidades propias (pádel, natación, artes marciales) y crece con sus federaciones.' });
+
+  H({ id:'inf_h3', pref:['bas','smr'], t:'Talleres de competencias digitales para personas mayores', n:'Formación digital senior',
+    d:'Organizas talleres pequeños y prácticos para mayores: usar el móvil, pedir cita médica, banca online, videollamadas con la familia y, sobre todo, reconocer estafas. En centros de mayores, asociaciones, bibliotecas y ayuntamientos. Modelo: precio por taller de 150-400 € pagado por la entidad, o por plaza en grupos de 6-10.',
+    m:'formacion', cli:'centros de mayores, asociaciones de vecinos, bibliotecas y ayuntamientos', pb:'que las personas mayores se defiendan solas con el móvil y no caigan en estafas',
+    val:'Personas mayores que piden su cita, hablan con sus nietos y detectan una estafa por sí mismas, explicado con paciencia.',
+    inv:[200,800], ar:'1-2 meses', r:1, e:['local'], h:1, am:2, tg:['social'], k:['atencion_cliente'], s:['personas','organizacion','creatividad'],
+    why:'Tu interés por el impacto social te da la paciencia y el tono; tu ciclo te da el dominio de sistemas, aplicaciones y seguridad para explicarlo bien.',
+    reto:'Las entidades públicas pagan tarde y a veces piden factura con requisitos. Combina contratos con entidades y grupos privados, y deja a los alumnos una hoja de apoyo en papel.',
+    paso:'Ofrece un taller gratuito de 1 hora en tu centro de mayores o biblioteca sobre «cómo detectar una estafa por SMS». Mide asistencia y pregunta qué querrían aprender después.',
+    vr:'Ofrece el mismo taller a empresas para sus jubilados o a residencias, y vende un servicio de «tecnología en casa» a las familias de los asistentes.' });
+
+  H({ id:'inf_h4', pref:['daw','smr'], t:'Carta digital, reservas y pedidos para bares y restaurantes', n:'Digitalización hostelera',
+    d:'Montas en restaurantes y bares la parte digital que les ahorra trabajo: carta con QR en varios idiomas y alérgenos, reservas sin comisión, pedidos para llevar y la ficha de Google al día. Modelo: alta de 200-600 € y cuota de 30-90 €/mes con cambios de carta incluidos.',
+    m:'cuota', cli:'bares y restaurantes independientes que pagan comisiones altas a plataformas o tienen la carta desactualizada', pb:'gestionar reservas, carta y pedidos sin pagar tanta comisión',
+    val:'Reservas y pedidos directos sin comisiones, carta siempre al día y una ficha de Google que trae mesas.',
+    inv:[300,1200], ar:'1-2 meses', r:1, e:['online','local'], h:2, am:2, tg:['gastronomia','viajes'], k:['diseno','idiomas','marketing'], s:['digital','personas','organizacion'],
+    why:'Tu afición por la gastronomía te ayuda a entender cómo trabaja un restaurante; tu ciclo aporta la parte técnica: aplicaciones web, redes y servicios en la nube.',
+    reto:'Los hosteleros tienen poco tiempo y odian la tecnología que falla en pleno servicio. Elige herramientas probadas, forma al equipo en horario sin clientes y ofrece soporte rápido.',
+    paso:'Revisa la carta online, las reservas y la ficha de Google de 10 restaurantes de tu zona. Al que peor lo tenga, llévale una propuesta con su carta ya digitalizada.',
+    vr:'Especialízate en zonas turísticas: carta en 4 idiomas con alérgenos y reservas para grupos extranjeros.' });
+
+  H({ id:'inf_h5', pref:['daw'], t:'Webs portafolio y tiendas para artistas, ilustradores y artesanos', n:'Web para creadores',
+    d:'Haces la web de artistas, fotógrafos, ilustradores y artesanos: portafolio que luce su obra, tienda para vender originales, láminas o talleres, y formularios de encargo. Modelo: web de 400-1.500 € y mantenimiento de 15-40 €/mes, más sesiones de formación para que la actualicen.',
+    m:'proyecto', cli:'artistas, ilustradores, fotógrafos y artesanos que venden solo por redes sociales', pb:'enseñar y vender su obra sin depender del algoritmo de Instagram',
+    val:'Una web que luce tu obra como merece y te deja vender directamente, sin comisiones de plataformas.',
+    inv:[200,1000], ar:'1 mes', r:1, e:['online'], h:1, am:4, tg:['arte','diy','moda'], k:['diseno','fotovideo'], s:['creatividad','digital'],
+    why:'Tu sensibilidad artística te hace hablar el idioma del cliente; tu ciclo pone el desarrollo web, el diseño de interfaces y el despliegue.',
+    reto:'Presupuestos bajos y clientes que cambian mucho de idea. Trabaja con 2-3 plantillas propias muy cuidadas y cierra las rondas de cambios por contrato.',
+    paso:'Elige a 3 artistas o artesanos de tu zona que vendan solo por Instagram y diseña la portada de su web. Enséñasela con una propuesta de precio cerrado.',
+    vr:'Organiza con artistas una tienda online colectiva: cada uno paga una cuota pequeña y tú te ocupas de la web y los envíos.' });
+
+  H({ id:'inf_h6', pref:['daw','dam'], t:'Gestión digital para veterinarias, peluquerías caninas y protectoras', n:'Tecnología para el mundo animal',
+    d:'Webs, citas online, recordatorios de vacunas y fichas de cada animal para clínicas veterinarias pequeñas y peluquerías caninas; y webs de adopción con fichas y formularios para protectoras. Modelo: proyectos de 400-2.000 € y cuota de mantenimiento; para protectoras, precio social financiado con patrocinio.',
+    m:'proyecto', cli:'clínicas veterinarias pequeñas, peluquerías caninas y protectoras de animales', pb:'gestionar citas, recordatorios y adopciones sin perder tiempo',
+    val:'Citas online, recordatorios automáticos a los dueños y fichas de cada animal, todo en un sitio y fácil de usar.',
+    inv:[200,1000], ar:'1-2 meses', r:1, e:['online'], h:2, am:3, tg:['animales','social'], k:['diseno','programacion'], s:['digital','personas','creatividad'],
+    why:'Tu cariño por los animales te da credibilidad con este cliente; tu ciclo te da el desarrollo web y las bases de datos para resolver su día a día.',
+    reto:'Existen programas veterinarios completos y caros. Tu sitio está en los negocios pequeños: ofrece algo sencillo, barato y con trato cercano.',
+    paso:'Pregunta a 3 veterinarias o peluquerías caninas de tu zona cómo dan las citas y cuántas se pierden porque el cliente olvida venir. Propón un sistema de recordatorios.',
+    vr:'Haz gratis la web de adopción de una protectora: te da porfolio, visibilidad y contactos en el sector.' });
+
+  H({ id:'inf_h7', pref:['smr','asir'], t:'Conectividad y digitalización para casas rurales y campings', n:'Tecnología en el medio rural',
+    d:'En el medio rural la wifi y la cobertura suelen ser el gran problema de los alojamientos. Instalas conexión estable (fibra, satélite o radioenlace), wifi en todo el recinto, cerraduras y llegada autónoma de huéspedes y reservas directas. Modelo: proyecto de 500-3.000 € y mantenimiento remoto por cuota.',
+    m:'proyecto', cli:'casas rurales, albergues, campings y alojamientos de turismo activo con mala conexión', pb:'ofrecer buena wifi y llegada autónoma a los huéspedes',
+    val:'Huéspedes que pueden teletrabajar, llegar sin esperar las llaves y reservar directamente, sin quejas por la wifi en las reseñas.',
+    inv:[800,3000], ar:'1-2 meses', r:2, e:['local','domicilio'], h:2, am:3, tg:['naturaleza','viajes'], k:['ventas'], s:['tecnica','resolucion','personas'],
+    why:'Conoces el medio rural y el turismo de naturaleza; tu ciclo pone las redes locales, los servicios en red y la seguridad para que todo funcione lejos de la ciudad.',
+    reto:'Desplazamientos largos. Agrupa clientes por comarcas, haz casi todo el mantenimiento a distancia y deja al propietario instrucciones para reiniciar equipos.',
+    paso:'Lee las reseñas de 15 alojamientos rurales de tu comarca y cuenta cuántas se quejan de la wifi. Escribe a los 3 peores con una propuesta.',
+    vr:'Alíate con asociaciones de turismo rural de tu comunidad para ofrecer un paquete de digitalización a todos sus socios.' });
+
+  H({ id:'inf_h8', pref:['smr','asir'], t:'Retransmisión en directo de conciertos, eventos y competiciones', n:'Streaming de eventos',
+    d:'Retransmites por internet conciertos, conferencias, bodas, plenos municipales o competiciones deportivas: conexión de respaldo, cámaras, mezcla, rótulos y emisión en YouTube u otras plataformas. Modelo: precio por evento de 300-1.500 € según cámaras y horas.',
+    m:'proyecto', cli:'salas de conciertos, ayuntamientos, asociaciones, clubes y organizadores de eventos', pb:'emitir un evento en directo sin cortes',
+    val:'Tu evento se ve en directo con calidad y sin cortes, aunque falle la wifi del local, y queda grabado para después.',
+    inv:[2000,6000], ar:'2 meses', r:2, e:['local'], h:2, am:3, tg:['musica','deporte','tecnologia'], k:['fotovideo','rrss'], s:['tecnica','resolucion','organizacion'],
+    why:'Tu afición por la música y lo audiovisual te da el ojo para el directo; tu ciclo resuelve lo que más falla: la red, la conexión de respaldo y la configuración de equipos.',
+    reto:'En directo no hay segunda oportunidad. Lleva siempre conexión de respaldo (móvil con datos), prueba todo una hora antes y empieza con eventos pequeños.',
+    paso:'Retransmite gratis un concierto, partido o charla de una asociación cercana con el material que tengas. Apunta qué falló y qué equipo necesitarías.',
+    vr:'Cierra un contrato anual con un ayuntamiento o una liga local para emitir todas sus sesiones o jornadas.' });
+
+  H({ id:'inf_h9', pref:['bas','smr'], t:'Segunda vida a ordenadores de colegios y entidades sociales con Linux', n:'Informática sostenible',
+    d:'Muchos colegios, ONG y asociaciones tienen ordenadores que ya no reciben actualizaciones de Windows. Los recuperas con sistemas Linux ligeros y programas libres, formas a quien los usa y das soporte. Modelo: precio por equipo recuperado de 30-60 € más soporte anual, financiado a menudo por la entidad o por patrocinio de empresas.',
+    m:'proyecto', cli:'colegios, ONG, asociaciones y centros sociales con equipos antiguos y poco presupuesto', pb:'seguir usando sus ordenadores con seguridad sin comprar otros nuevos',
+    val:'Tus ordenadores vuelven a ser rápidos y seguros sin gastar en equipos nuevos, y se evita tirar aparatos que funcionan.',
+    inv:[300,1000], ar:'1-2 meses', r:1, e:['local','domicilio'], h:2, am:2, tg:['sostenibilidad','social'], k:['programacion'], s:['tecnica','personas','organizacion'],
+    why:'Tu compromiso con la sostenibilidad y lo social da sentido al proyecto; tu ciclo te da la base para instalar sistemas, configurar redes y mantener equipos.',
+    reto:'El cambio a Linux asusta a los usuarios. Elige escritorios parecidos a Windows, haz una sesión de formación y deja una guía de una página.',
+    paso:'Recupera con Linux un ordenador viejo de tu casa o de un conocido y anota los pasos y el tiempo. Ofrécete a una asociación cercana para hacer lo mismo con 3 equipos.',
+    vr:'Crea un programa de recogida: empresas que renuevan equipos te los ceden y tú los preparas para entidades sociales, con patrocinio de la empresa.' });
+
+  H({ id:'inf_h10', pref:['dam','daw','smr'], t:'Talleres extraescolares de robótica y programación', n:'Educación tecnológica',
+    d:'Impartes talleres de robótica, programación por bloques, impresión 3D y creación de videojuegos para niños y adolescentes, como extraescolar en colegios, campamentos de verano o en un local propio. Modelo: 30-50 € al mes por alumno en grupos de 8-12, o precio por taller cerrado para colegios y ayuntamientos.',
+    m:'formacion', cli:'familias con hijos de 8-16 años, AMPAs, colegios y ayuntamientos', pb:'que sus hijos aprendan tecnología de forma práctica y divertida',
+    val:'Niños que crean sus propios robots y juegos en lugar de solo consumirlos, aprendiendo programación sin darse cuenta.',
+    inv:[1000,4000], ar:'2-3 meses', r:1, e:['local'], h:2, am:2, tg:['diy','tecnologia'], k:['programacion'], s:['creatividad','personas','organizacion'],
+    why:'Tu gusto por construir cosas te conecta con los niños; tu ciclo te da la programación, la electrónica básica y los entornos de desarrollo para preparar proyectos que funcionan.',
+    reto:'Trabajar con menores exige el certificado negativo del Registro Central de Delincuentes Sexuales (Ley Orgánica 1/1996, art. 13.5) y un seguro de responsabilidad civil. Y enseñar es una habilidad en sí: prepara cada sesión.',
+    paso:'Diseña un taller de 90 minutos (por ejemplo, programar un pequeño robot o un juego sencillo) y ofrécelo gratis a una AMPA o biblioteca. Mide cuántas familias se apuntarían de pago.',
+    vr:'Organiza campamentos tecnológicos en vacaciones escolares: concentran ingresos y son la mejor publicidad para el curso.' });
+
+  // ---------- EMERGENTES ----------
+  N({ id:'inf_n1', t:'Automatización con IA para pymes: asistentes, documentos y formación al equipo', n:'IA aplicada a la empresa',
+    d:'Implantas en pequeñas empresas asistentes de IA que responden con sus propios documentos (catálogos, procedimientos, preguntas frecuentes), automatizas tareas repetitivas (correos, informes, fichas) y formas al equipo para usarlas con criterio. El Reglamento europeo de IA (Reglamento (UE) 2024/1689, art. 4) pide a las empresas que usan IA que cuiden la formación de su personal. Modelo: proyecto de 800-4.000 € más mantenimiento mensual.',
+    m:'proyecto', cli:'pymes con muchos documentos y tareas repetitivas (distribuidoras, despachos, empresas de servicios)', pb:'ahorrar horas en tareas repetitivas usando la IA con seguridad',
+    val:'Tu equipo recupera horas cada semana con herramientas de IA bien configuradas, revisadas y sin poner en riesgo los datos de la empresa.',
+    inv:[300,2000], ar:'2-3 meses', r:2, e:['online'], h:2, am:4, tg:['tecnologia'], k:['programacion','ofimatica'], s:['digital','resolucion','personas'],
+    why:'Tu ciclo te da lo que falta a muchos «expertos en IA»: saber integrar sistemas, manejar datos y bases de datos, y desplegar con seguridad.',
+    reto:'Las herramientas cambian cada mes y la IA se equivoca. Revisa siempre lo que produce, no subas datos personales sin permiso y no prometas resultados mágicos.',
+    paso:'Elige una tarea repetitiva de un negocio conocido (responder a las 20 preguntas más frecuentes) y automatízala con una herramienta gratuita. Cronometra el tiempo que ahorra.',
+    vr:'Empaqueta una solución para un sector (clínicas, inmobiliarias, academias) con precio cerrado y formación incluida.' });
+
+  N({ id:'inf_n2', t:'Software por suscripción para un nicho muy concreto', n:'Micro-SaaS de nicho',
+    d:'Detectas un tipo de negocio mal servido por el software actual (autoescuelas, academias de baile, talleres de bicis, pequeñas bodegas) y creas una aplicación web sencilla que resuelve su problema principal. Se vende por suscripción mensual de 20-80 € por negocio. Con 100 clientes ya es un sueldo.',
+    m:'suscripcion', cli:'un tipo de negocio pequeño y concreto cuyo software actual es caro, antiguo o inexistente', pb:'resolver su tarea principal con un programa sencillo y barato',
+    val:'Un programa hecho para tu tipo de negocio, sencillo, barato y con soporte de alguien que entiende tu día a día.',
+    inv:[500,3000], ar:'4-6 meses', r:3, e:['online'], h:3, am:5, tg:['tecnologia'], k:['programacion','marketing'], s:['digital','resolucion','ventas'],
+    why:'Programación, Bases de datos y Desarrollo web en entorno servidor y cliente te permiten construir el producto entero; lo que decide el éxito es elegir bien el nicho.',
+    reto:'Lo difícil no es programar, es vender. Antes de escribir código, consigue que 10 negocios del nicho te digan que pagarían, y empieza con 3 usuarios piloto.',
+    paso:'Elige un nicho y entrevista a 5 negocios: qué programa usan, qué odian de él y cuánto pagan. Si 3 se quejan de lo mismo, ya tienes por dónde empezar.',
+    vr:'Empieza como servicio a medida para el primer cliente y reutiliza el código para el segundo: así financias el producto mientras lo construyes.' });
+
+  N({ id:'inf_n3', t:'Cuadros de mando con los datos de pequeñas empresas', n:'Datos para decidir',
+    d:'Conectas las ventas, la facturación y la publicidad de una pyme en un cuadro de mando claro (Looker Studio, Power BI o similar): qué vende, qué deja margen, qué clientes pagan tarde. Modelo: implantación de 400-1.500 € y cuota mensual de 80-250 € con informe y recomendaciones.',
+    m:'cuota', cli:'pymes que toman decisiones a ojo con datos repartidos en varios programas', pb:'saber de un vistazo cómo va el negocio',
+    val:'Ves en una pantalla qué funciona y qué pierde dinero en tu negocio, actualizado solo, sin pelearte con hojas de cálculo.',
+    inv:[200,1000], ar:'1-2 meses', r:1, e:['online'], h:2, am:4, tg:['tecnologia'], k:['ofimatica','contabilidad','programacion'], s:['resolucion','organizacion','digital'],
+    why:'Bases de datos, Acceso a datos y Lenguajes de marcas y sistemas de gestión de información: sabes extraer, limpiar y cruzar datos de distintos programas.',
+    reto:'Datos desordenados y cada cliente con un programa distinto. Limita el alcance a 2-3 fuentes de datos y crea una plantilla estándar por sector.',
+    paso:'Descarga un conjunto de datos de ventas de ejemplo y monta un cuadro de mando de 5 indicadores. Será tu demostración para enseñar a clientes.',
+    vr:'Especialízate en un tipo de negocio (restauración, tiendas online, talleres) con indicadores propios del sector ya preparados.' });
+
+  N({ id:'inf_n4', t:'Juegos y simuladores formativos para empresas', n:'Serious games',
+    d:'Desarrollas juegos y simulaciones cortas para formar a trabajadores de forma práctica: prevención de riesgos, atención al cliente, ciberseguridad, procedimientos de almacén. Se juegan en el navegador o el móvil y registran resultados. Modelo: proyecto de 3.000-15.000 € por juego, o licencia anual de un catálogo propio.',
+    m:'proyecto', cli:'empresas de formación, departamentos de recursos humanos y servicios de prevención', pb:'que la formación obligatoria se aprenda de verdad y no se olvide',
+    val:'Formación que los trabajadores completan porque engancha, y que deja datos de lo que han aprendido.',
+    inv:[1000,5000], ar:'4-6 meses', r:3, e:['online'], h:3, am:5, tg:['tecnologia','arte'], k:['programacion','diseno'], s:['creatividad','digital','resolucion'],
+    why:'Programación multimedia, Desarrollo de interfaces y Acceso a datos te permiten crear el juego y guardar los resultados; tu ventaja es unir técnica y diseño de la experiencia.',
+    reto:'Proyectos largos y clientes grandes con decisiones lentas. Empieza con un prototipo de 10 minutos y alíate con una empresa de formación que ya tiene clientes.',
+    paso:'Diseña en papel un juego de 5 minutos sobre un tema de formación obligatoria y programa la primera pantalla. Enséñaselo a una academia o servicio de prevención.',
+    vr:'Crea un catálogo de microjuegos sobre temas que toda empresa necesita (ciberseguridad, igualdad, prevención) y véndelo por licencia.' });
+  } // fin de Informática y Comunicaciones
+
+  // ===================== ELECTRICIDAD Y ELECTRÓNICA =====================
+  FAM.electricidad = {
+    ciclos: {
+      'Electricidad y Electrónica': 'bas', 'Instalaciones Electrotécnicas y Mecánica': 'bas', 'Fabricación de Elementos Metálicos': 'bas',
+      'Instalaciones Eléctricas y Automáticas': 'iea',
+      'Instalaciones de Telecomunicaciones': 'itel',
+      'Sistemas Electrotécnicos y Automatizados': 'sea',
+      'Sistemas de Telecomunicaciones e Informáticos': 'sti',
+      'Automatización y Robótica Industrial': 'ari',
+      'Mantenimiento Electrónico': 'me',
+      'Electromedicina Clínica': 'emc'
+    },
+    labels: { bas: 'Electricidad y Electrónica (Grado Básico)', iea: 'Instalaciones Eléctricas y Automáticas', itel: 'Instalaciones de Telecomunicaciones', sea: 'Sistemas Electrotécnicos y Automatizados', sti: 'Sistemas de Telecomunicaciones e Informáticos', ari: 'Automatización y Robótica Industrial', me: 'Mantenimiento Electrónico', emc: 'Electromedicina Clínica' },
+    defecto: { basico: 'bas', medio: 'iea', superior: 'sea' },
+    afin: { bas: ['iea', 'itel'], sea: ['iea'], sti: ['itel'] },
+    fuentes: {
+      iea: 'el Reglamento Electrotécnico para Baja Tensión (RD 842/2002) y sus instrucciones técnicas, el IDAE, la UNEF (Unión Española Fotovoltaica) y la asociación de instaladores eléctricos de tu provincia',
+      sea: 'el Reglamento Electrotécnico para Baja Tensión (RD 842/2002) y sus instrucciones técnicas, el IDAE, la UNEF (Unión Española Fotovoltaica) y la asociación de instaladores eléctricos de tu provincia',
+      itel: 'el registro de empresas instaladoras de telecomunicación del Ministerio para la Transformación Digital, la normativa de infraestructuras comunes (RD 346/2011) y las asociaciones de instaladores de telecomunicaciones',
+      sti: 'el registro de empresas instaladoras de telecomunicación del Ministerio para la Transformación Digital, la normativa de infraestructuras comunes (RD 346/2011) y las asociaciones de instaladores de telecomunicaciones',
+      ari: 'los clústeres industriales de tu comunidad autónoma, las ferias de automatización (como BIEMH o Advanced Factories) y el Observatorio de las Ocupaciones del SEPE',
+      emc: 'la Sociedad Española de Electromedicina e Ingeniería Clínica (SEEIC), la Agencia Española de Medicamentos y Productos Sanitarios (AEMPS) y los colegios profesionales sanitarios de tu provincia',
+      _: 'el Observatorio de las Ocupaciones del SEPE, la asociación de instaladores eléctricos de tu provincia y tu cámara de comercio'
+    }
+  };
+  { const { A, H, N } = banco('electricidad');
+
+  // ---------- INSTALACIONES ELÉCTRICAS Y AUTOMÁTICAS (Grado Medio) ----------
+  A({ id:'el1', cics:['iea','sea'], t:'Instalación de puntos de recarga de coche eléctrico en garajes', n:'Recarga de vehículo eléctrico',
+    d:'Instalas cargadores en viviendas unifamiliares, garajes comunitarios, empresas y hoteles: estudio de potencia, línea nueva, cargador, protección y legalización. En un garaje comunitario el vecino solo tiene que comunicarlo a la comunidad (Ley de Propiedad Horizontal, art. 17.5). Modelo: 800-1.800 € por instalación en vivienda y presupuestos mayores en empresas, más mantenimiento.',
+    m:'proyecto', cli:'propietarios de coche eléctrico o híbrido enchufable, comunidades de vecinos, hoteles y empresas con flota', pb:'cargar el coche en su plaza de garaje con seguridad',
+    val:'Cargas el coche en tu plaza, con la instalación legalizada, la potencia bien calculada y sin líos con la comunidad.',
+    inv:[3000,10000], ar:'2-3 meses', r:2, e:['domicilio','local'], h:3, am:2, tg:['motor','sostenibilidad'], k:['ventas'], s:['tecnica','resolucion','personas'],
+    why:'Instalaciones eléctricas interiores, Instalaciones de distribución y Electrotecnia: calcular secciones y protecciones y ejecutar la instalación de recarga según la ITC-BT-52 del Reglamento de Baja Tensión es tu ciclo aplicado.',
+    reto:'Para firmar instalaciones necesitas estar habilitado como empresa instaladora en baja tensión (ITC-BT-03 del Reglamento de Baja Tensión): empieza trabajando en una o asociado con un instalador que firme mientras te habilitas.',
+    paso:'Visita 3 concesionarios o tiendas de coches eléctricos de tu zona y pregunta a quién recomiendan para instalar cargadores y cuánto tardan en dar cita. Ahí está tu hueco.',
+    vr:'Alíate con concesionarios: ellos venden el coche y te pasan al cliente para instalar el cargador, a cambio de una comisión o de un precio cerrado.' });
+
+  A({ id:'el2', cics:['iea','sea'], t:'Mantenimiento y mejora de placas solares ya instaladas', n:'Mantenimiento fotovoltaico',
+    d:'En los últimos años se instalaron muchísimas placas en viviendas y naves, y muchas nadie las revisa: paneles sucios, inversores con errores, monitorización caída, baterías mal configuradas. Ofreces revisión anual, limpieza, reparación y mejoras (añadir baterías o cargador). Modelo: revisión de 90-200 €, cuota anual de mantenimiento y presupuestos de ampliación.',
+    m:'cuota', cli:'propietarios de viviendas y pequeñas empresas con placas instaladas hace 2-6 años', pb:'que sus placas produzcan lo que deberían',
+    val:'Tus placas vuelven a producir lo que deben, sabes si algo falla y alguien responde aunque tu instalador haya cerrado.',
+    inv:[1500,5000], ar:'1-2 meses', r:1, e:['domicilio','local'], h:2, am:2, tg:['sostenibilidad'], k:['atencion_cliente'], s:['tecnica','resolucion','organizacion'],
+    why:'Instalaciones solares fotovoltaicas, Máquinas eléctricas y Electrónica: diagnosticar un inversor, medir una cadena de paneles y revisar protecciones es justo lo que trabajas en el ciclo.',
+    reto:'El trabajo en cubierta es de riesgo: necesitas formación en trabajos en altura, equipos de protección y un seguro de responsabilidad civil. Nunca subas solo.',
+    paso:'Busca en tu zona 10 viviendas o naves con placas visibles, pregunta a 3 propietarios si alguien se las revisa y cuánto producen. Compara con lo que deberían producir.',
+    vr:'Ofrece el servicio a empresas instaladoras que ya no quieren hacer mantenimiento: te ceden su cartera a cambio de un porcentaje.' });
+
+  A({ id:'el3', cics:['iea','bas'], t:'Reformas eléctricas en viviendas antiguas', n:'Renovación de instalaciones',
+    d:'Muchos pisos de los años 60-90 tienen instalaciones sin diferenciales, con cables viejos y sin potencia para cocina de inducción, aire acondicionado o aerotermia. Cambias el cuadro, renuevas líneas, aumentas la potencia y tramitas el certificado de instalación. Modelo: 1.500-5.000 € por vivienda, y colaboración con empresas de reformas.',
+    m:'proyecto', cli:'propietarios de pisos antiguos que reforman, compran vivienda o quieren electrificar la calefacción', pb:'tener una instalación segura y con potencia suficiente',
+    val:'Una instalación segura, con potencia para los aparatos de hoy y el certificado en regla, sin sorpresas al contratar la luz.',
+    inv:[3000,10000], ar:'2-3 meses', r:1, e:['domicilio'], h:3, am:2, tg:['diy'], k:['ventas'], s:['tecnica','organizacion','personas'],
+    why:'Instalaciones eléctricas interiores, Electrotecnia y Automatismos industriales: diseñar el cuadro, dimensionar líneas y documentar la instalación para su legalización.',
+    reto:'Necesitas habilitación como empresa instaladora (ITC-BT-03) para firmar el certificado. Mientras tanto, colabora con un instalador habilitado. Cuida los plazos: las reformas se retrasan si el electricista no llega a tiempo.',
+    paso:'Llama a 5 empresas de reformas de tu zona y pregunta si tienen electricista fijo o subcontratan, y cuánto tardan en conseguir uno. Ofrécete para la próxima obra.',
+    vr:'Especialízate en «electrificar la vivienda»: preparar la instalación para aerotermia, inducción y punto de recarga en una sola obra.' });
+
+  A({ id:'el4', cics:['iea','sea','ari'], t:'Mantenimiento eléctrico por contrato para comercios, naves y comunidades', n:'Mantenimiento eléctrico',
+    d:'Contratos de mantenimiento con bares, tiendas, gimnasios, naves y comunidades: revisión de cuadros, alumbrado y emergencias, termografía, cambio de luminarias a LED y urgencias. Los locales de pública concurrencia pasan inspecciones periódicas (ITC-BT-05) y agradecen llegar con todo en orden. Modelo: cuota de 40-200 €/mes por cliente más reparaciones.',
+    m:'cuota', cli:'comercios, gimnasios, naves y comunidades de vecinos de tu zona', pb:'que la instalación eléctrica no falle y pase las inspecciones',
+    val:'La luz no falla, las emergencias funcionan y la inspección se pasa a la primera, con un electricista que ya conoce tu instalación.',
+    inv:[2000,8000], ar:'1-2 meses', r:1, e:['local','domicilio'], h:2, am:2, tg:[], k:['atencion_cliente'], s:['tecnica','organizacion','resolucion'],
+    why:'Instalaciones eléctricas interiores, Máquinas eléctricas y Automatismos industriales: conoces cuadros, motores y maniobras y sabes documentar un mantenimiento preventivo.',
+    reto:'Las urgencias fuera de horario desgastan. Ponles precio desde el principio y prioriza a los clientes con contrato.',
+    paso:'Haz una ruta por 15 comercios de tu zona, fíjate en el alumbrado de emergencia y las luminarias antiguas y ofrece a 3 una revisión gratuita con informe.',
+    vr:'Ofrece el cambio a LED con estudio de ahorro: el cliente paga la obra con lo que ahorra en la factura en 2-3 años.' });
+
+  A({ id:'el5', cics:['bas','iea'], t:'Ayudante subcontratado para instaladores y montaje de iluminación', n:'Subcontrata eléctrica',
+    d:'Las empresas instaladoras no encuentran ayudantes. Trabajas como autónomo para 2-4 instaladores en obras, montajes de iluminación en comercios, tendido de cable y pequeñas reparaciones, mientras ganas experiencia y te formas para habilitarte. Modelo: precio por hora (16-25 €) o por obra cerrada.',
+    m:'proyecto', cli:'empresas instaladoras eléctricas y de reformas que no encuentran personal', pb:'conseguir ayudantes fiables para sus obras',
+    val:'Un ayudante formado y puntual cuando hay pico de trabajo, sin tener que contratar a nadie más.',
+    inv:[500,2000], ar:'1 mes', r:1, e:['local','domicilio'], h:3, am:2, tg:[], k:['otro_oficio'], s:['tecnica','organizacion'],
+    why:'Instalaciones eléctricas y domóticas, Instalaciones de telecomunicaciones y Equipos eléctricos y electrónicos: sabes montar, tender y conectar con seguridad.',
+    reto:'Depender de pocos clientes y trabajar siempre para otro. Úsalo como trampolín: sigue formándote (Grado Medio o habilitación) para dar el salto a instalador propio.',
+    paso:'Haz una lista de 10 empresas instaladoras de tu zona y llama a 5 preguntando si necesitan ayudante por horas en las próximas semanas.',
+    vr:'Especialízate en un tipo de montaje que pocos quieren hacer (iluminación en altura, tendido en naves) y cobra más por hora.' });
+
+  // ---------- INSTALACIONES DE TELECOMUNICACIONES (Grado Medio) ----------
+  A({ id:'el6', cics:['itel','sti','bas'], t:'Antenas, fibra interior y telecomunicaciones en edificios', n:'Instalador de telecomunicaciones',
+    d:'Instalas y reparas antenas de televisión, infraestructuras comunes de telecomunicación en edificios (RD 346/2011), fibra óptica en el interior de viviendas y redes de datos en oficinas. Trabajas para comunidades, administradores de fincas y también como subcontrata de operadoras. Modelo: precio por intervención o proyecto y contratos de mantenimiento con administradores de fincas.',
+    m:'proyecto', cli:'administradores de fincas, comunidades de vecinos, promotoras y operadoras de telecomunicaciones', pb:'que la televisión, la fibra y el portero funcionen en el edificio',
+    val:'Señal de televisión y fibra que funcionan en todas las viviendas, con un técnico que responde rápido al administrador.',
+    inv:[3000,9000], ar:'2-3 meses', r:1, e:['domicilio','local'], h:3, am:2, tg:[], k:['atencion_cliente'], s:['tecnica','resolucion','organizacion'],
+    why:'Infraestructuras comunes de telecomunicación en viviendas y edificios, Infraestructuras de redes de datos y sistemas de telefonía e Instalaciones de radiocomunicaciones: es tu ciclo al completo.',
+    reto:'Para trabajar por tu cuenta tienes que inscribirte como empresa instaladora de telecomunicación (RD 244/2010). La subcontrata de operadoras paga poco: úsala para empezar y crece con administradores de fincas.',
+    paso:'Llama a 5 administradores de fincas de tu zona y pregunta quién les lleva las antenas y porteros y si están contentos. Ofrece una revisión gratuita de un edificio.',
+    vr:'Especialízate en porteros automáticos y videoporteros: todas las comunidades los tienen y los cambian cada 15-20 años.' });
+
+  A({ id:'el7', cics:['itel','sti','me'], t:'Videovigilancia y control de accesos para negocios', n:'Seguridad electrónica',
+    d:'Instalas cámaras, control de accesos y videoporteros en comercios, naves, garajes y comunidades, con acceso desde el móvil y carteles y avisos de protección de datos. Si los sistemas se conectan a una central receptora o centro de control, solo puede instalarlos una empresa de seguridad privada (Ley 5/2014, art. 5.1.f); si no se conectan, quedan fuera de esa ley (art. 6.1.b). Modelo: proyecto de 400-3.000 € y mantenimiento anual.',
+    m:'proyecto', cli:'comercios, naves, garajes y comunidades que sufren robos o quieren controlar accesos', pb:'vigilar y controlar el acceso a su local',
+    val:'Ves tu local desde el móvil, sabes quién entra y tienes grabaciones útiles si pasa algo, todo instalado cumpliendo la ley.',
+    inv:[2000,6000], ar:'1-2 meses', r:1, e:['local','domicilio'], h:2, am:2, tg:[], k:['ventas'], s:['tecnica','resolucion','personas'],
+    why:'Circuito cerrado de televisión y seguridad electrónica, Infraestructuras de redes de datos y Equipos microinformáticos son módulos de tu ciclo: montas, configuras y conectas el sistema completo.',
+    reto:'La videovigilancia tiene reglas de protección de datos (qué se graba, cuánto tiempo, carteles). Consulta la guía de la Agencia Española de Protección de Datos y explícasela al cliente.',
+    paso:'Visita 10 comercios de tu zona y fíjate en sus cámaras: muchas son antiguas o no tienen cartel. Ofrece a 3 una revisión gratuita con propuesta.',
+    vr:'Alíate con una empresa de seguridad privada autorizada: tú instalas y ella aporta la conexión a central para los clientes que la quieran.' });
+
+  // ---------- SISTEMAS ELECTROTÉCNICOS Y AUTOMATIZADOS (Grado Superior) ----------
+  A({ id:'el8', cics:['sea','iea'], t:'Domótica y control inteligente en viviendas y alojamientos', n:'Hogar inteligente',
+    d:'Diseñas e instalas sistemas que controlan luz, persianas, clima, enchufes y cerraduras desde el móvil o con horarios, con ahorro real de energía: en viviendas, apartamentos turísticos y oficinas. Prefieres sistemas abiertos y que funcionen sin depender de internet. Modelo: proyecto de 1.000-6.000 € y mantenimiento remoto.',
+    m:'proyecto', cli:'propietarios que reforman su vivienda, gestores de apartamentos turísticos y oficinas pequeñas', pb:'controlar la casa desde el móvil y ahorrar energía',
+    val:'Tu casa o tu apartamento se controla desde el móvil, gasta menos y no depende de una marca que mañana puede desaparecer.',
+    inv:[1500,5000], ar:'2-3 meses', r:2, e:['domicilio'], h:2, am:3, tg:['tecnologia'], k:['programacion'], s:['tecnica','digital','resolucion'],
+    why:'Técnicas y procesos en instalaciones domóticas y automáticas y Configuración de instalaciones domóticas y automáticas: diseñas el sistema completo, no solo enchufas aparatos.',
+    reto:'Mucho aparato barato que falla y clientes que esperan magia. Trabaja con 2-3 sistemas probados y deja al cliente una forma manual de controlar todo si falla la red.',
+    paso:'Domotiza una habitación de tu casa (luz, persiana y temperatura) con un sistema abierto, documenta el coste y el ahorro y graba un vídeo corto con el resultado.',
+    vr:'Céntrate en apartamentos turísticos: llegada sin llaves, climatización que se apaga sola al salir y aviso de consumo anómalo.' });
+
+  A({ id:'el9', cics:['sea'], t:'Oficina técnica para pequeños instaladores: memorias, cálculos y legalizaciones', n:'Ingeniería eléctrica externa',
+    d:'Muchos instaladores pequeños pierden horas con el papeleo: memorias técnicas, esquemas unifilares, cálculos de líneas, certificados y tramitación con industria y la distribuidora. Lo haces tú por encargo. Modelo: precio por expediente (80-400 €) o cuota mensual por instalador.',
+    m:'cuota', cli:'empresas instaladoras eléctricas y de autoconsumo de 1-10 personas', pb:'preparar la documentación técnica y legalizar las instalaciones',
+    val:'Tú instalas y otro se ocupa de los cálculos, esquemas y trámites, bien hechos y a tiempo.',
+    inv:[500,2000], ar:'1-2 meses', r:1, e:['online'], h:2, am:3, tg:[], k:['ofimatica'], s:['organizacion','tecnica','resolucion'],
+    why:'Documentación técnica en instalaciones eléctricas, Configuración de instalaciones eléctricas y Gestión del montaje y del mantenimiento: preparar y tramitar la documentación es una parte central de tu ciclo.',
+    reto:'Cada comunidad autónoma tramita de forma distinta. Especialízate en la tuya y mantén una plantilla actualizada de cada trámite.',
+    paso:'Pregunta a 5 instaladores de tu zona cuántas horas les quita al mes el papeleo y cuánto pagarían por quitárselo. Ofrece hacer un expediente gratis.',
+    vr:'Especialízate en legalizar autoconsumos y puntos de recarga, que son los trámites que más se repiten hoy.' });
+
+  // ---------- SISTEMAS DE TELECOMUNICACIONES E INFORMÁTICOS (Grado Superior) ----------
+  A({ id:'el10', cics:['sti','itel'], t:'Redes de datos y centralitas en la nube para pymes', n:'Comunicaciones de empresa',
+    d:'Diseñas y montas la parte de comunicaciones de oficinas, clínicas y naves: cableado estructurado, wifi, telefonía por internet (centralita en la nube), conexiones de respaldo y redes privadas entre sedes. Modelo: proyecto de 800-5.000 € y cuota mensual de soporte.',
+    m:'proyecto', cli:'oficinas, clínicas, naves y pymes con varias sedes', pb:'tener teléfono, internet y red fiables en la empresa',
+    val:'Teléfonos y red que funcionan siempre, aunque caiga una conexión, y un técnico que lo vigila a distancia.',
+    inv:[1500,5000], ar:'2-3 meses', r:2, e:['local'], h:3, am:3, tg:[], k:['programacion'], s:['tecnica','resolucion','organizacion'],
+    why:'Sistemas informáticos y redes locales, Redes telemáticas y Sistemas de telefonía fija y móvil: diseñas la red entera y la integras con la telefonía.',
+    reto:'Competirás con operadoras que regalan instalación. Tu valor es el diseño a medida y la atención cercana: vende fiabilidad, no precio.',
+    paso:'Diseña la red de una oficina ficticia de 10 puestos con planos, materiales y presupuesto. Úsalo como ejemplo para enseñar a clientes.',
+    vr:'Especialízate en clínicas o despachos con requisitos de seguridad, donde la calidad pesa más que el precio.' });
+
+  // ---------- AUTOMATIZACIÓN Y ROBÓTICA INDUSTRIAL (Grado Superior) ----------
+  A({ id:'el11', cics:['ari','sea'], t:'Automatización y modernización de máquinas en pymes industriales', n:'Integrador de automatización',
+    d:'Automatizas procesos en pequeñas fábricas, talleres y obradores: modernizas máquinas antiguas con autómatas nuevos, instalas pantallas de control, sensores y robots colaborativos para tareas repetitivas. Modelo: proyecto de 3.000-30.000 € y contratos de soporte.',
+    m:'proyecto', cli:'pymes industriales, talleres y empresas alimentarias con máquinas antiguas o tareas repetitivas', pb:'producir más y con menos fallos sin comprar máquinas nuevas',
+    val:'Tus máquinas de siempre producen más y fallan menos, con control desde una pantalla y sin cambiar toda la línea.',
+    inv:[3000,10000], ar:'3-4 meses', r:2, e:['local'], h:3, am:3, tg:['tecnologia'], k:['programacion'], s:['tecnica','resolucion','organizacion'],
+    why:'Sistemas secuenciales programables, Robótica industrial, Comunicaciones industriales e Integración de sistemas de automatización industrial: es el oficio completo del integrador.',
+    reto:'Proyectos grandes y responsabilidad alta: un fallo para la producción del cliente. Empieza con mejoras pequeñas, documenta todo y contrata un seguro de responsabilidad civil profesional.',
+    paso:'Visita 3 pymes industriales de tu zona y pregunta qué máquina les da más problemas o qué tarea repetitiva odian. Propón una mejora concreta y su coste.',
+    vr:'Especialízate en un sector (alimentación, madera, plásticos) y en una marca de autómatas: serás el que conoce sus máquinas.' });
+
+  // ---------- MANTENIMIENTO ELECTRÓNICO (Grado Superior) ----------
+  A({ id:'el12', cics:['me','bas'], t:'Taller de reparación electrónica: placas, audio y pequeños aparatos', n:'Reparación electrónica',
+    d:'Reparas lo que otros dan por perdido: placas de electrodomésticos y calderas, equipos de audio, amplificadores, consolas, patinetes y bicis eléctricas. Atiendes a particulares y a servicios técnicos y tiendas que no reparan a nivel de componente. Modelo: diagnóstico de 15-30 € y reparación por presupuesto; venta de equipos reacondicionados.',
+    m:'proyecto', cli:'particulares, tiendas de electrónica, servicios técnicos y talleres de bicis y patinetes', pb:'arreglar un aparato caro en lugar de tirarlo',
+    val:'Tu aparato vuelve a funcionar por una fracción de lo que cuesta uno nuevo, reparado por alguien que llega a la pieza que falla.',
+    inv:[1500,5000], ar:'1-2 meses', r:1, e:['local','online'], h:2, am:3, tg:['sostenibilidad','tecnologia','musica'], k:['rrss'], s:['tecnica','resolucion'],
+    why:'Circuitos electrónicos analógicos, Equipos microprogramables, Mantenimiento de equipos de audio y Técnicas y procesos de montaje y mantenimiento de equipos electrónicos: diagnosticar y reparar a nivel de componente es tu especialidad.',
+    reto:'Muchas reparaciones no salen rentables por el tiempo. Cobra siempre el diagnóstico, especialízate en lo que más se repite y vigila la seguridad con baterías de litio.',
+    paso:'Pregunta a 5 tiendas de electrónica, de bicis o de audio de tu zona qué hacen con los equipos averiados que no pueden reparar. Ofrece reparar 2 a prueba.',
+    vr:'Envíos de toda España: especialízate en un aparato concreto (amplificadores antiguos, placas de un tipo de electrodoméstico) y recibe reparaciones por mensajería.' });
+
+  A({ id:'el13', cics:['me','sti','ari','emc'], t:'Mantenimiento de equipos electrónicos para hostelería, comercio e industria', n:'Mantenimiento electrónico por contrato',
+    d:'Contratos de mantenimiento de los equipos electrónicos de los que vive un negocio: terminales de venta, balanzas, sistemas de sonido de salas y hoteles, pantallas de cartelería, equipos de control industrial. Modelo: cuota mensual de 50-300 € con revisión preventiva y urgencias.',
+    m:'cuota', cli:'hoteles, salas de eventos, cadenas pequeñas de tiendas y pymes industriales', pb:'que los equipos electrónicos no paren el negocio',
+    val:'Si un equipo falla, alguien lo arregla rápido; y la revisión preventiva evita que falle en el peor momento.',
+    inv:[1500,5000], ar:'2 meses', r:1, e:['local'], h:2, am:2, tg:[], k:['atencion_cliente'], s:['tecnica','organizacion','resolucion'],
+    why:'Mantenimiento de equipos de electrónica industrial, de voz y datos, de audio y de vídeo, e Infraestructuras y desarrollo del mantenimiento electrónico: organizas el mantenimiento de un parque de equipos.',
+    reto:'Cada cliente tiene marcas distintas. Haz inventario de equipos antes de firmar el contrato y excluye lo que no puedas reparar.',
+    paso:'Pregunta a 3 hoteles o salas de eventos de tu zona quién les mantiene el sonido y las pantallas y cuánto tardan en venir cuando falla algo.',
+    vr:'Especialízate en sonido e imagen para hoteles y salas de congresos, con alquiler de equipos para eventos como extra.' });
+
+  // ---------- ELECTROMEDICINA CLÍNICA (Grado Superior) ----------
+  A({ id:'el14', cics:['emc'], t:'Mantenimiento de equipos médicos para clínicas privadas', n:'Electromedicina independiente',
+    d:'Los hospitales tienen su servicio técnico, pero las clínicas dentales, de fisioterapia, de estética y las veterinarias dependen de los fabricantes, que son caros y lentos. Les ofreces mantenimiento preventivo, revisiones de seguridad eléctrica, reparaciones y control del inventario de equipos. Modelo: cuota anual por clínica (600-3.000 €) más reparaciones.',
+    m:'cuota', cli:'clínicas dentales, de fisioterapia, estéticas y veterinarias de tu provincia', pb:'mantener sus equipos médicos seguros y funcionando sin esperar semanas al fabricante',
+    val:'Tus equipos revisados y documentados, reparaciones rápidas y alguien que te avisa antes de que algo falle.',
+    inv:[2000,8000], ar:'3-4 meses', r:2, e:['local'], h:3, am:3, tg:['animales','social'], k:['atencion_cliente'], s:['tecnica','organizacion','resolucion'],
+    why:'Sistemas de rehabilitación y pruebas funcionales, Sistemas de monitorización, Tecnología sanitaria en el ámbito clínico y Gestión del montaje y mantenimiento de sistemas de electromedicina: es tu ciclo aplicado fuera del hospital.',
+    reto:'Los equipos médicos tienen protocolos estrictos del fabricante y responsabilidad alta. Trabaja siempre con esos protocolos, documenta cada intervención y contrata un seguro específico.',
+    paso:'Llama a 5 clínicas dentales o de fisioterapia de tu zona y pregunta quién les mantiene los equipos y cuánto tardan en reparar. Apunta qué equipos tienen.',
+    vr:'Especialízate en clínicas veterinarias, que tienen equipos parecidos a los humanos y muchas menos empresas que les den servicio.' });
+
+  A({ id:'el15', cics:['emc'], t:'Asesoría de compra y gestión del equipamiento de una clínica', n:'Gestión de tecnología sanitaria',
+    d:'Ayudas a clínicas que abren o renuevan equipos a elegir bien: comparas ofertas, revisas qué necesitan de verdad, planificas la instalación y montas un inventario con calendario de mantenimiento. Modelo: proyecto cerrado de 500-3.000 € o porcentaje sobre el ahorro conseguido.',
+    m:'proyecto', cli:'clínicas privadas que abren o renuevan equipamiento (dentales, fisioterapia, estética, veterinarias)', pb:'elegir y comprar equipos médicos sin pagar de más',
+    val:'Compras los equipos que de verdad necesitas al mejor precio, con la instalación y el mantenimiento planificados desde el primer día.',
+    inv:[300,1500], ar:'2-3 meses', r:2, e:['online','local'], h:2, am:3, tg:[], k:['ventas','ofimatica'], s:['organizacion','resolucion','personas'],
+    why:'Planificación de la adquisición de sistemas de electromedicina y Tecnología sanitaria en el ámbito clínico: comparar, especificar y planificar equipos es un módulo de tu ciclo.',
+    reto:'Las clínicas confían en el comercial del fabricante. Gánate la confianza demostrando ahorro real en una primera compra pequeña.',
+    paso:'Prepara una tabla comparativa de 3 modelos de un equipo común (por ejemplo, autoclaves o equipos de fisioterapia) con precio, mantenimiento y vida útil. Enséñasela a 2 clínicas.',
+    vr:'Combínalo con el mantenimiento: quien te contrata para comprar suele quedarse contigo para mantener.' });
+
+  // ---------- HÍBRIDAS: electricidad + afición ----------
+  H({ id:'el_h1', pref:['iea','sea'], t:'Electrificación para talleres, concesionarios y aparcamientos', n:'Recarga profesional',
+    d:'Instalas y mantienes cargadores en talleres, concesionarios, aparcamientos, gasolineras y empresas con flota, con gestión de la potencia para no tener que contratar más. Tu afición al motor te abre la puerta de talleres y concesionarios. Modelo: proyectos de 3.000-20.000 € y contratos de mantenimiento.',
+    m:'proyecto', cli:'talleres, concesionarios, aparcamientos y empresas con flota de vehículos', pb:'cargar varios vehículos eléctricos sin disparar la factura ni la potencia contratada',
+    val:'Cargas toda tu flota o la de tus clientes sin pagar más potencia, con mantenimiento y alguien que responde si un cargador falla.',
+    inv:[3000,10000], ar:'2-4 meses', r:2, e:['local'], h:3, am:3, tg:['motor'], k:['ventas'], s:['tecnica','organizacion','ventas'],
+    why:'Conoces el mundo del motor y habla tu idioma; tu ciclo pone instalaciones de distribución, automatismos y la ITC-BT-52 del Reglamento de Baja Tensión.',
+    reto:'Proyectos más grandes exigen habilitación, capital para material y cobrar a tiempo. Pide anticipos y empieza con talleres pequeños.',
+    paso:'Pregunta a 5 talleres o concesionarios de tu zona si ya reciben coches eléctricos y dónde los cargan. Apunta cuántos cargadores necesitarían.',
+    vr:'Ofrece cargadores para hoteles y restaurantes de carretera: atraen clientes con coche eléctrico y se pagan con el consumo.' });
+
+  H({ id:'el_h2', pref:['me','itel'], t:'Iluminación y sonido para salas, bandas y eventos', n:'Técnica de espectáculos',
+    d:'Montas, mantienes y alquilas sonido e iluminación para salas de conciertos, bares con música, bandas, fiestas de pueblo y eventos. Reparas equipos de audio y haces instalaciones fijas en locales. Modelo: alquiler por evento (150-1.500 €), técnico por jornada y proyectos de instalación.',
+    m:'proyecto', cli:'salas de conciertos, bares con música en directo, bandas, ayuntamientos y organizadores de eventos', pb:'sonar y verse bien en cada actuación',
+    val:'El concierto suena y se ve como debe, con un técnico que entiende la música y repara el equipo si falla.',
+    inv:[3000,12000], ar:'2-3 meses', r:2, e:['local'], h:3, am:3, tg:['musica'], k:['fotovideo'], s:['tecnica','resolucion','creatividad'],
+    why:'Tu afición a la música te da el oído y los contactos; tu ciclo pone la electrónica, las instalaciones eléctricas y el mantenimiento de equipos de audio.',
+    reto:'Equipos caros y trabajo de noche y en fin de semana. Empieza alquilando equipo y técnico por jornada antes de comprar mucho material.',
+    paso:'Ofrécete como técnico en 3 conciertos o fiestas de tu zona y apunta qué equipo usan y qué falla más. Calcula qué material mínimo necesitarías para alquilar.',
+    vr:'Haz instalaciones fijas en bares y salas pequeñas: un proyecto bien hecho te trae mantenimiento y alquileres durante años.' });
+
+  H({ id:'el_h3', pref:['me','bas'], t:'Reparación y mejora de consolas, mandos y equipos gaming', n:'Reparación gaming',
+    d:'Reparas consolas (puertos de carga, ventiladores, lectores), mandos con deriva en los joysticks, portátiles gaming y equipos retro, y haces mejoras como cambio de pasta térmica o restauración de consolas clásicas. Modelo: reparación de 25-120 € y venta de consolas restauradas.',
+    m:'producto', cli:'jugadores y coleccionistas de consolas y tiendas de videojuegos', pb:'arreglar su consola o mando sin comprar uno nuevo',
+    val:'Tu consola o mando vuelve a funcionar en días, por mucho menos que uno nuevo, reparado por alguien que también juega.',
+    inv:[800,3000], ar:'1-2 meses', r:1, e:['online','local'], h:2, am:4, tg:['tecnologia'], k:['rrss'], s:['tecnica','resolucion','digital'],
+    why:'Te mueves en el mundo gaming y sabes qué falla; tu ciclo te da la soldadura, la electrónica y el diagnóstico de equipos.',
+    reto:'Repuestos de calidad variable. Compra a proveedores fiables, ofrece garantía de 3 meses y documenta cada reparación con fotos.',
+    paso:'Repara 3 mandos con deriva de amigos o compañeros, grábalo en vídeo y pregunta en 2 tiendas de videojuegos si te pasarían reparaciones.',
+    vr:'Restaura consolas retro para coleccionistas: margen alto y mucha comunidad dispuesta a pagar por piezas cuidadas.' });
+
+  H({ id:'el_h4', pref:['sea','iea'], t:'Comunidades energéticas y autoconsumo compartido en barrios y pueblos', n:'Energía comunitaria',
+    d:'Ayudas a vecinos, comercios y ayuntamientos a montar autoconsumo compartido (RD 244/2019): una instalación en un tejado común que reparte la energía entre varios. Diseñas, instalas, tramitas el reparto y haces el mantenimiento. Modelo: proyecto de instalación y cuota anual de gestión.',
+    m:'proyecto', cli:'comunidades de vecinos, asociaciones, cooperativas y ayuntamientos pequeños', pb:'compartir una instalación solar y pagar menos luz entre todos',
+    val:'Varios vecinos o negocios comparten una instalación solar, pagan menos luz y tienen a alguien que lo gestiona todo.',
+    inv:[2000,8000], ar:'4-6 meses', r:2, e:['local'], h:3, am:2, tg:['sostenibilidad','social'], k:['gestion_personas'], s:['organizacion','personas','tecnica'],
+    why:'Tu compromiso con la sostenibilidad y lo social hace creíble el proyecto; tu ciclo aporta Configuración de instalaciones eléctricas, Documentación técnica y Gestión del montaje y del mantenimiento.',
+    reto:'Poner de acuerdo a muchas personas es lento y los trámites también. Empieza por un grupo pequeño ya organizado (una asociación o una comunidad de vecinos).',
+    paso:'Busca en tu zona una asociación de vecinos o cooperativa interesada y estima con la herramienta del IDAE o PVGIS cuánto produciría su tejado.',
+    vr:'Ofrécete a ayuntamientos pequeños: tienen tejados públicos y vecinos que quieren participar, pero no saben por dónde empezar.' });
+
+  H({ id:'el_h5', pref:['iea','sea'], t:'Electricidad solar para furgonetas camper, autocaravanas y refugios', n:'Instalaciones aisladas',
+    d:'Diseñas e instalas sistemas eléctricos independientes de la red: placas, baterías de litio, inversores y cargadores para furgonetas camperizadas, autocaravanas, barcos pequeños, casetas de campo y refugios. Modelo: proyecto de 800-5.000 € y venta de kits a medida.',
+    m:'proyecto', cli:'personas que camperizan su furgoneta, propietarios de autocaravanas y de casas de campo sin red', pb:'tener electricidad fiable lejos de un enchufe',
+    val:'Electricidad suficiente y segura donde no hay enchufe, dimensionada para lo que de verdad vas a usar.',
+    inv:[1500,5000], ar:'2 meses', r:2, e:['local','domicilio'], h:2, am:4, tg:['viajes','naturaleza','motor'], k:['rrss'], s:['tecnica','resolucion','creatividad'],
+    why:'Conoces la vida de viaje o de campo; tu ciclo te da Instalaciones solares fotovoltaicas, Electrotecnia y Electrónica para dimensionar y montar el sistema con seguridad.',
+    reto:'Las baterías de litio mal montadas son peligrosas y algunas reformas del vehículo deben pasar la ITV. Infórmate de qué reformas lo exigen antes de vender el servicio.',
+    paso:'Diseña en una hoja de cálculo el sistema eléctrico de una furgoneta tipo (consumos, baterías, placas) y publícalo en un grupo de camperizadores pidiendo opiniones.',
+    vr:'Vende kits ya dimensionados con instrucciones y soporte para quienes quieren montarlos ellos mismos: más volumen, menos horas.' });
+
+  H({ id:'el_h6', pref:['itel','sea'], t:'Tecnología para que las personas mayores vivan solas con seguridad', n:'Hogar seguro para mayores',
+    d:'Adaptas viviendas de personas mayores: detectores de caídas y de humo, luces que se encienden al levantarse de noche, avisos a la familia si algo cambia, timbres luminosos para personas con sordera, videoporteros sencillos. Modelo: estudio de la vivienda de 60-120 €, proyecto de 400-2.500 € y cuota de mantenimiento.',
+    m:'proyecto', cli:'familias con padres mayores que viven solos y asociaciones de mayores', pb:'que sus mayores vivan solos en casa con seguridad',
+    val:'Tu madre o tu padre siguen en su casa, más seguros, y la familia se entera si algo no va bien.',
+    inv:[1000,4000], ar:'2 meses', r:1, e:['domicilio'], h:2, am:2, tg:['social'], k:['atencion_cliente'], s:['personas','tecnica','resolucion'],
+    why:'Tu vocación social te da el trato; tu ciclo aporta Instalaciones domóticas, Infraestructuras de redes de datos y Electrónica aplicada para que todo funcione sin que el mayor tenga que hacer nada.',
+    reto:'La tecnología debe ser invisible y fiable: nada de aplicaciones complicadas para el mayor. Explica bien qué datos se recogen y quién los ve.',
+    paso:'Entrevista a 5 familias con padres mayores que viven solos: qué les preocupa más y qué han probado. Diseña un paquete básico con precio cerrado.',
+    vr:'Colabora con servicios de ayuda a domicilio y residencias, que pueden recomendarte a las familias.' });
+
+  H({ id:'el_h7', pref:['ari','iea'], t:'Automatización de granjas y explotaciones agrarias', n:'Electricidad en el campo',
+    d:'Automatizas explotaciones ganaderas y agrícolas: alimentación y bebederos, ventilación de naves, riego con programación, bombeo solar, vallados eléctricos y cámaras para vigilar el ganado. Modelo: proyectos de 1.500-15.000 € y mantenimiento con urgencias.',
+    m:'proyecto', cli:'granjas, explotaciones ganaderas, agricultores y cooperativas de tu comarca', pb:'automatizar tareas y vigilar la explotación sin estar allí todo el día',
+    val:'Tu explotación se riega, ventila y alimenta sola, y puedes vigilarla desde el móvil, con un técnico que va al campo cuando hace falta.',
+    inv:[2000,8000], ar:'2-3 meses', r:2, e:['local','domicilio'], h:3, am:2, tg:['animales','naturaleza'], k:['otro_oficio'], s:['tecnica','resolucion','organizacion'],
+    why:'Conoces el campo y los animales; tu ciclo pone automatismos, sistemas programables, máquinas eléctricas e instalaciones solares.',
+    reto:'Distancias largas y averías urgentes (si falla la ventilación de una nave, el problema es grave). Agrupa clientes por comarcas y ten repuestos críticos en la furgoneta.',
+    paso:'Visita 3 explotaciones de tu comarca y pregunta qué tarea les quita más tiempo o qué avería temen más. Propón una automatización concreta.',
+    vr:'Trabaja con cooperativas agrarias: pueden ofrecer tu servicio a todos sus socios a un precio pactado.' });
+
+  H({ id:'el_h8', pref:['iea','sea'], t:'Iluminación LED y marcadores para instalaciones deportivas', n:'Electricidad para el deporte',
+    d:'Renuevas la iluminación de pistas de pádel, campos de fútbol, pabellones y gimnasios a LED con control por horarios o desde el móvil, e instalas marcadores, megafonía y cámaras para grabar partidos. Modelo: proyecto de 2.000-20.000 € con estudio de ahorro y mantenimiento anual.',
+    m:'proyecto', cli:'clubes de pádel y tenis, ayuntamientos, colegios y gimnasios', pb:'iluminar sus pistas gastando menos',
+    val:'Mejor luz en la pista, una factura mucho más baja y encendido desde el móvil solo cuando hay reservas.',
+    inv:[2000,8000], ar:'2-3 meses', r:2, e:['local'], h:3, am:2, tg:['deporte'], k:['ventas'], s:['tecnica','organizacion','ventas'],
+    why:'Conoces el deporte y cómo funciona un club; tu ciclo aporta instalaciones de alumbrado, automatismos y cálculo de ahorro energético.',
+    reto:'Los ayuntamientos contratan por concurso y pagan despacio. Empieza con clubes privados y pistas de pádel, que deciden y pagan más rápido.',
+    paso:'Pregunta a 3 clubes de pádel o tenis de tu zona cuánto pagan de luz al mes y qué luminarias tienen. Calcula el ahorro con LED y preséntalo.',
+    vr:'Conecta la iluminación con el sistema de reservas del club: la pista solo se enciende cuando hay alguien que ha pagado.' });
+
+  H({ id:'el_h9', pref:['iea','sea'], t:'Iluminación expositiva para galerías, museos y escaparates', n:'Iluminación de espacios',
+    d:'Diseñas e instalas iluminación que hace lucir lo expuesto: carriles y focos regulables en galerías, museos pequeños, tiendas, restaurantes y escaparates, con escenas programadas y ahorro energético. Modelo: proyecto de 800-8.000 € y cambios de escena por temporada.',
+    m:'proyecto', cli:'galerías, museos pequeños, tiendas cuidadas, restaurantes y estudios de diseño', pb:'que sus obras o productos luzcan como merecen',
+    val:'Tu espacio luce como en una revista: cada obra o producto con su luz, con escenas que cambias desde el móvil.',
+    inv:[1500,5000], ar:'2 meses', r:2, e:['local'], h:2, am:2, tg:['arte','moda'], k:['diseno'], s:['creatividad','tecnica','personas'],
+    why:'Tu sensibilidad artística te hace entender qué necesita una obra o un escaparate; tu ciclo te da instalaciones interiores, automatismos y regulación.',
+    reto:'El cliente compra por estética, y la estética es subjetiva. Haz pruebas con muestras de luz antes de instalar y documenta el antes y el después.',
+    paso:'Fotografía 5 escaparates o salas de tu zona con mala iluminación y prepara para uno un boceto de mejora con material y presupuesto.',
+    vr:'Trabaja con interioristas y escaparatistas, que necesitan a alguien técnico que ejecute sus ideas de iluminación.' });
+
+  H({ id:'el_h10', pref:['me','bas'], t:'Talleres de electrónica creativa para jóvenes y adultos', n:'Formación maker',
+    d:'Impartes talleres prácticos de electrónica: montar un amplificador, programar luces, reparar un aparato, construir un pequeño robot. Para institutos, bibliotecas, espacios maker, campamentos y adultos que quieren aprender. Modelo: 15-40 € por persona en grupos de 8-12, o taller cerrado para entidades.',
+    m:'formacion', cli:'institutos, bibliotecas, espacios maker, campamentos y adultos curiosos', pb:'aprender electrónica haciendo cosas que funcionan',
+    val:'Sales del taller con algo construido por ti que funciona, y entendiendo por qué funciona.',
+    inv:[500,2000], ar:'1-2 meses', r:1, e:['local'], h:1, am:2, tg:['diy','tecnologia','musica'], k:['programacion'], s:['creatividad','personas','tecnica'],
+    why:'Te gusta construir con las manos; tu ciclo te da circuitos analógicos, equipos microprogramables y montaje electrónico para preparar proyectos que salen bien a la primera.',
+    reto:'Enseñar es otra habilidad. Prepara kits probados, guías paso a paso y ten repuestos: un taller donde nada funciona no se repite.',
+    paso:'Diseña un proyecto de 2 horas con piezas por menos de 15 € (por ejemplo, unas luces que reaccionan al sonido) y ofrécelo gratis en una biblioteca.',
+    vr:'Vende los kits con un vídeo tutorial: llegas a toda España sin estar en el aula.' });
+
+  // ---------- EMERGENTES ----------
+  N({ id:'el_n1', t:'Baterías y gestión inteligente de la energía en viviendas y pymes', n:'Gestión energética',
+    d:'Instalas baterías y sistemas que deciden cuándo consumir, cargar el coche o guardar energía según el precio de la luz por horas y la producción solar, y pones a punto la tarifa del cliente. Modelo: proyecto de 3.000-10.000 € con estudio de ahorro y cuota de seguimiento.',
+    m:'proyecto', cli:'viviendas y pymes con placas o con consumos altos y tarifa por horas', pb:'gastar menos luz aprovechando las horas baratas',
+    val:'Tu casa o tu negocio usa la energía cuando es barata y la guarda cuando sobra, y ves el ahorro cada mes.',
+    inv:[3000,10000], ar:'3-4 meses', r:3, e:['domicilio','local'], h:3, am:3, tg:['sostenibilidad','tecnologia'], k:['programacion','contabilidad'], s:['tecnica','resolucion','digital'],
+    why:'Une instalaciones solares, electrónica de potencia y automatismos con la programación: justo la mezcla que tu ciclo te da.',
+    reto:'El ahorro depende de precios que cambian. Haz estudios prudentes, explícale al cliente los supuestos y no prometas plazos de amortización que no puedas garantizar.',
+    paso:'Descarga tu curva de consumo de la web de la distribuidora y calcula cuánto ahorrarías moviendo consumos a horas baratas. Será tu primer estudio de ejemplo.',
+    vr:'Ofrece solo el servicio de gestión (programación y seguimiento) a quien ya tiene placas y baterías mal aprovechadas.' });
+
+  N({ id:'el_n2', t:'Inspección de placas solares y tejados con drones y termografía', n:'Inspección con drones',
+    d:'Con un dron con cámara térmica detectas paneles averiados, puntos calientes y fallos en placas de naves, granjas y plantas solares, y entregas un informe con fotos y prioridades. Modelo: inspección de 150-1.500 € según tamaño y contratos anuales con empresas de mantenimiento.',
+    m:'proyecto', cli:'empresas de mantenimiento fotovoltaico, propietarios de naves con placas y pequeñas plantas solares', pb:'encontrar los paneles que fallan sin revisarlos uno a uno',
+    val:'En una mañana sabes qué paneles fallan y por qué, con un informe claro para repararlos.',
+    inv:[4000,12000], ar:'3-4 meses', r:3, e:['local'], h:2, am:3, tg:['tecnologia','naturaleza'], k:['fotovideo'], s:['tecnica','digital','resolucion'],
+    why:'Instalaciones solares fotovoltaicas y Electrónica te permiten interpretar lo que ve la cámara: no solo haces fotos, sabes qué significa cada punto caliente.',
+    reto:'Para volar profesionalmente tienes que registrarte como operador en AESA y tener la formación de piloto adecuada. Calcula ese coste antes de comprar el dron.',
+    paso:'Infórmate en la web de AESA de qué registro y formación necesitas para inspecciones y pide precio de 2 drones con cámara térmica. Pregunta a 2 empresas de mantenimiento si contratarían el servicio.',
+    vr:'Amplía a inspección de tejados y fachadas para comunidades y aseguradoras: el mismo dron, otro cliente.' });
+
+  N({ id:'el_n3', t:'Reparación y reacondicionado de baterías de bicis y patinetes eléctricos', n:'Segunda vida de baterías',
+    d:'Las baterías de bicis y patinetes eléctricos son caras y muchas se tiran por una avería pequeña. Las diagnosticas, cambias celdas o controladores con seguridad y las devuelves con garantía; también das servicio a tiendas de bicis. Modelo: diagnóstico de 20-40 € y reparación de 80-300 €.',
+    m:'proyecto', cli:'usuarios de bicis y patinetes eléctricos, tiendas de bicis y empresas de reparto', pb:'recuperar una batería cara sin comprar una nueva',
+    val:'Tu batería vuelve a durar, por mucho menos que una nueva y con garantía.',
+    inv:[2000,6000], ar:'2-3 meses', r:3, e:['local','online'], h:2, am:3, tg:['sostenibilidad','deporte','motor'], k:['rrss'], s:['tecnica','resolucion'],
+    why:'Electrónica, circuitos y mantenimiento de equipos: sabes medir, diagnosticar y trabajar con controladores y celdas.',
+    reto:'Las baterías de litio pueden incendiarse: necesitas un local adecuado, protocolos de seguridad, un seguro y gestionar las celdas viejas como residuo. No es para empezar sin experiencia.',
+    paso:'Pregunta a 5 tiendas de bicis eléctricas de tu zona qué hacen hoy con las baterías averiadas y cuántas reciben al mes. Infórmate de cómo se gestionan las baterías usadas como residuo.',
+    vr:'Especialízate en flotas de reparto: muchas baterías del mismo modelo, mantenimiento programado y un solo cliente que paga.' });
+
+  N({ id:'el_n4', t:'Sensores y mantenimiento predictivo para pequeñas industrias', n:'Industria conectada',
+    d:'Instalas sensores sencillos (vibración, temperatura, consumo) en las máquinas críticas de una pyme y una pantalla que avisa antes de que fallen. Modelo: instalación de 1.000-5.000 € y cuota mensual de seguimiento con informe.',
+    m:'cuota', cli:'pymes industriales y alimentarias cuyas paradas de máquina cuestan mucho dinero', pb:'saber que una máquina va a fallar antes de que pare la producción',
+    val:'Te avisan de que una máquina va a fallar antes de que pare, y programas la reparación cuando menos molesta.',
+    inv:[1500,5000], ar:'3-4 meses', r:3, e:['local','online'], h:3, am:3, tg:['tecnologia'], k:['programacion'], s:['tecnica','digital','resolucion'],
+    why:'Sistemas de medida y regulación, Comunicaciones industriales e Informática industrial: sabes captar datos de una máquina y convertirlos en avisos útiles.',
+    reto:'Las pymes no confían en lo que no ven. Empieza con una sola máquina como piloto y enséñales un aviso real que les haya evitado una parada.',
+    paso:'Pregunta a 3 pymes industriales qué máquina, si se para, les cuesta más dinero por hora. Propón un piloto de sensores solo en esa.',
+    vr:'Combínalo con contratos de mantenimiento: el sensor te dice cuándo ir y el cliente paga menos urgencias.' });
+  } // fin de Electricidad y Electrónica
+
+  // ===================== ENERGÍA Y AGUA =====================
+  FAM.energia = {
+    ciclos: {
+      'Redes y Estaciones de Tratamiento de Aguas': 'reta',
+      'Centrales Eléctricas': 'ce',
+      'Eficiencia Energética y Energía Solar Térmica': 'ee',
+      'Energías Renovables': 'er',
+      'Gestión del Agua': 'ga'
+    },
+    labels: { reta: 'Redes y Estaciones de Tratamiento de Aguas', ce: 'Centrales Eléctricas', ee: 'Eficiencia Energética y Energía Solar Térmica', er: 'Energías Renovables', ga: 'Gestión del Agua' },
+    defecto: { basico: 'reta', medio: 'reta', superior: 'ee' },
+    afin: { reta: ['ga'], ce: ['er'] },
+    fuentes: {
+      ee: 'el IDAE (Instituto para la Diversificación y Ahorro de la Energía), el registro de certificados energéticos de tu comunidad autónoma, el procedimiento de certificación (RD 390/2021) y el sistema de Certificados de Ahorro Energético (RD 36/2023)',
+      er: 'el IDAE, la UNEF (Unión Española Fotovoltaica), la Asociación Empresarial Eólica, Red Eléctrica (REData) y el autoconsumo (RD 244/2019)',
+      ce: 'Red Eléctrica (REData), la Asociación Empresarial Eólica, la UNEF y el reglamento de instalaciones de alta tensión (RD 337/2014)',
+      ga: 'la Asociación Española de Abastecimientos de Agua y Saneamiento (AEAS), el Ministerio para la Transición Ecológica, la norma de agua de consumo (RD 3/2023) y la de legionela (RD 487/2022)',
+      _: 'la Asociación Española de Abastecimientos de Agua y Saneamiento (AEAS), las empresas de aguas de tu comarca y la norma de agua de consumo (RD 3/2023)'
+    }
+  };
+  { const { A, H, N } = banco('energia');
+
+  // ---------- EFICIENCIA ENERGÉTICA Y ENERGÍA SOLAR TÉRMICA (Grado Superior) ----------
+  A({ id:'en1', cics:['ee'], t:'Certificados energéticos de viviendas y locales', n:'Certificación energética',
+    d:'Para vender o alquilar una vivienda o un local hace falta su certificado de eficiencia energética. Desde el 23 de julio de 2026 pueden firmarlo, en edificios existentes, los titulados de FP de Grado Superior cuya competencia incluya la certificación energética, superando los módulos 1 y 2 del curso básico o convalidándolos (RD 390/2021, art. 4 bis.2.d, en la redacción del RD 659/2025). Modelo: 60-150 € por vivienda y más en locales, con alianzas con inmobiliarias y administradores de fincas.',
+    m:'proyecto', cli:'inmobiliarias, administradores de fincas y propietarios que venden o alquilan', pb:'conseguir el certificado energético rápido y bien hecho',
+    val:'Tu certificado en pocos días, hecho con visita real y con propuestas de mejora útiles, no un papel de trámite.',
+    inv:[800,3000], ar:'1-2 meses', r:1, e:['domicilio','local'], h:2, am:2, tg:[], k:['ofimatica','ventas'], s:['tecnica','organizacion','personas'],
+    why:'Certificación energética de edificios, Eficiencia energética de instalaciones y Equipos e instalaciones térmicas son módulos de tu ciclo: sabes tomar datos, usar el programa oficial y proponer mejoras.',
+    reto:'Hay mucha competencia a precio bajo. Diferénciate por rapidez, visita real y un informe de mejoras claro. Antes de firmar, confirma con tu comunidad autónoma que tu título te habilita y qué curso te falta.',
+    paso:'Pregunta en el órgano de industria o energía de tu comunidad qué necesitas para registrar certificados con tu título. Después llama a 5 inmobiliarias y pregunta a quién encargan los certificados y cuánto tardan.',
+    vr:'Combínalo con propuestas de reforma: quien certifica una vivienda poco eficiente es quien mejor puede recomendar qué mejorar y con qué ayudas.' });
+
+  A({ id:'en2', cics:['ee','er'], t:'Asesoría energética para hogares y pequeños negocios', n:'Ahorro en la factura',
+    d:'Revisas facturas de luz y gas, ajustas la potencia contratada y la tarifa, detectas consumos ocultos con un medidor y propones mejoras baratas. Modelo: estudio de 40-90 € para hogares y de 150-500 € para negocios, o un porcentaje del ahorro del primer año.',
+    m:'proyecto', cli:'familias con facturas altas, bares, comercios, talleres y comunidades de vecinos', pb:'pagar menos luz y gas sin perder comodidad',
+    val:'Pagas menos cada mes con cambios sencillos en tu contrato y tus hábitos, explicados por alguien que no te vende nada.',
+    inv:[300,1500], ar:'1 mes', r:1, e:['domicilio','local','online'], h:1, am:2, tg:['sostenibilidad'], k:['contabilidad','atencion_cliente'], s:['personas','resolucion','organizacion'],
+    why:'Eficiencia energética de instalaciones y Promoción del uso eficiente de la energía y del agua: analizar consumos y explicar mejoras a cualquier persona es una competencia directa de tu ciclo.',
+    reto:'Si cobras comisión de una comercializadora, el cliente dudará de tu consejo. Sé transparente: cobra por el estudio o por el ahorro, no por cambiarle de compañía.',
+    paso:'Analiza las facturas de luz de 3 familias conocidas y calcula cuánto ahorrarían ajustando potencia y tarifa. Con esos casos, prepara una hoja de presentación.',
+    vr:'Ofrece el servicio a asociaciones de comerciantes o de vecinos para todos sus socios a la vez, con una charla gratuita como gancho.' });
+
+  A({ id:'en3', cics:['ee','er'], t:'Expedientes de Certificados de Ahorro Energético (CAE) para reformas', n:'Gestión de ahorro energético',
+    d:'Cuando una vivienda, empresa o comunidad hace una mejora de eficiencia (aerotermia, aislamiento, iluminación), ese ahorro puede convertirse en Certificados de Ahorro Energético y venderse (RD 36/2023). Preparas los expedientes para instaladores y clientes en colaboración con un sujeto delegado y cobras parte del valor conseguido. Modelo: comisión sobre el valor del certificado o precio por expediente.',
+    m:'comision', cli:'instaladores de aerotermia, iluminación y aislamiento, comunidades y pymes que reforman', pb:'cobrar el ahorro energético de una reforma, que casi nadie aprovecha',
+    val:'Recuperas parte del coste de tu reforma vendiendo el ahorro que consigues, sin pelearte tú con el papeleo.',
+    inv:[300,1500], ar:'2-3 meses', r:2, e:['online','local'], h:2, am:3, tg:['sostenibilidad'], k:['ofimatica','ventas'], s:['organizacion','resolucion','ventas'],
+    why:'Eficiencia energética de instalaciones, Certificación energética de edificios y Gestión del montaje y mantenimiento: sabes calcular ahorros y documentarlos con rigor.',
+    reto:'El sistema es reciente y los precios de los certificados varían. Trabaja con un sujeto delegado consolidado y no prometas importes al cliente hasta que el expediente esté aprobado.',
+    paso:'Lee la página del Ministerio para la Transición Ecológica sobre los CAE y las fichas de actuaciones estandarizadas. Pregunta a 3 instaladores de aerotermia si gestionan los CAE de sus obras.',
+    vr:'Especialízate en un tipo de actuación (sustitución de calderas por aerotermia, iluminación LED en naves) y vende el servicio a todos los instaladores de ese tipo.' });
+
+  A({ id:'en4', cics:['ee'], t:'Puesta a punto de instalaciones solares térmicas olvidadas', n:'Mantenimiento solar térmico',
+    d:'Muchas viviendas y edificios construidos desde 2006 tienen placas solares de agua caliente (el Código Técnico las exigió, DB HE 4) que nadie mantiene: líquido degradado, bombas paradas, fugas. Las revisas, reparas y pones en marcha y firmas contratos de mantenimiento. Modelo: revisión de 80-200 € y cuota anual; en comunidades, contratos mayores.',
+    m:'cuota', cli:'comunidades de vecinos, hoteles, gimnasios y viviendas con placas solares de agua caliente', pb:'que las placas de agua caliente vuelvan a funcionar y ahorren',
+    val:'Tus placas de agua caliente vuelven a funcionar y notas el ahorro en gas o electricidad desde el primer mes.',
+    inv:[1500,4000], ar:'1-2 meses', r:1, e:['domicilio','local'], h:2, am:2, tg:['sostenibilidad'], k:['atencion_cliente'], s:['tecnica','resolucion'],
+    why:'Configuración de instalaciones solares térmicas y Gestión del montaje y mantenimiento de instalaciones solares térmicas: es un módulo entero de tu ciclo dedicado justo a esto.',
+    reto:'Muchas instalaciones están tan mal que hay que rehacerlas. Haz siempre una revisión pagada antes de presupuestar y explica bien qué merece la pena arreglar.',
+    paso:'Fíjate en 20 edificios de tu zona con placas solares en el tejado y pregunta a 3 administradores de fincas quién las mantiene. Ofrece una revisión.',
+    vr:'Especialízate en comunidades de vecinos a través de administradores de fincas: un contrato cubre muchas viviendas.' });
+
+  // ---------- ENERGÍAS RENOVABLES (Grado Superior) ----------
+  A({ id:'en5', cics:['er','ee'], t:'Autoconsumo solar llave en mano para empresas y naves', n:'Autoconsumo empresarial',
+    d:'Diseñas e instalas autoconsumo fotovoltaico (RD 244/2019) en naves, comercios, granjas y talleres: estudio de consumos, dimensionado, instalación, legalización y monitorización. En empresas el consumo diurno hace que se amortice rápido. Modelo: proyecto de 6.000-60.000 € y mantenimiento.',
+    m:'proyecto', cli:'naves industriales, talleres, granjas, supermercados y comercios con consumo diurno alto', pb:'reducir la factura eléctrica de la empresa',
+    val:'Tu empresa produce parte de la luz que consume, con la factura más baja y un estudio que te dice cuándo lo recuperas.',
+    inv:[5000,15000], ar:'3-4 meses', r:2, e:['local'], h:3, am:3, tg:['sostenibilidad'], k:['ventas'], s:['tecnica','ventas','organizacion'],
+    why:'Configuración de instalaciones solares fotovoltaicas, Gestión del montaje de instalaciones solares fotovoltaicas y Sistemas de energías renovables: diseño, montaje y puesta en marcha son tu ciclo.',
+    reto:'Mucha competencia y riesgo de quedarte sin cobrar en obras grandes. Pide anticipos por fases, empieza con proyectos medianos y necesitas habilitación como empresa instaladora o un socio habilitado.',
+    paso:'Pide a 2 empresas conocidas sus facturas de luz de un año y haz un estudio de autoconsumo con PVGIS (herramienta gratuita de la Comisión Europea). Será tu primer caso.',
+    vr:'Especialízate en un sector (granjas, frío industrial, talleres) con consumos parecidos: tus estudios serán más rápidos y fiables.' });
+
+  A({ id:'en6', cics:['er','ce'], t:'Operación y mantenimiento de plantas solares pequeñas y autoconsumos industriales', n:'Mantenimiento de renovables',
+    d:'Haces el mantenimiento de pequeñas plantas fotovoltaicas y autoconsumos grandes: limpieza, revisión de inversores, termografía, control de producción y reparación de averías, para propietarios o como subcontrata de empresas de mantenimiento. Modelo: contrato anual por planta o por megavatio y urgencias aparte.',
+    m:'cuota', cli:'propietarios de pequeñas plantas solares, naves con autoconsumo grande y empresas de mantenimiento', pb:'que su instalación produzca al máximo todo el año',
+    val:'Tu planta produce lo que debe, las averías se detectan antes y tienes un informe mensual de producción.',
+    inv:[3000,10000], ar:'2-3 meses', r:2, e:['local'], h:3, am:3, tg:['naturaleza'], k:['ofimatica'], s:['tecnica','organizacion','resolucion'],
+    why:'Sistemas eléctricos en centrales, Telecontrol y automatismos y Prevención de riesgos eléctricos: sabes operar y mantener instalaciones de producción con seguridad.',
+    reto:'Trabajo en tensión y en campo abierto: formación en riesgo eléctrico, equipos de protección y seguro. Las grandes empresas pagan poco a las subcontratas: busca también propietarios directos.',
+    paso:'Localiza en un mapa (por ejemplo, el visor de Red Eléctrica o el catastro) 5 plantas solares pequeñas de tu provincia y busca quién es el propietario o el mantenedor.',
+    vr:'Especialízate en termografía y análisis de producción y véndelo como servicio a otras empresas de mantenimiento.' });
+
+  A({ id:'en7', cics:['er','ce'], t:'Técnico de mantenimiento de aerogeneradores por campañas', n:'Mantenimiento eólico',
+    d:'Los parques eólicos necesitan técnicos para mantenimiento, grandes correctivos y renovación de parques antiguos. Trabajas como autónomo o en una pequeña empresa por campañas para los fabricantes y mantenedores. Hace falta la formación básica de seguridad del sector (GWO: trabajos en altura, primeros auxilios, manipulación de cargas, incendios). Modelo: tarifa por jornada o por campaña, con dietas.',
+    m:'proyecto', cli:'fabricantes de aerogeneradores, empresas de mantenimiento eólico y propietarios de parques', pb:'contar con técnicos formados para campañas de mantenimiento',
+    val:'Técnicos formados y con la seguridad del sector al día, disponibles para cada campaña sin aumentar su plantilla.',
+    inv:[1500,4000], ar:'2-3 meses', r:2, e:['local'], h:4, am:5, tg:['naturaleza','viajes'], k:['idiomas'], s:['tecnica','organizacion','resolucion'],
+    why:'Parques eólicos, Gestión del montaje de parques eólicos y Operación y mantenimiento de parques eólicos son módulos de tu ciclo: entras al sector con la base que piden.',
+    reto:'Mucho viaje, trabajo en altura y temporadas fuera de casa. Empieza contratado para coger experiencia y certificaciones antes de ir por tu cuenta.',
+    paso:'Busca qué centros de tu comunidad imparten la formación GWO y cuánto cuesta. Mira ofertas de técnico eólico en tu provincia y apunta qué piden.',
+    vr:'Crea con otros técnicos una pequeña empresa de campañas especializada en un tipo de trabajo (palas, grandes correctivos) y trabaja también en Portugal o Francia.' });
+
+  // ---------- CENTRALES ELÉCTRICAS (Grado Superior) ----------
+  A({ id:'en8', cics:['ce','er'], t:'Mantenimiento de centros de transformación y grupos electrógenos privados', n:'Alta tensión y emergencia',
+    d:'Hospitales privados, industrias, hoteles y centros comerciales tienen su propio centro de transformación y grupos electrógenos de emergencia que hay que mantener y revisar (reglamento de instalaciones de alta tensión, RD 337/2014). Ofreces mantenimiento preventivo, pruebas de los grupos y urgencias. Modelo: contrato anual de 800-5.000 € por cliente.',
+    m:'cuota', cli:'industrias, hoteles, clínicas privadas, centros comerciales y polígonos con centro de transformación propio', pb:'mantener al día su centro de transformación y su grupo de emergencia',
+    val:'Tu centro de transformación pasa las revisiones y tu grupo arranca el día que se va la luz.',
+    inv:[3000,10000], ar:'3-4 meses', r:2, e:['local'], h:3, am:3, tg:[], k:['atencion_cliente'], s:['tecnica','organizacion','resolucion'],
+    why:'Subestaciones eléctricas, Sistemas eléctricos en centrales, Mantenimiento de centrales eléctricas y Prevención de riesgos eléctricos: sabes trabajar con seguridad en alta tensión.',
+    reto:'Para mantener instalaciones de alta tensión hay que ser empresa habilitada y tener personal formado. Empieza en una empresa del sector y especialízate antes de ir por tu cuenta.',
+    paso:'Haz una lista de 10 industrias u hoteles grandes de tu zona y averigua (web, conocidos) quién les mantiene la instalación. Infórmate de los requisitos de habilitación en tu comunidad.',
+    vr:'Especialízate en grupos electrógenos: los tienen también hospitales, residencias y centros de datos y su mantenimiento es más sencillo de empezar.' });
+
+  // ---------- GESTIÓN DEL AGUA (Grado Superior) ----------
+  A({ id:'en9', cics:['ga','reta'], t:'Prevención y control de legionela en hoteles, gimnasios y residencias', n:'Control de legionela',
+    d:'Hoteles, residencias, gimnasios, polideportivos y edificios con torres de refrigeración o agua caliente sanitaria deben tener un plan de prevención y control de legionela (RD 487/2022). Haces el plan, la toma de muestras, las revisiones, limpiezas y desinfecciones y llevas el registro. Modelo: cuota anual de 600-3.000 € por establecimiento.',
+    m:'cuota', cli:'hoteles, residencias, gimnasios, polideportivos e industrias con torres de refrigeración', pb:'cumplir el control de legionela y pasar las inspecciones sanitarias',
+    val:'Tu plan de legionela al día, con revisiones y registros en regla, y tranquilidad ante una inspección sanitaria.',
+    inv:[2000,6000], ar:'2-3 meses', r:1, e:['local'], h:2, am:2, tg:['viajes','deporte'], k:['ofimatica'], s:['organizacion','tecnica','resolucion'],
+    why:'Calidad y tratamiento de aguas, Gestión de operaciones, calidad y medioambiente y Operaciones en redes e instalaciones de agua: conoces el agua, los tratamientos y cómo documentarlo.',
+    reto:'El personal necesita la formación específica que exige la norma, y si usas biocidas, la empresa debe estar registrada como servicio biocida. Infórmate en la consejería de sanidad de tu comunidad antes de empezar.',
+    paso:'Pregunta a la consejería de sanidad de tu comunidad qué formación y registro necesitas. Después llama a 3 hoteles o gimnasios y pregunta quién les lleva la legionela.',
+    vr:'Combínalo con el control de piscinas de uso público (RD 742/2013): muchos clientes son los mismos.' });
+
+  A({ id:'en10', cics:['ga','reta'], t:'Control del agua de consumo en pequeños abastecimientos y alojamientos rurales', n:'Calidad del agua',
+    d:'Pueblos pequeños, urbanizaciones, casas rurales, campings y empresas con pozo propio deben controlar el agua que dan a beber (RD 3/2023). Les preparas el plan sanitario del agua, tomas muestras para el laboratorio, revisas la cloración y mantienes depósitos. Modelo: cuota anual de 400-3.000 € según tamaño.',
+    m:'cuota', cli:'ayuntamientos pequeños, urbanizaciones, casas rurales, campings y empresas con abastecimiento propio', pb:'dar agua segura y cumplir los controles sanitarios',
+    val:'El agua que das a beber es segura, está controlada y tienes los papeles en orden ante sanidad.',
+    inv:[1500,5000], ar:'2-3 meses', r:1, e:['local','domicilio'], h:2, am:2, tg:['naturaleza','viajes'], k:['ofimatica'], s:['organizacion','tecnica'],
+    why:'Calidad y tratamiento de aguas, Gestión eficiente del agua y Automatismos y telecontrol en instalaciones de agua: sabes controlar un abastecimiento de principio a fin.',
+    reto:'Los análisis oficiales los hace un laboratorio acreditado: tú tomas las muestras, gestionas y mantienes. Deja claro al cliente qué haces tú y qué el laboratorio.',
+    paso:'Pregunta en 3 ayuntamientos pequeños de tu comarca quién les gestiona el agua y si tienen hecho el plan sanitario. Ofrécete a revisarlo.',
+    vr:'Instala telecontrol en los depósitos (nivel, cloro, alarmas) y cobra una cuota por vigilarlos desde el móvil.' });
+
+  A({ id:'en11', cics:['ga','ee'], t:'Auditorías de agua y ahorro para hoteles, comunidades y empresas', n:'Eficiencia hídrica',
+    d:'Con las sequías, el agua se ha vuelto cara y escasa. Haces auditorías de agua: detección de fugas, reductores de caudal, reutilización de pluviales y aguas grises, riego eficiente de jardines, y calculas el ahorro. Modelo: auditoría de 300-2.000 € y proyecto de mejoras.',
+    m:'proyecto', cli:'hoteles, comunidades de vecinos con jardín y piscina, campos de golf, polígonos y ayuntamientos', pb:'gastar menos agua y pagar menos por ella',
+    val:'Sabes dónde se va tu agua, cuánto puedes ahorrar y con qué mejoras, con números reales.',
+    inv:[800,3000], ar:'1-2 meses', r:1, e:['local'], h:2, am:3, tg:['sostenibilidad','naturaleza'], k:['ofimatica'], s:['resolucion','organizacion','tecnica'],
+    why:'Gestión eficiente del agua, Configuración de redes de agua y Planificación y replanteo: auditar un consumo y proponer mejoras medibles es un módulo de tu ciclo.',
+    reto:'El ahorro de agua tiene menos tirón que el de luz porque el agua es barata en muchas zonas. Elige clientes donde sea cara o escasa y ofrece objetivos medibles.',
+    paso:'Pide la factura de agua de tu comunidad o de un negocio conocido, recorre la instalación buscando pérdidas y calcula cuánto se ahorraría con 3 mejoras.',
+    vr:'Especialízate en hoteles de zonas con sequía: el ahorro de agua es también una mejora de imagen ante sus clientes.' });
+
+  // ---------- REDES Y ESTACIONES DE TRATAMIENTO DE AGUAS (Grado Medio) ----------
+  A({ id:'en12', cics:['reta','ga'], t:'Mantenimiento de depósitos, riego y pequeñas depuradoras', n:'Instalaciones de agua',
+    d:'Mantienes las instalaciones de agua de urbanizaciones, campings, polígonos, comunidades de regantes y casas aisladas: bombas, depósitos, redes de riego, fosas sépticas y pequeñas depuradoras. Modelo: cuota mensual o anual por cliente y reparaciones con urgencias.',
+    m:'cuota', cli:'urbanizaciones, campings, comunidades de regantes, polígonos y casas aisladas', pb:'que el agua, el riego y la depuradora funcionen sin sustos',
+    val:'Tu agua y tu depuradora funcionan, con revisiones periódicas y alguien que viene rápido si falla una bomba.',
+    inv:[2000,6000], ar:'1-2 meses', r:1, e:['local','domicilio'], h:2, am:2, tg:['naturaleza'], k:['otro_oficio'], s:['tecnica','resolucion','organizacion'],
+    why:'Estaciones de tratamiento de aguas, Mantenimiento de equipos e instalaciones, Mantenimiento de redes y Montaje y mantenimiento de instalaciones de agua: es tu ciclo aplicado a clientes pequeños.',
+    reto:'Muchas urgencias y desplazamientos. Agrupa clientes por zonas, ten repuestos de las bombas más comunes y cobra bien las salidas urgentes.',
+    paso:'Haz una lista de urbanizaciones, campings y comunidades de regantes de tu comarca y pregunta a 3 quién les mantiene la instalación y qué averías tienen más.',
+    vr:'Especialízate en pequeñas depuradoras de casas y alojamientos rurales, donde casi nadie da servicio.' });
+
+  A({ id:'en13', cics:['reta'], t:'Subcontrata de redes y acometidas para empresas de aguas y constructoras', n:'Obra de redes de agua',
+    d:'Haces obras de redes de agua y saneamiento: acometidas, cambios de tubería, reparación de averías, instalación de contadores y válvulas, como subcontrata de empresas de aguas, ayuntamientos y constructoras. Modelo: precio por obra o por unidad (acometida, contador) y contratos de disponibilidad para averías.',
+    m:'proyecto', cli:'empresas gestoras de agua, ayuntamientos y constructoras', pb:'contar con equipos fiables para obras y averías de redes',
+    val:'Un equipo formado que llega rápido a las averías y deja las obras de red bien hechas y documentadas.',
+    inv:[5000,15000], ar:'2-3 meses', r:2, e:['local'], h:4, am:2, tg:[], k:['otro_oficio'], s:['tecnica','organizacion','liderazgo'],
+    why:'Replanteo en redes de agua, Técnicas de mecanizado y unión, Construcción en redes y estaciones de tratamiento de agua y Montaje y puesta en servicio de redes de agua: es tu ciclo en la obra.',
+    reto:'Necesitas maquinaria, furgoneta y personal, y las grandes empresas pagan a 60-90 días. Empieza contratado en el sector y crea tu empresa con un primer cliente asegurado.',
+    paso:'Averigua qué empresa gestiona el agua en tu municipio y en los de alrededor y pregunta si trabajan con subcontratas y qué requisitos les piden.',
+    vr:'Especialízate en la instalación de contadores inteligentes: muchas gestoras los están cambiando y es un trabajo repetitivo y planificable.' });
+
+  // ---------- HÍBRIDAS: energía y agua + afición ----------
+  H({ id:'en_h1', pref:['er','reta'], t:'Energía y agua para casas rurales, refugios y fincas aisladas', n:'Autosuficiencia rural',
+    d:'Diseñas e instalas lo necesario para vivir o dar servicio lejos de las redes: placas con baterías, bombeo solar desde pozo, potabilización y depuración pequeña, para casas rurales, refugios de montaña, fincas y albergues. Modelo: proyecto de 3.000-25.000 € y mantenimiento anual.',
+    m:'proyecto', cli:'casas rurales, refugios, albergues y fincas sin conexión a la red', pb:'tener luz y agua fiables sin conexión a la red',
+    val:'Luz y agua fiables en tu casa o tu negocio rural, sin depender de la red y con mantenimiento incluido.',
+    inv:[3000,10000], ar:'3-4 meses', r:2, e:['local','domicilio'], h:3, am:3, tg:['naturaleza','viajes'], k:['otro_oficio'], s:['tecnica','resolucion','organizacion'],
+    why:'Conoces y te gusta el medio rural; tu ciclo te da las renovables, la calidad del agua y el montaje para dar una solución completa.',
+    reto:'Desplazamientos largos y clientes con poco presupuesto. Dimensiona con prudencia y deja al cliente instrucciones claras para lo básico.',
+    paso:'Busca 10 alojamientos rurales o refugios de tu comarca sin red y pregunta a 2 cómo se abastecen hoy y qué les falla.',
+    vr:'Trabaja con asociaciones de turismo rural y de montaña para llegar a muchos alojamientos a la vez.' });
+
+  H({ id:'en_h2', pref:['ee','er'], t:'Oficina energética para pueblos y comunidades energéticas', n:'Energía local',
+    d:'Ayudas a ayuntamientos pequeños, asociaciones y cooperativas a reducir su gasto y a montar proyectos compartidos: autoconsumo en edificios públicos, comunidades energéticas, alumbrado eficiente, asesoría a vecinos. Modelo: contrato anual con el ayuntamiento o la entidad y proyectos por encargo.',
+    m:'cuota', cli:'ayuntamientos pequeños, mancomunidades, cooperativas y asociaciones vecinales', pb:'gastar menos energía y montar proyectos compartidos sin técnicos propios',
+    val:'Tu pueblo baja su factura energética y los vecinos tienen a quién preguntar, sin contratar a un técnico a jornada completa.',
+    inv:[500,2000], ar:'3-6 meses', r:2, e:['local'], h:2, am:3, tg:['sostenibilidad','social'], k:['gestion_personas'], s:['organizacion','personas','liderazgo'],
+    why:'Tu compromiso con la sostenibilidad y lo social te da la motivación; tu ciclo aporta eficiencia, renovables y la promoción del uso eficiente de la energía.',
+    reto:'La administración es lenta y depende de convocatorias de ayudas. Combina varios ayuntamientos y no dependas de una sola subvención.',
+    paso:'Pide a tu ayuntamiento (o consulta su portal de transparencia) cuánto gasta en luz al año y en qué edificios. Prepara una propuesta de 3 mejoras.',
+    vr:'Ofrece el servicio a mancomunidades: un solo contrato y muchos municipios pequeños.' });
+
+  H({ id:'en_h3', pref:['ee'], t:'Eficiencia energética para restaurantes, obradores y hoteles', n:'Energía en hostelería',
+    d:'Cocinas, cámaras frigoríficas, lavavajillas y climatización hacen que la hostelería gaste muchísima energía. Haces un estudio, ajustas contratos, propones cambios de equipos y hábitos y mides el ahorro. Modelo: estudio de 200-800 € y cuota de seguimiento o porcentaje del ahorro.',
+    m:'proyecto', cli:'restaurantes, obradores, panaderías y hoteles pequeños', pb:'bajar una factura de energía que se come el margen',
+    val:'Bajas tu factura de energía sin tocar la carta ni el servicio, y ves el ahorro mes a mes.',
+    inv:[500,2000], ar:'1-2 meses', r:1, e:['local'], h:2, am:2, tg:['gastronomia'], k:['contabilidad'], s:['resolucion','personas','organizacion'],
+    why:'Te interesa la gastronomía y entiendes cómo funciona una cocina; tu ciclo aporta la eficiencia energética de instalaciones y los equipos térmicos.',
+    reto:'Los hosteleros no tienen tiempo. Llega con un estudio ya hecho a partir de sus facturas y propón primero lo que no cuesta dinero.',
+    paso:'Pide a 2 bares o restaurantes conocidos sus facturas de luz de 12 meses y prepara un estudio con 5 mejoras ordenadas por coste.',
+    vr:'Alíate con la asociación de hostelería de tu provincia para ofrecer una campaña de ahorro a sus socios.' });
+
+  H({ id:'en_h4', pref:['ga','reta'], t:'Mantenimiento del agua de piscinas, spas y polideportivos', n:'Agua para el deporte',
+    d:'Controlas el agua de piscinas de comunidades, hoteles, gimnasios y polideportivos según la norma de piscinas (RD 742/2013): análisis diarios, dosificación, depuración, registros y puesta a punto de temporada. Modelo: cuota por temporada o mensual por instalación.',
+    m:'cuota', cli:'comunidades con piscina, hoteles, gimnasios, spas y polideportivos', pb:'tener el agua de la piscina en regla todo el año',
+    val:'Agua limpia y en regla, registros listos para una inspección y una depuradora que no da sustos en pleno verano.',
+    inv:[1500,5000], ar:'1-2 meses', r:1, e:['local'], h:2, am:2, tg:['deporte'], k:['atencion_cliente'], s:['tecnica','organizacion'],
+    why:'Te gusta el deporte y conoces las instalaciones deportivas; tu ciclo pone la calidad y el tratamiento del agua y el mantenimiento de equipos.',
+    reto:'Mucho trabajo concentrado en verano en las piscinas de comunidades. Equilibra con piscinas cubiertas, spas y gimnasios que funcionan todo el año.',
+    paso:'Pregunta a 3 administradores de fincas o gimnasios de tu zona quién les lleva la piscina y cuánto pagan. Infórmate de los requisitos de tu comunidad para el personal de mantenimiento.',
+    vr:'Añade el control de legionela de duchas y vestuarios: el mismo cliente, otro servicio obligatorio.' });
+
+  H({ id:'en_h5', pref:['er','reta'], t:'Agua y energía para granjas y explotaciones ganaderas', n:'Energía en el campo',
+    d:'Instalas bombeo solar para bebederos y riego, placas para naves ganaderas, depósitos y tratamiento del agua de bebida del ganado, con control desde el móvil. Modelo: proyecto de 3.000-20.000 € y mantenimiento con urgencias.',
+    m:'proyecto', cli:'ganaderos, granjas y explotaciones agrarias de tu comarca', pb:'tener agua y energía en la explotación sin depender de la red ni del gasóleo',
+    val:'Tu ganado tiene agua siempre, gastas menos en gasóleo y luz y lo vigilas desde el móvil.',
+    inv:[3000,10000], ar:'2-3 meses', r:2, e:['local'], h:3, am:2, tg:['animales','naturaleza'], k:['otro_oficio'], s:['tecnica','resolucion'],
+    why:'Conoces el campo y los animales; tu ciclo aporta los sistemas de energías renovables, la calidad del agua y las redes.',
+    reto:'Un fallo en el agua del ganado es una urgencia grave. Instala alarmas, ten repuestos y deja un plan de emergencia al ganadero.',
+    paso:'Visita 3 explotaciones de tu comarca y pregunta cómo bombean hoy el agua y cuánto gastan en gasóleo o luz. Calcula una alternativa solar.',
+    vr:'Trabaja con cooperativas agrarias y ganaderas para ofrecer el servicio a todos sus socios.' });
+
+  H({ id:'en_h6', pref:['ee','ga'], t:'Medición inteligente de consumos para comunidades y empresas', n:'Monitorización de consumos',
+    d:'Instalas medidores y sensores conectados de luz, agua y calefacción en comunidades de vecinos, oficinas y naves, y das una pantalla sencilla con avisos de fugas y consumos raros. Modelo: instalación de 300-3.000 € y cuota mensual de 15-100 €.',
+    m:'cuota', cli:'comunidades de vecinos, oficinas, colegios privados y naves', pb:'saber en qué se gasta la energía y el agua y detectar fugas a tiempo',
+    val:'Ves en el móvil cuánto gastas y te llega un aviso en cuanto hay una fuga o un consumo raro.',
+    inv:[1000,4000], ar:'2-3 meses', r:2, e:['local','online'], h:2, am:3, tg:['tecnologia','sostenibilidad'], k:['programacion'], s:['digital','tecnica','resolucion'],
+    why:'Te atrae la tecnología; tu ciclo te da el conocimiento de instalaciones térmicas, de agua y la eficiencia para saber qué medir y qué hacer con los datos.',
+    reto:'Los datos no sirven si nadie los mira. Incluye en la cuota un informe mensual con recomendaciones concretas.',
+    paso:'Instala un medidor de consumo eléctrico en tu casa durante 2 semanas y prepara un informe con lo que descubras. Será tu ejemplo para clientes.',
+    vr:'Ofrece la detección de fugas de agua como servicio principal: es fácil de entender y el ahorro se ve enseguida.' });
+
+  H({ id:'en_h7', pref:['ee'], t:'Talleres de ahorro energético en casa', n:'Formación en ahorro',
+    d:'Impartes talleres prácticos sobre cómo leer la factura, elegir tarifa, usar bien la calefacción y el aire acondicionado y hacer pequeñas mejoras en casa (burletes, programadores, grifos). Para asociaciones, ayuntamientos, centros cívicos y empresas. Modelo: 150-500 € por taller pagado por la entidad.',
+    m:'formacion', cli:'asociaciones de vecinos, ayuntamientos, centros cívicos, ONG y departamentos de recursos humanos', pb:'que las familias paguen menos energía con lo que ya tienen',
+    val:'Sales del taller sabiendo leer tu factura y con 5 cambios que puedes hacer este fin de semana para pagar menos.',
+    inv:[200,800], ar:'1 mes', r:1, e:['local'], h:1, am:2, tg:['diy','sostenibilidad','social'], k:['atencion_cliente'], s:['personas','creatividad','organizacion'],
+    why:'Te gusta hacer cosas tú mismo y compartirlo; tu ciclo incluye un módulo entero de Promoción del uso eficiente de la energía y del agua.',
+    reto:'Las entidades pagan poco y tarde. Combina talleres financiados por ayuntamientos con estudios individuales de pago para los asistentes.',
+    paso:'Prepara un taller de 1 hora con 5 consejos y un ejemplo de factura real y ofrécelo gratis en tu asociación de vecinos o biblioteca.',
+    vr:'Ofrece el taller a empresas como formación para su plantilla: se paga mejor y llega a más personas.' });
+
+  H({ id:'en_h8', pref:['ee','ga'], t:'Eficiencia energética y del agua para alojamientos turísticos', n:'Turismo sostenible',
+    d:'Hoteles pequeños, apartamentos turísticos y casas rurales gastan mucha energía y agua. Haces un diagnóstico, propones mejoras (agua caliente solar, termostatos, reductores, iluminación) y les ayudas a comunicarlo a sus huéspedes. Modelo: diagnóstico de 300-1.200 € y proyectos de mejora.',
+    m:'proyecto', cli:'hoteles pequeños, apartamentos turísticos y casas rurales', pb:'gastar menos energía y agua y atraer viajeros que lo valoran',
+    val:'Gastas menos y puedes demostrarlo a tus huéspedes, que cada vez eligen más alojamientos sostenibles.',
+    inv:[500,2000], ar:'1-2 meses', r:1, e:['local'], h:2, am:3, tg:['viajes','sostenibilidad'], k:['idiomas','marketing'], s:['personas','resolucion','organizacion'],
+    why:'Conoces el turismo como viajero; tu ciclo pone la eficiencia energética, la gestión eficiente del agua y las instalaciones solares térmicas.',
+    reto:'La sostenibilidad vende, pero el propietario quiere ver números. Presenta siempre el ahorro en euros al año y el plazo de recuperación.',
+    paso:'Elige 5 alojamientos de tu zona, mira si mencionan algo de sostenibilidad en su web y prepara para uno una propuesta de 3 mejoras con ahorro estimado.',
+    vr:'Especialízate en apartamentos turísticos gestionados por una misma empresa: un contrato, muchos pisos iguales.' });
+
+  // ---------- EMERGENTES ----------
+  N({ id:'en_n1', t:'Riego solar y gestión inteligente del agua para fincas', n:'Agua y energía agrícola',
+    d:'Instalas bombeo solar y programadores conectados con sensores de humedad en fincas, viñedos, huertos y comunidades de regantes: riegan solo cuando hace falta y sin gasóleo. Modelo: proyecto de 4.000-30.000 € y cuota de seguimiento.',
+    m:'proyecto', cli:'agricultores, viñedos, fincas y comunidades de regantes', pb:'regar con menos agua y sin pagar gasóleo',
+    val:'Riegas lo justo, cuando hace falta, con energía del sol y controlado desde el móvil.',
+    inv:[4000,12000], ar:'3-4 meses', r:3, e:['local'], h:3, am:3, tg:['naturaleza','sostenibilidad','tecnologia'], k:['programacion'], s:['tecnica','resolucion','digital'],
+    why:'Une las renovables, la hidráulica y el telecontrol de tu familia profesional para un cliente que necesita ahorrar agua y energía a la vez.',
+    reto:'Proyectos caros para el agricultor. Ayúdale a buscar ayudas de su comunidad autónoma y empieza con una parcela piloto que demuestre el ahorro.',
+    paso:'Pregunta a 3 agricultores de tu comarca cómo riegan, cuánto gastan en gasóleo o luz y si tienen sensores. Calcula una alternativa solar para uno.',
+    vr:'Ofrece solo la parte de sensores y programación a quien ya tiene bombeo: más barato y fácil de vender.' });
+
+  N({ id:'en_n2', t:'Reutilización de agua de lluvia y aguas grises en edificios', n:'Agua circular',
+    d:'Diseñas e instalas sistemas que recogen agua de lluvia o reutilizan la de duchas y lavabos para cisternas y riego, en viviendas, hoteles, colegios y naves. Modelo: proyecto de 2.000-15.000 € y mantenimiento anual.',
+    m:'proyecto', cli:'promotoras, hoteles, colegios, naves y viviendas unifamiliares en zonas con sequía', pb:'usar menos agua de la red para cisternas y riego',
+    val:'Tus cisternas y tu jardín usan agua reaprovechada, y tu consumo de la red baja de forma visible.',
+    inv:[2000,8000], ar:'3-4 meses', r:3, e:['local','domicilio'], h:3, am:3, tg:['sostenibilidad'], k:['otro_oficio'], s:['tecnica','creatividad','resolucion'],
+    why:'Gestión eficiente del agua, Configuración de redes de agua y Calidad y tratamiento de aguas: sabes diseñar una red separada y garantizar que el agua es apta para su uso.',
+    reto:'Hay que separar bien las redes y cumplir lo que pida tu comunidad autónoma y tu ayuntamiento para el agua reutilizada. Infórmate antes del primer proyecto.',
+    paso:'Calcula cuánta agua de lluvia recogería el tejado de tu casa o de tu instituto en un año y cuánto supondría en cisternas y riego.',
+    vr:'Alíate con arquitectos y promotoras de viviendas nuevas: es más barato diseñarlo desde el principio que reformar.' });
+
+  N({ id:'en_n3', t:'Gestor energético externo para pymes y comunidades', n:'Energy manager a tiempo parcial',
+    d:'Las grandes empresas tienen un responsable de energía; las pymes no. Eres su gestor energético a tiempo parcial: revisas facturas cada mes, negocias contratos, vigilas consumos, planificas mejoras y buscas ayudas. Modelo: cuota mensual de 80-400 € por cliente.',
+    m:'cuota', cli:'pymes industriales, cadenas pequeñas de tiendas, colegios privados y comunidades de vecinos grandes', pb:'controlar el gasto energético sin contratar a un especialista',
+    val:'Alguien vigila tu energía cada mes, negocia por ti y te avisa de cada oportunidad de ahorro o de ayuda.',
+    inv:[300,1500], ar:'2-3 meses', r:2, e:['online','local'], h:2, am:3, tg:['sostenibilidad'], k:['contabilidad','ofimatica'], s:['organizacion','resolucion','personas'],
+    why:'Tu ciclo te da lo que una pyme no tiene: saber leer contratos y consumos, conocer las instalaciones y las ayudas disponibles.',
+    reto:'El valor se ve con el tiempo. Firma con objetivos claros (ahorro esperado) y enseña cada mes un informe corto con lo conseguido.',
+    paso:'Ofrece a una pyme conocida revisar sus facturas de energía de los últimos 12 meses gratis y preséntale 3 ahorros concretos.',
+    vr:'Especialízate en un tipo de cliente (colegios, supermercados, talleres) y crea indicadores propios del sector.' });
+
+  N({ id:'en_n4', t:'Inspección de instalaciones solares y redes con drones y termografía', n:'Inspección con drones',
+    d:'Con un dron con cámara térmica detectas paneles averiados, puntos calientes en líneas y fugas en redes de calor o agua, y entregas un informe con prioridades. Modelo: inspección de 150-1.500 € y contratos con mantenedores.',
+    m:'proyecto', cli:'mantenedores fotovoltaicos, propietarios de plantas solares y gestores de redes', pb:'encontrar fallos en instalaciones grandes sin revisarlas a pie',
+    val:'En una mañana sabes qué falla y dónde, con un informe claro para repararlo.',
+    inv:[4000,12000], ar:'3-4 meses', r:3, e:['local'], h:2, am:3, tg:['tecnologia','naturaleza'], k:['fotovideo'], s:['tecnica','digital','resolucion'],
+    why:'Sabes interpretar lo que ve la cámara térmica porque conoces las instalaciones de producción y de agua desde dentro.',
+    reto:'Para volar profesionalmente tienes que registrarte como operador en AESA y tener la formación de piloto adecuada. Calcula ese coste antes de comprar el dron.',
+    paso:'Infórmate en la web de AESA de qué registro y formación necesitas y pregunta a 2 empresas de mantenimiento si contratarían inspecciones.',
+    vr:'Amplía a tejados y fachadas para comunidades y aseguradoras: el mismo dron, otro cliente.' });
+  } // fin de Energía y Agua
+
+  // ===================== INSTALACIÓN Y MANTENIMIENTO =====================
+  FAM.instalacion = {
+    ciclos: {
+      'Fabricación y Montaje': 'bas', 'Mantenimiento de Viviendas': 'bas',
+      'Instalaciones de Producción de Calor': 'ipc',
+      'Instalaciones Frigoríficas y de Climatización': 'ifc',
+      'Mantenimiento Electromecánico': 'mem',
+      'Desarrollo de Proyectos de Instalaciones Térmicas y de Fluidos': 'dp',
+      'Mantenimiento de Instalaciones Térmicas y de Fluidos': 'mit',
+      'Mecatrónica Industrial': 'mec'
+    },
+    labels: { bas: 'Mantenimiento de Viviendas / Fabricación y Montaje (Grado Básico)', ipc: 'Instalaciones de Producción de Calor', ifc: 'Instalaciones Frigoríficas y de Climatización', mem: 'Mantenimiento Electromecánico', dp: 'Desarrollo de Proyectos de Instalaciones Térmicas y de Fluidos', mit: 'Mantenimiento de Instalaciones Térmicas y de Fluidos', mec: 'Mecatrónica Industrial' },
+    defecto: { basico: 'bas', medio: 'ifc', superior: 'mit' },
+    afin: { bas: ['ipc', 'ifc'], mit: ['ifc', 'ipc'], dp: ['mit'], mec: ['mem'] },
+    fuentes: {
+      ipc: 'el Reglamento de Instalaciones Térmicas en los Edificios (RITE, RD 1027/2007), el IDAE, la asociación de instaladores de climatización y fontanería de tu provincia y la de fabricantes de bombas de calor',
+      ifc: 'el RITE (RD 1027/2007), la normativa de gases fluorados (RD 115/2017 y Reglamento (UE) 2024/573), la asociación de instaladores de frío y climatización de tu provincia y AEFYT (Asociación de Empresas del Frío y sus Tecnologías)',
+      mem: 'los clústeres industriales de tu comunidad autónoma, la Asociación Española de Mantenimiento (AEM) y el Observatorio de las Ocupaciones del SEPE',
+      mec: 'los clústeres industriales de tu comunidad autónoma, la Asociación Española de Mantenimiento (AEM) y el Observatorio de las Ocupaciones del SEPE',
+      _: 'el RITE (RD 1027/2007), el IDAE y la asociación de instaladores de climatización y fontanería de tu provincia'
+    }
+  };
+  { const { A, H, N } = banco('instalacion');
+
+  // ---------- INSTALACIONES FRIGORÍFICAS Y DE CLIMATIZACIÓN (Grado Medio) ----------
+  A({ id:'im1', cics:['ifc','mit','bas'], t:'Instalación y mantenimiento de aire acondicionado y bombas de calor', n:'Climatización residencial y comercial',
+    d:'Instalas, revisas y reparas aires acondicionados y bombas de calor en viviendas, oficinas y comercios: montaje, carga de gas, limpieza anual, reparación de averías. Los veranos más calurosos han disparado la demanda y cuesta encontrar técnico en julio. Modelo: instalación de 300-700 € de mano de obra por equipo, mantenimiento anual de 60-120 € por máquina y reparaciones.',
+    m:'cuota', cli:'viviendas, oficinas y comercios con equipos de aire acondicionado o que quieren instalarlos', pb:'tener la casa o el local a buena temperatura sin averías en pleno verano',
+    val:'Tu aire acondicionado instalado bien y revisado cada año, con un técnico que contesta en julio.',
+    inv:[3000,9000], ar:'1-2 meses', r:1, e:['domicilio','local'], h:3, am:2, tg:[], k:['atencion_cliente'], s:['tecnica','resolucion','personas'],
+    why:'Configuración de instalaciones de frío y climatización, Montaje y mantenimiento de instalaciones de climatización, ventilación y extracción y Máquinas y equipos térmicos: es exactamente tu ciclo.',
+    reto:'Para manipular gases fluorados necesitas el certificado personal (RD 115/2017, anexo I) y, para trabajar por tu cuenta, habilitar tu empresa como instaladora y mantenedora (RITE, art. 36). Ten en cuenta la temporada: concentra ventas de mantenimiento en primavera.',
+    paso:'Pregunta en el órgano de industria de tu comunidad qué necesitas para el certificado de gases fluorados con tu título. Llama a 3 tiendas de electrodomésticos y pregunta quién les instala los aires y cuánto tardan.',
+    vr:'Vende el mantenimiento antes del verano a comunidades y oficinas con contrato anual: te asegura trabajo cuando todos los demás están saturados.' });
+
+  A({ id:'im2', cics:['ifc','mit'], t:'Frío comercial con servicio de urgencias para bares, tiendas y obradores', n:'Refrigeración comercial',
+    d:'Montas y mantienes cámaras frigoríficas, vitrinas, botelleros y máquinas de hielo de bares, supermercados de barrio, carnicerías y obradores. Una avería de frío les cuesta la mercancía, así que valoran la rapidez. Modelo: contrato de mantenimiento de 30-150 €/mes por cliente y urgencias con precio especial.',
+    m:'cuota', cli:'bares, restaurantes, supermercados de barrio, carnicerías, pescaderías y obradores', pb:'que el frío no falle y no se pierda la mercancía',
+    val:'Si la cámara falla, vienes en horas, no en días; y con la revisión preventiva casi nunca falla.',
+    inv:[3000,9000], ar:'2 meses', r:1, e:['local'], h:3, am:2, tg:['gastronomia'], k:['atencion_cliente'], s:['tecnica','resolucion','organizacion'],
+    why:'Montaje y mantenimiento de equipos de refrigeración comercial e Instalaciones eléctricas y automatismos: sabes diagnosticar un equipo de frío y repararlo en el sitio.',
+    reto:'Urgencias en fin de semana y de noche. Fija precios de urgencia, prioriza a los clientes con contrato y lleva en la furgoneta los repuestos más comunes.',
+    paso:'Haz una ruta por 15 bares y tiendas de tu zona y pregunta a quién llaman cuando falla la cámara y cuánto tardan en venir. Ofrece una revisión gratuita.',
+    vr:'Especialízate en un tipo de cliente con mucho frío (pescaderías y carnicerías o heladerías) y conoce a fondo sus equipos.' });
+
+  // ---------- INSTALACIONES DE PRODUCCIÓN DE CALOR (Grado Medio) ----------
+  A({ id:'im3', cics:['ipc','mit','dp'], t:'Cambio de calderas de gasóleo o gas por aerotermia', n:'Electrificación de la calefacción',
+    d:'Sustituyes calderas antiguas de gasóleo o gas por bombas de calor (aerotermia) para calefacción y agua caliente en viviendas, con estudio previo, instalación, legalización y ayuda con la documentación de subvenciones o Certificados de Ahorro Energético. Modelo: proyecto de 7.000-15.000 € con equipo incluido.',
+    m:'proyecto', cli:'viviendas unifamiliares y pisos con calderas de gasóleo o gas antiguas', pb:'dejar el gasóleo o el gas y calentar la casa con menos gasto',
+    val:'Calefacción y agua caliente con una máquina eficiente, sin depósito de gasóleo y con una factura más baja.',
+    inv:[3000,10000], ar:'2-3 meses', r:2, e:['domicilio'], h:3, am:2, tg:['sostenibilidad'], k:['ventas'], s:['tecnica','ventas','resolucion'],
+    why:'Configuración de instalaciones caloríficas, Montaje y mantenimiento de instalaciones caloríficas e Instalaciones eléctricas y automatismos: sabes dimensionar y montar el sistema completo, no solo cambiar la máquina.',
+    reto:'Una aerotermia mal dimensionada gasta más de lo prometido. Haz siempre un cálculo de cargas, revisa los radiadores y el aislamiento, y no prometas ahorros sin datos.',
+    paso:'Pregunta a 3 instaladores de tu zona cuántas aerotermias montan al mes y si tienen lista de espera. Haz el cálculo de cargas de una vivienda conocida con una herramienta de un fabricante.',
+    vr:'Especialízate en casas de pueblo con gasóleo: hay muchas, el ahorro es grande y casi nadie se lo ofrece.' });
+
+  A({ id:'im4', cics:['ipc','mit','bas'], t:'Revisión y mantenimiento de calderas y calefacción por contrato', n:'Mantenimiento de calefacción',
+    d:'Las instalaciones térmicas de más de 5 kW deben mantenerlas empresas mantenedoras (RITE, art. 26.6). Ofreces contratos anuales de revisión de calderas de gas, gasóleo y biomasa, purgado, limpieza y reparación de averías. Modelo: 70-150 € al año por vivienda y contratos mayores con comunidades.',
+    m:'cuota', cli:'viviendas con caldera individual y comunidades con calefacción central', pb:'tener la caldera revisada y sin averías en invierno',
+    val:'Tu caldera revisada cada año, más segura y eficiente, y un técnico que viene rápido si falla en enero.',
+    inv:[2000,6000], ar:'1-2 meses', r:1, e:['domicilio'], h:2, am:2, tg:[], k:['atencion_cliente'], s:['tecnica','organizacion','personas'],
+    why:'Montaje y mantenimiento de instalaciones caloríficas y de gas y combustibles líquidos y Máquinas y equipos térmicos: es tu ciclo aplicado al cliente que más se repite.',
+    reto:'Competirás con servicios técnicos de marcas y comercializadoras de gas. Gana con trato cercano, rapidez y precios claros, y habilita tu empresa como mantenedora (RITE, art. 36).',
+    paso:'Pregunta a 10 vecinos o conocidos con caldera cuándo la revisaron por última vez y cuánto pagaron. Prepara una oferta de revisión con precio cerrado.',
+    vr:'Firma con administradores de fincas el mantenimiento de calderas centrales: un contrato, muchos vecinos.' });
+
+  A({ id:'im5', cics:['ipc','bas','ifc'], t:'Fontanería de reformas: baños adaptados y sin barreras', n:'Fontanería y accesibilidad',
+    d:'Cambias bañeras por duchas a ras de suelo, instalas grifería termostática, asideros y sanitarios adaptados, y renuevas tuberías y calentadores en viviendas de personas mayores o con movilidad reducida. Modelo: obra de 1.500-5.000 € por baño, en colaboración con empresas de reformas.',
+    m:'proyecto', cli:'personas mayores, sus familias y empresas de reformas', pb:'tener un baño seguro y fácil de usar sin hacer una obra eterna',
+    val:'Un baño seguro y cómodo en pocos días, sin escalones ni bañera, pensado para quien lo usa.',
+    inv:[2000,6000], ar:'1-2 meses', r:1, e:['domicilio'], h:3, am:2, tg:['social'], k:['ventas'], s:['tecnica','personas','organizacion'],
+    why:'Montaje y mantenimiento de instalaciones de agua y Técnicas de montaje de instalaciones: sabes renovar la fontanería de un baño completo con seguridad.',
+    reto:'Es una obra con varios oficios (albañil, alicatador). Organízate con un equipo de confianza o colabora con una empresa de reformas que lleve la obra.',
+    paso:'Pregunta a 3 ortopedias o centros de mayores de tu zona si les piden recomendación para adaptar baños. Ofrécete y prepara un presupuesto tipo.',
+    vr:'Ofrece un «paquete exprés»: cambio de bañera por ducha en 2 días con precio cerrado, lo que más se pide.' });
+
+  // ---------- MANTENIMIENTO DE VIVIENDAS / FABRICACIÓN Y MONTAJE (Grado Básico) ----------
+  A({ id:'im6', cics:['bas'], t:'Pequeño mantenimiento de viviendas y comunidades', n:'Manitas profesional',
+    d:'Haces las pequeñas reparaciones que nadie quiere hacer: grifos, cisternas, persianas, montaje de muebles, cuadros y estanterías, juntas, pequeñas reparaciones de pintura. Para particulares, comunidades, administradores de fincas y gestores de pisos turísticos. Modelo: 25-40 € la hora o precio cerrado por tarea, y bonos para comunidades.',
+    m:'cuota', cli:'particulares, personas mayores, administradores de fincas y gestores de pisos turísticos', pb:'arreglar las pequeñas cosas de la casa sin esperar semanas',
+    val:'Las pequeñas averías arregladas esta semana, por alguien puntual y de confianza, con precio claro desde el principio.',
+    inv:[800,3000], ar:'1 mes', r:1, e:['domicilio'], h:2, am:1, tg:['diy'], k:['atencion_cliente'], s:['tecnica','personas','resolucion'],
+    why:'Operaciones de conservación en la vivienda y montaje de accesorios, Fontanería y calefacción básica y Redes de evacuación: son los arreglos que más se piden en cualquier casa.',
+    reto:'Trabajos pequeños y muchos desplazamientos. Agrupa por barrios, cobra una salida mínima y no toques lo que exige un instalador habilitado (gas, electricidad de la instalación).',
+    paso:'Ofrece a 3 vecinos o conocidos arreglar algo pendiente a precio de prueba, haz fotos de antes y después y pídeles una reseña.',
+    vr:'Trabaja para gestores de pisos turísticos: necesitan arreglos rápidos entre una reserva y la siguiente y pagan bien la rapidez.' });
+
+  A({ id:'im7', cics:['bas','ipc'], t:'Montaje de carpintería de aluminio, mamparas y pequeñas estructuras', n:'Montaje y cerrajería ligera',
+    d:'Montas y reparas ventanas de aluminio y PVC, mamparas, toldos, rejas y pequeñas estructuras metálicas, para particulares o como subcontrata de carpinterías y cristalerías. Modelo: precio por montaje o por hora, y reparaciones (cierres, juntas, persianas).',
+    m:'proyecto', cli:'carpinterías de aluminio, cristalerías y particulares que reforman', pb:'montar y ajustar ventanas, mamparas y cerramientos bien y a tiempo',
+    val:'Ventanas y mamparas que cierran bien y no dejan pasar el aire ni el agua, montadas a tiempo.',
+    inv:[1000,4000], ar:'1-2 meses', r:1, e:['domicilio','local'], h:3, am:2, tg:['diy'], k:['otro_oficio'], s:['tecnica','organizacion'],
+    why:'Carpintería de aluminio y PVC, Soldadura y carpintería metálica y Operaciones básicas de fabricación son módulos de tu ciclo.',
+    reto:'Trabajar solo para 1-2 carpinterías te deja sin trabajo si ellas paran. Combina la subcontrata con reparaciones para particulares.',
+    paso:'Llama a 5 carpinterías de aluminio o cristalerías de tu zona y pregunta si necesitan montadores por obra en los próximos meses.',
+    vr:'Especialízate en cambiar ventanas para ahorrar energía: se puede combinar con ayudas y Certificados de Ahorro Energético.' });
+
+  // ---------- MANTENIMIENTO DE INSTALACIONES TÉRMICAS Y DE FLUIDOS (Grado Superior) ----------
+  A({ id:'im8', cics:['mit','dp'], t:'Empresa mantenedora de instalaciones térmicas en edificios grandes', n:'Mantenimiento RITE',
+    d:'Los edificios con instalaciones térmicas de más de 70 kW (colegios, hoteles, residencias, oficinas, comunidades con calefacción central) están obligados a tener contrato de mantenimiento con una empresa mantenedora (RITE, art. 26.6.b). Llevas el mantenimiento preventivo, las inspecciones, el libro del edificio y las averías. Modelo: contrato anual de 1.500-12.000 € por edificio.',
+    m:'cuota', cli:'colegios privados, hoteles, residencias, oficinas y comunidades con calefacción central', pb:'cumplir el mantenimiento obligatorio y que la climatización no falle',
+    val:'Tu edificio cumple el mantenimiento obligatorio, gasta menos y la climatización funciona todo el año.',
+    inv:[3000,10000], ar:'3-4 meses', r:2, e:['local'], h:3, am:3, tg:[], k:['gestion_personas'], s:['organizacion','tecnica','liderazgo'],
+    why:'Gestión del montaje, de la calidad y del mantenimiento, Mantenimiento de instalaciones frigoríficas y de climatización y Mantenimiento de instalaciones caloríficas y de fluidos: es tu ciclo al completo.',
+    reto:'Para estos contratos necesitas estar habilitado como empresa mantenedora (RITE, art. 36) y tener personal. Empieza con 1-2 edificios medianos y crece contratando.',
+    paso:'Haz una lista de 10 edificios grandes de tu zona (colegios, hoteles, residencias) y averigua quién les mantiene la climatización. Pregunta a 2 si están contentos.',
+    vr:'Especialízate en residencias de mayores y centros sanitarios privados, donde la climatización es crítica y se valora la respuesta rápida.' });
+
+  A({ id:'im9', cics:['mit','dp','ifc'], t:'Ventilación y calidad del aire en colegios, gimnasios y oficinas', n:'Calidad del aire interior',
+    d:'El RITE exige una calidad del aire interior aceptable en los locales ocupados (art. 11.2). Mides CO2, temperatura y humedad, detectas aulas y salas mal ventiladas y propones e instalas soluciones: recuperadores de calor, ventilación mecánica, sensores con aviso. Modelo: medición de 200-800 € por edificio y proyectos de mejora.',
+    m:'proyecto', cli:'colegios, academias, gimnasios, oficinas y salas de reuniones', pb:'respirar aire limpio sin abrir las ventanas en invierno',
+    val:'Aire limpio en aulas y salas, sin pasar frío con las ventanas abiertas y con sensores que lo demuestran.',
+    inv:[1500,5000], ar:'2-3 meses', r:2, e:['local'], h:2, am:3, tg:['social','deporte'], k:['ofimatica'], s:['tecnica','resolucion','organizacion'],
+    why:'Configuración de instalaciones térmicas y de fluidos, Energías renovables y eficiencia energética y Sistemas eléctricos y automáticos: sabes medir el aire y diseñar una ventilación eficiente.',
+    reto:'El cliente no ve el problema hasta que lo mides. Empieza con mediciones gratuitas de una semana y enseña los datos.',
+    paso:'Consigue un medidor de CO2 y mide durante una semana un aula de tu centro o una sala de un gimnasio. Prepara un informe con los resultados y 2 soluciones.',
+    vr:'Ofrece sensores con pantalla en cada aula y una cuota de seguimiento: el colegio ve los datos y tú vendes las mejoras.' });
+
+  // ---------- DESARROLLO DE PROYECTOS DE INSTALACIONES TÉRMICAS Y DE FLUIDOS (Grado Superior) ----------
+  A({ id:'im10', cics:['dp','mit'], t:'Oficina técnica externa para instaladores: cálculos, planos y memorias', n:'Proyectos de instalaciones',
+    d:'Los instaladores pequeños no tienen tiempo para el papel. Les haces cálculos de cargas, planos, mediciones, presupuestos y memorias técnicas para instalaciones térmicas de 5 a 70 kW, que puede firmar un instalador habilitado (RITE, arts. 15.1.b y 17.2). Modelo: precio por memoria (150-600 €) o cuota mensual por instalador.',
+    m:'cuota', cli:'empresas instaladoras de climatización, calefacción y fontanería de 1-10 personas', pb:'preparar cálculos, planos y memorias técnicas sin perder horas de obra',
+    val:'Tú instalas y otro te prepara cálculos, planos y memorias bien hechos y a tiempo.',
+    inv:[800,3000], ar:'1-2 meses', r:1, e:['online'], h:2, am:3, tg:[], k:['ofimatica','diseno'], s:['organizacion','tecnica','resolucion'],
+    why:'Representación gráfica de instalaciones, Configuración de instalaciones de climatización, calefacción y ACS y Planificación del montaje de instalaciones son el corazón de tu ciclo.',
+    reto:'Las instalaciones de más de 70 kW necesitan proyecto firmado por un técnico titulado competente (RITE, art. 16.1): en esas, colabora con un ingeniero.',
+    paso:'Haz la memoria técnica completa de una vivienda tipo con aerotermia (cálculos, planos y presupuesto) y enséñasela a 3 instaladores como ejemplo.',
+    vr:'Especialízate en instalaciones de aerotermia y suelo radiante, que son las que más cálculo exigen y más se están haciendo.' });
+
+  A({ id:'im11', cics:['dp','mit'], t:'Estudios y presupuestos de climatización para promotoras y reformas', n:'Diseño de instalaciones',
+    d:'Trabajas con constructoras pequeñas, promotoras, arquitectos y empresas de reformas diseñando la climatización, el agua caliente y la fontanería de sus obras: elección de sistema, cálculo, planos, mediciones y comparativa de costes. Modelo: precio por proyecto o por vivienda.',
+    m:'proyecto', cli:'constructoras pequeñas, promotoras, estudios de arquitectura y empresas de reformas', pb:'elegir y diseñar bien la climatización de una obra',
+    val:'La climatización de tu obra bien diseñada desde el principio, con costes claros y sin cambios en mitad de la obra.',
+    inv:[800,3000], ar:'2-3 meses', r:2, e:['online','local'], h:2, am:3, tg:['sostenibilidad'], k:['diseno','ofimatica'], s:['organizacion','tecnica','personas'],
+    why:'Equipos e instalaciones térmicas, Energías renovables y eficiencia energética y Configuración de instalaciones de fluidos: comparas sistemas y los diseñas para una obra real.',
+    reto:'Los proyectos grandes los firman ingenieros. Tu sitio está en viviendas y locales pequeños y en el apoyo técnico al estudio de arquitectura.',
+    paso:'Contacta con 3 estudios de arquitectura o empresas de reformas de tu zona y pregunta quién les diseña la climatización. Ofrece un primer estudio a precio reducido.',
+    vr:'Especialízate en rehabilitación energética de viviendas, donde se cruza el diseño de la instalación con las ayudas.' });
+
+  // ---------- MANTENIMIENTO ELECTROMECÁNICO (Grado Medio) ----------
+  A({ id:'im12', cics:['mem','mec'], t:'Mantenimiento electromecánico para pymes industriales y agroalimentarias', n:'Mantenimiento industrial externo',
+    d:'Muchas pymes industriales, bodegas, almazaras y empresas alimentarias no tienen técnico de mantenimiento propio. Haces el preventivo de sus máquinas (motores, cintas, bombas, neumática), reparas averías y llevas el registro. Modelo: cuota mensual de 200-1.500 € por empresa o bolsa de horas.',
+    m:'cuota', cli:'pymes industriales, bodegas, almazaras, conserveras y obradores grandes', pb:'que las máquinas no se paren y se reparen rápido',
+    val:'Tus máquinas con mantenimiento al día y un técnico que conoce tu planta y viene cuando algo se para.',
+    inv:[2000,6000], ar:'2-3 meses', r:1, e:['local'], h:3, am:2, tg:['gastronomia'], k:['otro_oficio'], s:['tecnica','resolucion','organizacion'],
+    why:'Montaje y mantenimiento mecánico, Montaje y mantenimiento eléctrico-electrónico, Automatismos neumático e hidráulico y Montaje y mantenimiento de líneas automatizadas: es tu ciclo al completo.',
+    reto:'Las urgencias de varias empresas pueden coincidir. Planifica el preventivo para reducirlas y acuerda tiempos de respuesta realistas por contrato.',
+    paso:'Visita 3 pymes industriales o alimentarias de tu zona y pregunta quién les mantiene las máquinas y cuánto les cuesta una hora de parada.',
+    vr:'Especialízate en un sector con campañas (bodegas en vendimia, almazaras en invierno): concentras trabajo y te ganas fama en el sector.' });
+
+  A({ id:'im13', cics:['mem','mec','bas'], t:'Puertas automáticas, portones y persianas motorizadas', n:'Automatismos de accesos',
+    d:'Instalas y mantienes puertas de garaje, portones, barreras, puertas automáticas de comercios y persianas motorizadas en comunidades, naves y viviendas. Las comunidades y comercios necesitan revisiones periódicas y reparaciones rápidas. Modelo: instalación de 800-4.000 € y contrato de mantenimiento de 15-60 €/mes.',
+    m:'cuota', cli:'comunidades de vecinos con garaje, naves, comercios y viviendas unifamiliares', pb:'que la puerta del garaje o del local funcione siempre y con seguridad',
+    val:'Tu puerta funciona siempre, es segura y si falla se arregla el mismo día.',
+    inv:[2000,6000], ar:'1-2 meses', r:1, e:['local','domicilio'], h:2, am:2, tg:[], k:['atencion_cliente'], s:['tecnica','resolucion'],
+    why:'Electricidad y automatismos eléctricos, Montaje y mantenimiento mecánico y Técnicas de unión y montaje: una puerta automática es mecánica, electricidad y maniobra a la vez.',
+    reto:'Las puertas automáticas tienen normas de seguridad (detectores, fuerza de cierre). Aprende las normas técnicas del producto y documenta cada revisión.',
+    paso:'Pregunta a 3 administradores de fincas de tu zona quién les mantiene las puertas de garaje y cuántas averías tienen al año.',
+    vr:'Añade control de accesos con el móvil o matrícula: modernizas puertas existentes sin cambiarlas.' });
+
+  // ---------- MECATRÓNICA INDUSTRIAL (Grado Superior) ----------
+  A({ id:'im14', cics:['mec','mem'], t:'Modernización y mantenimiento preventivo de máquinas en talleres', n:'Retrofit de maquinaria',
+    d:'Recuperas máquinas antiguas pero buenas de talleres y pequeñas fábricas: cambias electrónica y control, añades seguridad, mejoras la neumática y organizas un plan de mantenimiento preventivo. Modelo: proyecto de 2.000-20.000 € por máquina y contratos de mantenimiento.',
+    m:'proyecto', cli:'talleres mecánicos, carpinterías industriales y pequeñas fábricas con máquinas antiguas', pb:'seguir usando máquinas buenas pero antiguas con seguridad y menos averías',
+    val:'Tu máquina de siempre vuelve a funcionar como nueva, más segura y con menos averías, por mucho menos que una nueva.',
+    inv:[3000,10000], ar:'3-4 meses', r:2, e:['local'], h:3, am:3, tg:['tecnologia'], k:['programacion'], s:['tecnica','resolucion','organizacion'],
+    why:'Sistemas mecánicos, Sistemas hidráulicos y neumáticos, Configuración de sistemas mecatrónicos e Integración de sistemas: ves la máquina entera y sabes modernizarla.',
+    reto:'Modificar una máquina te hace responsable de su seguridad. Infórmate de las obligaciones de seguridad de máquinas antes de tocar los sistemas de protección y contrata un seguro.',
+    paso:'Visita 3 talleres de tu zona y pregunta qué máquina antigua les gustaría modernizar en lugar de cambiar. Haz una propuesta con coste y plazo.',
+    vr:'Especialízate en un tipo de máquina (prensas, tornos, máquinas de madera) y compra, moderniza y revende máquinas usadas.' });
+
+  // ---------- HÍBRIDAS: instalación y mantenimiento + afición ----------
+  H({ id:'im_h1', pref:['ifc','mem'], t:'Mantenimiento integral de cocinas de restaurantes', n:'Servicio técnico para hostelería',
+    d:'Te ocupas de todo lo que hace funcionar una cocina profesional: cámaras y botelleros, campanas y extracción, lavavajillas industriales, hornos y freidoras. Un solo técnico para todo, con mantenimiento preventivo y urgencias. Modelo: cuota mensual de 60-250 € por local más reparaciones.',
+    m:'cuota', cli:'restaurantes, bares con cocina, hoteles pequeños y colectividades', pb:'que la cocina no se pare en pleno servicio',
+    val:'Un único técnico para toda tu cocina, que la conoce y viene rápido, y averías que se evitan con revisiones.',
+    inv:[3000,9000], ar:'2 meses', r:1, e:['local'], h:3, am:2, tg:['gastronomia'], k:['atencion_cliente'], s:['tecnica','resolucion','personas'],
+    why:'Te gusta la gastronomía y sabes cómo es una cocina por dentro; tu ciclo te da frío, climatización, extracción y electricidad para resolverlo todo.',
+    reto:'Los hosteleros llaman a cualquier hora. Pon límites y precios de urgencia desde el principio y prioriza a los clientes con contrato.',
+    paso:'Pregunta a 5 restaurantes de tu zona a cuántos técnicos distintos llaman al año y cuánto tardan en venir. Ofrece un contrato de prueba.',
+    vr:'Especialízate en limpieza y mantenimiento de campanas y conductos de extracción, que es obligatorio, sucio y pocos quieren hacer.' });
+
+  H({ id:'im_h2', pref:['ipc','mit'], t:'Climatización de piscinas, spas y gimnasios', n:'Instalaciones para el deporte',
+    d:'Mantienes la parte térmica de piscinas cubiertas, spas y gimnasios: deshumectadoras, bombas de calor para el agua, calderas, ventilación de salas y agua caliente de duchas. Modelo: contrato anual de mantenimiento y proyectos de mejora de eficiencia.',
+    m:'cuota', cli:'gimnasios, centros deportivos, piscinas cubiertas, spas y hoteles con zona de bienestar', pb:'mantener el agua y el ambiente a buena temperatura sin gastar una fortuna',
+    val:'Agua y salas a la temperatura justa, sin condensaciones ni olores, y una factura energética bajo control.',
+    inv:[3000,9000], ar:'2-3 meses', r:2, e:['local'], h:3, am:2, tg:['deporte'], k:['atencion_cliente'], s:['tecnica','organizacion'],
+    why:'Te gusta el deporte y conoces cómo funciona un gimnasio; tu ciclo te da producción de calor, climatización y ventilación.',
+    reto:'Instalaciones complejas y clientes con poca paciencia si el agua está fría. Haz un buen inventario al empezar y ten repuestos críticos.',
+    paso:'Pregunta a 3 gimnasios o centros con piscina de tu zona quién les mantiene la climatización y cuánto gastan en energía.',
+    vr:'Combínalo con el control de legionela de duchas y vestuarios, obligatorio en estos centros.' });
+
+  H({ id:'im_h3', pref:['ipc'], t:'Calefacción con biomasa para casas rurales y pueblos', n:'Calor renovable rural',
+    d:'Instalas y mantienes estufas y calderas de pellet y leña en casas de pueblo, alojamientos rurales y pequeños edificios municipales, y das el servicio de limpieza y revisión anual. Modelo: instalación de 2.500-12.000 € y mantenimiento anual de 100-300 €.',
+    m:'proyecto', cli:'casas de pueblo, alojamientos rurales y ayuntamientos pequeños', pb:'calentar la casa con un combustible más barato y local',
+    val:'Calefacción con un combustible local y más barato, instalada y revisada por alguien de la zona.',
+    inv:[2000,6000], ar:'2 meses', r:1, e:['domicilio'], h:2, am:2, tg:['naturaleza','sostenibilidad'], k:['otro_oficio'], s:['tecnica','personas'],
+    why:'Te gusta el medio rural y la naturaleza; tu ciclo te da la configuración, el montaje y el mantenimiento de instalaciones caloríficas.',
+    reto:'La biomasa exige limpieza y combustible de calidad. Explícaselo bien al cliente y vende siempre el mantenimiento junto con la instalación.',
+    paso:'Pregunta en 3 pueblos de tu comarca quién instala y revisa estufas de pellet y cuánto tardan. Calcula el ahorro frente al gasóleo para una casa tipo.',
+    vr:'Alíate con un proveedor local de pellet o leña: tú instalas y él suministra, y os recomendáis mutuamente.' });
+
+  H({ id:'im_h4', pref:['ifc'], t:'Aire acondicionado de vehículos, autocaravanas y camiones', n:'Climatización de vehículos',
+    d:'Revisas, recargas y reparas el aire acondicionado de coches, furgonetas, autocaravanas, camiones y maquinaria agrícola. Para este trabajo hace falta el certificado específico de climatización de vehículos (RD 115/2017, anexo I). Modelo: recarga y revisión de 50-150 €, reparaciones y servicio a talleres que no lo hacen.',
+    m:'proyecto', cli:'talleres mecánicos sin equipo de climatización, autocaravanistas, transportistas y agricultores', pb:'tener el aire acondicionado del vehículo funcionando en verano',
+    val:'Tu aire acondicionado vuelve a enfriar en una mañana, revisado por un especialista.',
+    inv:[3000,8000], ar:'1-2 meses', r:1, e:['local','domicilio'], h:2, am:2, tg:['motor','viajes'], k:['otro_oficio'], s:['tecnica','resolucion'],
+    why:'Te gusta el motor; tu ciclo te da el ciclo frigorífico, la carga de refrigerante y el diagnóstico de equipos de frío.',
+    reto:'Trabajo muy estacional. Combínalo con la climatización de viviendas o con calefacción estacionaria en invierno.',
+    paso:'Pregunta a 5 talleres de tu zona si hacen la climatización de vehículos o la mandan fuera. Infórmate del certificado de vehículos en tu comunidad.',
+    vr:'Ofrece servicio móvil para camiones y maquinaria agrícola: vas tú a la nave o la finca y ellos no pierden una jornada.' });
+
+  H({ id:'im_h5', pref:['ifc','mem'], t:'Climatización y ventilación de granjas y clínicas veterinarias', n:'Instalaciones para animales',
+    d:'Las naves ganaderas y las clínicas veterinarias necesitan ventilación, calefacción y frío fiables: si fallan, los animales sufren. Instalas, mantienes y automatizas ventiladores, calefactores y sistemas de refrigeración, con alarmas al móvil. Modelo: proyectos y contratos de mantenimiento con urgencias.',
+    m:'cuota', cli:'granjas avícolas y porcinas, explotaciones ganaderas, clínicas veterinarias y residencias caninas', pb:'mantener a los animales a una temperatura segura todo el año',
+    val:'Tus animales siempre a la temperatura adecuada, con alarmas si algo falla y un técnico que llega rápido.',
+    inv:[3000,8000], ar:'2-3 meses', r:2, e:['local'], h:3, am:2, tg:['animales','naturaleza'], k:['otro_oficio'], s:['tecnica','resolucion','organizacion'],
+    why:'Te importan los animales y entiendes lo que está en juego; tu ciclo te da climatización, ventilación y automatismos.',
+    reto:'Un fallo en verano puede ser una urgencia grave. Instala siempre alarmas, ten repuestos y acuerda tiempos de respuesta por contrato.',
+    paso:'Visita 2 granjas o clínicas veterinarias de tu zona y pregunta qué les preocupa más de su ventilación o climatización y quién se la mantiene.',
+    vr:'Trabaja con integradoras y cooperativas ganaderas, que pueden recomendarte a todas sus granjas.' });
+
+  H({ id:'im_h6', pref:['mit','bas'], t:'Mantenimiento para residencias y viviendas tuteladas', n:'Mantenimiento social',
+    d:'Llevas el mantenimiento completo de residencias pequeñas, centros de día y viviendas tuteladas: calefacción, agua caliente, climatización, pequeñas reparaciones y control de legionela con una empresa colaboradora. Modelo: cuota mensual de 200-1.200 € por centro.',
+    m:'cuota', cli:'residencias pequeñas, centros de día, viviendas tuteladas y asociaciones de atención a personas', pb:'que el centro funcione sin averías y cumpla las normas',
+    val:'Un centro cómodo y seguro para las personas que viven en él, con un técnico que lo conoce y responde rápido.',
+    inv:[2000,6000], ar:'2-3 meses', r:1, e:['local'], h:3, am:2, tg:['social'], k:['atencion_cliente'], s:['tecnica','personas','organizacion'],
+    why:'Te mueve el impacto social; tu ciclo te da el mantenimiento de instalaciones térmicas y de fluidos y la gestión del mantenimiento.',
+    reto:'Las entidades sociales tienen presupuestos ajustados. Ofrece contratos claros, sin sorpresas, y muestra el ahorro del preventivo.',
+    paso:'Pregunta a 2 residencias o centros de día de tu zona cómo gestionan hoy el mantenimiento y qué averías les dan más problemas.',
+    vr:'Ofrece el servicio a fundaciones y asociaciones que gestionan varios centros: un contrato, varios edificios.' });
+
+  H({ id:'im_h7', pref:['mit','dp'], t:'Termostatos inteligentes y mantenimiento a distancia', n:'Climatización conectada',
+    d:'Conectas calderas, aerotermias y aires acondicionados a termostatos inteligentes y sistemas de vigilancia remota: el cliente controla desde el móvil y tú recibes avisos de averías antes de que llame. Modelo: instalación de 150-600 € y cuota mensual de 5-20 € por vivienda o más en edificios.',
+    m:'suscripcion', cli:'viviendas, apartamentos turísticos y oficinas con calefacción o climatización', pb:'controlar la climatización a distancia y evitar averías',
+    val:'Controlas tu calefacción desde el móvil, gastas menos y tu técnico sabe que algo falla antes que tú.',
+    inv:[1000,4000], ar:'2 meses', r:2, e:['domicilio','online'], h:2, am:3, tg:['tecnologia'], k:['programacion'], s:['tecnica','digital'],
+    why:'Te atrae la tecnología; tu ciclo te da los sistemas eléctricos y automáticos y el conocimiento de las instalaciones térmicas para saber qué vigilar.',
+    reto:'Cada marca tiene su sistema. Trabaja con 2-3 compatibles y explica qué datos recoges y para qué.',
+    paso:'Instala un termostato inteligente en tu casa o la de un conocido y apunta el consumo antes y después durante un mes.',
+    vr:'Ofrécelo a gestores de apartamentos turísticos: apagan la climatización a distancia cuando se va el huésped.' });
+
+  H({ id:'im_h8', pref:['bas'], t:'Talleres de mantenimiento del hogar: aprende a arreglar tu casa', n:'Formación práctica',
+    d:'Impartes talleres prácticos para adultos: cambiar un grifo, desatascar, purgar radiadores, arreglar una cisterna o una persiana, saber cuándo llamar a un profesional. En centros cívicos, asociaciones, tiendas de bricolaje o en un local propio. Modelo: 20-40 € por persona en grupos de 6-10, o taller cerrado para entidades.',
+    m:'formacion', cli:'adultos que viven solos por primera vez, personas mayores, centros cívicos y tiendas de bricolaje', pb:'arreglar las pequeñas averías de casa sin depender de nadie',
+    val:'Sales sabiendo arreglar lo más común de tu casa y, sobre todo, sabiendo qué no debes tocar.',
+    inv:[300,1500], ar:'1 mes', r:1, e:['local'], h:1, am:2, tg:['diy'], k:['atencion_cliente'], s:['personas','tecnica','creatividad'],
+    why:'Te gusta hacer cosas con las manos; tu ciclo te da la fontanería básica, el mantenimiento de la vivienda y las redes de evacuación que vas a enseñar.',
+    reto:'Enseñar es otra habilidad. Prepara maquetas para practicar (un grifo, una cisterna) y grupos pequeños para que todos toquen.',
+    paso:'Prepara un taller de 90 minutos sobre «las 5 averías más comunes de casa» y ofrécelo gratis en un centro cívico o asociación de tu barrio.',
+    vr:'Graba los tutoriales y véndelos como curso online, con tus servicios de reparación para quien prefiera que lo hagas tú.' });
+
+  H({ id:'im_h9', pref:['mit','ifc'], t:'Control de temperatura y humedad para museos, archivos, bodegas y estudios', n:'Climatización de precisión',
+    d:'Algunas cosas necesitan una temperatura y humedad muy estables: obras de arte, archivos, instrumentos musicales, vinos y quesos. Diseñas, instalas y mantienes sistemas de control de precisión con registro de datos para museos pequeños, archivos, bodegas, queserías y estudios de grabación. Modelo: proyecto y contrato de mantenimiento con informes.',
+    m:'proyecto', cli:'museos pequeños, archivos, galerías, bodegas, queserías y estudios de grabación', pb:'mantener una temperatura y humedad estables para conservar lo que guardan',
+    val:'Lo que guardas se conserva perfecto, con registros que lo demuestran y avisos si algo cambia.',
+    inv:[2000,6000], ar:'2-3 meses', r:2, e:['local'], h:2, am:3, tg:['arte','musica','gastronomia'], k:['otro_oficio'], s:['tecnica','organizacion','resolucion'],
+    why:'Tu interés por el arte, la música o la gastronomía te hace entender qué se juega el cliente; tu ciclo te da la climatización y el control de precisión.',
+    reto:'Clientes muy exigentes y pocos en cada zona. Especialízate en uno o dos tipos y trabaja en toda tu comunidad autónoma.',
+    paso:'Pregunta a 2 bodegas, queserías o museos de tu zona cómo controlan la temperatura y la humedad y si registran los datos.',
+    vr:'Ofrece solo la monitorización con sensores y avisos a quien ya tiene equipos: barato de empezar y abre la puerta al mantenimiento.' });
+
+  // ---------- EMERGENTES ----------
+  N({ id:'im_n1', t:'Bombas de calor y frío con refrigerantes naturales', n:'Refrigerantes del futuro',
+    d:'El reglamento europeo de gases fluorados (Reglamento (UE) 2024/573) va retirando los refrigerantes de mayor impacto climático, y crecen los equipos con propano o CO2. Te especializas en instalar y mantener estos equipos, que exigen formación y precauciones específicas, para viviendas, comercios y frío comercial. Modelo: proyectos y mantenimiento con precio más alto por especialización.',
+    m:'proyecto', cli:'instaladores que no se atreven con los nuevos refrigerantes, supermercados, comercios y viviendas', pb:'pasarse a equipos con refrigerantes que no se van a prohibir',
+    val:'Equipos preparados para la normativa que viene, instalados por alguien formado en los nuevos refrigerantes.',
+    inv:[3000,10000], ar:'3-4 meses', r:3, e:['local','domicilio'], h:3, am:3, tg:['sostenibilidad'], k:['otro_oficio'], s:['tecnica','resolucion'],
+    why:'Configuración de instalaciones de frío y climatización y Montaje y mantenimiento de equipos de refrigeración: añadir la especialización en refrigerantes naturales te pone por delante.',
+    reto:'El propano es inflamable y el CO2 trabaja a presiones muy altas: hace falta formación específica, herramientas adecuadas y protocolos estrictos.',
+    paso:'Busca qué fabricantes venden en España bombas de calor con propano y qué formación ofrecen a instaladores. Pregunta a 2 supermercados qué refrigerante usan.',
+    vr:'Ofrece formación a otros instaladores: hay muchos profesionales que tendrán que reciclarse.' });
+
+  N({ id:'im_n2', t:'Mantenimiento predictivo por suscripción para comunidades y empresas', n:'Mantenimiento conectado',
+    d:'Instalas sensores en calderas, bombas, grupos de presión y climatización de comunidades, hoteles y naves, y vigilas su funcionamiento a distancia: avisas antes de la avería y vas cuando hace falta. Modelo: cuota mensual por instalación vigilada con visitas incluidas.',
+    m:'suscripcion', cli:'comunidades de vecinos, hoteles, residencias y naves con instalaciones críticas', pb:'evitar que una avería les deje sin agua caliente, calefacción o frío',
+    val:'Tus instalaciones vigiladas día y noche: la avería se arregla antes de que la notes.',
+    inv:[2000,6000], ar:'3-4 meses', r:3, e:['local','online'], h:3, am:3, tg:['tecnologia'], k:['programacion'], s:['tecnica','digital','organizacion'],
+    why:'Une el mantenimiento de instalaciones térmicas y de fluidos con los sistemas eléctricos y automáticos de tu ciclo: sabes qué medir y qué significa.',
+    reto:'El cliente paga por algo que no ve. Empieza con un piloto gratuito en una instalación y enseña cada aviso que has resuelto antes de la avería.',
+    paso:'Elige una instalación conocida (la caldera de tu comunidad, por ejemplo) y piensa qué 3 datos medirías para anticipar una avería y cuánto costaría medirlos.',
+    vr:'Véndelo a administradores de fincas como valor añadido para todas sus comunidades.' });
+
+  N({ id:'im_n3', t:'Redes de calor de barrio o de pueblo', n:'Calor compartido',
+    d:'Una sola central (de biomasa o bomba de calor grande) calienta varios edificios a través de tuberías enterradas: colegios, piscina, ayuntamiento y viviendas. Participas en el diseño, el montaje y, sobre todo, en la operación y mantenimiento de estas redes, que crecen en pueblos con biomasa cercana. Modelo: contrato de operación y mantenimiento con el ayuntamiento o la empresa gestora.',
+    m:'cuota', cli:'ayuntamientos, cooperativas energéticas y empresas que gestionan redes de calor', pb:'calentar varios edificios con una sola instalación eficiente',
+    val:'Varios edificios con calefacción más barata y renovable desde una sola central bien mantenida.',
+    inv:[3000,10000], ar:'6-12 meses', r:3, e:['local'], h:4, am:3, tg:['sostenibilidad','naturaleza'], k:['gestion_personas'], s:['tecnica','organizacion','liderazgo'],
+    why:'Equipos e instalaciones térmicas, Configuración de instalaciones de fluidos y la gestión del mantenimiento de tu ciclo son la base para operar una red de calor.',
+    reto:'Son proyectos públicos, grandes y lentos. Entra como técnico de una empresa gestora o como subcontrata de mantenimiento antes de aspirar a gestionar una red.',
+    paso:'Busca si hay redes de calor en tu comunidad autónoma (la asociación ADHAC publica un censo) y quién las opera. Pregunta qué perfiles buscan.',
+    vr:'Ofrece a pueblos pequeños un estudio de viabilidad de red de calor junto a una ingeniería.' });
+
+  N({ id:'im_n4', t:'Geotermia para viviendas y pequeños edificios', n:'Energía del subsuelo',
+    d:'La bomba de calor geotérmica usa la temperatura estable del terreno para calentar y enfriar con mucha eficiencia. Te especializas en el diseño de la parte interior, la instalación y el mantenimiento, en colaboración con empresas de perforación. Modelo: proyectos de 15.000-35.000 € por vivienda y mantenimiento.',
+    m:'proyecto', cli:'viviendas unifamiliares de gama media-alta, promotoras y edificios públicos pequeños', pb:'calentar y enfriar el edificio con la mínima factura posible',
+    val:'Calefacción y aire acondicionado con una factura mínima y una instalación que dura décadas.',
+    inv:[3000,10000], ar:'4-6 meses', r:3, e:['domicilio','local'], h:3, am:3, tg:['sostenibilidad','naturaleza'], k:['ventas'], s:['tecnica','organizacion','ventas'],
+    why:'Energías renovables y eficiencia energética, Equipos e instalaciones térmicas y Configuración de instalaciones de climatización: tienes la base para una de las instalaciones más eficientes.',
+    reto:'Inversión alta para el cliente y perforaciones que necesitan permisos. Trabaja con una empresa de perforación seria y empieza en obra nueva, donde es más fácil.',
+    paso:'Busca 2 empresas de perforación geotérmica de tu comunidad y pregunta si trabajan con instaladores. Calcula para una vivienda tipo el ahorro frente a aerotermia.',
+    vr:'Combina geotermia y suelo radiante en viviendas nuevas a través de arquitectos y promotoras.' });
+  } // fin de Instalación y Mantenimiento
+
   // ===========================================================
   // MOTOR DE RECOMENDACIÓN (común a todas las familias del motor enriquecido)
   // Puntúa cada idea con TODAS las respuestas, elige de forma ponderada
