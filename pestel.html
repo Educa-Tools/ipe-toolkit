@@ -60,7 +60,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:var(--canvas);color:var
 h1.display{font-family:'Fraunces',Georgia,serif;font-size:52px;line-height:1.05;font-weight:400;letter-spacing:-0.02em;font-variation-settings:"opsz" 72;}
 h1.display em{font-style:italic;font-weight:400;}
 h2.title{font-family:'Fraunces',Georgia,serif;font-size:28px;line-height:1.2;font-weight:400;letter-spacing:-0.01em;}
-h3.subtitle{font-family:'Fraunces',Georgia,serif;font-size:20px;line-height:1.25;font-weight:500;}
+.subtitle{font-family:'Fraunces',Georgia,serif;font-size:20px;line-height:1.25;font-weight:500;}
 .prose{font-family:'Fraunces',Georgia,serif;font-size:17px;line-height:1.65;font-weight:400;color:var(--ink-soft);}
 .prose .keyword{font-weight:500;color:var(--ink);}
 .prose-italic{font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:400;line-height:1.6;color:var(--ink-soft);}
@@ -302,9 +302,6 @@ h3.subtitle{font-family:'Fraunces',Georgia,serif;font-size:20px;line-height:1.25
   .fx-name{font-size:17px;}
 }
 
-/* zonas intro grid — responsive */
-.zonas-intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
-@media(max-width:600px){.zonas-intro-grid{grid-template-columns:1fr;}}
 
 /* ══ Kit v2 Esplora: contraste, tamaños y barra de marca ══ */
 :root{ --kit-bg:#F5F6E4; --kit-ink:#1E1C1A; --kit-soft:#4A463F; --kit-accent:#3E5778; }
@@ -385,10 +382,163 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
 .fx2 p small{ font-size:11.5px; margin-bottom:3px; color:var(--zc); }
 .pintro{ font-size:14.5px; }
 .prio{ font-size:15px; }
+
+/* ══ Pulido de la interfaz (oct-2026) ══ */
+:focus-visible{ outline:2.5px solid var(--kit-accent); outline-offset:3px; border-radius:6px; }
+.btn:focus-visible{ outline-offset:3px; border-radius:999px; }
+.container > .card{ margin-bottom:20px; }
+
+/* Cómo funciona */
+.how{ padding:26px 28px 24px; }
+.how .subtitle{ margin-bottom:18px; }
+.how-steps{ list-style:none; display:grid; gap:14px; }
+.how-steps li{ display:grid; grid-template-columns:28px 1fr; gap:14px; align-items:baseline; }
+.how-n{ width:28px; height:28px; border-radius:50%; background:var(--lime-soft); color:var(--olive-deep); border:1px solid var(--olive-soft); display:grid; place-items:center; font-family:'Fraunces',Georgia,serif; font-size:15px; font-weight:600; transform:translateY(5px); }
+.how-steps .prose{ font-size:16.5px; }
+
+/* Leyenda de las 5 zonas */
+.zl{ padding:26px 28px 24px; margin-bottom:36px !important; }
+.zl-t{ font-family:'Fraunces',Georgia,serif; font-size:20px; font-weight:500; line-height:1.25; color:var(--ink); }
+.zl-lead{ font-size:15px; line-height:1.55; color:var(--ink-soft); margin:6px 0 20px; }
+.zl-lead b{ color:var(--ink); font-weight:600; }
+.zl-body{ display:grid; grid-template-columns:auto 1fr; gap:28px; align-items:center; }
+.zl-mini{ display:grid; grid-template-columns:16px auto; grid-template-rows:auto 16px; gap:6px; }
+.zl-grid{ display:grid; grid-template-columns:repeat(3,44px); grid-auto-rows:44px; gap:4px; }
+.zl-c{ border-radius:9px; background:var(--zs); color:var(--zc); border:1px solid color-mix(in srgb,var(--zc) 30%,transparent); display:grid; place-items:center; transition:opacity .2s ease, transform .2s ease; }
+.zl-c svg{ width:17px; height:17px; }
+.zl-c.dim{ opacity:.22; }
+.zl-ax{ font-size:11px; font-weight:700; letter-spacing:1.4px; text-transform:uppercase; color:var(--ink-soft); white-space:nowrap; display:flex; align-items:center; gap:4px; }
+.zl-ax-y{ grid-column:1; grid-row:1; writing-mode:vertical-rl; transform:rotate(180deg); justify-content:center; }
+.zl-ax-x{ grid-column:2; grid-row:2; justify-content:center; }
+.zl-ax-y::after{ content:'→'; font-size:12px; letter-spacing:0; }
+.zl-ax-x::after{ content:'→'; font-size:12px; letter-spacing:0; }
+.zl-list{ list-style:none; display:grid; }
+.zl-list li{ display:grid; grid-template-columns:30px 1fr; column-gap:12px; align-items:center; padding:9px 0; border-top:1px solid var(--line); cursor:default; }
+.zl-list li:first-child{ border-top:none; padding-top:0; }
+.zl-list li:last-child{ padding-bottom:0; }
+.zl-ico{ grid-row:1 / span 2; width:30px; height:30px; border-radius:50%; background:var(--zs); color:var(--zc); display:grid; place-items:center; }
+.zl-ico svg{ width:15px; height:15px; }
+.zl-name{ font-family:'Fraunces',Georgia,serif; font-size:17px; font-weight:500; color:var(--ink); line-height:1.2; }
+.zl-mean{ font-size:13.5px; color:var(--ink-soft); line-height:1.35; }
+@media (max-width:600px){
+  .how,.zl{ padding:22px 20px 20px; }
+  .zl-body{ grid-template-columns:1fr; gap:20px; }
+  .zl-mini{ justify-self:center; }
+}
+
+/* Panel de factores */
+.dash-prog{ margin:4px 0 28px; }
+.dash-prog p{ font-size:15px; color:var(--ink-soft); margin-bottom:8px; }
+.dash-prog b{ color:var(--ink); font-weight:600; }
+.dash-bar{ height:6px; border-radius:3px; background:var(--line); overflow:hidden; }
+.dash-bar i{ display:block; height:100%; width:0; background:var(--olive-deep); border-radius:3px; transition:width .5s cubic-bezier(.4,0,.2,1); }
+.fcard{ all:unset; box-sizing:border-box; display:grid; grid-template-columns:54px 1fr auto; align-items:center; gap:18px; padding:18px 20px 18px 18px; background:var(--surface); border:1px solid var(--line); border-radius:16px; cursor:pointer; transition:border-color .2s ease, box-shadow .2s ease, transform .2s ease; }
+.fcard:hover{ border-color:color-mix(in srgb,var(--f-deep) 45%,transparent); transform:translateY(-1px); box-shadow:0 10px 28px -14px rgba(31,36,23,.22); }
+.fcard:focus-visible{ outline:2.5px solid var(--kit-accent); outline-offset:3px; border-radius:16px; }
+.fcard.is-done{ border-color:color-mix(in srgb,var(--f-deep) 22%,var(--line)); }
+.fcard-l{ width:54px; height:54px; border-radius:14px; background:var(--f-soft); color:var(--f-deep); display:grid; place-items:center; font-family:'Fraunces',Georgia,serif; font-size:28px; font-weight:500; }
+.fcard-body{ display:flex; flex-direction:column; min-width:0; gap:2px; }
+.fcard-k{ font-size:12px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:var(--f-deep); }
+.fcard-ok{ color:var(--green); }
+.fcard-t{ font-family:'Fraunces',Georgia,serif; font-size:18px; font-weight:500; line-height:1.25; color:var(--ink); }
+.fcard-s{ font-size:14px; color:var(--ink-soft); line-height:1.4; }
+.fcard-side{ display:flex; align-items:center; gap:12px; }
+.fcard-zona{ display:inline-flex; align-items:center; gap:6px; padding:5px 11px 5px 8px; border-radius:999px; background:var(--zs); color:var(--zc); font-size:12.5px; font-weight:700; letter-spacing:.6px; text-transform:uppercase; white-space:nowrap; }
+.fcard-zona svg{ width:14px; height:14px; }
+.fcard-pend{ font-size:13px; color:var(--ink-soft); white-space:nowrap; }
+.fcard-go{ width:32px; height:32px; padding:9px; border-radius:50%; background:var(--canvas); color:var(--ink); flex:none; transition:transform .2s ease, background .2s ease; }
+.fcard:hover .fcard-go{ transform:translateX(2px); background:var(--f-soft); color:var(--f-deep); }
+@media (max-width:600px){
+  .fcard{ grid-template-columns:46px 1fr; gap:14px; padding:16px; }
+  .fcard-l{ width:46px; height:46px; font-size:24px; border-radius:12px; }
+  .fcard-side{ grid-column:2; justify-content:space-between; }
+  .fcard-go{ width:28px; height:28px; padding:7px; }
+}
+
+/* Preguntas de cada factor */
+.eje{ margin-top:8px; }
+.eje-t{ display:flex; align-items:center; gap:12px; margin:26px 0 18px; }
+.eje-t::before,.eje-t::after{ content:''; flex:1; height:1px; background:var(--line); }
+.eje-t span{ font-size:12.5px; font-weight:700; letter-spacing:1.8px; text-transform:uppercase; padding:5px 13px; border-radius:999px; background:var(--f-soft); color:var(--f-deep); white-space:nowrap; }
+.eje-incertidumbre .eje-t span{ background:var(--line-soft); color:var(--ink-soft); }
+.q{ border:none; margin:0 0 22px; padding:0; min-width:0; }
+.q-h{ display:grid; grid-template-columns:24px 1fr; gap:12px; align-items:start; padding:0; margin-bottom:12px; width:100%; }
+.q-n{ width:24px; height:24px; border-radius:50%; background:var(--f-soft); color:var(--f-deep); display:grid; place-items:center; font-size:13px; font-weight:700; margin-top:1px; }
+.q-t{ font-family:'Fraunces',Georgia,serif; font-size:16.5px; line-height:1.45; color:var(--ink); }
+.q-opts{ padding-left:36px; display:grid; gap:8px; }
+.opt{ position:relative; display:grid; grid-template-columns:20px 1fr; gap:12px; align-items:start; padding:12px 16px; border-radius:12px; border:1.5px solid var(--line); background:var(--surface); cursor:pointer; transition:border-color .15s ease, background .15s ease; }
+.opt:hover{ border-color:var(--ink-muted); }
+.opt input{ position:absolute; opacity:0; width:1px; height:1px; pointer-events:none; }
+.opt-dot{ width:20px; height:20px; border-radius:50%; border:2px solid var(--ink-muted); background:var(--surface); margin-top:2px; display:grid; place-items:center; transition:all .15s ease; }
+.opt-dot::after{ content:''; width:8px; height:8px; border-radius:50%; background:#fff; transform:scale(0); transition:transform .15s ease; }
+.opt-t{ font-size:16px; line-height:1.5; color:var(--ink); }
+.opt:has(input:checked){ border-color:var(--f-deep); background:var(--f-soft); }
+.opt:has(input:checked) .opt-dot{ border-color:var(--f-deep); background:var(--f-deep); }
+.opt:has(input:checked) .opt-dot::after{ transform:scale(1); }
+.opt:has(input:checked) .opt-t{ color:var(--f-deep); font-weight:500; }
+.opt:has(input:focus-visible){ outline:2.5px solid var(--kit-accent); outline-offset:2px; }
+.factor-count{ font-size:14px; color:var(--ink-soft); text-align:center; margin-top:4px; }
+@media (max-width:600px){ .q-opts{ padding-left:0; } .opt{ padding:11px 13px; } .opt-t{ font-size:15px; } }
+
+/* Términos enlazados al glosario dentro de las preguntas */
+.gl-term{ all:unset; cursor:help; color:inherit; text-decoration:underline dotted color-mix(in srgb,var(--f-deep,var(--olive-deep)) 70%,transparent); text-decoration-thickness:1.5px; text-underline-offset:4px; border-radius:3px; transition:background .15s ease; }
+.gl-term:hover{ background:var(--f-soft,var(--lime-soft)); }
+.gl-term:focus-visible{ outline:2px solid var(--kit-accent); outline-offset:2px; }
+
+/* ══ Glosario: en el margen (pantallas anchas) o botón flotante (resto) ══ */
+.glos{ position:fixed; right:16px; bottom:16px; z-index:40; }
+.glos summary{ list-style:none; display:flex; align-items:center; gap:8px; cursor:pointer; user-select:none; padding:11px 16px 11px 14px; border-radius:999px; background:var(--kit-accent); color:#fff; font-size:15px; font-weight:600; box-shadow:0 8px 24px -8px rgba(31,36,23,.45); }
+.glos summary::-webkit-details-marker{ display:none; }
+.glos summary > svg:first-child{ width:18px; height:18px; flex:none; }
+.glos-n{ min-width:22px; height:22px; padding:0 6px; border-radius:999px; background:rgba(255,255,255,.2); font-size:12.5px; font-weight:700; display:grid; place-items:center; }
+.glos-chev{ width:16px; height:16px; transition:transform .2s ease; transform:rotate(180deg); }
+.glos details[open] .glos-chev{ transform:rotate(0); }
+.glos-panel{ position:absolute; right:0; bottom:calc(100% + 10px); width:min(360px,calc(100vw - 32px)); max-height:min(62vh,520px); overflow:auto; overscroll-behavior:contain; background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:16px 18px 6px; box-shadow:0 24px 48px -16px rgba(31,36,23,.35); }
+.glos-ctx{ font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--kit-accent); margin-bottom:6px; }
+.glos-it{ padding:11px 10px; margin:0 -10px; border-top:1px solid var(--line-soft); border-radius:8px; }
+.glos-it:first-child{ border-top:none; }
+.glos-it dt{ font-family:'Fraunces',Georgia,serif; font-size:16px; font-weight:600; color:var(--ink); line-height:1.25; margin-bottom:3px; }
+.glos-it dd{ font-size:14px; line-height:1.5; color:var(--ink-soft); }
+.glos-it.flash{ animation:glosFlash 1.6s ease; }
+@keyframes glosFlash{ 0%,40%{ background:var(--lime-soft); } 100%{ background:transparent; } }
+.glos-sep{ font-size:11.5px; font-weight:700; letter-spacing:1.4px; text-transform:uppercase; color:var(--ink-soft); padding:14px 0 2px; border-top:1px solid var(--line); margin-top:4px; }
+.glos-sep + .glos-it{ border-top:none; }
+
+/* En el margen: tarjeta fija junto al contenido */
+/* (la clase glos-margen la pone el script: ≥1200 px, o ≥1440 px en el informe) */
+body.glos-margen .glos{ right:auto; bottom:auto; top:78px; left:calc(50% + 320px + 32px); width:clamp(230px,calc(50vw - 320px - 56px),300px); }
+body.glos-margen.on-results .glos{ left:calc(50% + 397px + 28px); width:clamp(220px,calc(50vw - 397px - 48px),280px); }
+body.glos-margen .glos summary{ border-radius:14px; background:var(--surface); color:var(--ink); border:1px solid var(--line); box-shadow:none; padding:12px 14px; }
+body.glos-margen .glos details[open] summary{ border-radius:14px 14px 0 0; border-bottom-color:var(--line-soft); }
+body.glos-margen .glos summary > svg:first-child{ color:var(--kit-accent); }
+body.glos-margen .glos-n{ background:var(--line-soft); color:var(--ink-soft); }
+body.glos-margen .glos-chev{ margin-left:auto; transform:rotate(0); }
+body.glos-margen .glos details[open] .glos-chev{ transform:rotate(180deg); }
+body.glos-margen .glos-panel{ position:static; width:auto; max-height:calc(100vh - 150px); border-top:none; border-radius:0 0 14px 14px; box-shadow:none; }
+@media print{ .glos{ display:none !important; } }
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{ animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
+}
 </style>
 </head>
 <body>
 <header class="kit-bar"><div class="kit-bar-in"><a href="index.html" aria-label="Esplora, volver al catálogo"><img src="marca/logo-horizontal-crema.svg" alt="" width="114" height="28"></a><small><span class="kit-save" id="kitSave" hidden><i></i>Progreso guardado en este navegador</span> &nbsp;Análisis PESTEL</small></div></header>
+
+<!-- ═══ GLOSARIO (margen derecho en pantallas anchas; botón flotante en móvil) ═══ -->
+<aside class="glos" aria-label="Glosario">
+  <details id="glos-det">
+    <summary>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5V5a2 2 0 0 1 2-2h13v15H6.5A2.5 2.5 0 0 0 4 20.5 2.5 2.5 0 0 0 6.5 23H19"/><path d="M8 7h7M8 11h5"/></svg>
+      <span class="glos-sum-t">Glosario</span>
+      <span class="glos-n" id="glos-n"></span>
+      <svg class="glos-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+    </summary>
+    <div class="glos-panel">
+      <p class="glos-ctx" id="glos-ctx"></p>
+      <dl class="glos-list" id="glos-list"></dl>
+    </div>
+  </details>
+</aside>
 
 <!-- ═══ INTRO ═══ -->
 <div id="screen-intro" class="screen active">
@@ -398,35 +548,24 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     <p class="prose-italic fade-2" style="font-size:19px;margin-bottom:48px;">
       Identifica, valora y posiciona los factores del macroentorno según su impacto e incertidumbre para construir una estrategia accionable.
     </p>
-    <div class="card fade-3" style="padding:26px 28px;margin-bottom:24px;">
-      <h3 class="subtitle" style="margin-bottom:16px;">Cómo funciona</h3>
-      <ol style="list-style:none;padding:0;margin:0;">
-        <li style="display:flex;gap:14px;margin-bottom:14px;align-items:flex-start;">
-          <div style="width:24px;height:24px;border-radius:50%;background:var(--ink);color:var(--canvas);display:flex;align-items:center;justify-content:center;font-size:14.5px;font-weight:600;flex-shrink:0;font-family:'Inter',sans-serif;">1</div>
-          <span class="prose" style="font-size:16.5px;">Describe brevemente tu <span class="keyword">idea de negocio</span>.</span>
-        </li>
-        <li style="display:flex;gap:14px;margin-bottom:14px;align-items:flex-start;">
-          <div style="width:24px;height:24px;border-radius:50%;background:var(--ink);color:var(--canvas);display:flex;align-items:center;justify-content:center;font-size:14.5px;font-weight:600;flex-shrink:0;font-family:'Inter',sans-serif;">2</div>
-          <span class="prose" style="font-size:16.5px;">Responde <span class="keyword">6 preguntas</span> por cada uno de los 6 factores PESTEL.</span>
-        </li>
-        <li style="display:flex;gap:14px;align-items:flex-start;">
-          <div style="width:24px;height:24px;border-radius:50%;background:var(--ink);color:var(--canvas);display:flex;align-items:center;justify-content:center;font-size:14.5px;font-weight:600;flex-shrink:0;font-family:'Inter',sans-serif;">3</div>
-          <span class="prose" style="font-size:16.5px;">Obtén el <span class="keyword">mapa de impacto</span> y el dossier estratégico con recomendaciones por factor.</span>
-        </li>
+    <section class="card how fade-3" aria-labelledby="how-t">
+      <h2 class="subtitle" id="how-t">Cómo funciona</h2>
+      <ol class="how-steps">
+        <li><span class="how-n" aria-hidden="true">1</span><p class="prose">Describe brevemente tu <span class="keyword">idea de negocio</span>.</p></li>
+        <li><span class="how-n" aria-hidden="true">2</span><p class="prose">Responde <span class="keyword">6 preguntas</span> por cada uno de los 6 factores PESTEL.</p></li>
+        <li><span class="how-n" aria-hidden="true">3</span><p class="prose">Obtén el <span class="keyword">mapa de impacto</span> y el informe con recomendaciones por factor.</p></li>
       </ol>
-    </div>
-    <div class="card fade-3" style="padding:20px 24px;margin-bottom:36px;background:var(--lime-soft);border-color:var(--olive-soft);">
-      <p style="font-family:'Inter',sans-serif;font-size:13.5px;font-weight:700;color:var(--olive-deep);text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;">Las 5 zonas del mapa</p>
-      <div class="zonas-intro-grid">
-        <div style="display:flex;align-items:center;gap:8px;"><div style="width:10px;height:10px;border-radius:50%;background:var(--zona-planificar);flex-shrink:0;"></div><span style="font-family:'Inter',sans-serif;font-size:14.5px;color:var(--ink-soft);"><b style="color:var(--zona-planificar);">Planificar</b> — alto impacto, alta incertidumbre</span></div>
-        <div style="display:flex;align-items:center;gap:8px;"><div style="width:10px;height:10px;border-radius:50%;background:var(--zona-monitorear);flex-shrink:0;"></div><span style="font-family:'Inter',sans-serif;font-size:14.5px;color:var(--ink-soft);"><b style="color:var(--zona-monitorear);">Monitorear</b> — alto impacto, baja incertidumbre</span></div>
-        <div style="display:flex;align-items:center;gap:8px;"><div style="width:10px;height:10px;border-radius:50%;background:var(--zona-vigilar);flex-shrink:0;"></div><span style="font-family:'Inter',sans-serif;font-size:14.5px;color:var(--ink-soft);"><b style="color:var(--zona-vigilar);">Vigilar</b> — impacto medio, incertidumbre media</span></div>
-        <div style="display:flex;align-items:center;gap:8px;"><div style="width:10px;height:10px;border-radius:50%;background:var(--zona-investigar);flex-shrink:0;"></div><span style="font-family:'Inter',sans-serif;font-size:14.5px;color:var(--ink-soft);"><b style="color:var(--zona-investigar);">Investigar</b> — bajo impacto, alta incertidumbre</span></div>
-        <div style="display:flex;align-items:center;gap:8px;"><div style="width:10px;height:10px;border-radius:50%;background:var(--zona-ignorar);flex-shrink:0;"></div><span style="font-family:'Inter',sans-serif;font-size:14.5px;color:var(--ink-soft);"><b style="color:var(--zona-ignorar);">Ignorar</b> — bajo impacto, baja incertidumbre</span></div>
+    </section>
+    <section class="card zl fade-3" aria-labelledby="zl-t">
+      <h2 class="zl-t" id="zl-t">Las 5 zonas del mapa</h2>
+      <p class="zl-lead">Cada factor cae en una casilla según su <b>impacto</b> y su <b>incertidumbre</b>. La casilla te dice qué hacer con él.</p>
+      <div class="zl-body">
+        <div class="zl-mini" id="zl-mini" aria-hidden="true"></div>
+        <ul class="zl-list" id="zl-list"></ul>
       </div>
-    </div>
+    </section>
     <div class="fade-3" style="margin-bottom:28px;">
-      <label class="label-form">Tu idea de negocio</label>
+      <label class="label-form" for="idea-input">Tu idea de negocio</label>
       <textarea id="idea-input" class="text-input serif-input" rows="4"
         placeholder="Ej: Cafetería de especialidad en el centro de Santiago, enfocada a estudiantes universitarios y teletrabajadores, con café de origen y espacios de trabajo compartidos."
         style="min-height:110px;"></textarea>
@@ -447,7 +586,10 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     </button>
     <span class="eyebrow" style="display:block;margin-bottom:10px;">Analizando</span>
     <p id="idea-display-dashboard" class="idea-display" style="margin-bottom:8px;"></p>
-    <p id="progress-text" class="sans" style="font-size:15px;color:var(--ink-soft);margin-bottom:36px;"></p>
+    <div class="dash-prog">
+      <p id="progress-text"></p>
+      <div class="dash-bar" aria-hidden="true"><i id="progress-bar"></i></div>
+    </div>
     <div id="factors-list" style="display:flex;flex-direction:column;gap:12px;margin-bottom:32px;"></div>
     <button id="btn-generate" class="btn btn-primary" style="width:100%;padding:16px;font-size:16.5px;" disabled>
       <span id="btn-generate-text">Completa los factores restantes</span>
@@ -476,7 +618,8 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
       <p id="factor-desc" class="prose-italic" style="font-size:16.5px;"></p>
     </div>
     <div id="factor-questions"></div>
-    <div style="display:flex;gap:10px;padding-top:16px;">
+    <p class="factor-count" id="factor-count" aria-live="polite"></p>
+    <div style="display:flex;gap:10px;padding-top:12px;">
       <button class="btn btn-ghost" onclick="go('dashboard')">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
         Panel
@@ -682,7 +825,7 @@ const ZONAS = {
     meaning:'Alta incertidumbre · impacto bajo o medio', sub:'Profundizar análisis',
     desc:'Te falta información. Investiga antes de decidir si merece tiempo y recursos.' },
   ignorar:{ name:'Ignorar', color:'var(--zona-ignorar)', soft:'var(--zona-ignorar-soft)',
-    meaning:'Impacto limitado · entorno previsible', sub:'Sin prioridad estratégica',
+    meaning:'Impacto bajo o medio · entorno previsible', sub:'Sin prioridad estratégica',
     desc:'No requiere atención prioritaria ahora. Revisa su posición en tu próximo análisis del entorno.' },
 };
 const ACCION = {
@@ -748,6 +891,169 @@ const PUNTO_CLAVE = {
 };
 
 // ═══════════════════════════════════════════════════════════════
+// GLOSARIO — t: término · d: definición · m: cómo aparece en las preguntas (se vuelve enlace)
+// ═══════════════════════════════════════════════════════════════
+const GLOS = {
+  // básicos
+  pestel:{ t:'Análisis PESTEL', d:'Herramienta para revisar el entorno general de una empresa en seis grupos de factores: políticos, económicos, sociales, tecnológicos, ecológicos y legales.' },
+  macroentorno:{ t:'Macroentorno', d:'Entorno general: fuerzas externas que afectan a todas las empresas de un territorio y que ninguna puede controlar. No es lo mismo que el microentorno (clientes, proveedores, competencia).' },
+  factor:{ t:'Factor del entorno', d:'Cada uno de los seis grupos del PESTEL. Aquí valoras cada factor con 6 preguntas: 3 de impacto y 3 de incertidumbre.' },
+  impacto:{ t:'Impacto', d:'Cuánto afectaría un factor a tu negocio (ventas, costes o forma de trabajar) si cambiara. Va de bajo a alto.' },
+  incertidumbre:{ t:'Incertidumbre', d:'Lo difícil que es prever cómo va a evolucionar un factor. Incertidumbre alta: no sabes bien qué pasará.' },
+  mapa:{ t:'Mapa de impacto e incertidumbre', d:'Cuadrícula de 3 × 3 que coloca cada factor según su impacto (en vertical) y su incertidumbre (en horizontal). Cada casilla pertenece a una zona de acción.' },
+  zona:{ t:'Zona de acción', d:'Grupo de casillas del mapa que comparten recomendación: planificar, monitorear, vigilar, investigar o ignorar.' },
+  // políticos
+  subvencion:{ t:'Subvención', d:'Dinero que da una administración pública para un fin concreto y que no hay que devolver si se cumplen las condiciones.', m:'subvenciones' },
+  incentivo:{ t:'Incentivo fiscal', d:'Ventaja en los impuestos (deducción, bonificación o exención) para animar a hacer algo, como contratar o invertir.', m:'incentivos fiscales' },
+  politicaPub:{ t:'Política pública', d:'Conjunto de decisiones de un gobierno sobre un tema (empleo, vivienda, energía…). Puede traer ayudas, impuestos u obligaciones nuevas.', m:'políticas públicas' },
+  regulacion:{ t:'Regulación', d:'Normas que fijan cómo debe funcionar una actividad: requisitos, permisos, límites y sanciones.', m:'regulación' },
+  inestabilidad:{ t:'Inestabilidad política', d:'Situación en la que es probable un cambio de gobierno o de rumbo (elecciones, falta de mayorías, conflictos). Hace difícil prever las reglas del juego.', m:'inestabilidad política' },
+  // económicos
+  poderAdq:{ t:'Poder adquisitivo', d:'Cantidad de cosas que una persona puede comprar con su dinero. Baja cuando los precios suben más que los sueldos.', m:'poder adquisitivo' },
+  renta:{ t:'Renta disponible', d:'Dinero que le queda a una persona o familia después de pagar impuestos y cotizaciones, para gastar o ahorrar.' },
+  inflacion:{ t:'Inflación', d:'Subida general y continuada de los precios. Con inflación, el mismo dinero compra menos y suelen subir los costes de la empresa.', m:'inflación' },
+  rentabilidad:{ t:'Rentabilidad', d:'Relación entre lo que gana un negocio y lo que ha invertido o gastado para conseguirlo.', m:'rentabilidad' },
+  margen:{ t:'Margen', d:'Diferencia entre lo que cobras por un producto y lo que te cuesta. Es lo que queda para cubrir gastos y ganar dinero.' },
+  financiacion:{ t:'Financiación externa', d:'Dinero que no sale de la empresa ni de sus socios: préstamos, créditos, leasing, inversores…', m:'financiación externa' },
+  interes:{ t:'Tipo de interés', d:'Precio del dinero prestado, en porcentaje. Si sube, pedir un préstamo cuesta más.' },
+  coyuntura:{ t:'Coyuntura económica', d:'Situación de la economía en un momento concreto: si crece o se frena, cómo están el paro y los precios…' },
+  materias:{ t:'Materias primas', d:'Materiales básicos que se transforman para fabricar productos: petróleo, trigo, café, metales… Su precio puede cambiar mucho.', m:'materias primas' },
+  divisa:{ t:'Divisa', d:'Moneda de otro país. Si compras o vendes en dólares, el cambio frente al euro afecta a tus precios y costes.', m:'divisas' },
+  volatil:{ t:'Volatilidad', d:'Lo mucho y lo rápido que cambia un precio o un mercado. Un mercado volátil es difícil de prever.', m:'volátiles' },
+  // sociales
+  tendencia:{ t:'Tendencia social', d:'Cambio en los gustos, hábitos o valores de la gente que se va extendiendo (comer sano, teletrabajar, comprar de segunda mano…).', m:'tendencias sociales|tendencia social' },
+  demografico:{ t:'Perfil demográfico', d:'Rasgos de un grupo de población: edad, sexo, lugar donde vive, estudios, ingresos…', m:'perfil demográfico' },
+  valores:{ t:'Valores sociales', d:'Ideas sobre lo que es importante que comparte mucha gente (salud, igualdad, medio ambiente…) y que influyen en lo que compra.', m:'valores sociales' },
+  clienteObj:{ t:'Cliente objetivo', d:'El tipo de cliente al que se dirige sobre todo tu negocio.', m:'cliente objetivo' },
+  segmento:{ t:'Segmento de clientes', d:'Grupo de clientes con necesidades y rasgos parecidos al que se dirige una oferta concreta.' },
+  emergente:{ t:'Emergente', d:'Que está empezando a aparecer o a crecer. Puede consolidarse o desaparecer.', m:'emergentes' },
+  mainstream:{ t:'Mainstream', d:'Palabra inglesa para lo que ya es habitual y sigue la mayoría de la gente.' },
+  // tecnológicos
+  ia:{ t:'Inteligencia artificial (IA)', d:'Programas que hacen tareas que parecían exigir inteligencia humana: entender textos, reconocer imágenes, recomendar o predecir.' },
+  automatizacion:{ t:'Automatización', d:'Uso de máquinas o programas para que hagan solas tareas que antes hacía una persona.', m:'automatización' },
+  plataforma:{ t:'Plataforma digital', d:'Servicio en internet que pone en contacto a quien ofrece algo con quien lo busca (tiendas en línea, reparto, reservas…).', m:'plataformas digitales' },
+  propuesta:{ t:'Propuesta de valor', d:'Lo que hace que un cliente te elija: el problema que le resuelves o la ventaja que le das frente a otras opciones.' },
+  disruptiva:{ t:'Tecnología disruptiva', d:'Innovación que cambia por completo la forma de hacer algo y deja anticuados los productos o negocios anteriores (como el móvil con las cámaras compactas).', m:'tecnología disruptiva' },
+  adopcion:{ t:'Adopción tecnológica', d:'Grado en que la gente usa una tecnología en su día a día (pagar con el móvil, comprar por internet…).', m:'adopción tecnológica' },
+  ventaja:{ t:'Ventaja competitiva', d:'Algo que tu negocio hace mejor o distinto que la competencia y que los clientes valoran: precio, calidad, trato, ubicación…', m:'ventaja competitiva' },
+  obsoleto:{ t:'Obsoleto', d:'Que se ha quedado anticuado y ya no se usa porque hay algo mejor.', m:'obsoleto|obsoleta' },
+  // ecológicos
+  normativaAmb:{ t:'Normativa medioambiental', d:'Leyes y normas que protegen el medio ambiente: residuos, ruido, emisiones, envases, licencias ambientales…', m:'normativa medioambiental|regulación medioambiental' },
+  sostenibilidad:{ t:'Sostenibilidad', d:'Forma de producir y consumir que cubre las necesidades de hoy sin agotar los recursos ni dañar el planeta para el futuro.', m:'sostenibilidad' },
+  impactoAmb:{ t:'Impacto ambiental', d:'Efecto de una actividad sobre el medio ambiente: residuos, contaminación, consumo de agua o de energía…', m:'impacto ambiental' },
+  emisiones:{ t:'Emisiones', d:'Gases o partículas que una actividad expulsa al aire, como el CO₂, que contribuye al cambio climático.', m:'emisiones' },
+  huella:{ t:'Huella ambiental', d:'Medida del impacto total de una actividad sobre el medio ambiente. La más conocida es la huella de carbono (el CO₂ emitido).' },
+  transicion:{ t:'Transición ecológica', d:'Cambio de la economía hacia un modelo con menos emisiones y residuos: renovables, coche eléctrico, reciclaje…', m:'transición ecológica' },
+  circular:{ t:'Economía circular', d:'Modelo que alarga la vida de productos y materiales: reparar, reutilizar y reciclar en lugar de usar y tirar.', m:'economía circular' },
+  limpias:{ t:'Energías limpias', d:'Energías que contaminan poco o nada al producirse, como la solar o la eólica.', m:'energías limpias' },
+  cadena:{ t:'Cadena de valor', d:'Todo lo necesario para que tu producto llegue al cliente: compras a proveedores, producción, transporte, venta y posventa.', m:'cadena de valor' },
+  // legales
+  sectorial:{ t:'Normativa sectorial', d:'Normas que solo afectan a un sector (hostelería, sanidad, transporte…), además de las generales que cumple cualquier empresa.', m:'normativa legal específica' },
+  legislacion:{ t:'Legislación', d:'Conjunto de leyes vigentes en un país o sobre una materia.', m:'legislación' },
+  datos:{ t:'Datos personales', d:'Información que identifica a una persona (nombre, DNI, correo, foto…). Su uso lo regulan el Reglamento General de Protección de Datos (RGPD) y la LOPDGDD.', m:'datos personales' },
+  propiedad:{ t:'Propiedad intelectual', d:'Derechos de quien crea una obra: textos, música, fotos, programas informáticos… Las marcas y las patentes se protegen aparte, como propiedad industrial.', m:'propiedad intelectual' },
+  marcoLegal:{ t:'Marco legal', d:'Conjunto de leyes y normas que se aplican a una actividad.', m:'marco legal' },
+  tramitacion:{ t:'Proceso legislativo', d:'Pasos que sigue una ley desde que se propone hasta que se aprueba y se publica en el BOE. Mientras está «en tramitación» todavía puede cambiar.', m:'procesos legislativos' },
+  armonizacion:{ t:'Armonización normativa', d:'Proceso por el que los países de la Unión Europea acercan sus leyes, sobre todo mediante directivas y reglamentos europeos.', m:'armonización de normativas' },
+  // informe
+  sintesis:{ t:'Síntesis ejecutiva', d:'Resumen breve, al principio de un informe, con las conclusiones principales.' },
+  escenario:{ t:'Escenario', d:'Descripción de una posible situación futura (optimista, pesimista…) para decidir de antemano qué harías en cada caso.' },
+  contingencia:{ t:'Plan de contingencia', d:'Plan B: medidas preparadas por si ocurre algo que afecte al negocio.' },
+  cuadro:{ t:'Cuadro de mando', d:'Panel con los pocos datos clave que revisas cada cierto tiempo para saber cómo va el negocio.' },
+  indicador:{ t:'Indicador', d:'Dato que se mide para seguir la evolución de algo: precio de la luz, ventas del mes, tipo de interés…' },
+};
+const GLOS_PANTALLA = {
+  intro:{ ctx:'Términos para empezar', k:['pestel','macroentorno','factor','impacto','incertidumbre','mapa','zona'] },
+  dashboard:{ ctx:'Términos del panel', k:['pestel','macroentorno','factor','impacto','incertidumbre','zona'] },
+  politico:{ ctx:'Factores políticos', k:['subvencion','incentivo','politicaPub','regulacion','inestabilidad'] },
+  economico:{ ctx:'Factores económicos', k:['poderAdq','renta','inflacion','rentabilidad','margen','financiacion','interes','coyuntura','materias','divisa','volatil'] },
+  social:{ ctx:'Factores sociales', k:['tendencia','demografico','valores','clienteObj','segmento','emergente','mainstream'] },
+  tecnologico:{ ctx:'Factores tecnológicos', k:['ia','automatizacion','plataforma','propuesta','disruptiva','adopcion','ventaja','obsoleto'] },
+  ecologico:{ ctx:'Factores ecológicos', k:['normativaAmb','sostenibilidad','impactoAmb','emisiones','huella','transicion','circular','limpias','cadena'] },
+  legal:{ ctx:'Factores legales', k:['sectorial','legislacion','datos','propiedad','marcoLegal','tramitacion','armonizacion'] },
+  results:{ ctx:'Términos del informe', k:['sintesis','mapa','zona','escenario','contingencia','cuadro','indicador','macroentorno'] },
+};
+const GLOS_BASICOS=['impacto','incertidumbre'];
+
+// Convierte en enlace al glosario la primera aparición de cada término en un texto
+function glosLink(text, pantalla){
+  const saved=[]; let r=text;
+  (GLOS_PANTALLA[pantalla]?.k||[]).forEach(k=>{
+    const m=GLOS[k].m; if(!m) return;
+    r=r.replace(new RegExp(`(?<!\\p{L})(${m})(?!\\p{L})`,'iu'),w=>{ saved.push(`<button type="button" class="gl-term" data-g="${k}">${w}</button>`); return `\u0000${saved.length-1}\u0000`; });
+  });
+  return r.replace(/\u0000(\d+)\u0000/g,(_,n)=>saved[n]);
+}
+
+function glosPantalla(){ return state.screen==='factor'?FACTORS[state.currentFactor].id:state.screen; }
+function glosEnMargen(){ return matchMedia(state.screen==='results'?'(min-width:1440px)':'(min-width:1200px)').matches; }
+const GLOS_PREF='esplora-pestel-glosario';
+
+function renderGlos(){
+  const p=GLOS_PANTALLA[glosPantalla()]; if(!p) return;
+  document.body.classList.toggle('glos-margen',glosEnMargen());
+  const extra=GLOS_BASICOS.filter(k=>!p.k.includes(k));
+  const item=k=>`<div class="glos-it" id="gl-${k}"><dt>${GLOS[k].t}</dt><dd>${GLOS[k].d}</dd></div>`;
+  document.getElementById('glos-ctx').textContent=p.ctx;
+  document.getElementById('glos-n').textContent=p.k.length+extra.length;
+  document.getElementById('glos-list').innerHTML=p.k.map(item).join('')
+    +(extra.length?`<div class="glos-sep" role="presentation">Siempre a mano</div>${extra.map(item).join('')}`:'');
+  document.querySelector('.glos-panel').scrollTop=0;
+  // en pantallas anchas se abre solo, salvo que el alumno lo haya cerrado
+  let pref=null; try{ pref=localStorage.getItem(GLOS_PREF); }catch(e){}
+  document.getElementById('glos-det').open=glosEnMargen()&&pref!=='cerrado';
+}
+
+function glosMostrar(k){
+  const det=document.getElementById('glos-det');
+  det.open=true;
+  const el=document.getElementById('gl-'+k); if(!el) return;
+  el.scrollIntoView({block:'nearest',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+  el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
+}
+
+document.getElementById('glos-det').addEventListener('toggle',e=>{
+  if(glosEnMargen()) try{ localStorage.setItem(GLOS_PREF,e.target.open?'abierto':'cerrado'); }catch(err){}
+});
+document.addEventListener('click',e=>{
+  const t=e.target.closest('.gl-term');
+  if(t){ e.preventDefault(); glosMostrar(t.dataset.g); return; }
+  // en móvil, tocar fuera del panel lo cierra
+  const det=document.getElementById('glos-det');
+  if(det.open&&!glosEnMargen()&&!e.target.closest('.glos')) det.open=false;
+});
+let glosAncho=null;
+window.addEventListener('resize',()=>{
+  const m=glosEnMargen(); if(m===glosAncho) return;
+  glosAncho=m; renderGlos();
+});
+document.addEventListener('keydown',e=>{
+  const det=document.getElementById('glos-det');
+  if(e.key==='Escape'&&det.open&&!glosEnMargen()){ det.open=false; det.querySelector('summary').focus(); }
+});
+
+// ═══════════════════════════════════════════════════════════════
+// LEYENDA DE ZONAS (portada) — se pinta desde ZONA_MAP para que nunca se desajuste
+// ═══════════════════════════════════════════════════════════════
+(function(){
+  const mini=document.getElementById('zl-mini');
+  let cells='';
+  for(const imp of [3,2,1]) for(const unc of [1,2,3]){
+    const z=ZONA_MAP[`${imp}-${unc}`];
+    cells+=`<span class="zl-c z-${z}" data-z="${z}">${ZONA_ICON[z]}</span>`;
+  }
+  mini.innerHTML=`<span class="zl-ax zl-ax-y">Impacto</span><div class="zl-grid">${cells}</div><span class="zl-ax zl-ax-x">Incertidumbre</span>`;
+  const list=document.getElementById('zl-list');
+  list.innerHTML=['planificar','monitorear','vigilar','investigar','ignorar'].map(z=>`
+    <li class="z-${z}" data-z="${z}"><span class="zl-ico">${ZONA_ICON[z]}</span><span class="zl-name">${ZONAS[z].name}</span><span class="zl-mean">${ZONAS[z].meaning}</span></li>`).join('');
+  const hl=z=>mini.querySelectorAll('.zl-c').forEach(c=>c.classList.toggle('dim',!!z&&c.dataset.z!==z));
+  list.querySelectorAll('li').forEach(li=>{
+    li.addEventListener('mouseenter',()=>hl(li.dataset.z));
+    li.addEventListener('mouseleave',()=>hl(null));
+  });
+})();
+
+// ═══════════════════════════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════════════════════════
 const state = { screen:'intro', idea:'', respuestas:{}, currentFactor:0 };
@@ -793,10 +1099,12 @@ function go(screen){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('screen-'+screen).classList.add('active');
   state.screen=screen;
-  window.scrollTo({top:0,behavior:'smooth'});
+  document.body.classList.toggle('on-results',screen==='results');
+  window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
   if(screen==='dashboard') renderDashboard();
   if(screen==='factor') renderFactor();
   if(screen==='results') renderResults();
+  renderGlos();
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -814,37 +1122,32 @@ document.getElementById('btn-start').addEventListener('click',()=>go('dashboard'
 function renderDashboard(){
   document.getElementById('idea-display-dashboard').textContent=state.idea;
   const done=FACTORS.filter(isFactorComplete).length;
-  document.getElementById('progress-text').textContent=`${done} de ${FACTORS.length} factores analizados`;
+  document.getElementById('progress-text').innerHTML=`<b>${done}</b> de ${FACTORS.length} factores analizados`;
+  document.getElementById('progress-bar').style.width=`${done/FACTORS.length*100}%`;
   const list=document.getElementById('factors-list');
   list.innerHTML='';
   FACTORS.forEach((f,i)=>{
     const isDone=isFactorComplete(f);
-    let zonaPill='';
-    if(isDone){
-      const z=getZona(f);
-      const zd=ZONAS[z];
-      zonaPill=`<span style="font-family:'Inter',sans-serif;font-size:13.5px;font-weight:600;color:${zd.color};background:${zd.soft};padding:2px 8px;border-radius:999px;text-transform:uppercase;letter-spacing:1px;">${zd.name}</span>`;
-    }
-    const card=document.createElement('div');
-    card.className='card card-interactive';
-    card.style.cssText='padding:20px 24px;display:flex;align-items:center;gap:18px;';
+    const answered=f.preguntas.filter(p=>state.respuestas[p.id]!=null).length;
+    const z=isDone?getZona(f):null;
+    const status=isDone
+      ?`<span class="fcard-zona z-${z}">${ZONA_ICON[z]}${ZONAS[z].name}</span>`
+      :`<span class="fcard-pend">${answered?`${answered} de 6 respondidas`:'Sin empezar'}</span>`;
+    const card=document.createElement('button');
+    card.type='button';
+    card.className='fcard'+(isDone?' is-done':'');
+    card.style.cssText=`--f-deep:${cv(f.color,'deep')};--f-soft:${cv(f.color,'soft')};`;
     card.onclick=()=>{ state.currentFactor=i; go('factor'); };
     card.innerHTML=`
-      <div style="width:54px;height:54px;border-radius:14px;background:${cv(f.color,'soft')};display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Fraunces',Georgia,serif;font-size:28px;font-weight:500;color:${cv(f.color,'deep')};">${f.letter}</div>
-      <div style="flex:1;min-width:0;">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:3px;">
-          <span style="font-size:13.5px;font-weight:500;color:${cv(f.color,'deep')};text-transform:uppercase;letter-spacing:1px;">Factor ${i+1}</span>
-          ${isDone?`<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`:'' }
-        </div>
-        <h3 class="subtitle" style="font-size:17.5px;font-weight:500;margin:0 0 4px;line-height:1.3;">${f.label}</h3>
-        <div style="display:flex;align-items:center;gap:8px;">
-          <p class="sans" style="font-size:14.5px;color:var(--ink-muted);margin:0;">${f.subtitle}</p>
-          ${zonaPill}
-        </div>
-      </div>
-      <div style="width:32px;height:32px;border-radius:50%;background:var(--canvas);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </div>`;
+      <span class="fcard-l" aria-hidden="true">${f.letter}</span>
+      <span class="fcard-body">
+        <span class="fcard-k">Factor ${i+1}${isDone?' · <span class="fcard-ok">completado</span>':''}</span>
+        <span class="fcard-t">${f.label}</span>
+        <span class="fcard-s">${f.subtitle}</span>
+      </span>
+      <span class="fcard-side">${status}
+        <svg class="fcard-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </span>`;
     list.appendChild(card);
   });
   const allDone=FACTORS.every(isFactorComplete);
@@ -879,70 +1182,37 @@ function renderFactor(){
   dots.innerHTML='';
   for(let j=0;j<6;j++){
     const d=document.createElement('div');
-    d.className='progress-dot '+(j===i?'active':j<i?'done':'pending');
+    d.className='progress-dot '+(j===i?'active':isFactorComplete(FACTORS[j])?'done':'pending');
     dots.appendChild(d);
   }
 
   const qc=document.getElementById('factor-questions');
-  qc.innerHTML='';
-
-  // Dividimos en impacto e incertidumbre
-  ['impacto','incertidumbre'].forEach(eje=>{
-    const ejeLabel = eje==='impacto'?'Impacto sobre tu negocio':'Incertidumbre del factor';
-    const ejeColor = eje==='impacto'?cv(f.color,'deep'):'var(--ink-muted)';
-    const ejeBg   = eje==='impacto'?cv(f.color,'soft'):'var(--line-soft)';
-
-    const divider=document.createElement('div');
-    divider.className='section-divider';
-    divider.innerHTML=`
-      <div class="section-divider-line"></div>
-      <span class="section-divider-label" style="color:${ejeColor};background:${ejeBg};">${ejeLabel}</span>
-      <div class="section-divider-line"></div>`;
-    qc.appendChild(divider);
-
-    const ejePreguntas=f.preguntas.filter(p=>p.eje===eje);
-    ejePreguntas.forEach((q,qi)=>{
-      const v=state.respuestas[q.id]||null;
-      const div=document.createElement('div');
-      div.style.marginBottom='20px';
-      div.className='fade';
-
-      const optsHTML=q.opts.map(op=>{
-        const sel=v==op.v;
-        return `<div class="opt-btn${sel?' selected':''}" data-qid="${q.id}" data-val="${op.v}"
-          style="${sel?`border-color:${cv(f.color,'deep')};background:${cv(f.color,'soft')};`:''}">
-          <div class="opt-dot" style="${sel?`border-color:${cv(f.color,'deep')};background:${cv(f.color,'deep')};`:''}">
-            ${sel?`<div style="width:7px;height:7px;border-radius:50%;background:#fff;"></div>`:''}
-          </div>
-          <span style="${sel?`color:${cv(f.color,'deep')};font-weight:500;`:''}">${op.t}</span>
-        </div>`;
-      }).join('');
-
-      div.innerHTML=`
-        <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:12px;">
-          <div style="width:24px;height:24px;border-radius:50%;background:${cv(f.color,'soft')};color:${cv(f.color,'deep')};display:flex;align-items:center;justify-content:center;font-size:13.5px;font-weight:700;flex-shrink:0;margin-top:1px;font-family:'Inter',sans-serif;">${qi+1}</div>
-          <p class="serif" style="font-size:16.5px;font-weight:400;color:var(--ink);margin:0;line-height:1.45;">${q.texto}</p>
+  qc.style.cssText=`--f-deep:${cv(f.color,'deep')};--f-soft:${cv(f.color,'soft')};`;
+  qc.innerHTML=['impacto','incertidumbre'].map(eje=>{
+    const ejeLabel=eje==='impacto'?'Impacto sobre tu negocio':'Incertidumbre del factor';
+    const qs=f.preguntas.filter(p=>p.eje===eje).map((q,qi)=>`
+      <fieldset class="q fade">
+        <legend class="q-h"><span class="q-n" aria-hidden="true">${qi+1}</span><span class="q-t">${glosLink(q.texto,f.id)}</span></legend>
+        <div class="q-opts">${q.opts.map(op=>`
+          <label class="opt"><input type="radio" name="${q.id}" value="${op.v}"${state.respuestas[q.id]==op.v?' checked':''}><span class="opt-dot" aria-hidden="true"></span><span class="opt-t">${op.t}</span></label>`).join('')}
         </div>
-        <div style="padding-left:36px;">${optsHTML}</div>`;
-      qc.appendChild(div);
-    });
-  });
+      </fieldset>`).join('');
+    return `<div class="eje eje-${eje}"><p class="eje-t"><span>${ejeLabel}</span></p>${qs}</div>`;
+  }).join('');
 
-  // eventos
-  qc.querySelectorAll('.opt-btn').forEach(el=>{
-    el.onclick=()=>{
-      state.respuestas[el.dataset.qid]=Number(el.dataset.val);
-      updateSaveButton();
-      renderFactor();
-    };
-  });
-
+  qc.onchange=e=>{
+    if(e.target.type!=='radio') return;
+    state.respuestas[e.target.name]=Number(e.target.value);
+    updateSaveButton();
+  };
   updateSaveButton();
 }
 
 function updateSaveButton(){
   const f=FACTORS[state.currentFactor];
+  const n=f.preguntas.filter(p=>state.respuestas[p.id]!=null).length;
   document.getElementById('btn-save-factor').disabled=!isFactorComplete(f);
+  document.getElementById('factor-count').textContent=n===6?'Las 6 preguntas están respondidas':`${n} de 6 preguntas respondidas`;
 }
 document.getElementById('btn-save-factor').addEventListener('click',()=>go('dashboard'));
 
@@ -1165,6 +1435,7 @@ function reset(){
       go(to);
     }
   }catch(e){}
+  if(state.screen==='intro') renderGlos();
   setInterval(()=>{
     try{
       const j=JSON.stringify(state);
