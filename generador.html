@@ -3983,6 +3983,1334 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     vr:'Combina geotermia y suelo radiante en viviendas nuevas a través de arquitectos y promotoras.' });
   } // fin de Instalación y Mantenimiento
 
+  // ===================== EDIFICACIÓN Y OBRA CIVIL =====================
+  FAM.edificacion = {
+    ciclos: {
+      'Reforma y Mantenimiento de Edificios': 'bas',
+      'Construcción': 'con',
+      'Obras de Interior, Decoración y Rehabilitación': 'oid',
+      'Organización y Control de Obras de Construcción': 'occ',
+      'Proyectos de Edificación': 'pe',
+      'Proyectos de Obra Civil': 'poc'
+    },
+    labels: { bas: 'Reforma y Mantenimiento de Edificios (Grado Básico)', con: 'Construcción', oid: 'Obras de Interior, Decoración y Rehabilitación', occ: 'Organización y Control de Obras de Construcción', pe: 'Proyectos de Edificación', poc: 'Proyectos de Obra Civil' },
+    defecto: { basico: 'bas', medio: 'oid', superior: 'pe' },
+    afin: { bas: ['oid', 'con'], con: ['oid'], oid: ['con'], occ: ['pe'], pe: ['occ'] },
+    fuentes: {
+      pe: 'el Código Técnico de la Edificación, la Ley de Ordenación de la Edificación (Ley 38/1999), el colegio de arquitectos técnicos (aparejadores) de tu provincia y el Observatorio de las Ocupaciones del SEPE',
+      occ: 'el Código Técnico de la Edificación, la Ley de Ordenación de la Edificación (Ley 38/1999), la Fundación Laboral de la Construcción y la asociación de constructores de tu provincia',
+      poc: 'el Instituto Geográfico Nacional y su centro de descargas, el catastro, la asociación de constructores de tu provincia y las licitaciones de tu ayuntamiento y diputación',
+      _: 'la Fundación Laboral de la Construcción, la asociación de empresas de reformas o constructores de tu provincia, el IDAE y las ordenanzas de obras de tu ayuntamiento'
+    }
+  };
+  { const { A, H, N } = banco('edificacion');
+
+  // ---------- OBRAS DE INTERIOR, DECORACIÓN Y REHABILITACIÓN / CONSTRUCCIÓN (Grado Medio) ----------
+  A({ id:'ed1', cics:['oid','con','bas'], t:'Reformas de cocinas y baños llave en mano', n:'Reformas de interior',
+    d:'Haces reformas cerradas de cocina o baño: diseño con el cliente, coordinación de fontanero y electricista, alicatado, pavimento, techos y acabados, con plazo y precio cerrados. Es la reforma que más se pide y donde más falla la puntualidad. Modelo: 6.000-15.000 € por cocina y 4.000-9.000 € por baño, con margen del 15-25 % sobre la obra.',
+    m:'proyecto', cli:'propietarios que compran piso para reformar y familias que renuevan cocina o baño', pb:'reformar sin retrasos, sin sorpresas en el precio y sin perseguir a cinco oficios',
+    val:'Una sola persona responsable de tu reforma, con precio y fecha cerrados y la obra limpia cada día.',
+    inv:[3000,10000], ar:'2-3 meses', r:2, e:['domicilio'], h:4, am:2, tg:['diy'], k:['ventas','gestion_personas'], s:['organizacion','tecnica','personas'],
+    why:'Solados, alicatados y chapados, Revestimientos, Techos suspendidos y Organización de trabajos de interior, decoración y rehabilitación: sabes ejecutar y organizar todos los oficios de una reforma.',
+    reto:'Las reformas se retrasan cuando falla un oficio. Trabaja con un equipo fijo de confianza, cobra por fases (anticipo, mitad de obra, final) y deja todo por escrito antes de empezar.',
+    paso:'Pide precio de una reforma de baño a 3 empresas de tu zona haciéndote pasar por cliente y apunta cuánto tardan en contestar. Ahí verás tu hueco: rapidez y seriedad.',
+    vr:'Especialízate en «reforma exprés» de baño en 5 días con precio cerrado: lo que más se pide y lo que menos se cumple.' });
+
+  A({ id:'ed2', cics:['con','oid','occ'], t:'Rehabilitación energética: aislamiento de fachadas, cubiertas y ventanas', n:'Rehabilitación energética',
+    d:'Mejoras el aislamiento de viviendas y edificios: aislamiento por el exterior de fachadas (SATE), cubiertas, cámaras y cambio de ventanas, para que gasten menos en calefacción. El ahorro conseguido puede convertirse en Certificados de Ahorro Energético (RD 36/2023) y hay convocatorias de ayudas autonómicas. Modelo: proyecto por vivienda o comunidad, de 5.000 € a más de 100.000 €.',
+    m:'proyecto', cli:'comunidades de vecinos de edificios de los años 60-90, propietarios de viviendas unifamiliares y administradores de fincas', pb:'pasar menos frío y gastar menos en calefacción',
+    val:'Tu casa o tu edificio gasta mucho menos en calefacción, se revaloriza y aprovechas las ayudas que existan.',
+    inv:[5000,15000], ar:'3-4 meses', r:2, e:['domicilio','local'], h:4, am:2, tg:['sostenibilidad'], k:['gestion_personas','ventas'], s:['tecnica','organizacion','liderazgo'],
+    why:'Impermeabilizaciones y aislamientos, Fábricas, Revestimientos y Cubiertas: aislar bien una envolvente y resolver sus puntos débiles es oficio de tu ciclo.',
+    reto:'Las obras en comunidades necesitan acuerdo de la junta, proyecto técnico y tiempo. Empieza con viviendas unifamiliares y colabora con un arquitecto o aparejador para las comunidades.',
+    paso:'Pregunta a 3 administradores de fincas de tu zona cuántas comunidades están pensando en rehabilitar la fachada y qué les frena. Busca qué ayudas a la rehabilitación hay abiertas en tu comunidad autónoma.',
+    vr:'Especialízate en cubiertas y desvanes de viviendas unifamiliares: obra más pequeña, decisión de una sola familia y mucho ahorro.' });
+
+  A({ id:'ed3', cics:['bas','oid'], t:'Pintura decorativa, microcemento y acabados', n:'Acabados de interior',
+    d:'Pintas viviendas, locales y comunidades y haces acabados que se cobran mejor: microcemento, estucos, papel pintado, lacados de puertas y pintura decorativa. Modelo: precio por metro o por estancia (piso completo de 1.200-3.000 €) y contratos con administradores de fincas y gestores de pisos de alquiler.',
+    m:'proyecto', cli:'propietarios, inmobiliarias, gestores de pisos de alquiler y comunidades de vecinos', pb:'dejar la casa o el local como nuevo rápido y sin manchar',
+    val:'Tu casa pintada y con acabados de revista en pocos días, limpia y protegida durante la obra.',
+    inv:[1000,4000], ar:'1 mes', r:1, e:['domicilio','local'], h:3, am:1, tg:['arte','diy'], k:['rrss'], s:['tecnica','creatividad','organizacion'],
+    why:'Pintura y empapelado, Guarnecidos y enlucidos y Pintura decorativa en construcción: los acabados son una parte de tu ciclo que el cliente ve y valora directamente.',
+    reto:'Mucha competencia en pintura sencilla. Diferénciate con acabados especiales, puntualidad y fotos de antes y después en redes.',
+    paso:'Pinta o renueva una habitación de un conocido con un acabado decorativo, haz fotos profesionales del antes y el después y publícalas.',
+    vr:'Trabaja para gestores de pisos de alquiler y turísticos: necesitan repasos rápidos entre inquilinos varias veces al año.' });
+
+  A({ id:'ed4', cics:['oid','bas'], t:'Tabiquería seca, techos e insonorización', n:'Pladur y acústica',
+    d:'Haces tabiques, trasdosados y techos de placa de yeso, falsos techos registrables en oficinas y locales, y aislamiento acústico entre viviendas o en locales con música. Trabajas para particulares y como subcontrata de empresas de reformas y constructoras. Modelo: precio por metro cuadrado o por obra.',
+    m:'proyecto', cli:'empresas de reformas, constructoras, oficinas, locales comerciales y vecinos con problemas de ruido', pb:'dividir espacios y aislarse del ruido sin obra pesada',
+    val:'Espacios nuevos o silenciosos en días, sin escombros ni obra pesada.',
+    inv:[1500,5000], ar:'1-2 meses', r:1, e:['local','domicilio'], h:3, am:2, tg:['musica'], k:['otro_oficio'], s:['tecnica','organizacion'],
+    why:'Particiones prefabricadas, Techos suspendidos, Mamparas y suelos técnicos y Revestimientos ligeros son módulos de tu ciclo dedicados justo a esto.',
+    reto:'Como subcontrata, cobras a 60-90 días. Combina obras para constructoras con clientes particulares que pagan al terminar.',
+    paso:'Llama a 5 empresas de reformas de tu zona y pregunta si subcontratan la tabiquería seca y qué precio por metro pagan.',
+    vr:'Especialízate en insonorización de locales de ocio, estudios de música y viviendas: se paga mucho mejor que el tabique normal.' });
+
+  A({ id:'ed5', cics:['con','bas'], t:'Impermeabilización de cubiertas, terrazas y reparación de humedades', n:'Humedades e impermeabilización',
+    d:'Detectas el origen de las humedades (filtraciones, capilaridad, condensación) y las resuelves: impermeabilización de cubiertas y terrazas, drenajes, sellados y tratamientos. Modelo: diagnóstico de 60-150 € y obra de 800-8.000 €, con garantía por escrito.',
+    m:'proyecto', cli:'propietarios de viviendas, comunidades de vecinos y administradores de fincas', pb:'acabar de verdad con las humedades y goteras',
+    val:'Encontramos por qué entra el agua y lo resolvemos con garantía, no con un parche.',
+    inv:[2000,6000], ar:'1-2 meses', r:1, e:['domicilio'], h:3, am:2, tg:[], k:['atencion_cliente'], s:['tecnica','resolucion'],
+    why:'Cubiertas, Impermeabilizaciones y aislamientos y Construcción: sabes leer cómo se mueve el agua en un edificio y cómo cortarla.',
+    reto:'Un mal diagnóstico te obliga a volver gratis. Cobra siempre el diagnóstico, usa medidores de humedad y da garantía solo de lo que has hecho tú.',
+    paso:'Pregunta a 3 administradores de fincas qué problema les da más quejas de vecinos: casi siempre serán humedades. Ofrece un diagnóstico gratuito en un edificio.',
+    vr:'Trabaja con aseguradoras y peritos, que necesitan reparadores fiables para los siniestros por agua.' });
+
+  A({ id:'ed6', cics:['bas','con'], t:'Mantenimiento y pequeñas obras para comunidades de vecinos', n:'Mantenimiento de edificios',
+    d:'Contratos con administradores de fincas para el mantenimiento de las zonas comunes: repasos de albañilería, pintura de portales y escaleras, pavimentos, bajantes, rejillas y pequeñas obras. Modelo: cuota mensual por comunidad (40-150 €) con horas incluidas y obras aparte.',
+    m:'cuota', cli:'administradores de fincas y comunidades de vecinos', pb:'tener las zonas comunes cuidadas sin buscar un profesional para cada arreglo',
+    val:'Tu comunidad siempre cuidada, con un profesional que ya conoce el edificio y viene cuando hace falta.',
+    inv:[1000,4000], ar:'1-2 meses', r:1, e:['domicilio','local'], h:2, am:1, tg:[], k:['atencion_cliente'], s:['tecnica','organizacion','personas'],
+    why:'Reformas y mantenimiento básico de edificios, Albañilería básica y Trabajos de pavimentación exterior: son los arreglos que más se repiten en cualquier edificio.',
+    reto:'Depender de pocos administradores de fincas. Cuida la relación con cada uno, envía fotos del antes y el después y factura con orden.',
+    paso:'Haz una lista de 10 administradores de fincas de tu zona y visita a 3 con un folleto de una página y precios claros.',
+    vr:'Ofrece un «parte rápido»: el vecino manda una foto por WhatsApp y en 48 horas está arreglado.' });
+
+  // ---------- ORGANIZACIÓN Y CONTROL DE OBRAS (Grado Superior) ----------
+  A({ id:'ed7', cics:['occ','pe'], t:'Mediciones, presupuestos y planificación para constructoras pequeñas', n:'Oficina técnica externa',
+    d:'Las constructoras y empresas de reformas pequeñas pierden obras por presupuestar tarde o mal. Les haces mediciones, presupuestos con bases de precios, planificación de obra y certificaciones mensuales. Modelo: precio por presupuesto (150-800 €) o cuota mensual por empresa.',
+    m:'cuota', cli:'constructoras pequeñas, empresas de reformas e instaladoras que se presentan a obras', pb:'presupuestar rápido y bien para ganar obras sin perder dinero',
+    val:'Presupuestos rápidos y bien hechos que te hacen ganar obras, y una planificación que evita perder dinero en ellas.',
+    inv:[500,2500], ar:'1-2 meses', r:1, e:['online'], h:2, am:3, tg:[], k:['ofimatica'], s:['organizacion','tecnica','resolucion'],
+    why:'Mediciones y valoraciones de construcción, Planificación de construcción y Documentación de proyectos y obras de construcción son módulos centrales de tu ciclo.',
+    reto:'Si el presupuesto sale mal, la constructora pierde dinero y tú el cliente. Usa bases de precios actualizadas y revisa con el constructor las partidas dudosas.',
+    paso:'Haz el presupuesto completo de la reforma de un piso tipo con una base de precios pública de tu comunidad autónoma. Úsalo como muestra con 3 empresas de reformas.',
+    vr:'Ofrece también la preparación de licitaciones públicas para constructoras pequeñas, que suelen no presentarse por falta de tiempo.' });
+
+  A({ id:'ed8', cics:['occ'], t:'Control de calidad y seguimiento de obra para particulares que construyen o reforman', n:'Supervisión de obra',
+    d:'Quien se hace una casa o una reforma grande no sabe si la obra va bien. Haces visitas periódicas, compruebas calidades y mediciones, controlas plazos y certificaciones y avisas de problemas, como apoyo al cliente y a la dirección facultativa. Modelo: cuota por visita (80-200 €) o precio cerrado por obra.',
+    m:'proyecto', cli:'particulares que construyen una vivienda o hacen una reforma grande', pb:'saber si la obra se está haciendo bien y al precio pactado',
+    val:'Alguien que sabe de obra mira por ti: compruebas que se hace lo pactado y te enteras de los problemas a tiempo.',
+    inv:[500,2000], ar:'1-2 meses', r:2, e:['domicilio'], h:2, am:2, tg:[], k:['atencion_cliente'], s:['organizacion','resolucion','personas'],
+    why:'Control de ejecución en obras de edificación, Procesos constructivos en edificación y Rehabilitación y conservación de obras de construcción: sabes qué mirar en cada fase.',
+    reto:'No eres la dirección de obra: esa responsabilidad es del director de obra y del director de ejecución (Ley 38/1999, arts. 12 y 13). Deja claro por escrito que haces seguimiento y control de calidad para el cliente.',
+    paso:'Haz una lista de comprobación de 20 puntos para la fase de estructura y otra para acabados. Ofrécela gratis a un conocido que esté reformando.',
+    vr:'Ofrece la revisión de una vivienda antes de comprarla: detectar defectos antes de firmar vale mucho dinero.' });
+
+  // ---------- PROYECTOS DE EDIFICACIÓN (Grado Superior) ----------
+  A({ id:'ed9', cics:['pe','occ'], t:'Delineación y modelado BIM para estudios de arquitectura', n:'Modelado BIM externo',
+    d:'Los estudios de arquitectura y las ingenierías necesitan modelar sus proyectos en BIM (Revit, Archicad) y no encuentran perfiles. Haces modelos, planos, mediciones y renders por encargo. Modelo: precio por proyecto o por hora (20-35 €), y bolsa de horas mensual con estudios fijos.',
+    m:'cuota', cli:'estudios de arquitectura, ingenierías y constructoras', pb:'tener los proyectos modelados en BIM a tiempo',
+    val:'Tus proyectos modelados en BIM con planos y mediciones coherentes, sin contratar a nadie más.',
+    inv:[1500,4000], ar:'1-2 meses', r:1, e:['online'], h:3, am:4, tg:['tecnologia'], k:['diseno'], s:['tecnica','organizacion','digital'],
+    why:'Representaciones de construcción, Diseño y construcción de edificios y Desarrollo de proyectos de edificación residencial: dibujas y modelas un proyecto completo con criterio constructivo.',
+    reto:'Las licencias de los programas son caras. Empieza con las versiones para estudiantes mientras te formas y fórmate en el curso de especialización en BIM si puedes.',
+    paso:'Modela en BIM una vivienda pequeña (planos, secciones y mediciones) y prepara un porfolio. Escribe a 10 estudios de arquitectura ofreciendo un primer encargo a prueba.',
+    vr:'Especialízate en levantar en BIM edificios existentes para rehabilitación, que es donde más crece el trabajo.' });
+
+  A({ id:'ed10', cics:['pe','occ','poc'], t:'Levantamiento de planos de viviendas y locales existentes', n:'Planos de estado actual',
+    d:'Mides y dibujas viviendas, locales y edificios que no tienen planos fiables: para reformas, ventas, alquileres, licencias de actividad o seguros. Con medidor láser o escáner y entrega en 48-72 horas. Modelo: 100-300 € por vivienda y precio por metro en locales y edificios.',
+    m:'proyecto', cli:'inmobiliarias, empresas de reformas, interioristas, arquitectos y propietarios', pb:'tener planos exactos de un inmueble rápido',
+    val:'Planos exactos de tu vivienda o local en dos días, listos para reformar, vender o tramitar.',
+    inv:[800,4000], ar:'1 mes', r:1, e:['domicilio','local'], h:2, am:2, tg:[], k:['diseno'], s:['tecnica','organizacion'],
+    why:'Representaciones de construcción y Replanteos de construcción: medir con precisión y dibujar bien es la base de tu ciclo.',
+    reto:'Hay competencia de aplicaciones que miden con el móvil. Tu valor es la precisión y entregar planos que sirven para un proyecto o una licencia.',
+    paso:'Mide y dibuja tu casa o la de un conocido con un medidor láser y entrégala en formato profesional. Enséñala a 5 inmobiliarias de tu zona.',
+    vr:'Añade el plano de la vivienda «amueblado» y en 3D para los anuncios de las inmobiliarias: vende más rápido.' });
+
+  // ---------- PROYECTOS DE OBRA CIVIL (Grado Superior) ----------
+  A({ id:'ed11', cics:['poc','occ'], t:'Topografía y replanteos para obras, parcelas y urbanizaciones', n:'Topografía',
+    d:'Haces levantamientos topográficos, replanteos de obra, mediciones de parcelas y control de movimientos de tierra para constructoras, promotoras, ayuntamientos y particulares, con GPS de precisión y, si te formas, con dron. Modelo: precio por trabajo (250-2.000 €) o por jornada.',
+    m:'proyecto', cli:'constructoras, promotoras, ayuntamientos, agricultores y propietarios de parcelas', pb:'medir y replantear un terreno con precisión',
+    val:'Mediciones y replanteos precisos el día que los necesitas, para que la obra empiece bien.',
+    inv:[4000,12000], ar:'2-3 meses', r:2, e:['local'], h:3, am:2, tg:['naturaleza'], k:['diseno'], s:['tecnica','organizacion'],
+    why:'Levantamientos topográficos, Replanteos de construcción y Urbanismo y obra civil son módulos de tu ciclo: es una salida directa y con demanda.',
+    reto:'El equipo es caro. Empieza alquilando el GPS por días o asociado con otro topógrafo, y compra cuando tengas clientes fijos.',
+    paso:'Llama a 5 constructoras de tu zona y pregunta quién les hace la topografía y con cuánto tiempo hay que pedirla. Pide precio de alquiler de un GPS de precisión.',
+    vr:'Haz topografía con dron para obras grandes y canteras: cubres más terreno en menos tiempo.' });
+
+  A({ id:'ed12', cics:['poc','pe'], t:'Apoyo técnico a ayuntamientos pequeños', n:'Oficina técnica municipal externa',
+    d:'Los ayuntamientos pequeños no tienen técnicos suficientes. Les ayudas con inventarios de caminos y calles, mediciones y presupuestos de obras municipales, documentación para pedir ayudas a la diputación y seguimiento de obras, siempre junto al técnico que firma. Modelo: contrato menor por trabajo o cuota anual.',
+    m:'proyecto', cli:'ayuntamientos pequeños, mancomunidades y diputaciones', pb:'preparar la parte técnica de sus obras y ayudas sin personal propio',
+    val:'Tu ayuntamiento tiene la documentación técnica de sus obras y ayudas a tiempo, sin contratar a un técnico fijo.',
+    inv:[800,3000], ar:'3-4 meses', r:2, e:['local','online'], h:2, am:3, tg:['naturaleza','social'], k:['ofimatica'], s:['organizacion','tecnica'],
+    why:'Desarrollo de proyectos urbanísticos, Redes y servicios en obra civil y Mediciones y valoraciones de construcción: preparas la documentación de obras municipales.',
+    reto:'La contratación pública tiene sus reglas y plazos de pago. Aprende cómo funcionan los contratos menores y empieza con trabajos pequeños.',
+    paso:'Revisa en el perfil del contratante de 3 ayuntamientos pequeños de tu comarca qué obras han licitado este año y quién ha hecho la parte técnica.',
+    vr:'Especialízate en inventarios con información geográfica (calles, alumbrado, caminos), que muchos ayuntamientos necesitan actualizar.' });
+
+  // ---------- HÍBRIDAS: edificación + afición ----------
+  H({ id:'ed_h1', pref:['oid','bas'], t:'Adaptación de viviendas para personas mayores y con movilidad reducida', n:'Accesibilidad en casa',
+    d:'Eliminas barreras en viviendas: ducha a ras de suelo, puertas más anchas, rampas, pasamanos, suelos antideslizantes, cocinas adaptadas. Muchas comunidades autónomas tienen ayudas para estas obras. Modelo: obras de 1.500-12.000 € con visita previa y propuesta.',
+    m:'proyecto', cli:'personas mayores, sus familias, terapeutas ocupacionales y asociaciones de discapacidad', pb:'seguir viviendo en casa con seguridad y autonomía',
+    val:'Tu casa adaptada a ti, para seguir viviendo en ella con seguridad, en una obra rápida y cuidada.',
+    inv:[2000,6000], ar:'1-2 meses', r:1, e:['domicilio'], h:3, am:2, tg:['social'], k:['atencion_cliente'], s:['personas','tecnica','organizacion'],
+    why:'Tu vocación social te da la sensibilidad con este cliente; tu ciclo pone la obra de interior, los solados y la organización de los trabajos.',
+    reto:'Son clientes que necesitan confianza y trato. Visita con calma, explica cada paso y cuida la limpieza y el ruido durante la obra.',
+    paso:'Pregunta a 2 ortopedias, terapeutas ocupacionales o centros de mayores de tu zona a quién recomiendan para adaptar viviendas.',
+    vr:'Colabora con terapeutas ocupacionales: ellos valoran qué necesita la persona y tú lo ejecutas.' });
+
+  H({ id:'ed_h2', pref:['con','occ'], t:'Rehabilitación de patrimonio con técnicas tradicionales', n:'Construcción tradicional',
+    d:'Restauras muros de piedra, morteros de cal, tapial, cubiertas de teja y carpinterías antiguas en casas de pueblo, iglesias, molinos y edificios protegidos, con técnicas tradicionales. Modelo: obra por presupuesto y trabajos para ayuntamientos, obispados y particulares.',
+    m:'proyecto', cli:'propietarios de casas de pueblo, ayuntamientos, entidades religiosas y fundaciones', pb:'restaurar un edificio antiguo sin estropear su valor',
+    val:'Tu casa o edificio antiguo restaurado con sus materiales y técnicas originales, que duran siglos.',
+    inv:[2000,6000], ar:'2-3 meses', r:2, e:['domicilio','local'], h:3, am:3, tg:['arte','naturaleza'], k:['otro_oficio'], s:['tecnica','creatividad'],
+    why:'Tu interés por el arte y el patrimonio te mueve; tu ciclo te da las fábricas, los revestimientos y la rehabilitación y conservación de obras.',
+    reto:'En edificios protegidos hay permisos de patrimonio y se exige experiencia. Fórmate con un maestro de obras tradicional y empieza por casas particulares.',
+    paso:'Busca en tu comarca casas de piedra en rehabilitación y pregunta quién trabaja la cal y la piedra. Ofrécete para aprender en una obra.',
+    vr:'Imparte talleres de técnicas tradicionales (cal, piedra seca) para particulares y asociaciones.' });
+
+  H({ id:'ed_h3', pref:['con','oid','pe'], t:'Rehabilitación de casas rurales para turismo', n:'Obra para alojamiento rural',
+    d:'Reformas casas de pueblo para convertirlas en alojamiento rural o vivienda turística: distribución, baños, aislamiento, instalaciones y acabados con encanto, coordinando con el técnico la licencia de actividad. Modelo: obra completa por presupuesto.',
+    m:'proyecto', cli:'personas que quieren abrir un alojamiento rural y propietarios de casas de pueblo heredadas', pb:'convertir una casa antigua en un alojamiento con encanto y en regla',
+    val:'Tu casa de pueblo convertida en un alojamiento con encanto, cómodo y en regla, por alguien que entiende el turismo rural.',
+    inv:[3000,10000], ar:'3-4 meses', r:2, e:['domicilio'], h:4, am:2, tg:['viajes','naturaleza'], k:['gestion_personas'], s:['organizacion','tecnica','creatividad'],
+    why:'Conoces el turismo y el medio rural; tu ciclo te da la construcción, las obras de interior y la organización de los trabajos.',
+    reto:'Obras lejos de casa y con normativa de turismo de cada comunidad. Infórmate de los requisitos para alojamientos rurales antes de diseñar la reforma.',
+    paso:'Consulta los requisitos de alojamiento rural de tu comunidad autónoma y visita 2 casas rurales recién abiertas para preguntar quién les hizo la obra.',
+    vr:'Ofrece un paquete con estudio de viabilidad: cuánto cuesta la obra y cuántas noches hay que vender para recuperarla.' });
+
+  H({ id:'ed_h4', pref:['con','pe'], t:'Bioconstrucción con madera, paja y tierra', n:'Construcción sostenible',
+    d:'Construyes y reformas con materiales naturales y de bajo impacto: entramado de madera, balas de paja, tierra, cal y aislamientos naturales, en viviendas unifamiliares, ampliaciones y equipamientos. Modelo: obra por presupuesto y colaboración con arquitectos especializados.',
+    m:'proyecto', cli:'familias con conciencia ambiental, arquitectos de bioconstrucción y proyectos de ecoaldeas', pb:'construir una casa sana y de bajo impacto',
+    val:'Una casa sana, eficiente y construida con materiales naturales, por alguien que sabe trabajarlos.',
+    inv:[3000,10000], ar:'3-6 meses', r:3, e:['domicilio'], h:4, am:3, tg:['sostenibilidad','naturaleza'], k:['otro_oficio'], s:['tecnica','creatividad'],
+    why:'Tu compromiso con la sostenibilidad da coherencia; tu ciclo te da el conocimiento constructivo para que estas técnicas cumplan y duren.',
+    reto:'Mercado pequeño y técnicas que exigen experiencia. Fórmate en cursos especializados y trabaja primero con un equipo con experiencia.',
+    paso:'Busca la asociación de bioconstrucción de tu comunidad y apúntate a un taller práctico. Pregunta qué obras tienen en marcha.',
+    vr:'Especialízate en aislamientos naturales para rehabilitación, que es más fácil de vender que una casa nueva.' });
+
+  H({ id:'ed_h5', pref:['pe'], t:'Visitas virtuales y renders para reformas e inmobiliarias', n:'Visualización arquitectónica',
+    d:'Creas imágenes realistas, recorridos virtuales y planos en 3D para que el cliente vea su reforma antes de hacerla, o para que una inmobiliaria venda sobre plano. Modelo: render de 80-250 €, recorrido virtual de 300-1.200 €.',
+    m:'proyecto', cli:'empresas de reformas, interioristas, inmobiliarias y promotoras', pb:'enseñar cómo quedará una reforma o una vivienda antes de construirla',
+    val:'Ves tu reforma o tu futura casa como si ya estuviera hecha, y decides con seguridad.',
+    inv:[1500,4000], ar:'1-2 meses', r:1, e:['online'], h:2, am:4, tg:['tecnologia','arte'], k:['diseno','fotovideo'], s:['creatividad','digital','tecnica'],
+    why:'Te gusta la tecnología y el diseño; tu ciclo te da las representaciones de construcción y el criterio de cómo se construye de verdad lo que dibujas.',
+    reto:'Hay mucha competencia en renders. Diferénciate con rapidez y con planos que además sirven para presupuestar la obra.',
+    paso:'Haz el render del antes y después de una reforma de baño y publícalo. Ofrécelo a 5 empresas de reformas para cerrar más ventas.',
+    vr:'Ofrece «reforma en realidad virtual» en la tienda de una empresa de reformas: el cliente entra en su futura cocina con unas gafas.' });
+
+  H({ id:'ed_h6', pref:['con','poc'], t:'Construcción y mantenimiento de pistas de pádel y zonas deportivas', n:'Obra deportiva',
+    d:'Construyes, reparas y mantienes pistas de pádel, frontones, pequeñas pistas polideportivas y zonas de calistenia: cimentaciones, soleras, drenaje, césped artificial y vallados, en clubes, urbanizaciones y fincas. Modelo: obra por presupuesto y contratos de mantenimiento del césped.',
+    m:'proyecto', cli:'clubes deportivos, urbanizaciones, ayuntamientos y particulares con finca', pb:'tener una pista deportiva bien construida y cuidada',
+    val:'Tu pista bien construida, con buen drenaje y el césped cuidado para que dure años.',
+    inv:[3000,10000], ar:'2-3 meses', r:2, e:['local'], h:3, am:3, tg:['deporte'], k:['ventas'], s:['tecnica','organizacion'],
+    why:'Te gusta el deporte; tu ciclo pone el hormigón, las soleras, las obras de urbanización y el replanteo.',
+    reto:'Las estructuras de las pistas suelen venir de fabricantes. Alíate con uno como instalador oficial y céntrate en la obra civil y el mantenimiento.',
+    paso:'Pregunta a 3 clubes de pádel de tu zona quién les mantiene las pistas y cada cuánto cambian el césped.',
+    vr:'Ofrece el mantenimiento anual del césped (cepillado, arena, reparaciones): ingreso recurrente con poca inversión.' });
+
+  H({ id:'ed_h7', pref:['oid'], t:'Reformas rápidas de bares, restaurantes y tiendas', n:'Obra comercial',
+    d:'Haces reformas de locales de hostelería y comercio con plazos muy cortos (para no perder ventas), trabajando de noche o en cierres: barras, baños adaptados, suelos, techos, iluminación, cumpliendo lo que pide la licencia de actividad. Modelo: obra por presupuesto, con penalización por retraso si el cliente la pide.',
+    m:'proyecto', cli:'bares, restaurantes, franquicias y tiendas que abren o renuevan su local', pb:'reformar el local en pocos días sin perder ventas',
+    val:'Tu local reformado en el plazo prometido, para abrir cuanto antes y cumpliendo la normativa.',
+    inv:[3000,8000], ar:'2-3 meses', r:2, e:['local'], h:4, am:2, tg:['gastronomia','moda'], k:['gestion_personas'], s:['organizacion','liderazgo','tecnica'],
+    why:'Conoces la hostelería o el comercio; tu ciclo te da la organización de trabajos de interior y todos los oficios de acabados.',
+    reto:'Plazos muy ajustados y clientes que cambian de idea. Cierra el diseño antes de empezar y planifica los oficios al día.',
+    paso:'Pregunta a 3 franquicias o restaurantes de tu zona quién les hizo la obra y cuántos días tuvieron cerrado.',
+    vr:'Trabaja para franquicias: el diseño se repite en cada local y puedes hacer varias aperturas al año.' });
+
+  H({ id:'ed_h8', pref:['bas','oid'], t:'Talleres de bricolaje y pequeñas reparaciones del hogar', n:'Formación práctica',
+    d:'Impartes talleres para adultos: alicatar un trozo de pared, arreglar una grieta, pintar sin manchar, colocar estanterías o un suelo vinílico. En centros cívicos, tiendas de bricolaje o un local propio. Modelo: 25-60 € por persona en grupos de 6-10 o taller cerrado para entidades.',
+    m:'formacion', cli:'adultos que viven solos por primera vez, aficionados al bricolaje, tiendas de bricolaje y centros cívicos', pb:'hacer pequeños arreglos en casa sin depender de nadie',
+    val:'Sales sabiendo hacer tú mismo los arreglos más comunes de casa, y sabiendo cuándo llamar a un profesional.',
+    inv:[500,2000], ar:'1 mes', r:1, e:['local'], h:1, am:2, tg:['diy'], k:['atencion_cliente'], s:['personas','tecnica','creatividad'],
+    why:'Te gusta hacer cosas con las manos; tu ciclo te da los oficios que vas a enseñar.',
+    reto:'Enseñar exige preparación: monta paneles de prácticas reutilizables y grupos pequeños.',
+    paso:'Prepara un taller de 2 horas sobre «alicatar y rejuntar» con un panel de práctica y ofrécelo en una tienda de bricolaje o centro cívico.',
+    vr:'Graba los talleres y vende un curso online con tu servicio de reformas para quien prefiera que lo hagas tú.' });
+
+  // ---------- EMERGENTES ----------
+  N({ id:'ed_n1', t:'Gestor de rehabilitación para comunidades de vecinos', n:'Agente de la rehabilitación',
+    d:'Acompañas a comunidades de vecinos en todo el proceso de rehabilitar su edificio: convencer a la junta, buscar técnico y constructora, preparar la documentación de ayudas, seguir la obra e informar a los vecinos. Las convocatorias de ayudas a la rehabilitación reconocen la figura del agente o gestor de la rehabilitación. Modelo: porcentaje del presupuesto de la obra o precio por fases.',
+    m:'comision', cli:'comunidades de vecinos y administradores de fincas', pb:'rehabilitar el edificio y conseguir las ayudas sin volverse locos',
+    val:'Tu comunidad rehabilita el edificio y consigue las ayudas, con una persona que lo coordina todo y explica cada paso a los vecinos.',
+    inv:[500,2500], ar:'4-6 meses', r:3, e:['local'], h:3, am:3, tg:['sostenibilidad','social'], k:['gestion_personas','ventas'], s:['organizacion','personas','liderazgo'],
+    why:'Une todo lo que sabes de obra (procesos, mediciones, planificación) con la capacidad de explicar y coordinar a muchas personas.',
+    reto:'Procesos largos y ayudas que dependen de convocatorias. Cobra por fases y no dependas de una sola comunidad.',
+    paso:'Busca en la web de vivienda de tu comunidad autónoma qué ayudas a la rehabilitación hay y quién puede actuar como gestor. Pregunta a 2 administradores de fincas si lo necesitarían.',
+    vr:'Especialízate en comunidades de un barrio concreto con edificios parecidos: lo que aprendes en uno sirve para el siguiente.' });
+
+  N({ id:'ed_n2', t:'Inspección de cubiertas y fachadas con drones', n:'Inspección de edificios',
+    d:'Con un dron inspeccionas cubiertas, fachadas y patios sin andamios: localizas grietas, tejas rotas, humedades (con cámara térmica) y desprendimientos, y entregas un informe con fotos para el técnico, la comunidad o la aseguradora. Modelo: inspección de 150-800 € por edificio.',
+    m:'proyecto', cli:'administradores de fincas, aseguradoras, peritos y arquitectos que preparan inspecciones técnicas', pb:'ver el estado de la cubierta y la fachada sin montar andamios',
+    val:'Sabes cómo está tu cubierta y tu fachada en una mañana, sin andamios y con fotos de cada defecto.',
+    inv:[3000,10000], ar:'3-4 meses', r:3, e:['local'], h:2, am:3, tg:['tecnologia'], k:['fotovideo'], s:['tecnica','digital'],
+    why:'Sabes interpretar lo que ves porque conoces los procesos constructivos y las patologías de los edificios.',
+    reto:'Volar en ciudad tiene restricciones y exige registrarte como operador en AESA y la formación de piloto adecuada. Infórmate antes de comprar el dron.',
+    paso:'Infórmate en la web de AESA de qué necesitas para volar en zona urbana y pregunta a 2 administradores de fincas si pagarían por una inspección.',
+    vr:'Trabaja con arquitectos que preparan las inspecciones técnicas de edificios: tú das las imágenes y ellos firman el informe.' });
+
+  N({ id:'ed_n3', t:'Montaje de construcción industrializada y modular', n:'Construcción industrializada',
+    d:'Cada vez más viviendas se fabrican por piezas en fábrica (módulos, paneles de madera o acero) y se montan en obra en semanas. Formas un equipo especializado en montar, cimentar y rematar estas viviendas para fabricantes y promotoras. Modelo: precio por montaje o por metro cuadrado.',
+    m:'proyecto', cli:'fabricantes de viviendas modulares e industrializadas y promotoras', pb:'montar viviendas industrializadas rápido y bien rematadas',
+    val:'Equipos que montan y rematan tus viviendas industrializadas en plazo y sin fallos.',
+    inv:[3000,10000], ar:'3-4 meses', r:3, e:['local','domicilio'], h:4, am:4, tg:['tecnologia','sostenibilidad'], k:['gestion_personas'], s:['tecnica','organizacion','liderazgo'],
+    why:'Construcción, Interpretación de planos y Organización de trabajos de construcción: montar con precisión y coordinar un equipo es tu ciclo.',
+    reto:'Pocos fabricantes y mucha dependencia de ellos. Empieza trabajando para uno y crece cuando el sector se consolide en tu zona.',
+    paso:'Busca 3 fabricantes de viviendas modulares o de madera que trabajen en tu comunidad y pregunta cómo montan en obra y si subcontratan.',
+    vr:'Ofrece cimentaciones y remates para varias marcas: la parte de obra que todas necesitan.' });
+  } // fin de Edificación y Obra Civil
+
+  // ===================== FABRICACIÓN MECÁNICA =====================
+  FAM.fabricacion = {
+    ciclos: {
+      'Fabricación de Elementos Metálicos': 'bas', 'Fabricación y Montaje': 'bas', 'Instalaciones Electrotécnicas y Mecánica': 'bas',
+      'Mecanizado': 'mec',
+      'Soldadura y Calderería': 'sol',
+      'Conformado por Moldeo de Metales y Polímeros': 'mol',
+      'Joyería': 'joy',
+      'Montaje de Estructuras e Instalación de Sistemas Aeronáuticos': 'aer',
+      'Construcciones Metálicas': 'cm',
+      'Diseño en Fabricación Mecánica': 'dis',
+      'Programación de la Producción en Fabricación Mecánica': 'ppf',
+      'Programación de la Producción en Moldeo de Metales y Polímeros': 'ppm',
+      'Óptica de Anteojería': 'opt'
+    },
+    labels: { bas: 'Fabricación de Elementos Metálicos (Grado Básico)', mec: 'Mecanizado', sol: 'Soldadura y Calderería', mol: 'Conformado por Moldeo de Metales y Polímeros', joy: 'Joyería', aer: 'Montaje de Estructuras e Instalación de Sistemas Aeronáuticos', cm: 'Construcciones Metálicas', dis: 'Diseño en Fabricación Mecánica', ppf: 'Programación de la Producción en Fabricación Mecánica', ppm: 'Programación de la Producción en Moldeo de Metales y Polímeros', opt: 'Óptica de Anteojería' },
+    defecto: { basico: 'bas', medio: 'mec', superior: 'ppf' },
+    afin: { bas: ['sol'], cm: ['sol'], sol: ['cm'], ppf: ['mec'], mec: ['ppf'], ppm: ['mol'], mol: ['ppm'], aer: ['mec'], dis: ['ppf'] },
+    fuentes: {
+      joy: 'la Ley de objetos fabricados con metales preciosos (Ley 17/1985), los laboratorios de contraste de tu comunidad autónoma, la asociación de joyeros de tu provincia y ferias como MadridJoya',
+      opt: 'el Consejo General de Colegios de Ópticos-Optometristas, la consejería de sanidad de tu comunidad autónoma y las ópticas independientes de tu provincia',
+      aer: 'la asociación española de empresas aeronáuticas (TEDAE), los clústeres aeronáuticos de tu comunidad y la norma de calidad EN 9100',
+      _: 'los clústeres de fabricación y del metal de tu comunidad autónoma, la federación del metal de tu provincia, ferias como BIEMH o MetalMadrid y el Observatorio de las Ocupaciones del SEPE'
+    }
+  };
+  { const { A, H, N } = banco('fabricacion');
+
+  // ---------- SOLDADURA Y CALDERERÍA / CONSTRUCCIONES METÁLICAS ----------
+  A({ id:'fm1', cics:['sol','cm','bas'], t:'Cerrajería y estructuras metálicas a medida', n:'Taller de cerrajería metálica',
+    d:'Fabricas y montas barandillas, escaleras, puertas, cerramientos, pérgolas, altillos y pequeñas estructuras metálicas para viviendas, comercios, naves y constructoras. Es un oficio con mucha demanda y pocos relevos. Modelo: precio por trabajo (300-8.000 €), con margen sobre material y horas de taller y montaje.',
+    m:'proyecto', cli:'particulares que reforman, constructoras, comercios y naves industriales', pb:'fabricar y montar estructuras metálicas a medida bien acabadas',
+    val:'Tu barandilla, escalera o estructura hecha a medida, bien soldada, bien acabada y montada en plazo.',
+    inv:[5000,15000], ar:'2-3 meses', r:2, e:['local','domicilio'], h:4, am:2, tg:['diy','arte'], k:['otro_oficio'], s:['tecnica','organizacion'],
+    why:'Trazado, corte y conformado, Soldadura en atmósfera natural y protegida y Montaje: hacer y montar una estructura metálica de principio a fin es tu ciclo.',
+    reto:'Necesitas un local adecuado (nave pequeña) y equipos; empieza alquilando un espacio compartido o trabajando para otro taller. Algunos clientes industriales exigirán que estés homologado como soldador (UNE-EN ISO 9606-1).',
+    paso:'Pregunta a 5 empresas de reformas y constructoras de tu zona a qué cerrajería llaman y cuánto tardan. Haz una pieza de muestra (una barandilla o un mueble metálico) para tu porfolio.',
+    vr:'Especialízate en escaleras y altillos para viviendas y locales: son trabajos de más valor y se recomiendan entre arquitectos e interioristas.' });
+
+  A({ id:'fm2', cics:['sol','cm','bas'], t:'Soldadura móvil y reparaciones en el sitio', n:'Soldador itinerante',
+    d:'Con una furgoneta equipada reparas en el lugar: maquinaria agrícola y de obra, remolques, estructuras de naves, depósitos, puertas industriales y embarcaciones. El cliente no tiene que trasladar la máquina. Modelo: salida de 40-80 € más hora de trabajo (35-55 €) y contratos con empresas.',
+    m:'proyecto', cli:'agricultores, constructoras, naves industriales, puertos deportivos y empresas de maquinaria', pb:'reparar una máquina o estructura sin moverla ni esperar días',
+    val:'Reparamos tu máquina o estructura donde está, hoy mismo, para que no pierdas días de trabajo.',
+    inv:[6000,15000], ar:'2 meses', r:2, e:['local','domicilio'], h:3, am:2, tg:['naturaleza','motor'], k:['otro_oficio'], s:['tecnica','resolucion'],
+    why:'Soldadura en atmósfera natural y protegida, Mecanizado y Metrología y ensayos: sabes soldar distintos materiales en posiciones difíciles y comprobar el resultado.',
+    reto:'La furgoneta y el equipo son la inversión principal. Empieza con un grupo electrógeno y equipo multiproceso de segunda mano y amplía con los primeros clientes fijos.',
+    paso:'Pregunta a 3 talleres de maquinaria agrícola, a una cooperativa y a 2 constructoras si llaman a soldadores externos y cuánto pagan la salida.',
+    vr:'Homologa tus soldaduras para trabajos industriales (UNE-EN ISO 9606-1): abre la puerta a paradas de mantenimiento en fábricas, mucho mejor pagadas.' });
+
+  A({ id:'fm3', cics:['bas','sol'], t:'Carpintería de aluminio y PVC: cerramientos, mosquiteras y reparaciones', n:'Carpintería metálica ligera',
+    d:'Fabricas y montas cerramientos de terrazas, ventanas, mamparas, mosquiteras y puertas de aluminio y PVC, y reparas cierres, persianas y juntas. Modelo: obra por presupuesto y reparaciones a precio cerrado.',
+    m:'proyecto', cli:'particulares, comunidades de vecinos y empresas de reformas', pb:'cerrar una terraza o cambiar ventanas que cierren bien',
+    val:'Ventanas y cerramientos que cierran bien, aíslan y se montan en un día.',
+    inv:[3000,10000], ar:'2 meses', r:1, e:['domicilio','local'], h:3, am:2, tg:[], k:['otro_oficio'], s:['tecnica','organizacion'],
+    why:'Carpintería de aluminio y PVC, Operaciones básicas de fabricación y Soldadura y carpintería metálica son módulos de tu ciclo.',
+    reto:'El taller de fabricación necesita maquinaria. Empieza montando para una carpintería existente y monta tu taller cuando tengas cartera.',
+    paso:'Llama a 5 carpinterías de aluminio de tu zona y pregunta si buscan montadores. Pide precio de 3 cerramientos de terraza como si fueras cliente.',
+    vr:'Especialízate en cambio de ventanas para ahorrar energía, que puede ir con ayudas o Certificados de Ahorro Energético.' });
+
+  A({ id:'fm4', cics:['cm','dis'], t:'Oficina técnica de estructuras metálicas: planos de taller y despieces', n:'Delineación de estructuras',
+    d:'Haces los planos de taller, despieces, listas de materiales y programas de corte de estructuras metálicas, naves y calderería para talleres que no tienen oficina técnica. Modelo: precio por proyecto o por tonelada de estructura, y cuota mensual con talleres fijos.',
+    m:'cuota', cli:'talleres de estructuras metálicas, cerrajerías industriales y montadoras de naves', pb:'tener planos de taller y despieces correctos y a tiempo',
+    val:'Planos de taller y despieces listos para fabricar, sin errores que cuesten material.',
+    inv:[1000,4000], ar:'1-2 meses', r:1, e:['online'], h:2, am:3, tg:[], k:['diseno'], s:['tecnica','organizacion'],
+    why:'Representación gráfica en fabricación mecánica, Diseño de construcciones metálicas y Definición de procesos de construcciones metálicas: es la parte de oficina de tu ciclo.',
+    reto:'Los programas específicos de estructuras son caros. Aprende uno de los más usados en tu zona con la versión de estudiante y amortízalo con los primeros clientes.',
+    paso:'Pregunta a 5 talleres de estructuras de tu zona quién les hace los planos de taller y si van retrasados. Prepara un despiece de muestra.',
+    vr:'Añade la gestión de la documentación de calidad (marcado CE de estructuras) para talleres pequeños.' });
+
+  // ---------- MECANIZADO / PROGRAMACIÓN DE LA PRODUCCIÓN ----------
+  A({ id:'fm5', cics:['mec','ppf','aer'], t:'Taller de mecanizado de piezas a medida y pequeñas series', n:'Mecanizado CNC',
+    d:'Fabricas piezas mecanizadas que otros no quieren hacer por ser pocas: prototipos, repuestos descatalogados de maquinaria, utillajes, piezas para motos, bicis o maquinaria agrícola. Con torno y fresadora (convencional o CNC). Modelo: precio por pieza o por hora de máquina (35-60 €).',
+    m:'proyecto', cli:'talleres de maquinaria, fabricantes pequeños, inventores, restauradores de motos y empresas con máquinas antiguas', pb:'conseguir una pieza a medida o descatalogada rápido',
+    val:'Tu pieza a medida en días, aunque sea solo una, fabricada con precisión.',
+    inv:[8000,25000], ar:'3-4 meses', r:2, e:['local'], h:4, am:3, tg:['motor','tecnologia'], k:['diseno'], s:['tecnica','resolucion'],
+    why:'Fabricación por arranque de viruta, Mecanizado por control numérico y Metrología y ensayos: fabricas la pieza y compruebas que cumple.',
+    reto:'Las máquinas son caras. Compra de segunda mano revisada, empieza en un espacio compartido y no inviertas en CNC hasta tener clientes de serie.',
+    paso:'Visita 3 talleres de maquinaria de tu zona y pregunta qué piezas les cuesta conseguir. Haz una de muestra en el taller del centro, si te dejan.',
+    vr:'Abre una tienda online de repuestos mecanizados para un nicho (motos clásicas, maquinaria agrícola antigua).' });
+
+  A({ id:'fm6', cics:['ppf','mec','dis','aer'], t:'Programación CNC y CAM externa para talleres', n:'Programador de producción',
+    d:'Muchos talleres tienen máquinas CNC paradas porque nadie sabe programarlas bien. Programas por encargo, optimizas tiempos de ciclo, preparas utillajes y formas a sus operarios. Modelo: precio por programa o por hora (30-50 €) y bolsa de horas mensual.',
+    m:'cuota', cli:'talleres de mecanizado, fabricantes de maquinaria y carpinterías industriales con CNC', pb:'sacar partido a sus máquinas CNC sin un programador en plantilla',
+    val:'Tus máquinas CNC trabajan más horas y más rápido, con programas optimizados y operarios formados.',
+    inv:[1000,4000], ar:'1-2 meses', r:1, e:['local','online'], h:2, am:3, tg:['tecnologia'], k:['programacion'], s:['tecnica','resolucion','organizacion'],
+    why:'Fabricación asistida por ordenador (CAM), Mecanizado por control numérico y Programación de sistemas automáticos de fabricación mecánica: es tu ciclo aplicado.',
+    reto:'Cada taller usa controles distintos. Especialízate en los dos o tres más comunes de tu zona y lleva siempre un registro de lo programado.',
+    paso:'Pregunta a 5 talleres de tu zona qué máquinas CNC tienen, qué control usan y si alguna está infrautilizada.',
+    vr:'Ofrece formación a operarios en el propio taller: es lo que más agradecen y te da cliente fijo.' });
+
+  A({ id:'fm7', cics:['ppf','ppm','cm','mol'], t:'Mejora de la producción y la calidad en pymes industriales', n:'Consultoría de producción',
+    d:'Ayudas a talleres y pymes industriales a producir más con lo que tienen: medir tiempos y paradas, ordenar el taller, planificar la producción, reducir defectos y preparar auditorías de calidad. Modelo: diagnóstico de 500-1.500 € y proyecto de mejora por meses.',
+    m:'proyecto', cli:'pymes industriales y talleres de 10-80 personas', pb:'producir más, con menos fallos y entregando a tiempo',
+    val:'Produces más con las mismas máquinas, entregas a tiempo y dejas de tirar piezas defectuosas.',
+    inv:[500,2000], ar:'2-3 meses', r:2, e:['local'], h:3, am:3, tg:[], k:['ofimatica','gestion_personas'], s:['organizacion','resolucion','liderazgo'],
+    why:'Programación de la producción, Gestión de la calidad, prevención de riesgos laborales y protección ambiental y Verificación de productos: sabes organizar una planta.',
+    reto:'Es difícil que una pyme pague a alguien joven por consejo. Empieza con un diagnóstico gratuito y propón una mejora con un resultado medible en 2 meses.',
+    paso:'Pide permiso a una pyme industrial conocida para medir durante una semana las paradas de una máquina. Presenta el informe con 3 mejoras.',
+    vr:'Especialízate en preparar a pymes para certificaciones de calidad que les piden sus clientes grandes.' });
+
+  // ---------- DISEÑO EN FABRICACIÓN MECÁNICA ----------
+  A({ id:'fm8', cics:['dis','ppf'], t:'Diseño de producto y planos para pymes e inventores', n:'Ingeniería de producto',
+    d:'Conviertes ideas y piezas en diseños listos para fabricar: modelado 3D, planos, cálculo básico, elección de materiales y proceso, y prototipo impreso. Para inventores, pymes que quieren un producto propio y talleres sin oficina técnica. Modelo: proyecto de 300-5.000 €.',
+    m:'proyecto', cli:'inventores, emprendedores con un producto físico, pymes y talleres', pb:'pasar de una idea o un boceto a una pieza que se pueda fabricar',
+    val:'Tu idea convertida en un diseño que se puede fabricar, con su prototipo y su coste estimado.',
+    inv:[1500,5000], ar:'1-2 meses', r:2, e:['online','local'], h:2, am:4, tg:['tecnologia','diy'], k:['diseno'], s:['creatividad','tecnica','resolucion'],
+    why:'Diseño de productos mecánicos, Representación gráfica en fabricación mecánica y Técnicas de fabricación mecánica: diseñas pensando en cómo se va a fabricar.',
+    reto:'Los inventores tienen poco dinero y mucha ilusión. Cobra por fases, firma un acuerdo de confidencialidad y no prometas que el producto se venderá.',
+    paso:'Rediseña un objeto cotidiano que se rompa a menudo, imprime el prototipo y publícalo como caso. Contacta con un centro de emprendimiento de tu zona.',
+    vr:'Alíate con talleres de mecanizado y moldeo: tú diseñas, ellos fabrican y os recomendáis mutuamente.' });
+
+  // ---------- CONFORMADO POR MOLDEO ----------
+  A({ id:'fm9', cics:['mol','ppm','joy'], t:'Piezas en resina, silicona y plástico en pequeñas series', n:'Moldeo a pequeña escala',
+    d:'Haces moldes y fabricas pequeñas series de piezas en resina, poliuretano, silicona o metal de baja fusión: repuestos, figuras, piezas para artistas, maquetas, productos de marca pequeña. Modelo: precio por molde más precio por pieza.',
+    m:'producto', cli:'artistas, diseñadores, marcas pequeñas, maquetistas y talleres que necesitan pocas piezas', pb:'fabricar 10-500 piezas sin pagar un molde industrial',
+    val:'Tus piezas fabricadas en pequeña cantidad, con buen acabado y sin el coste de un molde industrial.',
+    inv:[2000,6000], ar:'1-2 meses', r:2, e:['local','online'], h:2, am:4, tg:['arte','diy'], k:['diseno'], s:['tecnica','creatividad'],
+    why:'Elaboración de moldes y modelos, Conformado por moldeo abierto y Preparación de materias primas: sabes hacer un molde y sacar piezas de calidad.',
+    reto:'Las resinas necesitan ventilación y protección. Monta un taller con extracción y trabaja con fichas de seguridad de cada producto.',
+    paso:'Haz un molde de silicona de una pieza sencilla y saca 10 copias. Enséñaselas a 3 artistas o tiendas de maquetismo.',
+    vr:'Ofrece moldes y kits para artesanos que quieren producir ellos mismos.' });
+
+  A({ id:'fm10', cics:['ppm','mol','ppf'], t:'Técnico externo de procesos de inyección y moldeo para fábricas', n:'Optimización de moldeo',
+    d:'Las fábricas de piezas de plástico y fundición pierden dinero con piezas defectuosas y cambios de molde lentos. Ajustas procesos de inyección, reduces defectos y ciclos y formas al personal. Modelo: precio por día de trabajo (250-450 €) o proyecto de mejora.',
+    m:'proyecto', cli:'inyectoras de plástico, fundiciones y fabricantes de piezas de caucho', pb:'reducir piezas defectuosas y tiempos de ciclo',
+    val:'Menos piezas tiradas y más producción con los mismos moldes y máquinas.',
+    inv:[500,2000], ar:'2-3 meses', r:2, e:['local'], h:3, am:3, tg:[], k:['ofimatica'], s:['tecnica','resolucion','organizacion'],
+    why:'Moldeo cerrado, Caracterización de materiales, Programación de la producción y Verificación de productos conformados: es tu especialidad.',
+    reto:'Hace falta experiencia para que una fábrica confíe en ti. Trabaja unos años en planta y sal con tu propia cartera de contactos.',
+    paso:'Haz una lista de fábricas de plástico o fundición de tu comunidad y mira sus ofertas de empleo: lo que piden es lo que necesitan resolver.',
+    vr:'Especialízate en una tecnología concreta (inyección de técnicos, fundición a presión) y trabaja para fábricas de toda España.' });
+
+  // ---------- JOYERÍA ----------
+  A({ id:'fm11', cics:['joy'], t:'Taller de joyería a medida y reparaciones', n:'Joyero artesano',
+    d:'Diseñas y fabricas joyas a medida (alianzas, anillos de compromiso, transformación de joyas heredadas) y haces reparaciones para clientes y para joyerías que no tienen taller. Los objetos de metales preciosos llevan el punzón de identificación del fabricante y el de garantía de un laboratorio de contraste (Ley 17/1985, arts. 6 y 10). Modelo: piezas a medida de 150-3.000 € y reparaciones de 20-150 €.',
+    m:'producto', cli:'parejas que se casan, personas con joyas heredadas y joyerías sin taller', pb:'tener una joya única o transformar una que ya no usan',
+    val:'Una joya hecha para ti, o la de tu abuela convertida en algo que sí vas a llevar.',
+    inv:[4000,12000], ar:'2-3 meses', r:2, e:['local','online'], h:3, am:3, tg:['arte','moda'], k:['diseno','rrss'], s:['creatividad','tecnica','personas'],
+    why:'Fabricación de joyería, Engastado, Modelado en cera y Microfusión: haces la pieza entera, de la idea al acabado.',
+    reto:'El oro y la plata inmovilizan dinero y exigen seguridad. Trabaja bajo pedido con anticipo y registra tu punzón antes de vender.',
+    paso:'Pregunta a 5 joyerías de tu zona si mandan las reparaciones fuera y cuánto tardan. Haz 3 piezas de muestra para tu porfolio.',
+    vr:'Especialízate en alianzas y anillos de compromiso personalizados: la pareja decide con ilusión y paga bien por algo único.' });
+
+  A({ id:'fm12', cics:['joy'], t:'Marca propia de joyería de autor en plata con venta online', n:'Joyería de autor',
+    d:'Creas una colección propia de joyería en plata con una identidad clara y la vendes online, en mercados de diseño y en tiendas seleccionadas. Modelo: precio de 30-200 € por pieza con margen del 60-75 % sobre material y horas.',
+    m:'producto', cli:'personas que buscan joyas diferentes y tiendas de diseño', pb:'encontrar joyas con personalidad que no sean de cadena',
+    val:'Joyas con personalidad hechas a mano por su autora o autor, que no lleva nadie más.',
+    inv:[2000,6000], ar:'2-3 meses', r:2, e:['online'], h:2, am:4, tg:['moda','arte'], k:['rrss','fotovideo','marketing'], s:['creatividad','digital','ventas'],
+    why:'Representación gráfica en joyería, Fabricación de joyería y Administración, gestión y comercialización en la pequeña empresa: tu ciclo te prepara para crear y vender una colección.',
+    reto:'Mucha competencia en redes. Diferénciate con una historia propia, buenas fotos y piezas reconocibles. Vigila el margen tras comisiones y envíos.',
+    paso:'Diseña una colección de 5 piezas, fabrica una de cada, hazles buenas fotos y abre una tienda o perfil. Mide cuántas personas preguntan precio en un mes.',
+    vr:'Vende también a tiendas de museos y de diseño: pedidos más grandes y menos dependencia del algoritmo.' });
+
+  // ---------- ÓPTICA DE ANTEOJERÍA ----------
+  A({ id:'fm13', cics:['opt'], t:'Taller de montaje y reparación de gafas para ópticas', n:'Laboratorio de montaje',
+    d:'Muchas ópticas independientes no tienen tiempo ni técnico para montar lentes o hacer reparaciones complejas (soldaduras de monturas, cambio de bisagras, ajustes). Haces de taller externo con recogida y entrega. Modelo: precio por montaje (8-25 €) y por reparación, y cuota con ópticas fijas.',
+    m:'cuota', cli:'ópticas independientes y pequeñas cadenas de tu provincia', pb:'montar y reparar gafas rápido sin taller propio',
+    val:'Tus gafas montadas y reparadas en 24-48 horas, con calidad de laboratorio, sin tener técnico en tienda.',
+    inv:[5000,15000], ar:'3-4 meses', r:2, e:['local'], h:3, am:3, tg:[], k:['atencion_cliente'], s:['tecnica','organizacion'],
+    why:'Montajes y reparaciones ópticas, Procesos de fabricación de lentes oftalmológicas y Diseño y fabricación de monturas ópticas son el corazón de tu ciclo.',
+    reto:'Montar gafas graduadas es fabricar un producto sanitario a medida: consulta con la consejería de sanidad de tu comunidad qué autorización necesita tu taller antes de empezar.',
+    paso:'Llama a 5 ópticas independientes de tu zona y pregunta dónde montan y reparan, cuánto tardan y cuánto pagan.',
+    vr:'Especialízate en reparaciones de monturas de gama alta y de titanio, que muchas ópticas mandan lejos.' });
+
+  A({ id:'fm15', cics:['opt'], t:'Monturas artesanales de autor en acetato y madera', n:'Gafas de diseño propio',
+    d:'Diseñas y fabricas monturas propias en acetato, madera o materiales reciclados, en series cortas, y las vendes a ópticas independientes que buscan diferenciarse y online como montura sin graduar. Modelo: 90-250 € por montura, con venta a ópticas a precio de distribuidor.',
+    m:'producto', cli:'ópticas independientes que quieren marcas que no tenga la cadena de al lado, y personas que buscan gafas diferentes', pb:'encontrar monturas originales que no lleve todo el mundo',
+    val:'Monturas con diseño propio, hechas a mano en España, que no vas a ver en ninguna cadena.',
+    inv:[3000,10000], ar:'3-4 meses', r:3, e:['online','local'], h:3, am:4, tg:['moda','arte'], k:['diseno','rrss'], s:['creatividad','tecnica','ventas'],
+    why:'Diseño y fabricación de monturas ópticas y Montajes y reparaciones ópticas: conoces la montura por dentro y sabes que tiene que ajustarse y graduarse bien.',
+    reto:'El diseño se copia fácil y la producción artesanal es lenta. Registra tu diseño, empieza con una colección corta y vende primero a ópticas que hagan pedidos pequeños.',
+    paso:'Diseña 3 monturas, fabrica un prototipo de una y enséñaselo a 5 ópticas independientes preguntando si la venderían y a qué precio.',
+    vr:'Haz monturas a medida para personas con medidas especiales de cara: un nicho poco atendido que paga bien.' });
+
+  A({ id:'fm16', cics:['opt'], t:'Servicio técnico de óptica para residencias y centros de mayores', n:'Óptica a domicilio',
+    d:'Visitas residencias y centros de mayores para ajustar, reparar y limpiar gafas, cambiar plaquetas y patillas y recoger las que necesitan nuevas lentes, en colaboración con una óptica que hace la graduación. Modelo: cuota por visita al centro y precio por reparación, más comisión de la óptica colaboradora.',
+    m:'cuota', cli:'residencias, centros de día y ópticas que quieren llegar a ellos', pb:'que las personas mayores lleven las gafas bien ajustadas sin salir del centro',
+    val:'Las gafas de los residentes siempre ajustadas y reparadas, sin desplazamientos para las familias.',
+    inv:[1500,5000], ar:'2 meses', r:1, e:['domicilio','local'], h:2, am:2, tg:['social'], k:['atencion_cliente'], s:['personas','tecnica','organizacion'],
+    why:'Montajes y reparaciones ópticas y Atención al cliente en establecimientos de productos ópticos: tu ciclo te prepara para el ajuste y la reparación con trato cercano.',
+    reto:'La graduación de la vista corresponde al óptico-optometrista: tú haces la parte técnica y colaboras con una óptica para lo sanitario.',
+    paso:'Pregunta a 2 residencias de tu zona cómo gestionan las gafas rotas o mal ajustadas de los residentes, y a 2 ópticas si les interesaría colaborar.',
+    vr:'Ofrece el mismo servicio en colegios para los niños con gafas, junto con una óptica colaboradora.' });
+  // ---------- MONTAJE AERONÁUTICO ----------
+  A({ id:'fm14', cics:['aer','mec','sol'], t:'Subcontrata de montaje y acabados para la industria aeronáutica', n:'Proveedor aeronáutico',
+    d:'La industria aeronáutica y sus proveedores subcontratan trabajos de montaje estructural, sellado, cableado y tratamientos superficiales. Formas un pequeño equipo especializado que trabaja en las plantas de los clientes. Para entrar en la cadena de suministro se exige la norma de calidad EN 9100. Modelo: precio por hora o por paquete de trabajo.',
+    m:'proyecto', cli:'fabricantes aeronáuticos y sus proveedores de primer nivel', pb:'contar con técnicos cualificados para picos de producción',
+    val:'Técnicos aeronáuticos cualificados cuando los necesitas, que cumplen los requisitos de calidad del sector.',
+    inv:[3000,10000], ar:'4-6 meses', r:3, e:['local'], h:4, am:4, tg:['tecnologia','viajes'], k:['idiomas','gestion_personas'], s:['tecnica','organizacion','liderazgo'],
+    why:'Montaje estructural aeronáutico, Preparación y sellado de superficies y Sistemas de distribución de corriente, telecomunicaciones y aviónica: es la base que pide el sector.',
+    reto:'Requisitos de calidad muy exigentes y clientes grandes. Gana experiencia en una empresa del sector antes de montar la tuya.',
+    paso:'Busca el clúster aeronáutico de tu comunidad (o de la más cercana) y la lista de sus empresas. Mira qué perfiles piden en sus ofertas.',
+    vr:'Especialízate en cableado aeronáutico, uno de los trabajos más demandados en planta.' });
+
+  // ---------- HÍBRIDAS ----------
+  H({ id:'fm_h1', pref:['mec','sol'], t:'Piezas y restauración para motos y coches clásicos', n:'Taller de clásicos',
+    d:'Fabricas piezas descatalogadas, reparas chasis y depósitos, haces escapes y soportes a medida para motos y coches clásicos, custom y de competición. Modelo: precio por pieza o proyecto y venta online de piezas fabricadas en serie corta.',
+    m:'producto', cli:'propietarios de clásicos, restauradores y motoclubes', pb:'conseguir piezas que ya no se fabrican',
+    val:'La pieza que ya no existe, fabricada a medida para que tu clásico vuelva a rodar.',
+    inv:[5000,15000], ar:'2-3 meses', r:2, e:['local','online'], h:3, am:4, tg:['motor'], k:['diseno','rrss'], s:['tecnica','creatividad'],
+    why:'Te apasiona el motor y conoces la comunidad; tu ciclo pone el mecanizado, la soldadura y la metrología.',
+    reto:'Piezas que afectan a la seguridad (frenos, dirección) exigen mucha responsabilidad. Empieza por piezas estéticas y estructurales no críticas.',
+    paso:'Pregunta en 2 motoclubes o foros de clásicos qué piezas son imposibles de encontrar. Fabrica una y véndela.',
+    vr:'Digitaliza las piezas que fabriques y crea un catálogo online de repuestos bajo pedido.' });
+
+  H({ id:'fm_h2', pref:['sol','cm'], t:'Equipamiento metálico para gimnasios y boxes', n:'Fabricación para el deporte',
+    d:'Fabricas racks, jaulas, barras de dominadas, soportes de pesas, estructuras de calistenia y mobiliario metálico para gimnasios, boxes de crossfit, clubes y casas. Modelo: precio por pieza o equipamiento completo, con venta directa y online.',
+    m:'producto', cli:'gimnasios, boxes de crossfit, ayuntamientos (parques de calistenia) y particulares', pb:'equiparse con material resistente y a medida sin pagar marcas caras',
+    val:'Equipamiento robusto, hecho a medida de tu espacio y más barato que el de las grandes marcas.',
+    inv:[5000,12000], ar:'2-3 meses', r:2, e:['local','online'], h:3, am:4, tg:['deporte'], k:['diseno','rrss'], s:['tecnica','creatividad','ventas'],
+    why:'Conoces el entrenamiento y lo que pide un gimnasio; tu ciclo te da el diseño y la fabricación de estructuras soldadas seguras.',
+    reto:'El material deportivo debe ser seguro: calcula bien las cargas, prueba cada modelo y contrata un seguro de responsabilidad por producto.',
+    paso:'Pregunta a 3 boxes o gimnasios de tu zona qué material les falta o se les rompe. Fabrica un prototipo y pídeles que lo prueben.',
+    vr:'Diseña equipamiento plegable para gimnasios en casa, que se vende bien online.' });
+
+  H({ id:'fm_h3', pref:['sol','bas'], t:'Forja artística y mobiliario metálico de autor', n:'Metal y diseño',
+    d:'Creas piezas metálicas con valor artístico: mobiliario, lámparas, esculturas, rejas decorativas, letras y señalética para comercios. Vendes a particulares, interioristas, restaurantes y tiendas. Modelo: precio por pieza (100-5.000 €).',
+    m:'producto', cli:'interioristas, restaurantes y tiendas con diseño cuidado y particulares', pb:'tener piezas metálicas únicas para su espacio',
+    val:'Piezas únicas de metal para tu espacio, diseñadas y forjadas a mano.',
+    inv:[3000,8000], ar:'2-3 meses', r:2, e:['local','online'], h:3, am:3, tg:['arte','diy'], k:['diseno','rrss'], s:['creatividad','tecnica'],
+    why:'Tu sensibilidad artística marca la diferencia; tu ciclo te da el corte, la soldadura y el acabado del metal.',
+    reto:'El arte se vende despacio. Combina piezas de autor con encargos comerciales (letras, señalética) que dan ingresos estables.',
+    paso:'Haz una lámpara o una mesa de metal con un diseño propio, fotografíala bien y enséñasela a 3 interioristas.',
+    vr:'Ofrece señalética y letras corpóreas para comercios y restaurantes: diseño con demanda constante.' });
+
+  H({ id:'fm_h4', pref:['sol','bas'], t:'Estructuras y equipos para granjas y explotaciones agrarias', n:'Metal para el campo',
+    d:'Fabricas y reparas cercados, mangas de manejo de ganado, comederos, bebederos, remolques pequeños, aperos y estructuras de invernadero para ganaderos y agricultores. Modelo: precio por trabajo y reparaciones con salida.',
+    m:'proyecto', cli:'ganaderos, agricultores y cooperativas de tu comarca', pb:'tener equipos e instalaciones resistentes y a medida de su explotación',
+    val:'Equipos hechos a la medida de tu explotación, resistentes y reparados por alguien de la zona.',
+    inv:[5000,12000], ar:'2 meses', r:1, e:['local','domicilio'], h:3, am:2, tg:['animales','naturaleza'], k:['otro_oficio'], s:['tecnica','resolucion'],
+    why:'Conoces el campo y los animales; tu ciclo pone el trazado, la soldadura y el montaje.',
+    reto:'Clientes dispersos y pago al final de la campaña. Agrupa trabajos por zonas y pide anticipo para el material.',
+    paso:'Visita 3 explotaciones y pregunta qué equipo se les rompe o les gustaría tener. Fabrica uno y ofrécelo a precio de prueba.',
+    vr:'Diseña un modelo estándar (por ejemplo, un comedero o una manga) y véndelo en cooperativas y ferias ganaderas.' });
+
+  H({ id:'fm_h5', pref:['dis','mec'], t:'Impresión 3D y prototipado para emprendedores y makers', n:'Prototipado rápido',
+    d:'Diseñas e imprimes en 3D prototipos, piezas funcionales, repuestos y pequeñas series para emprendedores, estudiantes, arquitectos y aficionados. Modelo: precio por pieza o por hora de diseño más material.',
+    m:'proyecto', cli:'emprendedores, estudiantes, arquitectos, aficionados al modelismo y pequeñas empresas', pb:'convertir una idea en una pieza física rápido y barato',
+    val:'Tu pieza o prototipo en tus manos en días, sin pedir mínimos ni pagar un molde.',
+    inv:[1500,5000], ar:'1-2 meses', r:1, e:['online','local'], h:2, am:4, tg:['tecnologia','diy'], k:['diseno'], s:['creatividad','tecnica','digital'],
+    why:'Te gusta la tecnología y crear; tu ciclo te da el diseño de productos y el conocimiento de materiales y procesos de fabricación.',
+    reto:'Muchas impresoras domésticas compiten en precio. Diferénciate por el diseño y por piezas funcionales que de verdad aguantan.',
+    paso:'Diseña e imprime un repuesto que no se encuentra (un clip, un soporte, una pieza de electrodoméstico) y publica el caso.',
+    vr:'Especialízate en maquetas para arquitectos o en piezas para modelismo, con clientes que repiten.' });
+
+  H({ id:'fm_h6', pref:['sol','dis'], t:'Accesorios metálicos para furgonetas camper y viajes', n:'Metal para viajeros',
+    d:'Fabricas bacas, portabicis, escalerillas, protecciones, cajones y soportes para furgonetas camper, 4x4 y autocaravanas. Modelo: precio por pieza o kit, venta online y montaje en taller.',
+    m:'producto', cli:'propietarios de furgonetas camper, 4x4 y autocaravanas, y talleres de camperización', pb:'equipar su vehículo para viajar con piezas resistentes y a medida',
+    val:'Accesorios hechos a medida de tu furgoneta, resistentes y pensados por alguien que también viaja.',
+    inv:[4000,10000], ar:'2-3 meses', r:2, e:['local','online'], h:3, am:4, tg:['viajes','motor','naturaleza'], k:['diseno','rrss'], s:['tecnica','creatividad'],
+    why:'Te gusta viajar; tu ciclo te da el diseño y la fabricación de piezas soldadas que soportan cargas y vibraciones.',
+    reto:'Algunas piezas modifican el vehículo y pueden exigir pasar la ITV como reforma. Infórmate antes de vender cada tipo de pieza.',
+    paso:'Pregunta en 2 grupos de camperización qué accesorio les gustaría y no encuentran. Diseña uno y calcula su coste.',
+    vr:'Alíate con talleres de camperización como su proveedor de piezas metálicas.' });
+
+  H({ id:'fm_h7', pref:['joy'], t:'Joyería con materiales reciclados y metales recuperados', n:'Joyería sostenible',
+    d:'Creas joyas con plata y oro reciclados, joyas antiguas transformadas y materiales recuperados, con una historia de sostenibilidad clara. Modelo: piezas de 40-500 € y transformaciones de joyas familiares.',
+    m:'producto', cli:'personas que valoran la sostenibilidad y familias con joyas heredadas', pb:'llevar joyas bonitas con origen responsable',
+    val:'Joyas con origen responsable y una historia que contar, hechas a mano.',
+    inv:[2000,6000], ar:'2-3 meses', r:2, e:['online','local'], h:2, am:4, tg:['sostenibilidad','moda'], k:['rrss','fotovideo'], s:['creatividad','digital'],
+    why:'Tu compromiso con la sostenibilidad da sentido a la marca; tu ciclo te da la fabricación, la microfusión y el engastado.',
+    reto:'Hay que demostrar el origen del metal. Trabaja con proveedores que lo certifiquen y cuéntalo con transparencia.',
+    paso:'Transforma una joya antigua de tu familia en una pieza nueva, documenta el proceso y publícalo.',
+    vr:'Ofrece «talleres de transformación» donde el cliente participa en rehacer su joya.' });
+
+  H({ id:'fm_h8', pref:['sol','cm'], t:'Equipamiento de acero inoxidable para cocinas y bares', n:'Inoxidable a medida',
+    d:'Fabricas y montas a medida mesas de trabajo, campanas, barras, estanterías, fregaderos y protecciones de acero inoxidable para restaurantes, obradores y bares. Modelo: precio por pieza o proyecto completo.',
+    m:'proyecto', cli:'restaurantes, obradores, carnicerías, bares y empresas de equipamiento hostelero', pb:'tener mobiliario de cocina higiénico y a la medida exacta del local',
+    val:'Tu cocina equipada al milímetro con acero inoxidable fácil de limpiar y que dura décadas.',
+    inv:[5000,12000], ar:'2-3 meses', r:2, e:['local'], h:3, am:2, tg:['gastronomia'], k:['diseno'], s:['tecnica','organizacion'],
+    why:'Te gusta la gastronomía y sabes cómo trabaja una cocina; tu ciclo te da el corte, el plegado y la soldadura del inoxidable.',
+    reto:'Soldar inoxidable bien exige técnica y acabado cuidadoso. Practica hasta conseguir soldaduras limpias y sanitarias.',
+    paso:'Pregunta a 3 empresas de equipamiento hostelero de tu zona si subcontratan piezas a medida.',
+    vr:'Trabaja para empresas de reformas de hostelería como proveedor fijo de inoxidable.' });
+
+  H({ id:'fm_h9', pref:['opt'], t:'Gafas deportivas y protección ocular a medida', n:'Óptica para el deporte',
+    d:'Montas y adaptas gafas deportivas, máscaras de esquí y de buceo, gafas de natación y protecciones oculares para deportistas que necesitan graduación o un ajuste especial, en colaboración con ópticas y clubes. Modelo: montaje y adaptación por pieza (30-120 €) y acuerdos con clubes y tiendas de deporte.',
+    m:'proyecto', cli:'deportistas con graduación, clubes, tiendas de deporte y ópticas sin taller especializado', pb:'ver bien haciendo deporte con unas gafas cómodas y seguras',
+    val:'Ves bien mientras entrenas o compites, con unas gafas ajustadas a tu cara y a tu deporte.',
+    inv:[2000,6000], ar:'2 meses', r:2, e:['local','online'], h:2, am:3, tg:['deporte','naturaleza'], k:['atencion_cliente','rrss'], s:['tecnica','personas'],
+    why:'Conoces el deporte y lo que pide cada disciplina; tu ciclo te da los montajes y reparaciones ópticas y la fabricación de lentes.',
+    reto:'La graduación la da un óptico-optometrista: trabaja siempre con una óptica colaboradora para la parte sanitaria y céntrate en el montaje y el ajuste.',
+    paso:'Pregunta en 2 clubes (ciclismo, esquí, natación) cuántos deportistas usan graduación y cómo lo resuelven. Habla con una óptica para colaborar.',
+    vr:'Especialízate en un deporte (esquí o ciclismo) y monta un punto de servicio en temporada.' });
+
+  // ---------- EMERGENTES ----------
+  N({ id:'fm_n1', t:'Servicio de fabricación aditiva de piezas metálicas y técnicas', n:'Fabricación aditiva',
+    d:'Ofreces piezas fabricadas por impresión 3D en materiales técnicos (plásticos de alta resistencia y, con socios, metal) para empresas que necesitan geometrías complejas, piezas ligeras o repuestos rápidos. Modelo: precio por pieza y servicio de rediseño para fabricación aditiva.',
+    m:'proyecto', cli:'empresas de maquinaria, automoción, medicina y talleres que necesitan piezas complejas', pb:'fabricar piezas complejas o urgentes que no se pueden mecanizar',
+    val:'Piezas que antes eran imposibles o tardaban meses, fabricadas en días.',
+    inv:[6000,20000], ar:'4-6 meses', r:3, e:['local','online'], h:3, am:4, tg:['tecnologia'], k:['diseno','programacion'], s:['tecnica','creatividad','resolucion'],
+    why:'Diseño de productos, Técnicas de fabricación mecánica y Metrología: sabes cuándo conviene imprimir una pieza y cómo comprobar que cumple.',
+    reto:'Las máquinas de metal son muy caras. Empieza con plásticos técnicos y subcontrata el metal a centros tecnológicos mientras creces.',
+    paso:'Infórmate en el curso de especialización en fabricación aditiva y busca centros tecnológicos de tu comunidad que impriman en metal. Pregunta sus precios.',
+    vr:'Especialízate en utillajes y plantillas para líneas de producción: piezas sencillas de imprimir que ahorran mucho dinero.' });
+
+  N({ id:'fm_n2', t:'Repuestos bajo demanda para máquinas descatalogadas', n:'Almacén digital de repuestos',
+    d:'Escaneas y digitalizas piezas de máquinas antiguas (industriales, agrícolas, electrodomésticos profesionales) y fabricas el repuesto cuando alguien lo necesita, por mecanizado o impresión 3D. Modelo: precio por pieza y catálogo online.',
+    m:'producto', cli:'empresas con máquinas antiguas, talleres de reparación y fabricantes que ya no tienen stock', pb:'conseguir un repuesto que ya no se fabrica',
+    val:'El repuesto de tu máquina antigua, fabricado cuando lo necesitas, para no tener que cambiar la máquina entera.',
+    inv:[3000,10000], ar:'3-4 meses', r:3, e:['online','local'], h:3, am:5, tg:['tecnologia','sostenibilidad'], k:['diseno','marketing'], s:['tecnica','resolucion','digital'],
+    why:'Representación gráfica, Metrología y ensayos y Mecanizado te permiten copiar una pieza con precisión y fabricarla.',
+    reto:'Cuidado con copiar piezas protegidas por patentes o diseños registrados. Céntrate en máquinas antiguas y pide al cliente que confirme que la pieza es para su uso.',
+    paso:'Pregunta a 3 talleres de reparación qué repuestos les cuesta más conseguir y digitaliza uno.',
+    vr:'Firma acuerdos con fabricantes que han dejado de dar repuestos para ser su proveedor oficial de piezas antiguas.' });
+
+  N({ id:'fm_n3', t:'Robots colaborativos de soldadura para talleres pequeños', n:'Robotización en pymes',
+    d:'Los talleres no encuentran soldadores. Implantas robots colaborativos de soldadura sencillos de programar, enseñas a usarlos y das soporte. Modelo: proyecto de implantación más cuota de soporte, o alquiler del equipo por meses.',
+    m:'proyecto', cli:'talleres de calderería y estructuras que no encuentran soldadores', pb:'producir más soldaduras repetitivas sin encontrar personal',
+    val:'Las soldaduras repetitivas las hace un robot que tu propio personal aprende a programar en días.',
+    inv:[5000,15000], ar:'4-6 meses', r:3, e:['local'], h:3, am:3, tg:['tecnologia'], k:['programacion'], s:['tecnica','resolucion','personas'],
+    why:'Sabes soldar y conoces los procesos, así que puedes configurar el robot para que suelde bien, que es lo que la mayoría de vendedores de robots no sabe.',
+    reto:'Inversión alta para el taller. Ofrece alquiler o pruebas de un mes y empieza con piezas de serie fáciles.',
+    paso:'Busca 2 distribuidores de robots colaborativos de soldadura en España y pregunta si buscan integradores locales.',
+    vr:'Ofrece «soldadura robotizada como servicio»: tú pones el robot en tu taller y fabricas las series de otros talleres.' });
+  } // fin de Fabricación Mecánica
+
+  // ===================== MADERA, MUEBLE Y CORCHO =====================
+  // «Carpintería y Mueble» existe en Grado Básico y Medio con el mismo nombre: comparten clave.
+  FAM.madera = {
+    ciclos: {
+      'Carpintería y Mueble': 'cym',
+      'Instalación y Amueblamiento': 'ia',
+      'Procesado y Transformación de la Madera': 'ptm',
+      'Diseño y Amueblamiento': 'da'
+    },
+    labels: { cym: 'Carpintería y Mueble', ia: 'Instalación y Amueblamiento', ptm: 'Procesado y Transformación de la Madera', da: 'Diseño y Amueblamiento' },
+    defecto: { basico: 'cym', medio: 'cym', superior: 'da' },
+    afin: { cym: ['ia'], ia: ['cym'], da: ['cym'] },
+    fuentes: {
+      da: 'la Asociación de Diseñadores de tu comunidad, ferias como Hábitat Valencia o Interihotel, AIDIMME (instituto tecnológico del mueble y la madera) y las carpinterías de tu zona',
+      ptm: 'la Confederación Española de Empresarios de la Madera (CONFEMADERA), AIDIMME, las asociaciones forestales de tu comunidad y el Observatorio de las Ocupaciones del SEPE',
+      _: 'la Confederación Española de Empresarios de la Madera (CONFEMADERA), AIDIMME, la asociación de carpinteros o ebanistas de tu provincia y el Observatorio de las Ocupaciones del SEPE'
+    }
+  };
+  { const { A, H, N } = banco('madera');
+
+  // ---------- CARPINTERÍA Y MUEBLE (Grado Básico y Medio) ----------
+  A({ id:'md1', cics:['cym','ia','da'], t:'Carpintería a medida: armarios, vestidores y estanterías', n:'Mobiliario a medida',
+    d:'Diseñas con el cliente, fabricas y montas armarios empotrados, vestidores, estanterías, muebles de baño y soluciones para huecos difíciles. Es de lo que más se pide en reformas y cuesta encontrar carpintero con plazo. Modelo: proyecto de 800-6.000 €, con anticipo del 40 %.',
+    m:'proyecto', cli:'propietarios que reforman, empresas de reformas e interioristas', pb:'aprovechar el espacio con muebles hechos a la medida exacta',
+    val:'Muebles hechos al milímetro para tu casa, que aprovechan cada hueco y se montan en un día.',
+    inv:[3000,12000], ar:'2-3 meses', r:2, e:['domicilio','local'], h:4, am:2, tg:['diy','arte'], k:['diseno'], s:['tecnica','creatividad','organizacion'],
+    why:'Mecanizado de madera y derivados, Montaje de carpintería y mueble y Acabados en carpintería y mueble: fabricas y montas el mueble completo.',
+    reto:'Hace falta taller y maquinaria. Empieza alquilando horas en un taller compartido o encargando el corte de tablero a un proveedor y haciendo tú el montaje.',
+    paso:'Pide a 3 empresas de reformas de tu zona cuánto tarda su carpintero en dar fecha. Haz un mueble a medida para un conocido y fotografíalo.',
+    vr:'Trabaja con tablero cortado a medida por un proveedor con CNC: sin maquinaria grande y con acabados profesionales.' });
+
+  A({ id:'md2', cics:['cym'], t:'Restauración y retapizado de muebles', n:'Restauración de mobiliario',
+    d:'Restauras muebles antiguos o heredados: reparación de estructura, decapado, barnizado, lacado y tapizado de sillas y sofás. Para particulares, tiendas de segunda mano, anticuarios y hoteles con encanto. Modelo: presupuesto por pieza (60-800 €) y venta de muebles restaurados.',
+    m:'producto', cli:'particulares con muebles heredados, tiendas vintage, anticuarios y hoteles con encanto', pb:'recuperar un mueble con valor en lugar de tirarlo',
+    val:'Tu mueble de siempre recuperado, sólido y bonito, con el valor que tiene una pieza bien hecha.',
+    inv:[1000,4000], ar:'1-2 meses', r:1, e:['local','online'], h:2, am:2, tg:['arte','sostenibilidad','diy'], k:['rrss','fotovideo'], s:['tecnica','creatividad'],
+    why:'Acabados básicos de la madera, Tapizado de muebles y Operaciones básicas de mecanizado: restaurar y tapizar es parte de tu ciclo.',
+    reto:'Las restauraciones llevan muchas horas. Cobra por pieza con presupuesto cerrado y compra muebles para restaurar y vender, no solo encargos.',
+    paso:'Compra un mueble viejo barato, restáuralo y véndelo online. Calcula horas, material y margen.',
+    vr:'Ofrece «tu mueble con otra vida»: transformaciones con diseño actual, que se venden muy bien en redes.' });
+
+  A({ id:'md3', cics:['cym','da'], t:'Muebles de madera maciza con marca propia', n:'Marca de mobiliario',
+    d:'Diseñas una línea corta de muebles de madera maciza (mesas, bancos, mesillas, estanterías) con una estética reconocible y la vendes online, en mercados de diseño y en tiendas de decoración. Modelo: precio de 150-1.500 € por pieza, fabricación bajo pedido.',
+    m:'producto', cli:'personas que buscan muebles duraderos y con diseño, y tiendas de decoración', pb:'encontrar muebles de madera de verdad, bonitos y que duren',
+    val:'Muebles de madera maciza, hechos en España y pensados para durar toda la vida.',
+    inv:[3000,10000], ar:'2-3 meses', r:2, e:['online','local'], h:3, am:4, tg:['arte','sostenibilidad'], k:['diseno','rrss','fotovideo'], s:['creatividad','tecnica','ventas'],
+    why:'Mecanizado, Acabados y Soluciones constructivas: sabes fabricar piezas sólidas y bien acabadas; la marca es la parte que añades.',
+    reto:'Los envíos de muebles son caros y frágiles. Diseña piezas desmontables o en paquete plano y calcula el envío antes de fijar precio.',
+    paso:'Diseña 3 piezas sencillas, fabrica una, hazle buenas fotos y publícala. Mide cuántos piden precio en un mes.',
+    vr:'Haz colecciones para hoteles y restaurantes con encanto: pedidos grandes de una misma pieza.' });
+
+  // ---------- INSTALACIÓN Y AMUEBLAMIENTO (Grado Medio) ----------
+  A({ id:'md4', cics:['ia','cym'], t:'Montaje de cocinas y mobiliario para tiendas y fabricantes', n:'Montador de mobiliario',
+    d:'Tiendas de cocinas, de muebles y fabricantes necesitan montadores de confianza. Montas cocinas completas, armarios, mobiliario de oficina y de tiendas, como autónomo para varias empresas. Modelo: precio por montaje (cocina de 400-1.200 €) o por día.',
+    m:'proyecto', cli:'tiendas de cocinas, tiendas de muebles, fabricantes y cadenas de mobiliario', pb:'montar bien y a tiempo lo que venden, sin quejas del cliente',
+    val:'Montajes limpios y a tiempo que hacen quedar bien a tu tienda ante el cliente.',
+    inv:[2000,6000], ar:'1 mes', r:1, e:['domicilio','local'], h:3, am:2, tg:[], k:['atencion_cliente'], s:['tecnica','organizacion','personas'],
+    why:'Instalación de mobiliario, Planificación de la instalación y Operaciones básicas de mobiliario: montar bien una cocina es tu ciclo.',
+    reto:'Depender de pocas tiendas que fijan el precio. Trabaja para 3-4 y ofrece también montajes directos a particulares.',
+    paso:'Visita 5 tiendas de cocinas y muebles de tu zona y pregunta si tienen montadores fijos y si están saturados.',
+    vr:'Especialízate en cocinas de gama alta o en montaje de mobiliario comercial, mejor pagados.' });
+
+  A({ id:'md5', cics:['ia','cym'], t:'Tarimas, puertas y carpintería interior para reformas', n:'Carpintería de obra',
+    d:'Instalas suelos de madera y laminados, puertas, frentes de armario, rodapiés y escaleras de madera en reformas y obra nueva, para particulares y empresas de reformas. Modelo: precio por metro o por unidad, y obras completas.',
+    m:'proyecto', cli:'empresas de reformas, constructoras y particulares', pb:'tener suelos y puertas de madera bien instalados y sin retrasos',
+    val:'Suelos y puertas instalados con precisión, sin holguras ni retrasos que paren el resto de la obra.',
+    inv:[1500,5000], ar:'1-2 meses', r:1, e:['domicilio'], h:3, am:2, tg:[], k:['otro_oficio'], s:['tecnica','organizacion'],
+    why:'Instalación de carpintería, Soluciones constructivas y Materiales en carpintería y mueble son módulos de tu ciclo.',
+    reto:'Como subcontrata, cobras tarde. Combina obras de empresas con clientes particulares y pide anticipo del material.',
+    paso:'Llama a 5 empresas de reformas y pregunta quién les instala suelos y puertas y con cuánta antelación hay que pedirlo.',
+    vr:'Especialízate en restaurar suelos de madera antiguos (acuchillado y barnizado): trabajo bien pagado y con poca competencia.' });
+
+  A({ id:'md6', cics:['ia','ptm'], t:'Pérgolas, porches, casetas y estructuras de madera', n:'Estructuras de exterior',
+    d:'Diseñas y montas estructuras de madera para exterior: pérgolas, porches, cobertizos, casetas de jardín, tarimas de terraza y estudios de jardín. Modelo: proyecto de 1.500-25.000 € y mantenimiento anual (lasures, revisión).',
+    m:'proyecto', cli:'propietarios de viviendas con jardín, casas rurales, restaurantes con terraza y campings', pb:'ganar espacio exterior con una estructura bonita y duradera',
+    val:'Tu terraza o jardín con una estructura de madera hecha a medida, bien tratada y que dura años.',
+    inv:[3000,10000], ar:'2-3 meses', r:2, e:['domicilio','local'], h:3, am:2, tg:['naturaleza','diy'], k:['diseno'], s:['tecnica','creatividad','organizacion'],
+    why:'Instalación de estructuras de madera, Planificación de la instalación y Tratamientos de la madera: sabes elegir la madera, tratarla y montarla para que aguante a la intemperie.',
+    reto:'Algunas estructuras necesitan permiso municipal y cálculo. Infórmate en tu ayuntamiento y, en las grandes, colabora con un técnico que firme.',
+    paso:'Mira en tu zona 10 viviendas o terrazas con pérgolas en mal estado y pregunta a 2 almacenes de madera a quién recomiendan para montarlas.',
+    vr:'Ofrece «estudios de jardín» prefabricados en kit, para teletrabajar o como taller.' });
+
+  // ---------- PROCESADO Y TRANSFORMACIÓN DE LA MADERA (Grado Medio) ----------
+  A({ id:'md7', cics:['ptm'], t:'Aserrado y secado de madera local para carpinteros y particulares', n:'Madera de proximidad',
+    d:'Con un aserradero móvil o un pequeño taller aserras troncos de fincas, podas y árboles caídos, los secas y vendes tablones y vigas de madera local a carpinteros, ebanistas y particulares. Modelo: precio por metro cúbico aserrado o venta de tablón seco.',
+    m:'producto', cli:'carpinteros, ebanistas, propietarios de fincas y aficionados a la madera', pb:'conseguir madera local de calidad o aprovechar sus árboles',
+    val:'Madera de tu zona, con origen conocido y bien secada, o tus propios árboles convertidos en tablones.',
+    inv:[8000,25000], ar:'3-4 meses', r:3, e:['local','domicilio'], h:3, am:2, tg:['naturaleza','sostenibilidad'], k:['otro_oficio'], s:['tecnica','organizacion'],
+    why:'Aserrado y despiece de la madera, Tratamientos de la madera y Recepción y almacén en industrias de la madera: es tu ciclo aplicado a pequeña escala.',
+    reto:'El secado bien hecho tarda meses y ocupa espacio. Empieza aserrando por encargo (sin stock) y monta el secadero cuando tengas clientes.',
+    paso:'Pregunta a 5 carpinteros de tu zona si comprarían madera local y qué especies, y a 2 propietarios de fincas qué hacen con los árboles que cortan.',
+    vr:'Especialízate en tableros de una sola pieza («slabs») para mesas: se venden muy bien a ebanistas y particulares.' });
+
+  A({ id:'md8', cics:['ptm','cym'], t:'Tratamiento y mantenimiento de madera exterior', n:'Protección de la madera',
+    d:'Tratas y mantienes la madera expuesta a la intemperie y a los insectos: tarimas de terraza, pérgolas, fachadas de madera, vigas con carcoma o termitas, casetas y mobiliario de jardín. Modelo: precio por metro o por trabajo y contratos de mantenimiento anual.',
+    m:'cuota', cli:'propietarios de casas con madera exterior, comunidades, hoteles, campings y ayuntamientos', pb:'que la madera exterior no se pudra ni se la coman los insectos',
+    val:'Tu madera protegida, como nueva cada año y sin sustos de carcoma ni termitas.',
+    inv:[2000,6000], ar:'1-2 meses', r:1, e:['domicilio','local'], h:2, am:2, tg:['naturaleza'], k:['atencion_cliente'], s:['tecnica','organizacion'],
+    why:'Tratamientos de la madera y Acabados de tableros: conoces los productos y procesos para protegerla de verdad.',
+    reto:'Algunos tratamientos contra termitas usan biocidas que exigen formación y registro como servicio biocida. Infórmate en tu consejería de sanidad.',
+    paso:'Haz fotos de 10 tarimas o pérgolas deterioradas de tu zona y ofrece a 2 propietarios un presupuesto de mantenimiento.',
+    vr:'Firma contratos anuales con hoteles, campings y restaurantes con terrazas de madera.' });
+
+  // ---------- DISEÑO Y AMUEBLAMIENTO (Grado Superior) ----------
+  A({ id:'md9', cics:['da'], t:'Diseño y fabricación de mobiliario para hostelería y comercio', n:'Mobiliario contract',
+    d:'Diseñas y produces (con talleres colaboradores) el mobiliario de bares, restaurantes, tiendas y hoteles: barras, expositores, bancos corridos, mostradores. Te encargas de planos, prototipo, producción e instalación. Modelo: proyecto de 3.000-60.000 €.',
+    m:'proyecto', cli:'restaurantes, tiendas, hoteles, franquicias e interioristas', pb:'tener un mobiliario con personalidad, resistente al uso intensivo y a tiempo para la apertura',
+    val:'El mobiliario de tu local diseñado para tu marca y para el uso diario, entregado a tiempo para abrir.',
+    inv:[2000,8000], ar:'2-4 meses', r:2, e:['local'], h:3, am:3, tg:['gastronomia','arte'], k:['diseno','gestion_personas'], s:['creatividad','organizacion','tecnica'],
+    why:'Diseño de carpintería y mobiliario, Desarrollo de producto, Prototipos e Instalaciones de carpintería y mobiliario: coordinas todo, del boceto a la instalación.',
+    reto:'Plazos muy cortos antes de cada apertura. Trabaja con talleres de confianza y cierra el diseño antes de empezar a fabricar.',
+    paso:'Diseña la barra y los asientos de un bar ficticio con planos y presupuesto. Enséñalo a 3 interioristas de tu zona.',
+    vr:'Especialízate en franquicias: el mismo diseño se repite en cada apertura.' });
+
+  A({ id:'md10', cics:['da','cym'], t:'Oficina técnica para carpinterías: planos, despieces y programas CNC', n:'Diseño técnico de mobiliario',
+    d:'Muchas carpinterías pierden horas dibujando y despiezando. Haces el diseño, los renders para el cliente, los planos de taller, el despiece optimizado y los programas para la máquina CNC. Modelo: precio por proyecto o cuota mensual por carpintería.',
+    m:'cuota', cli:'carpinterías y ebanisterías pequeñas con o sin máquina CNC', pb:'diseñar, presupuestar y preparar la fabricación sin perder horas de taller',
+    val:'Tus presupuestos con render en un día y los despieces listos para cortar, sin errores ni desperdicio.',
+    inv:[1000,4000], ar:'1-2 meses', r:1, e:['online'], h:2, am:3, tg:['tecnologia'], k:['diseno','programacion'], s:['tecnica','organizacion','digital'],
+    why:'Representación en carpintería y mobiliario, Automatización en carpintería y mueble y Gestión de la producción: es la parte de oficina técnica de tu ciclo.',
+    reto:'Cada carpintería usa un programa distinto. Aprende los dos más usados en tu zona y ofrece un primer proyecto a prueba.',
+    paso:'Pregunta a 5 carpinterías de tu zona quién les hace los renders y despieces y cuánto tiempo les quita. Prepara un ejemplo completo de un armario.',
+    vr:'Ofrece configuradores sencillos para que la carpintería dé presupuestos al cliente desde la web.' });
+
+  // ---------- HÍBRIDAS ----------
+  H({ id:'md_h1', pref:['cym','ia'], t:'Mobiliario para furgonetas camper y autocaravanas', n:'Camperización',
+    d:'Diseñas y fabricas el mueble interior de furgonetas camper: cama, cocina, armarios, aprovechando cada centímetro con tablero ligero y anclajes seguros. Modelo: mueble completo de 2.500-9.000 € y kits por modelo de furgoneta.',
+    m:'producto', cli:'personas que camperizan su furgoneta y talleres de camperización', pb:'tener un interior cómodo, ligero y bien hecho en su furgoneta',
+    val:'Un interior a medida de tu furgoneta, ligero, resistente y pensado por alguien que viaja.',
+    inv:[3000,10000], ar:'2-3 meses', r:2, e:['local'], h:3, am:4, tg:['viajes','motor','naturaleza'], k:['diseno','rrss'], s:['creatividad','tecnica'],
+    why:'Te gusta viajar; tu ciclo te da la fabricación y la instalación de mobiliario con precisión y buenos herrajes.',
+    reto:'Algunas reformas de la furgoneta deben pasar la ITV. Infórmate de qué exige la homologación del mueble y los anclajes.',
+    paso:'Diseña el interior de la furgoneta más vendida y publícalo en un grupo de camperizadores pidiendo opiniones y precio.',
+    vr:'Vende kits por modelo de furgoneta para quien quiere montarlo en casa.' });
+
+  H({ id:'md_h2', pref:['cym'], t:'Talleres de carpintería para adultos', n:'Escuela de carpintería',
+    d:'Impartes cursos prácticos de carpintería para adultos: fabricar una tabla de cortar, un taburete, una estantería; uso seguro de herramientas; restauración. En tu taller o en espacios compartidos. Modelo: 40-120 € por taller o 80-150 € al mes en cursos continuos.',
+    m:'formacion', cli:'adultos que buscan un hobby manual, parejas y empresas para actividades de equipo', pb:'aprender a hacer cosas con sus manos en un entorno seguro',
+    val:'Te llevas a casa algo que has hecho tú, y aprendes a usar las herramientas con seguridad.',
+    inv:[2000,6000], ar:'1-2 meses', r:1, e:['local'], h:2, am:2, tg:['diy','arte'], k:['rrss'], s:['personas','creatividad','tecnica'],
+    why:'Te gusta hacer cosas tú mismo; tu ciclo te da el oficio y la seguridad con las máquinas.',
+    reto:'La seguridad con herramientas es lo primero: grupos pequeños, protección y un seguro de responsabilidad civil.',
+    paso:'Diseña un taller de 3 horas para hacer una tabla de cortar y ofrécelo a 6 personas a precio de prueba.',
+    vr:'Ofrece talleres de empresa (team building): se pagan mejor y llenan entre semana.' });
+
+  H({ id:'md_h3', pref:['cym','da'], t:'Muebles y accesorios de diseño para mascotas', n:'Mobiliario para mascotas',
+    d:'Diseñas y fabricas camas, casetas de interior, comederos elevados, rascadores y muebles que integran la casa del gato o el perro con el mobiliario. Venta online y en tiendas de mascotas. Modelo: piezas de 40-400 €.',
+    m:'producto', cli:'dueños de mascotas que cuidan la decoración y tiendas de mascotas', pb:'tener accesorios para su mascota que no afeen la casa',
+    val:'Muebles para tu mascota que quedan bien en tu casa, resistentes y fáciles de limpiar.',
+    inv:[1500,5000], ar:'2 meses', r:2, e:['online'], h:2, am:4, tg:['animales'], k:['diseno','rrss'], s:['creatividad','tecnica','digital'],
+    why:'Te gustan los animales y sabes lo que necesitan; tu ciclo te da la fabricación y los acabados seguros.',
+    reto:'Usa acabados no tóxicos y diseños estables. Empieza con 2-3 productos y fotos muy cuidadas.',
+    paso:'Diseña un comedero elevado o un mueble-caseta, fabrícalo y pregunta en 2 tiendas de mascotas si lo venderían.',
+    vr:'Haz piezas a medida para veterinarias, residencias caninas y peluquerías.' });
+
+  H({ id:'md_h4', pref:['cym','da'], t:'Paneles acústicos y mobiliario para estudios de música', n:'Acústica en madera',
+    d:'Fabricas difusores y paneles acústicos de madera, mesas de estudio, racks y mobiliario para estudios de grabación, salas de ensayo, podcasts y home studios. Modelo: piezas de 60-2.000 € y acondicionamiento de salas.',
+    m:'producto', cli:'músicos, estudios de grabación, salas de ensayo, creadores de pódcast y academias de música', pb:'que su sala suene bien y tenga un mobiliario práctico',
+    val:'Tu estudio suena mejor y queda bonito, con piezas de madera hechas a medida.',
+    inv:[2000,6000], ar:'2 meses', r:2, e:['online','local'], h:2, am:4, tg:['musica'], k:['diseno'], s:['tecnica','creatividad'],
+    why:'Conoces la música y sabes cómo suena una sala; tu ciclo te da el mecanizado preciso y los acabados.',
+    reto:'La acústica tiene su ciencia: aprende lo básico de medición y no prometas resultados sin medir la sala.',
+    paso:'Fabrica un difusor acústico, pruébalo en una sala de ensayo conocida y publica el resultado.',
+    vr:'Vende kits de paneles para montar en casa y ofrece la medición de la sala como servicio.' });
+
+  H({ id:'md_h5', pref:['cym','ptm'], t:'Material de madera para escalada, calistenia y gimnasios', n:'Madera para el deporte',
+    d:'Fabricas tablas multipresa para escalada, presas de madera, paralelas, cajones de salto, espalderas y equipamiento de madera para gimnasios, rocódromos y entrenamiento en casa. Modelo: piezas de 40-600 € con venta online.',
+    m:'producto', cli:'escaladores, rocódromos, gimnasios y personas que entrenan en casa', pb:'tener material de entrenamiento resistente y bien acabado',
+    val:'Material de entrenamiento de madera, resistente y agradable al tacto, hecho por alguien que también entrena.',
+    inv:[1500,5000], ar:'2 meses', r:2, e:['online','local'], h:2, am:4, tg:['deporte'], k:['diseno','rrss'], s:['tecnica','creatividad'],
+    why:'Conoces el deporte y lo que pide un buen material; tu ciclo te da el mecanizado y los acabados.',
+    reto:'El material deportivo debe aguantar cargas: elige bien la madera, prueba cada modelo y contrata un seguro de responsabilidad por producto.',
+    paso:'Fabrica una tabla multipresa o un cajón de salto y pide a 3 escaladores o entrenadores que lo prueben.',
+    vr:'Haz equipamiento a medida para rocódromos y boxes de tu zona.' });
+
+  H({ id:'md_h6', pref:['cym','da'], t:'Muebles con madera recuperada', n:'Mobiliario circular',
+    d:'Recuperas madera de derribos, palés de calidad, barricas, vigas antiguas y muebles desechados para fabricar muebles nuevos con historia. Modelo: venta de piezas (100-1.500 €) y proyectos para restaurantes y tiendas.',
+    m:'producto', cli:'personas que valoran la sostenibilidad, restaurantes y tiendas que quieren un ambiente con carácter', pb:'tener muebles con historia y de bajo impacto',
+    val:'Muebles únicos con madera que ya tenía una vida, bien tratados y hechos para durar.',
+    inv:[1500,5000], ar:'2 meses', r:2, e:['local','online'], h:3, am:3, tg:['sostenibilidad','arte'], k:['rrss','fotovideo'], s:['creatividad','tecnica'],
+    why:'Tu compromiso con la sostenibilidad da sentido a la marca; tu ciclo te da los tratamientos y el mecanizado de maderas viejas.',
+    reto:'La madera recuperada puede tener clavos, tratamientos tóxicos o insectos. Revísala, límpiala y trátala siempre antes de usarla.',
+    paso:'Consigue madera de un derribo o barricas de una bodega, fabrica una pieza y documenta el antes y el después.',
+    vr:'Haz mobiliario para bodegas y restaurantes con sus propias barricas.' });
+
+  H({ id:'md_h7', pref:['cym','da'], t:'Mobiliario infantil Montessori y juguetes de madera', n:'Madera para la infancia',
+    d:'Fabricas mobiliario infantil (torres de aprendizaje, camas suelo, estanterías bajas) y juguetes de madera para familias, escuelas infantiles y ludotecas. Los juguetes deben cumplir la norma de seguridad de juguetes (RD 1205/2011) y llevar el marcado CE. Modelo: piezas de 30-400 € con venta online.',
+    m:'producto', cli:'familias con niños pequeños, escuelas infantiles y ludotecas', pb:'encontrar muebles y juguetes seguros, naturales y que duren',
+    val:'Muebles y juguetes de madera natural, seguros y hechos para pasar de hermano en hermano.',
+    inv:[2000,6000], ar:'3 meses', r:2, e:['online'], h:2, am:4, tg:['social','diy'], k:['diseno','rrss'], s:['creatividad','tecnica'],
+    why:'Te importa la infancia; tu ciclo te da la fabricación precisa y los acabados seguros.',
+    reto:'Los productos para niños tienen exigencias de seguridad estrictas: acabados no tóxicos, piezas pequeñas, estabilidad. Infórmate antes de vender.',
+    paso:'Fabrica una torre de aprendizaje y pide opinión a 5 familias y a una escuela infantil.',
+    vr:'Haz mobiliario a medida para escuelas infantiles y ludotecas.' });
+
+  H({ id:'md_h8', pref:['ia','ptm'], t:'Cabañas, glampings y casas en los árboles', n:'Alojamientos de madera',
+    d:'Construyes cabañas, domos de madera, tiny houses y casas en los árboles para alojamientos de glamping, campings y fincas. Modelo: proyecto por unidad (8.000-40.000 €) y mantenimiento.',
+    m:'proyecto', cli:'campings, alojamientos rurales, fincas y emprendedores de turismo de naturaleza', pb:'crear alojamientos singulares que atraigan viajeros',
+    val:'Alojamientos de madera singulares que llenan las reservas y se integran en el paisaje.',
+    inv:[5000,15000], ar:'4-6 meses', r:3, e:['local'], h:4, am:3, tg:['naturaleza','viajes'], k:['diseno'], s:['tecnica','creatividad','organizacion'],
+    why:'Te gusta la naturaleza y viajar; tu ciclo te da la instalación de estructuras de madera y los tratamientos para exterior.',
+    reto:'Hay permisos urbanísticos y de turismo, y cálculo estructural. Trabaja con un técnico que firme y con el promotor que gestione la licencia.',
+    paso:'Busca 3 glampings de tu comunidad y pregunta quién les construyó las cabañas. Diseña una cabaña pequeña con su presupuesto.',
+    vr:'Diseña un modelo en kit transportable que se monte en pocos días.' });
+
+  // ---------- EMERGENTES ----------
+  N({ id:'md_n1', t:'Construcción industrializada en madera', n:'Vivienda de madera',
+    d:'La construcción con paneles de madera contralaminada y entramado ligero crece porque es rápida y de bajo impacto. Te especializas en fabricar paneles o en montar en obra estas viviendas y ampliaciones para fabricantes y constructoras. Modelo: precio por montaje o por metro cuadrado.',
+    m:'proyecto', cli:'fabricantes de viviendas de madera, constructoras y promotoras', pb:'montar viviendas de madera con rapidez y precisión',
+    val:'Viviendas de madera montadas en semanas, con precisión de fábrica y bajo impacto.',
+    inv:[3000,10000], ar:'4-6 meses', r:3, e:['local','domicilio'], h:4, am:4, tg:['sostenibilidad','tecnologia'], k:['gestion_personas'], s:['tecnica','organizacion','liderazgo'],
+    why:'Instalación de estructuras de madera y Soluciones constructivas: tienes la base para un sector que necesita montadores formados.',
+    reto:'Sector joven y concentrado en pocas empresas. Empieza trabajando para un fabricante y especialízate antes de montar equipo propio.',
+    paso:'Busca 3 empresas de construcción en madera de tu comunidad y pregunta qué perfiles buscan y si subcontratan el montaje.',
+    vr:'Especialízate en ampliaciones de viviendas en madera (una planta más, un anexo), obras más pequeñas y con mucha demanda.' });
+
+  N({ id:'md_n2', t:'Muebles a medida bajo pedido online con fabricación digital', n:'Mueble digital',
+    d:'Una web donde el cliente configura su mueble (medidas, acabados) y recibe el precio al momento; tú lo fabricas con CNC en tu taller o en un taller colaborador y lo envías en paquete plano. Modelo: venta por pieza con margen del 40-55 %.',
+    m:'producto', cli:'personas que necesitan un mueble de una medida concreta y no lo encuentran en tiendas', pb:'conseguir un mueble a medida sin pagar un carpintero tradicional',
+    val:'Tu mueble a medida configurado en la web, con precio al momento y en casa en dos semanas.',
+    inv:[3000,12000], ar:'4-6 meses', r:3, e:['online'], h:3, am:5, tg:['tecnologia','diy'], k:['programacion','marketing','diseno'], s:['digital','tecnica','creatividad'],
+    why:'Mecanizado por control numérico, Automatización y Diseño de mobiliario: sabes convertir unas medidas en un programa de corte sin errores.',
+    reto:'Necesitas que la web calcule bien el precio y que el paquete llegue intacto. Empieza con un solo tipo de mueble (estanterías a medida) y amplía.',
+    paso:'Diseña una estantería paramétrica (cambia de medida y se recalcula sola) y calcula el precio para 3 medidas distintas.',
+    vr:'Vende el configurador a carpinterías de otras ciudades para que fabriquen ellas.' });
+
+  N({ id:'md_n3', t:'Segunda vida del mobiliario de oficinas y hoteles', n:'Mobiliario circular B2B',
+    d:'Empresas y hoteles renuevan mobiliario y lo tiran. Recoges, reparas, retapizas y revendes ese mobiliario a startups, pymes, coworkings y alojamientos, o lo transformas en piezas nuevas. Modelo: margen sobre la reventa y precio por servicio de retirada.',
+    m:'producto', cli:'empresas y hoteles que renuevan mobiliario, startups y coworkings que buscan muebles baratos', pb:'deshacerse del mobiliario viejo de forma responsable o equiparse a buen precio',
+    val:'Mobiliario profesional reparado a la mitad de precio, y menos muebles en el vertedero.',
+    inv:[3000,10000], ar:'3-4 meses', r:3, e:['local','online'], h:3, am:3, tg:['sostenibilidad'], k:['ventas','rrss'], s:['organizacion','tecnica','ventas'],
+    why:'Reparación, acabados y montaje de mobiliario: tu ciclo te permite recuperar muebles que otros dan por perdidos.',
+    reto:'Necesitas almacén y transporte. Empieza con lotes pequeños, vende antes de recoger y coordina la recogida con el comprador.',
+    paso:'Pregunta a 3 empresas u hoteles de tu zona qué hacen con los muebles que retiran y a 3 coworkings si comprarían mobiliario reacondicionado.',
+    vr:'Ofrece «renting» de mobiliario reacondicionado para oficinas y eventos.' });
+  } // fin de Madera, Mueble y Corcho
+
+  // ===================== TRANSPORTE Y MANTENIMIENTO DE VEHÍCULOS =====================
+  FAM.transporte = {
+    ciclos: {
+      'Mantenimiento de Vehículos': 'bas',
+      'Mantenimiento de Embarcaciones Deportivas y de Recreo': 'nav',
+      'Carrocería': 'car',
+      'Conducción de Vehículos de Transporte por Carretera': 'cvt',
+      'Electromecánica de Maquinaria': 'emq',
+      'Electromecánica de Vehículos Automóviles': 'eva',
+      'Mantenimiento de Embarcaciones de Recreo': 'nav',
+      'Mantenimiento de Estructuras de Madera y Mobiliario de Embarcaciones de Recreo': 'nav',
+      'Mantenimiento de Material Rodante Ferroviario': 'fer',
+      'Montaje de Estructuras e Instalación de Sistemas Aeronáuticos': 'aer',
+      'Automoción': 'aut',
+      'Mantenimiento Aeromecánico de Aviones con Motor de Pistón': 'aer',
+      'Mantenimiento Aeromecánico de Aviones con Motor de Turbina': 'aer',
+      'Mantenimiento Aeromecánico de Helicópteros con Motor de Pistón': 'aer',
+      'Mantenimiento Aeromecánico de Helicópteros con Motor de Turbina': 'aer',
+      'Mantenimiento de Sistemas Electrónicos y Aviónicos de Aeronaves': 'aer'
+    },
+    labels: { bas: 'Mantenimiento de Vehículos (Grado Básico)', car: 'Carrocería', cvt: 'Conducción de Vehículos de Transporte por Carretera', emq: 'Electromecánica de Maquinaria', eva: 'Electromecánica de Vehículos Automóviles', nav: 'Mantenimiento de Embarcaciones de Recreo', fer: 'Mantenimiento de Material Rodante Ferroviario', aer: 'Mantenimiento Aeronáutico', aut: 'Automoción' },
+    defecto: { basico: 'bas', medio: 'eva', superior: 'aut' },
+    afin: { bas: ['eva', 'car'], aut: ['eva', 'car'], emq: ['eva'], fer: ['emq'] },
+    fuentes: {
+      cvt: 'el Ministerio de Transportes (autorizaciones y CAP), la asociación de transportistas de tu provincia, el Observatorio del Transporte de Mercancías por Carretera y las bolsas de cargas',
+      nav: 'la Asociación Nacional de Empresas Náuticas (ANEN), los puertos deportivos de tu costa, la Capitanía Marítima y las ferias náuticas',
+      aer: 'la Agencia Estatal de Seguridad Aérea (AESA), el Reglamento (UE) 1321/2014 (Parte 66 y Parte 145), los aeroclubes y escuelas de vuelo de tu comunidad y los clústeres aeronáuticos',
+      fer: 'Adif, Renfe y los operadores ferroviarios y de tranvía de tu comunidad, la asociación ferroviaria Mafex y el Observatorio de las Ocupaciones del SEPE',
+      emq: 'las asociaciones de concesionarios de maquinaria agrícola (ANSEMAT), las cooperativas agrarias de tu comarca y las ferias de maquinaria como FIMA',
+      _: 'el registro de talleres de tu comunidad autónoma (RD 1457/1986), la Confederación Española de Talleres (CETRAA), la asociación de talleres de tu provincia y el Observatorio de las Ocupaciones del SEPE'
+    }
+  };
+  { const { A, H, N } = banco('transporte');
+
+  // ---------- ELECTROMECÁNICA DE VEHÍCULOS AUTOMÓVILES / AUTOMOCIÓN ----------
+  A({ id:'tv1', cics:['eva','aut','bas'], t:'Taller especializado en coches híbridos y eléctricos', n:'Taller de electrificados',
+    d:'Cada año hay más híbridos y eléctricos fuera de garantía y muchos talleres no se atreven con la alta tensión. Te especializas en su mantenimiento, diagnosis, reparación de sistemas de alta tensión y revisión del estado de la batería, también como servicio a otros talleres. Modelo: hora de taller de 45-65 € y diagnosis de batería de 60-150 €.',
+    m:'proyecto', cli:'propietarios de híbridos y eléctricos fuera de garantía, flotas y talleres que no trabajan alta tensión', pb:'reparar y mantener su coche híbrido o eléctrico sin depender del concesionario',
+    val:'Un taller que sabe de verdad de híbridos y eléctricos, más cercano y económico que el concesionario.',
+    inv:[10000,30000], ar:'3-4 meses', r:2, e:['local'], h:4, am:2, tg:['motor','sostenibilidad','tecnologia'], k:['ventas'], s:['tecnica','resolucion'],
+    why:'Sistemas de carga y arranque, Circuitos eléctricos auxiliares del vehículo y Sistemas de seguridad y confortabilidad: tienes la base eléctrica que la alta tensión exige.',
+    reto:'Trabajar con alta tensión exige formación específica en seguridad (el curso de especialización en vehículos híbridos y eléctricos es la vía oficial), herramientas aisladas y protocolos. Y el taller debe estar inscrito en el registro de talleres de tu comunidad (RD 1457/1986).',
+    paso:'Pregunta a 5 talleres de tu zona si reparan híbridos y eléctricos o los mandan al concesionario. Infórmate de dónde se imparte el curso de especialización en tu comunidad.',
+    vr:'Empieza dando servicio de diagnosis y reparación de alta tensión a otros talleres, sin abrir local propio.' });
+
+  A({ id:'tv2', cics:['eva','bas'], t:'Mecánica a domicilio y en la empresa', n:'Taller móvil',
+    d:'Con una furgoneta equipada haces en casa del cliente o en su empresa el mantenimiento básico: cambios de aceite y filtros, frenos, baterías, neumáticos, diagnosis y pequeñas reparaciones. Para particulares sin tiempo y empresas con flota. Modelo: precio cerrado por servicio, con margen sobre recambio.',
+    m:'proyecto', cli:'particulares sin tiempo, empresas con vehículos de empresa y residentes de urbanizaciones alejadas', pb:'mantener el coche sin perder una mañana en el taller',
+    val:'El mantenimiento de tu coche hecho en tu garaje o en tu empresa mientras trabajas.',
+    inv:[8000,20000], ar:'2-3 meses', r:2, e:['domicilio'], h:3, am:2, tg:['motor'], k:['atencion_cliente'], s:['tecnica','organizacion','personas'],
+    why:'Motores, Sistemas de transmisión y frenado y Sistemas de carga y arranque: haces el mantenimiento completo con diagnosis.',
+    reto:'Infórmate en tu comunidad de cómo se registra un taller móvil y de cómo gestionar aceites y filtros usados como residuo peligroso. Los trabajos grandes, mejor en un taller colaborador.',
+    paso:'Pregunta en el órgano de industria de tu comunidad qué exige un taller móvil. Ofrece a 3 empresas con vehículos de empresa un cambio de aceite en su aparcamiento.',
+    vr:'Especialízate en flotas de empresas y alquiladoras: muchos vehículos en un solo sitio.' });
+
+  A({ id:'tv3', cics:['aut','eva','emq','cvt','fer'], t:'Mantenimiento de flotas de reparto y empresas', n:'Gestión de flotas',
+    d:'Empresas de reparto, ambulancias, autoescuelas, empresas de servicios y ayuntamientos necesitan sus vehículos siempre disponibles. Planificas el mantenimiento preventivo, controlas ITV y revisiones, haces las reparaciones o las coordinas con talleres. Modelo: cuota mensual por vehículo (15-40 €) más reparaciones.',
+    m:'cuota', cli:'empresas de reparto, autoescuelas, empresas de servicios, ambulancias y ayuntamientos', pb:'tener todos los vehículos disponibles y con el mantenimiento al día',
+    val:'Tus vehículos siempre a punto, sin averías inesperadas y con un solo interlocutor para todo.',
+    inv:[3000,12000], ar:'2-3 meses', r:2, e:['local'], h:3, am:3, tg:['motor'], k:['ofimatica','gestion_personas'], s:['organizacion','tecnica','liderazgo'],
+    why:'Gestión y logística del mantenimiento de vehículos y todos los sistemas del vehículo: sabes planificar el mantenimiento de muchos vehículos a la vez.',
+    reto:'Las empresas exigen rapidez. Ten acuerdos con talleres y proveedores de recambios para no dejar un vehículo parado más de lo necesario.',
+    paso:'Pregunta a 3 empresas de reparto o autoescuelas de tu zona cómo gestionan el mantenimiento y cuántos días al año tienen vehículos parados.',
+    vr:'Especialízate en furgonetas eléctricas de reparto, que cada vez son más y pocos talleres conocen.' });
+
+  A({ id:'tv4', cics:['aut','eva','car'], t:'Inspección de coches usados antes de comprarlos', n:'Revisión precompra',
+    d:'Quien compra un coche de segunda mano a un particular no sabe lo que se lleva. Vas con el comprador (o en su lugar) y revisas mecánica, carrocería, diagnosis electrónica, historial y documentación, y entregas un informe con fotos y una estimación de reparaciones. Modelo: 80-200 € por revisión.',
+    m:'proyecto', cli:'personas que compran un coche de segunda mano a un particular', pb:'no comprar un coche con problemas ocultos',
+    val:'Antes de pagar, sabes en qué estado está de verdad el coche y cuánto te va a costar.',
+    inv:[1500,5000], ar:'1 mes', r:1, e:['domicilio'], h:2, am:2, tg:['motor'], k:['atencion_cliente','rrss'], s:['tecnica','personas','resolucion'],
+    why:'Estructuras del vehículo, Motores térmicos y Sistemas eléctricos: sabes revisar un vehículo completo y detectar golpes, averías y manipulaciones.',
+    reto:'Responsabilidad si se te pasa algo. Deja por escrito qué revisas y qué no y contrata un seguro de responsabilidad civil profesional.',
+    paso:'Revisa gratis el coche usado que quiera comprar un conocido, prepara un informe profesional y úsalo como modelo.',
+    vr:'Ofrece el servicio a vendedores particulares: un coche con informe se vende antes y mejor.' });
+
+  // ---------- CARROCERÍA ----------
+  A({ id:'tv5', cics:['car','aut','bas'], t:'Reparación rápida de abolladuras y pequeños daños', n:'Reparación rápida de carrocería',
+    d:'Reparas sin pintar o con mínima pintura los daños pequeños: abolladuras de granizo o de aparcamiento, arañazos, faros opacos, llantas rozadas. Muy rápido y a domicilio o en concesionarios de ocasión. Modelo: precio por daño (40-250 €) y contratos con concesionarios.',
+    m:'proyecto', cli:'particulares, concesionarios de vehículos de ocasión, empresas de alquiler y aseguradoras', pb:'arreglar pequeños golpes sin dejar el coche días en el taller',
+    val:'Tu abolladura o arañazo arreglado en una hora, sin pintar toda la pieza y sin dejar el coche en el taller.',
+    inv:[2000,6000], ar:'1-2 meses', r:1, e:['domicilio','local'], h:2, am:2, tg:['motor'], k:['rrss'], s:['tecnica','creatividad'],
+    why:'Elementos metálicos y sintéticos, Preparación de superficies y Embellecimiento de superficies: conoces la chapa y la pintura para elegir la reparación justa.',
+    reto:'El desabollado sin pintura exige mucha práctica. Fórmate en un curso específico y practica con piezas de desguace antes de tocar coches de clientes.',
+    paso:'Pregunta a 3 concesionarios de ocasión de tu zona cuánto gastan en pequeños arreglos antes de vender un coche y quién se los hace.',
+    vr:'Trabaja en campañas de granizo para aseguradoras: mucho trabajo concentrado y muy bien pagado.' });
+
+  A({ id:'tv6', cics:['car','bas'], t:'Detailing: limpieza profunda, pulido y protección de vehículos', n:'Estética del automóvil',
+    d:'Limpias a fondo, pules y proteges la pintura (tratamientos cerámicos, láminas de protección), restauras interiores y faros. Para particulares exigentes, coches de alta gama, concesionarios y vendedores de ocasión. Modelo: servicios de 60-900 € y suscripción mensual de mantenimiento.',
+    m:'proyecto', cli:'aficionados al motor, propietarios de coches de alta gama, concesionarios y vendedores de ocasión', pb:'tener el coche como nuevo y protegido',
+    val:'Tu coche como recién salido del concesionario, con la pintura protegida durante años.',
+    inv:[3000,10000], ar:'1-2 meses', r:1, e:['local','domicilio'], h:2, am:2, tg:['motor'], k:['rrss','fotovideo'], s:['tecnica','creatividad','personas'],
+    why:'Preparación de superficies y Embellecimiento de superficies: conoces la pintura del vehículo y cómo tratarla sin dañarla.',
+    reto:'Es un sector visual y competitivo. Invierte en fotos y vídeos de antes y después y cuida el lavado: necesitas un local con desagüe adecuado.',
+    paso:'Haz un detailing completo al coche de un conocido, graba el proceso y publícalo. Pregunta a 2 concesionarios cuánto pagan por preparar un coche para la venta.',
+    vr:'Ofrece suscripción mensual de mantenimiento para coches de alta gama y clásicos.' });
+
+  // ---------- ELECTROMECÁNICA DE MAQUINARIA ----------
+  A({ id:'tv7', cics:['emq'], t:'Mantenimiento de maquinaria agrícola y de obra en el campo', n:'Servicio técnico de maquinaria',
+    d:'Reparas y mantienes tractores, cosechadoras, aperos, maquinaria de jardinería y pequeña maquinaria de obra, con taller móvil para ir a la finca o a la obra en plena campaña. Modelo: hora de trabajo con salida y contratos de revisión antes de campaña.',
+    m:'cuota', cli:'agricultores, cooperativas, empresas de jardinería y pequeñas constructoras', pb:'que la máquina no falle en plena campaña y, si falla, se arregle allí mismo',
+    val:'Tu maquinaria revisada antes de campaña y un técnico que va a la finca cuando algo se rompe.',
+    inv:[8000,20000], ar:'2-3 meses', r:2, e:['local','domicilio'], h:4, am:2, tg:['naturaleza'], k:['otro_oficio'], s:['tecnica','resolucion'],
+    why:'Motores, Sistemas auxiliares del motor diésel, Sistemas de accionamiento de equipos y aperos y Equipos y aperos: es exactamente tu ciclo.',
+    reto:'Trabajo muy estacional y urgente. Vende revisiones antes de campaña y ten acuerdos con concesionarios para los recambios.',
+    paso:'Pregunta a 3 cooperativas o agricultores de tu comarca quién les repara la maquinaria y cuánto tardan en venir en campaña.',
+    vr:'Especialízate en maquinaria de jardinería profesional (cortacéspedes, desbrozadoras), con clientes todo el año.' });
+
+  A({ id:'tv8', cics:['emq','eva','nav'], t:'Reparación de maquinaria de jardinería, náutica pequeña y motos de campo', n:'Pequeños motores',
+    d:'Reparas motores pequeños: cortacéspedes, desbrozadoras, motosierras, generadores, motores fueraborda, quads y motos de campo. Mucho trabajo y poca competencia especializada. Modelo: reparación por presupuesto y venta de máquinas reacondicionadas.',
+    m:'proyecto', cli:'particulares con jardín, empresas de jardinería, ayuntamientos y aficionados al campo', pb:'arreglar rápido una máquina pequeña que no arranca',
+    val:'Tu máquina arreglada en días, por alguien que conoce los motores pequeños.',
+    inv:[3000,8000], ar:'1-2 meses', r:1, e:['local'], h:2, am:2, tg:['naturaleza','motor'], k:['otro_oficio'], s:['tecnica','resolucion'],
+    why:'Motores, Sistemas auxiliares del motor y Circuitos eléctricos: los motores pequeños tienen los mismos principios que estudias, a menor escala.',
+    reto:'Margen pequeño por reparación. Vende también recambios y máquinas reacondicionadas y ofrece revisiones antes de primavera.',
+    paso:'Pregunta a 3 empresas de jardinería quién les repara las máquinas y cuánto tardan. Compra una máquina averiada barata, arréglala y véndela.',
+    vr:'Ofrece recogida y entrega a domicilio en urbanizaciones con jardines.' });
+
+  // ---------- CONDUCCIÓN DE VEHÍCULOS DE TRANSPORTE ----------
+  A({ id:'tv9', cics:['cvt'], t:'Transportista autónomo de última milla y mercancía especial', n:'Transporte de mercancías',
+    d:'Trabajas como transportista autónomo para empresas de paquetería, distribuidores locales y comercios, o te especializas en mercancías con más valor: refrigerada, farmacia, muebles o mercancía urgente. Hace falta el certificado de aptitud profesional (CAP, RD 284/2021) y, según el vehículo, la autorización de transporte público (Ley 16/1987, art. 42). Modelo: precio por ruta, por día o por entrega.',
+    m:'cuota', cli:'empresas de paquetería, distribuidores, comercios y laboratorios farmacéuticos', pb:'contar con transporte fiable y puntual sin flota propia',
+    val:'Entregas puntuales y cuidadas, con un transportista que conoce la zona y responde por la mercancía.',
+    inv:[5000,30000], ar:'1-2 meses', r:2, e:['local'], h:4, am:3, tg:['viajes','motor'], k:['atencion_cliente'], s:['organizacion','resolucion'],
+    why:'Servicios de transporte de mercancías, Conducción racional y segura y Entorno normativo, económico y social del transporte: conoces el oficio y sus reglas.',
+    reto:'Gasoil, seguro y la cuota del vehículo se comen el margen. Calcula el coste por kilómetro antes de aceptar una tarifa y evita depender de un solo cliente.',
+    paso:'Calcula tu coste por kilómetro con una furgoneta tipo (combustible, seguro, cuota, mantenimiento, autónomos) y compáralo con lo que paga una empresa de paquetería en tu zona.',
+    vr:'Especialízate en transporte refrigerado o de farmacia: más requisitos, menos competencia y mejores tarifas.' });
+
+  A({ id:'tv10', cics:['cvt'], t:'Pequeñas mudanzas y entregas de muebles para tiendas', n:'Mudanzas y montaje',
+    d:'Haces mudanzas pequeñas (pisos de estudiantes, trasteros, oficinas pequeñas), entregas de muebles y electrodomésticos para tiendas y retirada de enseres. Modelo: precio por servicio (80-600 €) y acuerdos con tiendas.',
+    m:'proyecto', cli:'estudiantes, familias, tiendas de muebles y electrodomésticos y vendedores de segunda mano', pb:'mover muebles o hacer una mudanza pequeña sin pagar a una gran empresa',
+    val:'Tu mudanza pequeña o entrega hecha rápido, con cuidado y a precio cerrado.',
+    inv:[4000,15000], ar:'1 mes', r:1, e:['domicilio'], h:3, am:2, tg:[], k:['atencion_cliente'], s:['organizacion','personas'],
+    why:'Operaciones de almacenaje, Servicios de transporte de mercancías y Conducción racional y segura: mover carga con seguridad es tu oficio.',
+    reto:'Es un trabajo físico y con riesgo de daños. Contrata un seguro de mercancías y trabaja siempre en pareja para las piezas grandes.',
+    paso:'Pregunta a 3 tiendas de muebles o electrodomésticos de tu zona cómo entregan y si subcontratarían. Calcula el precio de una mudanza tipo de estudiante.',
+    vr:'Añade el montaje de muebles a la entrega: es lo que más agradecen el cliente y la tienda.' });
+
+  // ---------- EMBARCACIONES DE RECREO ----------
+  A({ id:'tv11', cics:['nav'], t:'Mantenimiento de embarcaciones de recreo en puertos deportivos', n:'Mantenimiento náutico',
+    d:'Haces el mantenimiento de barcos de recreo: puesta a punto de motores, invernaje, limpieza y antiincrustante del casco, revisión de sistemas eléctricos y electrónica, y vigilancia de barcos de propietarios que viven lejos. Modelo: precio por trabajo y contratos anuales de mantenimiento.',
+    m:'cuota', cli:'propietarios de embarcaciones de recreo, puertos deportivos y empresas de alquiler de barcos', pb:'tener el barco listo para navegar sin preocuparse',
+    val:'Tu barco cuidado todo el año y listo para navegar cuando llegas.',
+    inv:[4000,12000], ar:'2-3 meses', r:2, e:['local'], h:3, am:2, tg:['naturaleza','viajes'], k:['idiomas'], s:['tecnica','resolucion'],
+    why:'Mantenimiento del sistema de propulsión y equipos auxiliares, Mantenimiento de instalaciones y máquinas eléctricas en buques y Tratamientos superficiales y pintado de embarcaciones: es tu ciclo.',
+    reto:'Trabajo muy estacional (primavera y verano) y en exterior. Vende contratos de invernaje y mantenimiento anual para repartir los ingresos.',
+    paso:'Pregunta en 2 puertos deportivos de tu costa qué empresas de mantenimiento trabajan allí y si hay hueco. Pregunta a 3 propietarios qué les cuesta más.',
+    vr:'Especialízate en clientes extranjeros con barco en España (con idiomas): pagan bien por un servicio fiable.' });
+
+  A({ id:'tv12', cics:['nav'], t:'Carpintería de ribera: cubiertas de madera y mobiliario de barcos', n:'Carpintería náutica',
+    d:'Restauras y fabricas cubiertas de teca, interiores, mobiliario y elementos de madera de barcos de recreo y clásicos. Un oficio con muy pocos profesionales y mucha demanda en puertos deportivos. Modelo: proyecto por presupuesto.',
+    m:'proyecto', cli:'propietarios de veleros y barcos clásicos, astilleros y puertos deportivos', pb:'restaurar la madera del barco con calidad',
+    val:'La madera de tu barco restaurada por alguien que conoce el oficio de ribera.',
+    inv:[3000,10000], ar:'2-3 meses', r:2, e:['local'], h:3, am:3, tg:['naturaleza','diy','arte'], k:['otro_oficio'], s:['tecnica','creatividad'],
+    why:'Mantenimiento de cubiertas y cascos de madera, Mecanizado de elementos de carpintería de ribera y Mantenimiento de elementos interiores de madera y mobiliario: es tu especialidad exacta.',
+    reto:'Es un nicho pequeño y estacional. Trabaja en varios puertos de tu costa y ofrece también carpintería en tierra fuera de temporada.',
+    paso:'Visita 2 astilleros o varaderos de tu costa y pregunta si subcontratan carpintería de madera y cuánto tardan los encargos.',
+    vr:'Especialízate en barcos clásicos de madera, cuyos propietarios valoran el oficio y pagan por él.' });
+
+  // ---------- AERONÁUTICA ----------
+  A({ id:'tv13', cics:['aer'], t:'Técnico de mantenimiento para aviación general, escuelas y aeroclubes', n:'Mantenimiento de aviación ligera',
+    d:'Las escuelas de vuelo, aeroclubes y propietarios de avionetas y helicópteros ligeros necesitan técnicos de mantenimiento. Para certificar trabajos hace falta la licencia de técnico de mantenimiento (Parte 66 del Reglamento (UE) 1321/2014) y trabajar en una organización aprobada (Parte 145) o con los permisos que correspondan. Modelo: contratado al principio y después como técnico independiente o socio de un taller.',
+    m:'proyecto', cli:'escuelas de vuelo, aeroclubes, propietarios de avionetas y empresas de trabajos aéreos', pb:'mantener sus aeronaves en regla y volando',
+    val:'Aeronaves mantenidas por técnicos con licencia, con la documentación al día y sin días de más en tierra.',
+    inv:[2000,10000], ar:'6-12 meses', r:2, e:['local'], h:4, am:4, tg:['viajes','tecnologia'], k:['idiomas'], s:['tecnica','organizacion'],
+    why:'Legislación aeronáutica, Factores humanos, Prácticas de mantenimiento y los módulos de estructuras, motores y sistemas: tu ciclo está pensado para la licencia Parte 66.',
+    reto:'Hace falta experiencia acreditada para la licencia y la responsabilidad es total. Entra primero en un taller aprobado y no plantees ir por libre sin años de experiencia.',
+    paso:'Consulta en la web de AESA los requisitos de la licencia Parte 66 de tu categoría y busca los talleres aprobados (Parte 145) de tu comunidad.',
+    vr:'Especialízate en drones profesionales y su mantenimiento, un campo nuevo con menos barreras de entrada.' });
+
+  A({ id:'tv14', cics:['fer','emq'], t:'Técnico de mantenimiento para tranvías, metros y trenes turísticos', n:'Mantenimiento ferroviario',
+    d:'Los operadores de tranvía, metro, trenes turísticos y ferrocarriles de vía estrecha subcontratan mantenimiento. Trabajas para empresas de mantenimiento ferroviario o montas un pequeño equipo especializado en climatización, frenos o sistemas eléctricos de material rodante. Modelo: contrato con la empresa mantenedora o subcontrata por paquetes.',
+    m:'proyecto', cli:'empresas de mantenimiento ferroviario, operadores de tranvía y metro y trenes turísticos', pb:'contar con técnicos especializados en material rodante',
+    val:'Técnicos especializados en material rodante cuando los necesitas, con la seguridad que exige el ferrocarril.',
+    inv:[1000,5000], ar:'4-6 meses', r:2, e:['local'], h:4, am:3, tg:['viajes','tecnologia'], k:['otro_oficio'], s:['tecnica','organizacion'],
+    why:'Tracción eléctrica, Sistemas de frenos en material rodante ferroviario, Confortabilidad y climatización y Sistemas lógicos: es la especialidad de tu ciclo.',
+    reto:'Sector con pocos clientes y muy regulado. Lo realista es entrar contratado y, con experiencia, crear una pequeña empresa especializada.',
+    paso:'Haz una lista de los operadores ferroviarios y de tranvía de tu comunidad y de las empresas que les hacen el mantenimiento. Mira sus ofertas de empleo.',
+    vr:'Especialízate en climatización de material rodante: se repite en todos los vehículos y escasean los especialistas.' });
+
+  A({ id:'tv16', cics:['fer','eva','emq'], t:'Mantenimiento de autobuses eléctricos y vehículos industriales', n:'Vehículo pesado eléctrico',
+    d:'Las empresas de autobuses urbanos e interurbanos, recogida de basuras y reparto están electrificando sus flotas, y faltan técnicos que dominen tracción eléctrica, climatización y sistemas de alta tensión en vehículos grandes. Trabajas como subcontrata de mantenimiento en sus cocheras. Modelo: contrato por horas o por paquete de mantenimiento.',
+    m:'proyecto', cli:'empresas de autobuses, concesionarias de recogida de residuos y flotas de reparto pesado', pb:'mantener una flota eléctrica pesada sin técnicos especializados propios',
+    val:'Técnicos que dominan la tracción eléctrica y la climatización de tus vehículos, sin ampliar tu plantilla.',
+    inv:[2000,8000], ar:'3-4 meses', r:2, e:['local'], h:4, am:3, tg:['sostenibilidad','tecnologia'], k:['otro_oficio'], s:['tecnica','resolucion','organizacion'],
+    why:'Tracción eléctrica, Confortabilidad y climatización y Circuitos auxiliares: los mismos sistemas que en el material rodante, en un vehículo de carretera que crece cada año.',
+    reto:'La alta tensión exige formación específica en seguridad y herramientas aisladas. Empieza contratado en una cochera y especialízate antes de ofrecer el servicio por tu cuenta.',
+    paso:'Averigua qué empresas de autobuses y recogida de residuos de tu ciudad tienen vehículos eléctricos y quién se los mantiene.',
+    vr:'Especialízate en la climatización de autobuses, que falla mucho en verano y tiene pocos especialistas.' });
+
+  A({ id:'tv17', cics:['aer'], t:'Subcontrata de cableado y montaje aeronáutico', n:'Montaje aeronáutico',
+    d:'Fabricantes y proveedores aeronáuticos subcontratan el cableado, el montaje de sistemas y los tratamientos superficiales en sus plantas. Formas un pequeño equipo especializado que trabaja en ellas por paquetes de trabajo, con la norma de calidad EN 9100. Modelo: precio por hora o por paquete.',
+    m:'proyecto', cli:'fabricantes aeronáuticos y sus proveedores de primer nivel', pb:'cubrir picos de producción con técnicos cualificados',
+    val:'Técnicos aeronáuticos cualificados para tus picos de producción, que cumplen los requisitos del sector.',
+    inv:[3000,10000], ar:'4-6 meses', r:3, e:['local'], h:4, am:4, tg:['tecnologia','viajes'], k:['idiomas','gestion_personas'], s:['tecnica','organizacion','liderazgo'],
+    why:'Fundamentos de electricidad, Prácticas de mantenimiento con elementos de aviónica y Materiales, equipos y herramientas en aeromecánica: tienes la base que piden las plantas.',
+    reto:'Requisitos de calidad muy exigentes y clientes grandes. Gana experiencia en una empresa del sector antes de montar la tuya.',
+    paso:'Busca el clúster aeronáutico de tu comunidad (o de la más cercana) y la lista de sus empresas. Mira qué perfiles piden en sus ofertas.',
+    vr:'Especialízate en cableado aeronáutico, uno de los trabajos más demandados en planta.' });
+  // ---------- GRADO BÁSICO ----------
+  A({ id:'tv15', cics:['bas','eva'], t:'Taller de bicicletas y patinetes eléctricos', n:'Movilidad ligera',
+    d:'Reparas y mantienes bicicletas convencionales y eléctricas y patinetes: frenos, cambios, pinchazos, ruedas, baterías y motores. Para particulares, repartidores y empresas de alquiler. Modelo: reparaciones de 15-150 €, mantenimiento por suscripción para repartidores y venta de reacondicionadas.',
+    m:'proyecto', cli:'ciclistas urbanos, repartidores, empresas de alquiler y familias', pb:'reparar rápido su bici o patinete del que dependen para moverse',
+    val:'Tu bici o patinete reparado hoy, para que no te quedes sin moverte ni sin trabajar.',
+    inv:[3000,10000], ar:'1-2 meses', r:1, e:['local','domicilio'], h:2, am:1, tg:['deporte','sostenibilidad'], k:['rrss'], s:['tecnica','resolucion','personas'],
+    why:'Mecánica del vehículo, Electricidad del vehículo y Mecanizado y soldadura: los principios son los mismos que en un coche, a otra escala.',
+    reto:'Las baterías de litio dañadas son peligrosas: aprende a manipularlas y almacenarlas con seguridad. Margen pequeño: vende también recambios.',
+    paso:'Pregunta a 5 repartidores en bici o patinete dónde reparan y cuánto tiempo pierden. Ofrece una revisión gratuita.',
+    vr:'Ofrece mantenimiento por suscripción a repartidores y empresas de alquiler: ingresos fijos cada mes.' });
+
+  // ---------- HÍBRIDAS ----------
+  H({ id:'tv_h1', pref:['aut','car','eva'], t:'Restauración de coches y motos clásicos', n:'Restauración de clásicos',
+    d:'Restauras coches y motos clásicos: mecánica, chapa, pintura, tapicería e investigación de piezas originales, y ayudas con la catalogación como vehículo histórico (RD 892/2013). Modelo: proyecto de restauración por fases y mantenimiento de colecciones.',
+    m:'proyecto', cli:'coleccionistas, aficionados a los clásicos y clubes de vehículos antiguos', pb:'devolver su clásico a su estado original con rigor',
+    val:'Tu clásico restaurado con rigor y piezas correctas, y con los papeles de vehículo histórico en orden.',
+    inv:[8000,25000], ar:'3-4 meses', r:3, e:['local'], h:4, am:3, tg:['motor','arte'], k:['rrss','fotovideo'], s:['tecnica','creatividad'],
+    why:'Te apasiona el motor clásico; tu ciclo te da la mecánica, la chapa y la pintura para restaurarlo entero.',
+    reto:'Proyectos largos que pueden bloquear el taller. Trabaja por fases con pagos parciales y presupuestos cerrados por fase.',
+    paso:'Pregunta en un club de clásicos de tu zona a qué talleres van y qué listas de espera tienen. Restaura una pieza (un carburador, un depósito) y documéntala.',
+    vr:'Especialízate en una marca o época concreta: serás la referencia de ese club.' });
+
+  H({ id:'tv_h2', pref:['eva','car'], t:'Camperización de furgonetas', n:'Furgonetas camper',
+    d:'Conviertes furgonetas en campers: aislamiento, electricidad con placas y batería, agua, mobiliario y ventanas, y gestionas la homologación de la reforma. Modelo: camperización completa de 8.000-30.000 € y trabajos por partes.',
+    m:'proyecto', cli:'parejas, familias y nómadas digitales que quieren viajar en furgoneta', pb:'tener una camper bien hecha y legal',
+    val:'Tu furgoneta camper bien aislada, con electricidad y agua fiables, y la reforma homologada.',
+    inv:[6000,20000], ar:'3-4 meses', r:2, e:['local'], h:4, am:4, tg:['viajes','naturaleza','motor'], k:['diseno','rrss'], s:['tecnica','creatividad','organizacion'],
+    why:'Te gusta viajar; tu ciclo te da los circuitos eléctricos, la mecánica y el trabajo de carrocería que exige una buena camperización.',
+    reto:'La reforma tiene que homologarse y pasar la ITV. Trabaja con una ingeniería o un laboratorio que tramite las reformas desde el primer proyecto.',
+    paso:'Pregunta a 2 talleres de camperización de tu comunidad qué lista de espera tienen y busca una ingeniería que tramite reformas.',
+    vr:'Ofrece «camperización por partes» (solo electricidad, solo aislamiento) para quien la hace por su cuenta.' });
+
+  H({ id:'tv_h3', pref:['eva','bas'], t:'Taller y asistencia para ciclismo, enduro y motocross', n:'Mecánica deportiva',
+    d:'Preparas y reparas bicis de competición, motos de enduro y motocross, y das asistencia técnica en carreras y entrenamientos. Modelo: puesta a punto por precio cerrado, asistencia en carrera por día y venta de recambios.',
+    m:'proyecto', cli:'deportistas, clubes, escuelas de moto y organizadores de pruebas', pb:'tener su máquina perfecta para competir',
+    val:'Tu bici o moto a punto para competir, preparada por alguien que entiende la carrera.',
+    inv:[3000,10000], ar:'2 meses', r:2, e:['local','domicilio'], h:3, am:3, tg:['deporte','motor'], k:['rrss'], s:['tecnica','resolucion','personas'],
+    why:'Conoces el deporte y la competición; tu ciclo te da la mecánica, la suspensión y la transmisión.',
+    reto:'Trabajo de fin de semana y muy estacional. Combina la asistencia en carreras con el taller entre semana.',
+    paso:'Ofrécete como mecánico en una carrera de tu zona y apunta qué averías se repiten. Pregunta a 2 clubes si contratarían asistencia.',
+    vr:'Especialízate en suspensiones (revisión y ajuste), que todos los deportistas necesitan y pocos talleres hacen.' });
+
+  H({ id:'tv_h4', pref:['aut','eva'], t:'Calibración de sistemas de ayuda a la conducción y diagnosis avanzada', n:'Electrónica del automóvil',
+    d:'Los coches nuevos llevan cámaras y radares (ayuda a la conducción) que hay que calibrar tras cambiar una luna, alinear o reparar un golpe. Das ese servicio a talleres, lunas y aseguradoras, y haces diagnosis electrónica avanzada. Modelo: precio por calibración (80-250 €) y por diagnosis.',
+    m:'proyecto', cli:'talleres de chapa y mecánica, empresas de lunas y aseguradoras', pb:'calibrar cámaras y radares tras una reparación sin mandar el coche al concesionario',
+    val:'Tus coches calibrados en tu propio taller, sin perder días mandándolos al concesionario.',
+    inv:[8000,25000], ar:'3-4 meses', r:3, e:['local','domicilio'], h:3, am:3, tg:['tecnologia','motor'], k:['programacion'], s:['tecnica','digital','resolucion'],
+    why:'Te atrae la tecnología; tu ciclo te da los sistemas eléctricos y de seguridad y confortabilidad del vehículo.',
+    reto:'El equipo de calibración es caro y cambia con cada marca. Empieza como servicio móvil para varios talleres para amortizarlo.',
+    paso:'Pregunta a 5 talleres de chapa y a 2 empresas de lunas de tu zona dónde calibran y cuánto pagan.',
+    vr:'Combínalo con la diagnosis de híbridos y eléctricos para ser el especialista electrónico de los talleres de tu zona.' });
+
+  H({ id:'tv_h5', pref:['car'], t:'Personalización de motos, cascos y rotulación de vehículos', n:'Pintura y personalización',
+    d:'Pintas y personalizas depósitos, carenados y cascos con aerografía y diseños propios, y rotulas furgonetas y vehículos de empresa con vinilo. Modelo: piezas de 150-1.500 € y rotulación por proyecto.',
+    m:'proyecto', cli:'moteros, pilotos, aficionados al custom y empresas con vehículos', pb:'tener un vehículo único o una flota con su imagen',
+    val:'Tu moto, casco o furgoneta con un diseño único, pintado con calidad de carrocería.',
+    inv:[3000,10000], ar:'2 meses', r:2, e:['local'], h:2, am:3, tg:['arte','motor','moda'], k:['diseno','rrss'], s:['creatividad','tecnica'],
+    why:'Tu sensibilidad artística es el diferencial; tu ciclo te da la preparación de superficies y el embellecimiento con técnica de carrocería.',
+    reto:'Necesitas cabina o zona de pintura con extracción. Empieza con piezas pequeñas y alquila cabina por horas para lo grande.',
+    paso:'Pinta un casco o un depósito con un diseño propio y publícalo. Pregunta a 3 empresas con furgonetas si rotularían su flota.',
+    vr:'Rotulación de flotas para empresas: menos creatividad, pero contratos más grandes y recurrentes.' });
+
+  H({ id:'tv_h6', pref:['cvt'], t:'Transporte de mascotas y animales de compañía', n:'Transporte animal',
+    d:'Transportas perros, gatos y otros animales de compañía: a la peluquería o al veterinario, entre ciudades, a residencias caninas o a sus nuevas familias de adopción. El transporte de animales vinculado a una actividad económica exige autorización como transportista (Reglamento (CE) 1/2005, art. 10). Modelo: precio por trayecto.',
+    m:'proyecto', cli:'dueños de mascotas, protectoras, criadores registrados, residencias caninas y veterinarias', pb:'mover a su animal con seguridad y sin estrés',
+    val:'Tu mascota viaja segura, tranquila y atendida por alguien que la cuida como tú.',
+    inv:[4000,12000], ar:'2 meses', r:2, e:['domicilio'], h:3, am:4, tg:['animales'], k:['atencion_cliente'], s:['personas','organizacion'],
+    why:'Te encantan los animales; tu ciclo te da la conducción segura, la normativa y la organización del transporte.',
+    reto:'Hace falta un vehículo adaptado, autorización y formación en bienestar animal. Infórmate en la consejería de agricultura o ganadería de tu comunidad.',
+    paso:'Pregunta a 3 protectoras y 2 veterinarias cómo trasladan a los animales y cuánto pagan. Infórmate de la autorización de transportista.',
+    vr:'Trabaja para protectoras con transporte de adopciones entre comunidades, financiado por las propias adopciones.' });
+
+  H({ id:'tv_h7', pref:['emq'], t:'Preparación y mantenimiento de 4x4, quads y maquinaria forestal', n:'Vehículos de campo',
+    d:'Preparas y mantienes vehículos 4x4, quads, motos de campo y maquinaria forestal pequeña para cazadores, empresas forestales, guías de turismo activo y particulares. Modelo: mantenimiento, reparaciones y preparaciones por presupuesto.',
+    m:'proyecto', cli:'empresas forestales, guías de turismo activo, cazadores y aficionados al todoterreno', pb:'tener sus vehículos de campo fiables en terreno difícil',
+    val:'Tu 4x4 o máquina preparada para el monte y reparada por alguien que conoce el terreno.',
+    inv:[5000,15000], ar:'2 meses', r:2, e:['local'], h:3, am:2, tg:['naturaleza','motor'], k:['otro_oficio'], s:['tecnica','resolucion'],
+    why:'Te gusta la naturaleza y el campo; tu ciclo te da motores diésel, suspensión, transmisiones y aperos.',
+    reto:'Algunas preparaciones de 4x4 exigen homologar la reforma. Infórmate antes de modificar suspensiones o neumáticos.',
+    paso:'Pregunta a 2 empresas de turismo activo y a una empresa forestal de tu comarca quién les mantiene los vehículos.',
+    vr:'Ofrece revisiones antes de la temporada de caza o de incendios para empresas forestales.' });
+
+  H({ id:'tv_h8', pref:['bas','eva'], t:'Talleres de mecánica básica para conductores', n:'Formación en mecánica',
+    d:'Impartes talleres prácticos de mecánica básica: revisar niveles, cambiar una rueda, entender los testigos, qué hacer ante una avería, cuidar un coche eléctrico. Para autoescuelas, empresas, asociaciones y conductores noveles. Modelo: 20-50 € por persona o taller cerrado para entidades.',
+    m:'formacion', cli:'conductores noveles, autoescuelas, empresas con vehículos y asociaciones', pb:'saber resolver lo básico del coche sin depender de nadie',
+    val:'Sales sabiendo cuidar tu coche y qué hacer si te deja tirado, sin que te engañen en el taller.',
+    inv:[300,1500], ar:'1 mes', r:1, e:['local'], h:1, am:2, tg:['diy','social'], k:['atencion_cliente'], s:['personas','tecnica'],
+    why:'Te gusta enseñar y hacer cosas con las manos; tu ciclo te da la mecánica y la electricidad del vehículo.',
+    reto:'Necesitas un espacio y un coche para practicar. Alíate con una autoescuela o un taller que te deje sus instalaciones.',
+    paso:'Prepara un taller de 90 minutos con 5 temas y ofrécelo gratis a una autoescuela para sus alumnos.',
+    vr:'Ofrece formación a empresas con flotas: sus conductores cuidan mejor los vehículos y se ahorran averías.' });
+
+  // ---------- EMERGENTES ----------
+  N({ id:'tv_n1', t:'Mantenimiento de flotas de bicis, patinetes y motos compartidas', n:'Movilidad compartida',
+    d:'Las empresas de alquiler de bicis, patinetes y motos eléctricas y las flotas de reparto necesitan mantenimiento diario en la calle y en taller: baterías, frenos, ruedas, recogida de vehículos averiados. Modelo: contrato por vehículo y mes o por intervención.',
+    m:'cuota', cli:'empresas de movilidad compartida, ayuntamientos con bici pública y empresas de reparto', pb:'tener la flota disponible en la calle todos los días',
+    val:'Tu flota en la calle y funcionando, con los vehículos averiados recogidos y reparados en horas.',
+    inv:[5000,15000], ar:'3-4 meses', r:3, e:['local'], h:4, am:3, tg:['sostenibilidad','tecnologia'], k:['gestion_personas'], s:['organizacion','tecnica','liderazgo'],
+    why:'Mecánica y electricidad del vehículo y gestión del mantenimiento de flotas: es tu ciclo aplicado a la movilidad urbana.',
+    reto:'Pocos clientes grandes que negocian precios bajos. Diversifica entre empresas de reparto, ayuntamientos y alquiler turístico.',
+    paso:'Mira qué empresas de bici, patinete o moto compartida operan en tu ciudad y pregunta quién les mantiene la flota.',
+    vr:'Especialízate en bici pública municipal, con contratos más largos y estables.' });
+
+  N({ id:'tv_n2', t:'Alquiler de furgonetas camper', n:'Alquiler para viajeros',
+    d:'Camperizas o compras 2-4 furgonetas y las alquilas por días o semanas a viajeros, con el mantenimiento hecho por ti. Modelo: 70-150 € por día según temporada, con seguro específico.',
+    m:'experiencia', cli:'parejas, familias y turistas extranjeros que quieren probar el viaje en camper', pb:'viajar en camper sin comprar una',
+    val:'Una camper bien equipada y revisada por un mecánico, lista para que viajes sin preocuparte.',
+    inv:[20000,60000], ar:'4-6 meses', r:3, e:['local','online'], h:3, am:4, tg:['viajes','naturaleza'], k:['idiomas','marketing'], s:['organizacion','personas','tecnica'],
+    why:'Tu ciclo te da la mayor ventaja del sector: mantener las furgonetas tú mismo y resolver averías a distancia.',
+    reto:'Inversión alta, seguro caro y temporada concentrada. Empieza con una furgoneta y un buen contrato de alquiler, y amplía si llenas el verano.',
+    paso:'Mira en las plataformas de alquiler de campers de tu zona cuántos días al año están ocupadas y a qué precio. Calcula cuántos días necesitas para pagar una furgoneta.',
+    vr:'Alquila en plataformas entre particulares antes de abrir web propia.' });
+
+  N({ id:'tv_n3', t:'Mantenimiento y reparación de drones profesionales', n:'Drones',
+    d:'Agricultores, topógrafos, empresas de inspección y emergencias usan cada vez más drones. Reparas, mantienes, calibras y actualizas drones profesionales y gestionas el registro de horas y revisiones. Modelo: reparación por presupuesto y contratos de mantenimiento.',
+    m:'cuota', cli:'empresas de agricultura de precisión, topografía, inspección, audiovisual y emergencias', pb:'tener sus drones operativos y con el mantenimiento documentado',
+    val:'Tus drones reparados rápido y con el mantenimiento documentado, para que no pierdas trabajos.',
+    inv:[3000,10000], ar:'3-4 meses', r:3, e:['local','online'], h:2, am:4, tg:['tecnologia'], k:['programacion'], s:['tecnica','resolucion'],
+    why:'Electricidad, electrónica, motores y prácticas de mantenimiento: tu formación aeronáutica o de electromecánica encaja con un sector nuevo y sin especialistas.',
+    reto:'Cada fabricante tiene sus repuestos y programas. Especialízate en las 2-3 marcas profesionales más usadas y hazte servicio técnico autorizado si puedes.',
+    paso:'Pregunta a 3 empresas que usen drones en tu zona dónde los reparan y cuánto tardan. Busca qué marcas tienen servicio técnico autorizado cerca.',
+    vr:'Combínalo con formación a pilotos sobre mantenimiento básico.' });
+  } // fin de Transporte y Mantenimiento de Vehículos
+
+  // ===================== VIDRIO Y CERÁMICA =====================
+  FAM.vidrio = {
+    ciclos: {
+      'Vidriería y Alfarería': 'bas',
+      'Fabricación de Productos Cerámicos': 'fpc',
+      'Desarrollo y Fabricación de Productos Cerámicos': 'dfc'
+    },
+    labels: { bas: 'Vidriería y Alfarería (Grado Básico)', fpc: 'Fabricación de Productos Cerámicos', dfc: 'Desarrollo y Fabricación de Productos Cerámicos' },
+    defecto: { basico: 'bas', medio: 'fpc', superior: 'dfc' },
+    afin: { fpc: ['dfc'], dfc: ['fpc'] },
+    fuentes: {
+      dfc: 'ASCER (Asociación Española de Fabricantes de Azulejos), el Instituto de Tecnología Cerámica (ITC-AICE), ANFFECC (fabricantes de fritas, esmaltes y colores) y ferias como Cevisama',
+      fpc: 'ASCER (Asociación Española de Fabricantes de Azulejos), el Instituto de Tecnología Cerámica (ITC-AICE), ANFFECC (fabricantes de fritas, esmaltes y colores) y ferias como Cevisama',
+      _: 'la asociación de artesanos o ceramistas de tu comunidad autónoma, el registro de artesanía de tu comunidad, la Asociación de Ciudades de la Cerámica y los mercados de artesanía de tu zona'
+    }
+  };
+  { const { A, H, N } = banco('vidrio');
+
+  // ---------- VIDRIERÍA Y ALFARERÍA (Grado Básico) ----------
+  A({ id:'vc1', cics:['bas','fpc'], t:'Taller de cerámica con clases de torno y modelado', n:'Estudio de cerámica',
+    d:'La cerámica se ha convertido en una afición muy buscada por adultos. Abres un taller con clases de torno, modelado a mano y esmaltado, con servicio de cocción y venta de tus piezas. Modelo: cuota mensual de 60-110 € por alumno (una clase semanal), talleres sueltos de 35-70 € y cocciones por encargo.',
+    m:'formacion', cli:'adultos que buscan una afición manual y relajante, parejas y grupos de amigos', pb:'aprender cerámica en un espacio bonito y con alguien que sabe',
+    val:'Un rato a la semana con las manos en el barro, aprendiendo de verdad y llevándote a casa tus propias piezas.',
+    inv:[5000,15000], ar:'2-3 meses', r:2, e:['local'], h:3, am:1, tg:['arte','diy'], k:['rrss'], s:['personas','creatividad','tecnica'],
+    why:'Conformado de piezas cerámicas, Acabado de productos cerámicos y Atención al cliente: dominas el proceso completo, del barro a la cocción.',
+    reto:'El horno, los tornos y el local son la inversión principal. Empieza con 2-3 tornos de segunda mano en un local pequeño y llena grupos antes de crecer.',
+    paso:'Mira cuántos talleres de cerámica hay en tu ciudad, qué cobran y si tienen lista de espera. Ofrece un taller de prueba de 2 horas a 6 personas.',
+    vr:'Organiza talleres para empresas, despedidas y cumpleaños: se pagan mejor y llenan horas vacías.' });
+
+  A({ id:'vc2', cics:['bas','fpc','dfc'], t:'Vajilla artesanal para restaurantes', n:'Cerámica para hostelería',
+    d:'Los restaurantes que cuidan su propuesta buscan platos, cuencos y tazas propios que cuenten su historia. Diseñas con el chef y fabricas series de vajilla resistente al lavavajillas. La cerámica en contacto con alimentos debe cumplir los límites de plomo y cadmio (RD 891/2006) y el reglamento europeo de materiales en contacto con alimentos (Reglamento (CE) 1935/2004, art. 3). Modelo: 15-45 € por pieza en series de 50-300.',
+    m:'producto', cli:'restaurantes de cocina de autor, cafeterías de especialidad y hoteles con encanto', pb:'tener una vajilla propia que diferencie su cocina',
+    val:'Una vajilla diseñada para tus platos, única, resistente y fabricada cerca.',
+    inv:[4000,12000], ar:'3-4 meses', r:2, e:['local','online'], h:3, am:4, tg:['gastronomia','arte'], k:['diseno','ventas'], s:['creatividad','tecnica','personas'],
+    why:'Conformado de piezas, Reproducción de moldes y Acabado de productos cerámicos: sabes producir series iguales y resistentes, no solo piezas únicas.',
+    reto:'Las series exigen regularidad y la vajilla de restaurante se rompe y se repone. Usa esmaltes certificados para uso alimentario y garantiza reposición durante años.',
+    paso:'Diseña un plato y un cuenco con un esmalte apto para alimentos y llévaselos a 5 restaurantes de tu zona para que los prueben en servicio.',
+    vr:'Ofrece vajilla en colaboración con cafeterías de especialidad: tazas con su marca que además venden a sus clientes.' });
+
+  A({ id:'vc3', cics:['bas'], t:'Vidrieras, fusing y piezas de vidrio a medida', n:'Taller de vidrio',
+    d:'Restauras vidrieras antiguas de casas, iglesias y edificios y creas piezas nuevas en vidrio emplomado, Tiffany y fusing: lámparas, paneles para puertas, señalética, bisutería y objetos de regalo. Modelo: restauraciones por presupuesto y piezas de 30-2.000 €.',
+    m:'proyecto', cli:'propietarios de casas antiguas, parroquias, interioristas, hoteles y tiendas de regalo', pb:'restaurar o crear una pieza de vidrio artístico',
+    val:'Tu vidriera recuperada o una pieza de vidrio única, hecha a mano para tu espacio.',
+    inv:[3000,8000], ar:'2 meses', r:2, e:['local'], h:2, am:3, tg:['arte','diy'], k:['diseno','rrss'], s:['creatividad','tecnica'],
+    why:'Termoformado, fusing y vidrieras y Mecanizados manuales con vidrio fundido son módulos de tu ciclo.',
+    reto:'El vidrio exige seguridad (cortes, plomo, horno). Trabaja con protección, ventilación y lávate las manos tras manipular plomo.',
+    paso:'Haz una pieza de fusing o una pequeña vidriera, fotografíala y enséñasela a 3 tiendas de decoración o interioristas.',
+    vr:'Imparte talleres de fusing y vidriera Tiffany: tienen mucha demanda como afición.' });
+
+  A({ id:'vc4', cics:['bas','fpc'], t:'Azulejos pintados a mano y restauración de azulejería tradicional', n:'Azulejería',
+    d:'Pintas azulejos a mano para cocinas, baños, fachadas, números de casa y placas de calles, y reproduces azulejos antiguos rotos para restauraciones. Modelo: precio por azulejo (8-60 €) o por mural y proyectos de restauración.',
+    m:'producto', cli:'propietarios que reforman, ayuntamientos, restauradores, bares con decoración tradicional e interioristas', pb:'conseguir azulejos únicos o reponer los antiguos que se han roto',
+    val:'Azulejos pintados a mano para tu casa, o el azulejo antiguo que te faltaba reproducido igual.',
+    inv:[2000,6000], ar:'2 meses', r:1, e:['local','online'], h:2, am:4, tg:['arte'], k:['diseno','rrss'], s:['creatividad','tecnica'],
+    why:'Mecanizados manuales y aplicaciones superficiales, Acabado de productos cerámicos y Reproducción de moldes: sabes decorar y cocer azulejos.',
+    reto:'Reproducir colores antiguos exige pruebas de esmalte. Haz muestras antes de presupuestar una restauración.',
+    paso:'Pinta 4 azulejos con un diseño propio y otros 4 copiando uno antiguo de tu zona. Publícalos y enséñalos a 2 interioristas.',
+    vr:'Ofrece números y placas de casa personalizados online: producto sencillo, regalo frecuente y envío fácil.' });
+
+  // ---------- FABRICACIÓN Y DESARROLLO DE PRODUCTOS CERÁMICOS ----------
+  A({ id:'vc5', cics:['fpc','dfc'], t:'Laboratorio externo de control de calidad para fabricantes cerámicos', n:'Ensayos cerámicos',
+    d:'Haces ensayos de materias primas, pastas, esmaltes y producto acabado para fabricantes pequeños y medianos, ceramistas y estudios: absorción, resistencia, dilatación, defectos, cumplimiento de normas. Modelo: precio por ensayo o cuota mensual con informes.',
+    m:'cuota', cli:'fabricantes pequeños y medianos de cerámica, ceramistas profesionales y estudios de diseño', pb:'controlar la calidad sin un laboratorio propio',
+    val:'Tus materiales y productos ensayados con rigor, con informes que te ayudan a evitar defectos y reclamaciones.',
+    inv:[5000,15000], ar:'3-4 meses', r:2, e:['local'], h:3, am:3, tg:[], k:['ofimatica'], s:['tecnica','organizacion','resolucion'],
+    why:'Control de materiales y procesos cerámicos, Normativa cerámica y Técnicas y ensayos de desarrollo de productos son módulos de tu ciclo.',
+    reto:'Los equipos de laboratorio son caros y los grandes fabricantes tienen el suyo. Céntrate en pequeños y medianos y empieza con los ensayos más pedidos.',
+    paso:'Pregunta a 3 fabricantes pequeños o ceramistas profesionales qué ensayos encargan, dónde y cuánto tardan.',
+    vr:'Especialízate en ceramistas y estudios: ensayos de esmaltes aptos para alimentos, que muchos necesitan y pocos hacen.' });
+
+  A({ id:'vc6', cics:['dfc','fpc'], t:'Esmaltes, colores y pastas a medida para ceramistas', n:'Materiales cerámicos',
+    d:'Desarrollas y vendes esmaltes, engobes, colores y pastas formulados por ti para ceramistas, talleres y escuelas, con fichas técnicas claras y asesoramiento. Modelo: venta por kilo, con margen alto en esmaltes especiales y encargos a medida.',
+    m:'producto', cli:'ceramistas, talleres de cerámica, escuelas de arte y estudios de diseño', pb:'conseguir esmaltes fiables y colores propios',
+    val:'Esmaltes fiables, con ficha técnica y alguien que te ayuda a conseguir el color que buscas.',
+    inv:[3000,10000], ar:'3-4 meses', r:2, e:['online','local'], h:3, am:4, tg:['arte','diy'], k:['rrss','ventas'], s:['tecnica','creatividad'],
+    why:'Desarrollo de fritas, pigmentos y esmaltes cerámicos y Desarrollo de pastas cerámicas: formular y ajustar materiales es tu especialidad.',
+    reto:'Algunas materias primas son tóxicas: cumple las fichas de seguridad y el etiquetado de productos químicos y no uses plomo en esmaltes para uso alimentario.',
+    paso:'Formula 3 esmaltes distintos, pruébalos en distintas pastas y temperaturas y ofrece muestras a 5 talleres de cerámica.',
+    vr:'Vende esmaltes en formato pequeño con tutoriales para aficionados, el público que más crece.' });
+
+  A({ id:'vc7', cics:['dfc'], t:'Consultoría de eficiencia energética y descarbonización para fábricas cerámicas', n:'Energía en la industria cerámica',
+    d:'La industria cerámica gasta mucha energía en hornos y atomizadores y está obligada a reducir emisiones. Ayudas a fábricas pequeñas y medianas a medir consumos, ajustar curvas de cocción, recuperar calor y preparar proyectos de mejora y ayudas. Modelo: diagnóstico y proyecto de mejora por meses.',
+    m:'proyecto', cli:'fábricas cerámicas pequeñas y medianas y fabricantes de fritas y esmaltes', pb:'reducir el gasto energético y las emisiones de sus hornos',
+    val:'Tus hornos gastan menos y emiten menos, con mejoras medidas y planificadas.',
+    inv:[1000,4000], ar:'3-4 meses', r:2, e:['local'], h:3, am:3, tg:['sostenibilidad'], k:['ofimatica'], s:['tecnica','resolucion','organizacion'],
+    why:'Control de procesos de fabricación de productos cerámicos y Programación de la producción: sabes cómo se comporta un horno y dónde se pierde energía.',
+    reto:'Hace falta credibilidad ante la fábrica. Gana experiencia en planta o colabora con una ingeniería energética antes de ir por tu cuenta.',
+    paso:'Lee los informes de ASCER y del ITC sobre consumo energético del sector. Pregunta a una fábrica cercana qué hace con el calor de sus hornos.',
+    vr:'Especialízate en ajustar curvas de cocción: mejora rápida, medible y que casi no necesita inversión.' });
+
+  A({ id:'vc8', cics:['fpc','dfc','bas'], t:'Tienda y servicio técnico para ceramistas aficionados', n:'Suministros cerámicos',
+    d:'Vendes arcillas, esmaltes, herramientas, tornos y hornos a ceramistas aficionados y talleres, con asesoramiento, servicio de cocción y reparación de hornos. Modelo: margen sobre producto (30-45 %) y servicios técnicos.',
+    m:'producto', cli:'ceramistas aficionados, talleres de cerámica, escuelas y centros culturales', pb:'comprar materiales y resolver problemas técnicos con alguien que sabe',
+    val:'Todo lo que necesitas para tu cerámica, con alguien que entiende por qué se te agrieta una pieza.',
+    inv:[5000,15000], ar:'2-3 meses', r:2, e:['local','online'], h:3, am:4, tg:['arte','diy'], k:['ventas','rrss'], s:['ventas','tecnica','personas'],
+    why:'Procesos de fabricación de pastas y esmaltes, Principios de mantenimiento electromecánico y Normativa cerámica: sabes asesorar y reparar.',
+    reto:'Competencia de tiendas online grandes. Diferénciate por el asesoramiento, la cocción por encargo y la reparación de hornos.',
+    paso:'Pregunta a 5 talleres de cerámica de tu zona dónde compran, qué les falta y quién les repara el horno.',
+    vr:'Ofrece servicio de cocción para aficionados sin horno: entran por la cocción y compran materiales.' });
+
+  // ---------- HÍBRIDAS ----------
+  H({ id:'vc_h1', pref:['bas','fpc'], t:'Marca de cerámica de autor con venta online', n:'Cerámica de diseño',
+    d:'Creas una línea propia de piezas (tazas, jarrones, lámparas, objetos) con una estética reconocible y la vendes online, en mercados de diseño y en tiendas seleccionadas. Modelo: piezas de 20-200 € y colaboraciones con tiendas.',
+    m:'producto', cli:'personas que buscan objetos hechos a mano y tiendas de diseño', pb:'encontrar piezas de cerámica únicas y bien hechas',
+    val:'Piezas hechas a mano con un estilo propio, para usar todos los días.',
+    inv:[3000,10000], ar:'2-3 meses', r:2, e:['online','local'], h:3, am:4, tg:['arte','moda'], k:['rrss','fotovideo'], s:['creatividad','digital'],
+    why:'Tu sensibilidad artística define la marca; tu ciclo te da el oficio para producir con calidad y regularidad.',
+    reto:'Mucha competencia en redes y envíos frágiles. Cuida las fotos, el embalaje y calcula el coste del envío en el precio.',
+    paso:'Diseña una colección de 5 piezas, produce 10 de cada y vende en un mercado de diseño. Apunta qué se vende y a qué precio.',
+    vr:'Haz colecciones cortas para tiendas de museos y hoteles con encanto.' });
+
+  H({ id:'vc_h2', pref:['bas'], t:'Experiencias de cerámica para turistas y empresas', n:'Turismo creativo',
+    d:'Ofreces experiencias de cerámica de 2-3 horas en varios idiomas para turistas, con historia de la cerámica local, y talleres de equipo para empresas. Modelo: 45-90 € por persona y paquetes para empresas.',
+    m:'experiencia', cli:'turistas, agencias de viajes, hoteles y departamentos de recursos humanos', pb:'vivir una experiencia local auténtica y creativa',
+    val:'Te llevas una pieza hecha por ti y la historia de la cerámica del lugar.',
+    inv:[3000,10000], ar:'2-3 meses', r:2, e:['local'], h:3, am:2, tg:['viajes','gastronomia'], k:['idiomas','rrss'], s:['personas','creatividad','idiomas'],
+    why:'Te gusta viajar y conocer otras culturas; tu ciclo te da el oficio para que la experiencia tenga calidad.',
+    reto:'Las piezas hay que cocerlas y enviarlas después: organiza la logística y cobra el envío aparte.',
+    paso:'Diseña una experiencia de 2 horas y publícala en una plataforma de actividades turísticas. Pide a un hotel cercano que la recomiende.',
+    vr:'Combina cerámica y gastronomía: haz tu cuenco y come en él con un restaurante colaborador.' });
+
+  H({ id:'vc_h3', pref:['bas'], t:'Diseño con vidrio reciclado', n:'Vidrio circular',
+    d:'Transformas botellas y vidrio desechado en vasos, lámparas, platos y piezas decorativas con fusing y corte, y colaboras con bodegas, cervecerías y restaurantes para reciclar sus propias botellas. Modelo: venta de piezas (10-150 €) y encargos para negocios.',
+    m:'producto', cli:'personas que valoran la sostenibilidad, bodegas, cervecerías artesanas y restaurantes', pb:'dar una segunda vida a las botellas y tener piezas con historia',
+    val:'Piezas únicas hechas con vidrio que iba a la basura, con la historia de dónde viene.',
+    inv:[2000,6000], ar:'2 meses', r:2, e:['local','online'], h:2, am:3, tg:['sostenibilidad','gastronomia'], k:['rrss'], s:['creatividad','tecnica'],
+    why:'Tu compromiso con la sostenibilidad da sentido al proyecto; tu ciclo te da el termoformado, el fusing y los mecanizados con vidrio.',
+    reto:'Cada vidrio funde distinto: no mezcles tipos y haz pruebas antes de producir.',
+    paso:'Consigue botellas de un bar o bodega cercana, haz 5 vasos y llévaselos para que los vendan o usen.',
+    vr:'Ofrece a bodegas y cervecerías hacer vasos con sus propias botellas como producto de merchandising.' });
+
+  H({ id:'vc_h4', pref:['bas','fpc'], t:'Joyería de cerámica y vidrio', n:'Bisutería artesanal',
+    d:'Creas pendientes, colgantes, anillos y broches de porcelana, cerámica esmaltada y vidrio, con diseño propio. Modelo: piezas de 15-80 € con venta online, en ferias y en tiendas.',
+    m:'producto', cli:'personas que buscan complementos diferentes y tiendas de diseño', pb:'encontrar complementos originales hechos a mano',
+    val:'Complementos únicos, ligeros y hechos a mano en porcelana o vidrio.',
+    inv:[1000,4000], ar:'1-2 meses', r:1, e:['online','local'], h:2, am:4, tg:['moda','arte'], k:['rrss','fotovideo'], s:['creatividad','digital'],
+    why:'Te interesa la moda; tu ciclo te da el control del esmalte, el fusing y la cocción en piezas pequeñas.',
+    reto:'Piezas pequeñas con margen pequeño: cuida el tiempo de producción y fabrica en tandas.',
+    paso:'Haz 20 pendientes en 3 diseños, véndelos en una feria o en redes y apunta cuál funciona mejor.',
+    vr:'Colabora con diseñadoras de moda para colecciones cortas.' });
+
+  H({ id:'vc_h5', pref:['bas'], t:'Talleres de cerámica para mayores y colectivos', n:'Cerámica social',
+    d:'Organizas talleres de cerámica en residencias, centros de día, asociaciones de discapacidad y centros de salud mental, con objetivos de bienestar, motricidad y socialización. Modelo: precio por sesión pagado por la entidad (80-200 €) o financiado con proyectos sociales.',
+    m:'formacion', cli:'residencias, centros de día, asociaciones de discapacidad y entidades sociales', pb:'ofrecer actividades que mejoren el bienestar de las personas que atienden',
+    val:'Una actividad que relaja, estimula y une, y deja piezas de las que las personas se sienten orgullosas.',
+    inv:[1500,5000], ar:'2 meses', r:1, e:['local'], h:2, am:2, tg:['social'], k:['atencion_cliente'], s:['personas','creatividad'],
+    why:'Tu vocación social te da el trato; tu ciclo te da el oficio para adaptar técnicas a cada grupo.',
+    reto:'Necesitas adaptar técnicas y materiales a cada colectivo y coordinarte con sus profesionales.',
+    paso:'Ofrece un taller gratuito en una residencia o asociación de tu zona y pide al equipo que valore la sesión.',
+    vr:'Presenta el proyecto a convocatorias de ayudas sociales y culturales de tu ayuntamiento o diputación.' });
+
+  H({ id:'vc_h6', pref:['dfc','fpc'], t:'Impresión 3D de cerámica', n:'Cerámica digital',
+    d:'Con impresoras 3D de arcilla fabricas piezas imposibles a mano: lámparas, celosías, macetas, prototipos para diseñadores y piezas de arquitectura. Modelo: venta de piezas y servicio de prototipado.',
+    m:'proyecto', cli:'diseñadores, arquitectos, interioristas y tiendas de diseño', pb:'producir piezas cerámicas complejas o prototipos sin moldes',
+    val:'Formas cerámicas imposibles a mano, producidas sin moldes y a medida.',
+    inv:[3000,8000], ar:'2-3 meses', r:3, e:['local','online'], h:3, am:4, tg:['tecnologia','diy','arte'], k:['diseno','programacion'], s:['creatividad','tecnica','digital'],
+    why:'Te atrae la tecnología; tu ciclo te da el conocimiento de pastas, secado y cocción que hace falta para que la pieza impresa sobreviva al horno.',
+    reto:'La técnica está en desarrollo y hay muchas piezas fallidas. Ajusta la pasta y la cocción con paciencia antes de vender.',
+    paso:'Busca un espacio maker o centro tecnológico con impresora de arcilla y prueba a imprimir una pieza sencilla.',
+    vr:'Haz celosías y revestimientos para arquitectos: piezas repetidas de alto valor.' });
+
+  // ---------- EMERGENTES ----------
+  N({ id:'vc_n1', t:'Cerámica avanzada y técnica para la industria', n:'Cerámica técnica',
+    d:'Las cerámicas técnicas se usan en electrónica, medicina, aeronáutica y energía. Trabajas en el desarrollo y la producción de piezas técnicas en pequeñas series para empresas y centros de investigación. Modelo: proyectos de desarrollo y series cortas.',
+    m:'proyecto', cli:'empresas de electrónica, energía y medicina, y centros tecnológicos', pb:'conseguir piezas cerámicas técnicas en series pequeñas',
+    val:'Piezas cerámicas técnicas desarrolladas y producidas en pequeñas series, sin pedir miles.',
+    inv:[5000,20000], ar:'6-12 meses', r:3, e:['local'], h:4, am:5, tg:['tecnologia'], k:['ofimatica'], s:['tecnica','resolucion'],
+    why:'El módulo de Cerámicas avanzadas y el control de procesos de fabricación te dan la base de un campo con mucho futuro.',
+    reto:'Hace falta experiencia y equipos caros. Entra primero en un centro tecnológico o empresa del sector.',
+    paso:'Busca qué centros tecnológicos y empresas de tu comunidad trabajan con cerámica técnica y qué perfiles piden.',
+    vr:'Especialízate en un uso concreto (aislantes, filtros, piezas de desgaste) y trabaja para varios clientes.' });
+
+  N({ id:'vc_n2', t:'Kits de cerámica en casa con curso online', n:'Cerámica en casa',
+    d:'Vendes kits para hacer cerámica en casa sin horno (arcillas de secado al aire, herramientas, pinturas) con un curso en vídeo, y ofreces cocción por correo para quien use arcilla de horno. Modelo: kits de 25-60 € y suscripción de proyectos mensuales.',
+    m:'suscripcion', cli:'adultos que quieren empezar en la cerámica y personas que buscan un regalo original', pb:'probar la cerámica en casa sin ir a un taller',
+    val:'Todo lo que necesitas para hacer tus primeras piezas en casa, explicado paso a paso.',
+    inv:[2000,6000], ar:'2-3 meses', r:2, e:['online'], h:2, am:5, tg:['diy','arte'], k:['fotovideo','marketing'], s:['creatividad','digital'],
+    why:'Sabes enseñar el proceso y elegir los materiales adecuados para que salga bien a la primera.',
+    reto:'Muchos kits compiten en internet. Diferénciate con un curso de calidad y proyectos que cambian cada mes.',
+    paso:'Prepara un kit de prueba y un vídeo de 10 minutos y véndelo a 10 personas conocidas. Pregunta qué mejorarían.',
+    vr:'Vende kits para empresas como actividad de equipo a distancia.' });
+
+  N({ id:'vc_n3', t:'Recuperación de residuos cerámicos y de vidrio', n:'Economía circular cerámica',
+    d:'Las fábricas y talleres generan piezas rotas, polvo y lodos de esmalte. Desarrollas formas de reutilizarlos en nuevas pastas, áridos o productos decorativos, en colaboración con fabricantes y gestores de residuos. Modelo: proyectos con fabricantes y venta de productos reciclados.',
+    m:'proyecto', cli:'fábricas cerámicas, talleres y gestores de residuos', pb:'reducir residuos y costes de gestión',
+    val:'Tus residuos se convierten en materia prima o producto, y pagas menos por gestionarlos.',
+    inv:[3000,10000], ar:'6-9 meses', r:3, e:['local'], h:3, am:3, tg:['sostenibilidad'], k:['ofimatica'], s:['tecnica','resolucion','creatividad'],
+    why:'Desarrollo de pastas, Control de procesos y Gestión de la calidad y protección ambiental: sabes probar si un residuo puede volver al proceso.',
+    reto:'Gestionar residuos tiene requisitos legales: trabaja con un gestor autorizado y empieza con proyectos de prueba dentro de la fábrica.',
+    paso:'Pregunta a una fábrica o taller cerámico qué hacen con sus residuos y cuánto les cuesta. Haz una prueba de pasta con un 10 % de residuo molido.',
+    vr:'Crea una línea de producto decorativo hecho con residuos de una fábrica conocida, contando su origen.' });
+  } // fin de Vidrio y Cerámica
+
   // ===========================================================
   // MOTOR DE RECOMENDACIÓN (común a todas las familias del motor enriquecido)
   // Puntúa cada idea con TODAS las respuestas, elige de forma ponderada
