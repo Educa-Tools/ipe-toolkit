@@ -338,6 +338,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
           <option value="deportiva">Actividades Físicas y Deportivas</option>
           <option value="agraria">Agraria</option>
           <option value="artes_graficas">Artes Gráficas</option>
+          <option value="artes_artesanias">Artes y Artesanías</option>
           <option value="comercio">Comercio y Marketing</option>
           <option value="edificacion">Edificación y Obra Civil</option>
           <option value="electricidad">Electricidad y Electrónica</option>
@@ -347,10 +348,11 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
           <option value="imagen_personal">Imagen Personal</option>
           <option value="imagen_sonido">Imagen y Sonido</option>
           <option value="alimentaria">Industrias Alimentarias</option>
+          <option value="extractivas">Industrias Extractivas</option>
           <option value="informatica">Informática y Comunicaciones</option>
           <option value="instalacion">Instalación y Mantenimiento</option>
           <option value="madera">Madera, Mueble y Corcho</option>
-          <option value="maritima">Marítimo Pesquera</option>
+          <option value="maritima">Marítimo-Pesquera</option>
           <option value="quimica">Química</option>
           <option value="sanidad">Sanidad</option>
           <option value="seguridad">Seguridad y Medio Ambiente</option>
@@ -990,385 +992,138 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
   // ===========================================
   // CATÁLOGO MEFP COMPLETO (Básico / Medio / Superior)
   // ===========================================
+  // Fuente: TodoFP (Ministerio de Educación, FP y Deportes), consultado el 19-oct-2026.
+  // Un título que el Ministerio lista en dos familias aparece en las dos.
   const CATALOGO = {
-    administracion: {
-      basico: [
-        "Servicios Administrativos"
-      ],
-      medio: [
-        "Gestión Administrativa"
-      ],
-      superior: [
-        "Administración y Finanzas",
-        "Asistencia a la Dirección"
-      ]
-    },
     deportiva: {
-      basico: [],
-      medio: [
-        "Conducción de Actividades Físico-Deportivas en el Medio Natural",
-        "Guía en el Medio Natural y de Tiempo Libre"
-      ],
-      superior: [
-        "Acondicionamiento Físico",
-        "Animación de Actividades Físicas y Deportivas",
-        "Enseñanza y Animación Sociodeportiva"
-      ]
+      basico: ["Acceso y Conservación en Instalaciones Deportivas"],
+      medio: ["Actividades Ecuestres", "Guía en el Medio Natural y de Tiempo Libre"],
+      superior: ["Acondicionamiento Físico", "Enseñanza y Animación Sociodeportiva"]
+    },
+    administracion: {
+      basico: ["Informática de Oficina", "Servicios Administrativos"],
+      medio: ["Gestión Administrativa"],
+      superior: ["Administración y Finanzas", "Asistencia a la Dirección"]
     },
     agraria: {
-      basico: [
-        "Agrojardinería y Composiciones Florales",
-        "Actividades Agropecuarias"
-      ],
-      medio: [
-        "Producción Agropecuaria",
-        "Jardinería y Floristería",
-        "Producción Agroecológica",
-        "Técnico en Aprovechamiento y Conservación del Medio Natural"
-      ],
-      superior: [
-        "Ganadería y Asistencia en Sanidad Animal",
-        "Gestión Forestal y del Medio Natural",
-        "Paisajismo y Medio Rural",
-        "Vitivinicultura"
-      ]
+      basico: ["Actividades Agropecuarias", "Agro-jardinería y Composiciones Florales", "Aprovechamientos Forestales"],
+      medio: ["Actividades Ecuestres", "Aprovechamiento y Conservación del Medio Natural", "Jardinería y Floristería", "Producción Agroecológica", "Producción Agropecuaria"],
+      superior: ["Ganadería y Asistencia en Sanidad Animal", "Gestión Forestal y del Medio Natural", "Paisajismo y Medio Rural"]
     },
     artes_graficas: {
-      basico: [
-        "Artes Gráficas"
-      ],
-      medio: [
-        "Impresión Gráfica",
-        "Preimpresión Digital",
-        "Encuadernación y Manipulados de Papel y Cartón"
-      ],
-      superior: [
-        "Diseño y Edición de Publicaciones Impresas y Multimedia",
-        "Gestión del Diseño y la Producción Gráfica",
-        "Producción en Industrias de Artes Gráficas"
-      ]
+      basico: ["Artes Gráficas"],
+      medio: ["Impresión Gráfica", "Postimpresión y Acabados Gráficos", "Preimpresión Digital"],
+      superior: ["Diseño y Edición de Publicaciones Impresas y Multimedia", "Diseño y Gestión de la Producción Gráfica"]
+    },
+    artes_artesanias: {
+      basico: [],
+      medio: [],
+      superior: ["Diseño y Construcción Artesanal de Instrumentos Musicales de Cuerda"]
     },
     comercio: {
-      basico: [
-        "Servicios Comerciales"
-      ],
-      medio: [
-        "Actividades Comerciales"
-      ],
-      superior: [
-        "Comercio Internacional",
-        "Gestión de Ventas y Espacios Comerciales",
-        "Marketing y Publicidad",
-        "Transporte y Logística"
-      ]
+      basico: ["Servicios Comerciales"],
+      medio: ["Actividades Comerciales", "Comercialización de Productos Alimentarios"],
+      superior: ["Comercio Internacional", "Gestión de Ventas y Espacios Comerciales", "Marketing y Publicidad", "Transporte y Logística"]
     },
     edificacion: {
-      basico: [
-        "Reformas y Obras de Interior",
-        "Servicios de Construcción"
-      ],
-      medio: [
-        "Construcción",
-        "Obras de Interior, Decoración y Rehabilitación"
-      ],
-      superior: [
-        "Desarrollo y Aplicación de Proyectos de Construcción",
-        "Organización y Control de Obras de Construcción",
-        "Proyectos de Obra Civil"
-      ]
+      basico: ["Reforma y Mantenimiento de Edificios"],
+      medio: ["Construcción", "Obras de Interior, Decoración y Rehabilitación"],
+      superior: ["Organización y Control de Obras de Construcción", "Proyectos de Edificación", "Proyectos de Obra Civil"]
     },
     electricidad: {
-      basico: [
-        "Electricidad y Electrónica",
-        "Aprovechamiento de Energías Renovables"
-      ],
-      medio: [
-        "Instalaciones Eléctricas y Automáticas",
-        "Instalaciones de Telecomunicaciones",
-        "Equipos Electrónicos de Consumo"
-      ],
-      superior: [
-        "Automatización y Robótica Industrial",
-        "Electrónica Industrial",
-        "Mantenimiento Electrónico",
-        "Sistemas de Telecomunicaciones e Informáticos",
-        "Sistemas Electrotécnicos y Automatizados"
-      ]
+      basico: ["Electricidad y Electrónica", "Fabricación de Elementos Metálicos", "Instalaciones Electrotécnicas y Mecánica"],
+      medio: ["Instalaciones de Telecomunicaciones", "Instalaciones Eléctricas y Automáticas"],
+      superior: ["Automatización y Robótica Industrial", "Electromedicina Clínica", "Mantenimiento Electrónico", "Sistemas de Telecomunicaciones e Informáticos", "Sistemas Electrotécnicos y Automatizados"]
     },
     energia: {
       basico: [],
-      medio: [
-        "Instalaciones de Producción de Calor",
-        "Instalaciones Frigoríficas y de Climatización"
-      ],
-      superior: [
-        "Eficiencia Energética y Energía Solar Térmica",
-        "Energías Renovables",
-        "Gestión del Agua",
-        "Química Industrial"
-      ]
+      medio: ["Redes y Estaciones de Tratamiento de Aguas"],
+      superior: ["Centrales Eléctricas", "Eficiencia Energética y Energía Solar Térmica", "Energías Renovables", "Gestión del Agua"]
     },
     fabricacion: {
-      basico: [
-        "Fabricación y Montaje",
-        "Mantenimiento de Viviendas"
-      ],
-      medio: [
-        "Mecanizado",
-        "Soldadura y Calderería",
-        "Tratamientos Superficiales y Térmicos",
-        "Construcciones Metálicas"
-      ],
-      superior: [
-        "Diseño en Fabricación Mecánica",
-        "Programación de la Producción en Fabricación Mecánica",
-        "Construcciones Metálicas"
-      ]
+      basico: ["Fabricación de Elementos Metálicos", "Fabricación y Montaje", "Instalaciones Electrotécnicas y Mecánica"],
+      medio: ["Conformado por Moldeo de Metales y Polímeros", "Joyería", "Mecanizado", "Montaje de Estructuras e Instalación de Sistemas Aeronáuticos", "Soldadura y Calderería"],
+      superior: ["Construcciones Metálicas", "Diseño en Fabricación Mecánica", "Óptica de Anteojería", "Programación de la Producción en Fabricación Mecánica", "Programación de la Producción en Moldeo de Metales y Polímeros"]
     },
     hosteleria: {
-      basico: [
-        "Servicios en Restauración",
-        "Cocina y Restauración"
-      ],
-      medio: [
-        "Cocina y Gastronomía",
-        "Servicios en Restauración",
-        "Panadería, Repostería y Confitería"
-      ],
-      superior: [
-        "Agencias de Viajes y Gestión de Eventos",
-        "Dirección de Cocina",
-        "Dirección de Servicios de Restauración",
-        "Gestión de Alojamientos Turísticos",
-        "Guía, Información y Asistencias Turísticas"
-      ]
+      basico: ["Actividades de Panadería y Pastelería", "Alojamiento y Lavandería", "Cocina y Restauración"],
+      medio: ["Cocina y Gastronomía", "Comercialización de Productos Alimentarios", "Servicios en Restauración"],
+      superior: ["Agencias de Viajes y Gestión de Eventos", "Dirección de Cocina", "Dirección de Servicios de Restauración", "Gestión de Alojamientos Turísticos", "Guía, Información y Asistencias Turísticas"]
     },
     imagen_personal: {
-      basico: [
-        "Peluquería y Cosmética Capilar",
-        "Servicios de Atención a las Personas"
-      ],
-      medio: [
-        "Caracterización y Maquillaje Profesional",
-        "Estética y Belleza",
-        "Peluquería y Cosmética Capilar"
-      ],
-      superior: [
-        "Asesoría de Imagen Personal y Corporativa",
-        "Estética Integral y Bienestar",
-        "Estilismo y Dirección de Peluquería"
-      ]
+      basico: ["Peluquería y Estética"],
+      medio: ["Estética y Belleza", "Peluquería y Cosmética Capilar"],
+      superior: ["Asesoría de Imagen Personal y Corporativa", "Caracterización y Maquillaje Profesional", "Estética Integral y Bienestar", "Estilismo y Dirección de Peluquería", "Termalismo y Bienestar"]
     },
     imagen_sonido: {
       basico: [],
-      medio: [
-        "Técnico en Vídeo Disc-Jockey y Sonido",
-        "Laboratorio de Imagen"
-      ],
-      superior: [
-        "Animaciones 3D, Juegos y Entornos Interactivos",
-        "Diseño y Gestión de la Producción Gráfica",
-        "Fotografía y Vídeo",
-        "Realización de Audiovisuales y Espectáculos",
-        "Sonido para Audiovisuales y Espectáculos"
-      ]
+      medio: ["Vídeo Disc-Jockey y Sonido"],
+      superior: ["Animaciones 3D, Juegos y Entornos Interactivos", "Iluminación, Captación y Tratamiento de Imagen", "Producción de Audiovisuales y Espectáculos", "Realización de Proyectos Audiovisuales y Espectáculos", "Sonido para Audiovisuales y Espectáculos"]
     },
     alimentaria: {
-      basico: [
-        "Industrias Alimentarias",
-        "Panadería y Pastelería"
-      ],
-      medio: [
-        "Elaboración de Productos Alimenticios",
-        "Aceites de Oliva y Vinos",
-        "Carnicería y Elaboración de Productos Cárnicos",
-        "Panadería, Repostería y Confitería",
-        "Elaboración del Vino"
-      ],
-      superior: [
-        "Industria Alimentaria",
-        "Procesos y Calidad en la Industria Alimentaria",
-        "Vitivinicultura"
-      ]
+      basico: ["Actividades de Panadería y Pastelería", "Industrias Alimentarias"],
+      medio: ["Aceites de Oliva y Vinos", "Elaboración de Productos Alimenticios", "Panadería, Repostería y Confitería"],
+      superior: ["Procesos y Calidad en la Industria Alimentaria", "Vitivinicultura"]
+    },
+    extractivas: {
+      basico: [],
+      medio: ["Excavaciones y Sondeos", "Piedra Natural"],
+      superior: []
     },
     informatica: {
-      basico: [
-        "Informática y Comunicaciones",
-        "Informática de Oficina"
-      ],
-      medio: [
-        "Sistemas Microinformáticos y Redes"
-      ],
-      superior: [
-        "Administración de Sistemas Informáticos en Red",
-        "Desarrollo de Aplicaciones Multiplataforma",
-        "Desarrollo de Aplicaciones Web"
-      ]
+      basico: ["Informática de Oficina", "Informática y Comunicaciones"],
+      medio: ["Sistemas Microinformáticos y Redes"],
+      superior: ["Administración de Sistemas Informáticos en Red", "Desarrollo de Aplicaciones Multiplataforma", "Desarrollo de Aplicaciones Web"]
     },
     instalacion: {
-      basico: [
-        "Electricidad y Electrónica",
-        "Mantenimiento de Viviendas"
-      ],
-      medio: [
-        "Instalaciones de Producción de Calor",
-        "Instalaciones Frigoríficas y de Climatización",
-        "Mantenimiento de Instalaciones Térmicas y de Fluidos",
-        "Montaje y Mantenimiento de Instalaciones de Frío, Climatización y Producción de Calor"
-      ],
-      superior: [
-        "Desarrollo de Proyectos de Instalaciones Térmicas y de Fluidos",
-        "Mantenimiento de Instalaciones Industriales",
-        "Prevención de Riesgos Profesionales"
-      ]
+      basico: ["Fabricación y Montaje", "Mantenimiento de Viviendas"],
+      medio: ["Instalaciones de Producción de Calor", "Instalaciones Frigoríficas y de Climatización", "Mantenimiento Electromecánico"],
+      superior: ["Desarrollo de Proyectos de Instalaciones Térmicas y de Fluidos", "Mantenimiento de Instalaciones Térmicas y de Fluidos", "Mecatrónica Industrial"]
     },
     madera: {
-      basico: [
-        "Carpintería y Mueble",
-        "Reformas y Obras de Interior"
-      ],
-      medio: [
-        "Carpintería y Mueble",
-        "Instalación y Amueblamiento"
-      ],
-      superior: [
-        "Diseño y Amueblamiento",
-        "Producción de Madera y Mueble"
-      ]
+      basico: ["Carpintería y Mueble"],
+      medio: ["Carpintería y Mueble", "Instalación y Amueblamiento", "Procesado y Transformación de la Madera"],
+      superior: ["Diseño y Amueblamiento"]
     },
     maritima: {
-      basico: [],
-      medio: [
-        "Buceo a Media Profundidad",
-        "Navegación y Pesca de Litoral",
-        "Operaciones Subacuáticas e Hiperbáricas",
-        "Pesca y Transporte Marítimo",
-        "Producción Acuícola"
-      ],
-      superior: [
-        "Acuicultura",
-        "Coordinación de Emergencias Marítimas",
-        "Marina y Embarcaciones Deportivas",
-        "Supervisión y Control de Máquinas e Instalaciones del Buque",
-        "Transporte Marítimo y Pesca de Altura"
-      ]
+      basico: ["Actividades Marítimo-Pesqueras", "Mantenimiento de Embarcaciones Deportivas y de Recreo"],
+      medio: ["Cultivos Acuícolas", "Mantenimiento y Control de la Maquinaria de Buques y Embarcaciones", "Navegación y Pesca de Litoral", "Operaciones Subacuáticas e Hiperbáricas"],
+      superior: ["Acuicultura", "Organización del Mantenimiento de Maquinaria de Buques y Embarcaciones", "Transporte Marítimo y Pesca de Altura"]
     },
     quimica: {
       basico: [],
-      medio: [
-        "Farmacia y Parafarmacia",
-        "Laboratorio",
-        "Operaciones de Fabricación de Productos Farmacéuticos",
-        "Operaciones de Proceso en Planta Química",
-        "Plásticos y Caucho"
-      ],
-      superior: [
-        "Análisis y Control",
-        "Fabricación de Productos Farmacéuticos y Afines",
-        "Química Ambiental",
-        "Química Industrial",
-        "Plásticos, Caucho y Poliuretanos"
-      ]
+      medio: ["Operaciones de Laboratorio", "Planta Química"],
+      superior: ["Fabricación de Productos Farmacéuticos, Biotecnológicos y Afines", "Laboratorio de Análisis y de Control de Calidad", "Química Industrial"]
     },
     sanidad: {
-      basico: [
-        "Cuidados Auxiliares de Enfermería"
-      ],
-      medio: [
-        "Cuidados Auxiliares de Enfermería",
-        "Emergencias Sanitarias",
-        "Farmacia y Parafarmacia",
-        "Técnico en Auxiliar de Veterinaria"
-      ],
-      superior: [
-        "Anatomía Patológica y Citodiagnóstico",
-        "Audioprótesis",
-        "Caracterización y Maquillaje Profesional",
-        "Dietética",
-        "Documentación Sanitaria",
-        "Educación y Control Sanitario",
-        "Higiene Bucodental",
-        "Imagen para el Diagnóstico y Medicina Nuclear",
-        "Laboratorio Clínico y Biomédico",
-        "Ortoprótesis y Productos de Apoyo",
-        "Prótesis Dentales",
-        "Radioterapia y Dosimetría",
-        "Salud Ambiental",
-        "Óptica de Anteojería"
-      ]
+      basico: [],
+      medio: ["Cuidados Auxiliares de Enfermería", "Emergencias Sanitarias", "Farmacia y Parafarmacia"],
+      superior: ["Anatomía Patológica y Citodiagnóstico", "Audiología Protésica", "Dietética", "Documentación y Administración Sanitarias", "Higiene Bucodental", "Imagen para el Diagnóstico y Medicina Nuclear", "Laboratorio Clínico y Biomédico", "Ortoprótesis y Productos de Apoyo", "Prótesis Dentales", "Radioterapia y Dosimetría"]
     },
     seguridad: {
       basico: [],
-      medio: [
-        "Gestión Forestal y del Medio Natural",
-        "Conducción de Actividades Físico-Deportivas en el Medio Natural"
-      ],
-      superior: [
-        "Coordinación de Emergencias y Protección Civil",
-        "Educación y Control Ambiental",
-        "Gestión Ambiental",
-        "Prevención de Riesgos Profesionales"
-      ]
+      medio: ["Emergencias y Protección Civil", "Sanidad Ambiental Aplicada", "Seguridad"],
+      superior: ["Coordinación de Emergencias y Protección Civil", "Educación y Control Ambiental", "Prevención de Riesgos Profesionales", "Química y Salud Ambiental"]
     },
     sociocultural: {
-      basico: [
-        "Atención a Personas en Situación de Dependencia",
-        "Servicios de Atención a las Personas"
-      ],
-      medio: [
-        "Atención a Personas en Situación de Dependencia"
-      ],
-      superior: [
-        "Animación Sociocultural y Turística",
-        "Educación Infantil",
-        "Integración Social",
-        "Mediación Comunicativa",
-        "Promoción de Igualdad de Género"
-      ]
+      basico: ["Actividades Domésticas y Limpieza de Edificios"],
+      medio: ["Atención a Personas en Situación de Dependencia", "Servicios Funerarios"],
+      superior: ["Animación Sociocultural y Turística", "Educación Infantil", "Formación para la Movilidad Segura y Sostenible", "Integración Social", "Mediación Comunicativa", "Promoción de Igualdad de Género"]
     },
     textil: {
-      basico: [
-        "Textil, Confección y Piel"
-      ],
-      medio: [
-        "Calzado y Marroquinería",
-        "Confección y Moda",
-        "Curtidos",
-        "Producción de Hilatura y Tejeduría de Calada",
-        "Producción de Tejidos de Punto"
-      ],
-      superior: [
-        "Diseño Técnico en Textil y Piel",
-        "Gestión del Diseño y la Producción Gráfica",
-        "Patronaje y Moda"
-      ]
+      basico: ["Arreglo y Reparación de Artículos Textiles y de Piel", "Tapicería y Cortinaje"],
+      medio: ["Calzado y Complementos de Moda", "Confección y Moda", "Fabricación y Ennoblecimiento de Productos Textiles"],
+      superior: ["Diseño Técnico en Textil y Piel", "Diseño y Producción de Calzado y Complementos", "Patronaje y Moda", "Vestuario a Medida y de Espectáculos"]
     },
     transporte: {
-      basico: [
-        "Mantenimiento de Vehículos",
-        "Reparación y Mantenimiento de Carrocerías"
-      ],
-      medio: [
-        "Carrocería",
-        "Electromecánica de Maquinaria",
-        "Electromecánica de Vehículos Automóviles"
-      ],
-      superior: [
-        "Automoción",
-        "Mantenimiento Aeromecánico",
-        "Mantenimiento de Sistemas Electrónicos",
-        "Transporte y Logística"
-      ]
+      basico: ["Mantenimiento de Embarcaciones Deportivas y de Recreo", "Mantenimiento de Vehículos"],
+      medio: ["Carrocería", "Conducción de Vehículos de Transporte por Carretera", "Electromecánica de Maquinaria", "Electromecánica de Vehículos Automóviles", "Mantenimiento de Embarcaciones de Recreo", "Mantenimiento de Estructuras de Madera y Mobiliario de Embarcaciones de Recreo", "Mantenimiento de Material Rodante Ferroviario", "Montaje de Estructuras e Instalación de Sistemas Aeronáuticos"],
+      superior: ["Automoción", "Mantenimiento Aeromecánico de Aviones con Motor de Pistón", "Mantenimiento Aeromecánico de Aviones con Motor de Turbina", "Mantenimiento Aeromecánico de Helicópteros con Motor de Pistón", "Mantenimiento Aeromecánico de Helicópteros con Motor de Turbina", "Mantenimiento de Sistemas Electrónicos y Aviónicos de Aeronaves"]
     },
     vidrio: {
-      basico: [],
-      medio: [
-        "Fabricación y Transformación de Productos de Vidrio",
-        "Operaciones de Fabricación de Vidrio y Transformados"
-      ],
-      superior: [
-        "Fabricación y Transformación de Productos de Vidrio y Cerámica"
-      ]
+      basico: ["Vidriería y Alfarería"],
+      medio: ["Fabricación de Productos Cerámicos"],
+      superior: ["Desarrollo y Fabricación de Productos Cerámicos"]
     }
   };
 
@@ -1456,10 +1211,10 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     imagen_personal: "Imagen Personal", imagen_sonido: "Imagen y Sonido",
     alimentaria: "Industrias Alimentarias", informatica: "Informática y Comunicaciones",
     instalacion: "Instalación y Mantenimiento", madera: "Madera, Mueble y Corcho",
-    maritima: "Marítimo Pesquera", quimica: "Química", sanidad: "Sanidad",
+    maritima: "Marítimo-Pesquera", quimica: "Química", sanidad: "Sanidad",
     seguridad: "Seguridad y Medio Ambiente", sociocultural: "Servicios Socioculturales y a la Comunidad",
     textil: "Textil, Confección y Piel", transporte: "Transporte y Mantenimiento de Vehículos",
-    vidrio: "Vidrio y Cerámica"
+    vidrio: "Vidrio y Cerámica", artes_artesanias: "Artes y Artesanías", extractivas: "Industrias Extractivas"
   };
 
   // Multi-select para tags, habilidades y conocimientos
@@ -1853,7 +1608,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
       clearInterval(iv);
 
       const d = state.data;
-      if (d.familia === 'comercio') { renderComercio(d, false); return; }
+      if (usaMotorRico(d.familia)) { renderRico(d, false); return; }
       const ideas = [];
 
       const ideaSector = pickIdeaSector(d);
@@ -1998,22 +1753,53 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
   }
 
   // ===========================================================
-  // COMERCIO Y MARKETING · MOTOR ENRIQUECIDO
-  // Banco de ideas específico por ciclo + modelos de negocio
+  // MOTOR ENRIQUECIDO · banco de ideas por familia y ciclo + modelos de negocio
+  // Una familia usa este motor en cuanto está en FAM y tiene ideas en IDEAS;
+  // si no, usa el motor sencillo de arriba.
   // ===========================================================
-  const COM = [];
+  const IDEAS = [];
 
-  // Claves de ciclo: ci = Comercio Internacional · gv = Gestión de Ventas y Espacios Comerciales
-  // mp = Marketing y Publicidad · tl = Transporte y Logística · med = Actividades Comerciales (medio)
-  // bas = Servicios Comerciales (básico)
-  const CICLO_KEY = {
-    'Comercio Internacional': 'ci',
-    'Gestión de Ventas y Espacios Comerciales': 'gv',
-    'Marketing y Publicidad': 'mp',
-    'Transporte y Logística': 'tl',
-    'Actividades Comerciales': 'med',
-    'Servicios Comerciales': 'bas'
+  // Por familia:
+  //   ciclos  · nombre del ciclo en CATALOGO → clave corta. Varios ciclos pueden compartir clave.
+  //   labels  · clave → nombre del ciclo para los textos («Esta idea nace de…»).
+  //   defecto · clave que se usa si el ciclo elegido no está en «ciclos», según el nivel.
+  //   afin    · clave → claves cuyas ideas de sector cuentan como «tu ciclo» (p. ej. básico ← medio).
+  //   fuentes · clave → dónde investigar; «_» es la fuente general de la familia.
+  const FAM = {
+    comercio: {
+      ciclos: {
+        'Comercio Internacional': 'ci',
+        'Gestión de Ventas y Espacios Comerciales': 'gv',
+        'Marketing y Publicidad': 'mp',
+        'Transporte y Logística': 'tl',
+        'Actividades Comerciales': 'med',
+        'Comercialización de Productos Alimentarios': 'med',
+        'Servicios Comerciales': 'bas'
+      },
+      labels: { ci: 'Comercio Internacional', gv: 'Gestión de Ventas y Espacios Comerciales', mp: 'Marketing y Publicidad', tl: 'Transporte y Logística', med: 'Actividades Comerciales', bas: 'Servicios Comerciales' },
+      defecto: { basico: 'bas', medio: 'med', superior: 'gv' },
+      afin: { bas: ['med'] },
+      fuentes: {
+        ci: 'ICEX, Trade Map, Eurostat (Comext), la base TARIC y tu cámara de comercio',
+        gv: 'tu cámara de comercio, las asociaciones de comerciantes y los informes de tendencias del comercio minorista',
+        mp: 'IAB Spain, Google Trends, la Biblioteca de anuncios de Meta y las normas de publicidad (Autocontrol)',
+        tl: 'el Ministerio de Transportes, las asociaciones del sector y tarifas reales de transitarios y paquetería',
+        _: 'tu cámara de comercio, las asociaciones de comerciantes y los mercados y ferias de tu zona'
+      }
+    }
   };
+
+  // Atajos para dar de alta ideas de una familia: A = sector, H = híbrida, N = emergente.
+  // Las híbridas y emergentes valen para todos los ciclos de la familia salvo que se diga otra cosa.
+  function banco(fam) {
+    const todos = Object.keys(FAM[fam].labels);
+    return {
+      A: (o) => IDEAS.push(Object.assign({ fam: fam, tp: 'sector' }, o)),
+      H: (o) => IDEAS.push(Object.assign({ fam: fam, tp: 'hibrido', cics: todos }, o)),
+      N: (o) => IDEAS.push(Object.assign({ fam: fam, tp: 'innovadora', cics: todos }, o))
+    };
+  }
+  const usaMotorRico = (fam) => !!FAM[fam] && IDEAS.some(i => i.fam === fam);
 
   // Cada modelo genera: cómo se gana dinero, plan de 30 días y preguntas de validación.
   // Los textos se personalizan con el cliente ideal (cli), el problema (pb) y la zona (loc).
@@ -2140,8 +1926,10 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     }
   };
 
+  // ===================== COMERCIO Y MARKETING =====================
+  { const { A, H, N } = banco('comercio');
+
   // ---------- COMERCIO INTERNACIONAL (Grado Superior) ----------
-  const A = (o) => COM.push(o);
 
   A({ id:'ci1', tp:'sector', cics:['ci'], t:'Departamento de exportación externalizado para pymes productoras', n:'Agente de exportación',
     d:'Te conviertes en el departamento de exportación de 3-5 pequeñas empresas productoras de tu zona (conservas, vino, queso, cosmética, madera…) que quieren vender fuera pero no tienen a nadie que lo haga. Eliges mercados con datos (Portugal, Francia, Alemania, Países Bajos), preparas catálogos y tarifas de exportación, localizas importadores y gestionas ofertas hasta el cierre. Modelo: retainer de 300-800 €/mes por empresa + 3-8 % de comisión sobre las ventas que consigas.',
@@ -2608,8 +2396,6 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     vr:'Monta ediciones especiales por temporada (Navidad, primavera) y alianzas con bares y cafeterías del entorno para llenar de vida el espacio.' });
 
   // ---------- HÍBRIDAS: negocio (tu ciclo) + afición (tu interés) ----------
-  const ALL = ['ci','gv','mp','tl','med','bas'];
-  const H = (o) => COM.push(Object.assign({ tp:'hibrido', cics: ALL }, o));
 
   // DEPORTE
   H({ id:'h_dep1', pref:['gv','med'], t:'Tienda especializada de un deporte de nicho con presencia en torneos y eventos', n:'Retail deportivo de nicho',
@@ -2885,7 +2671,6 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     vr:'Especialízate en un tipo de turismo (peregrinos, rutas de vino, turismo activo) y crea una oferta específica.' });
 
   // ---------- INNOVADORAS: vías emergentes ----------
-  const N = (o) => COM.push(Object.assign({ tp:'innovadora', cics: ALL }, o));
 
   N({ id:'n1', t:'Venta en directo (live shopping) para marcas y comercios locales', n:'Live commerce',
     d:'Organizas y presentas sesiones de venta en directo en TikTok, Instagram o YouTube para comercios y marcas que quieren vender producto en tiempo real: guion, escaparate virtual, dinámicas de venta y gestión de pedidos. Modelo: comisión del 10-20 % sobre las ventas del directo + tarifa fija por sesión de 150-400 €. Formato en auge en Asia y Europa, todavía casi sin competencia local.',
@@ -2996,9 +2781,10 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     reto:'Permisos de venta ambulante y coste del vehículo. Consulta la normativa municipal y valida con un puesto en 3 mercados antes de comprar la furgoneta.',
     paso:'Consulta el calendario de ferias, mercados y eventos de tu comarca, calcula cuántos días al mes podrías estar en cada uno y qué coste tiene cada puesto.',
     vr:'Empieza con un remolque pequeño o un stand plegable y cámbialo a furgoneta cuando el calendario esté completo.' });
+  } // fin de Comercio y Marketing
 
   // ===========================================================
-  // MOTOR DE RECOMENDACIÓN · COMERCIO Y MARKETING
+  // MOTOR DE RECOMENDACIÓN (común a todas las familias del motor enriquecido)
   // Puntúa cada idea con TODAS las respuestas, elige de forma ponderada
   // (para que perfiles parecidos no reciban lo mismo) y garantiza variedad.
   // ===========================================================
@@ -3014,7 +2800,6 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
   const RIESGO_LVL = { bajo: 1, medio: 2, alto: 3 };
   const RIESGO_TXT = { 1: 'Bajo', 2: 'Medio', 3: 'Alto' };
   const HORAS_TXT = { 1: 'Menos de 10 h/sem', 2: '10-20 h/sem', 3: '20-40 h/sem', 4: 'Casi completa' };
-  const CICLO_LABEL = { ci: 'Comercio Internacional', gv: 'Gestión de Ventas y Espacios Comerciales', mp: 'Marketing y Publicidad', tl: 'Transporte y Logística', med: 'Actividades Comerciales', bas: 'Servicios Comerciales' };
 
   const TAG_DESC = { deporte: 'el deporte y el fitness', tecnologia: 'la tecnología y el gaming', arte: 'el arte y el diseño', naturaleza: 'la naturaleza y el aire libre', gastronomia: 'la gastronomía', motor: 'el mundo del motor', moda: 'la moda y la belleza', musica: 'la música y lo audiovisual', animales: 'los animales y las mascotas', sostenibilidad: 'la sostenibilidad', social: 'el impacto social', diy: 'las manualidades y el DIY', viajes: 'los viajes y el turismo' };
   const TAG_CHIP = { deporte: 'deporte', tecnologia: 'tecnología / gaming', arte: 'arte y diseño', naturaleza: 'naturaleza', gastronomia: 'gastronomía', motor: 'motor', moda: 'moda y belleza', musica: 'música', animales: 'mascotas', sostenibilidad: 'sostenibilidad', social: 'impacto social', diy: 'DIY', viajes: 'viajes' };
@@ -3051,19 +2836,11 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     atencion_cliente: /atencion al cliente|camarer|dependient|cajer|call center|recepcion|hosteler/
   };
 
-  const FUENTES = {
-    ci: 'ICEX, Trade Map, Eurostat (Comext), la base TARIC y tu cámara de comercio',
-    gv: 'tu cámara de comercio, las asociaciones de comerciantes y los informes de tendencias del comercio minorista',
-    mp: 'IAB Spain, Google Trends, la Biblioteca de anuncios de Meta y las normas de publicidad (Autocontrol)',
-    tl: 'el Ministerio de Transportes, las asociaciones del sector y tarifas reales de transitarios y paquetería',
-    med: 'tu cámara de comercio, las asociaciones de comerciantes y los mercados y ferias de tu zona',
-    bas: 'tu cámara de comercio, las asociaciones de comerciantes y los mercados y ferias de tu zona'
-  };
-
   const comState = { shown: new Set(), adhocShown: false, lastAdhocText: '' };
 
-  function perfilComercio(d) {
-    const ck = CICLO_KEY[d.cicloTexto] || (d.nivel === 'basico' ? 'bas' : d.nivel === 'medio' ? 'med' : 'gv');
+  function perfil(d) {
+    const F = FAM[d.familia];
+    const ck = F.ciclos[d.cicloTexto] || F.defecto[d.nivel] || Object.keys(F.labels)[0];
     const tInt = norm(d.intereses), tForm = norm(d.formacionExtra), tProb = norm(d.problema);
     const tags = new Set(d.tags), tagsInf = new Set();
     Object.keys(KW_TAGS).forEach(t => { if (!tags.has(t) && (KW_TAGS[t].test(tInt) || KW_TAGS[t].test(tProb))) tagsInf.add(t); });
@@ -3071,7 +2848,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     Object.keys(KW_CONOC).forEach(k => { if (KW_CONOC[k].test(tForm)) conoc.add(k); });
     const loc = (d.localidad || '').trim();
     return {
-      ck, ciclo: d.cicloTexto || CICLO_LABEL[ck], nivel: d.nivel,
+      fam: d.familia, ck, ciclo: d.cicloTexto || F.labels[ck], nivel: d.nivel,
       tags: [...tags], tagsInf: [...tagsInf], conoc: [...conoc], hab: d.habilidades.slice(),
       r: RIESGO_LVL[d.riesgo] || 2, riesgo: d.riesgo,
       capKey: d.capital, capMax: CAP_MAX[d.capital] || 5000,
@@ -3081,11 +2858,17 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     };
   }
 
+  // Una idea de sector es «de tu ciclo» si nace de él o de un ciclo afín (p. ej. el básico usa las del medio).
+  function esTuCiclo(idea, P) {
+    const af = FAM[P.fam].afin || {};
+    return idea.cics[0] === P.ck || (af[P.ck] || []).indexOf(idea.cics[0]) > -1;
+  }
+
   function puntuar(idea, P, tipo) {
     let s = 0; const chips = [];
     // ---- ciclo
     if (tipo === 'sector') {
-      if (idea.cics[0] === P.ck || (P.ck === 'bas' && idea.cics[0] === 'med')) { s += 3.5; chips.push({ txt: 'Tu ciclo' }); }
+      if (esTuCiclo(idea, P)) { s += 3.5; chips.push({ txt: 'Tu ciclo' }); }
       else { s += 1; chips.push({ txt: 'Aprovecha tu ciclo' }); }
     } else if (idea.pref && idea.pref.indexOf(P.ck) > -1) { s += 1.5; }
     // ---- intereses (marcados y deducidos de tu texto)
@@ -3128,7 +2911,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
   }
 
   function candidatos(tipo, P) {
-    return COM.filter(i => i.tp === tipo && i.cics.indexOf(P.ck) > -1)
+    return IDEAS.filter(i => i.fam === P.fam && i.tp === tipo && i.cics.indexOf(P.ck) > -1)
       .map(i => { const r = puntuar(i, P, tipo); return { idea: i, s: r.s, chips: r.chips, tipo: tipo }; });
   }
 
@@ -3164,7 +2947,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     const invMap = { muy_bajo: [200, 800], bajo: [800, 3500], medio: [2500, 9000], alto: [6000, 20000] };
     const env = P.entorno === 'mixto' || !P.entorno ? ['online', 'local'] : [P.entorno];
     return {
-      id: 'adhoc', tp: 'innovadora', cics: ALL, adhoc: true,
+      id: 'adhoc', fam: P.fam, tp: 'innovadora', cics: [P.ck], adhoc: true,
       t: 'Una solución propia al problema que has detectado', n: 'Oportunidad detectada por ti',
       d: 'Tú mismo has detectado este problema: «' + p + '». Convertirlo en negocio significa ofrecer una solución que hoy no existe o no funciona bien. Por lo que cuentas, el camino más natural es ' + nombres[m] + ', aunque conviene contrastarlo. Si el problema es real para ti, probablemente lo sea para más gente, pero el primer paso indispensable es validarlo hablando con 5-10 personas afectadas antes de invertir un solo euro.',
       m: m, cli: 'las personas o negocios que sufren ese mismo problema', pb: 'este problema',
@@ -3179,7 +2962,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
   }
 
   // ---------- Selección: sector + híbrida + innovadora, con variedad ----------
-  function seleccionarComercio(P) {
+  function seleccionar(P) {
     const mods = [];
     // 1) Línea de sector
     let cs = sinMostrar(candidatos('sector', P));
@@ -3234,8 +3017,8 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
 
   function porQueEncaja(it, P) {
     const i = it.idea, partes = [];
-    if (i.tp === 'sector' && i.cics[0] !== P.ck && !(P.ck === 'bas' && i.cics[0] === 'med')) {
-      partes.push('Esta idea nace de ' + CICLO_LABEL[i.cics[0]] + ', pero se puede aprovechar desde tu ciclo de ' + P.ciclo + ': ' + i.why.charAt(0).toLowerCase() + i.why.slice(1));
+    if (i.tp === 'sector' && !esTuCiclo(i, P)) {
+      partes.push('Esta idea nace de ' + FAM[P.fam].labels[i.cics[0]] + ', pero se puede aprovechar desde tu ciclo de ' + P.ciclo + ': ' + i.why.charAt(0).toLowerCase() + i.why.slice(1));
     } else {
       partes.push(i.why);
     }
@@ -3310,7 +3093,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
         <div class="inner"><p class="biz-section-text">${esc(i.vr)}</p></div>
       </details>
       <details class="biz-more"><summary>Dónde investigar más</summary>
-        <div class="inner"><p class="biz-section-text">Fuentes útiles para este sector: ${esc(FUENTES[P.ck] || FUENTES.gv)}.</p>
+        <div class="inner"><p class="biz-section-text">Fuentes útiles para este sector: ${esc(FAM[P.fam].fuentes[P.ck] || FAM[P.fam].fuentes._)}.</p>
         <p class="biz-info-search"><span class="biz-info-search-label">Búsqueda sugerida:</span> <code>${esc(i.n.toLowerCase())} ${esc(P.locTxt)} precios competidores</code></p></div>
       </details>`;
   }
@@ -3337,7 +3120,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
       </details>`;
   }
 
-  function resumenComercio(P) {
+  function resumen(P) {
     const partes = [P.r === 1 ? 'un perfil prudente' : P.r === 3 ? 'un perfil con apetito de riesgo' : 'un perfil equilibrado'];
     if (P.capKey === 'muy_bajo' || P.capKey === 'bajo') partes.push('recursos contenidos');
     else if (P.capKey === 'alto') partes.push('buena base de capital');
@@ -3346,12 +3129,12 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     return 'Con tu ciclo de ' + P.ciclo + ', ' + joinY(partes) + ', estas tres líneas combinan negocio de tu sector, tu afición y una apuesta más ambiciosa.';
   }
 
-  function renderComercio(d, esReroll) {
-    const P = perfilComercio(d);
-    const sel = seleccionarComercio(P);
+  function renderRico(d, esReroll) {
+    const P = perfil(d);
+    const sel = seleccionar(P);
     $('biz-loading').style.display = 'none';
     $('biz-results').style.display = 'block';
-    $('biz-summary').textContent = resumenComercio(P);
+    $('biz-summary').textContent = resumen(P);
     $('biz-note').style.display = 'block';
     $('biz-cards').innerHTML = sel.principales.map((it, k) => tarjetaPrincipal(it, k + 1, P)).join('');
     $('biz-alt').innerHTML = sel.alternativas.length
@@ -3365,7 +3148,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     $('biz-results').style.display = 'none';
     $('biz-loading').style.display = 'block';
     $('biz-loading-text').textContent = 'Buscando otras tres líneas para ti...';
-    setTimeout(() => renderComercio(state.data, true), 900);
+    setTimeout(() => renderRico(state.data, true), 900);
   });
 
   // ===========================================
