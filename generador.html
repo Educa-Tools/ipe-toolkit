@@ -447,6 +447,31 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
 .biz-alt-body{ padding:6px 22px 22px; }
 .biz-restart{ border-top:1px solid var(--line); }
 
+/* Resultados con más resalte: cabecera más oscura, iconos y motivos en lista */
+.biz-sr{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+.biz-results-header{ background:var(--olive-dark); }
+.biz-results-header::before{ border-color:rgba(197,205,120,.14); }
+.biz-results-eyebrow{ background:var(--lime-mid); color:var(--ink); font-weight:700; }
+.biz-results-summary{ font-family:var(--font-body); font-style:normal; font-size:18px; line-height:1.6; color:var(--olive-soft); }
+.biz-results-summary strong{ color:#fff; font-weight:600; box-shadow:inset 0 -.35em 0 rgba(197,205,120,.28); }
+.biz-results-header .biz-note{ background:var(--amber-soft); border:0; border-left:4px solid var(--amber); color:var(--ink); }
+
+.biz-ico{ width:18px; height:18px; flex:none; fill:none; stroke:currentColor; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; }
+.biz-section-label:has(.biz-ico){ display:flex; align-items:center; gap:8px; }
+.biz-box .biz-section-label,.biz-why-wrap > .biz-section-label,.biz-step-action .biz-section-label{ color:var(--td); }
+.biz-box{ background:var(--ts); border:0; border-top:3px solid var(--t); }
+.biz-box-kicker{ font-family:var(--font-display); font-size:17px; font-weight:500; color:var(--ink); margin:-2px 0 6px; line-height:1.3; }
+
+.biz-why{ list-style:none; margin:0; padding:0; display:grid; gap:10px; }
+.biz-why li{ position:relative; padding:12px 16px 12px 46px; border-radius:14px; background:var(--canvas); border:1px solid var(--line); font-size:16.5px; line-height:1.55; color:var(--ink); }
+.biz-why li::before{ content:''; position:absolute; left:14px; top:13px; width:22px; height:22px; border-radius:50%;
+  background:var(--t) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5.5 10.5l3 3 6-6.5' fill='none' stroke='%23FFFFFF' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/15px no-repeat; }
+.biz-why li.warn{ background:var(--amber-soft); border-color:#E7D3AE; }
+.biz-why li.warn::before{ background:#B5482F url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 5v6' stroke='%23FFFFFF' stroke-width='2.4' stroke-linecap='round'/%3E%3Ccircle cx='10' cy='14.6' r='1.4' fill='%23FFFFFF'/%3E%3C/svg%3E") center/15px no-repeat; }
+
+.biz-meta-item{ border-top:3px solid var(--t); }
+.biz-meta-value{ color:var(--td); }
+
 @media (max-width:640px){
   .biz-card{ padding:1.75rem 1.25rem 1.5rem; border-radius:18px; }
   .biz-idea{ padding:1.75rem 1.25rem 1.5rem; }
@@ -9183,30 +9208,39 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
   const capital1 = (s) => s.charAt(0).toUpperCase() + s.slice(1);
   const localiza = (txt, P) => P.loc ? txt.replace(/\btu zona\b/g, P.loc) : txt;
 
+  // Devuelve una lista de motivos: { t: texto, w: true si es un aviso }
   function porQueEncaja(it, P) {
-    const i = it.idea, partes = [];
+    const i = it.idea, L = [];
+    const ok = (t) => L.push({ t, w: false }), ojo = (t) => L.push({ t, w: true });
     if (i.tp === 'sector' && !esTuCiclo(i, P)) {
-      partes.push('Esta idea nace de ' + FAM[P.fam].labels[i.cics[0]] + ', pero se puede aprovechar desde tu ciclo de ' + P.ciclo + ': ' + i.why.charAt(0).toLowerCase() + i.why.slice(1));
+      ok('Esta idea nace de ' + FAM[P.fam].labels[i.cics[0]] + ', pero se puede aprovechar desde tu ciclo de ' + P.ciclo + ': ' + i.why.charAt(0).toLowerCase() + i.why.slice(1));
     } else {
-      partes.push(i.why);
+      ok(i.why);
     }
     const th = i.tg.filter(t => P.tags.indexOf(t) > -1 || P.tagsInf.indexOf(t) > -1);
-    if (th.length) partes.push('Tu interés por ' + TAG_DESC[th[0]] + ' te da el lenguaje, la credibilidad y el acceso al cliente desde el primer día.');
+    if (th.length) ok('Tu interés por ' + TAG_DESC[th[0]] + ' te da el lenguaje, la credibilidad y el acceso al cliente desde el primer día.');
     const kh = i.k.filter(k => P.conoc.indexOf(k) > -1);
-    if (kh.length) partes.push('Además, tus conocimientos de ' + joinY(kh.slice(0, 2).map(k => CONOC_DESC[k])) + ' te ahorran subcontratar una parte importante del trabajo.');
+    if (kh.length) ok('Tus conocimientos de ' + joinY(kh.slice(0, 2).map(k => CONOC_DESC[k])) + ' te ahorran subcontratar una parte importante del trabajo.');
     const sh = i.s.filter(x => P.hab.indexOf(x) > -1);
-    if (sh.length) partes.push('Tu punto fuerte en ' + joinY(sh.slice(0, 2).map(x => HAB_DESC[x])) + ' es justo lo que más pesa en este modelo.');
+    if (sh.length) ok('Tu punto fuerte en ' + joinY(sh.slice(0, 2).map(x => HAB_DESC[x])) + ' es justo lo que más pesa en este modelo.');
     // Ajuste a tus recursos
-    const ajustes = [];
-    if (i.inv[0] > P.capMax) ajustes.push('la inversión mínima estimada (' + fmtEur(i.inv[0]) + ' €) supera tu capital (' + CAP_LABEL[P.capKey] + '): empieza con una versión piloto reducida, busca un socio o estudia financiación y ayudas al emprendimiento');
-    else ajustes.push('la inversión estimada encaja con tu capital (' + CAP_LABEL[P.capKey] + ')');
-    if (i.h > P.tLvl) ajustes.push('necesita más horas semanales de las que indicas (' + HORAS_TXT[i.h] + ' para arrancar), así que plantéala por fases o como proyecto paralelo al principio');
-    if (i.am < P.aLvl) ajustes.push('su alcance realista es ' + AMB_LABEL[i.am] + ' y tú quieres operar a nivel ' + AMB_LABEL[P.aLvl] + ': tendrías que ampliar en una segunda fase');
-    if (P.entorno && P.entorno !== 'mixto' && i.e.indexOf(P.entorno) < 0) ajustes.push('está pensada para un entorno distinto al que prefieres, por lo que habría que adaptar la forma de prestarla');
-    partes.push('En cuanto a tus recursos: ' + ajustes.join('; ') + '.');
-    if (i.r > P.r) partes.push('Ojo: su riesgo es ' + RIESGO_TXT[i.r].toLowerCase() + ' y tu perfil es más prudente; conviene validarla con un piloto barato antes de comprometer dinero.');
-    return partes.join(' ');
+    if (i.inv[0] > P.capMax) ojo('La inversión mínima estimada (' + fmtEur(i.inv[0]) + ' €) supera tu capital (' + CAP_LABEL[P.capKey] + '): empieza con una versión piloto reducida, busca un socio o estudia financiación y ayudas al emprendimiento.');
+    else ok('La inversión estimada encaja con tu capital (' + CAP_LABEL[P.capKey] + ').');
+    if (i.h > P.tLvl) ojo('Necesita más horas semanales de las que indicas (' + HORAS_TXT[i.h] + ' para arrancar): plantéala por fases o como proyecto paralelo al principio.');
+    if (i.am < P.aLvl) ojo('Su alcance realista es ' + AMB_LABEL[i.am] + ' y tú quieres operar a nivel ' + AMB_LABEL[P.aLvl] + ': tendrías que ampliar en una segunda fase.');
+    if (P.entorno && P.entorno !== 'mixto' && i.e.indexOf(P.entorno) < 0) ojo('Está pensada para un entorno distinto al que prefieres: habría que adaptar la forma de prestarla.');
+    if (i.r > P.r) ojo('Su riesgo es ' + RIESGO_TXT[i.r].toLowerCase() + ' y tu perfil es más prudente: valídala con un piloto barato antes de comprometer dinero.');
+    return L;
   }
+  const listaEncaja = (L) => '<ul class="biz-why">' + L.map(x => '<li' + (x.w ? ' class="warn"' : '') + '><span class="biz-sr">' + (x.w ? 'A tener en cuenta: ' : 'A favor: ') + '</span>' + esc(x.t) + '</li>').join('') + '</ul>';
+
+  // Iconos de las cajas (decorativos)
+  const ICO = {
+    cli: '<svg class="biz-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5"/></svg>',
+    ing: '<svg class="biz-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M15 9.2a3.6 3.6 0 1 0 0 5.6M7.5 11h5.5M7.5 13.2h5.5"/></svg>',
+    why: '<svg class="biz-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>',
+    paso: '<svg class="biz-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h12M13 7l5 5-5 5"/></svg>'
+  };
 
   // ---------- Dibujo de una ficha ----------
   const tipoLabels2 = { sector: 'Alineada con tu sector', hibrido: 'Híbrido: tu ciclo + tu afición', innovadora: 'Oportunidad emergente' };
@@ -9226,13 +9260,13 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
       <blockquote class="biz-quote"><span class="biz-quote-label">Propuesta de valor</span>${esc(i.val)}</blockquote>
 
       <div class="biz-2col">
-        <div class="biz-box"><p class="biz-section-label">Cliente ideal</p><p class="biz-section-text">${esc(capital1(i.cli))}.</p></div>
-        <div class="biz-box"><p class="biz-section-label">Cómo ganas dinero · ${esc(mod.label)}</p><p class="biz-section-text">${esc(mod.ing)}</p></div>
+        <div class="biz-box"><p class="biz-section-label">${ICO.cli}Cliente ideal</p><p class="biz-section-text">${esc(capital1(i.cli))}.</p></div>
+        <div class="biz-box"><p class="biz-section-label">${ICO.ing}Cómo ganas dinero</p><p class="biz-box-kicker">${esc(mod.label)}</p><p class="biz-section-text">${esc(mod.ing)}</p></div>
       </div>
 
-      <div class="biz-section">
-        <p class="biz-section-label">Por qué encaja contigo</p>
-        <p class="biz-section-text">${esc(porQueEncaja(it, P))}</p>
+      <div class="biz-section biz-why-wrap">
+        <p class="biz-section-label">${ICO.why}Por qué encaja contigo</p>
+        ${listaEncaja(porQueEncaja(it, P))}
       </div>
 
       <div class="biz-meta four">
@@ -9243,7 +9277,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
       </div>
 
       <div class="biz-step-action">
-        <p class="biz-section-label">Primer paso esta semana</p>
+        <p class="biz-section-label">${ICO.paso}Primer paso esta semana</p>
         <p class="biz-section-text">${esc(capital1(localiza(i.paso, P).replace(/^Esta semana:\s*/i, '')))}</p>
       </div>
 
@@ -9294,7 +9328,8 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     else if (P.capKey === 'alto') partes.push('buena base de capital');
     const tg = P.tags.concat(P.tagsInf).slice(0, 3).map(t => TAG_DESC[t]);
     if (tg.length) partes.push('interés por ' + joinY(tg));
-    return 'Con tu ciclo de ' + P.ciclo + ', ' + joinY(partes) + ', estas tres líneas combinan negocio de tu sector, tu afición y una apuesta más ambiciosa.';
+    const b = (s) => '<strong>' + esc(s) + '</strong>';
+    return 'Con tu ciclo de ' + b(P.ciclo) + ', ' + joinY(partes.map(b)) + ', estas tres líneas combinan negocio de tu sector, tu afición y una apuesta más ambiciosa.';
   }
 
   function renderRico(d, esReroll) {
@@ -9302,7 +9337,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     const sel = seleccionar(P);
     $('biz-loading').style.display = 'none';
     $('biz-results').style.display = 'block';
-    $('biz-summary').textContent = resumen(P);
+    $('biz-summary').innerHTML = resumen(P);
     $('biz-note').style.display = 'block';
     $('biz-cards').innerHTML = sel.principales.map((it, k) => tarjetaPrincipal(it, k + 1, P)).join('');
     $('biz-alt').innerHTML = sel.alternativas.length
