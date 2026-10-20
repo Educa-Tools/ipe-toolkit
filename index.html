@@ -128,19 +128,35 @@
   .demo-body p{margin:0;}
   .demo-q{font-family:var(--font-display);font-weight:600;font-size:1.12rem;line-height:1.15;letter-spacing:-.2px;}
   .demo-q em{font-style:italic;color:var(--c);}
-  /* El desplegable del ciclo y las tres ideas que salen de él */
+  /* Dos pantallas en el mismo sitio: las respuestas (el cursor marca casillas) y las ideas que salen de ellas */
+  .gi-stage{position:relative;display:grid;}
+  .gi-s{grid-area:1/1;display:flex;flex-direction:column;gap:12px;transition:opacity .35s var(--ease-out),translate .45s var(--ease-out),visibility 0s;transition-delay:.3s,.3s,0s;}
+  .gi-s2{opacity:0;translate:24px 0;visibility:hidden;transition-delay:0s,0s,.45s;}
+  .demo.ver .gi-s1{opacity:0;translate:-24px 0;visibility:hidden;transition-delay:0s,0s,.45s;}
+  .demo.ver .gi-s2{opacity:1;translate:0 0;visibility:visible;transition-delay:.3s,.3s,0s;}
   .gi-ciclo{display:flex;align-items:center;gap:10px;align-self:flex-start;max-width:100%;padding:6px 10px 6px 12px;background:var(--surface);border:var(--frame);border-radius:8px;font-size:.85rem;}
   .gi-k{font-size:.62rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);}
   .gi-v{font-weight:700;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:opacity .25s;}
   .gi-v.cambia{opacity:0;}
   .gi-ciclo svg{width:15px;height:15px;flex:none;color:var(--c);}
+  .gi-g{display:flex;flex-direction:column;gap:6px;}
+  .gi-ps{display:flex;flex-wrap:wrap;gap:5px;}
+  .gi-p{padding:4px 10px;border:1.5px solid color-mix(in srgb,var(--ink) 18%,transparent);border-radius:var(--radius-pill);background:var(--surface);font-size:.76rem;font-weight:600;transition:background-color .2s,color .2s,border-color .2s,scale .2s var(--ease-out);}
+  .gi-p.si{background:var(--c);border-color:var(--c);color:var(--surface);}
+  .gi-p.pulsa,.gi-btn.pulsa{scale:.92;}
+  .gi-btn{align-self:flex-end;display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:var(--radius-pill);background:var(--ink);color:var(--surface);font-size:.8rem;font-weight:700;transition:scale .2s var(--ease-out);}
+  .gi-btn svg{width:14px;height:14px;}
+  .gi-res{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;font-size:.85rem;font-weight:700;}
   .gi-ideas{list-style:none;margin:0;padding:0;display:grid;gap:7px;}
   .gi-ideas li{display:flex;flex-direction:column;gap:2px;padding:8px 12px;background:var(--surface);border:1.5px solid color-mix(in srgb,var(--c) 30%,transparent);border-left:5px solid var(--c);border-radius:8px;opacity:0;translate:0 10px;transition:opacity .3s var(--ease-out),translate .45s var(--ease-out);}
   .gi-ideas li.in{opacity:1;translate:0 0;}
-  .demo.sale .gi-ideas li{opacity:0;transition:opacity .4s;}
   .gi-n{font-size:.62rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--c);}
   .gi-t{font-size:.9rem;font-weight:600;line-height:1.3;}
-  @media (max-width:480px){.demo-body{padding:12px 12px 14px;}.gi-ideas li{padding:7px 10px;}.gi-t{font-size:.84rem;min-height:2.6em;}}
+  /* El cursor que «pulsa»: solo se ve mientras se anima */
+  .gi-cursor{position:absolute;left:0;top:0;width:22px;height:22px;margin:-3px 0 0 -4px;pointer-events:none;opacity:0;transition:translate .6s cubic-bezier(.45,0,.2,1),opacity .3s,scale .15s;filter:drop-shadow(1px 2px 1px color-mix(in srgb,var(--ink) 35%,transparent));}
+  .gi-cursor.vivo{opacity:1;}
+  .gi-cursor.pulsa{scale:.82;}
+  @media (max-width:480px){.demo-body{padding:12px 12px 14px;}.gi-p{font-size:.7rem;padding:3px 8px;}.gi-ideas li{padding:7px 10px;}.gi-t{font-size:.84rem;}}
   .demo figcaption{margin-top:14px;font-size:.92rem;line-height:1.5;color:var(--lime-soft);text-align:center;text-wrap:balance;}
   /* Las tres razones para entrar y el botón: lo primero que se pulsa en la portada */
   .gen-facts{list-style:none;margin:22px 0 0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;}
@@ -526,24 +542,37 @@
     </div>
 
     <!-- El reclamo de la portada: el Generador de ideas de negocio en acción, centrado bajo el titular y el selector.
-         Se elige un ciclo y van apareciendo tres de sus ideas (las de verdad, sacadas de generador.html); luego cambia
-         de familia profesional. Se repite. Sin JavaScript o con menos movimiento, se ve completo y quieto -->
+         Un cursor elige ciclo, marca aficiones, habilidades y forma de trabajar y pulsa «Ver mis ideas»; la pantalla cambia
+         y aparecen tres ideas que encajan con ese perfil (las de verdad, sacadas de generador.html). Luego, otro perfil.
+         Sin JavaScript o con menos movimiento, se ven quietas las ideas del primer perfil -->
     <div class="hero-demo">
       <p class="demo-lead"><span class="ink-under" id="demoUnder">¿Qué negocio sale de tu ciclo?<svg viewBox="0 0 300 14" preserveAspectRatio="none" aria-hidden="true"><path class="doodle draw" d="M3 9C60 4 140 3 200 6S280 10 297 5"/></svg></span></p>
-      <figure class="demo" id="demo" style="--c:#6B7028">
+      <figure class="demo ver" id="demo" style="--c:#6B7028">
         <div class="demo-win" aria-hidden="true">
           <span class="clip-bar"><span><svg viewBox="28.5 14.5 340.8 372.5"><use href="#simbolo"/></svg><span translate="no">Esplora</span></span><span>Generador de ideas de negocio</span></span>
-          <div class="demo-body">
-            <p class="demo-q">¿Qué <em>negocio</em> sale de lo que te interesa?</p>
-            <p class="gi-ciclo"><span class="gi-k">Tu ciclo</span><span class="gi-v" id="giCiclo">Marketing y Publicidad</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></p>
-            <ol class="gi-ideas" id="giIdeas">
-              <li class="in"><span class="gi-n">Social media para pymes</span><span class="gi-t">Gestión de redes sociales y contenido para negocios locales</span></li>
-              <li class="in"><span class="gi-n">Posicionamiento local</span><span class="gi-t">SEO local y Google Business para servicios de proximidad</span></li>
-              <li class="in"><span class="gi-n">Mini-agencia de lanzamiento</span><span class="gi-t">Branding y plan de lanzamiento para emprendedores</span></li>
-            </ol>
+          <div class="demo-body gi-stage" id="giStage">
+            <div class="gi-s gi-s1">
+              <p class="demo-q">¿Qué <em>negocio</em> sale de lo que te interesa?</p>
+              <p class="gi-ciclo"><span class="gi-k">Tu ciclo</span><span class="gi-v" id="giCiclo">Marketing y Publicidad</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></p>
+              <div class="gi-g"><span class="gi-k">Te apasiona</span><span class="gi-ps"><span class="gi-p">Gastronomía</span><span class="gi-p si">Moda / belleza</span><span class="gi-p si">Tecnología / gaming</span><span class="gi-p">Viajes / turismo</span><span class="gi-p">Sostenibilidad / eco</span></span></div>
+              <div class="gi-g"><span class="gi-k">Destacas en</span><span class="gi-ps"><span class="gi-p">Trato con personas</span><span class="gi-p si">Creatividad</span><span class="gi-p">Ventas</span><span class="gi-p si">Tecnología / RRSS</span><span class="gi-p">Idiomas</span></span></div>
+              <div class="gi-g"><span class="gi-k">Quieres trabajar</span><span class="gi-ps"><span class="gi-p si">100% online</span><span class="gi-p">Local físico</span><span class="gi-p">Mixto</span><span class="gi-p">A domicilio</span></span></div>
+              <span class="gi-btn">Ver mis ideas<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </div>
+            <div class="gi-s gi-s2">
+              <p class="demo-q">Tus <em>ideas</em> de negocio</p>
+              <p class="gi-res"><span class="gi-k">Para tu perfil</span><span id="giRes">Marketing y Publicidad · 100% online</span></p>
+              <ol class="gi-ideas" id="giIdeas">
+                <li class="in"><span class="gi-n">Contenido UGC</span><span class="gi-t">Creación de contenido UGC en vídeo para marcas</span></li>
+                <li class="in"><span class="gi-n">Social media para pymes</span><span class="gi-t">Gestión de redes sociales y contenido para negocios locales</span></li>
+                <li class="in"><span class="gi-n">Mini-agencia de lanzamiento</span><span class="gi-t">Branding y plan de lanzamiento para emprendedores</span></li>
+              </ol>
+              <div class="gi-g"><span class="gi-k">Cada idea trae</span><span class="gi-ps"><span class="gi-p">Por qué encaja contigo</span><span class="gi-p">Inversión</span><span class="gi-p">Primer paso</span><span class="gi-p">Plan de 30 días</span></span></div>
+            </div>
+            <svg class="gi-cursor" id="giCursor" viewBox="0 0 24 24"><path d="M4 2.5v17.2l4.6-4.4 3 6.6 3-1.4-3-6.4h6.3z" fill="#1E1C1A" stroke="#FFFFFF" stroke-width="1.6" stroke-linejoin="round"/></svg>
           </div>
         </div>
-        <figcaption>Eliges tu ciclo, tus aficiones y tus recursos, y el generador te propone ideas de negocio pensadas para ti.</figcaption>
+        <figcaption>Marcas tu ciclo, lo que te gusta, en qué destacas y cómo quieres trabajar, y el generador te propone ideas de negocio pensadas para ti.</figcaption>
       </figure>
       <ul class="gen-facts">
         <li>Las 26 familias profesionales</li>
@@ -1165,8 +1194,9 @@ function renderResume(){
 addEventListener('pageshow', e=>{ if(e.persisted && DB.order.length){ renderResume(); render(); } });
 
 const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
-// Reclamo de la portada: el generador elige un ciclo y van apareciendo tres de sus ideas; luego pasa a otra familia
-// profesional. Ideas reales de generador.html. Se repite solo mientras se ve en pantalla; con menos movimiento se queda quieto
+// Reclamo de la portada: un cursor elige ciclo, marca casillas y pulsa «Ver mis ideas»; la pantalla cambia y aparecen
+// tres ideas que encajan con ese perfil (ideas y etiquetas reales de generador.html). Luego, otro perfil.
+// Se repite solo mientras se ve en pantalla; con menos movimiento se quedan quietas las ideas del primer perfil
 (function(){
   const fig = document.getElementById('demo');
   if(!fig || calm || !('IntersectionObserver' in window)) return;
@@ -1174,22 +1204,44 @@ const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
   let visible = false, seguir = null;
   const enPantalla = () => visible ? Promise.resolve() : new Promise(r=>{ seguir = r; });
   new IntersectionObserver(([e])=>{ visible = e.isIntersecting; if(visible && seguir){ seguir(); seguir = null; } }).observe(fig);
-  const ciclos = [
-    ['Marketing y Publicidad', [['Social media para pymes','Gestión de redes sociales y contenido para negocios locales'],['Posicionamiento local','SEO local y Google Business para servicios de proximidad'],['Mini-agencia de lanzamiento','Branding y plan de lanzamiento para emprendedores']]],
-    ['Cocina y Gastronomía', [['Catering','Catering para empresas, celebraciones y eventos pequeños'],['Cocina privada','Chef a domicilio y clases de cocina'],['Cocina sobre ruedas','Food truck o puesto en mercados gastronómicos']]],
-    ['Comercio Internacional', [['Agente de exportación','Departamento de exportación externalizado para pymes productoras'],['Comercio digital internacional','Gestor de ventas cross-border en marketplaces europeos'],['Inteligencia de mercados','Estudios de mercado exterior por encargo']]]
+  const perfiles = [
+    { ciclo:'Marketing y Publicidad', marca:['Moda / belleza','Tecnología / gaming','Creatividad','Tecnología / RRSS','100% online'],
+      ideas:[['Contenido UGC','Creación de contenido UGC en vídeo para marcas'],['Social media para pymes','Gestión de redes sociales y contenido para negocios locales'],['Mini-agencia de lanzamiento','Branding y plan de lanzamiento para emprendedores']] },
+    { ciclo:'Cocina y Gastronomía', marca:['Gastronomía','Viajes / turismo','Trato con personas','Creatividad','A domicilio'],
+      ideas:[['Cocina privada','Chef a domicilio y clases de cocina'],['Catering','Catering para empresas, celebraciones y eventos pequeños'],['Cocina sobre ruedas','Food truck o puesto en mercados gastronómicos']] },
+    { ciclo:'Comercio Internacional', marca:['Gastronomía','Viajes / turismo','Ventas','Idiomas','100% online'],
+      ideas:[['E-commerce cross-border de nicho','Tienda online de producto español para la diáspora en el extranjero'],['Agente de exportación','Departamento de exportación externalizado para pymes productoras'],['Comercio digital internacional','Gestor de ventas cross-border en marketplaces europeos']] }
   ];
-  const valor = document.getElementById('giCiclo'), ideas = [...fig.querySelectorAll('.gi-ideas li')];
+  const stage = document.getElementById('giStage'), cursor = document.getElementById('giCursor');
+  const valor = document.getElementById('giCiclo'), res = document.getElementById('giRes');
+  const casillas = [...fig.querySelectorAll('.gi-s1 .gi-p')], boton = fig.querySelector('.gi-btn'), ideas = [...fig.querySelectorAll('.gi-ideas li')];
+  // Lleva la punta del cursor al centro de un elemento de la pantalla
+  const ir = el => { const s = stage.getBoundingClientRect(), r = el.getBoundingClientRect();
+    cursor.style.translate = `${r.left - s.left + r.width * .55}px ${r.top - s.top + r.height * .6}px`; };
+  const pulsar = async el => { await enPantalla(); ir(el); await wait(700);
+    cursor.classList.add('pulsa'); el.classList.add('pulsa'); await wait(160);
+    cursor.classList.remove('pulsa'); el.classList.remove('pulsa'); };
   (async function bucle(){
-    for(let i = 1;; i = (i + 1) % ciclos.length){
-      await wait(4200); await enPantalla();
-      fig.classList.add('sale'); valor.classList.add('cambia'); await wait(450);
-      fig.classList.remove('sale'); ideas.forEach(li=>li.classList.remove('in'));
-      const [ciclo, lista] = ciclos[i];
-      valor.textContent = ciclo;
-      lista.forEach(([n, t], k)=>{ ideas[k].querySelector('.gi-n').textContent = n; ideas[k].querySelector('.gi-t').textContent = t; });
-      valor.classList.remove('cambia'); await wait(700);
+    await wait(3200);
+    for(let i = 0;; i = (i + 1) % perfiles.length){
+      const p = perfiles[i];
+      await enPantalla();
+      // Pantalla de respuestas, vacía, con el ciclo del nuevo perfil
+      valor.classList.add('cambia'); casillas.forEach(c=>c.classList.remove('si'));
+      fig.classList.remove('ver'); ideas.forEach(li=>li.classList.remove('in'));
+      await wait(300); valor.textContent = p.ciclo; valor.classList.remove('cambia');
+      ir(boton); await wait(500); cursor.classList.add('vivo'); await wait(300);
+      for(const texto of p.marca){
+        const c = casillas.find(c=>c.textContent === texto);
+        await pulsar(c); c.classList.add('si'); await wait(250);
+      }
+      await pulsar(boton); await wait(250);
+      // Pantalla de ideas
+      res.textContent = `${p.ciclo} · ${p.marca[p.marca.length - 1]}`;
+      p.ideas.forEach(([n, t], k)=>{ ideas[k].querySelector('.gi-n').textContent = n; ideas[k].querySelector('.gi-t').textContent = t; });
+      cursor.classList.remove('vivo'); fig.classList.add('ver'); await wait(500);
       for(const li of ideas){ await enPantalla(); li.classList.add('in'); await wait(450); }
+      await wait(4800);
     }
   })();
 })();
