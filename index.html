@@ -117,11 +117,9 @@
   .draw{stroke-dasharray:140;stroke-dashoffset:140;}
 
   /* Tres miniaturas de herramientas bajo el selector: en fila, sin superponerse */
-  /* Una herramienta en acción, centrada bajo el titular y el selector: la misma ventanita de las tarjetas */
+  /* Reclamo de la portada: el Generador de ideas de negocio en acción, en la misma ventanita de las tarjetas */
   .hero-demo{grid-area:demo;justify-self:center;width:min(100%,640px);margin-top:48px;text-align:center;}
   .demo-lead{margin:0 0 22px;font-family:var(--font-display);font-weight:500;font-size:clamp(1.3rem,2.2vw,1.6rem);line-height:1.25;color:var(--bg);}
-  .demo-lead a{color:var(--lime-mid);text-decoration:none;}
-  .demo-lead a:hover{text-decoration:underline;text-underline-offset:5px;}
   .demo-lead .doodle{stroke:var(--lime-mid);}
   .demo{margin:0;text-align:left;}
   .demo-win{display:flex;flex-direction:column;overflow:hidden;color:var(--ink);background:var(--bg);border:var(--frame);border-radius:12px;box-shadow:4px 4px 0 var(--olive-deep);}
@@ -130,30 +128,24 @@
   .demo-body p{margin:0;}
   .demo-q{font-family:var(--font-display);font-weight:600;font-size:1.12rem;line-height:1.15;letter-spacing:-.2px;}
   .demo-q em{font-style:italic;color:var(--c);}
-  /* Mapa PESTEL: impacto (de alto, arriba, a bajo) por incertidumbre (de baja, izquierda, a alta).
-     Colores de zona de la propia herramienta (pestel.html), recogidos en COLORES.txt */
-  .pm{display:grid;grid-template-columns:auto 1fr;grid-template-rows:1fr auto;gap:6px 8px;}
-  .pm-y,.pm-x{font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);}
-  .pm-y{writing-mode:vertical-rl;rotate:180deg;text-align:center;}
-  .pm-y::after{content:" →";}
-  .pm-x{grid-column:2;text-align:center;}
-  .pm-x::after{content:" →";}
-  .pm-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;}
-  .pm-c{--zc:#8A8B6A;--zs:#EFF1D9;display:flex;flex-direction:column;justify-content:space-between;gap:6px;min-height:62px;padding:6px 7px;border-radius:8px;background:color-mix(in srgb,var(--zs) 45%,var(--surface));border:1.5px solid transparent;transition:background-color .35s var(--ease-out),border-color .35s var(--ease-out);}
-  .pm-c.has{background:var(--zs);border-color:color-mix(in srgb,var(--zc) 45%,transparent);}
-  .pm-l{font-size:.6rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--zc);opacity:.45;transition:opacity .35s;}
-  .pm-c.has .pm-l{opacity:1;}
-  .pm-f{align-self:flex-start;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:3px 8px;border-radius:var(--radius-pill);background:var(--c);color:var(--surface);font-size:.7rem;font-weight:700;opacity:0;translate:0 -26px;scale:.7;transition:opacity .2s,translate .5s cubic-bezier(.34,1.5,.64,1),scale .5s cubic-bezier(.34,1.5,.64,1);}
-  .pm-f.in{opacity:1;translate:0 0;scale:1;}
-  .demo.sale .pm-f{opacity:0;transition:opacity .4s;}
-  .z-planificar{--zc:#A84539;--zs:#F4E0DC;}
-  .z-monitorear{--zc:#3E5778;--zs:#E4E8F0;}
-  .z-vigilar{--zc:#B88534;--zs:#F7EDD8;}
-  .z-investigar{--zc:#557A35;--zs:#E5EDDB;}
-  .z-ignorar{--zc:#8A8B6A;--zs:#EFF1D9;}
-  @media (max-width:480px){.demo-body{padding:12px 12px 14px;}.pm-grid{gap:4px;}.pm-c{padding:5px;min-height:56px;}.pm-l{font-size:.54rem;letter-spacing:.04em;}.pm-f{padding:2px 6px;font-size:.6rem;}}
+  /* El desplegable del ciclo y las tres ideas que salen de él */
+  .gi-ciclo{display:flex;align-items:center;gap:10px;align-self:flex-start;max-width:100%;padding:6px 10px 6px 12px;background:var(--surface);border:var(--frame);border-radius:8px;font-size:.85rem;}
+  .gi-k{font-size:.62rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);}
+  .gi-v{font-weight:700;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:opacity .25s;}
+  .gi-v.cambia{opacity:0;}
+  .gi-ciclo svg{width:15px;height:15px;flex:none;color:var(--c);}
+  .gi-ideas{list-style:none;margin:0;padding:0;display:grid;gap:7px;}
+  .gi-ideas li{display:flex;flex-direction:column;gap:2px;padding:8px 12px;background:var(--surface);border:1.5px solid color-mix(in srgb,var(--c) 30%,transparent);border-left:5px solid var(--c);border-radius:8px;opacity:0;translate:0 10px;transition:opacity .3s var(--ease-out),translate .45s var(--ease-out);}
+  .gi-ideas li.in{opacity:1;translate:0 0;}
+  .demo.sale .gi-ideas li{opacity:0;transition:opacity .4s;}
+  .gi-n{font-size:.62rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--c);}
+  .gi-t{font-size:.9rem;font-weight:600;line-height:1.3;}
+  @media (max-width:480px){.demo-body{padding:12px 12px 14px;}.gi-ideas li{padding:7px 10px;}.gi-t{font-size:.84rem;min-height:2.6em;}}
   .demo figcaption{margin-top:14px;font-size:.92rem;line-height:1.5;color:var(--lime-soft);text-align:center;text-wrap:balance;}
-  .demo figcaption a{color:var(--bg);font-weight:700;text-underline-offset:4px;}
+  /* Las tres razones para entrar y el botón: lo primero que se pulsa en la portada */
+  .gen-facts{list-style:none;margin:22px 0 0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;}
+  .gen-facts li{padding:5px 14px;border:1.5px solid color-mix(in srgb,var(--lime-mid) 55%,transparent);border-radius:var(--radius-pill);color:var(--bg);font-size:.9rem;font-weight:600;}
+  .gen-go{margin-top:22px;}
   /* El único momento de entrada de la página: las esporas de cada módulo brotan una tras otra */
   .spores i{animation:brota .4s var(--ease-out) backwards;animation-delay:calc(.25s + var(--k) * 35ms);}
   @keyframes brota{from{scale:0;}}
@@ -533,35 +525,32 @@
       <p class="hero-resume" id="heroResume" hidden></p>
     </div>
 
-    <!-- Una herramienta en acción, centrada bajo el titular y el selector: el mapa de Análisis PESTEL.
-         Los seis factores caen uno a uno en su casilla de impacto e incertidumbre y la casilla se enciende con
-         el color de su zona (los de la propia herramienta). Se repite. Sin JavaScript o con menos movimiento, se ve completo y quieto -->
+    <!-- El reclamo de la portada: el Generador de ideas de negocio en acción, centrado bajo el titular y el selector.
+         Se elige un ciclo y van apareciendo tres de sus ideas (las de verdad, sacadas de generador.html); luego cambia
+         de familia profesional. Se repite. Sin JavaScript o con menos movimiento, se ve completo y quieto -->
     <div class="hero-demo">
-      <p class="demo-lead"><span class="ink-under" id="demoUnder">Pruébalas y <a href="#contacto">cuéntanos qué te parecen</a><svg viewBox="0 0 300 14" preserveAspectRatio="none" aria-hidden="true"><path class="doodle draw" d="M3 9C60 4 140 3 200 6S280 10 297 5"/></svg></span></p>
-      <figure class="demo" id="demo" style="--c:#3E5778">
+      <p class="demo-lead"><span class="ink-under" id="demoUnder">¿Qué negocio sale de tu ciclo?<svg viewBox="0 0 300 14" preserveAspectRatio="none" aria-hidden="true"><path class="doodle draw" d="M3 9C60 4 140 3 200 6S280 10 297 5"/></svg></span></p>
+      <figure class="demo" id="demo" style="--c:#6B7028">
         <div class="demo-win" aria-hidden="true">
-          <span class="clip-bar"><span><svg viewBox="28.5 14.5 340.8 372.5"><use href="#simbolo"/></svg><span translate="no">Esplora</span></span><span>Análisis PESTEL</span></span>
+          <span class="clip-bar"><span><svg viewBox="28.5 14.5 340.8 372.5"><use href="#simbolo"/></svg><span translate="no">Esplora</span></span><span>Generador de ideas de negocio</span></span>
           <div class="demo-body">
-            <p class="demo-q">¿Qué factores del <em>entorno</em> pesan en tu proyecto?</p>
-            <div class="pm">
-              <span class="pm-y">Impacto</span>
-              <div class="pm-grid">
-                <div class="pm-c z-monitorear has"><span class="pm-l">Monitorear</span><span class="pm-f in" style="--o:1">Social</span></div>
-                <div class="pm-c z-planificar has"><span class="pm-l">Planificar</span><span class="pm-f in" style="--o:0">Económico</span></div>
-                <div class="pm-c z-planificar has"><span class="pm-l">Planificar</span><span class="pm-f in" style="--o:4">Legal</span></div>
-                <div class="pm-c z-ignorar"><span class="pm-l">Ignorar</span></div>
-                <div class="pm-c z-vigilar has"><span class="pm-l">Vigilar</span><span class="pm-f in" style="--o:2">Político</span></div>
-                <div class="pm-c z-investigar has"><span class="pm-l">Investigar</span><span class="pm-f in" style="--o:3">Tecnológico</span></div>
-                <div class="pm-c z-ignorar has"><span class="pm-l">Ignorar</span><span class="pm-f in" style="--o:5">Ecológico</span></div>
-                <div class="pm-c z-ignorar"><span class="pm-l">Ignorar</span></div>
-                <div class="pm-c z-investigar"><span class="pm-l">Investigar</span></div>
-              </div>
-              <span class="pm-x">Incertidumbre</span>
-            </div>
+            <p class="demo-q">¿Qué <em>negocio</em> sale de lo que te interesa?</p>
+            <p class="gi-ciclo"><span class="gi-k">Tu ciclo</span><span class="gi-v" id="giCiclo">Marketing y Publicidad</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></p>
+            <ol class="gi-ideas" id="giIdeas">
+              <li class="in"><span class="gi-n">Social media para pymes</span><span class="gi-t">Gestión de redes sociales y contenido para negocios locales</span></li>
+              <li class="in"><span class="gi-n">Posicionamiento local</span><span class="gi-t">SEO local y Google Business para servicios de proximidad</span></li>
+              <li class="in"><span class="gi-n">Mini-agencia de lanzamiento</span><span class="gi-t">Branding y plan de lanzamiento para emprendedores</span></li>
+            </ol>
           </div>
         </div>
-        <figcaption>Cada factor cae en su casilla según su impacto y su incertidumbre, y la casilla te dice qué hacer con él. <a href="pestel.html">Prueba Análisis PESTEL</a></figcaption>
+        <figcaption>Eliges tu ciclo, tus aficiones y tus recursos, y el generador te propone ideas de negocio pensadas para ti.</figcaption>
       </figure>
+      <ul class="gen-facts">
+        <li>Las 26 familias profesionales</li>
+        <li>Más de 600 ideas</li>
+        <li>Normativa contrastada en el BOE</li>
+      </ul>
+      <a class="btn btn-lima gen-go" href="generador.html">Busca tu idea de negocio<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
   </div>
 </header>
@@ -1176,9 +1165,8 @@ function renderResume(){
 addEventListener('pageshow', e=>{ if(e.persisted && DB.order.length){ renderResume(); render(); } });
 
 const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-// Herramienta en acción: los seis factores PESTEL caen uno a uno en su casilla y la casilla se enciende con el
-// color de su zona. Se repite solo mientras se ve en pantalla; con menos movimiento se queda completo y quieto
+// Reclamo de la portada: el generador elige un ciclo y van apareciendo tres de sus ideas; luego pasa a otra familia
+// profesional. Ideas reales de generador.html. Se repite solo mientras se ve en pantalla; con menos movimiento se queda quieto
 (function(){
   const fig = document.getElementById('demo');
   if(!fig || calm || !('IntersectionObserver' in window)) return;
@@ -1186,22 +1174,26 @@ const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
   let visible = false, seguir = null;
   const enPantalla = () => visible ? Promise.resolve() : new Promise(r=>{ seguir = r; });
   new IntersectionObserver(([e])=>{ visible = e.isIntersecting; if(visible && seguir){ seguir(); seguir = null; } }).observe(fig);
-  const factores = [...fig.querySelectorAll('.pm-f')].sort((a,b)=>a.style.getPropertyValue('--o') - b.style.getPropertyValue('--o'));
-  const vaciar = () => { fig.classList.remove('sale'); factores.forEach(f=>f.classList.remove('in')); fig.querySelectorAll('.pm-c').forEach(c=>c.classList.remove('has')); };
+  const ciclos = [
+    ['Marketing y Publicidad', [['Social media para pymes','Gestión de redes sociales y contenido para negocios locales'],['Posicionamiento local','SEO local y Google Business para servicios de proximidad'],['Mini-agencia de lanzamiento','Branding y plan de lanzamiento para emprendedores']]],
+    ['Cocina y Gastronomía', [['Catering','Catering para empresas, celebraciones y eventos pequeños'],['Cocina privada','Chef a domicilio y clases de cocina'],['Cocina sobre ruedas','Food truck o puesto en mercados gastronómicos']]],
+    ['Comercio Internacional', [['Agente de exportación','Departamento de exportación externalizado para pymes productoras'],['Comercio digital internacional','Gestor de ventas cross-border en marketplaces europeos'],['Inteligencia de mercados','Estudios de mercado exterior por encargo']]]
+  ];
+  const valor = document.getElementById('giCiclo'), ideas = [...fig.querySelectorAll('.gi-ideas li')];
   (async function bucle(){
-    for(;;){
-      await enPantalla(); vaciar(); await wait(900);
-      for(const f of factores){
-        await enPantalla();
-        f.classList.add('in'); await wait(260);
-        f.closest('.pm-c').classList.add('has'); await wait(620);
-      }
-      await wait(4200);
-      fig.classList.add('sale'); await wait(500);
+    for(let i = 1;; i = (i + 1) % ciclos.length){
+      await wait(4200); await enPantalla();
+      fig.classList.add('sale'); valor.classList.add('cambia'); await wait(450);
+      fig.classList.remove('sale'); ideas.forEach(li=>li.classList.remove('in'));
+      const [ciclo, lista] = ciclos[i];
+      valor.textContent = ciclo;
+      lista.forEach(([n, t], k)=>{ ideas[k].querySelector('.gi-n').textContent = n; ideas[k].querySelector('.gi-t').textContent = t; });
+      valor.classList.remove('cambia'); await wait(700);
+      for(const li of ideas){ await enPantalla(); li.classList.add('in'); await wait(450); }
     }
   })();
 })();
-// Trazos que se dibujan una sola vez al aparecer en pantalla: la línea de la sesión de 50 minutos y los subrayados del catálogo y de «Pruébalas»
+// Trazos que se dibujan una sola vez al aparecer en pantalla: la línea de la sesión de 50 minutos y los subrayados del catálogo y de «¿Qué negocio sale de tu ciclo?»
 const toDraw = [document.getElementById('steps'), document.getElementById('inkUnder'), document.getElementById('demoUnder')];
 const toolbar = document.getElementById('toolbar');
 if('IntersectionObserver' in window){
