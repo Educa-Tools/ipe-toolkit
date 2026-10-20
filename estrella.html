@@ -201,6 +201,7 @@
   .gauge-pointer{position:absolute;top:50%;width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid var(--ink);transform:translate(-50%,-50%);transition:left .6s ease;}
   .gauge-scale{display:flex;justify-content:space-between;font-size:13.5px;color:var(--ink-muted);}
   .interp{font-size:16.5px;color:var(--ink-soft);margin:12px 0 0;}
+  .calc-note{font-size:14.5px;color:var(--ink-muted);margin:12px 0 0;}
 
   .dims{display:grid;gap:10px;}
   .dim{
@@ -304,19 +305,20 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     <p class="step-desc">Emprender siempre implica incertidumbre, así que antes de escribir un plan de negocio entero conviene hacer una evaluación preliminar del riesgo. La Matriz Estrella usa cinco dimensiones que, entre todas, dan una foto rápida de lo tangible que es tu idea ahora mismo.</p>
 
     <div class="intro-grid">
-      <div class="intro-item"><span class="intro-num">1</span><div><strong>Posibilidades</strong><span>¿Se puede llevar la idea al mercado tal y como la imaginas?</span></div></div>
+      <div class="intro-item"><span class="intro-num">1</span><div><strong>Posibilidades</strong><span>¿Se puede llevar la idea al mercado tal y como la imaginas, sin trabas legales o técnicas?</span></div></div>
       <div class="intro-item"><span class="intro-num">2</span><div><strong>Capacidades</strong><span>Conocimiento, dinero y equipo para ejecutarla.</span></div></div>
-      <div class="intro-item"><span class="intro-num">3</span><div><strong>Competencia</strong><span>Cuánta gente ya ofrece algo parecido.</span></div></div>
+      <div class="intro-item"><span class="intro-num">3</span><div><strong>Competencia</strong><span>Cuánta gente ya ofrece algo parecido y en qué te diferencias.</span></div></div>
       <div class="intro-item"><span class="intro-num">4</span><div><strong>Entorno</strong><span>Margen de crecimiento a sectores y mercados nuevos.</span></div></div>
       <div class="intro-item"><span class="intro-num">5</span><div><strong>Pasión</strong><span>Tu confianza, actitud ante el riesgo e iniciativa.</span></div></div>
     </div>
 
-    <p class="step-desc" style="margin-bottom:0;">Cada dimensión pesa hasta un 20% del resultado final, según el escenario que le corresponda:</p>
+    <p class="step-desc" style="margin-bottom:0;">En cada pregunta eliges el escenario que más se parece a tu caso. Cada uno suma puntos (de 0 a 100):</p>
     <div class="legend">
-      <div class="legend-chip c-fav"><b>Favorable</b><span>+20%</span></div>
-      <div class="legend-chip c-neu"><b>Neutro</b><span>0%</span></div>
-      <div class="legend-chip c-desf"><b>Desfavorable</b><span>−10%</span></div>
+      <div class="legend-chip c-fav"><b>Favorable</b><span>100</span></div>
+      <div class="legend-chip c-neu"><b>Neutro</b><span>50</span></div>
+      <div class="legend-chip c-desf"><b>Desfavorable</b><span>0</span></div>
     </div>
+    <p class="step-desc calc-note">Cómo se calcula el resultado: cada dimensión puntúa de 0 a 100 con la media de sus preguntas, y las que son imprescindibles (como Capacidades) dan un peso extra a la respuesta más floja. El resultado final es el 80 % de la media de las cinco dimensiones más el 20 % de la más débil, porque una idea es tan sólida como su punto más frágil.</p>
 
     <div class="fields">
       <div class="field">
@@ -355,12 +357,13 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     <div class="rep-hero">
       <div class="rep-star" id="result-star"></div>
       <div>
-        <p class="result-caption">Valoración preliminar de éxito</p>
+        <p class="result-caption">Tangibilidad de tu idea</p>
         <p class="result-total" id="result-total">0%</p>
         <span class="result-band" id="result-band"></span>
         <div class="gauge"><div class="gauge-pointer" id="gauge-pointer" style="left:0%;"></div></div>
         <div class="gauge-scale"><span>0%</span><span>50%</span><span>100%</span></div>
         <p class="interp" id="result-interp"></p>
+        <p class="calc-note">Mide lo definida y preparada que está tu idea hoy, no la probabilidad de que tenga éxito. Cálculo: 80 % media de las cinco dimensiones + 20 % la más débil.</p>
       </div>
     </div>
 
@@ -396,18 +399,22 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
 
   var DIMS = [
     {
-      key: 'posibilidades', label: 'Posibilidades',
-      desc: 'Sin pensar todavía en dinero, competencia ni equipo: ¿es posible llevar tu idea al mercado tal y como la tienes en mente?',
+      key: 'posibilidades', label: 'Posibilidades', w: 0.3,
+      desc: 'Sin pensar todavía en dinero, competencia ni equipo: ¿es posible llevar tu idea al mercado tal y como la tienes en mente? Dos preguntas; si una de las dos falla, el resultado de la dimensión baja más que con una simple media.',
       questions: [
-        { id: 'q_posibilidades', text: '¿La noción de producto o servicio que tienes en mente es fácilmente trasladable al mercado?', opts: [
+        { id: 'q_posibilidades', eyebrow: 'Concreción de la oferta', text: '¿La noción de producto o servicio que tienes en mente es fácilmente trasladable al mercado?', opts: [
           'Sí, tengo clara la forma de convertirla en una oferta real y disponible para clientes.',
           'Tengo una idea general, pero aún hay aspectos importantes por concretar.',
-          'Todavía es una idea muy abstracta, difícil de aterrizar en un producto o servicio concreto.' ] }
+          'Todavía es una idea muy abstracta, difícil de aterrizar en un producto o servicio concreto.' ] },
+        { id: 'q_pos_viabilidad', eyebrow: 'Viabilidad legal y técnica', text: '¿Hay algo legal o técnico (licencias, normativa, tecnología) que pueda impedirte ofrecerla tal y como la imaginas?', opts: [
+          'No que yo sepa, o los trámites son sencillos y sé cómo hacerlos.',
+          'Hay trámites o requisitos que tendría que averiguar y resolver antes de empezar.',
+          'Sí, hay una barrera importante (permiso, normativa o tecnología) y no sé si puedo superarla.' ] }
       ]
     },
     {
-      key: 'capacidades', label: 'Capacidades',
-      desc: 'Tres preguntas sobre si tienes, o puedes conseguir, lo necesario para ejecutar la idea. El resultado de la dimensión sale de la media de las tres.',
+      key: 'capacidades', label: 'Capacidades', w: 0.4,
+      desc: 'Tres preguntas sobre si tienes, o puedes conseguir, lo necesario para ejecutar la idea. Pesa la media, pero también la más floja de las tres: saber mucho no compensa que falte el dinero o el equipo.',
       questions: [
         { id: 'q_cap_tecnica', eyebrow: 'Capacidad técnica', text: '¿Tienes los conocimientos y la formación necesarios para llevar la idea a la práctica? ¿Cómo de fáciles son de obtener?', opts: [
           'Los tengo, o son fáciles de conseguir (cursos, autoformación, experiencia previa...).',
@@ -424,18 +431,22 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
       ]
     },
     {
-      key: 'competencia', label: 'Competencia',
-      desc: 'Evaluación preliminar, en base a lo que ya conoces, sin analizar el mercado a fondo todavía (eso llegará más adelante en el curso).',
+      key: 'competencia', label: 'Competencia', w: 0,
+      desc: 'Evaluación preliminar, en base a lo que ya conoces, sin analizar el mercado a fondo todavía (eso llegará más adelante en el curso). El resultado es la media de las dos preguntas: mucha competencia se compensa con una diferenciación clara.',
       questions: [
-        { id: 'q_competencia', text: '¿Hay empresas que ya ofrecen un producto o servicio similar al tuyo? ¿Cuántas?', opts: [
+        { id: 'q_competencia', eyebrow: 'Nivel de competencia', text: '¿Hay empresas que ya ofrecen un producto o servicio similar al tuyo? ¿Cuántas?', opts: [
           'Ninguna o muy pocas: el mercado está prácticamente libre.',
           'Algunas, pero veo hueco para diferenciarme.',
-          'Muchas, y muy consolidadas: el mercado está saturado.' ] }
+          'Muchas, y muy consolidadas: el mercado está saturado.' ] },
+        { id: 'q_comp_diferencia', eyebrow: 'Tu diferenciación', text: '¿Qué tiene tu idea que la haga distinta y que a la competencia le costaría copiar (precio, calidad, servicio, nicho, marca)?', opts: [
+          'Tengo una ventaja clara y difícil de copiar, y sé explicarla en una frase.',
+          'Tengo ideas de diferenciación, pero todavía son fáciles de imitar o poco definidas.',
+          'Ahora mismo ofrecería lo mismo que los demás, sin nada que me distinga.' ] }
       ]
     },
     {
-      key: 'entorno', label: 'Entorno',
-      desc: 'Estamos probando el agua antes de zambullirnos, pero no está de más pensar también a largo plazo. El resultado sale de la media de las dos preguntas.',
+      key: 'entorno', label: 'Entorno', w: 0.25, ext: 'max',
+      desc: 'Estamos probando el agua antes de zambullirnos, pero no está de más pensar también a largo plazo. Pesa la media de las dos preguntas y un poco más la mejor: basta con que haya una vía de crecimiento abierta.',
       questions: [
         { id: 'q_ent_sectores', eyebrow: 'Nuevos sectores', text: '¿Tu idea podría crecer hacia nuevos sectores de actividad?', opts: [
           'Sí, veo varias líneas de expansión hacia otros sectores.',
@@ -448,8 +459,8 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
       ]
     },
     {
-      key: 'pasion', label: 'Pasión',
-      desc: 'Un mini-autodiagnóstico de tu confianza, actitud ante el riesgo e iniciativa como emprendedor o emprendedora. El resultado sale de la media de las cinco preguntas.',
+      key: 'pasion', label: 'Pasión', w: 0.2,
+      desc: 'Un mini-autodiagnóstico de tu confianza, actitud ante el riesgo e iniciativa como emprendedor o emprendedora. Sale sobre todo de la media de las cinco preguntas, con un pequeño peso extra para la más baja.',
       questions: [
         { id: 'q_pas_confianza', eyebrow: 'Confianza en la idea', text: '¿Qué grado de confianza tienes en que esta idea puede funcionar?', opts: [
           'Mucha confianza, apostaría por ella sin dudarlo.',
@@ -477,9 +488,9 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
 
   var FEEDBACK = {
     posibilidades: {
-      fav: 'Tu idea ya tiene forma de producto o servicio concreto: sabes qué vas a vender y a quién. Es una base sólida para pasar a la siguiente fase, validarla con datos reales.',
-      neu: 'Tienes el esqueleto de la idea, pero todavía hay piezas sueltas. Antes de seguir, dedica tiempo a definir con precisión qué vas a ofrecer y cómo llegará al cliente.',
-      desf: 'De momento la idea es más una intuición que un producto. Conviene aterrizarla: describe en una frase qué vendes, a quién y por qué lo comprarían, antes de avanzar con el resto.'
+      fav: 'Tu idea ya tiene forma de producto o servicio concreto y no ves trabas legales o técnicas serias. Es una base sólida para pasar a la siguiente fase, validarla con datos reales.',
+      neu: 'Tienes el esqueleto de la idea, pero todavía hay piezas sueltas: algo por concretar o algún requisito por averiguar. Antes de seguir, define con precisión qué vas a ofrecer, cómo llegará al cliente y qué permisos necesitas.',
+      desf: 'De momento la idea es más una intuición que un producto, o choca con una barrera legal o técnica importante. Conviene aterrizarla: describe en una frase qué vendes, a quién y por qué lo comprarían, y comprueba qué exige la normativa.'
     },
     capacidades: {
       fav: 'Tienes, o sabes cómo conseguir, el conocimiento, el dinero y el equipo que necesitas. Es tu punto más fuerte: apóyate en él para compensar otras dimensiones más débiles.',
@@ -487,9 +498,9 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
       desf: 'Ahora mismo faltan piezas clave para ejecutar la idea. No significa que sea inviable, pero sí que necesitas un plan concreto para conseguir formación, financiación o socios antes de comprometerte del todo.'
     },
     competencia: {
-      fav: 'El mercado está poco explotado: tienes margen para entrar sin pelear directamente por precio. Aprovecha esta ventana, pero no dejes de vigilar quién puede aparecer después.',
-      neu: 'Ya hay quien hace algo parecido, así que tu diferenciación (qué haces distinto o mejor) será decisiva. Tenlo muy claro antes de lanzarte.',
-      desf: 'El mercado está muy concurrido. O encuentras un nicho o una propuesta claramente diferente, o el precio y la escala jugarán en tu contra frente a competidores ya consolidados.'
+      fav: 'Entre el hueco que hay en el mercado y lo que te distingue, tienes margen para entrar sin pelear solo por precio. Aprovecha esta ventana, pero no dejes de vigilar quién puede aparecer después.',
+      neu: 'Ya hay quien hace algo parecido y tu diferenciación aún no es del todo clara o sólida. Definir qué haces distinto o mejor será decisivo antes de lanzarte.',
+      desf: 'El mercado está concurrido y ahora mismo no tienes una ventaja clara. O encuentras un nicho o una propuesta claramente diferente, o el precio y la escala jugarán en tu contra frente a competidores ya consolidados.'
     },
     entorno: {
       fav: 'Tu idea no está limitada a un único sector o territorio: eso le da recorrido a medio plazo y la hace más atractiva si algún día buscas financiación externa.',
@@ -507,21 +518,41 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
   var TOTAL_STEPS = DIMS.length + 1; // 0 intro, 1-5 dims, 6 resultado
 
   // ─────────────────────────── Lógica de puntuación
-  function stateOf(v) { return v === 20 ? 'fav' : v === -10 ? 'desf' : 'neu'; }
+  // Método (v2): cada respuesta vale 100, 50 o 0 puntos. Los códigos 20 / 0 / −10
+  // son solo identificadores de la opción y se conservan para no romper lo guardado.
+  // Dimensión = (1 − w)·media de sus preguntas + w·la peor (o la mejor, en Entorno).
+  // Total = 80 % media de las cinco dimensiones + 20 % la dimensión más débil.
+  var W_TOTAL_MIN = 0.2;
+  function pts(v) { return v === 20 ? 100 : v === -10 ? 0 : 50; }
+  function stateOf(s) { return s >= 65 ? 'fav' : s < 30 ? 'desf' : 'neu'; }
   function isDimComplete(d) { return d.questions.every(function (q) { return state.answers[q.id] !== undefined; }); }
   function dimScore(d) {
     if (!isDimComplete(d)) return null;
-    var sum = 0;
-    d.questions.forEach(function (q) { sum += state.answers[q.id]; });
-    var avg = sum / d.questions.length;
-    if (avg >= 10) return 20;
-    if (avg <= -5) return -10;
-    return 0;
+    var p = d.questions.map(function (q) { return pts(state.answers[q.id]); });
+    var mean = p.reduce(function (a, b) { return a + b; }, 0) / p.length;
+    var ext = d.ext === 'max' ? Math.max.apply(null, p) : Math.min.apply(null, p);
+    return Math.round((1 - d.w) * mean + d.w * ext);
   }
   function allScores() {
     var s = {};
     DIMS.forEach(function (d) { s[d.key] = dimScore(d); });
     return s;
+  }
+  function totalScore(scores) {
+    var v = DIMS.map(function (d) { return scores[d.key] || 0; });
+    var mean = v.reduce(function (a, b) { return a + b; }, 0) / v.length;
+    return Math.round((1 - W_TOTAL_MIN) * mean + W_TOTAL_MIN * Math.min.apply(null, v));
+  }
+  function weakest(scores) {
+    var w = DIMS[0];
+    DIMS.forEach(function (d) { if (scores[d.key] < scores[w.key]) w = d; });
+    return w;
+  }
+  // Preguntas contestadas «desfavorable» dentro de una dimensión que, en conjunto, no sale desfavorable.
+  function weakNotes(d, st) {
+    if (st === 'desf') return [];
+    return d.questions.filter(function (q) { return q.eyebrow && state.answers[q.id] === -10; })
+      .map(function (q) { return q.eyebrow.toLowerCase(); });
   }
 
   // ─────────────────────────── Estrella SVG
@@ -529,7 +560,8 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
   function createStar(container) {
     var uid = 'st' + (++starUid);
     var cx = 180, cy = 176, R = 118, r = 44, RN = R + 20;
-    var LVL = { fav: 1, neu: 0.72, desf: 0.46, empty: 0.58 };
+    var LVL = { min: 0.46, mid: 0.73, empty: 0.58 };
+    function radius(s) { return R * (LVL.min + (1 - LVL.min) * s / 100); }
     function ang(i) { return (-90 + 72 * i) * Math.PI / 180; }
     function pt(rad, a) { return [cx + rad * Math.cos(a), cy + rad * Math.sin(a)]; }
     function fmt(p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }
@@ -550,8 +582,8 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
            '<stop offset="100%" stop-color="#557A35" stop-opacity=".16"/></radialGradient>' +
            '<filter id="' + uid + 'f" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#1E1C1A" flood-opacity=".14"/></filter></defs>';
     // anillos de nivel
-    svg += '<circle class="st-ring" cx="' + cx + '" cy="' + cy + '" r="' + (R * LVL.desf).toFixed(1) + '"/>';
-    svg += '<circle class="st-ring" cx="' + cx + '" cy="' + cy + '" r="' + (R * LVL.neu).toFixed(1) + '"/>';
+    svg += '<circle class="st-ring" cx="' + cx + '" cy="' + cy + '" r="' + (R * LVL.min).toFixed(1) + '"/>';
+    svg += '<circle class="st-ring" cx="' + cx + '" cy="' + cy + '" r="' + (R * LVL.mid).toFixed(1) + '"/>';
     // radios
     for (var i = 0; i < 5; i++) {
       var tip = pt(R, ang(i));
@@ -596,7 +628,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
       update: function (scores, centerText, activeIdx) {
         var target = DIMS.map(function (d) {
           var s = scores[d.key];
-          return R * (s === null ? LVL.empty : LVL[stateOf(s)]);
+          return s === null ? R * LVL.empty : radius(s);
         });
         DIMS.forEach(function (d, i) {
           var node = document.getElementById(uid + 'node' + i);
@@ -633,7 +665,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     var html = '';
     DIMS.forEach(function (d, di) {
       html += '<section class="step card" id="step-' + (di + 1) + '" hidden>';
-      html += '<p class="step-kicker">Dimensión ' + (di + 1) + ' de 5 · 20%</p>';
+      html += '<p class="step-kicker">Dimensión ' + (di + 1) + ' de 5</p>';
       html += '<h2 class="step-title">' + esc(d.label) + '</h2>';
       html += '<p class="step-desc">' + esc(d.desc) + '</p>';
       d.questions.forEach(function (q) {
@@ -716,19 +748,18 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
   // ─────────────────────────── Resultado
   function band(total) {
     if (total >= 80) return { cls: 'fav', label: 'Idea muy tangible', txt: 'Tienes motivos de sobra para dar el siguiente paso y empezar a validarla con datos reales del mercado.' };
-    if (total >= 50) return { cls: 'fav', label: 'Idea tangible', txt: 'Buen punto de partida: antes de lanzarte, refuerza las dimensiones que te hayan salido en neutro o desfavorable.' };
-    if (total >= 20) return { cls: 'neu', label: 'Potencial frágil', txt: 'Hay más de un pilar por reforzar. No es un no, es un «todavía no».' };
-    if (total >= 0) return { cls: 'neu', label: 'Poco tangible', txt: 'Conviene revisar a fondo varias dimensiones antes de invertir tiempo o dinero en ella.' };
+    if (total >= 65) return { cls: 'fav', label: 'Idea tangible', txt: 'Buen punto de partida: antes de lanzarte, refuerza las dimensiones que te hayan salido en neutro o desfavorable.' };
+    if (total >= 45) return { cls: 'neu', label: 'Potencial frágil', txt: 'Hay pilares por reforzar. No es un no, es un «todavía no».' };
+    if (total >= 25) return { cls: 'neu', label: 'Poco tangible', txt: 'Conviene revisar a fondo varias dimensiones antes de invertir tiempo o dinero en ella.' };
     return { cls: 'desf', label: 'Alto riesgo', txt: 'Tal y como está planteada, es buen momento para replantear el enfoque, no necesariamente para abandonar la idea de fondo.' };
   }
 
   function renderResult() {
     var scores = allScores();
-    var total = 0;
-    DIMS.forEach(function (d) { total += scores[d.key] || 0; });
+    var total = totalScore(scores);
     var b = band(total);
-    var shown = Math.max(0, total);
-    var totalTxt = shown + '%';
+    var wk = weakest(scores);
+    var totalTxt = total + '%';
 
     document.getElementById('rep-title').textContent = state.idea.trim() || 'Tu idea de negocio';
     document.getElementById('rep-name').textContent = state.name.trim();
@@ -740,19 +771,20 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     var bEl = document.getElementById('result-band');
     bEl.textContent = b.label;
     bEl.className = 'result-band c-' + b.cls;
-    document.getElementById('result-interp').textContent = b.txt;
-    var pct = Math.min(100, shown);
-    document.getElementById('gauge-pointer').style.left = pct + '%';
+    document.getElementById('result-interp').textContent = b.txt + (stateOf(scores[wk.key]) === 'fav' ? '' : ' Tu dimensión más débil ahora: ' + wk.label + ' (' + scores[wk.key] + '/100).');
+    document.getElementById('gauge-pointer').style.left = total + '%';
 
     var list = document.getElementById('dims');
     list.innerHTML = DIMS.map(function (d, i) {
       var s = scores[d.key];
       var st = stateOf(s);
+      var wn = weakNotes(d, st);
       return '<article class="dim c-' + st + '">' +
                '<div class="dim-head"><span class="dim-num">' + (i + 1) + '</span>' +
                '<div><h3 class="dim-name">' + d.label + '</h3>' +
-               '<span class="dim-badge">' + STATE_LABEL[st] + ' · ' + (s > 0 ? '+' : '') + s + '%</span></div></div>' +
+               '<span class="dim-badge">' + STATE_LABEL[st] + ' · ' + s + '/100</span></div></div>' +
                '<p>' + FEEDBACK[d.key][st] + '</p>' +
+               (wn.length ? '<p><strong>Ojo:</strong> aunque la dimensión salga bien en conjunto, has marcado como desfavorable ' + esc(wn.join(' y ')) + '. Es lo primero que conviene resolver.</p>' : '') +
              '</article>';
     }).join('');
 
@@ -764,8 +796,10 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
       nombre: state.name,
       idea: state.idea,
       respuestas: state.answers,
+      version: 2,
+      metodo: 'Respuesta = 100/50/0; dimensión = media y extremo ponderados; total = 80 % media + 20 % dimensión más débil',
       puntuaciones: scores,
-      total: shown
+      total: total
     };
   }
 
@@ -778,6 +812,13 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     goToStep(0);
   }
 
+  // Primer paso con preguntas sin contestar (6 = resultado si está todo). Así, un resultado
+  // guardado antes de añadir preguntas nuevas se retoma justo donde falta algo.
+  function firstOpenStep() {
+    for (var i = 0; i < DIMS.length; i++) if (!isDimComplete(DIMS[i])) return i + 1;
+    return 6;
+  }
+
   function loadFromData(data) {
     if (!data || !data.respuestas) throw new Error('formato no válido');
     state.answers = data.respuestas;
@@ -786,8 +827,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     document.getElementById('in-name').value = state.name;
     document.getElementById('in-idea').value = state.idea;
     syncOptions();
-    var complete = DIMS.every(isDimComplete);
-    goToStep(complete ? 6 : 1);
+    goToStep(firstOpenStep());
   }
 
   function slug(s) {
@@ -856,7 +896,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
         document.getElementById('in-idea').value = state.idea;
         syncOptions();
         var st = sv.step || 0;
-        if (st === 6 && !DIMS.every(isDimComplete)) st = 1;
+        if (st === 6 && !DIMS.every(isDimComplete)) st = firstOpenStep();
         goToStep(Math.min(st, 6));
       } else goToStep(0);
     } catch (e) { goToStep(0); }
