@@ -472,6 +472,49 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
 .biz-meta-item{ border-top:3px solid var(--t); }
 .biz-meta-value{ color:var(--td); }
 
+/* Informe imprimible: solo existe en papel (A4, dos páginas) */
+#biz-print{ display:none; }
+@media print{
+  @page{ size:A4; margin:11mm 13mm; }
+  html.biz-hay-informe body > *:not(#biz-print){ display:none !important; }
+  html.biz-hay-informe body{ background:#fff !important; }
+  html.biz-hay-informe #biz-print{ display:block; }
+}
+#biz-print{ font-family:var(--font-body); color:#1E1C1A; font-size:9pt; line-height:1.36; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+#biz-print p{ margin:0; }
+.bp-page{ break-after:page; }
+.bp-page:last-child{ break-after:auto; }
+.bp-head{ display:flex; justify-content:space-between; align-items:center; border-bottom:1.5pt solid #6B7028; padding-bottom:2.5mm; margin-bottom:3.5mm; font-size:8.5pt; color:#4A463F; }
+.bp-title{ font-family:var(--font-display); font-weight:500; font-size:19pt; letter-spacing:-.02em; line-height:1.1; margin:0 0 2mm; }
+#biz-print .bp-name{ display:flex; gap:2mm; font-size:9pt; color:#4A463F; margin-bottom:3mm; }
+.bp-name span{ flex:1; border-bottom:.75pt solid #D9D0C1; }
+#biz-print .bp-summary{ color:#4A463F; margin-bottom:4mm; }
+.bp-summary strong{ color:#1E1C1A; font-weight:600; }
+.bp-idea{ --t:#6B7028; --ts:#E8EDC4; border:.75pt solid #E8E1D6; border-top:3pt solid var(--t); border-radius:3mm; padding:3.5mm 4.5mm; margin-bottom:4mm; break-inside:avoid; }
+.bp-idea[data-tipo="hibrido"],.bp-alt li[data-tipo="hibrido"]{ --t:#B5482F; --ts:#F7EDD8; }
+.bp-idea[data-tipo="innovadora"],.bp-alt li[data-tipo="innovadora"]{ --t:#3E5778; --ts:#E4E8F0; }
+.bp-idea-top{ display:flex; gap:3.5mm; align-items:flex-start; margin-bottom:2mm; }
+.bp-num{ flex:none; display:grid; place-items:center; width:9mm; height:9mm; border-radius:50%; background:var(--t); color:#fff; font-weight:600; font-size:10.5pt; }
+#biz-print .bp-tag{ font-size:7.5pt; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--t); margin-bottom:.5mm; }
+.bp-idea-t{ font-family:var(--font-display); font-weight:500; font-size:14pt; line-height:1.15; letter-spacing:-.01em; margin:0; }
+#biz-print .bp-nicho{ color:var(--t); font-weight:500; font-size:9pt; margin-top:.8mm; }
+#biz-print .bp-desc{ margin-bottom:2.5mm; }
+.bp-grid{ display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:2.5mm; margin-bottom:2.5mm; }
+.bp-grid > div{ background:var(--ts); border-radius:2mm; padding:2.2mm 3mm; }
+.bp-l{ display:block; font-size:7pt; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--t); margin-bottom:.8mm; }
+#biz-print .bp-v{ font-size:8.8pt; }
+#biz-print .bp-q{ font-family:var(--font-display); font-style:italic; font-size:9.4pt; }
+.bp-meta{ display:grid; grid-template-columns:repeat(4,1fr); gap:3mm; margin-bottom:2.5mm; }
+.bp-meta div{ border-top:1.5pt solid var(--t); padding-top:1.5mm; }
+.bp-meta b{ display:block; font-family:var(--font-display); font-weight:500; font-size:11pt; }
+#biz-print .bp-paso{ padding:2.2mm 3mm; border-left:2pt solid var(--t); background:#FBFCEF; font-size:8.8pt; }
+.bp-alt-h{ font-family:var(--font-display); font-weight:500; font-size:13pt; margin:7mm 0 2mm; }
+.bp-alt{ list-style:none; margin:0 0 6mm; padding:0; }
+.bp-alt li{ --t:#6B7028; display:flex; gap:3mm; align-items:baseline; padding:2.2mm 0; border-bottom:.75pt solid #E8E1D6; }
+.bp-alt-tag{ flex:none; width:19mm; font-size:7pt; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--t); }
+#biz-print .bp-note{ font-size:8.5pt; background:#F7EDD8; border-left:2pt solid #B88534; border-radius:1.5mm; padding:2.5mm 3.5mm; }
+.bp-foot{ margin-top:5mm; font-size:8pt; color:#4A463F; text-align:center; }
+
 @media (max-width:640px){
   .biz-card{ padding:1.75rem 1.25rem 1.5rem; border-radius:18px; }
   .biz-idea{ padding:1.75rem 1.25rem 1.5rem; }
@@ -756,6 +799,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     <div id="biz-cards"></div>
     <div id="biz-alt"></div>
     <div class="biz-restart">
+      <button class="biz-btn" id="biz-print-btn" type="button">Imprimir informe</button>
       <button class="biz-btn biz-btn-primary" id="biz-reroll" type="button" style="display: none;">Dame otras tres ideas</button>
       <button class="biz-btn" id="biz-restart" type="button">Empezar de nuevo</button>
     </div>
@@ -9332,9 +9376,58 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     return 'Con tu ciclo de ' + b(P.ciclo) + ', ' + joinY(partes.map(b)) + ', estas tres líneas combinan negocio de tu sector, tu afición y una apuesta más ambiciosa.';
   }
 
+  // ---------- Informe para imprimir (A4, dos páginas) ----------
+  // Página 1: ideas 1 y 2. Página 2: idea 3 y los títulos de las otras ideas.
+  function ideaInforme(it, n, P) {
+    const i = it.idea, mod = MODELOS[i.m];
+    return `
+      <article class="bp-idea" data-tipo="${esc(it.tipo)}">
+        <div class="bp-idea-top"><span class="bp-num">0${n}</span>
+          <div><p class="bp-tag">${tipoLabels2[it.tipo]}</p><h2 class="bp-idea-t">${esc(i.t)}</h2><p class="bp-nicho">${esc(i.n)}</p></div></div>
+        <p class="bp-desc">${esc(localiza(i.d, P))}</p>
+        <div class="bp-grid">
+          <div><span class="bp-l">Propuesta de valor</span><p class="bp-v bp-q">${esc(i.val)}</p></div>
+          <div><span class="bp-l">Cliente ideal</span><p class="bp-v">${esc(capital1(i.cli))}.</p></div>
+          <div><span class="bp-l">Cómo ganas dinero</span><p class="bp-v">${esc(mod.label)}</p></div>
+        </div>
+        <div class="bp-meta">
+          <div><span class="bp-l">Inversión</span><b>${fmtEur(i.inv[0])}-${fmtEur(i.inv[1])} €</b></div>
+          <div><span class="bp-l">Arranque</span><b>${esc(i.ar)}</b></div>
+          <div><span class="bp-l">Riesgo</span><b>${RIESGO_TXT[i.r]}</b></div>
+          <div><span class="bp-l">Dedicación</span><b>${HORAS_TXT[i.h]}</b></div>
+        </div>
+        <p class="bp-paso"><span class="bp-l">Primer paso esta semana</span>${esc(capital1(localiza(i.paso, P).replace(/^Esta semana:\s*/i, '')))}</p>
+      </article>`;
+  }
+
+  function prepararInforme(P, sel) {
+    let el = document.getElementById('biz-print');
+    if (!el) { el = document.createElement('div'); el.id = 'biz-print'; el.setAttribute('aria-hidden', 'true'); document.body.appendChild(el); }
+    const fecha = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+    const [a, b, c] = sel.principales;
+    const tipoCorto = { sector: 'Sector', hibrido: 'Híbrida', innovadora: 'Emergente' };
+    el.innerHTML = `
+      <section class="bp-page">
+        <header class="bp-head"><img src="marca/logo-horizontal-oliva.svg" alt="" width="104" height="26"><span>Generador de ideas de negocio · ${esc(fecha)}</span></header>
+        <h1 class="bp-title">Mis tres líneas de negocio</h1>
+        <p class="bp-name">Nombre y grupo:<span></span></p>
+        <p class="bp-summary">${resumen(P)}</p>
+        ${a ? ideaInforme(a, 1, P) : ''}${b ? ideaInforme(b, 2, P) : ''}
+      </section>
+      <section class="bp-page">
+        ${c ? ideaInforme(c, 3, P) : ''}
+        ${sel.alternativas.length ? '<h2 class="bp-alt-h">Otras ideas que también encajan contigo</h2><ul class="bp-alt">' + sel.alternativas.map(it =>
+          '<li data-tipo="' + esc(it.tipo) + '"><span class="bp-alt-tag">' + tipoCorto[it.tipo] + '</span><span><strong>' + esc(it.idea.t) + '</strong> · ' + esc(it.idea.n) + '</span></li>').join('') + '</ul>' : ''}
+        <p class="bp-note"><strong>Cifras orientativas.</strong> Los precios, inversiones y comisiones son órdenes de magnitud para empezar a investigar: parte del trabajo es contrastarlos con datos reales de tu zona.</p>
+        <footer class="bp-foot">Esplora · esplora.es</footer>
+      </section>`;
+    document.documentElement.classList.add('biz-hay-informe');
+  }
+
   function renderRico(d, esReroll) {
     const P = perfil(d);
     const sel = seleccionar(P);
+    prepararInforme(P, sel);
     $('biz-loading').style.display = 'none';
     $('biz-results').style.display = 'block';
     $('biz-summary').innerHTML = resumen(P);
@@ -9346,6 +9439,8 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     $('biz-reroll').style.display = 'inline-block';
     if (esReroll) { const r = $('biz-results'); if (r.scrollIntoView) r.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
   }
+
+  $('biz-print-btn').addEventListener('click', () => window.print());
 
   $('biz-reroll').addEventListener('click', () => {
     $('biz-results').style.display = 'none';
