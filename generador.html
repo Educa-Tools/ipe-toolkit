@@ -298,7 +298,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
 .kit-bar-in{ max-width:1100px; margin:0 auto; padding:0 20px; min-height:54px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
 .kit-bar a{ display:inline-flex; align-items:center; gap:8px; color:#fff; text-decoration:none; font-family:'Fraunces',Georgia,serif; font-weight:700; font-size:16px; }
 .kit-bar a span{ color:#E8EDC4; }
-.kit-bar small{ font-family:'Inter',system-ui,sans-serif; font-size:14px; font-weight:600; color:rgba(255,255,255,.85); text-align:right; }
+.kit-bar small{ font-family:'Inter',system-ui,sans-serif; font-size:14px; font-weight:600; color:#fff; text-align:right; }
 .kit-save{ display:inline-flex; align-items:center; gap:6px; }
 .kit-save i{ width:8px; height:8px; border-radius:50%; background:#C5CD78; display:inline-block; }
 @media print{ .kit-bar{ display:none !important; } }
@@ -463,7 +463,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
 }
 </style>
 
-<div class="biz-tool">
+<div class="biz-tool" role="main">
 
   <div class="biz-header" id="biz-header">
     <span class="biz-eyebrow">Itinerario para la empleabilidad</span>
@@ -494,7 +494,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
       <p class="biz-help">Selecciona la familia, el nivel y tu ciclo concreto</p>
 
       <div class="biz-field">
-        <label class="biz-label">Familia profesional</label>
+        <label class="biz-label" for="biz-familia">Familia profesional</label>
         <select id="biz-familia" class="biz-select">
           <option value="">Selecciona una familia...</option>
           <option value="administracion">Administración y Gestión</option>
@@ -527,14 +527,14 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
       </div>
 
       <div class="biz-field">
-        <label class="biz-label">Nivel</label>
+        <label class="biz-label" for="biz-nivel">Nivel</label>
         <select id="biz-nivel" class="biz-select" disabled>
           <option value="">Primero selecciona la familia...</option>
         </select>
       </div>
 
       <div class="biz-field">
-        <label class="biz-label">Ciclo formativo</label>
+        <label class="biz-label" for="biz-ciclo-sel">Ciclo formativo</label>
         <select id="biz-ciclo-sel" class="biz-select" disabled>
           <option value="">Primero selecciona el nivel...</option>
         </select>
@@ -547,7 +547,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
       <p class="biz-help">Otros estudios, cursos, prácticas, trabajos previos o conocimientos sólidos. No incluyas aquí simples aficiones.</p>
 
       <div class="biz-field">
-        <textarea id="biz-formacion-extra" class="biz-textarea" rows="3" maxlength="500" spellcheck="true" autocomplete="off" placeholder="Ej: Curso de soldadura TIG, prácticas en concesionario Audi, dos años trabajando en hostelería, certificado B2 inglés..."></textarea>
+        <textarea id="biz-formacion-extra" class="biz-textarea" aria-label="Formación o experiencia más allá del ciclo" rows="3" maxlength="500" spellcheck="true" autocomplete="off" placeholder="Ej: Curso de soldadura TIG, prácticas en concesionario Audi, dos años trabajando en hostelería, certificado B2 inglés..."></textarea>
         <p style="font-size: 15px; color: var(--ink-muted); margin-top: 8px;">Déjalo en blanco si no procede. Máximo 500 caracteres.</p>
       </div>
 
