@@ -205,7 +205,7 @@
 
   .dims{display:grid;gap:10px;}
   .dim{
-    display:grid;grid-template-columns:168px 1fr;gap:16px;align-items:center;
+    display:grid;grid-template-columns:196px 1fr;gap:16px;align-items:center;
     padding:12px 16px;border-radius:14px;border:1px solid var(--c-line);border-left:5px solid var(--c);background:var(--c-bg);
     break-inside:avoid;page-break-inside:avoid;
   }
@@ -233,8 +233,55 @@
     .fields{grid-template-columns:1fr 2fr;}
   }
   @media (prefers-reduced-motion:reduce){
-    *{transition:none !important;}
+    *{transition:none !important;animation:none !important;}
   }
+
+  /* ── Acabado premium ── */
+  :root{--ease:cubic-bezier(.23,1,.32,1);}
+  h1,h2,h3{text-wrap:balance;}
+  .card{
+    background:linear-gradient(180deg,#fff 0%,#FDFEF8 100%);
+    box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 2px 4px rgba(30,28,26,.04),0 28px 50px -30px rgba(30,28,26,.42);
+  }
+  .step:not([hidden]){animation:stepIn .5s var(--ease) both;}
+  @keyframes stepIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:none;}}
+  @keyframes pop{0%{transform:scale(.3);}60%{transform:scale(1.25);}100%{transform:scale(1);}}
+  @keyframes rise{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+  @keyframes grow{from{transform:scaleX(0);}to{transform:scaleX(1);}}
+
+  .opt{transition:border-color .2s var(--ease),background .2s var(--ease),box-shadow .25s var(--ease),transform .2s var(--ease);}
+  .opt.is-selected{box-shadow:0 10px 22px -14px color-mix(in srgb,var(--c) 70%,transparent);}
+  .opt.is-selected .opt-check svg{animation:pop .35s var(--ease);}
+  .opt:focus-visible{outline:3px solid var(--tool);outline-offset:2px;}
+  .btn:focus-visible,.link-btn:focus-visible{outline:3px solid var(--tool);outline-offset:3px;}
+  .btn-primary:not(:disabled){box-shadow:0 12px 24px -16px rgba(30,28,26,.7);}
+  @media (hover:hover){
+    .opt:hover{transform:translateY(-1px);}
+    .btn-primary:not(:disabled):hover{transform:translateY(-1px);box-shadow:0 16px 28px -16px rgba(30,28,26,.75);}
+  }
+  .progress-bar span{transition:background .35s var(--ease),transform .35s var(--ease);}
+  .progress-bar span.current{transform:scaleY(1.5);}
+
+  .calc-note{padding:10px 14px;border-left:3px solid var(--tool);background:var(--surface-alt);border-radius:0 10px 10px 0;line-height:1.5;}
+  .intro-item{transition:transform .25s var(--ease),box-shadow .25s var(--ease);}
+  @media (hover:hover){.intro-item:hover{transform:translateY(-2px);box-shadow:0 14px 24px -20px rgba(30,28,26,.5);}}
+
+  .rep-hero{padding:22px;border-radius:22px;border:1px solid var(--line-soft);
+    background:radial-gradient(120% 120% at 0% 0%,var(--tool-bg) 0%,rgba(229,237,219,0) 62%),var(--surface-alt);}
+  .result-total{font-size:72px;font-variant-numeric:tabular-nums;letter-spacing:-.02em;}
+  .gauge-pointer{transition:left 1.1s var(--ease);box-shadow:0 3px 8px rgba(30,28,26,.3);}
+  .rep-chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px;}
+  .rep-chips:empty{display:none;}
+  .rep-calc{margin:0 0 18px;}
+  .rep-chip{display:inline-flex;align-items:baseline;flex-wrap:wrap;gap:4px 8px;font-size:15px;font-weight:600;padding:8px 14px;border-radius:14px;border:1px solid var(--c-line);background:var(--c-bg);color:var(--c);}
+  .rep-chip small{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);}
+  .dims .dim{animation:rise .55s var(--ease) both;animation-delay:calc(var(--i,0) * 80ms + 150ms);}
+  .dim-bar{display:block;height:6px;border-radius:99px;margin-top:8px;overflow:hidden;background:color-mix(in srgb,var(--c) 18%,#fff);}
+  .dim-bar i{display:block;height:100%;width:calc(var(--v) * 1%);border-radius:inherit;background:var(--c);transform-origin:left;
+    animation:grow .9s var(--ease) both;animation-delay:calc(var(--i,0) * 80ms + 350ms);}
+  .dim-ojo{display:block;margin-top:8px;font-size:13.5px;line-height:1.35;color:var(--ink-soft);}
+  .dim-ojo strong{color:var(--c);}
+  @media (max-width:560px){.result-total{font-size:60px;}.rep-hero{padding:16px;}}
 
   /* ── Impresión: informe en una sola hoja ── */
   @media print{
@@ -248,15 +295,22 @@
     .rep-head{padding-bottom:12px;margin-bottom:16px;flex-wrap:nowrap;}
     .rep-meta{text-align:right;white-space:nowrap;}
     .rep-title{font-size:21pt;}
-    .rep-hero{grid-template-columns:74mm 1fr;gap:10mm;margin-bottom:18px;text-align:left;}
+    .step,.dims .dim,.dim-bar i{animation:none !important;}
+    .rep-hero{grid-template-columns:62mm 1fr;gap:8mm;margin-bottom:10px;text-align:left;padding:0;border:none;background:none;}
+    .rep-calc{margin-bottom:10px;}
+    .rep-chips{margin-top:8px;}.rep-chip{font-size:9pt;padding:3px 9px;}
+    .calc-note{font-size:8.5pt;margin-top:8px;padding:6px 10px;}
+    .dim-bar{height:5px;margin-top:6px;}
+    .dim-ojo{margin-top:4px;font-size:8pt;}
     .rep-star{max-width:none;margin:0;}
-    .result-total{font-size:46pt;}
-    .interp{font-size:11pt;margin-top:10px;}
-    .dims{gap:10px;}
-    .dim{grid-template-columns:48mm 1fr;gap:14px;padding:12px 15px;border-radius:12px;}
-    .dim-name{font-size:13.5pt;}
-    .dim-badge{font-size:8.5pt;}
-    .dim p{font-size:10.2pt;line-height:1.45;}
+    .result-total{font-size:40pt;}
+    .interp{font-size:10.5pt;margin-top:8px;}
+    .rep-head{padding-bottom:8px;margin-bottom:10px;}
+    .dims{gap:6px;}
+    .dim{grid-template-columns:50mm 1fr;gap:12px;padding:8px 13px;border-radius:12px;}
+    .dim-name{font-size:12.5pt;}
+    .dim-badge{font-size:8pt;}
+    .dim p{font-size:9.6pt;line-height:1.38;}
     .dim-num{flex-basis:26px;height:26px;font-size:10.5pt;}
     footer.credit{margin-top:16px;font-size:8.5pt;}
   }
@@ -318,7 +372,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
       <div class="legend-chip c-neu"><b>Neutro</b><span>50</span></div>
       <div class="legend-chip c-desf"><b>Desfavorable</b><span>0</span></div>
     </div>
-    <p class="step-desc calc-note">Cómo se calcula el resultado: cada dimensión puntúa de 0 a 100 con la media de sus preguntas, y las que son imprescindibles (como Capacidades) dan un peso extra a la respuesta más floja. El resultado final es el 80 % de la media de las cinco dimensiones más el 20 % de la más débil, porque una idea es tan sólida como su punto más frágil.</p>
+    <p class="step-desc calc-note">Cómo se calcula el resultado: cada dimensión puntúa de 0 a 100 con la media de sus preguntas, y las que son imprescindibles (como Capacidades) dan un peso extra a la respuesta más floja. El resultado final es el 80&nbsp;% de la media de las cinco dimensiones más el 20&nbsp;% de la más débil, porque una idea es tan sólida como su punto más frágil.</p>
 
     <div class="fields">
       <div class="field">
@@ -363,9 +417,10 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
         <div class="gauge"><div class="gauge-pointer" id="gauge-pointer" style="left:0%;"></div></div>
         <div class="gauge-scale"><span>0%</span><span>50%</span><span>100%</span></div>
         <p class="interp" id="result-interp"></p>
-        <p class="calc-note">Mide lo definida y preparada que está tu idea hoy, no la probabilidad de que tenga éxito. Cálculo: 80 % media de las cinco dimensiones + 20 % la más débil.</p>
       </div>
     </div>
+    <div class="rep-chips" id="rep-chips"></div>
+    <p class="calc-note rep-calc">Mide lo definida y preparada que está tu idea hoy, no la probabilidad de que tenga éxito. Cálculo: 80&nbsp;% media de las cinco dimensiones + 20&nbsp;% la más débil.</p>
 
     <div class="dims" id="dims"></div>
 
@@ -746,6 +801,25 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
   }
 
   // ─────────────────────────── Resultado
+  var REDUCE = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var countRaf = null, countTimer = null;
+  function countUp(el, to) {
+    if (countRaf) cancelAnimationFrame(countRaf);
+    clearTimeout(countTimer);
+    if (REDUCE || to === 0) { el.textContent = to + '%'; return; }
+    var t0 = null, dur = 1000;
+    function step(ts) {
+      if (!t0) t0 = ts;
+      var k = Math.min(1, (ts - t0) / dur), e = 1 - Math.pow(1 - k, 4);
+      el.textContent = Math.round(to * e) + '%';
+      if (k < 1) countRaf = requestAnimationFrame(step);
+    }
+    el.textContent = '0%';
+    countRaf = requestAnimationFrame(step);
+    // Por si la pestaña está en segundo plano y el navegador pausa la animación.
+    countTimer = setTimeout(function () { if (countRaf) cancelAnimationFrame(countRaf); el.textContent = to + '%'; }, dur + 150);
+  }
+
   function band(total) {
     if (total >= 80) return { cls: 'fav', label: 'Idea muy tangible', txt: 'Tienes motivos de sobra para dar el siguiente paso y empezar a validarla con datos reales del mercado.' };
     if (total >= 65) return { cls: 'fav', label: 'Idea tangible', txt: 'Buen punto de partida: antes de lanzarte, refuerza las dimensiones que te hayan salido en neutro o desfavorable.' };
@@ -766,25 +840,35 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     document.getElementById('rep-date').textContent = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
 
     var tEl = document.getElementById('result-total');
-    tEl.textContent = totalTxt;
     tEl.className = 'result-total t-' + b.cls;
+    countUp(tEl, total);
     var bEl = document.getElementById('result-band');
     bEl.textContent = b.label;
     bEl.className = 'result-band c-' + b.cls;
-    document.getElementById('result-interp').textContent = b.txt + (stateOf(scores[wk.key]) === 'fav' ? '' : ' Tu dimensión más débil ahora: ' + wk.label + ' (' + scores[wk.key] + '/100).');
-    document.getElementById('gauge-pointer').style.left = total + '%';
+    document.getElementById('result-interp').textContent = b.txt;
+    var gp = document.getElementById('gauge-pointer');
+    if (REDUCE) gp.style.left = total + '%';
+    else { gp.style.left = '0%'; requestAnimationFrame(function () { requestAnimationFrame(function () { gp.style.left = total + '%'; }); }); }
+
+    var best = DIMS[0];
+    DIMS.forEach(function (d) { if (scores[d.key] > scores[best.key]) best = d; });
+    document.getElementById('rep-chips').innerHTML = scores[best.key] === scores[wk.key] ? '' :
+      '<span class="rep-chip c-' + stateOf(scores[best.key]) + '"><small>Más fuerte</small>' + esc(best.label) + ' · ' + scores[best.key] + '</span>' +
+      '<span class="rep-chip c-' + stateOf(scores[wk.key]) + '"><small>Reforzar primero</small>' + esc(wk.label) + ' · ' + scores[wk.key] + '</span>';
 
     var list = document.getElementById('dims');
     list.innerHTML = DIMS.map(function (d, i) {
       var s = scores[d.key];
       var st = stateOf(s);
       var wn = weakNotes(d, st);
-      return '<article class="dim c-' + st + '">' +
+      return '<article class="dim c-' + st + '" style="--i:' + i + '">' +
                '<div class="dim-head"><span class="dim-num">' + (i + 1) + '</span>' +
                '<div><h3 class="dim-name">' + d.label + '</h3>' +
-               '<span class="dim-badge">' + STATE_LABEL[st] + ' · ' + s + '/100</span></div></div>' +
+               '<span class="dim-badge">' + STATE_LABEL[st] + ' · ' + s + '/100</span>' +
+               '<span class="dim-bar" role="img" aria-label="' + s + ' de 100" style="--v:' + s + '"><i></i></span>' +
+               (wn.length ? '<span class="dim-ojo"><strong>Ojo:</strong> ' + esc(wn.join(' y ')) + ' sigue en desfavorable. Resuélvelo primero.</span>' : '') +
+               '</div></div>' +
                '<p>' + FEEDBACK[d.key][st] + '</p>' +
-               (wn.length ? '<p><strong>Ojo:</strong> aunque la dimensión salga bien en conjunto, has marcado como desfavorable ' + esc(wn.join(' y ')) + '. Es lo primero que conviene resolver.</p>' : '') +
              '</article>';
     }).join('');
 
