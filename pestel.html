@@ -267,7 +267,7 @@ h2.title{font-family:'Fraunces',Georgia,serif;font-size:28px;line-height:1.2;fon
   .dossier-actions,.top-bar{display:none !important;}
   .fade,.fade-1,.fade-2,.fade-3{animation:none !important;transform:none !important;opacity:1 !important;}
   /* Mismos márgenes que en pantalla (los que mide fitPages). Nunca se recorta: si algo sobrara, pasa a la hoja siguiente. */
-  .page-a4{width:210mm;max-width:none;min-height:1122px;height:auto;margin:0;padding:52px 56px;border:none;box-shadow:none;border-radius:0;page-break-after:always;break-after:page;overflow:visible;}
+  .page-a4{width:210mm;max-width:none;min-height:0;height:1120px;margin:0;padding:52px 56px;border:none;box-shadow:none;border-radius:0;page-break-after:always;break-after:page;overflow:hidden;}
   .fx2,.zc,.prio,.dossier-summary-block,.map-wrap{break-inside:avoid;page-break-inside:avoid;}
   .page-a4.is-last{page-break-after:auto;break-after:auto;}
   .dossier-title{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
@@ -338,6 +338,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
 @media screen and (min-width:821px){ .page-a4{ min-height:1122px; padding:52px 56px; } }
 .fitbox{ flex:1; min-height:0; display:flex; flex-direction:column; }
 .fitbox > *{ flex-shrink:0; }
+.fx2-p1{ flex:none !important; margin-top:0; }
 .fx2-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; flex:1; align-content:stretch; }
 .fx2{ border-radius:14px; border:1.5px solid var(--line); background:#fff; overflow:hidden; display:flex; flex-direction:column; }
 .fx2-h{ display:flex; align-items:center; gap:10px; padding:9px 12px; background:var(--fc); color:#fff; }
@@ -382,16 +383,16 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
 .fx2-h{ padding:9px 14px; }
 .fx2-n{ font-weight:400; font-size:19px; line-height:1.1; letter-spacing:-.005em; }
 .fx2-h{ display:grid; grid-template-columns:auto 1fr; column-gap:11px; row-gap:7px; align-items:center; padding:9px 14px 10px; }
-.fx2-lv{ grid-column:1 / -1; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:2px 14px; font-size:11.5px; line-height:1.25; padding-top:7px; border-top:1px solid rgba(255,255,255,.22); }
-.lv-g{ display:inline-flex; align-items:center; gap:7px; white-space:nowrap; }
+.fx2-lv{ grid-column:1 / -1; display:flex; flex-wrap:nowrap; align-items:center; justify-content:space-between; gap:2px 10px; font-size:11px; line-height:1.25; padding-top:7px; border-top:1px solid rgba(255,255,255,.22); }
+.lv-g{ display:inline-flex; align-items:center; gap:6px; white-space:nowrap; }
 .lv-g > span:first-child{ font-weight:600; letter-spacing:.03em; opacity:.85; }
-.fx2-lv b{ font-family:'Fraunces',Georgia,serif; font-weight:500; font-size:13px; }
+.fx2-lv b{ font-family:'Fraunces',Georgia,serif; font-weight:500; font-size:12.5px; }
 .lv{ display:inline-flex; gap:2px; }
-.lv i{ width:10px; height:5px; border-radius:2px; background:rgba(255,255,255,.3); }
+.lv i{ width:9px; height:5px; border-radius:2px; background:rgba(255,255,255,.3); }
 .lv i.on{ background:#fff; }
-.fx2-b{ padding:12px 14px 14px; gap:10px; }
+.fx2-b{ padding:14px 16px 16px; gap:12px; }
 .fx2-z{ font-size:13px; padding:7px 11px; }
-.fx2 p{ font-size:15px; line-height:1.5; }
+.fx2 p{ font-size:16px; line-height:1.55; }
 .fx2 p small{ font-size:11.5px; margin-bottom:3px; color:var(--zc); }
 .prio{ font-size:15px; }
 
@@ -669,8 +670,8 @@ body.glos-margen .glos-panel{ position:static; width:auto; max-height:calc(100vh
         <p class="dossier-section-label">Mapa de impacto e incertidumbre</p>
         <div id="map-mount"></div>
       </div>
-      <p class="dossier-section-label" style="margin-top:auto;">Plan de acción por zonas</p>
-      <div class="zona-cards" id="zona-cards-portada" style="margin-top:0;"></div>
+      <p class="dossier-section-label" style="margin-top:auto;">Factores del entorno · P y E</p>
+      <div class="fx2-grid fx2-p1" id="fichas-p1"></div>
     </article>
 
     <!-- PÁGINAS 2–3 — FICHAS P·E·S y T·E·L (se generan en renderResults) -->
@@ -840,10 +841,10 @@ const ZONAS = {
     desc:'No requiere atención prioritaria ahora. Revisa su posición en tu próximo análisis del entorno.' },
 };
 const ACCION = {
-  planificar:'Diseña al menos dos escenarios alternativos para este factor y asigna un responsable de seguimiento.',
-  monitorear:'Incorpora los indicadores clave de este factor en tu cuadro de mando mensual.',
-  vigilar:'Establece una revisión semestral de este factor y define el umbral que lo elevaría a zona de planificación.',
-  investigar:'Dedica tiempo a investigar este factor en profundidad antes de tu próxima revisión estratégica.',
+  planificar:'Diseña al menos dos escenarios alternativos para este factor y piensa quién se encargará de hacerle seguimiento.',
+  monitorear:'Elige uno o dos indicadores clave de este factor y revísalos cada mes junto al resto de números de tu negocio.',
+  vigilar:'Revisa este factor con periodicidad (por ejemplo, cada seis meses) y decide qué cambios harían que pasara a la zona de planificación.',
+  investigar:'Busca información fiable sobre este factor (fuentes oficiales, informes del sector) antes de tu próxima revisión estratégica.',
   ignorar:'No requiere acción inmediata. Revisa su posición en tu próxima revisión anual del entorno.',
 };
 
@@ -1347,26 +1348,7 @@ function renderResults(){
   if(mon.length) resumen+=` ${mon.length>1?'Los factores':'El factor'} ${lista(mon)} ${mon.length>1?'son tus palancas más predecibles':'es tu palanca más predecible'}.`;
   document.getElementById('resumen-general').innerHTML=highlightKeywords(resumen);
 
-  // Tarjetas de zona (solo las presentes, en orden de prioridad)
-  const orden=['planificar','monitorear','vigilar','investigar','ignorar'];
-  const presentes=orden.filter(z=>zonaCounts[z]>0);
-  const zcEl=document.getElementById('zona-cards-portada');
-  zcEl.style.setProperty('--zcols', presentes.length===4?2:Math.min(presentes.length,3));
-  zcEl.classList.toggle('many', presentes.length>3);
-  zcEl.innerHTML=presentes.map(z=>{
-      const zd=ZONAS[z];
-      return `<div class="zc z-${z}">
-        <div class="zc-top">
-          <div class="zc-ico">${ZONA_ICON[z]}</div>
-          <div><div class="zc-name">${zd.name}</div><div class="zc-meaning">${zd.meaning}</div></div>
-          <div class="zc-n" title="Factores en esta zona">${zonaCounts[z]}</div>
-        </div>
-        <p class="zc-desc">${zd.desc}</p>
-        <div class="zc-chips">${porZona(z).map(chip).join('')}</div>
-      </div>`;
-    }).join('');
-
-  // Página 2 — los seis factores en fichas compactas
+  // Fichas de los seis factores: P y E en la portada, el resto en la página 2
   const wrap=document.querySelector('#screen-results .dossier-wrap');
   wrap.querySelectorAll('.page-fichas').forEach(p=>p.remove());
   const lv=(t,v)=>`<span class="lv-g"><span>${t}</span><span class="lv">${[1,2,3].map(n=>`<i${n<=v?' class="on"':''}></i>`).join('')}</span><b>${getScoreLabel(v)}</b></span>`;
@@ -1391,14 +1373,15 @@ function renderResults(){
   page.className='page-a4 page-fichas fade is-last';
   page.innerHTML=`
     <header class="page-header">
-      <div class="page-mark"><div class="page-mark-line"></div><span class="eyebrow">Factores del entorno · P · E · S · T · E · L</span></div>
+      <div class="page-mark"><div class="page-mark-line"></div><span class="eyebrow">Factores del entorno · S · T · E · L</span></div>
       <span class="page-num">02 / 02</span>
     </header>
     <div class="fitbox">
-      <div class="fx2-grid">${FACTORS.map(ficha).join('')}</div>
+      <div class="fx2-grid">${FACTORS.slice(2).map(ficha).join('')}</div>
       <div class="prio"><small>Tus prioridades</small>${prioTxt}</div>
     </div>`;
   wrap.appendChild(page);
+  document.getElementById('fichas-p1').innerHTML=FACTORS.slice(0,2).map(ficha).join('');
   fitPages();
   if(document.fonts) document.fonts.ready.then(fitPages);
 }
