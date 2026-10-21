@@ -172,3 +172,29 @@ a,button,select,input,label{touch-action:manipulation}
 @media (prefers-reduced-motion:no-preference){
   .btn,.list a{transition:box-shadow var(--dur-fast) var(--ease-out),scale var(--dur-fast) var(--ease-out)}
 }
+
+/* ---------- 6. Ficha larga para el profesorado ---------- */
+.prosa{line-height:1.65}
+.prosa section{margin-top:var(--sp-6)}
+.prosa p,.prosa li{max-width:68ch}
+.prosa ul,.prosa ol{padding-left:24px}
+.prosa li+li{margin-top:var(--sp-1)}
+.prosa li>ul{margin-top:var(--sp-1)}
+.prosa h3{font-size:var(--fs-base);margin:var(--sp-4) 0 var(--sp-1)}
+.prosa h3+p{margin-top:0}
+.prosa .tabla th[scope=row]{width:9em}
+.prosa .rubrica .tabla th[scope=row]{width:auto}
+.ficha .lede p{margin:0 0 10px}
+button.btn{font:inherit;font-weight:700;cursor:pointer}
+.solo-imprimir{display:none}
+@media screen and (max-width:720px){
+  .rubrica .tabla thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+  .rubrica .tabla tr{display:block;border-bottom:1px solid var(--line);padding-block:var(--sp-2)}
+  .rubrica .tabla th,.rubrica .tabla td{display:block;border:0;padding:var(--sp-1) 0}
+  .rubrica .tabla td::before{content:attr(data-label) ": ";font-weight:600;color:var(--ink-soft)}
+}
+@media print{
+  body.imprime-rubrica .skip,body.imprime-rubrica .top,body.imprime-rubrica .crumbs,body.imprime-rubrica .ficha,body.imprime-rubrica .prosa>section:not(.rubrica),body.imprime-rubrica footer{display:none!important}
+  body.imprime-rubrica .solo-imprimir{display:block;font-weight:600;margin:0 0 var(--sp-2)}
+  body.imprime-rubrica .rubrica{margin-top:0}
+}
