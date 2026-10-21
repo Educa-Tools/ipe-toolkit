@@ -361,6 +361,54 @@
   .note { border-radius: 12px; }
   table.cmp thead th { font-weight: 500; }
 
+  /* ══ Híbrido: la sobriedad del kit, con más color y algo de juego ══
+     Fraunces con más cuerpo y sin cursivas en los textos; color en píldoras, botones finos, tarjetas y menú. */
+  h1.title { font-weight: 600; letter-spacing: -.025em; }
+  h1.title em { font-style: italic; font-weight: 600; }
+  h1.title em::after { display: block; height: .26em; bottom: .1em; opacity: .85; }
+  .step-head h2 { font-weight: 600; font-size: clamp(26px, 4.4vw, 34px); letter-spacing: -.015em; }
+  .lead { font-family: var(--font-ui); font-style: normal; font-size: 18.5px; line-height: 1.6; }
+  .lead b { font-weight: 650; background: linear-gradient(transparent 62%, var(--lime-soft) 62%); }
+  .panel h3, .qa h3, .ordc h4, .ccard-hd h3, .insight h3 { font-weight: 600; }
+  table.cmp thead th { font-weight: 600; }
+  .qa h3 { color: var(--acc-deep); }
+
+  /* etiquetas con color en lugar de la línea gris */
+  .eyebrow { display: inline-flex; background: var(--acc-soft); color: var(--acc-deep); border-radius: 999px; padding: 5px 13px; letter-spacing: 1.4px; margin-bottom: 14px; }
+  .step-num { display: inline-flex; background: var(--lime-mid); color: var(--ink); border-radius: 999px; padding: 4px 14px; letter-spacing: 1.4px; margin-bottom: 12px; }
+  .eyebrow::before, .step-num::before { display: none; }
+  .step-head { position: relative; padding-right: 96px; }
+  .step-head::after { display: block; opacity: .14; }
+  @media (max-width: 520px) { .step-head { padding-right: 0; } .step-head::after { display: none; } }
+
+  /* menú de pasos con acento */
+  .step-dot.done::after { background: var(--acc); }
+  .step-dot.on::after { background: var(--acc-deep); }
+  .step-label { color: var(--acc-deep); }
+
+  /* botones finos: lima con filo inferior, sin sombra de pegatina */
+  .btn-main { background: var(--lime-mid); color: var(--ink); border: 1px solid var(--ink); box-shadow: 0 2px 0 var(--ink); font-weight: 600; padding: 12px 24px; }
+  .btn-main:hover { background: #CDD57F; transform: translateY(-1px); box-shadow: 0 3px 0 var(--ink); }
+  .btn-main:active { transform: translateY(1px); box-shadow: 0 0 0 var(--ink); }
+  .btn-ghost { background: var(--surface); color: var(--ink); border: 1px solid var(--ink-muted); }
+  .btn-ghost:hover:not(:disabled) { background: var(--lime-soft); border-color: var(--ink); }
+
+  /* color en tarjetas, chips y portada */
+  .fact:nth-child(1) { background: var(--lime-soft) !important; border-color: transparent; }
+  .fact:nth-child(2) { background: var(--acc-soft) !important; border-color: transparent; }
+  .fact:nth-child(3) { background: var(--warn-soft) !important; border-color: transparent; }
+  .fact:nth-child(4) { background: var(--bad-soft) !important; border-color: transparent; }
+  .scene::before { display: block; }
+  .toc button { border-top: 4px solid var(--t, var(--acc)); }
+  .ccard-hd { background: color-mix(in srgb, var(--c, #6B7028) 13%, #FFFFFF); }
+  .ccard { box-shadow: 0 1px 2px rgba(30, 28, 26, .06), 0 14px 28px -22px rgba(30, 28, 26, .4); }
+  .map-card, .ordc { box-shadow: 0 1px 2px rgba(30, 28, 26, .06), 0 14px 28px -22px rgba(30, 28, 26, .4); }
+  .map-card { border-top: 4px solid var(--acc); }
+  .ordc { border-top: 4px solid var(--olive-mid); }
+  .panel.soft { background: var(--lime-soft); border-color: transparent; }
+  .insight { background: var(--lime-soft); }
+  .listo { background: var(--lime-mid); border-left-color: var(--ink); }
+
   #printSheet { display: none; }
 
   @media (max-width: 860px) {
