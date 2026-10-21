@@ -199,24 +199,25 @@
   #mapBox svg { display: block; max-width: 100%; height: auto; }
   #mapBox [data-b] { cursor: grab; touch-action: none; }
   #mapBox [data-b]:active { cursor: grabbing; }
-  .orders { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 16px; }
-  .ordc { border: 1px solid var(--ink); border-radius: 18px; padding: 14px 16px; background: var(--surface); display: flex; flex-direction: column; gap: 8px; box-shadow: 3px 3px 0 var(--lime-mid); }
-  .ordc h4 { font-size: 19px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-  .ordc .st { font-family: var(--font-ui); font-size: 11.5px; font-weight: 700; border-radius: var(--radius-pill); padding: 2px 9px; background: var(--warn-soft); color: #6E4B00; }
-  .ordc .st.ok { background: var(--ok-soft); color: #3E5A26; }
-  .ordh { font-size: 14px; color: var(--ink-soft); }
-  .ordc .ends { font-size: 12.5px; font-weight: 700; color: var(--acc-deep); letter-spacing: .4px; text-transform: uppercase; }
-  .ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
-  .ol li { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 10px; background: var(--surface-alt); border: 1px solid var(--line); border-left: 6px solid var(--c); border-radius: 12px; padding: 7px 10px; }
-  .ol .od { width: 12px; height: 12px; border-radius: 50%; background: var(--c); flex: none; }
-  .ol .on { font-weight: 650; font-size: 15px; flex: 1; min-width: 7em; }
-  .ol .ob { display: inline-flex; gap: 4px; }
-  .mv { width: 34px; height: 34px; border: 1px solid var(--ink); background: var(--surface); border-radius: 10px; font-size: 16px; font-weight: 700; line-height: 1; }
-  .mv:hover:not(:disabled) { background: var(--lime-soft); }
-  .mv:disabled { opacity: .35; cursor: not-allowed; }
-  .tie { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--ink-soft); flex-basis: 100%; }
-  .tie input { width: 16px; height: 16px; accent-color: var(--acc); }
-  .okb { align-self: flex-start; }
+  .nvscale { display: flex; justify-content: space-between; gap: 8px; font-size: 12.5px; font-weight: 700; color: var(--acc-deep); letter-spacing: .4px; text-transform: uppercase; }
+  .nvrow { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 6px 12px; background: var(--surface-alt); border: 1px solid var(--line); border-left: 6px solid var(--c); border-radius: 12px; padding: 8px 12px; }
+  .nvname { display: flex; align-items: center; gap: 8px; font-weight: 650; font-size: 15px; min-width: 0; overflow-wrap: anywhere; }
+  .nvname i { width: 12px; height: 12px; border-radius: 50%; background: var(--c); flex: none; }
+  .nvdots { display: inline-flex; gap: 10px; }
+  .nvdots label { position: relative; display: block; }
+  .nvdots input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; width: 100%; height: 100%; }
+  .nvdots label > span { display: block; width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--ink-muted); background: #fff; transition: background .15s, border-color .15s, transform .15s; }
+  .nvdots label:hover > span { border-color: var(--c); }
+  .nvdots input:checked + span { background: var(--c); border-color: var(--ink); box-shadow: 0 0 0 3px #fff, 0 0 0 4.5px var(--c); }
+  .nvdots input:focus-visible + span { outline: 3px solid var(--acc); outline-offset: 3px; }
+  .zonas { display: flex; flex-wrap: wrap; gap: 8px; }
+  .zonas label { position: relative; }
+  .zonas input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; width: 100%; height: 100%; }
+  .zonas span { display: inline-block; border: 1px solid var(--ink); background: var(--surface); border-radius: var(--radius-pill); padding: 7px 14px; font-size: 14px; font-weight: 650; }
+  .zonas input:checked + span { background: var(--acc); border-color: var(--acc); color: #fff; box-shadow: 3px 3px 0 var(--ink); }
+  .zonas input:focus-visible + span { outline: 3px solid var(--acc); outline-offset: 2px; }
+  #mapBox2 { width: 100%; } #mapBox2 svg { display: block; max-width: 100%; height: auto; }
+  @media (max-width: 520px) { .nvrow { grid-template-columns: 1fr; } }
   .insight { background: var(--acc-soft); border-radius: 16px; padding: 14px 18px; }
   .insight h3 { font-size: 18px; color: var(--acc-deep); margin-bottom: 6px; }
   .insight ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 5px; font-size: 15px; }
@@ -271,9 +272,9 @@
   .map-card { background: linear-gradient(180deg, #FFFFFF, var(--surface-alt)); box-shadow: 4px 4px 0 var(--acc); }
   .insight { background: var(--lime-soft); border: 1px solid var(--ink); border-left: 8px solid var(--olive-deep); box-shadow: 3px 3px 0 var(--lime-mid); }
   .insight h3 { color: #4B4F1D; }
-  .done { display: flex; gap: 14px; align-items: center; background: var(--lime-mid); border: 1.5px solid var(--ink); box-shadow: var(--sticker); border-radius: 18px; padding: 14px 18px; }
-  .done svg { width: 42px; height: 42px; flex: none; fill: var(--ink); }
-  .done b { display: block; font-family: var(--font-display); font-size: 21px; }
+  .listo { display: flex; gap: 14px; align-items: center; background: var(--lime-mid); border: 1.5px solid var(--ink); box-shadow: var(--sticker); border-radius: 18px; padding: 14px 18px; }
+  .listo svg { width: 42px; height: 42px; flex: none; fill: var(--ink); }
+  .listo b { display: block; font-family: var(--font-display); font-size: 21px; }
   @media (max-width: 520px) { .step-head { padding-right: 0; } .step-head::after { display: none; } }
   #printSheet { display: none; }
 
@@ -300,29 +301,40 @@
     .scene .node, .scene .ring { opacity: 1; }
   }
   @media print {
-    @page { size: A4; margin: 14mm; }
+    @page { size: A4; margin: 13mm; }
     body { background: #fff; font-size: 10.5pt; }
     body > *:not(#printSheet) { display: none !important; }
     #printSheet { display: block; color: #1E1C1A; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    #printSheet .ph { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2pt solid #1672A0; padding-bottom: 6pt; margin-bottom: 10pt; }
-    #printSheet h1 { font-family: 'Fraunces', Georgia, serif; font-size: 21pt; margin: 0; }
-    #printSheet .sub { color: #4A463F; font-size: 10pt; }
+    #printSheet .ph { display: flex; justify-content: space-between; align-items: flex-end; gap: 12pt; background: #E8EDC4; border: 1.2pt solid #1E1C1A; border-radius: 10pt; padding: 10pt 14pt; margin-bottom: 8pt; }
+    #printSheet .kick { font-size: 8.5pt; font-weight: 700; letter-spacing: 1.2pt; text-transform: uppercase; color: #4B4F1D; }
+    #printSheet h1 { font-family: 'Fraunces', Georgia, serif; font-size: 22pt; margin: 2pt 0 0; }
+    #printSheet .sub { color: #4A463F; font-size: 10.5pt; font-weight: 600; }
     #printSheet .meta { color: #4A463F; font-size: 10pt; text-align: right; }
-    #printSheet h2 { font-family: 'Fraunces', Georgia, serif; font-size: 13.5pt; margin: 13pt 0 5pt; color: #0E4F70; break-after: avoid; }
+    #printSheet .who { display: flex; flex-wrap: wrap; gap: 4pt 14pt; margin: 0 0 2pt; font-size: 9.5pt; }
+    #printSheet .who span { display: inline-flex; align-items: center; gap: 5pt; font-weight: 700; }
+    #printSheet .who i { width: 9pt; height: 9pt; border-radius: 50%; background: var(--c); display: inline-block; }
+    #printSheet h2 { display: flex; align-items: center; gap: 7pt; font-family: 'Fraunces', Georgia, serif; font-size: 13.5pt; margin: 12pt 0 5pt; color: #0E4F70; break-after: avoid; }
+    #printSheet h2 .sn { width: 17pt; height: 17pt; border-radius: 50%; background: #1672A0; color: #fff; font: 700 9.5pt 'Inter', sans-serif; display: inline-grid; place-items: center; }
     #printSheet p { margin: 0 0 4pt; }
-    #printSheet table { border-collapse: collapse; width: 100%; font-size: 9pt; }
-    #printSheet th, #printSheet td { border: 1px solid #CFCAC0; padding: 3pt 5pt; text-align: left; vertical-align: top; white-space: pre-wrap; }
-    #printSheet thead th { background: #1672A0; color: #fff; }
-    #printSheet thead th.own { background: #6B7028; }
-    #printSheet tbody th { background: #F5F6E4; width: 22%; font-size: 8.5pt; }
+    #printSheet table { border-collapse: separate; border-spacing: 0; width: 100%; font-size: 9pt; border: 1px solid #CFCAC0; border-radius: 6pt; overflow: hidden; }
+    #printSheet th, #printSheet td { border-bottom: 1px solid #E3DED3; border-right: 1px solid #E3DED3; padding: 3.5pt 6pt; text-align: left; vertical-align: top; white-space: pre-wrap; }
+    #printSheet thead th { color: #fff; font-family: 'Fraunces', Georgia, serif; font-size: 10pt; }
+    #printSheet tbody th { background: #F5F6E4; width: 20%; font-size: 8.5pt; }
     #printSheet tr { break-inside: avoid; }
     #printSheet .mapfig { break-inside: avoid; text-align: center; }
     #printSheet .mapfig svg { max-width: 100%; height: auto; }
+    #printSheet .hz { font-size: 10pt; }
+    #printSheet .hz span { color: #4A463F; font-size: 8.5pt; display: block; }
     #printSheet ul { margin: 4pt 0 0; padding-left: 14pt; }
-    #printSheet .pq { border: 1px solid #CFCAC0; border-radius: 6pt; padding: 6pt 8pt; margin-bottom: 6pt; break-inside: avoid; }
+    #printSheet .pq { border: 1px solid #CFCAC0; border-left: 5pt solid var(--c, #6B7028); border-radius: 6pt; padding: 6pt 9pt; margin-bottom: 6pt; break-inside: avoid; }
     #printSheet .pq b { display: block; font-size: 10pt; }
     #printSheet .ans { white-space: pre-wrap; margin-top: 2pt; }
-    #printSheet .foot { margin-top: 14pt; font-size: 8.5pt; color: #4A463F; border-top: 1px solid #CFCAC0; padding-top: 5pt; }
+    #printSheet .quote { position: relative; background: #E8EDC4; border: 1pt solid #1E1C1A; border-radius: 10pt; padding: 10pt 16pt 11pt 40pt; margin-top: 8pt; break-inside: avoid; }
+    #printSheet .qm { position: absolute; left: 12pt; top: 4pt; font: 700 38pt/1 'Fraunces', Georgia, serif; color: #6B7028; }
+    #printSheet .qq { font-size: 8.5pt; font-weight: 700; letter-spacing: .8pt; text-transform: uppercase; color: #4B4F1D; }
+    #printSheet .quote .ans { font-family: 'Fraunces', Georgia, serif; font-size: 13pt; line-height: 1.35; }
+    #printSheet .foot { display: flex; align-items: center; gap: 6pt; margin-top: 14pt; font-size: 8.5pt; color: #4A463F; border-top: 1px solid #CFCAC0; padding-top: 5pt; }
+    #printSheet .foot svg { width: 14pt; height: 14pt; fill: #6B7028; flex: none; }
   }
   svg.espora { width: 1em; height: 1em; fill: currentColor; vertical-align: -.12em; }
 </style>
@@ -451,7 +463,7 @@
     <div class="step-head">
       <span class="step-num">Paso 4 · Mapa de posición</span>
       <h2 id="t4">Colócalos en el mapa y mira dónde nadie llega</h2>
-      <p>Elige dos ejes que importen a tu cliente y coloca a cada negocio donde crees que está. <b>Arrastra los puntos</b> o usa los controles de debajo. Donde no hay nadie, puede haber un hueco.</p>
+      <p>Elige dos ejes que importen a tu cliente y coloca a cada negocio donde crees que está. <b>Compáralos entre ellos</b> en cada eje, con las filas de debajo, y el mapa se irá llenando.</p>
     </div>
     <div class="stack">
       <div class="map-card">
@@ -482,6 +494,12 @@
         <span class="fhelp">Sé honesto: sirve para saber qué tendrías que igualar o dejar pasar.</span>
         <textarea id="f-mejor" data-bind="cierre.mejor" maxlength="700" rows="3"></textarea>
         <span class="fex"><b>Ej.:</b> El vivero tiene más variedad y precios más bajos, y la gran superficie llega a muchísima más gente.</span>
+      </div>
+      <div class="field">
+        <span class="flab" id="zl">¿En qué parte del mapa está tu hueco?</span>
+        <span class="fhelp">Marca la zona donde ves espacio para ti. Es tu decisión: el mapa no la calcula.</span>
+        <div id="mapBox2"></div>
+        <div class="zonas" id="zonas" role="radiogroup" aria-labelledby="zl"></div>
       </div>
       <div class="field">
         <label class="flab" for="f-hueco">¿Dónde hay hueco para ti?</label>
@@ -520,7 +538,7 @@
       <p>Revisa qué te falta, escribe tu nombre y descarga tu trabajo. Puedes salir y volver cuando quieras.</p>
     </div>
     <div class="stack">
-      <div class="done" id="allDone" hidden><svg viewBox="28.5 14.5 340.8 372.5" aria-hidden="true"><use href="#espora"/></svg><div><b>¡Todo listo!</b><span>Tienes todos los apartados. Ya puedes descargar tu informe y guardar el archivo.</span></div></div>
+      <div class="listo" id="allDone" hidden><svg viewBox="28.5 14.5 340.8 372.5" aria-hidden="true"><use href="#espora"/></svg><div><b>¡Todo listo!</b><span>Tienes todos los apartados. Ya puedes descargar tu informe y guardar el archivo.</span></div></div>
       <div class="panel">
         <h3 style="margin-bottom:10px">Revisión</h3>
         <ul class="review" id="review"></ul>
@@ -604,8 +622,8 @@
     return { step: 0, visited: [0], nombre: '',
       emp: { nombre: '', ofrece: '', publico: '', precio: '', canal: '', comunica: '', dif: '' },
       comp: [blankComp(), blankComp(), blankComp()], c3: false,
-      ej: { x: 'precio', y: 'calidad' }, rank: {},
-      cierre: { mejor: '', hueco: '', pregunta: '' } };
+      ej: { x: 'precio', y: 'calidad' }, niv: {},
+      cierre: { mejor: '', hueco: '', pregunta: '', zona: '' } };
   };
   var state = blankState();
   function apply(s) {
@@ -624,13 +642,13 @@
       var x = dim(s.ej.x).id, y = dim(s.ej.y).id;
       state.ej.x = x; state.ej.y = (y === x) ? DIMS.filter(function (d) { return d.id !== x; })[0].id : y;
     }
-    if (s.rank && typeof s.rank === 'object') DIMS.forEach(function (d) {
-      var r = s.rank[d.id]; if (!r || typeof r !== 'object') return;
-      var o = (Array.isArray(r.order) ? r.order : []).filter(function (b, i, a) { return BIZ.indexOf(b) >= 0 && a.indexOf(b) === i; });
-      var tie = {}; if (r.tie && typeof r.tie === 'object') Object.keys(r.tie).forEach(function (k) { if (BIZ.indexOf(k) >= 0) tie[k] = !!r.tie[k]; });
-      state.rank[d.id] = { order: o, tie: tie, done: !!r.done };
+    if (s.niv && typeof s.niv === 'object') DIMS.forEach(function (d) {
+      var r = s.niv[d.id]; if (!r || typeof r !== 'object') return;
+      state.niv[d.id] = {};
+      BIZ.forEach(function (b) { var v = Math.round(+r[b]); if (v >= 1 && v <= 5) state.niv[d.id][b] = v; });
     });
     if (s.cierre && typeof s.cierre === 'object') Object.keys(state.cierre).forEach(function (k) { state.cierre[k] = str(s.cierre[k], 700); });
+    if (['tl', 'tr', 'bl', 'br', 'n'].indexOf(state.cierre.zona) < 0) state.cierre.zona = '';
   }
   try { apply(JSON.parse(localStorage.getItem(KEY) || 'null')); } catch (e) {}
   var saveTimer;
@@ -647,28 +665,21 @@
     var i = +b.slice(1);
     return state.comp[i].nombre.trim() || ('Competidor ' + (i + 1));
   }
-  /* Cada eje es una lista ordenada de menos a más (de lo.. a hi). Los negocios se comparan solo entre sí. */
-  function rk(d) {
-    var r = state.rank[d] || (state.rank[d] = { order: [], tie: {}, done: false }), act = activeBiz();
-    r.order = r.order.filter(function (b) { return act.indexOf(b) >= 0; });
-    act.forEach(function (b) { if (r.order.indexOf(b) < 0) r.order.push(b); });
-    return r;
-  }
-  /* grupos: un negocio marcado «como el anterior» comparte puesto con el de arriba */
-  function grupos(d) {
-    var r = rk(d), g = -1, idx = {};
-    r.order.forEach(function (b, i) { if (!(i > 0 && r.tie[b])) g++; idx[b] = g; });
-    return { idx: idx, n: g + 1 };
-  }
-  /* posición en el mapa: de 1 (extremo bajo) a 5 (extremo alto) */
-  function nivel(b, d) { var G = grupos(d); return G.n < 2 ? 3 : 1 + G.idx[b] / (G.n - 1) * 4; }
-  var xy = function (b) { return [nivel(b, state.ej.x), nivel(b, state.ej.y)]; };
-  /* un negocio está colocado cuando se ha confirmado el orden de los dos ejes que se ven ahora */
-  var isPlaced = function () { return rk(state.ej.x).done && rk(state.ej.y).done; };
+  /* Cada eje tiene cinco niveles (1 = extremo bajo, 5 = extremo alto). Los negocios se comparan solo entre sí:
+     se pueden dejar niveles vacíos si la diferencia es grande, y dos negocios pueden compartir nivel. */
+  function nv(b, d) { var r = state.niv[d]; return r && r[b] != null ? r[b] : null; }
+  var isPlaced = function (b) { return nv(b, state.ej.x) != null && nv(b, state.ej.y) != null; };
+  var xy = function (b) { return [nv(b, state.ej.x), nv(b, state.ej.y)]; };
   function palabra(d, b) {
-    var D = dim(d), G = grupos(d);
-    return G.n < 2 ? 'Igual que los demás' : (G.idx[b] === 0 ? D.lo : (G.idx[b] === G.n - 1 ? D.hi : 'Intermedio'));
+    var v = nv(b, d), D = dim(d);
+    return v == null ? 'sin colocar' : (v === 1 ? D.lo : (v === 5 ? D.hi : (v === 3 ? 'Intermedio' : 'Tirando a ' + (v < 3 ? D.lo : D.hi).toLowerCase())));
   }
+  var ZONAS = [['tl', 0, 0], ['tr', 1, 0], ['bl', 0, 1], ['br', 1, 1]];   /* clave, columna, fila */
+  function zonaTxt(k) {
+    var X = dim(state.ej.x), Y = dim(state.ej.y), z = ZONAS.filter(function (q) { return q[0] === k; })[0];
+    return z ? (z[2] ? Y.lo : Y.hi) + ' · ' + (z[1] ? X.hi : X.lo) : '';
+  }
+
   /* ---------- Cálculos del mapa (puros, con autocomprobación) ---------- */
   function masCercano(p, pts) {
     var best = null;
@@ -681,15 +692,22 @@
     console.assert(masCercano([2, 2], [[2, 2]]).d === 0, 'masCercano: mismo punto');
   })();
 
+  /* competidor más cercano, solo si lo es con claridad (si hay empate, no se afirma nada) */
+  function cercanos() {
+    var placedC = activeBiz().filter(function (b) { return b !== 'own' && isPlaced(b); });
+    if (!isPlaced('own') || placedC.length < 2) return null;
+    var me = xy('own');
+    var ds = placedC.map(function (b) { var p = xy(b); return { b: b, d: Math.hypot(me[0] - p[0], me[1] - p[1]) }; }).sort(function (a, c) { return a.d - c.d; });
+    var empate = ds.filter(function (x) { return x.d - ds[0].d < .75; });
+    return { ds: ds, claro: empate.length === 1 ? ds[0] : null, empate: empate };
+  }
   function insights() {
-    var comps = activeBiz().filter(function (b) { return b !== 'own'; });
-    var placedC = comps.filter(isPlaced);
-    if (!isPlaced('own') || placedC.length < 2) return ['Coloca tu empresa y al menos a dos competidores para que el mapa te dé pistas.'];
-    var near = masCercano(xy('own'), placedC.map(xy)), nn = bizName(placedC[near.i]), out = [];
-    if (near.d === 0) out.push('Estás en el mismo punto que <b>' + esc(nn) + '</b>: el cliente no ve diferencia en estos dos ejes. ¿En qué más podrías distinguirte?');
-    else if (near.d < 1.5) out.push('Estás muy cerca de <b>' + esc(nn) + '</b>. Si quieres que te elijan a ti, tendrás que explicar qué te diferencia de él.');
-    else if (near.d >= 3) out.push('Estás bastante lejos de todos; el más cercano es <b>' + esc(nn) + '</b>. Comprueba que ahí hay clientes que de verdad compran.');
-    else out.push('El competidor más cercano a ti es <b>' + esc(nn) + '</b>: os separa una distancia media en el mapa.');
+    var c = cercanos();
+    if (!c) return ['Coloca tu empresa y al menos a dos competidores para que el mapa te dé pistas.'];
+    var out = [], first = c.ds[0];
+    if (first.d === 0) out.push('Estás en el mismo punto que <b>' + esc(bizName(first.b)) + '</b>: el cliente no ve diferencia entre vosotros en estos dos ejes. ¿En qué más podrías distinguirte?');
+    else if (c.claro) out.push(first.d < 1.5 ? 'Estás muy cerca de <b>' + esc(bizName(first.b)) + '</b>. Si quieres que te elijan a ti, tendrás que explicar qué te diferencia de él.' : 'El competidor más cercano a ti es <b>' + esc(bizName(first.b)) + '</b>, aunque os separa una distancia notable.');
+    else out.push('Estás a una distancia parecida de ' + c.empate.map(function (x) { return '<b>' + esc(bizName(x.b)) + '</b>'; }).join(' y ') + ': ninguno es claramente el más cercano.');
     out.push('Mira los espacios donde no hay nadie y pregúntate: ¿es porque nadie ha llegado todavía o porque ahí no hay clientes?');
     return out;
   }
@@ -825,7 +843,7 @@
     if (on && on.scrollIntoView) on.scrollIntoView({ block: 'nearest', inline: 'center' });
     updateNames();
     if (i === 3) drawTabs();
-    if (i === 4) { buildOrder(); drawAll(); }
+    if (i === 4) { buildNiv(); drawAll(); }
     if (i === 5) { renderCompare(); }
     if (i === 7) renderReview();
     if (scroll !== false) window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
@@ -850,12 +868,12 @@
   var py = function (g, v) { return g.T + g.H - (v - .5) / 5 * g.H; };
   function mapSummary() {
     var X = dim(state.ej.x), Y = dim(state.ej.y);
-    var lista = function (D) { return D.n + ', de «' + D.lo + '» a «' + D.hi + '»: ' + rk(D.id).order.map(bizName).join(', '); };
-    return 'Mapa de posición. ' + lista(X) + '. ' + lista(Y) + '.' + (isPlaced() ? '' : ' Orden todavía sin confirmar.');
+    var lista = function (D) { return D.n + ' (de «' + D.lo + '» a «' + D.hi + '», niveles 1 a 5): ' + activeBiz().map(function (b) { var v = nv(b, D.id); return bizName(b) + ' ' + (v == null ? 'sin colocar' : v); }).join(', '); };
+    return 'Mapa de posición. ' + lista(X) + '. ' + lista(Y) + '.' + (state.cierre.zona && zonaTxt(state.cierre.zona) ? ' Hueco marcado: ' + zonaTxt(state.cierre.zona) + '.' : '');
   }
   function drawMap(w, h) {
     var g = geom(w, h), X = dim(state.ej.x), Y = dim(state.ej.y), F = ' font-family="Inter, system-ui, sans-serif"', cid = 'mq' + (++mapN);
-    var cw = g.W / 2, ch = g.H / 2, pl = isPlaced();
+    var cw = g.W / 2, ch = g.H / 2;
     var s = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + w + ' ' + h + '" width="' + w + '" height="' + h + '" role="img" aria-label="' + esc(mapSummary()) + '"' + F + '>';
     s += '<defs><clipPath id="' + cid + '"><rect x="' + g.L + '" y="' + g.T + '" width="' + g.W + '" height="' + g.H + '" rx="14"/></clipPath></defs>';
     /* cuatro cuadrantes de color, cada uno con su nombre */
@@ -867,7 +885,6 @@
     s += '</g></g>';
     s += '<rect x="' + g.L + '" y="' + g.T + '" width="' + g.W + '" height="' + g.H + '" rx="14" fill="none" stroke="#1E1C1A" stroke-width="1.3"/>';
     s += '<g stroke="#1E1C1A" stroke-width="1.3" stroke-dasharray="2 5" stroke-linecap="round"><line x1="' + (g.L + cw) + '" y1="' + g.T + '" x2="' + (g.L + cw) + '" y2="' + (g.T + g.H) + '"/><line x1="' + g.L + '" y1="' + (g.T + ch) + '" x2="' + (g.L + g.W) + '" y2="' + (g.T + ch) + '"/></g>';
-    /* nombres de cuadrante en las esquinas */
     if (cw >= 200) {   /* en pantallas estrechas no caben sin pisarse: quedan los nombres de los ejes */
       s += '<g font-size="11" font-weight="700" fill="#4A463F" letter-spacing=".6">';
       Q.forEach(function (q) {
@@ -876,27 +893,33 @@
       });
       s += '</g>';
     }
+    /* el hueco lo marca el alumno (paso 5): recuadro de trazos sobre su cuadrante */
+    var hz = ZONAS.filter(function (q) { return q[0] === state.cierre.zona; })[0];
+    if (hz) {
+      var hx = g.L + hz[1] * cw + 7, hy = g.T + hz[2] * ch + 7;
+      s += '<rect x="' + hx + '" y="' + hy + '" width="' + (cw - 14) + '" height="' + (ch - 14) + '" rx="12" fill="#1672A0" fill-opacity=".08" stroke="#1672A0" stroke-width="2.4" stroke-dasharray="8 6"/>' +
+        '<rect x="' + (hx + (cw - 14) / 2 - 38) + '" y="' + (hy + (ch - 14) / 2 - 12) + '" width="76" height="24" rx="12" fill="#1672A0"/>' +
+        '<text x="' + (hx + (cw - 14) / 2) + '" y="' + (hy + (ch - 14) / 2 + 5) + '" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF">Mi hueco</text>';
+    }
     var bx = g.T + g.H;
     s += '<g font-size="12" fill="#4A463F"><text x="' + g.L + '" y="' + (bx + 17) + '">' + esc(X.lo) + '</text><text x="' + (g.L + g.W) + '" y="' + (bx + 17) + '" text-anchor="end">' + esc(X.hi) + '</text>' +
       '<text x="' + (g.L + g.W / 2) + '" y="' + (bx + 38) + '" text-anchor="middle" font-weight="700" fill="#1E1C1A" font-size="13">' + esc(X.n) + ' →</text>' +
       '<text transform="translate(31 ' + bx + ') rotate(-90)" text-anchor="start">' + esc(Y.lo) + '</text><text transform="translate(31 ' + g.T + ') rotate(-90)" text-anchor="end">' + esc(Y.hi) + '</text>' +
       '<text transform="translate(13 ' + (g.T + g.H / 2) + ') rotate(-90)" text-anchor="middle" font-weight="700" fill="#1E1C1A" font-size="13">' + esc(Y.n) + ' →</text></g>';
-    var act = activeBiz(), seen = {}, at = {};
+    /* solo se dibujan los negocios ya colocados; si dos caen en la misma casilla, se separan un poco */
+    var act = activeBiz().filter(isPlaced), seen = {}, at = {};
     act.forEach(function (b) { var p = xy(b), k = p[0] + ',' + p[1]; (seen[k] = seen[k] || []).push(b); });
-    act.forEach(function (b) { var p = xy(b), grp = seen[p[0] + ',' + p[1]]; at[b] = [px(g, p[0]) + (grp.indexOf(b) - (grp.length - 1) / 2) * 30, py(g, p[1])]; });
-    /* línea hasta el competidor más parecido */
-    if (pl) {
-      var cs = act.filter(function (b) { return b !== 'own'; }), nr = masCercano(xy('own'), cs.map(xy));
-      if (nr && nr.d > 0) {
-        var a = at.own, z = at[cs[nr.i]];
-        s += '<line x1="' + a[0] + '" y1="' + a[1] + '" x2="' + z[0] + '" y2="' + z[1] + '" stroke="#6B7028" stroke-width="2.4" stroke-dasharray="7 6" stroke-linecap="round"/>' +
-          '<text x="' + ((a[0] + z[0]) / 2) + '" y="' + ((a[1] + z[1]) / 2 - 7) + '" text-anchor="middle" font-size="11.5" font-weight="700" fill="#4B4F1D" stroke="#FFFFFF" stroke-width="3.5" paint-order="stroke">el más parecido a ti</text>';
-      }
+    act.forEach(function (b) { var p = xy(b), grp = seen[p[0] + ',' + p[1]]; at[b] = [g.L + (p[0] - .5) / 5 * g.W + (grp.indexOf(b) - (grp.length - 1) / 2) * 30, g.T + g.H - (p[1] - .5) / 5 * g.H]; });
+    var cc = cercanos();
+    if (cc && cc.claro && cc.claro.d > 0) {
+      var a = at.own, z = at[cc.claro.b];
+      s += '<line x1="' + a[0] + '" y1="' + a[1] + '" x2="' + z[0] + '" y2="' + z[1] + '" stroke="#6B7028" stroke-width="2.4" stroke-dasharray="7 6" stroke-linecap="round"/>' +
+        '<text x="' + ((a[0] + z[0]) / 2) + '" y="' + ((a[1] + z[1]) / 2 - 7) + '" text-anchor="middle" font-size="11.5" font-weight="700" fill="#4B4F1D" stroke="#FFFFFF" stroke-width="3.5" paint-order="stroke">el más parecido a ti</text>';
     }
     act.forEach(function (b) {
       var cx = at[b][0], cy = at[b][1], col = COL[b], nm = bizName(b); if (nm.length > 20) nm = nm.slice(0, 19) + '…';
       var wd = Math.round(nm.length * 6.7 + 18), lx = Math.max(g.L + 4, Math.min(g.L + g.W - wd - 4, cx - wd / 2)), ly = cy > g.T + g.H - 52 ? cy - 56 : cy + 24;
-      s += '<g data-b="' + b + '"' + (pl ? '' : ' opacity=".7"') + '><circle cx="' + cx + '" cy="' + cy + '" r="27" fill="' + col + '" fill-opacity=".16"/>' +
+      s += '<g><circle cx="' + cx + '" cy="' + cy + '" r="27" fill="' + col + '" fill-opacity=".16"/>' +
         '<circle cx="' + cx + '" cy="' + cy + '" r="17" fill="' + col + '" stroke="#fff" stroke-width="3"/>' +
         '<circle cx="' + cx + '" cy="' + cy + '" r="19.5" fill="none" stroke="#1E1C1A" stroke-width="1.2"/>' +
         '<text x="' + cx + '" y="' + (cy + 5) + '" text-anchor="middle" font-size="' + (b === 'own' ? 12 : 15) + '" font-weight="700" fill="#fff">' + (b === 'own' ? 'Tú' : (+b.slice(1) + 1)) + '</text>' +
@@ -905,15 +928,18 @@
     });
     return s + '</svg>';
   }
+  function sizeOf(box) {
+    var w = Math.max(300, Math.min(960, box.clientWidth || 600));
+    return [w, w < 520 ? Math.round(w * 1.05) : Math.round(w * .62)];
+  }
   function drawAll() {
-    mapW = Math.max(300, Math.min(960, mapBox.clientWidth || 600));
-    mapH = mapW < 520 ? Math.round(mapW * 1.05) : Math.round(mapW * .62);
+    var sz = sizeOf(mapBox); mapW = sz[0]; mapH = sz[1];
     mapBox.innerHTML = drawMap(mapW, mapH);
     var ul = '<ul>' + insights().map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ul>';
     $('#insight').innerHTML = '<h3>Lo que dice tu mapa</h3>' + ul;
   }
   var resizeT;
-  window.addEventListener('resize', function () { clearTimeout(resizeT); resizeT = setTimeout(function () { if (state.step === 4) drawAll(); }, 120); });
+  window.addEventListener('resize', function () { clearTimeout(resizeT); resizeT = setTimeout(function () { if (state.step === 4) drawAll(); if (state.step === 5) drawZona(); }, 120); });
 
   $('#selX').innerHTML = $('#selY').innerHTML = DIMS.map(function (d) { return '<option value="' + d.id + '">' + esc(d.n) + '</option>'; }).join('');
   function syncSelects() { $('#selX').value = state.ej.x; $('#selY').value = state.ej.y; }
@@ -921,66 +947,71 @@
     var other = role === 'x' ? 'y' : 'x', v = $(role === 'x' ? '#selX' : '#selY').value;
     state.ej[role] = v;
     if (state.ej[other] === v) state.ej[other] = DIMS.filter(function (d) { return d.id !== v; })[0].id;
-    buildOrder(); drawAll(); save(true);
+    buildNiv(); drawAll(); save(true);
   }
   $('#selX').addEventListener('change', function () { onAxis('x'); });
   $('#selY').addEventListener('change', function () { onAxis('y'); });
 
-  /* Un orden por eje: de «lo» a «hi», comparando solo entre los negocios de la lista */
-  function buildOrder(focus) {
+  /* Una fila por negocio y eje, con cinco puntos: el extremo bajo a la izquierda y el alto a la derecha */
+  function buildNiv() {
     syncSelects();
+    var act = activeBiz();
     $('#orders').innerHTML = ['x', 'y'].map(function (role) {
-      var D = dim(state.ej[role]), r = rk(D.id);
-      var items = r.order.map(function (b, i) {
-        var up = i > 0, down = i < r.order.length - 1;
-        return '<li style="--c:' + COL[b] + '"><span class="od" aria-hidden="true"></span><span class="on">' + esc(bizName(b)) + '</span>' +
-          '<span class="ob"><button type="button" class="mv" data-o="' + D.id + '" data-b="' + b + '" data-d="-1" id="mv-' + D.id + '-' + b + '-u" aria-label="Subir a ' + esc(bizName(b)) + '"' + (up ? '' : ' disabled') + '>↑</button>' +
-          '<button type="button" class="mv" data-o="' + D.id + '" data-b="' + b + '" data-d="1" id="mv-' + D.id + '-' + b + '-d" aria-label="Bajar a ' + esc(bizName(b)) + '"' + (down ? '' : ' disabled') + '>↓</button></span>' +
-          (i > 0 ? '<label class="tie"><input type="checkbox" data-tie="' + D.id + '" data-b="' + b + '"' + (r.tie[b] ? ' checked' : '') + '> igual que el de arriba</label>' : '') + '</li>';
+      var D = dim(state.ej[role]), n = act.filter(function (b) { return nv(b, D.id) != null; }).length;
+      var rows = act.map(function (b) {
+        var cur = nv(b, D.id), name = 'nv-' + D.id + '-' + b;
+        return '<div class="nvrow" style="--c:' + COL[b] + '" role="radiogroup" aria-labelledby="' + name + '-l"><span class="nvname" id="' + name + '-l"><i aria-hidden="true"></i>' + esc(bizName(b)) + '</span><span class="nvdots">' +
+          [1, 2, 3, 4, 5].map(function (v) {
+            return '<label><input type="radio" name="' + name + '" value="' + v + '" data-niv="' + D.id + '" data-b="' + b + '"' + (cur === v ? ' checked' : '') + '><span title="Nivel ' + v + '"><span class="sr-only">Nivel ' + v + ' de 5</span></span></label>';
+          }).join('') + '</span></div>';
       }).join('');
-      return '<div class="ordc"><h4>' + esc(D.n) + (r.done ? ' <span class="st ok">Orden confirmado</span>' : ' <span class="st">Sin confirmar</span>') + '</h4>' +
-        '<p class="ordh">' + esc(D.q) + ' Ordénalos <b>solo entre ellos</b>: arriba, «' + esc(D.lo.toLowerCase()) + '»; abajo, «' + esc(D.hi.toLowerCase()) + '».</p>' +
-        '<div class="ends"><span>▲ ' + esc(D.lo) + '</span></div><ol class="ol">' + items + '</ol><div class="ends"><span>▼ ' + esc(D.hi) + '</span></div>' +
-        (r.done ? '' : '<button type="button" class="btn-ghost okb" data-ok="' + D.id + '">Este orden está bien</button>') + '</div>';
+      return '<div class="ordc"><h4>' + esc(D.n) + (n === act.length ? ' <span class="st ok">Completo</span>' : ' <span class="st">Faltan ' + (act.length - n) + '</span>') + '</h4>' +
+        '<p class="ordh">' + esc(D.q) + ' Compáralos <b>solo entre ellos</b>: a la izquierda, el que tenga menos; a la derecha, el que tenga más. Deja casillas vacías en medio si la diferencia es grande; si son parecidos, ponlos juntos.</p>' +
+        '<div class="nvscale"><span>◀ ' + esc(D.lo) + '</span><span>' + esc(D.hi) + ' ▶</span></div>' + rows + '</div>';
     }).join('');
-    if (focus) { var f = $('#' + focus); if (f && !f.disabled) f.focus(); else { var alt = $('#' + focus.replace(/-[ud]$/, function (m) { return m === '-u' ? '-d' : '-u'; })); if (alt) alt.focus(); } }
   }
-  $('#orders').addEventListener('click', function (e) {
-    var m = e.target.closest('[data-o]'), ok = e.target.closest('[data-ok]');
-    if (ok) { rk(ok.dataset.ok).done = true; buildOrder(); drawAll(); save(true); return; }
-    if (!m) return;
-    var r = rk(m.dataset.o), i = r.order.indexOf(m.dataset.b), j = i + +m.dataset.d;
-    if (j < 0 || j >= r.order.length) return;
-    var o = r.order, a = o[i], b = o[j]; o[i] = b; o[j] = a;
-    r.tie[a] = false; r.tie[b] = false; r.done = true;
-    buildOrder('mv-' + m.dataset.o + '-' + a + '-' + (m.dataset.d === '-1' ? 'u' : 'd')); drawAll(); save(true);
-  });
   $('#orders').addEventListener('change', function (e) {
-    var t = e.target; if (!t.dataset.tie) return;
-    var r = rk(t.dataset.tie); r.tie[t.dataset.b] = t.checked; r.done = true;
-    buildOrder(); drawAll(); save(true);
+    var t = e.target; if (!t.dataset.niv) return;
+    (state.niv[t.dataset.niv] = state.niv[t.dataset.niv] || {})[t.dataset.b] = +t.value;
+    buildNiv(); drawAll(); save(true);
+    var f = $('input[data-niv="' + t.dataset.niv + '"][data-b="' + t.dataset.b + '"][value="' + t.value + '"]'); if (f) f.focus();
   });
 
   /* ---------- Cuadro comparativo ---------- */
   var ROWS = [['Qué ofrece', 'ofrece'], ['A cuánto', 'precio'], ['Cómo lo vende', 'canal'], ['Cómo lo da a conocer', 'comunica']];
   function cell(v, l) { v = (v || '').trim(); return '<td data-l="' + esc(l) + '">' + (v ? esc(v) : '<span class="empty">sin rellenar</span>') + '</td>'; }
   function posTxt(b) {
-    if (!isPlaced()) return 'sin ordenar';
+    if (!isPlaced(b)) return 'sin colocar';
     var X = dim(state.ej.x), Y = dim(state.ej.y);
     return X.n + ': ' + palabra(X.id, b) + ' · ' + Y.n + ': ' + palabra(Y.id, b);
   }
+  var tint = function (b) { return 'color-mix(in srgb, ' + COL[b] + ' 8%, #FFFFFF)'; };
   function compareTable(forPrint) {
     var act = activeBiz();
-    var h = '<thead><tr><th scope="col"><span class="sr-only"></span></th>' + act.map(function (b) { return '<th scope="col"' + (b === 'own' ? ' class="own"' : '') + '>' + esc(bizName(b)) + '</th>'; }).join('') + '</tr></thead><tbody>';
-    var row = function (label, fn) { return '<tr><th scope="row">' + label + '</th>' + act.map(function (b) { return fn(b, bizName(b)); }).join('') + '</tr>'; };
-    h += row('Por qué es competidor', function (b, n) { return b === 'own' ? '<td data-l="' + esc(n) + '"><span class="empty">—</span></td>' : cell((state.comp[+b.slice(1)].tipo === 'indirecto' ? 'Indirecto. ' : 'Directo. ') + state.comp[+b.slice(1)].porque, n); });
-    ROWS.forEach(function (r) { h += row(r[0], function (b, n) { return cell(b === 'own' ? state.emp[r[1]] : state.comp[+b.slice(1)][r[1]], n); }); });
-    h += row('Posición en el mapa', function (b, n) { return '<td data-l="' + esc(n) + '">' + esc(posTxt(b)) + '</td>'; });
-    h += row('Fuente', function (b, n) { return b === 'own' ? '<td data-l="' + esc(n) + '"><span class="empty">—</span></td>' : cell(state.comp[+b.slice(1)].fuente, n); });
+    var h = '<thead><tr><th scope="col"><span class="sr-only">Apartado</span></th>' + act.map(function (b) { return '<th scope="col" style="background:' + COL[b] + '">' + esc(bizName(b)) + '</th>'; }).join('') + '</tr></thead><tbody>';
+    var cell = function (b, v, l) { v = (v || '').trim(); return '<td data-l="' + esc(l) + '" style="background:' + tint(b) + '">' + (v ? esc(v) : '<span class="empty">' + (forPrint ? '—' : 'sin rellenar') + '</span>') + '</td>'; };
+    var row = function (label, fn) { return '<tr><th scope="row">' + label + '</th>' + act.map(function (b) { return cell(b, fn(b), bizName(b)); }).join('') + '</tr>'; };
+    h += row('Por qué es competidor', function (b) { return b === 'own' ? '' : (state.comp[+b.slice(1)].tipo === 'indirecto' ? 'Indirecto. ' : 'Directo. ') + state.comp[+b.slice(1)].porque; });
+    ROWS.forEach(function (r) { h += row(r[0], function (b) { return b === 'own' ? state.emp[r[1]] : state.comp[+b.slice(1)][r[1]]; }); });
+    h += row('Posición en el mapa', function (b) { return posTxt(b); });
+    h += row('Fuente', function (b) { return b === 'own' ? '' : state.comp[+b.slice(1)].fuente; });
     return h + '</tbody>';
   }
+  function drawZona() {
+    var box = $('#mapBox2'), sz = sizeOf(box);
+    box.innerHTML = drawMap(sz[0], sz[1]);
+    $('#zonas').innerHTML = ZONAS.map(function (q) {
+      return '<label><input type="radio" name="zona" value="' + q[0] + '"' + (state.cierre.zona === q[0] ? ' checked' : '') + '><span>' + esc(zonaTxt(q[0])) + '</span></label>';
+    }).join('') + '<label><input type="radio" name="zona" value="n"' + (state.cierre.zona === 'n' ? ' checked' : '') + '><span>No lo veo en este mapa</span></label>';
+  }
+  $('#zonas').addEventListener('change', function (e) {
+    if (e.target.name !== 'zona') return;
+    state.cierre.zona = e.target.value; save(true); drawZona();
+    var f = $('#zonas input[value="' + e.target.value + '"]'); if (f) f.focus();
+  });
   function renderCompare() {
     $('#cmp').innerHTML = compareTable();
+    drawZona();
     $('#insight2').innerHTML = '<h3>Lo que dice tu mapa</h3><ul>' + insights().map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ul>';
   }
 
@@ -1011,28 +1042,35 @@
   $('#btnPrint').addEventListener('click', function () {
     var hoy = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' }), c = state.cierre, e = state.emp;
     var ans = function (v) { return v.trim() ? esc(v) : '<i>(sin responder)</i>'; };
-    var h = '<div class="ph"><div><h1>Benchmarking de la competencia</h1><div class="sub">' + esc(bizName('own')) + ' · Marketing estratégico</div></div><div class="meta">' + esc(state.nombre || 'Sin nombre') + '<br>' + hoy + '</div></div>';
-    h += '<h2>1. Tu empresa y tus competidores</h2>';
+    var h = '<div class="ph"><div><div class="kick">Marketing estratégico · IPE 2</div><h1>Benchmarking de la competencia</h1><div class="sub">' + esc(bizName('own')) + '</div></div><div class="meta"><b>' + esc(state.nombre || 'Sin nombre') + '</b><br>' + hoy + '</div></div>';
+    h += '<div class="who">' + activeBiz().map(function (b) { return '<span style="--c:' + COL[b] + '"><i></i>' + esc(bizName(b)) + '</span>'; }).join('') + '</div>';
+    h += '<h2><span class="sn">1</span>Mapa de posición</h2><div class="mapfig">' + drawMap(640, 300) + '</div>';
+    h += '<p class="hz">' + (zonaTxt(c.zona) ? 'Mi hueco, marcado en el mapa: <b>' + esc(zonaTxt(c.zona)) + '</b>.' : 'Hueco sin marcar en el mapa.') + ' <span>Las posiciones se comparan solo entre los negocios de este informe.</span></p>';
+    h += '<ul>' + insights().map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ul>';
+    h += '<h2><span class="sn">2</span>Tu empresa y tus competidores</h2>';
     if (e.publico.trim() || e.dif.trim()) h += '<p><b>Público:</b> ' + ans(e.publico) + '<br><b>Tu diferencia hoy:</b> ' + ans(e.dif) + '</p>';
     h += '<table>' + compareTable(true) + '</table>';
-    h += '<h2>2. Mapa de posición</h2><div class="mapfig">' + drawMap(660, 400) + '</div>';
-    h += '<ul>' + insights().map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ul>';
-    h += '<h2>3. Conclusiones</h2>';
-    h += '<div class="pq"><b>¿Qué hacen mejor que yo?</b><div class="ans">' + ans(c.mejor) + '</div></div>';
-    h += '<div class="pq"><b>¿Dónde hay hueco para mí?</b><div class="ans">' + ans(c.hueco) + '</div></div>';
-    h += '<div class="pq"><b>¿En qué nos diferenciamos de la competencia?</b><div class="ans">' + ans(c.pregunta) + '</div></div>';
-    h += '<p class="foot">Esplora · esplora.es/benchmarking.html · Los datos de la competencia los ha recogido la persona que firma este informe.</p>';
+    h += '<h2><span class="sn">3</span>Conclusiones</h2>';
+    h += '<div class="pq" style="--c:#B5482F"><b>¿Qué hacen mejor que yo?</b><div class="ans">' + ans(c.mejor) + '</div></div>';
+    h += '<div class="pq" style="--c:#1672A0"><b>¿Dónde hay hueco para mí?</b><div class="ans">' + ans(c.hueco) + '</div></div>';
+    h += '<div class="quote"><span class="qm" aria-hidden="true">“</span><div class="qq">¿En qué nos diferenciamos de la competencia?</div><div class="ans">' + ans(c.pregunta) + '</div></div>';
+    h += '<p class="foot"><svg viewBox="28.5 14.5 340.8 372.5" aria-hidden="true"><use href="#espora"/></svg><span>Esplora · esplora.es/benchmarking.html · Los datos de la competencia los ha recogido la persona que firma este informe.</span></p>';
     $('#printSheet').innerHTML = h;
     window.print();
   });
 
   /* ---------- Guardar y cargar archivo ---------- */
   function contexto() {
+    var niveles = function (d) { var o = {}; activeBiz().forEach(function (b) { o[bizName(b)] = nv(b, d); }); return o; };
     return {
       aviso: 'Resumen legible para otras herramientas de Esplora (por ejemplo, el plan de acción comercial). Para retomar el trabajo se usan los demás campos.',
       empresa: JSON.parse(JSON.stringify(state.emp)),
       competidores: [0, 1, 2].slice(0, state.c3 ? 3 : 2).map(function (i) { return JSON.parse(JSON.stringify(state.comp[i])); }),
-      mapa: { ordenConfirmado: isPlaced(), ejeX: { id: state.ej.x, nombre: dim(state.ej.x).n, deMenosAMas: rk(state.ej.x).order.map(bizName) }, ejeY: { id: state.ej.y, nombre: dim(state.ej.y).n, deMenosAMas: rk(state.ej.y).order.map(bizName) } },
+      mapa: {
+        ejeX: { id: state.ej.x, nombre: dim(state.ej.x).n, niveles1a5: niveles(state.ej.x) },
+        ejeY: { id: state.ej.y, nombre: dim(state.ej.y).n, niveles1a5: niveles(state.ej.y) },
+        huecoMarcado: zonaTxt(state.cierre.zona)
+      },
       conclusiones: { mejorQueYo: state.cierre.mejor, hueco: state.cierre.hueco, diferenciasPensadas: state.cierre.pregunta }
     };
   }
@@ -1066,8 +1104,8 @@
       { nombre: 'Gran superficie de bricolaje', tipo: 'indirecto', porque: 'Vende plantas como complemento. No es especialista, pero llega a muchísima gente y a buen precio.', ofrece: 'Plantas básicas de temporada junto a herramientas y decoración.', precio: 'Plantas de 3 a 15 €, casi siempre en oferta.', canal: 'Tienda física y web con recogida en tienda.', comunica: 'Folleto mensual y ofertas de temporada.', fuente: 'Web de la cadena y folleto del mes.' },
       blankComp()],
     c3: false, ej: { x: 'precio', y: 'calidad' },
-    rank: { precio: { order: ['c1', 'c0', 'own'], tie: {}, done: true }, calidad: { order: ['c1', 'c0', 'own'], tie: {}, done: true } },
-    cierre: { mejor: 'El vivero tiene más variedad y precios más bajos, y la gran superficie llega a muchísima más gente.', hueco: 'Nadie vende plantas fáciles de cuidar, bonitas y listas para regalar con envío a casa: el vivero no vende online y la gran superficie no asesora.', pregunta: 'Que con nosotros recibe la planta con maceta y guía en 48 horas sin ir al polígono, porque ellos no venden por internet.' }
+    niv: { precio: { c1: 1, c0: 2, own: 4 }, calidad: { c1: 1, c0: 3, own: 5 } },
+    cierre: { mejor: 'El vivero tiene más variedad y precios más bajos, y la gran superficie llega a muchísima más gente.', zona: 'tl', hueco: 'Nadie vende plantas fáciles de cuidar, bonitas y listas para regalar con envío a casa: el vivero no vende online y la gran superficie no asesora.', pregunta: 'Que con nosotros recibe la planta con maceta y guía en 48 horas sin ir al polígono, porque ellos no venden por internet.' }
   };
   $('#btnEj').addEventListener('click', function () {
     var usado = state.emp.nombre.trim() || state.emp.ofrece.trim() || hasContent(state.comp[0]) || hasContent(state.comp[1]);
