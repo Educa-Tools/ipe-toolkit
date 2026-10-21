@@ -1036,7 +1036,7 @@
     if (onDot && onDot.scrollIntoView) onDot.scrollIntoView({ block: 'nearest', inline: 'center' });
     updateNames();
     if (i === 3) drawTabs();
-    if (i === 4) { buildNiv(); drawAll(); }
+    if (i === 4) { buildNiv(); drawAll(); equalizeOrd(); }
     if (i === 5) { renderCompare(); }
     if (i === 7) renderReview();
     if (scroll !== false) window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
@@ -1152,7 +1152,7 @@
     $('#insight').innerHTML = '<h3>Lo que dice tu mapa</h3>' + ul;
   }
   var resizeT;
-  window.addEventListener('resize', function () { clearTimeout(resizeT); resizeT = setTimeout(function () { if (state.step === 4) drawAll(); if (state.step === 5) drawZona(); }, 120); });
+  window.addEventListener('resize', function () { clearTimeout(resizeT); resizeT = setTimeout(function () { if (state.step === 4) { drawAll(); equalizeOrd(); } if (state.step === 5) drawZona(); }, 120); });
 
   $('#selX').innerHTML = $('#selY').innerHTML = DIMS.map(function (d) { return '<option value="' + d.id + '">' + esc(d.n) + '</option>'; }).join('');
   function syncSelects() { $('#selX').value = state.ej.x; $('#selY').value = state.ej.y; }
@@ -1182,6 +1182,19 @@
         '<p class="ordh">' + esc(D.q) + ' Compáralos <b>solo entre ellos</b>: a la izquierda, el que tenga menos; a la derecha, el que tenga más. Deja casillas vacías en medio si la diferencia es grande; si son parecidos, ponlos juntos.</p>' +
         '<div class="nvscale"><span>◀ ' + esc(D.lo) + '</span><span>' + esc(D.hi) + ' ▶</span></div>' + rows + '</div>';
     }).join('');
+    equalizeOrd();
+  }
+  /* las dos tarjetas de niveles (eje horizontal y vertical) comparten alturas: título, explicación y
+     etiquetas de los extremos quedan a la misma altura, sea cual sea el texto o el ancho */
+  function equalizeOrd() {
+    var cards = $$('#orders .ordc'); if (cards.length < 2) return;
+    ['h4', '.ordh', '.nvscale'].forEach(function (sel) {
+      var els = cards.map(function (c) { return c.querySelector(sel); });
+      els.forEach(function (el) { el.style.minHeight = ''; });
+      if (getComputedStyle($('#orders')).gridTemplateColumns.split(' ').length < 2) return;   /* una columna: nada que igualar */
+      var h = Math.max.apply(null, els.map(function (el) { return Math.ceil(el.getBoundingClientRect().height); }));
+      els.forEach(function (el) { el.style.minHeight = h + 'px'; });
+    });
   }
   $('#orders').addEventListener('change', function (e) {
     var t = e.target; if (!t.dataset.niv) return;
