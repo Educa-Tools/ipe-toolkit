@@ -284,6 +284,83 @@
   .listo svg { width: 42px; height: 42px; flex: none; fill: var(--ink); }
   .listo b { display: block; font-family: var(--font-display); font-size: 21px; }
   @media (max-width: 520px) { .step-head { padding-right: 0; } .step-head::after { display: none; } }
+  /* ══ Línea de herramientas Esplora (mismo kit que PESTEL y DAFO-CAME) ══
+     Fondo crema verdoso, barra de marca en el color de la herramienta, títulos en Fraunces de peso normal,
+     botones negros en píldora y tarjetas blancas con borde fino. Solo estética: la lógica no cambia. */
+  :root { --bg: #F5F6E4; --canvas: #FBFCEF; --ink-muted: #8B847A; --line: #E5E8C8; --line-soft: #EFF1D9;
+          --frame: 1px solid var(--line); --sticker: none; --sticker-lift: none; --radius-card: 16px; }
+  html, body { background: #F5F6E4; }
+  body { font-size: 16.5px; }
+  .wrap { max-width: 760px; }
+  .kit-bar { background: var(--acc); color: #fff; }
+  .kit-bar-in { max-width: 1100px; margin: 0 auto; padding: 0 20px; min-height: 54px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .kit-bar a { display: inline-flex; align-items: center; }
+  .kit-bar small { font-family: var(--font-ui); font-size: 14px; font-weight: 600; color: #fff; text-align: right; display: inline-flex; align-items: center; gap: 14px; }
+  .kit-reset { font: 600 14px/1.2 var(--font-ui); color: #fff; background: none; border: none; padding: 6px 0; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+  .kit-reset:focus-visible { outline-color: #fff; }
+  @media (max-width: 640px) { .kit-bar small { font-size: 13.5px; } .kit-bar small { flex-direction: row-reverse; } }
+
+  /* menú de pasos: puntos, como en el resto de herramientas */
+  .stepper { background: #F5F6E4; border-bottom: 1px solid var(--line); }
+  .stepper-in { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 6px; padding-bottom: 6px; overflow: visible; }
+  .dots { display: flex; align-items: center; }
+  .step-dot { position: relative; width: 24px; height: 28px; border: none; background: none; padding: 0; }
+  .step-dot::after { content: ""; position: absolute; left: 50%; top: 50%; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 4px; background: var(--line); transition: all .3s cubic-bezier(.4, 0, .2, 1); }
+  .step-dot.done::after { background: var(--ink); }
+  .step-dot.on::after { width: 24px; margin-left: -12px; background: var(--ink); }
+  .step-dot:hover::after { background: var(--ink-muted); }
+  .step-label { font-size: 14px; font-weight: 600; color: var(--ink-soft); text-align: right; }
+
+  /* tipografía de las cabeceras */
+  h1.title { font-weight: 400; letter-spacing: -.02em; font-variation-settings: "opsz" 72; font-size: clamp(36px, 6vw, 52px); line-height: 1.05; }
+  h1.title em { color: var(--acc-deep); font-weight: 400; }
+  h1.title em::after { display: none; }
+  .eyebrow, .step-num { display: flex; align-items: center; gap: 12px; background: none; border: none; box-shadow: none; border-radius: 0; padding: 0; font-size: 13px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--acc-deep); margin-bottom: 14px; }
+  .eyebrow::before, .step-num::before { content: ""; width: 40px; height: 1px; background: var(--acc-deep); }
+  .step-head h2 { font-weight: 400; font-size: clamp(26px, 4.4vw, 32px); letter-spacing: -.01em; margin-top: 0; }
+  .step-head::after { display: none; }
+  .step-head { padding-right: 0; }
+  .lead { font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: 19px; color: var(--ink-soft); }
+  .lead b { background: none; font-weight: 500; color: var(--ink); }
+  .panel h3, .qa h3, .ordc h4, .ccard-hd h3 { font-weight: 500; }
+  .norm { border: 1px solid var(--line); }
+  .norm .rd { background: var(--acc); }
+  .fact { background: var(--surface) !important; border-color: var(--line); }
+  .scene::before { display: none; }
+  .toc button { border: 1px solid var(--line); border-top: 1px solid var(--line); }
+  .toc button:hover { border-color: var(--ink-muted); box-shadow: 0 12px 32px -12px rgba(31, 36, 23, .12); }
+
+  /* botones */
+  .btn-main { background: var(--ink); color: var(--canvas); border: none; box-shadow: none; border-radius: 999px; padding: 14px 24px; font-size: 16px; font-weight: 500; transition: all .2s cubic-bezier(.4, 0, .2, 1); }
+  .btn-main:hover { background: #2D3220; transform: translateY(-1px); box-shadow: none; }
+  .btn-main:active { transform: none; box-shadow: none; }
+  .btn-ghost { background: transparent; color: var(--ink-soft); border: 1px solid var(--ink-muted); font-size: 15px; font-weight: 500; }
+  .btn-ghost:hover:not(:disabled) { background: var(--surface); border-color: var(--ink); }
+  .btn-ghost:disabled { color: var(--ink-muted); border-color: var(--line); cursor: not-allowed; }
+  .nav-bottom { border-top: 1px solid var(--line); }
+
+  /* tarjetas, campos y paneles: borde fino, sin sombras de pegatina */
+  .panel, .ccard, .ordc, .map-card, .qa, .fmt, .tbl-wrap, .norm, .fact { box-shadow: none; }
+  .panel, .ordc, .map-card, .fmt, .tbl-wrap { border: 1px solid var(--line); }
+  .ccard { border: 1px solid var(--line); border-top: 4px solid var(--c, var(--ink)); }
+  .ccard-hd { background: var(--surface); border-bottom: 1px solid var(--line); }
+  .map-card { background: var(--surface); }
+  .qa { border: 1px solid var(--line); border-left: 4px solid var(--olive-deep); }
+  .qa:nth-child(3n+2) { border-left-color: var(--acc); }
+  .qa:nth-child(3n) { border-left-color: var(--warn); }
+  .ordc { border-radius: 16px; }
+  .nvrow { border: 1px solid var(--line); border-left: 4px solid var(--c); }
+  .tab { border: 1px solid var(--ink-muted); }
+  textarea, input[type=text], select { border: 1.5px solid var(--ink-muted); border-radius: 12px; padding: 14px 16px; font-size: 16px; line-height: 1.55; }
+  select { padding: 12px 14px; }
+  textarea:focus, input[type=text]:focus, select:focus { outline: none; border-color: var(--acc-deep); box-shadow: 0 0 0 3px var(--acc-soft); }
+  .fex { border-left: 3px solid var(--olive-mid); }
+  .insight, .listo { background: var(--lime-soft); border: none; border-left: 3px solid var(--olive-deep); border-radius: 0 6px 6px 0; box-shadow: none; padding: 16px 22px; }
+  .insight h3 { font-weight: 500; }
+  .listo svg { width: 36px; height: 36px; }
+  .note { border-radius: 12px; }
+  table.cmp thead th { font-weight: 500; }
+
   #printSheet { display: none; }
 
   @media (max-width: 860px) {
@@ -313,45 +390,49 @@
     body { background: #fff; font-size: 10.5pt; }
     body > *:not(#printSheet) { display: none !important; }
     #printSheet { display: block; color: #1E1C1A; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    #printSheet .ph { display: flex; justify-content: space-between; align-items: flex-end; gap: 12pt; background: #E8EDC4; border: 1.2pt solid #1E1C1A; border-radius: 10pt; padding: 10pt 14pt; margin-bottom: 8pt; }
-    #printSheet .kick { font-size: 8.5pt; font-weight: 700; letter-spacing: 1.2pt; text-transform: uppercase; color: #4B4F1D; }
-    #printSheet h1 { font-family: 'Fraunces', Georgia, serif; font-size: 22pt; margin: 2pt 0 0; }
-    #printSheet .sub { color: #4A463F; font-size: 10.5pt; font-weight: 600; }
-    #printSheet .meta { color: #4A463F; font-size: 10pt; text-align: right; }
-    #printSheet .who { display: flex; flex-wrap: wrap; gap: 4pt 14pt; margin: 0 0 2pt; font-size: 9.5pt; }
-    #printSheet .who span { display: inline-flex; align-items: center; gap: 5pt; font-weight: 700; }
+    /* informe en el estilo de los dosieres de PESTEL y DAFO-CAME */
+    #printSheet .ph { display: flex; justify-content: space-between; align-items: center; padding-bottom: 7pt; border-bottom: 1px solid #E5E8C8; margin-bottom: 10pt; }
+    #printSheet .pm { display: flex; align-items: center; gap: 8pt; font-size: 8.5pt; font-weight: 600; letter-spacing: 1.6pt; text-transform: uppercase; color: #4A463F; }
+    #printSheet .pm i { width: 20pt; height: 1px; background: #6B7028; display: inline-block; }
+    #printSheet .pn { font-size: 8.5pt; font-weight: 600; letter-spacing: 1.2pt; color: #4A463F; }
+    #printSheet .tt { margin-bottom: 8pt; }
+    #printSheet .kk { display: block; font-size: 8.5pt; font-weight: 600; letter-spacing: 2pt; text-transform: uppercase; color: #6B7028; margin-bottom: 3pt; }
+    #printSheet h1 { font-family: 'Fraunces', Georgia, serif; font-weight: 400; font-size: 24pt; line-height: 1.12; letter-spacing: -.015em; margin: 0; }
+    #printSheet .sub { color: #4A463F; font-size: 10pt; margin-top: 3pt; }
+    #printSheet .who { display: flex; flex-wrap: wrap; gap: 4pt 14pt; margin: 6pt 0 2pt; font-size: 9.5pt; }
+    #printSheet .who span { display: inline-flex; align-items: center; gap: 5pt; font-weight: 600; }
     #printSheet .who i { width: 9pt; height: 9pt; border-radius: 50%; background: var(--c); display: inline-block; }
-    #printSheet h2 { display: flex; align-items: center; gap: 7pt; font-family: 'Fraunces', Georgia, serif; font-size: 13.5pt; margin: 12pt 0 5pt; color: #0E4F70; break-after: avoid; }
-    #printSheet h2 .sn { width: 17pt; height: 17pt; border-radius: 50%; background: #1672A0; color: #fff; font: 700 9.5pt 'Inter', sans-serif; display: inline-grid; place-items: center; }
+    #printSheet h2 { font-family: 'Inter', sans-serif; font-size: 8.5pt; font-weight: 600; letter-spacing: 2.5pt; text-transform: uppercase; color: #6B7028; margin: 13pt 0 7pt; padding-bottom: 4pt; border-bottom: 1px solid #E5E8C8; break-after: avoid; }
+    #printSheet h2 .sn { display: none; }
     #printSheet p { margin: 0 0 4pt; }
-    #printSheet table { border-collapse: separate; border-spacing: 0; width: 100%; font-size: 9pt; border: 1px solid #CFCAC0; border-radius: 6pt; overflow: hidden; }
-    #printSheet th, #printSheet td { border-bottom: 1px solid #E3DED3; border-right: 1px solid #E3DED3; padding: 3.5pt 6pt; text-align: left; vertical-align: top; white-space: pre-wrap; }
-    #printSheet thead th { color: #fff; font-family: 'Fraunces', Georgia, serif; font-size: 10pt; }
-    #printSheet tbody th { background: #F5F6E4; width: 20%; font-size: 8.5pt; }
+    #printSheet table { border-collapse: separate; border-spacing: 0; width: 100%; font-size: 9.5pt; border: 1px solid #E5E8C8; border-radius: 8pt; overflow: hidden; }
+    #printSheet th, #printSheet td { border-bottom: 1px solid #EFF1D9; border-right: 1px solid #EFF1D9; padding: 4pt 7pt; text-align: left; vertical-align: top; white-space: pre-wrap; }
+    #printSheet thead th { color: #fff; font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 10.5pt; }
+    #printSheet tbody th { background: #F5F6E4; width: 20%; font-size: 8pt; font-weight: 700; letter-spacing: .8pt; text-transform: uppercase; color: #4A463F; }
     #printSheet tr { break-inside: avoid; }
     #printSheet .mapfig { break-inside: avoid; text-align: center; }
     #printSheet .mapfig svg { max-width: 100%; height: auto; }
-    #printSheet .hz { font-size: 10pt; }
-    #printSheet .hz span { color: #4A463F; font-size: 8.5pt; display: block; }
-    #printSheet ul { margin: 4pt 0 0; padding-left: 14pt; }
-    #printSheet .pq { border: 1px solid #CFCAC0; border-left: 5pt solid var(--c, #6B7028); border-radius: 6pt; padding: 6pt 9pt; margin-bottom: 6pt; break-inside: avoid; }
-    #printSheet .pq b { display: block; font-size: 10pt; }
-    #printSheet .ans { white-space: pre-wrap; margin-top: 2pt; }
-    #printSheet .quote { position: relative; background: #E8EDC4; border: 1pt solid #1E1C1A; border-radius: 10pt; padding: 10pt 16pt 11pt 40pt; margin-top: 8pt; break-inside: avoid; }
-    #printSheet .qm { position: absolute; left: 12pt; top: 4pt; font: 700 38pt/1 'Fraunces', Georgia, serif; color: #6B7028; }
-    #printSheet .qq { font-size: 8.5pt; font-weight: 700; letter-spacing: .8pt; text-transform: uppercase; color: #4B4F1D; }
-    #printSheet .quote .ans { font-family: 'Fraunces', Georgia, serif; font-size: 13pt; line-height: 1.35; }
+    #printSheet .hz { background: #E8EDC4; border-left: 3px solid #6B7028; border-radius: 0 6pt 6pt 0; padding: 7pt 12pt; font-family: 'Fraunces', Georgia, serif; font-size: 11pt; margin-top: 6pt; }
+    #printSheet .hz span { display: block; margin-top: 2pt; color: #4A463F; font-family: 'Inter', sans-serif; font-size: 8.5pt; }
+    #printSheet ul { margin: 5pt 0 0; padding-left: 14pt; }
+    #printSheet .pq { position: relative; border: 1px solid #E5E8C8; border-radius: 8pt; padding: 7pt 11pt 7pt 14pt; margin-bottom: 6pt; break-inside: avoid; overflow: hidden; }
+    #printSheet .pq::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4pt; background: var(--c, #6B7028); }
+    #printSheet .pq b { display: block; font-size: 8pt; font-weight: 700; letter-spacing: 1.2pt; text-transform: uppercase; color: #4A463F; }
+    #printSheet .ans { white-space: pre-wrap; margin-top: 2pt; font-family: 'Fraunces', Georgia, serif; font-size: 11pt; line-height: 1.5; }
+    #printSheet .quote { background: #E8EDC4; border-left: 3px solid #6B7028; border-radius: 0 6pt 6pt 0; padding: 9pt 14pt 10pt; margin-top: 8pt; break-inside: avoid; }
+    #printSheet .qm { display: none; }
+    #printSheet .qq { font-size: 8pt; font-weight: 700; letter-spacing: 1.6pt; text-transform: uppercase; color: #6B7028; margin-bottom: 2pt; }
+    #printSheet .quote .ans { font-size: 12pt; line-height: 1.55; }
     #printSheet .pg { display: flex; flex-direction: column; min-height: 268mm; break-after: page; }
     #printSheet .pg:last-child { break-after: auto; }
     #printSheet .pg > .foot { margin-top: auto; }
-    #printSheet .foot { display: flex; align-items: center; gap: 6pt; font-size: 8.5pt; color: #4A463F; border-top: 1px solid #CFCAC0; padding-top: 5pt; }
+    #printSheet .foot { display: flex; align-items: center; gap: 6pt; font-size: 8pt; color: #4A463F; border-top: 1px solid #E5E8C8; padding-top: 5pt; }
+    #printSheet .foot svg { width: 12pt; height: 12pt; fill: #6B7028; flex: none; }
     #printSheet .foot span { flex: 1; }
-    #printSheet table { font-size: 9.5pt; }
     #printSheet .pg + .pg .pq { margin-bottom: 8pt; }
-    #printSheet .pg:first-child .pq { font-size: 9.5pt; }
+    #printSheet .pg:first-child .pq .ans { font-size: 10.5pt; }
     #printSheet .pg:first-child .quote .ans { font-size: 11.5pt; }
     #printSheet .pg:first-child h2 { margin-top: 9pt; }
-    #printSheet .foot svg { width: 14pt; height: 14pt; fill: #6B7028; flex: none; }
   }
   svg.espora { width: 1em; height: 1em; fill: currentColor; vertical-align: -.12em; }
 </style>
@@ -359,21 +440,10 @@
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol fill="currentColor" id="espora" viewBox="28.5 14.5 340.8 372.5"><path d="M 217.7 41.6C230.4 48.3 239.5 48.5 241.6 44.4C243.8 40.3 238.3 33.5 225.6 26.7C212.8 20 203.4 18.9 201.2 23C199.1 27.1 205 34.9 217.7 41.6"/><path d="M 70.2 105.1C82.3 97.3 86.9 89.5 84.3 85.6C81.8 81.7 73.1 83.2 61.1 91.1C49 98.9 43.4 106.6 45.9 110.5C48.5 114.4 58.2 113 70.2 105.1"/><path d="M 363.1 135.7C362.2 121.3 357.7 113.5 353.1 113.8C348.5 114.1 345.5 122.3 346.3 136.7C347.2 151.1 351.1 159.8 355.8 159.5C360.4 159.2 364 150.1 363.1 135.7"/><path d="M 328 295.8C315.8 303.4 310 311 312.5 314.9C314.9 318.9 324.7 317.7 336.9 310.1C349.1 302.5 353.8 294.8 351.4 290.8C348.9 286.9 340.2 288.2 328 295.8"/><path d="M 181.2 360.3C168.5 353.3 159.1 352 156.9 356C154.7 360.1 160.4 368 173 375C185.7 381.9 194.7 382.3 196.9 378.2C199.2 374.2 193.8 367.2 181.2 360.3"/><path d="M 42.1 242.9C37.5 243.2 33.9 252.3 34.8 266.7C35.6 281.1 40.1 288.9 44.8 288.6C49.4 288.3 52.4 280.1 51.5 265.7C50.7 251.3 46.7 242.6 42.1 242.9"/><path d="M 215.2 256.3C213.1 255.2 211.2 253.9 208.9 253C205 251.3 200.7 250.4 196.4 250.4C191.2 250.4 186.2 251.7 181.8 254C177.3 256 171.3 258.3 166.5 256.3C161.5 254.2 160.5 248.5 160.5 243.7C160.6 230.9 156.7 219.5 145.3 212.5C144.8 212.1 144.2 211.8 143.6 211.5C138.6 208.4 126.3 198.4 146.5 185.1C151.9 181.5 155.9 176.3 158.3 170.3C160.7 164.1 160.1 157.6 162.3 151.4C164.2 145.8 168.7 141.8 174.9 142.4C179.4 142.9 183.1 145.6 187 147.7C191.6 150.3 196.4 151.7 201.7 151.7C207.8 151.7 213.4 150 218.3 147.1C222.6 144.5 228.2 142.8 232.8 145.9C237.2 148.9 238.6 153.6 238.4 158.7C237.8 170.4 244.2 181.7 254.2 187.5C261.8 191.9 266.3 201.3 259.6 208.6C257.1 211.3 253.9 212.7 250.8 214.8C248 216.7 245.4 219.2 243.4 221.9C239.1 227.6 237.2 234.2 236.9 241.2C236.8 246.4 235.8 252.5 231.6 256C228.3 258.7 223.8 258.9 219.8 258C218.2 257.6 216.7 257 215.2 256.3M322.5 230.4C322.5 230.4 322.6 230.5 322.6 230.5C322.7 230.5 322.8 230.5 322.8 230.5C331.1 230.9 340.7 224.3 346 213.6C352.6 200.5 350.4 186 341.1 181.4C331.7 176.7 318.9 183.6 312.3 196.8C310.9 199.6 309.9 202.4 309.3 205.2C309.3 205.2 309.3 205.2 309.3 205.2C308.9 205.7 308.8 207.3 308.6 207.9C308.3 209 308 209.9 307.6 210.9C306.8 212.8 305.8 214.7 304.5 216.3C301.4 219.8 297 220.9 292.8 218.6C290.7 217.5 288.8 216 286.9 214.6C284.9 213.2 282.5 212.4 280.6 211C271 203.6 279 192 286.8 187.4C296.2 181.8 302.5 171.5 302.5 159.7C302.5 152.8 300.1 146 295.9 140.5C292.2 135.6 286.8 132.2 284 126.6C281.4 121.4 281.3 113.9 285.6 109.6C286.2 109 286.7 108.4 287.2 107.8C287.2 107.7 287.3 107.6 287.3 107.6L287.3 107.6C292.2 100.5 291.1 88.5 283.9 78.4C275.4 66.4 261.6 61.6 253.1 67.6C244.6 73.6 244.6 88.2 253.1 100.2C255.1 103 257.4 105.4 260.1 107.5C263 109.7 264.5 112.6 265.4 116C266.7 120.7 265.2 125.4 261.2 128.2C259.4 129.6 257.2 130.5 255.2 131.6C251.2 133.7 247.3 135.9 242.6 135.3C238.6 134.7 235.9 131.7 234.7 127.9C232.9 122 234.2 115.8 232.3 109.8C230.6 104.4 227.4 99.4 223.1 95.6C215.1 88.5 204.7 86.4 194.3 88.4C185.7 90.1 177.1 92.7 169.3 87.1C166.4 85.1 164.1 82.1 162.8 78.8C162.8 78.8 162.8 78.8 162.8 78.8C159.3 70.3 147.4 65.4 134.4 67.5C119.9 69.9 109.5 80.1 111.2 90.4C112.8 100.7 125.9 107.1 140.5 104.8C145.5 103.9 150.2 100.7 155.3 100.6C163.5 100.5 170.2 106.4 169.9 114.8C169.7 116.4 169.6 118 169.6 119.6C168.8 129.6 162.9 136.2 152.2 133.7C148.1 132.7 144.7 130.3 140.8 128.7C136.9 127.1 132.8 126.3 128.6 126.3C119.7 126.3 111.1 130.1 105 136.6C102.1 139.8 99.7 143.6 98.3 147.7C97.5 149.8 97 152 96.7 154.3C96.4 156.6 96.9 159.1 95.7 161.3C95.5 161.7 95.3 162 95.1 162.4C93.8 164 92 165.2 90.1 166.2C86 168.4 81.6 169.8 77.1 170.3C74.8 170.6 72.4 170.7 70.2 171.2C65.9 172.2 62.1 174.8 59 177.9C52.9 184.2 49.1 192.7 48.8 201.5C48.7 205.2 49.1 209.1 50.7 212.5C52.2 215.9 54.8 218.9 58.2 220.5C61.6 222 65.6 222 69.2 220.9C72.8 219.7 75.9 217.5 78.6 214.9C83.6 210.1 87.1 203.7 88.5 196.8C89 194.1 89.2 191.4 90.2 188.8C91.3 185.7 93.6 183.5 96.6 182.4C98.8 181.5 101.4 181 103.8 181.2C105.1 181.3 106.1 181.6 107 182.3C108.3 183.3 109.5 184.3 110.8 185.1C112.5 186.3 114.4 187.2 116.1 188.4C119 190.5 121.2 193.3 121.6 196.9C122.3 203.4 116.9 208.7 112.1 212.3C102.7 217.9 96.4 228.2 96.4 239.9C96.4 247.9 99.5 255.6 104.8 261.5C107.4 264.3 110.9 266.1 113.4 268.9C116.1 272.1 117.3 276.3 117 280.5C116.7 285.1 115 288.3 112.1 291.8C105 300.4 109 313.6 114.8 321.8C123.3 333.8 137.1 338.7 145.6 332.6C159.2 322.9 149.2 301.5 139.3 293.2C134.9 289.5 131.4 284.1 132.8 278.1C133.2 276.4 133.9 274.6 134.8 273.2C136.6 270.2 140.8 269.6 143.7 268C146.9 266.4 150.2 264.7 153.9 265.1C157.7 265.5 161.1 267.5 162.9 270.9C164.4 273.8 164.8 276.7 164.5 279.9C162.6 298.4 178.1 314.7 196.4 314.7C205.5 314.7 214.1 309 223.3 310.7C228 311.5 233.1 314.8 234.5 319.6L234.5 319.5C237.2 328.2 248.5 334.3 261.6 333.5C276.3 332.6 287.7 323.5 287.1 313.1C286.4 302.7 274 295 259.3 295.9C255.9 296.1 252.5 296.8 249.3 297.9C243.5 300.1 234.6 303 230 296.9C227.5 293.6 227.8 290.4 228.3 286.5C228.6 283.7 228.4 280.8 228.7 277.9C229.6 270.9 235.2 267 242 267C244.7 267 247.4 267.4 250 268.2C251.7 268.6 253.1 269 254.6 269.8C259 272.2 264.1 273.3 269.1 273.3C285 273.3 298.3 261.7 300.8 246.4C300.8 246.4 300.8 246.3 300.8 246.3C300.8 246 300.9 245.7 300.9 245.4C303.3 228.9 320.3 230.2 322.5 230.4"/></symbol></svg>
 
-<div class="wrap">
-  <div class="top">
-    <a class="brand" href="index.html" aria-label="Esplora, volver al catálogo">
-      <img src="marca/logo-horizontal-oliva.svg" alt="" width="114" height="28">
-    </a>
-    <div class="top-actions">
-      <a class="chip-btn" href="index.html">← Todas las herramientas</a>
-      <button class="chip-btn" id="btnReset" type="button">Empezar de cero</button>
-    </div>
-  </div>
-</div>
+<header class="kit-bar"><div class="kit-bar-in"><a href="index.html" aria-label="Esplora, volver al catálogo"><img src="marca/logo-horizontal-crema.svg" alt="" width="114" height="28"></a><small><button class="kit-reset" id="btnReset" type="button">Empezar de cero</button>Benchmarking de la competencia</small></div></header>
 
 <nav class="stepper" aria-label="Pasos de la herramienta">
-  <div class="wrap" id="stepper"></div>
-  <div class="progress"><span id="progBar"></span></div>
+  <div class="wrap stepper-in"><div class="dots" id="stepper"></div><span class="step-label" id="stepLabel" aria-live="polite"></span></div>
 </nav>
 
 <main class="wrap">
@@ -861,7 +931,7 @@
   /* ---------- Pasos ---------- */
   var steps = $$('.step');
   $('#stepper').innerHTML = steps.map(function (s, i) {
-    return '<button class="step-chip" type="button" data-go="' + i + '"><span class="n">' + (i === 0 ? '<svg class="espora" viewBox="28.5 14.5 340.8 372.5" aria-hidden="true"><use href="#espora"/></svg>' : i) + '</span>' + esc(s.dataset.title) + '</button>';
+    return '<button class="step-dot" type="button" data-go="' + i + '" aria-label="' + (i === 0 ? 'Empezar' : 'Paso ' + i + ': ' + esc(s.dataset.title)) + '" title="' + esc(s.dataset.title) + '"></button>';
   }).join('');
   $('#toc').innerHTML = steps.slice(1).map(function (s, i) {
     return '<button type="button" data-go="' + (i + 1) + '"><span class="k">Paso ' + (i + 1) + '</span><span class="t">' + esc(s.dataset.title) + '</span><span class="d">' + esc(s.dataset.desc || '') + '</span></button>';
@@ -871,14 +941,12 @@
     state.step = i;
     if (state.visited.indexOf(i) < 0) state.visited.push(i);
     steps.forEach(function (s, k) { s.classList.toggle('on', k === i); });
-    $$('.step-chip').forEach(function (c, k) {
+    $$('.step-dot').forEach(function (c, k) {
       c.classList.toggle('on', k === i);
       c.classList.toggle('done', k !== i && state.visited.indexOf(k) >= 0);
       if (k === i) c.setAttribute('aria-current', 'step'); else c.removeAttribute('aria-current');
     });
-    $('#progBar').style.width = (i / (steps.length - 1) * 100) + '%';
-    var on = $$('.step-chip')[i];
-    if (on && on.scrollIntoView) on.scrollIntoView({ block: 'nearest', inline: 'center' });
+    $('#stepLabel').textContent = i === 0 ? 'Empezar' : 'Paso ' + i + ' de ' + (steps.length - 1) + ' · ' + steps[i].dataset.title;
     updateNames();
     if (i === 3) drawTabs();
     if (i === 4) { buildNiv(); drawAll(); }
@@ -1139,9 +1207,10 @@
     var hoy = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' }), c = state.cierre, e = state.emp;
     var ans = function (v) { return v.trim() ? esc(v) : '<i>(sin responder)</i>'; };
     /* el mapa aprovecha el hueco de la primera hoja: más alto cuanto más cortas sean las respuestas */
-    var largo = (c.mejor + c.hueco + c.pregunta).length, mh = largo < 300 ? 345 : (largo < 600 ? 315 : 285);
-    var foot = function (n) { return '<p class="foot"><svg viewBox="28.5 14.5 340.8 372.5" aria-hidden="true"><use href="#espora"/></svg><span>Esplora · esplora.es/benchmarking.html · Los datos de la competencia los ha recogido la persona que firma este informe.</span><b>' + n + ' / 2</b></p>'; };
-    var h = '<section class="pg"><div class="ph"><div><div class="kick">Marketing estratégico · IPE 2</div><h1>Benchmarking de la competencia</h1><div class="sub">' + esc(bizName('own')) + '</div></div><div class="meta"><b>' + esc(state.nombre || 'Sin nombre') + '</b><br>' + hoy + '</div></div>';
+    var largo = (c.mejor + c.hueco + c.pregunta).length, mh = largo < 300 ? 330 : (largo < 600 ? 290 : (largo < 900 ? 250 : 190));
+    var foot = function (n) { return '<p class="foot"><svg viewBox="28.5 14.5 340.8 372.5" aria-hidden="true"><use href="#espora"/></svg><span>Esplora · esplora.es/benchmarking.html · Los datos de la competencia los ha recogido la persona que firma este informe.</span></p>'; };
+    var hdr = function (n) { return '<div class="ph"><div class="pm"><i></i><span>Informe · Benchmarking de la competencia</span></div><span class="pn">0' + n + ' / 02</span></div>'; };
+    var h = '<section class="pg">' + hdr(1) + '<div class="tt"><span class="kk">Marketing estratégico · IPE 2</span><h1>' + esc(bizName('own')) + '</h1><div class="sub">Benchmarking de la competencia · ' + esc(state.nombre || 'Sin nombre') + ' · ' + hoy + '</div></div>';
     h += '<div class="who">' + activeBiz().map(function (b) { return '<span style="--c:' + COL[b] + '"><i></i>' + esc(bizName(b)) + '</span>'; }).join('') + '</div>';
     h += '<h2><span class="sn">1</span>Mapa de posición</h2><div class="mapfig">' + drawMap(640, mh) + '</div>';
     h += '<p class="hz">' + (state.celdas.length ? 'Mi hueco, marcado en el mapa: <b>' + esc(huecoTxt()) + '</b>.' : (c.zona === 'n' ? 'No he visto hueco en este mapa.' : 'Hueco sin marcar en el mapa.')) + ' <span>Las posiciones se comparan solo entre los negocios de este informe.</span></p>';
@@ -1150,7 +1219,7 @@
     h += '<div class="pq" style="--c:#B5482F"><b>¿Qué hacen mejor que yo?</b><div class="ans">' + ans(c.mejor) + '</div></div>';
     h += '<div class="pq" style="--c:#1672A0"><b>¿Dónde hay hueco para mí?</b><div class="ans">' + ans(c.hueco) + '</div></div>';
     h += '<div class="quote"><span class="qm" aria-hidden="true">“</span><div class="qq">¿En qué nos diferenciamos de la competencia?</div><div class="ans">' + ans(c.pregunta) + '</div></div>';
-    h += foot(1) + '</section><section class="pg"><h2><span class="sn">3</span>Fichas de la competencia</h2>';
+    h += foot(1) + '</section><section class="pg">' + hdr(2) + '<h2><span class="sn">3</span>Fichas de la competencia</h2>';
     if (e.publico.trim() || e.dif.trim()) h += '<div class="pq" style="--c:#6B7028"><b>Mi empresa: público y diferencia hoy</b><div class="ans">' + ans(e.publico) + '<br>' + ans(e.dif) + '</div></div>';
     h += '<table>' + compareTable(true) + '</table>' + foot(2) + '</section>';
     $('#printSheet').innerHTML = h;
