@@ -43,9 +43,9 @@ Cada recurso tiene una ficha (enlace principal) y la herramienta en sí (enlace 
 ## IPE 2 · Unidad didáctica 2: Análisis del entorno, sector y mercado
 
 - [Análisis PESTEL](https://esplora.es/recursos/analisis-pestel/): Mapa de impacto de los factores del entorno general, con dossier imprimible. (≈ 40 min, con informe en PDF) · [abrir](https://esplora.es/pestel.html)
-- [Buyer Persona](https://esplora.es/recursos/buyer-persona/): Da forma a tu cliente ideal: quién es, qué necesita y cómo llegar a él. (≈ 30 min, con informe en PDF) · [abrir](https://esplora.es/buyerpersona.html)
-- [Benchmarking de la competencia](https://esplora.es/recursos/benchmarking-competencia/): Investiga a tus competidores (qué ofrecen, a cuánto y cómo), colócalos en un mapa de posición y descubre dónde queda hueco para tu proyecto. (≈ 50 min, con informe en PDF) · [abrir](https://esplora.es/benchmarking.html)
 - [DAFO y CAME](https://esplora.es/recursos/dafo-came/): Diagnostica tu proyecto con el DAFO y cruza los resultados con el CAME para decidir qué hacer. (≈ 45 min, con informe en PDF) · [abrir](https://esplora.es/dafocame.html)
+- [Benchmarking de la competencia](https://esplora.es/recursos/benchmarking-competencia/): Investiga a tus competidores (qué ofrecen, a cuánto y cómo), colócalos en un mapa de posición y descubre dónde queda hueco para tu proyecto. (≈ 50 min, con informe en PDF) · [abrir](https://esplora.es/benchmarking.html)
+- [Buyer Persona](https://esplora.es/recursos/buyer-persona/): Da forma a tu cliente ideal: quién es, qué necesita y cómo llegar a él. (≈ 30 min, con informe en PDF) · [abrir](https://esplora.es/buyerpersona.html)
 
 ## IPE 2 · Unidad didáctica 3: La viabilidad del proyecto emprendedor
 

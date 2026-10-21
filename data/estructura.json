@@ -51,7 +51,7 @@
       "descripcion": "Emprendimiento, análisis del entorno, viabilidad e inserción laboral.",
       "unidades": [
         { "n": 1, "titulo": "Emprendimiento, innovación y sostenibilidad", "icono": "bulb",        "herramientas": ["generador", "fichaidea", "estrella", "canvas"] },
-        { "n": 2, "titulo": "Análisis del entorno, sector y mercado",     "icono": "chart",       "herramientas": ["pestel", "buyer", "benchmarking", "dafocame"] },
+        { "n": 2, "titulo": "Análisis del entorno, sector y mercado",     "icono": "chart",       "herramientas": ["pestel", "dafocame", "benchmarking", "buyer"] },
         { "n": 3, "titulo": "La viabilidad del proyecto emprendedor",     "icono": "checkshield", "herramientas": ["formajuridica", "inversion"] },
         { "n": 4, "titulo": "Empleabilidad e inserción laboral",          "icono": "compass",     "herramientas": [] }
       ]
@@ -65,7 +65,7 @@
 
   "etiquetas": [
     { "id": "idea",      "nombre": "Idea de negocio",            "icono": "bulb",   "herramientas": ["generador", "fichaidea", "estrella", "canvas"] },
-    { "id": "mercado",   "nombre": "Análisis del mercado",       "icono": "chart",  "herramientas": ["pestel", "buyer", "benchmarking", "dafocame"] },
+    { "id": "mercado",   "nombre": "Análisis del mercado",       "icono": "chart",  "herramientas": ["pestel", "dafocame", "benchmarking", "buyer"] },
     { "id": "viabilidad","nombre": "Viabilidad del proyecto emprendedor", "icono": "checkshield", "herramientas": ["formajuridica", "inversion"] },
     { "id": "prl",       "nombre": "Prevención de riesgos",      "icono": "shield", "herramientas": ["patologias", "ruta22", "simuladorprl", "orgpreventiva", "enfprofesionales", "guiaruido"] },
     { "id": "laboral",   "nombre": "Laboral y Seguridad Social", "icono": "scale",  "herramientas": ["piramide", "mapaue", "contingencias", "prestaciones", "casosnomina"] }
