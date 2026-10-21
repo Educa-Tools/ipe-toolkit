@@ -218,12 +218,12 @@
   .nvdots label:hover > span { border-color: var(--c); }
   .nvdots input:checked + span { background: var(--c); border-color: var(--ink); box-shadow: 0 0 0 3px #fff, 0 0 0 4.5px var(--c); }
   .nvdots input:focus-visible + span { outline: 3px solid var(--acc); outline-offset: 3px; }
-  .zonas { display: flex; flex-wrap: wrap; gap: 8px; }
-  .zonas label { position: relative; }
-  .zonas input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; width: 100%; height: 100%; }
-  .zonas span { display: inline-block; border: 1px solid var(--ink); background: var(--surface); border-radius: var(--radius-pill); padding: 7px 14px; font-size: 14px; font-weight: 650; }
-  .zonas input:checked + span { background: var(--acc); border-color: var(--acc); color: #fff; box-shadow: 3px 3px 0 var(--ink); }
-  .zonas input:focus-visible + span { outline: 3px solid var(--acc); outline-offset: 2px; }
+  .hbar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin-top: 10px; }
+  .hbar .chk { display: flex; align-items: center; gap: 8px; font-size: 14.5px; font-weight: 600; }
+  .hbar .chk input { width: 18px; height: 18px; accent-color: var(--acc); }
+  #mapBox2 svg { cursor: crosshair; -webkit-user-select: none; user-select: none; }
+  #mapBox2 .hc { fill: transparent; }
+  #mapBox2 .hc:focus-visible { outline: none; stroke: #1E1C1A; stroke-width: 3; fill: rgba(22, 114, 160, .14); }
   #mapBox2 { width: 100%; } #mapBox2 svg { display: block; max-width: 100%; height: auto; }
   @media (max-width: 520px) { .nvrow { grid-template-columns: 1fr; } }
   .insight { background: var(--acc-soft); border-radius: 16px; padding: 14px 18px; }
@@ -514,9 +514,10 @@
       </div>
       <div class="field">
         <span class="flab" id="zl">¿En qué parte del mapa está tu hueco?</span>
-        <span class="fhelp">Marca la zona donde ves espacio para ti. Es tu decisión: el mapa no la calcula.</span>
+        <span class="fhelp">Toca o arrastra sobre las casillas del mapa para rodear tu hueco: la zona donde quieres que te elijan. Toca otra vez para quitarlas. Con teclado: flechas para moverte y barra espaciadora para marcar. Es tu decisión: el mapa no la calcula.</span>
         <div id="mapBox2"></div>
-        <div class="zonas" id="zonas" role="radiogroup" aria-labelledby="zl"></div>
+        <div class="hbar"><button type="button" class="btn-ghost" id="hClear">Borrar la selección</button><label class="chk"><input type="checkbox" id="hNo"> No veo hueco en este mapa</label><span class="hint" id="hInfo" role="status"></span></div>
+        <div class="note warn" id="hWarn" role="status" hidden><span class="tag">Ojo</span><p id="hWarnTxt"></p></div>
       </div>
       <div class="field">
         <label class="flab" for="f-hueco">¿Dónde hay hueco para ti?</label>
@@ -640,7 +641,7 @@
       emp: { nombre: '', ofrece: '', publico: '', precio: '', canal: '', comunica: '', dif: '' },
       comp: [blankComp(), blankComp(), blankComp()], c3: false,
       ej: { x: 'precio', y: 'calidad' }, niv: {},
-      cierre: { mejor: '', hueco: '', pregunta: '', zona: '' } };
+      celdas: [], cierre: { mejor: '', hueco: '', pregunta: '', zona: '' } };
   };
   var state = blankState();
   function apply(s) {
@@ -665,7 +666,8 @@
       BIZ.forEach(function (b) { var v = Math.round(+r[b]); if (v >= 1 && v <= 5) state.niv[d.id][b] = v; });
     });
     if (s.cierre && typeof s.cierre === 'object') Object.keys(state.cierre).forEach(function (k) { state.cierre[k] = str(s.cierre[k], 700); });
-    if (['tl', 'tr', 'bl', 'br', 'n'].indexOf(state.cierre.zona) < 0) state.cierre.zona = '';
+    if (state.cierre.zona !== 'n') state.cierre.zona = '';
+    state.celdas = Array.isArray(s.celdas) ? s.celdas.filter(function (k, i, a) { return typeof k === 'string' && /^[1-5],[1-5]$/.test(k) && a.indexOf(k) === i; }) : [];
   }
   try { apply(JSON.parse(localStorage.getItem(KEY) || 'null')); } catch (e) {}
   var saveTimer;
@@ -691,10 +693,29 @@
     var v = nv(b, d), D = dim(d);
     return v == null ? 'sin colocar' : (v === 1 ? D.lo : (v === 5 ? D.hi : (v === 3 ? 'Intermedio' : 'Tirando a ' + (v < 3 ? D.lo : D.hi).toLowerCase())));
   }
-  var ZONAS = [['tl', 0, 0], ['tr', 1, 0], ['bl', 0, 1], ['br', 1, 1]];   /* clave, columna, fila */
-  function zonaTxt(k) {
-    var X = dim(state.ej.x), Y = dim(state.ej.y), z = ZONAS.filter(function (q) { return q[0] === k; })[0];
-    return z ? (z[2] ? Y.lo : Y.hi) + ' · ' + (z[1] ? X.hi : X.lo) : '';
+  /* El hueco son las casillas del mapa que marca el alumno: «x,y» con cada nivel de 1 a 5 */
+  var celdaXY = function (k) { return k.split(',').map(Number); };
+  function lvlWord(d, v) { var D = dim(d); return v === 1 ? D.lo : (v === 5 ? D.hi : (v === 3 ? 'Intermedio' : 'Tirando a ' + (v < 3 ? D.lo : D.hi).toLowerCase())); }
+  function huecoTxt() {
+    var c = state.celdas; if (!c.length) return '';
+    var mx = 0, my = 0; c.forEach(function (k) { var p = celdaXY(k); mx += p[0]; my += p[1]; });
+    mx = Math.round(mx / c.length); my = Math.round(my / c.length);
+    return dim(state.ej.x).n + ': ' + lvlWord(state.ej.x, mx) + ' · ' + dim(state.ej.y).n + ': ' + lvlWord(state.ej.y, my) + ' (' + c.length + (c.length === 1 ? ' casilla)' : ' casillas)');
+  }
+  /* avisos sobre el hueco marcado: no impiden nada, piden pensarlo */
+  function huecoAvisos() {
+    var out = [], c = state.celdas; if (!c.length) return out;
+    var dentro = activeBiz().filter(function (b) { return b !== 'own' && isPlaced(b) && c.indexOf(xy(b).join(',')) >= 0; });
+    if (dentro.length) out.push('En la zona marcada ya está ' + dentro.map(bizName).join(' y ') + '. Un hueco suele ser un espacio donde nadie atiende bien al cliente: revisa si de verdad lo es.');
+    var ids = [state.ej.x, state.ej.y];
+    if (ids.indexOf('precio') >= 0 && ids.indexOf('calidad') >= 0) {
+      var raro = c.filter(function (k) {
+        var p = celdaXY(k), pr = state.ej.x === 'precio' ? p[0] : p[1], ca = state.ej.x === 'calidad' ? p[0] : p[1];
+        return (pr >= 4 && ca <= 2) || (pr <= 2 && ca >= 4);
+      }).length;
+      if (raro) out.push('Parte de la zona combina precio alto con calidad básica, o precio bajo con calidad premium. Es posible, pero poco habitual: pregúntate quién compraría ahí y justifícalo en tu respuesta.');
+    }
+    return out;
   }
 
   /* ---------- Cálculos del mapa (puros, con autocomprobación) ---------- */
@@ -886,9 +907,9 @@
   function mapSummary() {
     var X = dim(state.ej.x), Y = dim(state.ej.y);
     var lista = function (D) { return D.n + ' (de «' + D.lo + '» a «' + D.hi + '», niveles 1 a 5): ' + activeBiz().map(function (b) { var v = nv(b, D.id); return bizName(b) + ' ' + (v == null ? 'sin colocar' : v); }).join(', '); };
-    return 'Mapa de posición. ' + lista(X) + '. ' + lista(Y) + '.' + (state.cierre.zona && zonaTxt(state.cierre.zona) ? ' Hueco marcado: ' + zonaTxt(state.cierre.zona) + '.' : '');
+    return 'Mapa de posición. ' + lista(X) + '. ' + lista(Y) + '.' + (state.celdas.length ? ' Hueco marcado: ' + huecoTxt() + '.' : '');
   }
-  function drawMap(w, h) {
+  function drawMap(w, h, interactive) {
     var g = geom(w, h), X = dim(state.ej.x), Y = dim(state.ej.y), F = ' font-family="Inter, system-ui, sans-serif"', cid = 'mq' + (++mapN);
     var cw = g.W / 2, ch = g.H / 2;
     var s = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + w + ' ' + h + '" width="' + w + '" height="' + h + '" role="img" aria-label="' + esc(mapSummary()) + '"' + F + '>';
@@ -911,12 +932,22 @@
       s += '</g>';
     }
     /* el hueco lo marca el alumno (paso 5): recuadro de trazos sobre su cuadrante */
-    var hz = ZONAS.filter(function (q) { return q[0] === state.cierre.zona; })[0];
-    if (hz) {
-      var hx = g.L + hz[1] * cw + 7, hy = g.T + hz[2] * ch + 7;
-      s += '<rect x="' + hx + '" y="' + hy + '" width="' + (cw - 14) + '" height="' + (ch - 14) + '" rx="12" fill="#1672A0" fill-opacity=".08" stroke="#1672A0" stroke-width="2.4" stroke-dasharray="8 6"/>' +
-        '<rect x="' + (hx + (cw - 14) / 2 - 38) + '" y="' + (hy + (ch - 14) / 2 - 12) + '" width="76" height="24" rx="12" fill="#1672A0"/>' +
-        '<text x="' + (hx + (cw - 14) / 2) + '" y="' + (hy + (ch - 14) / 2 + 5) + '" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF">Mi hueco</text>';
+    if (state.celdas.length) {
+      var set = {}, sw = g.W / 5, sh = g.H / 5, fills = '', edges = '', mx = 1e9, my = 1e9;
+      state.celdas.forEach(function (k) { set[k] = 1; });
+      state.celdas.forEach(function (k) {
+        var p = celdaXY(k), x0 = g.L + (p[0] - 1) * sw, y0 = g.T + g.H - p[1] * sh;
+        mx = Math.min(mx, x0); my = Math.min(my, y0);
+        fills += '<rect x="' + x0 + '" y="' + y0 + '" width="' + sw + '" height="' + sh + '"/>';
+        if (!set[(p[0] - 1) + ',' + p[1]]) edges += '<line x1="' + x0 + '" y1="' + y0 + '" x2="' + x0 + '" y2="' + (y0 + sh) + '"/>';
+        if (!set[(p[0] + 1) + ',' + p[1]]) edges += '<line x1="' + (x0 + sw) + '" y1="' + y0 + '" x2="' + (x0 + sw) + '" y2="' + (y0 + sh) + '"/>';
+        if (!set[p[0] + ',' + (p[1] + 1)]) edges += '<line x1="' + x0 + '" y1="' + y0 + '" x2="' + (x0 + sw) + '" y2="' + y0 + '"/>';
+        if (!set[p[0] + ',' + (p[1] - 1)]) edges += '<line x1="' + x0 + '" y1="' + (y0 + sh) + '" x2="' + (x0 + sw) + '" y2="' + (y0 + sh) + '"/>';
+      });
+      /* la etiqueta va en la esquina superior izquierda de la zona, lejos de los puntos de los negocios */
+      s += '<g clip-path="url(#' + cid + ')"><g fill="#1672A0" fill-opacity=".2">' + fills + '</g><g stroke="#1672A0" stroke-width="3.2" stroke-linecap="round">' + edges + '</g></g>' +
+        '<rect x="' + (mx + 6) + '" y="' + (my + 6) + '" width="76" height="24" rx="12" fill="#1672A0"/>' +
+        '<text x="' + (mx + 44) + '" y="' + (my + 22) + '" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF">Mi hueco</text>';
     }
     var bx = g.T + g.H;
     s += '<g font-size="12" fill="#4A463F"><text x="' + g.L + '" y="' + (bx + 17) + '">' + esc(X.lo) + '</text><text x="' + (g.L + g.W) + '" y="' + (bx + 17) + '" text-anchor="end">' + esc(X.hi) + '</text>' +
@@ -943,6 +974,16 @@
         '<rect x="' + lx + '" y="' + ly + '" width="' + wd + '" height="22" rx="11" fill="#FFFFFF" stroke="' + col + '" stroke-width="1.6"/>' +
         '<text x="' + (lx + wd / 2) + '" y="' + (ly + 15) + '" text-anchor="middle" font-size="12" font-weight="650" fill="#1E1C1A">' + esc(nm) + '</text></g>';
     });
+    /* en el mapa del paso 5, 25 casillas transparentes que se pueden marcar con el teclado */
+    if (interactive) {
+      var X2 = dim(state.ej.x), Y2 = dim(state.ej.y), cwid = g.W / 5, chei = g.H / 5;
+      s += '<g role="group" aria-label="Casillas del mapa para marcar tu hueco">';
+      for (var yy = 5; yy >= 1; yy--) for (var xx = 1; xx <= 5; xx++) {
+        var kk = xx + ',' + yy, on = state.celdas.indexOf(kk) >= 0;
+        s += '<rect class="hc" data-k="' + kk + '" x="' + (g.L + (xx - 1) * cwid) + '" y="' + (g.T + g.H - yy * chei) + '" width="' + cwid + '" height="' + chei + '" tabindex="' + (kk === focusCell ? 0 : -1) + '" role="checkbox" aria-checked="' + on + '" aria-label="' + esc(X2.n + ': ' + lvlWord(X2.id, xx) + '. ' + Y2.n + ': ' + lvlWord(Y2.id, yy)) + '"/>';
+      }
+      s += '</g>';
+    }
     return s + '</svg>';
   }
   function sizeOf(box) {
@@ -1006,26 +1047,64 @@
   function compareTable(forPrint) {
     var act = activeBiz();
     var h = '<thead><tr><th scope="col"><span class="sr-only">Apartado</span></th>' + act.map(function (b) { return '<th scope="col" style="background:' + COL[b] + '">' + esc(bizName(b)) + '</th>'; }).join('') + '</tr></thead><tbody>';
-    var cell = function (b, v, l) { v = (v || '').trim(); return '<td data-l="' + esc(l) + '" style="background:' + tint(b) + '">' + (v ? esc(v) : '<span class="empty">' + (forPrint ? '—' : 'sin rellenar') + '</span>') + '</td>'; };
+    var cell = function (b, v, l) { if (v === null) return '<td data-l="' + esc(l) + '" style="background:' + tint(b) + '"><span class="empty">—</span></td>'; v = (v || '').trim(); return '<td data-l="' + esc(l) + '" style="background:' + tint(b) + '">' + (v ? esc(v) : '<span class="empty">' + (forPrint ? '—' : 'sin rellenar') + '</span>') + '</td>'; };
     var row = function (label, fn) { return '<tr><th scope="row">' + label + '</th>' + act.map(function (b) { return cell(b, fn(b), bizName(b)); }).join('') + '</tr>'; };
-    h += row('Por qué es competidor', function (b) { return b === 'own' ? '' : (state.comp[+b.slice(1)].tipo === 'indirecto' ? 'Indirecto. ' : 'Directo. ') + state.comp[+b.slice(1)].porque; });
+    h += row('Por qué es competidor', function (b) { return b === 'own' ? null :(state.comp[+b.slice(1)].tipo === 'indirecto' ? 'Indirecto. ' : 'Directo. ') + state.comp[+b.slice(1)].porque; });
     ROWS.forEach(function (r) { h += row(r[0], function (b) { return b === 'own' ? state.emp[r[1]] : state.comp[+b.slice(1)][r[1]]; }); });
     h += row('Posición en el mapa', function (b) { return posTxt(b); });
-    h += row('Fuente', function (b) { return b === 'own' ? '' : state.comp[+b.slice(1)].fuente; });
+    h += row('Fuente', function (b) { return b === 'own' ? null :state.comp[+b.slice(1)].fuente; });
     return h + '</tbody>';
   }
-  function drawZona() {
-    var box = $('#mapBox2'), sz = sizeOf(box);
-    box.innerHTML = drawMap(sz[0], sz[1]);
-    $('#zonas').innerHTML = ZONAS.map(function (q) {
-      return '<label><input type="radio" name="zona" value="' + q[0] + '"' + (state.cierre.zona === q[0] ? ' checked' : '') + '><span>' + esc(zonaTxt(q[0])) + '</span></label>';
-    }).join('') + '<label><input type="radio" name="zona" value="n"' + (state.cierre.zona === 'n' ? ' checked' : '') + '><span>No lo veo en este mapa</span></label>';
+  var focusCell = '3,3', paint = null, zonaW = 600, zonaH = 380;
+  function drawZona(refocus) {
+    var box = $('#mapBox2'), sz = sizeOf(box); zonaW = sz[0]; zonaH = sz[1];
+    box.innerHTML = drawMap(sz[0], sz[1], true);
+    var n = state.celdas.length, av = huecoAvisos();
+    $('#hInfo').textContent = n ? 'Has marcado ' + huecoTxt() + '.' : (state.cierre.zona === 'n' ? 'Has indicado que no ves hueco en este mapa.' : 'Todavía no has marcado ninguna casilla.');
+    $('#hNo').checked = state.cierre.zona === 'n';
+    $('#hClear').disabled = !n;
+    $('#hWarn').hidden = !av.length;
+    $('#hWarnTxt').innerHTML = av.map(function (t) { return esc(t); }).join('<br>');
+    if (refocus) { var f = box.querySelector('[data-k="' + focusCell + '"]'); if (f) f.focus(); }
   }
-  $('#zonas').addEventListener('change', function (e) {
-    if (e.target.name !== 'zona') return;
-    state.cierre.zona = e.target.value; save(true); drawZona();
-    var f = $('#zonas input[value="' + e.target.value + '"]'); if (f) f.focus();
+  /* marcar o desmarcar una casilla; con el ratón se puede arrastrar para pintar varias */
+  function pintar(k, modo) {
+    var i = state.celdas.indexOf(k);
+    if (modo === 'add' && i < 0) state.celdas.push(k);
+    else if (modo === 'del' && i >= 0) state.celdas.splice(i, 1);
+    else return;
+    if (state.celdas.length) state.cierre.zona = '';
+    drawZona(); save(true);
+  }
+  function celdaBajo(e) {
+    var svg = $('#mapBox2 svg'); if (!svg) return null;
+    var r = svg.getBoundingClientRect(), g = geom(zonaW, zonaH), x = e.clientX - r.left - g.L, y = e.clientY - r.top - g.T;
+    if (x < 0 || y < 0 || x >= g.W || y >= g.H) return null;
+    return (Math.floor(x / (g.W / 5)) + 1) + ',' + (5 - Math.floor(y / (g.H / 5)));
+  }
+  var box2 = $('#mapBox2');
+  box2.addEventListener('pointerdown', function (e) {
+    if (e.pointerType !== 'mouse') return;   /* en pantallas táctiles se usa el toque (click), para no bloquear el desplazamiento */
+    var k = celdaBajo(e); if (!k) return;
+    paint = state.celdas.indexOf(k) < 0 ? 'add' : 'del'; focusCell = k;
+    try { box2.setPointerCapture(e.pointerId); } catch (x) {}
+    e.preventDefault(); pintar(k, paint);
   });
+  box2.addEventListener('pointermove', function (e) { if (paint) { var k = celdaBajo(e); if (k) pintar(k, paint); } });
+  ['pointerup', 'pointercancel'].forEach(function (n) { box2.addEventListener(n, function () { paint = null; }); });
+  box2.addEventListener('click', function (e) {
+    if (e.pointerType === 'mouse' || e.pointerType === 'pen' || e.detail === 0) return;
+    var k = celdaBajo(e); if (!k) return;
+    focusCell = k; pintar(k, state.celdas.indexOf(k) < 0 ? 'add' : 'del');
+  });
+  box2.addEventListener('keydown', function (e) {
+    var t = e.target.closest ? e.target.closest('[data-k]') : null; if (!t) return;
+    var p = celdaXY(t.dataset.k), d = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, 1], ArrowDown: [0, -1] }[e.key];
+    if (d) { e.preventDefault(); focusCell = Math.max(1, Math.min(5, p[0] + d[0])) + ',' + Math.max(1, Math.min(5, p[1] + d[1])); drawZona(true); }
+    else if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); focusCell = t.dataset.k; var on = state.celdas.indexOf(focusCell) >= 0; pintar(focusCell, on ? 'del' : 'add'); drawZona(true); }
+  });
+  $('#hClear').addEventListener('click', function () { state.celdas = []; drawZona(); save(true); });
+  $('#hNo').addEventListener('change', function () { state.cierre.zona = this.checked ? 'n' : ''; if (this.checked) state.celdas = []; drawZona(); save(true); });
   function renderCompare() {
     $('#cmp').innerHTML = compareTable();
     drawZona();
@@ -1065,7 +1144,7 @@
     var h = '<section class="pg"><div class="ph"><div><div class="kick">Marketing estratégico · IPE 2</div><h1>Benchmarking de la competencia</h1><div class="sub">' + esc(bizName('own')) + '</div></div><div class="meta"><b>' + esc(state.nombre || 'Sin nombre') + '</b><br>' + hoy + '</div></div>';
     h += '<div class="who">' + activeBiz().map(function (b) { return '<span style="--c:' + COL[b] + '"><i></i>' + esc(bizName(b)) + '</span>'; }).join('') + '</div>';
     h += '<h2><span class="sn">1</span>Mapa de posición</h2><div class="mapfig">' + drawMap(640, mh) + '</div>';
-    h += '<p class="hz">' + (zonaTxt(c.zona) ? 'Mi hueco, marcado en el mapa: <b>' + esc(zonaTxt(c.zona)) + '</b>.' : 'Hueco sin marcar en el mapa.') + ' <span>Las posiciones se comparan solo entre los negocios de este informe.</span></p>';
+    h += '<p class="hz">' + (state.celdas.length ? 'Mi hueco, marcado en el mapa: <b>' + esc(huecoTxt()) + '</b>.' : (c.zona === 'n' ? 'No he visto hueco en este mapa.' : 'Hueco sin marcar en el mapa.')) + ' <span>Las posiciones se comparan solo entre los negocios de este informe.</span></p>';
     h += '<ul>' + insights().slice(0, 1).map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ul>';
     h += '<h2><span class="sn">2</span>Conclusiones</h2>';
     h += '<div class="pq" style="--c:#B5482F"><b>¿Qué hacen mejor que yo?</b><div class="ans">' + ans(c.mejor) + '</div></div>';
@@ -1088,7 +1167,7 @@
       mapa: {
         ejeX: { id: state.ej.x, nombre: dim(state.ej.x).n, niveles1a5: niveles(state.ej.x) },
         ejeY: { id: state.ej.y, nombre: dim(state.ej.y).n, niveles1a5: niveles(state.ej.y) },
-        huecoMarcado: zonaTxt(state.cierre.zona)
+        huecoMarcado: { resumen: huecoTxt(), casillas: state.celdas.map(function (k) { var p = celdaXY(k); return { nivelX: p[0], nivelY: p[1] }; }), sinHuecoEnElMapa: state.cierre.zona === 'n' }
       },
       conclusiones: { mejorQueYo: state.cierre.mejor, hueco: state.cierre.hueco, diferenciasPensadas: state.cierre.pregunta }
     };
@@ -1124,7 +1203,8 @@
       blankComp()],
     c3: false, ej: { x: 'precio', y: 'calidad' },
     niv: { precio: { c1: 1, c0: 2, own: 4 }, calidad: { c1: 1, c0: 3, own: 5 } },
-    cierre: { mejor: 'El vivero tiene más variedad y precios más bajos, y la gran superficie llega a muchísima más gente.', zona: 'tl', hueco: 'Nadie vende plantas fáciles de cuidar, bonitas y listas para regalar con envío a casa: el vivero no vende online y la gran superficie no asesora.', pregunta: 'Que con nosotros recibe la planta con maceta y guía en 48 horas sin ir al polígono, porque ellos no venden por internet.' }
+    celdas: ['3,4', '4,4', '5,4', '3,5', '4,5', '5,5'],
+    cierre: { mejor: 'El vivero tiene más variedad y precios más bajos, y la gran superficie llega a muchísima más gente.', hueco: 'Nadie vende plantas fáciles de cuidar, bonitas y listas para regalar con envío a casa: el vivero no vende online y la gran superficie no asesora.', pregunta: 'Que con nosotros recibe la planta con maceta y guía en 48 horas sin ir al polígono, porque ellos no venden por internet.' }
   };
   $('#btnEj').addEventListener('click', function () {
     var usado = state.emp.nombre.trim() || state.emp.ofrece.trim() || hasContent(state.comp[0]) || hasContent(state.comp[1]);
