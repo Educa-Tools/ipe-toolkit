@@ -187,6 +187,8 @@
   .tabs { display: flex; gap: 8px; flex-wrap: wrap; }
   .tab { border: var(--frame); background: var(--surface); border-radius: 14px; padding: 8px 14px; font-weight: 650; font-size: 14.5px; display: inline-flex; align-items: center; gap: 8px; }
   .tab i { width: 12px; height: 12px; border-radius: 50%; background: var(--c); flex: none; }
+  .tab .tst { font-size: 11.5px; font-weight: 700; border-radius: var(--radius-pill); padding: 1px 8px; background: var(--warn-soft); color: #6E4B00; }
+  .tab .tst.ok { background: var(--ok-soft); color: #3E5A26; }
   .tab[aria-pressed="true"] { background: var(--ink); color: #fff; }
   .tab[aria-pressed="true"] i { box-shadow: 0 0 0 2px #fff; }
 
@@ -220,21 +222,6 @@
   table.cmp tbody tr:last-child > * { border-bottom: 0; }
   table.cmp .empty { color: var(--ink-muted); font-style: italic; }
 
-  /* ---------- Porter ---------- */
-  .via { text-align: left; border: var(--frame); background: var(--surface); border-radius: 18px; padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 6px; transition: transform .2s var(--ease), box-shadow .2s, background .2s; }
-  .via:hover { transform: translateY(-2px); }
-  .via .vn { font-size: 11.5px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--acc-deep); }
-  .via .vt { font-family: var(--font-display); font-weight: 700; font-size: 20px; line-height: 1.15; }
-  .via p { font-size: 14.5px; color: var(--ink-soft); }
-  .via p b { color: var(--ink); }
-  .via[aria-pressed="true"] { background: var(--acc); color: #fff; border-color: var(--acc); box-shadow: 4px 4px 0 var(--ink); }
-  .via[aria-pressed="true"] .vn { color: #CFE6F2; }
-  .via[aria-pressed="true"] p, .via[aria-pressed="true"] p b { color: #fff; }
-  .next-box { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: center; background: var(--lime-soft); border: 1.5px solid var(--ink); box-shadow: var(--sticker); border-radius: 20px; padding: 16px 20px; }
-  .next-box .bigk { font-family: var(--font-display); font-size: 40px; font-weight: 700; line-height: 1; color: var(--olive-deep); }
-  .next-box h3 { font-size: 21px; }
-  .next-box p { font-size: 15px; margin-top: 4px; }
-
   /* ---------- Entrega ---------- */
   .review { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
   .review li { display: flex; gap: 10px; align-items: center; font-size: 14.5px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 7px 12px; }
@@ -266,7 +253,6 @@
   @media (max-width: 520px) {
     .wrap { padding: 0 16px; }
     .toc { grid-template-columns: 1fr; }
-    .next-box { grid-template-columns: 1fr; }
     .ccard-hd .tag { display: none; }
   }
   @media (prefers-reduced-motion: reduce) {
@@ -400,7 +386,7 @@
       <div class="stack" id="compCards"></div>
       <div class="actions"><button class="btn-ghost" type="button" id="btnC3">+ Añadir un tercer competidor</button></div>
     </div>
-    <div class="nav-bottom"><button class="btn-ghost" data-prev>← Anterior</button><button class="btn-main" data-next>Rellenar las fichas →</button></div>
+    <div class="nav-bottom"><button class="btn-ghost" data-prev>← Anterior</button><button class="btn-main" data-next data-check="comp">Rellenar las fichas →</button></div>
   </section>
 
   <!-- 3 · FICHAS -->
@@ -412,14 +398,15 @@
     </div>
     <div class="stack">
       <div class="tabs" id="fichaTabs" role="group" aria-label="Elige un competidor"></div>
+      <div class="note warn" id="fichaWarn" role="status" hidden><span class="tag">Falta</span><p id="fichaWarnTxt"></p></div>
       <div id="fichaPanels"></div>
       <div class="note warn"><span class="tag">Ojo</span><p>Si solo copias el texto de su web, no es un análisis. Resume con tus palabras y fíjate en lo que cuenta: <b>qué promete, a quién y a qué precio</b>.</p></div>
     </div>
-    <div class="nav-bottom"><button class="btn-ghost" data-prev>← Anterior</button><button class="btn-main" data-next>Al mapa →</button></div>
+    <div class="nav-bottom"><button class="btn-ghost" data-prev>← Anterior</button><button class="btn-main" data-next data-check="fichas">Al mapa →</button></div>
   </section>
 
   <!-- 4 · MAPA -->
-  <section class="step" data-title="Mapa" data-desc="Colócalos y busca el hueco" aria-labelledby="t4">
+  <section class="step" data-title="Mapa" data-desc="Colócalos en el mapa" aria-labelledby="t4">
     <div class="step-head">
       <span class="step-num">Paso 4 · Mapa de posición</span>
       <h2 id="t4">Colócalos en el mapa y mira dónde nadie llega</h2>
@@ -463,33 +450,22 @@
       </div>
       <div class="insight" id="insight2"></div>
     </div>
-    <div class="nav-bottom"><button class="btn-ghost" data-prev>← Anterior</button><button class="btn-main" data-next>Hacia la ventaja competitiva →</button></div>
+    <div class="nav-bottom"><button class="btn-ghost" data-prev>← Anterior</button><button class="btn-main" data-next>Una última pregunta →</button></div>
   </section>
 
-  <!-- 6 · VENTAJA -->
-  <section class="step" data-title="Ventaja" data-desc="Hacia Porter" aria-labelledby="t6">
+  <!-- 6 · PARA PENSAR -->
+  <section class="step" data-title="Diferencias" data-desc="Para ir pensando" aria-labelledby="t6">
     <div class="step-head">
-      <span class="step-num">Paso 6 · De la competencia a tu ventaja</span>
-      <h2 id="t6">Una pregunta y una primera intuición</h2>
-      <p>El benchmarking termina cuando sabes <b>por qué te elegirían a ti</b>. Responde a la pregunta y marca hacia dónde te inclinas; lo decidirás con calma en la siguiente práctica.</p>
+      <span class="step-num">Paso 6 · Para ir pensando</span>
+      <h2 id="t6">¿En qué nos diferenciamos?</h2>
+      <p>Con la competencia ya a la vista, párate un momento: ¿qué creemos que nos distingue de ellos y por qué un cliente nos elegiría a nosotros? Lo profundizarás en la siguiente herramienta, <b>Ventaja competitiva</b>.</p>
     </div>
     <div class="stack">
       <div class="field">
-        <label class="flab" for="f-preg">Piensa en una persona que hoy compra a <span data-name="c0">tu primer competidor</span>. ¿Qué le dirías para que se pase a ti?</label>
-        <span class="fhelp">Apóyate en un dato concreto de tu cuadro (un precio, un canal, algo que ellos no ofrecen). Sin dato, es solo una frase bonita.</span>
+        <label class="flab" for="f-preg">En una o dos frases: ¿en qué nos diferenciamos de <span data-name="c0">tu primer competidor</span> y del resto?</label>
+        <span class="fhelp">Apóyate en algún dato de tu cuadro (un precio, un canal, algo que ellos no ofrecen). Es una primera idea: la podrás cambiar.</span>
         <textarea id="f-preg" data-bind="cierre.pregunta" maxlength="700" rows="4"></textarea>
-        <span class="fex"><b>Ej.:</b> Que con nosotros recibe la planta con maceta y guía en 48 horas sin ir al polígono, porque ellos no venden por internet.</span>
-      </div>
-      <div class="quiz-head"><h3 style="font-size:21px">Las tres vías de Porter</h3></div>
-      <p class="muted" style="margin-top:-8px">Según Michael Porter, una empresa consigue ventaja sobre sus rivales por una de estas tres vías. Toca la que más se parece a lo que ves en tu mapa.</p>
-      <div class="grid3" id="vias" role="group" aria-label="Elige una vía"></div>
-      <div class="insight" id="insight3"></div>
-      <div class="next-box">
-        <span class="bigk" aria-hidden="true">→</span>
-        <div>
-          <h3>Siguiente práctica: elegir tu ventaja competitiva</h3>
-          <p>Escogerás <b>una</b> de las tres vías (liderazgo en costes, diferenciación o enfoque) y la justificarás con lo que has descubierto aquí. Lleva tu archivo de progreso a mano: es tu base de datos sobre la competencia.</p>
-        </div>
+        <span class="fex"><b>Ej.:</b> Que recibes la planta con maceta y guía en 48 horas sin ir al polígono, porque ellos no venden por internet.</span>
       </div>
     </div>
     <div class="nav-bottom"><button class="btn-ghost" data-prev>← Anterior</button><button class="btn-main" data-next>Entregar y guardar →</button></div>
@@ -551,11 +527,12 @@
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
   var str = function (x, n) { return typeof x === 'string' ? x.slice(0, n || 700) : ''; };
-  var num = function (x, d) { x = +x; return isFinite(x) ? Math.max(1, Math.min(10, x)) : d; };
+  /* nivel de 1 a 5; si llega un valor de la escala antigua (1 a 10), se convierte */
+  var num = function (x, d) { x = +x; if (!isFinite(x)) return d; if (x > 5) x = 1 + (x - 1) / 9 * 4; return Math.max(1, Math.min(5, Math.round(x))); };
 
   /* ---------- Datos fijos ---------- */
   var DIMS = [
-    { id: 'precio', n: 'Precio', lo: 'Más barato', hi: 'Más caro', q: 'Compara los precios de las fichas: 1 es lo más barato de este mercado y 10 lo más caro.' },
+    { id: 'precio', n: 'Precio', lo: 'Más barato', hi: 'Más caro', q: 'Compara los precios de las fichas entre sí.' },
     { id: 'calidad', n: 'Calidad percibida', lo: 'Básica', hi: 'Premium', q: 'Piensa en cómo lo ve el cliente: materiales, acabado, marca, reseñas.' },
     { id: 'especializacion', n: 'Especialización', lo: 'Generalista', hi: 'Especialista', q: 'Un generalista vende de todo para todos; un especialista se centra en un tipo de cliente o de producto.' },
     { id: 'cercania', n: 'Cercanía y trato', lo: 'Impersonal', hi: 'Muy cercano', q: 'Asesoramiento, trato personal, conocimiento del cliente, atención posventa.' },
@@ -565,15 +542,9 @@
   var dim = function (id) { return DIMS.filter(function (d) { return d.id === id; })[0] || DIMS[0]; };
   var BIZ = ['own', 'c0', 'c1', 'c2'];
   var COL = { own: '#6B7028', c0: '#1672A0', c1: '#B5482F', c2: '#946500' };
-  var DEF = { own: [5.5, 5.5], c0: [3, 8], c1: [8, 3], c2: [8, 8] };
-  var VIAS = [
-    { id: 'costes', n: 'Vía 1', t: 'Liderazgo en costes', d: 'Ser quien ofrece lo mismo al precio más bajo, sin perder lo básico.',
-      c: '<b>Encaja si</b> puedes producir, comprar o gestionar con menos coste que los demás (volumen, procesos simples, poca estructura). <b>Riesgo:</b> una guerra de precios.' },
-    { id: 'diferenciacion', n: 'Vía 2', t: 'Diferenciación', d: 'Ofrecer algo distinto que el cliente valore y por lo que acepte pagar más.',
-      c: '<b>Encaja si</b> hay clientes que pagan por calidad, diseño, servicio o marca. <b>Riesgo:</b> que no lo valoren lo bastante o que te copien.' },
-    { id: 'enfoque', n: 'Vía 3', t: 'Enfoque o especialización', d: 'Centrarte en un grupo concreto o un nicho y servirlo mejor que nadie.',
-      c: '<b>Encaja si</b> los grandes no atienden bien a un segmento. <b>Riesgo:</b> que el nicho sea demasiado pequeño.' }
-  ];
+  /* posición sin colocar: dónde se dibuja el punto hasta que se elige nivel (1 a 5) */
+  var DEF = { own: [3, 3], c0: [2, 4], c1: [4, 2], c2: [4, 4] };
+  var lvlTxt = function (D, v) { return [D.lo, 'Tirando a ' + D.lo.toLowerCase(), 'Intermedio', 'Tirando a ' + D.hi.toLowerCase(), D.hi][v - 1]; };
   var OWN_FIELDS = [
     ['ofrece', '¿Qué ofreces?', 'Tus productos o servicios principales y lo que incluyen.', 'Plantas de interior fáciles de cuidar, con maceta de diseño y guía de cuidados en papel.'],
     ['publico', '¿A quién se lo ofreces?', 'El cliente al que te diriges. Si ya tienes el buyer persona, resúmelo aquí.', 'Gente joven de ciudad, con poco tiempo y pisos pequeños.'],
@@ -596,8 +567,8 @@
     return { step: 0, visited: [0], nombre: '',
       emp: { nombre: '', ofrece: '', publico: '', precio: '', canal: '', comunica: '', dif: '' },
       comp: [blankComp(), blankComp(), blankComp()], c3: false,
-      ej: { x: 'precio', y: 'calidad' }, pos: {}, placed: {},
-      cierre: { mejor: '', hueco: '', pregunta: '' }, via: '' };
+      ej: { x: 'precio', y: 'calidad' }, pos: {},
+      cierre: { mejor: '', hueco: '', pregunta: '' } };
   };
   var state = blankState();
   function apply(s) {
@@ -619,11 +590,9 @@
     if (s.pos && typeof s.pos === 'object') BIZ.forEach(function (b) {
       if (!s.pos[b] || typeof s.pos[b] !== 'object') return;
       state.pos[b] = {};
-      DIMS.forEach(function (d) { if (s.pos[b][d.id] != null) state.pos[b][d.id] = num(s.pos[b][d.id], 5.5); });
+      DIMS.forEach(function (d) { if (s.pos[b][d.id] != null) state.pos[b][d.id] = num(s.pos[b][d.id], 3); });
     });
-    if (s.placed && typeof s.placed === 'object') BIZ.forEach(function (b) { state.placed[b] = !!s.placed[b]; });
     if (s.cierre && typeof s.cierre === 'object') Object.keys(state.cierre).forEach(function (k) { state.cierre[k] = str(s.cierre[k], 700); });
-    state.via = VIAS.some(function (v) { return v.id === s.via; }) ? s.via : '';
   }
   try { apply(JSON.parse(localStorage.getItem(KEY) || 'null')); } catch (e) {}
   var saveTimer;
@@ -641,76 +610,36 @@
     return state.comp[i].nombre.trim() || ('Competidor ' + (i + 1));
   }
   function getVal(b, d, role) { var v = state.pos[b] && state.pos[b][d]; return v != null ? v : DEF[b][role]; }
-  function setVal(b, role, v) {
-    var d = state.ej[role]; (state.pos[b] = state.pos[b] || {})[d] = Math.round(num(v, 5.5) * 2) / 2; state.placed[b] = true;
-  }
+  function setVal(b, role, v) { (state.pos[b] = state.pos[b] || {})[state.ej[role]] = num(v, 3); }
   var xy = function (b) { return [getVal(b, state.ej.x, 0), getVal(b, state.ej.y, 1)]; };
+  /* un negocio está colocado cuando tiene nivel en los dos ejes que se ven ahora */
+  var isPlaced = function (b) { var p = state.pos[b]; return !!p && p[state.ej.x] != null && p[state.ej.y] != null; };
 
   /* ---------- Cálculos del mapa (puros, con autocomprobación) ---------- */
-  function huecoDe(pts) {
-    if (!pts || pts.length < 2) return null;
-    var best = null, bs = -Infinity;
-    for (var x = 1.5; x <= 9.5; x += .5) for (var y = 1.5; y <= 9.5; y += .5) {
-      var m = Infinity;
-      pts.forEach(function (p) { m = Math.min(m, Math.hypot(p[0] - x, p[1] - y)); });
-      /* las esquinas siempre quedan lejos de todos: se prefiere el espacio libre más cercano al centro */
-      var sc = m - .35 * Math.hypot(x - 5.5, y - 5.5);
-      if (sc > bs + 1e-9) { bs = sc; best = { x: x, y: y, r: m }; }
-    }
-    return best;
-  }
   function masCercano(p, pts) {
     var best = null;
     pts.forEach(function (q, i) { var d = Math.hypot(p[0] - q[0], p[1] - q[1]); if (!best || d < best.d) best = { i: i, d: d }; });
     return best;
   }
   (function selfTest() {
-    var h = huecoDe([[2, 2], [9, 9]]);
-    console.assert(h && h.x >= 1.5 && h.x <= 9.5 && h.y >= 1.5 && h.y <= 9.5, 'huecoDe: fuera de rango');
-    console.assert(h.r > 4, 'huecoDe: debería quedar lejos de ambos');
-    console.assert(huecoDe([[5, 5]]) === null, 'huecoDe: hacen falta dos competidores');
-    console.assert(masCercano([1, 1], [[1, 2], [9, 9]]).i === 0, 'masCercano: índice');
+    console.assert(masCercano([1, 1], [[1, 2], [5, 5]]).i === 0, 'masCercano: índice');
     console.assert(Math.abs(masCercano([1, 1], [[4, 5]]).d - 5) < 1e-9, 'masCercano: distancia 3-4-5');
-    console.assert(num('x', 5.5) === 5.5 && num(99, 1) === 10 && num(-3, 1) === 1, 'num: límites');
+    console.assert(masCercano([2, 2], [[2, 2]]).d === 0, 'masCercano: mismo punto');
+    console.assert(num('x', 3) === 3 && num(99, 1) === 5 && num(-3, 1) === 1, 'num: límites');
+    console.assert(num(10, 3) === 5 && num(5.5, 3) === 3 && num(1, 3) === 1, 'num: escala antigua');
   })();
 
-  function zonaTxt(x, y) {
-    var X = dim(state.ej.x), Y = dim(state.ej.y);
-    var t = function (v, d) { return v <= 4 ? 'tirando a «' + d.lo.toLowerCase() + '»' : (v >= 7 ? 'tirando a «' + d.hi.toLowerCase() + '»' : 'a medio camino'); };
-    return t(x, X) + ' en ' + X.n.toLowerCase() + ' y ' + t(y, Y) + ' en ' + Y.n.toLowerCase();
-  }
   function insights() {
-    var act = activeBiz(), comps = act.filter(function (b) { return b !== 'own'; });
-    var placedC = comps.filter(function (b) { return state.placed[b]; });
-    var out = [];
-    if (!state.placed.own || placedC.length < 2) {
-      return ['Coloca tu empresa y al menos a dos competidores para que el mapa te diga dónde hay espacio.'];
-    }
-    var pts = placedC.map(xy), me = xy('own'), near = masCercano(me, pts);
-    var nn = bizName(placedC[near.i]);
-    if (near.d < 1.5) out.push('Estás muy pegado a <b>' + esc(nn) + '</b>. Si quieres que te elijan a ti, tendrás que explicar qué te diferencia de él.');
-    else if (near.d >= 3.5) out.push('Estás bastante lejos de todos; el más cercano es <b>' + esc(nn) + '</b>. Comprueba que en tu zona del mapa hay clientes que de verdad compran.');
+    var comps = activeBiz().filter(function (b) { return b !== 'own'; });
+    var placedC = comps.filter(isPlaced);
+    if (!isPlaced('own') || placedC.length < 2) return ['Coloca tu empresa y al menos a dos competidores para que el mapa te dé pistas.'];
+    var near = masCercano(xy('own'), placedC.map(xy)), nn = bizName(placedC[near.i]), out = [];
+    if (near.d === 0) out.push('Estás en el mismo punto que <b>' + esc(nn) + '</b>: el cliente no ve diferencia en estos dos ejes. ¿En qué más podrías distinguirte?');
+    else if (near.d < 1.5) out.push('Estás muy cerca de <b>' + esc(nn) + '</b>. Si quieres que te elijan a ti, tendrás que explicar qué te diferencia de él.');
+    else if (near.d >= 3) out.push('Estás bastante lejos de todos; el más cercano es <b>' + esc(nn) + '</b>. Comprueba que ahí hay clientes que de verdad compran.');
     else out.push('El competidor más cercano a ti es <b>' + esc(nn) + '</b>: os separa una distancia media en el mapa.');
-    var h = huecoDe(pts);
-    if (h) out.push('La zona con más espacio libre está ' + esc(zonaTxt(h.x, h.y)) + '.');
-    var pl = porterPista();
-    if (pl) out.push(pl.txt);
+    out.push('Mira los espacios donde no hay nadie y pregúntate: ¿es porque nadie ha llegado todavía o porque ahí no hay clientes?');
     return out;
-  }
-  function porterPista() {
-    var comps = activeBiz().filter(function (b) { return b !== 'own' && state.placed[b]; });
-    if (!state.placed.own || comps.length < 2) return null;
-    var role = state.ej.x === 'precio' ? 0 : (state.ej.y === 'precio' ? 1 : -1);
-    var avg = function (r) { return comps.reduce(function (a, b) { return a + xy(b)[r]; }, 0) / comps.length; };
-    var other = role === -1 ? 0 : 1 - role;
-    var od = state.ej[other ? 'y' : 'x'], me = xy('own');
-    var oAvg = avg(other), oDiff = me[other] - oAvg;
-    if (od === 'especializacion' && oDiff >= 1.5) return { via: 'enfoque', txt: 'Pista para Porter: eres bastante más especialista que la competencia; eso se parece a la vía del <b>enfoque</b>.' };
-    if (role === -1) return null;
-    var pDiff = me[role] - avg(role);
-    if (pDiff <= -1.5) return { via: 'costes', txt: 'Pista para Porter: tu precio está claramente por debajo de la media de la competencia; eso se parece a <b>liderazgo en costes</b>.' };
-    if (pDiff >= -.5 && oDiff >= 1.5) return { via: 'diferenciacion', txt: 'Pista para Porter: cobras igual o más y destacas en «' + esc(dim(od).n.toLowerCase()) + '»; eso se parece a la <b>diferenciación</b>.' };
-    return { via: '', txt: 'Pista para Porter: con estos ejes tu posición no apunta con claridad a ninguna vía. Prueba con otros ejes o apóyate en lo que has escrito.' };
   }
 
   /* ---------- Campos enlazados ---------- */
@@ -738,7 +667,8 @@
 
   $('#fichaPanels').innerHTML = [0, 1, 2].map(function (i) {
     return '<div class="ccard" id="fp' + i + '" style="--c:' + COL[CCOLOR[i]] + '" hidden><div class="ccard-hd"><span class="cn" aria-hidden="true">' + (i + 1) + '</span><h3 data-name="c' + i + '">Competidor ' + (i + 1) + '</h3></div><div class="ccard-bd">' +
-      COMP_FIELDS.map(function (f) { return fieldHtml('comp.' + i + '.' + f[0], 'f' + i + '-' + f[0], f); }).join('') + '</div></div>';
+      COMP_FIELDS.map(function (f) { return fieldHtml('comp.' + i + '.' + f[0], 'f' + i + '-' + f[0], f); }).join('') +
+      (i < 2 ? '<div class="actions"><button type="button" class="btn-ghost" data-tabnext="' + (i + 1) + '" id="tn' + i + '">Siguiente competidor →</button></div>' : '') + '</div></div>';
   }).join('');
 
   function fillBinds() {
@@ -748,11 +678,11 @@
   }
   function updateNames() {
     [0, 1, 2].forEach(function (i) { $$('[data-name="c' + i + '"]').forEach(function (el) { el.textContent = bizName('c' + i); }); });
-    $$('#fichaTabs .tab span').forEach(function (el) { el.textContent = bizName(el.dataset.n); });
+    $$('#fichaTabs .tab span[data-n]').forEach(function (el) { el.textContent = bizName(el.dataset.n); });
   }
   document.addEventListener('input', function (e) {
     var t = e.target;
-    if (t.dataset && t.dataset.bind) { setp(t.dataset.bind, t.value); updateNames(); save(true); }
+    if (t.dataset && t.dataset.bind) { setp(t.dataset.bind, t.value); updateNames(); save(true); if (state.step === 3) drawTabs(); }
     if (t.id === 'cNombre') { state.nombre = t.value; save(true); }
   });
   document.addEventListener('change', function (e) {
@@ -772,21 +702,51 @@
   $('#btnC3').addEventListener('click', function () {
     if (state.c3) {
       if (hasContent(state.comp[2]) && !confirm('Se borrarán los datos del tercer competidor. ¿Seguro?')) return;
-      state.c3 = false; state.comp[2] = blankComp(); delete state.pos.c2; state.placed.c2 = false;
+      state.c3 = false; state.comp[2] = blankComp(); delete state.pos.c2;
       fillBinds();
     } else state.c3 = true;
     syncC3(); save();
   });
+  /* lo que falta de cada competidor, para avisar al cambiar de pestaña o de paso */
+  function fichaFalta(i) {
+    var c = state.comp[i], t = function (s) { return !!s.trim(); }, f = [];
+    if (!t(c.ofrece)) f.push('qué ofrece');
+    if (!t(c.precio)) f.push('a cuánto');
+    if (!t(c.canal) && !t(c.comunica)) f.push('cómo lo vende o lo da a conocer');
+    if (!t(c.fuente)) f.push('la fuente de los datos');
+    return f;
+  }
+  function compFalta(i) {
+    var c = state.comp[i], f = [];
+    if (!c.nombre.trim()) f.push('el nombre');
+    if (!c.porque.trim()) f.push('por qué es competidor');
+    return f;
+  }
+  function faltas(fn) {
+    var out = [];
+    [0, 1].concat(state.c3 ? [2] : []).forEach(function (i) { var f = fn(i); if (f.length) out.push(bizName('c' + i) + ': ' + f.join(', ')); });
+    return out;
+  }
   function drawTabs() {
     var n = state.c3 ? 3 : 2;
     $('#fichaTabs').innerHTML = [0, 1, 2].slice(0, n).map(function (i) {
-      return '<button type="button" class="tab" data-tab="' + i + '" aria-pressed="' + (tab === i) + '" style="--c:' + COL[CCOLOR[i]] + '"><i aria-hidden="true"></i><span data-n="c' + i + '">' + esc(bizName('c' + i)) + '</span></button>';
+      var ok = !fichaFalta(i).length;
+      return '<button type="button" class="tab" data-tab="' + i + '" aria-pressed="' + (tab === i) + '" style="--c:' + COL[CCOLOR[i]] + '"><i aria-hidden="true"></i><span data-n="c' + i + '">' + esc(bizName('c' + i)) + '</span><span class="tst' + (ok ? ' ok' : '') + '">' + (ok ? '✓ Completa' : 'Faltan datos') + '</span></button>';
     }).join('');
     [0, 1, 2].forEach(function (i) { $('#fp' + i).hidden = (i !== tab) || (i === 2 && !state.c3); });
+    var tn = $('#tn1'); if (tn) tn.hidden = !state.c3;
+    var fl = faltas(fichaFalta);
+    $('#fichaWarn').hidden = !fl.length;
+    $('#fichaWarnTxt').innerHTML = fl.length ? 'Todavía te falta esto, para que no se te pase al cambiar de competidor:<br>' + fl.map(function (x) { return '· ' + esc(x); }).join('<br>') : '';
   }
   $('#fichaTabs').addEventListener('click', function (e) {
     var b = e.target.closest('[data-tab]'); if (!b) return;
     tab = +b.dataset.tab; drawTabs();
+    var nb = $('[data-tab="' + tab + '"]'); if (nb) nb.focus();
+  });
+  $('#fichaPanels').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-tabnext]'); if (!b) return;
+    tab = +b.dataset.tabnext; drawTabs(); window.scrollTo({ top: 0 });
     var nb = $('[data-tab="' + tab + '"]'); if (nb) nb.focus();
   });
 
@@ -815,49 +775,49 @@
     if (i === 3) drawTabs();
     if (i === 4) { buildSliders(); drawAll(); }
     if (i === 5) { renderCompare(); }
-    if (i === 6) renderVias();
     if (i === 7) renderReview();
     if (scroll !== false) window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
     save();
   }
   document.addEventListener('click', function (e) {
     var g = e.target.closest('[data-go]'); if (g) { show(+g.dataset.go); return; }
-    if (e.target.closest('[data-next]')) show(state.step + 1);
+    var nx = e.target.closest('[data-next]');
+    if (nx) {
+      var falta = nx.dataset.check === 'comp' ? faltas(compFalta) : (nx.dataset.check === 'fichas' ? faltas(fichaFalta) : []);
+      if (falta.length && !confirm('Aún te falta esto:\n\n' + falta.join('\n') + '\n\n¿Quieres seguir de todas formas?')) return;
+      show(state.step + 1);
+    }
     if (e.target.closest('[data-prev]')) show(state.step - 1);
   });
 
   /* ---------- Mapa ---------- */
   var mapBox = $('#mapBox'), mapW = 600, mapH = 380;
   var geom = function (w, h) { return { L: 42, T: 12, R: 12, B: 50, W: w - 54, H: h - 62 }; };
-  var px = function (g, v) { return g.L + (v - 1) / 9 * g.W; };
-  var py = function (g, v) { return g.T + g.H - (v - 1) / 9 * g.H; };
+  /* cinco niveles por eje: cada nivel ocupa una casilla del mapa y el punto va en su centro */
+  var px = function (g, v) { return g.L + (v - .5) / 5 * g.W; };
+  var py = function (g, v) { return g.T + g.H - (v - .5) / 5 * g.H; };
   function mapSummary() {
     var X = dim(state.ej.x), Y = dim(state.ej.y);
     return 'Mapa de posición. Eje horizontal: ' + X.n + ', de «' + X.lo + '» a «' + X.hi + '». Eje vertical: ' + Y.n + ', de «' + Y.lo + '» a «' + Y.hi + '». ' +
-      activeBiz().map(function (b) { var p = xy(b); return bizName(b) + ': ' + p[0] + ' y ' + p[1] + (state.placed[b] ? '' : ' (sin colocar)'); }).join('; ') + '.';
+      activeBiz().map(function (b) { var p = xy(b); return bizName(b) + (isPlaced(b) ? ': ' + X.n + ' ' + lvlTxt(X, p[0]).toLowerCase() + ', ' + Y.n + ' ' + lvlTxt(Y, p[1]).toLowerCase() : ': sin colocar'); }).join('; ') + '.';
   }
-  function drawMap(w, h, uid) {
+  function drawMap(w, h) {
     var g = geom(w, h), X = dim(state.ej.x), Y = dim(state.ej.y), F = ' font-family="Inter, system-ui, sans-serif"';
-    var placedC = activeBiz().filter(function (b) { return b !== 'own' && state.placed[b]; });
-    var hc = huecoDe(placedC.map(xy));
     var s = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + w + ' ' + h + '" width="' + w + '" height="' + h + '" role="img" aria-label="' + esc(mapSummary()) + '"' + F + '>';
-    s += '<defs><clipPath id="clip' + uid + '"><rect x="' + g.L + '" y="' + g.T + '" width="' + g.W + '" height="' + g.H + '" rx="10"/></clipPath></defs>';
     s += '<rect x="' + g.L + '" y="' + g.T + '" width="' + g.W + '" height="' + g.H + '" rx="10" fill="#FBFCEF" stroke="#8B847A" stroke-width="1"/>';
     s += '<g stroke="#E8E1D6" stroke-width="1">';
-    [4, 7].forEach(function (v) { s += '<line x1="' + px(g, v) + '" y1="' + g.T + '" x2="' + px(g, v) + '" y2="' + (g.T + g.H) + '"/><line x1="' + g.L + '" y1="' + py(g, v) + '" x2="' + (g.L + g.W) + '" y2="' + py(g, v) + '"/>'; });
-    s += '</g><g stroke="#8B847A" stroke-width="1" stroke-dasharray="4 4"><line x1="' + px(g, 5.5) + '" y1="' + g.T + '" x2="' + px(g, 5.5) + '" y2="' + (g.T + g.H) + '"/><line x1="' + g.L + '" y1="' + py(g, 5.5) + '" x2="' + (g.L + g.W) + '" y2="' + py(g, 5.5) + '"/></g>';
+    [1.5, 2.5, 3.5, 4.5].forEach(function (v) { s += '<line x1="' + px(g, v) + '" y1="' + g.T + '" x2="' + px(g, v) + '" y2="' + (g.T + g.H) + '"/><line x1="' + g.L + '" y1="' + py(g, v) + '" x2="' + (g.L + g.W) + '" y2="' + py(g, v) + '"/>'; });
     var bx = g.T + g.H;
-    s += '<g font-size="12" fill="#4A463F"><text x="' + g.L + '" y="' + (bx + 17) + '">' + esc(X.lo) + '</text><text x="' + (g.L + g.W) + '" y="' + (bx + 17) + '" text-anchor="end">' + esc(X.hi) + '</text>' +
+    s += '</g><g font-size="12" fill="#4A463F"><text x="' + g.L + '" y="' + (bx + 17) + '">' + esc(X.lo) + '</text><text x="' + (g.L + g.W) + '" y="' + (bx + 17) + '" text-anchor="end">' + esc(X.hi) + '</text>' +
       '<text x="' + (g.L + g.W / 2) + '" y="' + (bx + 38) + '" text-anchor="middle" font-weight="700" fill="#1E1C1A" font-size="13">' + esc(X.n) + ' →</text>' +
       '<text transform="translate(31 ' + bx + ') rotate(-90)" text-anchor="start">' + esc(Y.lo) + '</text><text transform="translate(31 ' + g.T + ') rotate(-90)" text-anchor="end">' + esc(Y.hi) + '</text>' +
       '<text transform="translate(13 ' + (g.T + g.H / 2) + ') rotate(-90)" text-anchor="middle" font-weight="700" fill="#1E1C1A" font-size="13">' + esc(Y.n) + ' →</text></g>';
-    if (hc) {
-      var r = Math.min(hc.r, 3.2) * g.W / 9;
-      s += '<g clip-path="url(#clip' + uid + ')"><circle cx="' + px(g, hc.x) + '" cy="' + py(g, hc.y) + '" r="' + r + '" fill="#1672A0" fill-opacity=".1" stroke="#1672A0" stroke-width="2" stroke-dasharray="6 5"/></g>' +
-        '<text x="' + Math.max(g.L + 36, Math.min(g.L + g.W - 36, px(g, hc.x))) + '" y="' + Math.max(g.T + 16, Math.min(g.T + g.H - 8, py(g, hc.y) + 4)) + '" text-anchor="middle" font-size="13" font-weight="700" fill="#0E4F70" stroke="#FBFCEF" stroke-width="3" paint-order="stroke">Zona libre</text>';
-    }
-    activeBiz().forEach(function (b, k) {
-      var p = xy(b), cx = px(g, p[0]), cy = py(g, p[1]), col = COL[b], pl = state.placed[b];
+    /* si dos negocios caen en la misma casilla, se separan un poco para que se vean los dos */
+    var act = activeBiz(), seen = {};
+    act.forEach(function (b) { var p = xy(b), k = p[0] + ',' + p[1]; (seen[k] = seen[k] || []).push(b); });
+    act.forEach(function (b) {
+      var p = xy(b), grp = seen[p[0] + ',' + p[1]], off = (grp.indexOf(b) - (grp.length - 1) / 2) * 24;
+      var cx = px(g, p[0]) + off, cy = py(g, p[1]), col = COL[b], pl = isPlaced(b);
       var nm = bizName(b); if (nm.length > 20) nm = nm.slice(0, 19) + '…';
       var anchor = cx < g.L + 50 ? 'start' : (cx > g.L + g.W - 50 ? 'end' : 'middle'), lx = anchor === 'start' ? cx - 14 : (anchor === 'end' ? cx + 14 : cx);
       var ly = cy > g.T + g.H - 36 ? cy - 24 : cy + 33;
@@ -872,7 +832,7 @@
   function drawAll() {
     mapW = Math.max(300, Math.min(960, mapBox.clientWidth || 600));
     mapH = mapW < 520 ? Math.round(mapW * 1.05) : Math.round(mapW * .62);
-    mapBox.innerHTML = drawMap(mapW, mapH, 'a');
+    mapBox.innerHTML = drawMap(mapW, mapH);
     var ul = '<ul>' + insights().map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ul>';
     $('#insight').innerHTML = '<h3>Lo que dice tu mapa</h3>' + ul;
   }
@@ -890,39 +850,36 @@
   $('#selX').addEventListener('change', function () { onAxis('x'); });
   $('#selY').addEventListener('change', function () { onAxis('y'); });
 
+  /* Una lista desplegable por negocio y eje: cinco niveles con palabras, de un extremo al otro */
   function buildSliders() {
     syncSelects();
-    $('#sliders').innerHTML = activeBiz().map(function (b) {
-      var X = dim(state.ej.x), Y = dim(state.ej.y), px_ = xy(b);
-      var rg = function (role, D, v) {
-        return '<div><label for="rg-' + b + '-' + role + '"><span>' + esc(D.n) + '</span><output id="o-' + b + '-' + role + '">' + v + '</output></label>' +
-          '<input type="range" id="rg-' + b + '-' + role + '" data-b="' + b + '" data-role="' + role + '" min="1" max="10" step="0.5" value="' + v + '" aria-describedby="h-' + role + '"><div class="ends"><span>' + esc(D.lo) + '</span><span>' + esc(D.hi) + '</span></div></div>';
+    var act = activeBiz();
+    $('#sliders').innerHTML = act.map(function (b) {
+      var field = function (role) {
+        var D = dim(state.ej[role]), cur = state.pos[b] && state.pos[b][D.id];
+        return '<div class="field"><label class="flab" for="rg-' + b + '-' + role + '">' + esc(D.n) + '</label>' +
+          '<select id="rg-' + b + '-' + role + '" data-b="' + b + '" data-role="' + role + '">' +
+          '<option value=""' + (cur == null ? ' selected' : '') + ' disabled>Elige un nivel…</option>' +
+          [1, 2, 3, 4, 5].map(function (v) { return '<option value="' + v + '"' + (cur === v ? ' selected' : '') + '>' + esc(lvlTxt(D, v)) + '</option>'; }).join('') + '</select></div>';
       };
-      return '<div class="slc" style="--c:' + COL[b] + '"><h4>' + esc(bizName(b)) + ' <span class="st' + (state.placed[b] ? ' ok' : '') + '" id="st-' + b + '">' + (state.placed[b] ? 'Colocado' : 'Sin colocar') + '</span></h4>' +
-        rg('x', X, px_[0]) + rg('y', Y, px_[1]) + '</div>';
-    }).join('') + '<p class="hint" id="h-x" style="grid-column:1/-1">' + esc(dim(state.ej.x).q) + ' ' + esc(dim(state.ej.y).q) + '</p><span id="h-y" hidden></span>';
-    $$('#sliders input[type=range]').forEach(aria);
-  }
-  function aria(el) {
-    var D = dim(state.ej[el.dataset.role]);
-    el.setAttribute('aria-valuetext', el.value + ' de 10, entre «' + D.lo + '» y «' + D.hi + '»');
+      return '<div class="slc" style="--c:' + COL[b] + '"><h4>' + esc(bizName(b)) + ' <span class="st' + (isPlaced(b) ? ' ok' : '') + '" id="st-' + b + '">' + (isPlaced(b) ? 'Colocado' : 'Sin colocar') + '</span></h4>' + field('x') + field('y') + '</div>';
+    }).join('') + '<p class="hint" style="grid-column:1/-1">' + esc(dim(state.ej.x).q) + ' ' + esc(dim(state.ej.y).q) + '</p>';
   }
   function syncOne(b) {
-    ['x', 'y'].forEach(function (r, k) {
-      var el = $('#rg-' + b + '-' + r), v = xy(b)[k];
-      if (el) { el.value = v; aria(el); }
-      var o = $('#o-' + b + '-' + r); if (o) o.textContent = v;
+    ['x', 'y'].forEach(function (r) {
+      var el = $('#rg-' + b + '-' + r), v = state.pos[b] && state.pos[b][state.ej[r]];
+      if (el && v != null) el.value = v;
     });
-    var st = $('#st-' + b); if (st) { st.textContent = 'Colocado'; st.classList.add('ok'); }
+    var st = $('#st-' + b); if (st) { var ok = isPlaced(b); st.textContent = ok ? 'Colocado' : 'Sin colocar'; st.classList.toggle('ok', ok); }
   }
-  $('#sliders').addEventListener('input', function (e) {
-    var t = e.target; if (!t.dataset.b) return;
+  $('#sliders').addEventListener('change', function (e) {
+    var t = e.target; if (!t.dataset.b || t.value === '') return;
     setVal(t.dataset.b, t.dataset.role, t.value); syncOne(t.dataset.b); drawAll(); save(true);
   });
   var drag = null;
   function moveTo(e) {
     var r = mapBox.querySelector('svg').getBoundingClientRect(), g = geom(mapW, mapH);
-    var vx = 1 + (e.clientX - r.left - g.L) / g.W * 9, vy = 1 + (g.T + g.H - (e.clientY - r.top)) / g.H * 9;
+    var vx = .5 + (e.clientX - r.left - g.L) / g.W * 5, vy = .5 + (g.T + g.H - (e.clientY - r.top)) / g.H * 5;
     setVal(drag, 'x', vx); setVal(drag, 'y', vy); syncOne(drag); drawAll();
   }
   mapBox.addEventListener('pointerdown', function (e) {
@@ -937,8 +894,8 @@
   var ROWS = [['Qué ofrece', 'ofrece'], ['A cuánto', 'precio'], ['Cómo lo vende', 'canal'], ['Cómo lo da a conocer', 'comunica']];
   function cell(v, l) { v = (v || '').trim(); return '<td data-l="' + esc(l) + '">' + (v ? esc(v) : '<span class="empty">sin rellenar</span>') + '</td>'; }
   function posTxt(b) {
-    if (!state.placed[b]) return 'sin colocar';
-    var p = xy(b); return dim(state.ej.x).n + ': ' + p[0] + '/10 · ' + dim(state.ej.y).n + ': ' + p[1] + '/10';
+    if (!isPlaced(b)) return 'sin colocar';
+    var p = xy(b); return dim(state.ej.x).n + ': ' + lvlTxt(dim(state.ej.x), p[0]) + ' · ' + dim(state.ej.y).n + ': ' + lvlTxt(dim(state.ej.y), p[1]);
   }
   function compareTable(forPrint) {
     var act = activeBiz();
@@ -955,21 +912,6 @@
     $('#insight2').innerHTML = '<h3>Lo que dice tu mapa</h3><ul>' + insights().map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ul>';
   }
 
-  /* ---------- Vías de Porter ---------- */
-  function renderVias() {
-    $('#vias').innerHTML = VIAS.map(function (v) {
-      return '<button type="button" class="via" data-via="' + v.id + '" aria-pressed="' + (state.via === v.id) + '"><span class="vn">' + v.n + '</span><span class="vt">' + v.t + '</span><p>' + v.d + '</p><p>' + v.c + '</p></button>';
-    }).join('');
-    var pl = porterPista();
-    $('#insight3').innerHTML = '<h3>Una pista de tu mapa</h3><p>' + (pl ? pl.txt : 'Coloca tu empresa y a tus competidores en el mapa del paso 4 y aquí aparecerá una pista. Es solo una pista, no un veredicto.') + '</p>';
-    $('#insight3').hidden = false;
-  }
-  $('#vias').addEventListener('click', function (e) {
-    var b = e.target.closest('[data-via]'); if (!b) return;
-    state.via = (state.via === b.dataset.via) ? '' : b.dataset.via; save(true); renderVias();
-    var nb = $('[data-via="' + b.dataset.via + '"]'); if (nb) nb.focus();
-  });
-
   /* ---------- Revisión ---------- */
   function review() {
     var L = [], e = state.emp, t = function (s) { return !!String(s).trim(); };
@@ -980,7 +922,7 @@
       L.push([t(c.ofrece) && t(c.precio) && (t(c.canal) || t(c.comunica)), n + ': qué ofrece, a cuánto y cómo', 3]);
       L.push([t(c.fuente), n + ': fuente de los datos', 3]);
     });
-    L.push([activeBiz().every(function (b) { return state.placed[b]; }), 'Mapa: todos los negocios colocados', 4]);
+    L.push([activeBiz().every(function (b) { return isPlaced(b); }), 'Mapa: todos los negocios colocados', 4]);
     L.push([t(state.cierre.hueco), 'Conclusión: dónde hay hueco', 5]);
     L.push([t(state.cierre.pregunta), 'Pregunta de análisis respondida', 6]);
     return L;
@@ -995,19 +937,17 @@
   /* ---------- Informe ---------- */
   $('#btnPrint').addEventListener('click', function () {
     var hoy = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' }), c = state.cierre, e = state.emp;
-    var via = VIAS.filter(function (v) { return v.id === state.via; })[0];
     var ans = function (v) { return v.trim() ? esc(v) : '<i>(sin responder)</i>'; };
     var h = '<div class="ph"><div><h1>Benchmarking de la competencia</h1><div class="sub">' + esc(bizName('own')) + ' · Marketing estratégico</div></div><div class="meta">' + esc(state.nombre || 'Sin nombre') + '<br>' + hoy + '</div></div>';
     h += '<h2>1. Tu empresa y tus competidores</h2>';
     if (e.publico.trim() || e.dif.trim()) h += '<p><b>Público:</b> ' + ans(e.publico) + '<br><b>Tu diferencia hoy:</b> ' + ans(e.dif) + '</p>';
     h += '<table>' + compareTable(true) + '</table>';
-    h += '<h2>2. Mapa de posición</h2><div class="mapfig">' + drawMap(660, 400, 'b') + '</div>';
+    h += '<h2>2. Mapa de posición</h2><div class="mapfig">' + drawMap(660, 400) + '</div>';
     h += '<ul>' + insights().map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ul>';
     h += '<h2>3. Conclusiones</h2>';
     h += '<div class="pq"><b>¿Qué hacen mejor que yo?</b><div class="ans">' + ans(c.mejor) + '</div></div>';
     h += '<div class="pq"><b>¿Dónde hay hueco para mí?</b><div class="ans">' + ans(c.hueco) + '</div></div>';
-    h += '<div class="pq"><b>¿Qué le diría a un cliente de ' + esc(bizName('c0')) + ' para que se pase a mí?</b><div class="ans">' + ans(c.pregunta) + '</div></div>';
-    h += '<div class="pq"><b>Primera intuición hacia Porter</b><div class="ans">' + (via ? esc(via.t) + ': ' + esc(via.d) : '<i>(sin elegir)</i>') + '</div></div>';
+    h += '<div class="pq"><b>¿En qué nos diferenciamos de la competencia?</b><div class="ans">' + ans(c.pregunta) + '</div></div>';
     h += '<p class="foot">Esplora · esplora.es/benchmarking.html · Los datos de la competencia los ha recogido la persona que firma este informe.</p>';
     $('#printSheet').innerHTML = h;
     window.print();
@@ -1016,14 +956,13 @@
   /* ---------- Guardar y cargar archivo ---------- */
   function contexto() {
     var pos = {};
-    activeBiz().forEach(function (b) { var p = xy(b); pos[b] = { colocado: !!state.placed[b], x: p[0], y: p[1] }; });
+    activeBiz().forEach(function (b) { var p = xy(b); pos[b] = { colocado: isPlaced(b), nivelX: p[0], nivelY: p[1] }; });
     return {
       aviso: 'Resumen legible para otras herramientas de Esplora (por ejemplo, el plan de acción comercial). Para retomar el trabajo se usan los demás campos.',
       empresa: JSON.parse(JSON.stringify(state.emp)),
       competidores: [0, 1, 2].slice(0, state.c3 ? 3 : 2).map(function (i) { return JSON.parse(JSON.stringify(state.comp[i])); }),
       mapa: { ejeX: { id: state.ej.x, nombre: dim(state.ej.x).n }, ejeY: { id: state.ej.y, nombre: dim(state.ej.y).n }, posiciones: pos },
-      conclusiones: { mejorQueYo: state.cierre.mejor, hueco: state.cierre.hueco, argumentoParaUnCliente: state.cierre.pregunta },
-      ventajaPrevia: state.via
+      conclusiones: { mejorQueYo: state.cierre.mejor, hueco: state.cierre.hueco, diferenciasPensadas: state.cierre.pregunta }
     };
   }
   $('#btnExp').addEventListener('click', function () {
@@ -1056,10 +995,8 @@
       { nombre: 'Gran superficie de bricolaje', tipo: 'indirecto', porque: 'Vende plantas como complemento. No es especialista, pero llega a muchísima gente y a buen precio.', ofrece: 'Plantas básicas de temporada junto a herramientas y decoración.', precio: 'Plantas de 3 a 15 €, casi siempre en oferta.', canal: 'Tienda física y web con recogida en tienda.', comunica: 'Folleto mensual y ofertas de temporada.', fuente: 'Web de la cadena y folleto del mes.' },
       blankComp()],
     c3: false, ej: { x: 'precio', y: 'calidad' },
-    pos: { own: { precio: 6.5, calidad: 8 }, c0: { precio: 4.5, calidad: 6 }, c1: { precio: 2, calidad: 3.5 } },
-    placed: { own: true, c0: true, c1: true },
-    cierre: { mejor: 'El vivero tiene más variedad y precios más bajos, y la gran superficie llega a muchísima más gente.', hueco: 'Nadie vende plantas fáciles de cuidar, bonitas y listas para regalar con envío a casa: el vivero no vende online y la gran superficie no asesora.', pregunta: 'Que con nosotros recibe la planta con maceta y guía en 48 horas sin ir al polígono, porque ellos no venden por internet.' },
-    via: 'diferenciacion'
+    pos: { own: { precio: 4, calidad: 5 }, c0: { precio: 3, calidad: 4 }, c1: { precio: 1, calidad: 2 } },
+    cierre: { mejor: 'El vivero tiene más variedad y precios más bajos, y la gran superficie llega a muchísima más gente.', hueco: 'Nadie vende plantas fáciles de cuidar, bonitas y listas para regalar con envío a casa: el vivero no vende online y la gran superficie no asesora.', pregunta: 'Que con nosotros recibe la planta con maceta y guía en 48 horas sin ir al polígono, porque ellos no venden por internet.' }
   };
   $('#btnEj').addEventListener('click', function () {
     var usado = state.emp.nombre.trim() || state.emp.ofrece.trim() || hasContent(state.comp[0]) || hasContent(state.comp[1]);
