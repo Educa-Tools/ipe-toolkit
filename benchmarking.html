@@ -409,6 +409,38 @@
   .insight { background: var(--lime-soft); }
   .listo { background: var(--lime-mid); border-left-color: var(--ink); }
 
+  /* menú de pasos con número y nombre, compacto */
+  .stepper .stepper-in { display: block; max-width: 1100px; padding-top: 8px; padding-bottom: 8px; }
+  .dots { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding: 2px 2px 4px; width: fit-content; max-width: 100%; margin: 0 auto; }
+  .dots::-webkit-scrollbar { display: none; }
+  .step-dot { flex: none; width: auto; height: auto; display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px 4px 5px; border: 1px solid var(--line); background: var(--surface); border-radius: 999px; font-size: 13.5px; font-weight: 600; white-space: nowrap; color: var(--ink-soft); cursor: pointer; transition: background .2s, border-color .2s, color .2s; }
+  .step-dot::after { display: none; }
+  .step-dot .n { width: 20px; height: 20px; border-radius: 50%; background: var(--surface-alt); display: grid; place-items: center; font-size: 12px; font-weight: 700; color: var(--ink); }
+  .step-dot.done { border-color: var(--olive-mid); }
+  .step-dot.done .n { background: var(--lime-mid); }
+  .step-dot.on { background: var(--acc); border-color: var(--acc); color: #fff; }
+  .step-dot.on .n { background: #fff; color: var(--acc-deep); }
+  .step-dot:hover:not(.on) { border-color: var(--acc); }
+
+  /* filas de niveles: el nombre arriba, entero, y debajo los cinco puntos alineados entre negocios */
+  .nvrow { display: block; padding: 10px 14px 12px; }
+  .nvname { margin-bottom: 8px; font-size: 15.5px; }
+  .nvdots { display: grid; grid-template-columns: repeat(5, 1fr); justify-items: center; gap: 0; }
+  .nvdots label > span { width: 32px; height: 32px; }
+
+  /* selector de ejes destacado */
+  .axpick { position: relative; background: var(--acc-soft); border: 1.5px solid var(--acc); border-radius: 16px; padding: 18px 18px 18px; margin-bottom: 18px; }
+  .axpick::after { content: "Elige tú"; position: absolute; top: -12px; right: 18px; background: var(--lime-mid); border: 1px solid var(--ink); border-radius: 999px; font-size: 12px; font-weight: 700; padding: 2px 12px; letter-spacing: .8px; text-transform: uppercase; }
+  .axpick-head { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 14px; }
+  .axpick-ic { width: 44px; height: 44px; border-radius: 50%; background: var(--acc); color: #fff; display: grid; place-items: center; flex: none; }
+  .axpick-ic svg { width: 26px; height: 26px; }
+  .axpick h3 { font-size: 20px; font-weight: 600; color: var(--acc-deep); }
+  .axpick p { font-size: 14.5px; line-height: 1.5; color: var(--ink); margin-top: 3px; }
+  .axpick .axes { margin: 0; }
+  .axf .flab { display: flex; align-items: center; gap: 7px; color: var(--acc-deep); }
+  .axf .flab svg { width: 20px; height: 20px; flex: none; }
+  .axpick select { background: #fff; border: 2px solid var(--acc); font-weight: 600; color: var(--ink); }
+
   #printSheet { display: none; }
 
   @media (max-width: 860px) {
@@ -491,7 +523,7 @@
 <header class="kit-bar"><div class="kit-bar-in"><a href="index.html" aria-label="Esplora, volver al catálogo"><img src="marca/logo-horizontal-crema.svg" alt="" width="114" height="28"></a><small><button class="kit-reset" id="btnReset" type="button">Empezar de cero</button>Benchmarking de la competencia</small></div></header>
 
 <nav class="stepper" aria-label="Pasos de la herramienta">
-  <div class="wrap stepper-in"><div class="dots" id="stepper"></div><span class="step-label" id="stepLabel" aria-live="polite"></span></div>
+  <div class="wrap stepper-in"><div class="dots" id="stepper"></div></div>
 </nav>
 
 <main class="wrap">
@@ -602,9 +634,15 @@
     </div>
     <div class="stack">
       <div class="map-card">
-        <div class="axes">
-          <div class="field"><label class="flab" for="selX">Eje horizontal</label><select id="selX"></select></div>
-          <div class="field"><label class="flab" for="selY">Eje vertical</label><select id="selY"></select></div>
+        <div class="axpick">
+          <div class="axpick-head">
+            <span class="axpick-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></span>
+            <div><h3>Elige los dos ejes de tu mapa</h3><p>Escoge las dos cosas que más te importan para tu negocio o para compararte con el resto. Puedes cambiarlas cuando quieras: las filas de abajo se adaptan.</p></div>
+          </div>
+          <div class="axes">
+            <div class="field axf"><label class="flab" for="selX"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h18M7 8l-4 4 4 4M17 8l4 4-4 4"/></svg>Eje horizontal</label><select id="selX"></select></div>
+            <div class="field axf"><label class="flab" for="selY"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M8 7l4-4 4 4M8 17l4 4 4-4"/></svg>Eje vertical</label><select id="selY"></select></div>
+          </div>
         </div>
         <div id="mapBox"></div>
         <div class="orders" id="orders"></div>
@@ -979,7 +1017,7 @@
   /* ---------- Pasos ---------- */
   var steps = $$('.step');
   $('#stepper').innerHTML = steps.map(function (s, i) {
-    return '<button class="step-dot" type="button" data-go="' + i + '" aria-label="' + (i === 0 ? 'Empezar' : 'Paso ' + i + ': ' + esc(s.dataset.title)) + '" title="' + esc(s.dataset.title) + '"></button>';
+    return '<button class="step-dot" type="button" data-go="' + i + '"><span class="n">' + (i === 0 ? '<svg class="espora" viewBox="28.5 14.5 340.8 372.5" aria-hidden="true"><use href="#espora"/></svg>' : i) + '</span><span class="t">' + esc(s.dataset.title) + '</span></button>';
   }).join('');
   $('#toc').innerHTML = steps.slice(1).map(function (s, i) {
     return '<button type="button" data-go="' + (i + 1) + '"><span class="k">Paso ' + (i + 1) + '</span><span class="t">' + esc(s.dataset.title) + '</span><span class="d">' + esc(s.dataset.desc || '') + '</span></button>';
@@ -994,7 +1032,8 @@
       c.classList.toggle('done', k !== i && state.visited.indexOf(k) >= 0);
       if (k === i) c.setAttribute('aria-current', 'step'); else c.removeAttribute('aria-current');
     });
-    $('#stepLabel').textContent = i === 0 ? 'Empezar' : 'Paso ' + i + ' de ' + (steps.length - 1) + ' · ' + steps[i].dataset.title;
+    var onDot = $$('.step-dot')[i];
+    if (onDot && onDot.scrollIntoView) onDot.scrollIntoView({ block: 'nearest', inline: 'center' });
     updateNames();
     if (i === 3) drawTabs();
     if (i === 4) { buildNiv(); drawAll(); }
