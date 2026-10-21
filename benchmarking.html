@@ -199,6 +199,14 @@
   #mapBox svg { display: block; max-width: 100%; height: auto; }
   #mapBox [data-b] { cursor: grab; touch-action: none; }
   #mapBox [data-b]:active { cursor: grabbing; }
+  .orders { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 16px; }
+  .ordc { border: 1px solid var(--ink); border-radius: 18px; padding: 16px 18px; background: var(--surface); display: flex; flex-direction: column; gap: 12px; box-shadow: 3px 3px 0 var(--lime-mid); }
+  .ordc h4 { font-size: 20px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .ordc .st { font-family: var(--font-ui); font-size: 11.5px; font-weight: 700; border-radius: var(--radius-pill); padding: 2px 9px; background: var(--warn-soft); color: #6E4B00; }
+  .ordc .st.ok { background: var(--ok-soft); color: #3E5A26; }
+  .ordh { font-size: 14.5px; line-height: 1.55; color: var(--ink-soft); }
+  .nvscale { margin-top: 2px; }
+  .nvrow { margin: 0; }
   .nvscale { display: flex; justify-content: space-between; gap: 8px; font-size: 12.5px; font-weight: 700; color: var(--acc-deep); letter-spacing: .4px; text-transform: uppercase; }
   .nvrow { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 6px 12px; background: var(--surface-alt); border: 1px solid var(--line); border-left: 6px solid var(--c); border-radius: 12px; padding: 8px 12px; }
   .nvname { display: flex; align-items: center; gap: 8px; font-weight: 650; font-size: 15px; min-width: 0; overflow-wrap: anywhere; }
@@ -333,7 +341,16 @@
     #printSheet .qm { position: absolute; left: 12pt; top: 4pt; font: 700 38pt/1 'Fraunces', Georgia, serif; color: #6B7028; }
     #printSheet .qq { font-size: 8.5pt; font-weight: 700; letter-spacing: .8pt; text-transform: uppercase; color: #4B4F1D; }
     #printSheet .quote .ans { font-family: 'Fraunces', Georgia, serif; font-size: 13pt; line-height: 1.35; }
-    #printSheet .foot { display: flex; align-items: center; gap: 6pt; margin-top: 14pt; font-size: 8.5pt; color: #4A463F; border-top: 1px solid #CFCAC0; padding-top: 5pt; }
+    #printSheet .pg { display: flex; flex-direction: column; min-height: 268mm; break-after: page; }
+    #printSheet .pg:last-child { break-after: auto; }
+    #printSheet .pg > .foot { margin-top: auto; }
+    #printSheet .foot { display: flex; align-items: center; gap: 6pt; font-size: 8.5pt; color: #4A463F; border-top: 1px solid #CFCAC0; padding-top: 5pt; }
+    #printSheet .foot span { flex: 1; }
+    #printSheet table { font-size: 9.5pt; }
+    #printSheet .pg + .pg .pq { margin-bottom: 8pt; }
+    #printSheet .pg:first-child .pq { font-size: 9.5pt; }
+    #printSheet .pg:first-child .quote .ans { font-size: 11.5pt; }
+    #printSheet .pg:first-child h2 { margin-top: 9pt; }
     #printSheet .foot svg { width: 14pt; height: 14pt; fill: #6B7028; flex: none; }
   }
   svg.espora { width: 1em; height: 1em; fill: currentColor; vertical-align: -.12em; }
@@ -1042,19 +1059,21 @@
   $('#btnPrint').addEventListener('click', function () {
     var hoy = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' }), c = state.cierre, e = state.emp;
     var ans = function (v) { return v.trim() ? esc(v) : '<i>(sin responder)</i>'; };
-    var h = '<div class="ph"><div><div class="kick">Marketing estratégico · IPE 2</div><h1>Benchmarking de la competencia</h1><div class="sub">' + esc(bizName('own')) + '</div></div><div class="meta"><b>' + esc(state.nombre || 'Sin nombre') + '</b><br>' + hoy + '</div></div>';
+    /* el mapa aprovecha el hueco de la primera hoja: más alto cuanto más cortas sean las respuestas */
+    var largo = (c.mejor + c.hueco + c.pregunta).length, mh = largo < 300 ? 345 : (largo < 600 ? 315 : 285);
+    var foot = function (n) { return '<p class="foot"><svg viewBox="28.5 14.5 340.8 372.5" aria-hidden="true"><use href="#espora"/></svg><span>Esplora · esplora.es/benchmarking.html · Los datos de la competencia los ha recogido la persona que firma este informe.</span><b>' + n + ' / 2</b></p>'; };
+    var h = '<section class="pg"><div class="ph"><div><div class="kick">Marketing estratégico · IPE 2</div><h1>Benchmarking de la competencia</h1><div class="sub">' + esc(bizName('own')) + '</div></div><div class="meta"><b>' + esc(state.nombre || 'Sin nombre') + '</b><br>' + hoy + '</div></div>';
     h += '<div class="who">' + activeBiz().map(function (b) { return '<span style="--c:' + COL[b] + '"><i></i>' + esc(bizName(b)) + '</span>'; }).join('') + '</div>';
-    h += '<h2><span class="sn">1</span>Mapa de posición</h2><div class="mapfig">' + drawMap(640, 300) + '</div>';
+    h += '<h2><span class="sn">1</span>Mapa de posición</h2><div class="mapfig">' + drawMap(640, mh) + '</div>';
     h += '<p class="hz">' + (zonaTxt(c.zona) ? 'Mi hueco, marcado en el mapa: <b>' + esc(zonaTxt(c.zona)) + '</b>.' : 'Hueco sin marcar en el mapa.') + ' <span>Las posiciones se comparan solo entre los negocios de este informe.</span></p>';
-    h += '<ul>' + insights().map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ul>';
-    h += '<h2><span class="sn">2</span>Tu empresa y tus competidores</h2>';
-    if (e.publico.trim() || e.dif.trim()) h += '<p><b>Público:</b> ' + ans(e.publico) + '<br><b>Tu diferencia hoy:</b> ' + ans(e.dif) + '</p>';
-    h += '<table>' + compareTable(true) + '</table>';
-    h += '<h2><span class="sn">3</span>Conclusiones</h2>';
+    h += '<ul>' + insights().slice(0, 1).map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ul>';
+    h += '<h2><span class="sn">2</span>Conclusiones</h2>';
     h += '<div class="pq" style="--c:#B5482F"><b>¿Qué hacen mejor que yo?</b><div class="ans">' + ans(c.mejor) + '</div></div>';
     h += '<div class="pq" style="--c:#1672A0"><b>¿Dónde hay hueco para mí?</b><div class="ans">' + ans(c.hueco) + '</div></div>';
     h += '<div class="quote"><span class="qm" aria-hidden="true">“</span><div class="qq">¿En qué nos diferenciamos de la competencia?</div><div class="ans">' + ans(c.pregunta) + '</div></div>';
-    h += '<p class="foot"><svg viewBox="28.5 14.5 340.8 372.5" aria-hidden="true"><use href="#espora"/></svg><span>Esplora · esplora.es/benchmarking.html · Los datos de la competencia los ha recogido la persona que firma este informe.</span></p>';
+    h += foot(1) + '</section><section class="pg"><h2><span class="sn">3</span>Fichas de la competencia</h2>';
+    if (e.publico.trim() || e.dif.trim()) h += '<div class="pq" style="--c:#6B7028"><b>Mi empresa: público y diferencia hoy</b><div class="ans">' + ans(e.publico) + '<br>' + ans(e.dif) + '</div></div>';
+    h += '<table>' + compareTable(true) + '</table>' + foot(2) + '</section>';
     $('#printSheet').innerHTML = h;
     window.print();
   });
