@@ -6,6 +6,7 @@
     "canvas":      { "slug": "modelo-canvas", "titulo": "Modelo Canvas", "titular": "Diseña tu <em>idea de negocio</em> en nueve bloques.", "pregunta": "¿Cabe tu <em>modelo de negocio</em> en nueve bloques?", "dibujo": "canvas", "descripcion": "Construye tu modelo de negocio bloque a bloque, listo para imprimir.", "url": "modelocanvas.html", "color": "#7A3244", "minutos": 50, "guarda": "esplora-canvas-v1", "informe": true },
     "pestel":      { "slug": "analisis-pestel", "titulo": "Análisis PESTEL", "titular": "Mapa <em>PESTEL</em> de impacto", "pregunta": "¿Qué factores del <em>entorno</em> pesan en tu proyecto?", "dibujo": "pestel", "descripcion": "Mapa de impacto de los factores del entorno general, con dossier imprimible.", "url": "pestel.html", "color": "#3E5778", "minutos": 40, "guarda": "esplora-pestel-v1", "informe": true },
     "buyer":       { "slug": "buyer-persona", "titulo": "Buyer Persona", "titular": "Forja a tu <em>cliente ideal</em>", "pregunta": "¿Quién es tu <em>cliente ideal</em>?", "dibujo": "buyer", "descripcion": "Da forma a tu cliente ideal: quién es, qué necesita y cómo llegar a él.", "url": "buyerpersona.html", "color": "#B03A78", "minutos": 30, "guarda": "esplora_buyer_persona_v1", "informe": true },
+    "benchmarking": { "slug": "benchmarking-competencia", "titulo": "Benchmarking de la competencia", "titular": "Dónde está cada uno y dónde <em>queda hueco</em>", "pregunta": "¿Dónde queda <em>hueco</em> frente a tu competencia?", "dibujo": "mapa", "descripcion": "Investiga a tus competidores (qué ofrecen, a cuánto y cómo), colócalos en un mapa de posición y descubre dónde queda hueco para tu proyecto.", "url": "benchmarking.html", "color": "#1672A0", "minutos": 50, "guarda": "esplora-benchmarking-v1", "informe": true },
     "dafocame":    { "slug": "dafo-came", "titulo": "DAFO y CAME", "titular": "El análisis <em>DAFO</em> y su cruce <em>CAME</em>", "pregunta": "¿Qué decides después del <em>DAFO</em>?", "dibujo": "dafo", "descripcion": "Diagnostica tu proyecto con el DAFO y cruza los resultados con el CAME para decidir qué hacer.", "url": "dafocame.html", "color": "#8A5A2B", "minutos": 45, "guarda": "esplora-dafocame-v1", "informe": true },
     "formajuridica":{ "slug": "forma-juridica", "titulo": "Selector de forma jurídica", "titular": "Selector de <em>Forma Jurídica</em>", "pregunta": "¿Qué <em>forma jurídica</em> encaja con tu proyecto?", "dibujo": "forma", "descripcion": "Responde unas preguntas y descubre qué forma jurídica encaja mejor con tu proyecto.", "url": "selector_forma_juridica.html", "color": "#8B6430", "minutos": 20, "guarda": "esplora-formajuridica-v1", "informe": true },
     "inversion":   { "slug": "inversion-financiacion", "titulo": "Plan de inversión y financiación", "titular": "¿Cuánto necesitas para <em>arrancar</em> y de dónde sale?", "dibujo": "balanza", "descripcion": "Elige lo que necesita tu negocio, calcula la amortización y el colchón de tesorería y cuadra la balanza con la financiación.", "url": "inversionfinanciacion.html", "color": "#2C6E5A", "minutos": 50, "guarda": "esplora-expediente", "informe": true },
@@ -50,7 +51,7 @@
       "descripcion": "Emprendimiento, análisis del entorno, viabilidad e inserción laboral.",
       "unidades": [
         { "n": 1, "titulo": "Emprendimiento, innovación y sostenibilidad", "icono": "bulb",        "herramientas": ["generador", "fichaidea", "estrella", "canvas"] },
-        { "n": 2, "titulo": "Análisis del entorno, sector y mercado",     "icono": "chart",       "herramientas": ["pestel", "buyer", "dafocame"] },
+        { "n": 2, "titulo": "Análisis del entorno, sector y mercado",     "icono": "chart",       "herramientas": ["pestel", "buyer", "benchmarking", "dafocame"] },
         { "n": 3, "titulo": "La viabilidad del proyecto emprendedor",     "icono": "checkshield", "herramientas": ["formajuridica", "inversion"] },
         { "n": 4, "titulo": "Empleabilidad e inserción laboral",          "icono": "compass",     "herramientas": [] }
       ]
@@ -64,7 +65,7 @@
 
   "etiquetas": [
     { "id": "idea",      "nombre": "Idea de negocio",            "icono": "bulb",   "herramientas": ["generador", "fichaidea", "estrella", "canvas"] },
-    { "id": "mercado",   "nombre": "Análisis del mercado",       "icono": "chart",  "herramientas": ["pestel", "buyer", "dafocame"] },
+    { "id": "mercado",   "nombre": "Análisis del mercado",       "icono": "chart",  "herramientas": ["pestel", "buyer", "benchmarking", "dafocame"] },
     { "id": "viabilidad","nombre": "Viabilidad del proyecto emprendedor", "icono": "checkshield", "herramientas": ["formajuridica", "inversion"] },
     { "id": "prl",       "nombre": "Prevención de riesgos",      "icono": "shield", "herramientas": ["patologias", "ruta22", "simuladorprl", "orgpreventiva", "enfprofesionales", "guiaruido"] },
     { "id": "laboral",   "nombre": "Laboral y Seguridad Social", "icono": "scale",  "herramientas": ["piramide", "mapaue", "contingencias", "prestaciones", "casosnomina"] }

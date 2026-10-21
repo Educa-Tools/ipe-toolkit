@@ -44,7 +44,7 @@ cuerpo-mascota    #8A9136   cuerpo de Explorito
 Cada herramienta tiene un acento para su barra superior y su ficha en el
 catálogo. Sobre ellos el logo va en crema.
 
-#1672A0  Guía de las condiciones termohigrométricas
+#1672A0  Guía de las condiciones termohigrométricas · Benchmarking de la competencia
 #2B2E4A  Simulador de expedientes PRL
 #2C6E5A  Plan de inversión y financiación
 #2D6A6A  Wizard de determinación de contingencias

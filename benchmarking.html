@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<script>/* Esplora: recupera el progreso guardado con el nombre antiguo (educa…) */try{for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(/^educa/.test(k)){var n=k.replace(/^educatools/,'esplora').replace(/^educa/,'esplora');if(localStorage.getItem(n)===null)localStorage.setItem(n,localStorage.getItem(k));}}}catch(e){}</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Benchmarking de la competencia: mapa de posición para tu proyecto · Esplora</title>
+<meta name="description" content="Analiza a tus competidores (qué ofrecen, a cuánto y cómo), colócalos en un mapa de posición y descubre dónde queda hueco. Informe PDF y archivo para el plan comercial. Gratis.">
+<link rel="canonical" href="https://esplora.es/benchmarking.html">
+<!-- compartir:inicio (scripts/generar.ps1) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Esplora">
+<meta property="og:locale" content="es_ES">
+<meta property="og:url" content="https://esplora.es/benchmarking.html">
+<meta property="og:title" content="Benchmarking de la competencia: mapa de posición para tu proyecto · Esplora">
+<meta property="og:description" content="Analiza a tus competidores (qué ofrecen, a cuánto y cómo), colócalos en un mapa de posición y descubre dónde queda hueco. Informe PDF y archivo para el plan comercial. Gratis.">
+<meta property="og:image" content="https://esplora.es/marca/compartir.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Esplora: herramientas y recursos didácticos sobre empleabilidad y emprendimiento">
+<meta name="twitter:card" content="summary_large_image">
+<!-- compartir:fin -->
+<link rel="icon" href="marca/simbolo-oliva.svg" type="image/svg+xml">
+<link rel="stylesheet" href="fuentes/fuentes.css">
+<style>
+  :root {
+    --bg:          #FBFCEF;
+    --surface:     #FFFFFF;
+    --surface-alt: #F5F6E4;
+    --ink:         #1E1C1A;
+    --ink-soft:    #4A463F;
+    --ink-muted:   #8B847A;
+    --line:        #E8E1D6;
+    --line-soft:   #EEEFD8;
+    --olive-deep:  #6B7028;
+    --olive-mid:   #A8AD5C;
+    --lime-soft:   #E8EDC4;
+    --lime-mid:    #C5CD78;
+
+    /* Acento de la herramienta: azul del mapa */
+    --acc:      #1672A0;
+    --acc-deep: #0E4F70;
+    --acc-soft: #E0EEF6;
+
+    /* Los cuatro negocios del mapa */
+    --c-own: #6B7028;
+    --c-c0:  #1672A0;
+    --c-c1:  #B5482F;
+    --c-c2:  #946500;
+
+    --ok:        #557A35;
+    --ok-soft:   #E5EDDB;
+    --warn:      #946500;
+    --warn-soft: #F6ECD2;
+    --bad:       #B5482F;
+    --bad-soft:  #F7E1DA;
+
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-ui:      'Inter', -apple-system, 'Segoe UI', sans-serif;
+    --radius-card: 18px;
+    --radius-pill: 999px;
+    --frame: 1px solid var(--ink);
+    --sticker: 3px 3px 0 var(--ink);
+    --sticker-lift: 5px 5px 0 var(--ink);
+    --ease: cubic-bezier(.22,1,.36,1);
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html, body { background: var(--bg); }
+  body { margin: 0; font-family: var(--font-ui); color: var(--ink); -webkit-font-smoothing: antialiased; font-size: 16px; line-height: 1.55; }
+  h1, h2, h3, h4 { font-family: var(--font-display); margin: 0; text-wrap: balance; line-height: 1.12; }
+  p { margin: 0; }
+  a { color: var(--acc-deep); text-underline-offset: 3px; }
+  button { font-family: var(--font-ui); cursor: pointer; color: inherit; }
+  b, strong { font-weight: 650; }
+  :focus-visible { outline: 3px solid var(--acc); outline-offset: 2px; }
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 0 20px; }
+
+  /* ---------- Cabecera ---------- */
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 22px 0 10px; flex-wrap: wrap; }
+  .brand { display: flex; align-items: center; text-decoration: none; }
+  .top-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .chip-btn { border: var(--frame); background: var(--surface); border-radius: var(--radius-pill); padding: 6px 14px; font-size: 13px; font-weight: 600; text-decoration: none; color: var(--ink); }
+  .chip-btn:hover { background: var(--surface-alt); }
+
+  /* ---------- Portada ---------- */
+  .hero { display: grid; grid-template-columns: 1.2fr .8fr; gap: 28px; align-items: center; padding: 18px 0 26px; }
+  .eyebrow { display: inline-flex; gap: 8px; align-items: center; font-size: 12px; font-weight: 700; letter-spacing: 1.3px; text-transform: uppercase; color: var(--acc-deep); background: var(--acc-soft); border-radius: var(--radius-pill); padding: 5px 12px; margin-bottom: 14px; }
+  h1.title { font-size: clamp(34px, 6vw, 56px); font-weight: 700; letter-spacing: -1px; position: relative; z-index: 0; }
+  h1.title em { font-style: italic; color: var(--acc); position: relative; white-space: nowrap; }
+  h1.title em::after { content: ""; position: absolute; left: -2px; right: -2px; bottom: .08em; height: .36em; background: var(--lime-mid); z-index: -1; transform-origin: left; animation: marker 1s var(--ease) .3s both; }
+  @keyframes marker { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  .lead { margin-top: 14px; font-size: 18px; color: var(--ink-soft); max-width: 56ch; }
+  .lead b { color: var(--ink); }
+  .norm { margin-top: 18px; display: flex; gap: 12px; align-items: center; background: var(--surface); border: var(--frame); border-radius: 14px; padding: 10px 14px; max-width: 540px; }
+  .norm .rd { flex: none; background: var(--acc); color: #fff; font-weight: 700; font-size: 13px; padding: 6px 10px; border-radius: 8px; }
+  .norm p { font-size: 14px; color: var(--ink-soft); }
+  .scene { width: 100%; max-width: 380px; justify-self: center; }
+  .scene svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .scene .node { opacity: 0; transform-box: fill-box; transform-origin: center; animation: pop .55s var(--ease) forwards; }
+  .scene .ring { stroke-dasharray: 6 5; opacity: 0; animation: fade .8s ease 1.3s forwards; }
+  @keyframes pop { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: none; } }
+  @keyframes fade { to { opacity: 1; } }
+  .facts { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+  .fact { display: inline-flex; gap: 6px; align-items: center; font-size: 13px; font-weight: 600; border: 1px solid var(--line); background: var(--surface); border-radius: var(--radius-pill); padding: 5px 12px; color: var(--ink-soft); }
+  .fact b { color: var(--acc-deep); }
+  .toc { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .toc button { text-align: left; border: 1px solid var(--line); background: var(--surface); border-radius: 14px; padding: 12px 14px; display: flex; flex-direction: column; gap: 2px; transition: border-color .2s, transform .2s; }
+  .toc button:hover { border-color: var(--acc); transform: translateY(-2px); }
+  .toc .k { font-size: 12px; font-weight: 700; color: var(--acc-deep); }
+  .toc .t { font-weight: 650; font-size: 15px; }
+  .toc .d { font-size: 13px; color: var(--ink-soft); }
+
+  /* ---------- Pasos ---------- */
+  .stepper { position: sticky; top: 0; z-index: 20; background: var(--bg); border-bottom: 1px solid var(--line-soft); }
+  .stepper .wrap { display: flex; gap: 8px; overflow-x: auto; padding-top: 10px; padding-bottom: 10px; scrollbar-width: none; }
+  .stepper .wrap::-webkit-scrollbar { display: none; }
+  .step-chip { flex: none; display: inline-flex; align-items: center; gap: 7px; border: var(--frame); background: var(--surface); border-radius: var(--radius-pill); padding: 6px 13px 6px 7px; font-size: 13.5px; font-weight: 600; white-space: nowrap; transition: background .2s, color .2s; }
+  .step-chip .n { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; background: var(--surface-alt); font-size: 12px; font-weight: 700; }
+  .step-chip.done .n { background: var(--lime-mid); }
+  .step-chip.on { background: var(--acc); color: #fff; border-color: var(--acc); }
+  .step-chip.on .n { background: #fff; color: var(--acc); }
+  .progress { height: 4px; background: var(--line-soft); }
+  .progress span { display: block; height: 100%; background: var(--acc); width: 0; transition: width .5s var(--ease); }
+
+  main { padding: 26px 0 70px; }
+  .step { display: none; animation: enter .5s var(--ease); }
+  .step.on { display: block; }
+  @keyframes enter { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  .step-head { margin-bottom: 20px; }
+  .step-num { font-size: 12px; font-weight: 700; letter-spacing: 1.3px; text-transform: uppercase; color: var(--acc-deep); }
+  .step-head h2 { font-size: clamp(26px, 4.4vw, 38px); margin-top: 4px; letter-spacing: -.4px; }
+  .step-head p { margin-top: 8px; color: var(--ink-soft); font-size: 17px; max-width: 72ch; }
+  .stack { display: flex; flex-direction: column; gap: 16px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .panel { background: var(--surface); border: var(--frame); border-radius: var(--radius-card); padding: 18px 20px; }
+  .panel.soft { background: var(--surface-alt); border-color: var(--line); }
+  .panel h3 { font-size: 21px; }
+  .tag { display: inline-block; font-size: 11.5px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--acc-deep); background: var(--acc-soft); border-radius: var(--radius-pill); padding: 3px 10px; }
+  .tag.must { background: var(--acc); color: #fff; }
+  .muted { color: var(--ink-soft); }
+  .note { display: flex; gap: 12px; align-items: flex-start; background: var(--acc-soft); border-radius: 14px; padding: 12px 16px; font-size: 15px; }
+  .note .tag { background: var(--acc); color: #fff; flex: none; margin-top: 2px; }
+  .note.warn { background: var(--warn-soft); }
+  .note.warn .tag { background: var(--warn); }
+  .qa { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; }
+  .qa h3 { font-size: 17px; color: var(--acc-deep); }
+  .qa p { font-size: 15px; color: var(--ink-soft); margin-top: 6px; }
+  .qa p b { color: var(--ink); }
+
+  .btn-main { border: 1.5px solid var(--ink); background: var(--lime-mid); box-shadow: var(--sticker); border-radius: var(--radius-pill); padding: 11px 22px; font-weight: 700; font-size: 15px; transition: transform .15s, box-shadow .15s; }
+  .btn-main:hover { transform: translate(-2px, -2px); box-shadow: var(--sticker-lift); }
+  .btn-main:active { transform: translate(3px, 3px); box-shadow: none; }
+  .btn-ghost { border: var(--frame); background: var(--surface); border-radius: var(--radius-pill); padding: 10px 18px; font-weight: 600; font-size: 14.5px; }
+  .btn-ghost:hover { background: var(--surface-alt); }
+  .nav-bottom { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--line); }
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .hint { font-size: 13.5px; color: var(--ink-soft); }
+  .saved { font-size: 13px; color: #3E5A26; font-weight: 600; opacity: 0; transition: opacity .3s; }
+  .saved.on { opacity: 1; }
+
+  /* ---------- Campos ---------- */
+  .field { display: flex; flex-direction: column; gap: 4px; }
+  .flab { display: block; font-size: 14.5px; font-weight: 700; color: var(--ink); }
+  .fhelp { font-size: 13.5px; color: var(--ink-soft); }
+  .fex { font-size: 13.5px; color: var(--ink-soft); background: var(--surface-alt); border-left: 3px solid var(--lime-mid); border-radius: 0 8px 8px 0; padding: 5px 10px; }
+  .fex b { color: var(--olive-deep); }
+  textarea, input[type=text], select { width: 100%; font-family: var(--font-ui); font-size: 15px; color: var(--ink); border: 1px solid var(--ink-muted); border-radius: 10px; padding: 9px 11px; background: #fff; }
+  textarea:focus, input[type=text]:focus, select:focus { outline: 2px solid var(--acc); outline-offset: 1px; border-color: var(--acc); }
+  textarea { resize: vertical; min-height: 78px; line-height: 1.45; }
+  .seg { display: flex; flex-wrap: wrap; gap: 6px; }
+  .seg label { position: relative; }
+  .seg input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+  .seg span { display: inline-block; border: 1px solid var(--ink-muted); background: var(--surface); border-radius: var(--radius-pill); padding: 6px 13px; font-size: 14px; font-weight: 600; transition: background .15s, color .15s; }
+  .seg input:checked + span { background: var(--acc); border-color: var(--acc); color: #fff; }
+  .seg input:focus-visible + span { outline: 3px solid var(--acc); outline-offset: 2px; }
+
+  .ccard { background: var(--surface); border: var(--frame); border-radius: 20px; overflow: hidden; }
+  .ccard-hd { display: flex; align-items: center; gap: 12px; padding: 12px 18px; background: var(--surface-alt); border-bottom: 1px solid var(--line); }
+  .ccard-hd .cn { width: 36px; height: 36px; border-radius: 50%; background: var(--c); color: #fff; font-family: var(--font-display); font-weight: 700; font-size: 18px; display: grid; place-items: center; flex: none; }
+  .ccard-hd h3 { font-size: 19px; }
+  .ccard-hd .tag { margin-left: auto; }
+  .ccard-bd { padding: 16px 18px; display: flex; flex-direction: column; gap: 14px; }
+
+  .tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tab { border: var(--frame); background: var(--surface); border-radius: 14px; padding: 8px 14px; font-weight: 650; font-size: 14.5px; display: inline-flex; align-items: center; gap: 8px; }
+  .tab i { width: 12px; height: 12px; border-radius: 50%; background: var(--c); flex: none; }
+  .tab[aria-pressed="true"] { background: var(--ink); color: #fff; }
+  .tab[aria-pressed="true"] i { box-shadow: 0 0 0 2px #fff; }
+
+  /* ---------- Mapa ---------- */
+  .map-card { background: var(--surface); border: var(--frame); border-radius: 22px; padding: 14px; }
+  .axes { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  #mapBox { width: 100%; user-select: none; -webkit-user-select: none; }
+  #mapBox svg { display: block; max-width: 100%; height: auto; }
+  #mapBox [data-b] { cursor: grab; touch-action: none; }
+  #mapBox [data-b]:active { cursor: grabbing; }
+  .sliders { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 14px; }
+  .slc { border: 1px solid var(--line); border-left: 6px solid var(--c); border-radius: 14px; padding: 12px 14px; background: var(--surface); display: flex; flex-direction: column; gap: 10px; }
+  .slc h4 { font-size: 17px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .slc .st { font-family: var(--font-ui); font-size: 11.5px; font-weight: 700; border-radius: var(--radius-pill); padding: 2px 9px; background: var(--warn-soft); color: #6E4B00; }
+  .slc .st.ok { background: var(--ok-soft); color: #3E5A26; }
+  .slc label { font-size: 13.5px; font-weight: 650; display: flex; justify-content: space-between; gap: 8px; }
+  .slc output { font-variant-numeric: tabular-nums; color: var(--acc-deep); }
+  .slc .ends { display: flex; justify-content: space-between; font-size: 12.5px; color: var(--ink-soft); margin-top: -2px; }
+  input[type=range] { width: 100%; accent-color: var(--acc); margin: 4px 0 0; }
+  .insight { background: var(--acc-soft); border-radius: 16px; padding: 14px 18px; }
+  .insight h3 { font-size: 18px; color: var(--acc-deep); margin-bottom: 6px; }
+  .insight ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 5px; font-size: 15px; }
+
+  /* ---------- Cuadro comparativo ---------- */
+  .tbl-wrap { overflow-x: auto; border: var(--frame); border-radius: 18px; background: var(--surface); }
+  table.cmp { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+  table.cmp th, table.cmp td { padding: 11px 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); white-space: pre-wrap; }
+  table.cmp thead th { background: var(--acc); color: #fff; font-family: var(--font-display); font-size: 15px; font-weight: 600; white-space: normal; }
+  table.cmp thead th.own { background: var(--c-own); }
+  table.cmp tbody th { font-size: 12px; text-transform: uppercase; letter-spacing: .7px; color: var(--ink-soft); width: 140px; background: var(--surface-alt); }
+  table.cmp tbody tr:last-child > * { border-bottom: 0; }
+  table.cmp .empty { color: var(--ink-muted); font-style: italic; }
+
+  /* ---------- Porter ---------- */
+  .via { text-align: left; border: var(--frame); background: var(--surface); border-radius: 18px; padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 6px; transition: transform .2s var(--ease), box-shadow .2s, background .2s; }
+  .via:hover { transform: translateY(-2px); }
+  .via .vn { font-size: 11.5px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--acc-deep); }
+  .via .vt { font-family: var(--font-display); font-weight: 700; font-size: 20px; line-height: 1.15; }
+  .via p { font-size: 14.5px; color: var(--ink-soft); }
+  .via p b { color: var(--ink); }
+  .via[aria-pressed="true"] { background: var(--acc); color: #fff; border-color: var(--acc); box-shadow: 4px 4px 0 var(--ink); }
+  .via[aria-pressed="true"] .vn { color: #CFE6F2; }
+  .via[aria-pressed="true"] p, .via[aria-pressed="true"] p b { color: #fff; }
+  .next-box { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: center; background: var(--lime-soft); border: 1.5px solid var(--ink); box-shadow: var(--sticker); border-radius: 20px; padding: 16px 20px; }
+  .next-box .bigk { font-family: var(--font-display); font-size: 40px; font-weight: 700; line-height: 1; color: var(--olive-deep); }
+  .next-box h3 { font-size: 21px; }
+  .next-box p { font-size: 15px; margin-top: 4px; }
+
+  /* ---------- Entrega ---------- */
+  .review { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+  .review li { display: flex; gap: 10px; align-items: center; font-size: 14.5px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 7px 12px; }
+  .review .mk { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: 13px; font-weight: 700; flex: none; }
+  .review .ok .mk { background: var(--ok-soft); color: #3E5A26; }
+  .review .no .mk { background: var(--warn-soft); color: #6E4B00; }
+  .review button { margin-left: auto; border: 1px solid var(--line); background: var(--surface-alt); border-radius: var(--radius-pill); padding: 3px 12px; font-size: 13px; font-weight: 600; }
+  .fmt { background: var(--surface); border: var(--frame); border-radius: 18px; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; }
+  .fmt .fk { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--acc-deep); }
+  .fmt h3 { font-size: 20px; }
+  .fmt p { font-size: 15px; color: var(--ink-soft); }
+  .fmt ul { margin: 0; padding-left: 20px; font-size: 15px; color: var(--ink-soft); display: flex; flex-direction: column; gap: 4px; }
+
+  #printSheet { display: none; }
+
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; }
+    .scene { max-width: 280px; order: -1; }
+    .grid2, .grid3, .axes, .sliders { grid-template-columns: 1fr; }
+    .toc { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 760px) {
+    table.cmp, table.cmp tbody, table.cmp tr, table.cmp th, table.cmp td { display: block; width: auto; }
+    table.cmp thead { display: none; }
+    table.cmp tbody tr { border-bottom: 6px solid var(--surface-alt); }
+    table.cmp tbody th { width: auto; }
+    table.cmp td::before { content: attr(data-l); display: block; font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: var(--acc-deep); font-family: var(--font-ui); }
+  }
+  @media (max-width: 520px) {
+    .wrap { padding: 0 16px; }
+    .toc { grid-template-columns: 1fr; }
+    .next-box { grid-template-columns: 1fr; }
+    .ccard-hd .tag { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .scene .node, .scene .ring { opacity: 1; }
+  }
+  @media print {
+    @page { size: A4; margin: 14mm; }
+    body { background: #fff; font-size: 10.5pt; }
+    body > *:not(#printSheet) { display: none !important; }
+    #printSheet { display: block; color: #1E1C1A; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    #printSheet .ph { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2pt solid #1672A0; padding-bottom: 6pt; margin-bottom: 10pt; }
+    #printSheet h1 { font-family: 'Fraunces', Georgia, serif; font-size: 21pt; margin: 0; }
+    #printSheet .sub { color: #4A463F; font-size: 10pt; }
+    #printSheet .meta { color: #4A463F; font-size: 10pt; text-align: right; }
+    #printSheet h2 { font-family: 'Fraunces', Georgia, serif; font-size: 13.5pt; margin: 13pt 0 5pt; color: #0E4F70; break-after: avoid; }
+    #printSheet p { margin: 0 0 4pt; }
+    #printSheet table { border-collapse: collapse; width: 100%; font-size: 9pt; }
+    #printSheet th, #printSheet td { border: 1px solid #CFCAC0; padding: 3pt 5pt; text-align: left; vertical-align: top; white-space: pre-wrap; }
+    #printSheet thead th { background: #1672A0; color: #fff; }
+    #printSheet thead th.own { background: #6B7028; }
+    #printSheet tbody th { background: #F5F6E4; width: 22%; font-size: 8.5pt; }
+    #printSheet tr { break-inside: avoid; }
+    #printSheet .mapfig { break-inside: avoid; text-align: center; }
+    #printSheet .mapfig svg { max-width: 100%; height: auto; }
+    #printSheet ul { margin: 4pt 0 0; padding-left: 14pt; }
+    #printSheet .pq { border: 1px solid #CFCAC0; border-radius: 6pt; padding: 6pt 8pt; margin-bottom: 6pt; break-inside: avoid; }
+    #printSheet .pq b { display: block; font-size: 10pt; }
+    #printSheet .ans { white-space: pre-wrap; margin-top: 2pt; }
+    #printSheet .foot { margin-top: 14pt; font-size: 8.5pt; color: #4A463F; border-top: 1px solid #CFCAC0; padding-top: 5pt; }
+  }
+  svg.espora { width: 1em; height: 1em; fill: currentColor; vertical-align: -.12em; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol fill="currentColor" id="espora" viewBox="28.5 14.5 340.8 372.5"><path d="M 217.7 41.6C230.4 48.3 239.5 48.5 241.6 44.4C243.8 40.3 238.3 33.5 225.6 26.7C212.8 20 203.4 18.9 201.2 23C199.1 27.1 205 34.9 217.7 41.6"/><path d="M 70.2 105.1C82.3 97.3 86.9 89.5 84.3 85.6C81.8 81.7 73.1 83.2 61.1 91.1C49 98.9 43.4 106.6 45.9 110.5C48.5 114.4 58.2 113 70.2 105.1"/><path d="M 363.1 135.7C362.2 121.3 357.7 113.5 353.1 113.8C348.5 114.1 345.5 122.3 346.3 136.7C347.2 151.1 351.1 159.8 355.8 159.5C360.4 159.2 364 150.1 363.1 135.7"/><path d="M 328 295.8C315.8 303.4 310 311 312.5 314.9C314.9 318.9 324.7 317.7 336.9 310.1C349.1 302.5 353.8 294.8 351.4 290.8C348.9 286.9 340.2 288.2 328 295.8"/><path d="M 181.2 360.3C168.5 353.3 159.1 352 156.9 356C154.7 360.1 160.4 368 173 375C185.7 381.9 194.7 382.3 196.9 378.2C199.2 374.2 193.8 367.2 181.2 360.3"/><path d="M 42.1 242.9C37.5 243.2 33.9 252.3 34.8 266.7C35.6 281.1 40.1 288.9 44.8 288.6C49.4 288.3 52.4 280.1 51.5 265.7C50.7 251.3 46.7 242.6 42.1 242.9"/><path d="M 215.2 256.3C213.1 255.2 211.2 253.9 208.9 253C205 251.3 200.7 250.4 196.4 250.4C191.2 250.4 186.2 251.7 181.8 254C177.3 256 171.3 258.3 166.5 256.3C161.5 254.2 160.5 248.5 160.5 243.7C160.6 230.9 156.7 219.5 145.3 212.5C144.8 212.1 144.2 211.8 143.6 211.5C138.6 208.4 126.3 198.4 146.5 185.1C151.9 181.5 155.9 176.3 158.3 170.3C160.7 164.1 160.1 157.6 162.3 151.4C164.2 145.8 168.7 141.8 174.9 142.4C179.4 142.9 183.1 145.6 187 147.7C191.6 150.3 196.4 151.7 201.7 151.7C207.8 151.7 213.4 150 218.3 147.1C222.6 144.5 228.2 142.8 232.8 145.9C237.2 148.9 238.6 153.6 238.4 158.7C237.8 170.4 244.2 181.7 254.2 187.5C261.8 191.9 266.3 201.3 259.6 208.6C257.1 211.3 253.9 212.7 250.8 214.8C248 216.7 245.4 219.2 243.4 221.9C239.1 227.6 237.2 234.2 236.9 241.2C236.8 246.4 235.8 252.5 231.6 256C228.3 258.7 223.8 258.9 219.8 258C218.2 257.6 216.7 257 215.2 256.3M322.5 230.4C322.5 230.4 322.6 230.5 322.6 230.5C322.7 230.5 322.8 230.5 322.8 230.5C331.1 230.9 340.7 224.3 346 213.6C352.6 200.5 350.4 186 341.1 181.4C331.7 176.7 318.9 183.6 312.3 196.8C310.9 199.6 309.9 202.4 309.3 205.2C309.3 205.2 309.3 205.2 309.3 205.2C308.9 205.7 308.8 207.3 308.6 207.9C308.3 209 308 209.9 307.6 210.9C306.8 212.8 305.8 214.7 304.5 216.3C301.4 219.8 297 220.9 292.8 218.6C290.7 217.5 288.8 216 286.9 214.6C284.9 213.2 282.5 212.4 280.6 211C271 203.6 279 192 286.8 187.4C296.2 181.8 302.5 171.5 302.5 159.7C302.5 152.8 300.1 146 295.9 140.5C292.2 135.6 286.8 132.2 284 126.6C281.4 121.4 281.3 113.9 285.6 109.6C286.2 109 286.7 108.4 287.2 107.8C287.2 107.7 287.3 107.6 287.3 107.6L287.3 107.6C292.2 100.5 291.1 88.5 283.9 78.4C275.4 66.4 261.6 61.6 253.1 67.6C244.6 73.6 244.6 88.2 253.1 100.2C255.1 103 257.4 105.4 260.1 107.5C263 109.7 264.5 112.6 265.4 116C266.7 120.7 265.2 125.4 261.2 128.2C259.4 129.6 257.2 130.5 255.2 131.6C251.2 133.7 247.3 135.9 242.6 135.3C238.6 134.7 235.9 131.7 234.7 127.9C232.9 122 234.2 115.8 232.3 109.8C230.6 104.4 227.4 99.4 223.1 95.6C215.1 88.5 204.7 86.4 194.3 88.4C185.7 90.1 177.1 92.7 169.3 87.1C166.4 85.1 164.1 82.1 162.8 78.8C162.8 78.8 162.8 78.8 162.8 78.8C159.3 70.3 147.4 65.4 134.4 67.5C119.9 69.9 109.5 80.1 111.2 90.4C112.8 100.7 125.9 107.1 140.5 104.8C145.5 103.9 150.2 100.7 155.3 100.6C163.5 100.5 170.2 106.4 169.9 114.8C169.7 116.4 169.6 118 169.6 119.6C168.8 129.6 162.9 136.2 152.2 133.7C148.1 132.7 144.7 130.3 140.8 128.7C136.9 127.1 132.8 126.3 128.6 126.3C119.7 126.3 111.1 130.1 105 136.6C102.1 139.8 99.7 143.6 98.3 147.7C97.5 149.8 97 152 96.7 154.3C96.4 156.6 96.9 159.1 95.7 161.3C95.5 161.7 95.3 162 95.1 162.4C93.8 164 92 165.2 90.1 166.2C86 168.4 81.6 169.8 77.1 170.3C74.8 170.6 72.4 170.7 70.2 171.2C65.9 172.2 62.1 174.8 59 177.9C52.9 184.2 49.1 192.7 48.8 201.5C48.7 205.2 49.1 209.1 50.7 212.5C52.2 215.9 54.8 218.9 58.2 220.5C61.6 222 65.6 222 69.2 220.9C72.8 219.7 75.9 217.5 78.6 214.9C83.6 210.1 87.1 203.7 88.5 196.8C89 194.1 89.2 191.4 90.2 188.8C91.3 185.7 93.6 183.5 96.6 182.4C98.8 181.5 101.4 181 103.8 181.2C105.1 181.3 106.1 181.6 107 182.3C108.3 183.3 109.5 184.3 110.8 185.1C112.5 186.3 114.4 187.2 116.1 188.4C119 190.5 121.2 193.3 121.6 196.9C122.3 203.4 116.9 208.7 112.1 212.3C102.7 217.9 96.4 228.2 96.4 239.9C96.4 247.9 99.5 255.6 104.8 261.5C107.4 264.3 110.9 266.1 113.4 268.9C116.1 272.1 117.3 276.3 117 280.5C116.7 285.1 115 288.3 112.1 291.8C105 300.4 109 313.6 114.8 321.8C123.3 333.8 137.1 338.7 145.6 332.6C159.2 322.9 149.2 301.5 139.3 293.2C134.9 289.5 131.4 284.1 132.8 278.1C133.2 276.4 133.9 274.6 134.8 273.2C136.6 270.2 140.8 269.6 143.7 268C146.9 266.4 150.2 264.7 153.9 265.1C157.7 265.5 161.1 267.5 162.9 270.9C164.4 273.8 164.8 276.7 164.5 279.9C162.6 298.4 178.1 314.7 196.4 314.7C205.5 314.7 214.1 309 223.3 310.7C228 311.5 233.1 314.8 234.5 319.6L234.5 319.5C237.2 328.2 248.5 334.3 261.6 333.5C276.3 332.6 287.7 323.5 287.1 313.1C286.4 302.7 274 295 259.3 295.9C255.9 296.1 252.5 296.8 249.3 297.9C243.5 300.1 234.6 303 230 296.9C227.5 293.6 227.8 290.4 228.3 286.5C228.6 283.7 228.4 280.8 228.7 277.9C229.6 270.9 235.2 267 242 267C244.7 267 247.4 267.4 250 268.2C251.7 268.6 253.1 269 254.6 269.8C259 272.2 264.1 273.3 269.1 273.3C285 273.3 298.3 261.7 300.8 246.4C300.8 246.4 300.8 246.3 300.8 246.3C300.8 246 300.9 245.7 300.9 245.4C303.3 228.9 320.3 230.2 322.5 230.4"/></symbol></svg>
+
+<div class="wrap">
+  <div class="top">
+    <a class="brand" href="index.html" aria-label="Esplora, volver al catálogo">
+      <img src="marca/logo-horizontal-oliva.svg" alt="" width="114" height="28">
+    </a>
+    <div class="top-actions">
+      <a class="chip-btn" href="index.html">← Todas las herramientas</a>
+      <button class="chip-btn" id="btnReset" type="button">Empezar de cero</button>
+    </div>
+  </div>
+</div>
+
+<nav class="stepper" aria-label="Pasos de la herramienta">
+  <div class="wrap" id="stepper"></div>
+  <div class="progress"><span id="progBar"></span></div>
+</nav>
+
+<main class="wrap">
+
+  <!-- 0 · PORTADA -->
+  <section class="step" data-title="Empezar" aria-labelledby="t0">
+    <div class="hero">
+      <div>
+        <span class="eyebrow">Marketing estratégico · IPE 2</span>
+        <h1 class="title" id="t0">Dónde está cada uno y dónde <em>queda hueco</em></h1>
+        <p class="lead">Antes de decidir cómo vender, hay que saber <b>contra quién compites</b>. Vas a investigar a tus competidores (qué ofrecen, a cuánto y cómo), a colocarlos en un <b>mapa de posición</b> junto a tu empresa y a descubrir dónde nadie está sirviendo bien al cliente.</p>
+        <div class="norm"><span class="rd">Benchmarking</span><p>Comparar tu empresa con otras para aprender de ellas y encontrar tu sitio. No es copiar: es saber dónde estás.</p></div>
+        <div class="facts">
+          <span class="fact"><b>2</b> competidores + 1 opcional</span>
+          <span class="fact"><b>1</b> mapa de posición</span>
+          <span class="fact"><b>PDF</b> y archivo para tu plan</span>
+          <span class="fact"><b>50</b> min en dos sesiones</span>
+        </div>
+      </div>
+      <div class="scene" aria-hidden="true">
+        <svg viewBox="0 0 360 300">
+          <rect x="6" y="6" width="348" height="288" rx="22" fill="#F5F6E4" stroke="#1E1C1A" stroke-width="1.6"/>
+          <g stroke="#E8E1D6" stroke-width="14" stroke-linecap="round" fill="none">
+            <path d="M24 90H336"/><path d="M24 200H336"/><path d="M110 24V276"/><path d="M250 24V276"/>
+          </g>
+          <g fill="#FFFFFF" stroke="#E8E1D6" stroke-width="1.5">
+            <rect x="130" y="108" width="102" height="74" rx="8"/><rect x="26" y="108" width="68" height="74" rx="8"/>
+            <rect x="268" y="108" width="68" height="74" rx="8"/><rect x="130" y="216" width="102" height="60" rx="8"/>
+          </g>
+          <circle class="ring" cx="298" cy="236" r="44" fill="#E0EEF6" fill-opacity=".7" stroke="#1672A0" stroke-width="2"/>
+          <text x="298" y="241" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="700" font-size="15" fill="#0E4F70">hueco</text>
+          <g class="node" style="animation-delay:.2s"><circle cx="70" cy="62" r="19" fill="#1672A0" stroke="#fff" stroke-width="3"/><text x="70" y="68" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="700" font-size="17" fill="#fff">1</text></g>
+          <g class="node" style="animation-delay:.45s"><circle cx="168" cy="146" r="19" fill="#B5482F" stroke="#fff" stroke-width="3"/><text x="168" y="152" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="700" font-size="17" fill="#fff">2</text></g>
+          <g class="node" style="animation-delay:.7s"><circle cx="296" cy="62" r="19" fill="#946500" stroke="#fff" stroke-width="3"/><text x="296" y="68" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="700" font-size="17" fill="#fff">3</text></g>
+          <g class="node" style="animation-delay:.95s"><circle cx="64" cy="238" r="22" fill="#6B7028" stroke="#fff" stroke-width="3"/><text x="64" y="243" text-anchor="middle" font-family="Inter, sans-serif" font-weight="700" font-size="13" fill="#fff">Tú</text></g>
+        </svg>
+      </div>
+    </div>
+    <div class="stack">
+      <div class="toc" id="toc"></div>
+      <div class="panel soft">
+        <h3 style="font-size:18px;margin-bottom:6px">¿Quieres ver cómo queda antes de empezar?</h3>
+        <p class="muted" style="font-size:15px;margin-bottom:10px">Carga un ejemplo inventado (un negocio de plantas a domicilio) y recorre los pasos. Si ya has escrito algo, te avisamos antes de sustituirlo.</p>
+        <button class="btn-ghost" type="button" id="btnEj">Cargar un ejemplo</button>
+      </div>
+    </div>
+    <div class="nav-bottom"><span></span><button class="btn-main" data-next>Empezar →</button></div>
+  </section>
+
+  <!-- 1 · TU EMPRESA -->
+  <section class="step" data-title="Tu empresa" data-desc="De dónde partes" aria-labelledby="t1">
+    <div class="step-head">
+      <span class="step-num">Paso 1 · Tu punto de partida</span>
+      <h2 id="t1">Antes de mirar a los demás, cuéntate a ti</h2>
+      <p>Para comparar hace falta un punto de partida. Describe tu empresa (o tu idea de negocio) con los mismos datos que luego buscarás de tus competidores.</p>
+    </div>
+    <div class="stack">
+      <div class="qa"><h3>¿Qué es el benchmarking?</h3><p>Es <b>comparar</b> lo que hace tu empresa con lo que hacen otras, para ver qué haces mejor, qué haces peor y dónde queda un hueco. Se mira desde fuera: webs, tiendas, redes, precios.</p></div>
+      <div class="panel">
+        <div class="stack" id="ownFields"></div>
+      </div>
+    </div>
+    <div class="nav-bottom"><button class="btn-ghost" data-prev>← Anterior</button><button class="btn-main" data-next>Elegir competidores →</button></div>
+  </section>
+
+  <!-- 2 · COMPETIDORES -->
+  <section class="step" data-title="Competidores" data-desc="Quiénes y por qué" aria-labelledby="t2">
+    <div class="step-head">
+      <span class="step-num">Paso 2 · A quién comparas</span>
+      <h2 id="t2">Elige a tus competidores y justifica por qué</h2>
+      <p>Hacen falta <b>dos como mínimo</b>; un tercero suma. Lo importante no es el nombre, sino el motivo: tienes que explicar por qué cada uno te quita clientes.</p>
+    </div>
+    <div class="stack">
+      <div class="grid3">
+        <div class="qa"><h3>¿Cuándo es directo?</h3><p>Vende <b>lo mismo al mismo cliente</b>. Si abres una pastelería, la otra pastelería del barrio.</p></div>
+        <div class="qa"><h3>¿Y cuándo es indirecto?</h3><p>Vende <b>algo distinto</b>, pero el cliente podría gastar ahí su dinero. La panadería o el supermercado que vende bizcochos.</p></div>
+        <div class="qa"><h3>¿Cómo elijo bien?</h3><p>Pregúntate: <b>¿dónde compraría hoy mi cliente si yo no existiera?</b> Mejor negocios de tu zona o tu mercado real que gigantes lejanos.</p></div>
+      </div>
+      <div class="stack" id="compCards"></div>
+      <div class="actions"><button class="btn-ghost" type="button" id="btnC3">+ Añadir un tercer competidor</button></div>
+    </div>
+    <div class="nav-bottom"><button class="btn-ghost" data-prev>← Anterior</button><button class="btn-main" data-next>Rellenar las fichas →</button></div>
+  </section>
+
+  <!-- 3 · FICHAS -->
+  <section class="step" data-title="Fichas" data-desc="Qué, cuánto y cómo" aria-labelledby="t3">
+    <div class="step-head">
+      <span class="step-num">Paso 3 · La investigación</span>
+      <h2 id="t3">Una ficha por competidor: qué ofrece, a cuánto y cómo</h2>
+      <p>Este es el trabajo de búsqueda. Anota <b>datos que hayas visto</b> (precios, canales, mensajes), no impresiones, y guarda siempre de dónde los has sacado.</p>
+    </div>
+    <div class="stack">
+      <div class="tabs" id="fichaTabs" role="group" aria-label="Elige un competidor"></div>
+      <div id="fichaPanels"></div>
+      <div class="note warn"><span class="tag">Ojo</span><p>Si solo copias el texto de su web, no es un análisis. Resume con tus palabras y fíjate en lo que cuenta: <b>qué promete, a quién y a qué precio</b>.</p></div>
+    </div>
+    <div class="nav-bottom"><button class="btn-ghost" data-prev>← Anterior</button><button class="btn-main" data-next>Al mapa →</button></div>
+  </section>
+
+  <!-- 4 · MAPA -->
+  <section class="step" data-title="Mapa" data-desc="Colócalos y busca el hueco" aria-labelledby="t4">
+    <div class="step-head">
+      <span class="step-num">Paso 4 · Mapa de posición</span>
+      <h2 id="t4">Colócalos en el mapa y mira dónde nadie llega</h2>
+      <p>Elige dos ejes que importen a tu cliente y coloca a cada negocio donde crees que está. <b>Arrastra los puntos</b> o usa los controles de debajo. Donde no hay nadie, puede haber un hueco.</p>
+    </div>
+    <div class="stack">
+      <div class="map-card">
+        <div class="axes">
+          <div class="field"><label class="flab" for="selX">Eje horizontal</label><select id="selX"></select></div>
+          <div class="field"><label class="flab" for="selY">Eje vertical</label><select id="selY"></select></div>
+        </div>
+        <div id="mapBox"></div>
+        <div class="sliders" id="sliders"></div>
+      </div>
+      <div class="insight" role="status" aria-live="polite" id="insight"></div>
+      <div class="note warn"><span class="tag">Ojo</span><p>Un espacio vacío <b>no significa que haya clientes</b>: a veces nadie va allí porque no hay quien compre. El mapa te da una pista; la decisión la tomas tú con lo que has investigado.</p></div>
+    </div>
+    <div class="nav-bottom"><button class="btn-ghost" data-prev>← Anterior</button><button class="btn-main" data-next>Comparar →</button></div>
+  </section>
+
+  <!-- 5 · COMPARAR -->
+  <section class="step" data-title="Comparar" data-desc="Cuadro y conclusión" aria-labelledby="t5">
+    <div class="step-head">
+      <span class="step-num">Paso 5 · Cuadro comparativo</span>
+      <h2 id="t5">Tu empresa frente a la competencia</h2>
+      <p>Aquí se junta todo lo que has escrito. Léelo de arriba abajo y busca dónde te ganan, dónde les ganas y dónde no compite nadie.</p>
+    </div>
+    <div class="stack">
+      <div class="tbl-wrap" tabindex="0" role="region" aria-label="Cuadro comparativo"><table class="cmp" id="cmp"></table></div>
+      <div class="field">
+        <label class="flab" for="f-mejor">¿Qué hacen mejor que tú?</label>
+        <span class="fhelp">Sé honesto: sirve para saber qué tendrías que igualar o dejar pasar.</span>
+        <textarea id="f-mejor" data-bind="cierre.mejor" maxlength="700" rows="3"></textarea>
+        <span class="fex"><b>Ej.:</b> El vivero tiene más variedad y precios más bajos, y la gran superficie llega a muchísima más gente.</span>
+      </div>
+      <div class="field">
+        <label class="flab" for="f-hueco">¿Dónde hay hueco para ti?</label>
+        <span class="fhelp">Dilo en una o dos frases, con datos del cuadro o del mapa: qué cliente o qué necesidad no está bien atendida.</span>
+        <textarea id="f-hueco" data-bind="cierre.hueco" maxlength="700" rows="3"></textarea>
+        <span class="fex"><b>Ej.:</b> Nadie vende plantas fáciles de cuidar, bonitas y listas para regalar con envío a casa: el vivero no vende online y la gran superficie no asesora.</span>
+      </div>
+      <div class="insight" id="insight2"></div>
+    </div>
+    <div class="nav-bottom"><button class="btn-ghost" data-prev>← Anterior</button><button class="btn-main" data-next>Hacia la ventaja competitiva →</button></div>
+  </section>
+
+  <!-- 6 · VENTAJA -->
+  <section class="step" data-title="Ventaja" data-desc="Hacia Porter" aria-labelledby="t6">
+    <div class="step-head">
+      <span class="step-num">Paso 6 · De la competencia a tu ventaja</span>
+      <h2 id="t6">Una pregunta y una primera intuición</h2>
+      <p>El benchmarking termina cuando sabes <b>por qué te elegirían a ti</b>. Responde a la pregunta y marca hacia dónde te inclinas; lo decidirás con calma en la siguiente práctica.</p>
+    </div>
+    <div class="stack">
+      <div class="field">
+        <label class="flab" for="f-preg">Piensa en una persona que hoy compra a <span data-name="c0">tu primer competidor</span>. ¿Qué le dirías para que se pase a ti?</label>
+        <span class="fhelp">Apóyate en un dato concreto de tu cuadro (un precio, un canal, algo que ellos no ofrecen). Sin dato, es solo una frase bonita.</span>
+        <textarea id="f-preg" data-bind="cierre.pregunta" maxlength="700" rows="4"></textarea>
+        <span class="fex"><b>Ej.:</b> Que con nosotros recibe la planta con maceta y guía en 48 horas sin ir al polígono, porque ellos no venden por internet.</span>
+      </div>
+      <div class="quiz-head"><h3 style="font-size:21px">Las tres vías de Porter</h3></div>
+      <p class="muted" style="margin-top:-8px">Según Michael Porter, una empresa consigue ventaja sobre sus rivales por una de estas tres vías. Toca la que más se parece a lo que ves en tu mapa.</p>
+      <div class="grid3" id="vias" role="group" aria-label="Elige una vía"></div>
+      <div class="insight" id="insight3"></div>
+      <div class="next-box">
+        <span class="bigk" aria-hidden="true">→</span>
+        <div>
+          <h3>Siguiente práctica: elegir tu ventaja competitiva</h3>
+          <p>Escogerás <b>una</b> de las tres vías (liderazgo en costes, diferenciación o enfoque) y la justificarás con lo que has descubierto aquí. Lleva tu archivo de progreso a mano: es tu base de datos sobre la competencia.</p>
+        </div>
+      </div>
+    </div>
+    <div class="nav-bottom"><button class="btn-ghost" data-prev>← Anterior</button><button class="btn-main" data-next>Entregar y guardar →</button></div>
+  </section>
+
+  <!-- 7 · ENTREGAR -->
+  <section class="step" data-title="Entregar" data-desc="PDF y archivo" aria-labelledby="t7">
+    <div class="step-head">
+      <span class="step-num">Paso 7 · Para entregar y para guardar</span>
+      <h2 id="t7">Dos archivos para dos usos</h2>
+      <p>Revisa qué te falta, escribe tu nombre y descarga tu trabajo. Puedes salir y volver cuando quieras.</p>
+    </div>
+    <div class="stack">
+      <div class="panel">
+        <h3 style="margin-bottom:10px">Revisión</h3>
+        <ul class="review" id="review"></ul>
+      </div>
+      <div class="field" style="max-width:420px">
+        <label class="flab" for="cNombre">Tu nombre</label>
+        <input id="cNombre" type="text" autocomplete="given-name" maxlength="60">
+      </div>
+      <div class="grid2">
+        <div class="fmt">
+          <span class="fk">Para entregar</span>
+          <h3>Informe en PDF</h3>
+          <p>Un informe A4 con tu empresa, las fichas, el mapa, el cuadro comparativo y tus conclusiones.</p>
+          <ul><li>Pulsa «Imprimir o guardar en PDF».</li><li>En el diálogo de impresión elige <b>Guardar como PDF</b> como impresora.</li></ul>
+        </div>
+        <div class="fmt">
+          <span class="fk">Para guardar y reutilizar</span>
+          <h3>Archivo de progreso (JSON)</h3>
+          <p>Guarda todo lo que has escrito y colocado. Sirve para dos cosas:</p>
+          <ul>
+            <li><b>Retomar tu trabajo</b> en otro equipo o más adelante.</li>
+            <li><b>Llevarlo a tu plan de acción comercial</b>: si vas a usar este benchmarking como contexto del plan, exporta en JSON y guarda el archivo para cargar ahí tu competencia sin repetirla.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn-main" id="btnPrint" type="button">Imprimir o guardar en PDF</button>
+        <button class="btn-ghost" id="btnExp" type="button">Guardar progreso en archivo (JSON)</button>
+        <button class="btn-ghost" id="btnImp" type="button">Cargar progreso</button>
+        <input type="file" id="fileImp" accept="application/json,.json" hidden>
+        <span class="saved" id="savedMsg" role="status">✓ Guardado en este navegador</span>
+      </div>
+      <p class="hint">Lo que escribes se guarda solo en este navegador y no se envía a ningún sitio: si vuelves otro día desde el mismo equipo, tus datos seguirán aquí. Si cambias de equipo o borras los datos del navegador, usa el archivo.</p>
+    </div>
+    <div class="nav-bottom"><button class="btn-ghost" data-prev>← Anterior</button><span></span></div>
+  </section>
+</main>
+
+<div id="printSheet"></div>
+
+<script>
+(function () {
+  'use strict';
+  var KEY = 'esplora-benchmarking-v1';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var str = function (x, n) { return typeof x === 'string' ? x.slice(0, n || 700) : ''; };
+  var num = function (x, d) { x = +x; return isFinite(x) ? Math.max(1, Math.min(10, x)) : d; };
+
+  /* ---------- Datos fijos ---------- */
+  var DIMS = [
+    { id: 'precio', n: 'Precio', lo: 'Más barato', hi: 'Más caro', q: 'Compara los precios de las fichas: 1 es lo más barato de este mercado y 10 lo más caro.' },
+    { id: 'calidad', n: 'Calidad percibida', lo: 'Básica', hi: 'Premium', q: 'Piensa en cómo lo ve el cliente: materiales, acabado, marca, reseñas.' },
+    { id: 'especializacion', n: 'Especialización', lo: 'Generalista', hi: 'Especialista', q: 'Un generalista vende de todo para todos; un especialista se centra en un tipo de cliente o de producto.' },
+    { id: 'cercania', n: 'Cercanía y trato', lo: 'Impersonal', hi: 'Muy cercano', q: 'Asesoramiento, trato personal, conocimiento del cliente, atención posventa.' },
+    { id: 'comodidad', n: 'Rapidez y comodidad', lo: 'Costoso de conseguir', hi: 'Inmediato y cómodo', q: 'Cuánto esfuerzo le supone al cliente: desplazarse, esperar, comprar, devolver.' },
+    { id: 'innovacion', n: 'Innovación', lo: 'Tradicional', hi: 'Novedoso', q: 'Productos, formatos o formas de venta que el cliente no ve en otros sitios.' }
+  ];
+  var dim = function (id) { return DIMS.filter(function (d) { return d.id === id; })[0] || DIMS[0]; };
+  var BIZ = ['own', 'c0', 'c1', 'c2'];
+  var COL = { own: '#6B7028', c0: '#1672A0', c1: '#B5482F', c2: '#946500' };
+  var DEF = { own: [5.5, 5.5], c0: [3, 8], c1: [8, 3], c2: [8, 8] };
+  var VIAS = [
+    { id: 'costes', n: 'Vía 1', t: 'Liderazgo en costes', d: 'Ser quien ofrece lo mismo al precio más bajo, sin perder lo básico.',
+      c: '<b>Encaja si</b> puedes producir, comprar o gestionar con menos coste que los demás (volumen, procesos simples, poca estructura). <b>Riesgo:</b> una guerra de precios.' },
+    { id: 'diferenciacion', n: 'Vía 2', t: 'Diferenciación', d: 'Ofrecer algo distinto que el cliente valore y por lo que acepte pagar más.',
+      c: '<b>Encaja si</b> hay clientes que pagan por calidad, diseño, servicio o marca. <b>Riesgo:</b> que no lo valoren lo bastante o que te copien.' },
+    { id: 'enfoque', n: 'Vía 3', t: 'Enfoque o especialización', d: 'Centrarte en un grupo concreto o un nicho y servirlo mejor que nadie.',
+      c: '<b>Encaja si</b> los grandes no atienden bien a un segmento. <b>Riesgo:</b> que el nicho sea demasiado pequeño.' }
+  ];
+  var OWN_FIELDS = [
+    ['ofrece', '¿Qué ofreces?', 'Tus productos o servicios principales y lo que incluyen.', 'Plantas de interior fáciles de cuidar, con maceta de diseño y guía de cuidados en papel.'],
+    ['publico', '¿A quién se lo ofreces?', 'El cliente al que te diriges. Si ya tienes el buyer persona, resúmelo aquí.', 'Gente joven de ciudad, con poco tiempo y pisos pequeños.'],
+    ['precio', '¿A cuánto?', 'Precios o rangos que pensarías cobrar, y descuentos o envíos.', 'De 12 a 45 € por planta con maceta; envío gratis desde 40 €.'],
+    ['canal', '¿Cómo lo vendes?', 'Canales: tienda física, web, redes, reparto, comerciales…', 'Web propia y envío a domicilio en 48 horas.'],
+    ['comunica', '¿Cómo lo das a conocer?', 'Redes sociales, publicidad, promociones, el tono de tus mensajes.', 'Vídeos de cuidados en Instagram y 10 % de descuento en la primera compra.'],
+    ['dif', 'En una frase: ¿qué te diferencia hoy?', 'Lo que crees que te hace distinto. Luego lo contrastarás con los datos.', 'Plantas que llegan listas para vivir, con maceta y guía incluidas.']
+  ];
+  var COMP_FIELDS = [
+    ['ofrece', '¿Qué ofrece?', 'Sus productos o servicios principales y qué incluyen. Mira su web, su catálogo o carta, o entra en la tienda.', 'Gran variedad de plantas de interior y exterior, tierra, macetas y abonos.'],
+    ['precio', '¿A cuánto lo ofrece?', 'Precios reales o rangos, descuentos, packs, gastos de envío. Anota números que veas, no impresiones.', 'Plantas de 4 a 30 €; la maceta se paga aparte.'],
+    ['canal', '¿Cómo lo vende?', 'Dónde y cómo llega al cliente: tienda física, web, marketplace, reparto, comerciales…', 'Solo tienda física; no vende por internet.'],
+    ['comunica', '¿Cómo lo da a conocer?', 'Redes sociales, publicidad, promociones, tono de sus mensajes, reseñas de clientes.', 'Cartel en la entrada y una página de Facebook poco actualizada.'],
+    ['fuente', '¿De dónde has sacado estos datos?', 'Enlace, visita, folleto o conversación, y cuándo lo miraste. Sin fuente, el dato vale menos.', 'Visita a la tienda y su página de Facebook.']
+  ];
+
+  /* ---------- Estado ---------- */
+  var blankComp = function () { return { nombre: '', tipo: 'directo', porque: '', ofrece: '', precio: '', canal: '', comunica: '', fuente: '' }; };
+  var blankState = function () {
+    return { step: 0, visited: [0], nombre: '',
+      emp: { nombre: '', ofrece: '', publico: '', precio: '', canal: '', comunica: '', dif: '' },
+      comp: [blankComp(), blankComp(), blankComp()], c3: false,
+      ej: { x: 'precio', y: 'calidad' }, pos: {}, placed: {},
+      cierre: { mejor: '', hueco: '', pregunta: '' }, via: '' };
+  };
+  var state = blankState();
+  function apply(s) {
+    if (!s || typeof s !== 'object') return;
+    if (Number.isInteger(s.step)) state.step = Math.max(0, Math.min(7, s.step));
+    if (Array.isArray(s.visited)) state.visited = s.visited.filter(function (x) { return Number.isInteger(x) && x >= 0 && x <= 7; });
+    state.nombre = str(s.nombre, 60);
+    if (s.emp && typeof s.emp === 'object') Object.keys(state.emp).forEach(function (k) { state.emp[k] = str(s.emp[k], k === 'nombre' ? 80 : 700); });
+    if (Array.isArray(s.comp)) s.comp.slice(0, 3).forEach(function (c, i) {
+      if (!c || typeof c !== 'object') return;
+      Object.keys(state.comp[i]).forEach(function (k) { state.comp[i][k] = str(c[k], k === 'nombre' ? 80 : 700); });
+      if (state.comp[i].tipo !== 'indirecto') state.comp[i].tipo = 'directo';
+    });
+    state.c3 = !!s.c3;
+    if (s.ej && typeof s.ej === 'object') {
+      var x = dim(s.ej.x).id, y = dim(s.ej.y).id;
+      state.ej.x = x; state.ej.y = (y === x) ? DIMS.filter(function (d) { return d.id !== x; })[0].id : y;
+    }
+    if (s.pos && typeof s.pos === 'object') BIZ.forEach(function (b) {
+      if (!s.pos[b] || typeof s.pos[b] !== 'object') return;
+      state.pos[b] = {};
+      DIMS.forEach(function (d) { if (s.pos[b][d.id] != null) state.pos[b][d.id] = num(s.pos[b][d.id], 5.5); });
+    });
+    if (s.placed && typeof s.placed === 'object') BIZ.forEach(function (b) { state.placed[b] = !!s.placed[b]; });
+    if (s.cierre && typeof s.cierre === 'object') Object.keys(state.cierre).forEach(function (k) { state.cierre[k] = str(s.cierre[k], 700); });
+    state.via = VIAS.some(function (v) { return v.id === s.via; }) ? s.via : '';
+  }
+  try { apply(JSON.parse(localStorage.getItem(KEY) || 'null')); } catch (e) {}
+  var saveTimer;
+  function save(showMsg) {
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+    if (showMsg) { var m = $('#savedMsg'); m.classList.add('on'); clearTimeout(saveTimer); saveTimer = setTimeout(function () { m.classList.remove('on'); }, 1600); }
+  }
+  function getp(p) { var o = state; p.split('.').forEach(function (k) { o = o[k]; }); return o; }
+  function setp(p, v) { var a = p.split('.'), o = state; for (var i = 0; i < a.length - 1; i++) o = o[a[i]]; o[a[a.length - 1]] = v; }
+
+  var activeBiz = function () { return ['own', 'c0', 'c1'].concat(state.c3 ? ['c2'] : []); };
+  function bizName(b) {
+    if (b === 'own') return state.emp.nombre.trim() || 'Tu empresa';
+    var i = +b.slice(1);
+    return state.comp[i].nombre.trim() || ('Competidor ' + (i + 1));
+  }
+  function getVal(b, d, role) { var v = state.pos[b] && state.pos[b][d]; return v != null ? v : DEF[b][role]; }
+  function setVal(b, role, v) {
+    var d = state.ej[role]; (state.pos[b] = state.pos[b] || {})[d] = Math.round(num(v, 5.5) * 2) / 2; state.placed[b] = true;
+  }
+  var xy = function (b) { return [getVal(b, state.ej.x, 0), getVal(b, state.ej.y, 1)]; };
+
+  /* ---------- Cálculos del mapa (puros, con autocomprobación) ---------- */
+  function huecoDe(pts) {
+    if (!pts || pts.length < 2) return null;
+    var best = null, bs = -Infinity;
+    for (var x = 1.5; x <= 9.5; x += .5) for (var y = 1.5; y <= 9.5; y += .5) {
+      var m = Infinity;
+      pts.forEach(function (p) { m = Math.min(m, Math.hypot(p[0] - x, p[1] - y)); });
+      /* las esquinas siempre quedan lejos de todos: se prefiere el espacio libre más cercano al centro */
+      var sc = m - .35 * Math.hypot(x - 5.5, y - 5.5);
+      if (sc > bs + 1e-9) { bs = sc; best = { x: x, y: y, r: m }; }
+    }
+    return best;
+  }
+  function masCercano(p, pts) {
+    var best = null;
+    pts.forEach(function (q, i) { var d = Math.hypot(p[0] - q[0], p[1] - q[1]); if (!best || d < best.d) best = { i: i, d: d }; });
+    return best;
+  }
+  (function selfTest() {
+    var h = huecoDe([[2, 2], [9, 9]]);
+    console.assert(h && h.x >= 1.5 && h.x <= 9.5 && h.y >= 1.5 && h.y <= 9.5, 'huecoDe: fuera de rango');
+    console.assert(h.r > 4, 'huecoDe: debería quedar lejos de ambos');
+    console.assert(huecoDe([[5, 5]]) === null, 'huecoDe: hacen falta dos competidores');
+    console.assert(masCercano([1, 1], [[1, 2], [9, 9]]).i === 0, 'masCercano: índice');
+    console.assert(Math.abs(masCercano([1, 1], [[4, 5]]).d - 5) < 1e-9, 'masCercano: distancia 3-4-5');
+    console.assert(num('x', 5.5) === 5.5 && num(99, 1) === 10 && num(-3, 1) === 1, 'num: límites');
+  })();
+
+  function zonaTxt(x, y) {
+    var X = dim(state.ej.x), Y = dim(state.ej.y);
+    var t = function (v, d) { return v <= 4 ? 'tirando a «' + d.lo.toLowerCase() + '»' : (v >= 7 ? 'tirando a «' + d.hi.toLowerCase() + '»' : 'a medio camino'); };
+    return t(x, X) + ' en ' + X.n.toLowerCase() + ' y ' + t(y, Y) + ' en ' + Y.n.toLowerCase();
+  }
+  function insights() {
+    var act = activeBiz(), comps = act.filter(function (b) { return b !== 'own'; });
+    var placedC = comps.filter(function (b) { return state.placed[b]; });
+    var out = [];
+    if (!state.placed.own || placedC.length < 2) {
+      return ['Coloca tu empresa y al menos a dos competidores para que el mapa te diga dónde hay espacio.'];
+    }
+    var pts = placedC.map(xy), me = xy('own'), near = masCercano(me, pts);
+    var nn = bizName(placedC[near.i]);
+    if (near.d < 1.5) out.push('Estás muy pegado a <b>' + esc(nn) + '</b>. Si quieres que te elijan a ti, tendrás que explicar qué te diferencia de él.');
+    else if (near.d >= 3.5) out.push('Estás bastante lejos de todos; el más cercano es <b>' + esc(nn) + '</b>. Comprueba que en tu zona del mapa hay clientes que de verdad compran.');
+    else out.push('El competidor más cercano a ti es <b>' + esc(nn) + '</b>: os separa una distancia media en el mapa.');
+    var h = huecoDe(pts);
+    if (h) out.push('La zona con más espacio libre está ' + esc(zonaTxt(h.x, h.y)) + '.');
+    var pl = porterPista();
+    if (pl) out.push(pl.txt);
+    return out;
+  }
+  function porterPista() {
+    var comps = activeBiz().filter(function (b) { return b !== 'own' && state.placed[b]; });
+    if (!state.placed.own || comps.length < 2) return null;
+    var role = state.ej.x === 'precio' ? 0 : (state.ej.y === 'precio' ? 1 : -1);
+    var avg = function (r) { return comps.reduce(function (a, b) { return a + xy(b)[r]; }, 0) / comps.length; };
+    var other = role === -1 ? 0 : 1 - role;
+    var od = state.ej[other ? 'y' : 'x'], me = xy('own');
+    var oAvg = avg(other), oDiff = me[other] - oAvg;
+    if (od === 'especializacion' && oDiff >= 1.5) return { via: 'enfoque', txt: 'Pista para Porter: eres bastante más especialista que la competencia; eso se parece a la vía del <b>enfoque</b>.' };
+    if (role === -1) return null;
+    var pDiff = me[role] - avg(role);
+    if (pDiff <= -1.5) return { via: 'costes', txt: 'Pista para Porter: tu precio está claramente por debajo de la media de la competencia; eso se parece a <b>liderazgo en costes</b>.' };
+    if (pDiff >= -.5 && oDiff >= 1.5) return { via: 'diferenciacion', txt: 'Pista para Porter: cobras igual o más y destacas en «' + esc(dim(od).n.toLowerCase()) + '»; eso se parece a la <b>diferenciación</b>.' };
+    return { via: '', txt: 'Pista para Porter: con estos ejes tu posición no apunta con claridad a ninguna vía. Prueba con otros ejes o apóyate en lo que has escrito.' };
+  }
+
+  /* ---------- Campos enlazados ---------- */
+  function fieldHtml(path, id, f) {
+    return '<div class="field"><label class="flab" for="' + id + '">' + esc(f[1]) + '</label><span class="fhelp">' + esc(f[2]) + '</span>' +
+      '<textarea id="' + id + '" data-bind="' + path + '" maxlength="700" rows="2" placeholder="Ej.: ' + esc(f[3]) + '"></textarea></div>';
+  }
+  $('#ownFields').innerHTML =
+    '<div class="field"><label class="flab" for="own-nombre">Nombre de tu empresa o proyecto</label><span class="fhelp">Si aún no tiene nombre, pon uno provisional.</span><input id="own-nombre" type="text" data-bind="emp.nombre" maxlength="80" placeholder="Ej.: Plantas a domicilio Verdemar"></div>' +
+    OWN_FIELDS.map(function (f) { return fieldHtml('emp.' + f[0], 'own-' + f[0], f); }).join('');
+
+  var CCOLOR = ['c0', 'c1', 'c2'];
+  $('#compCards').innerHTML = [0, 1, 2].map(function (i) {
+    return '<article class="ccard" id="cc' + i + '" style="--c:' + COL[CCOLOR[i]] + '"' + (i === 2 ? ' hidden' : '') + '>' +
+      '<div class="ccard-hd"><span class="cn" aria-hidden="true">' + (i + 1) + '</span><h3>Competidor ' + (i + 1) + '</h3><span class="tag' + (i < 2 ? ' must' : '') + '">' + (i < 2 ? 'Obligatorio' : 'Opcional') + '</span></div>' +
+      '<div class="ccard-bd">' +
+      '<div class="field"><label class="flab" for="cn' + i + '">Nombre</label><input id="cn' + i + '" type="text" data-bind="comp.' + i + '.nombre" maxlength="80" placeholder="Ej.: Vivero del polígono"></div>' +
+      '<div class="field"><span class="flab" id="tl' + i + '">Tipo de competidor</span><div class="seg" role="radiogroup" aria-labelledby="tl' + i + '">' +
+      '<label><input type="radio" name="tipo' + i + '" value="directo" data-bindr="comp.' + i + '.tipo"><span>Directo</span></label>' +
+      '<label><input type="radio" name="tipo' + i + '" value="indirecto" data-bindr="comp.' + i + '.tipo"><span>Indirecto</span></label></div></div>' +
+      '<div class="field"><label class="flab" for="cp' + i + '">¿Por qué lo consideras competidor?</label><span class="fhelp">Explica a quién le quita clientes a tu empresa y por qué: mismo cliente, misma necesidad, misma zona…</span>' +
+      '<textarea id="cp' + i + '" data-bind="comp.' + i + '.porque" maxlength="700" rows="3" placeholder="Ej.: Vende las mismas plantas de interior, está a diez minutos del barrio y es donde mucha gente compra hoy."></textarea></div>' +
+      '</div></article>';
+  }).join('');
+
+  $('#fichaPanels').innerHTML = [0, 1, 2].map(function (i) {
+    return '<div class="ccard" id="fp' + i + '" style="--c:' + COL[CCOLOR[i]] + '" hidden><div class="ccard-hd"><span class="cn" aria-hidden="true">' + (i + 1) + '</span><h3 data-name="c' + i + '">Competidor ' + (i + 1) + '</h3></div><div class="ccard-bd">' +
+      COMP_FIELDS.map(function (f) { return fieldHtml('comp.' + i + '.' + f[0], 'f' + i + '-' + f[0], f); }).join('') + '</div></div>';
+  }).join('');
+
+  function fillBinds() {
+    $$('[data-bind]').forEach(function (el) { el.value = getp(el.dataset.bind) || ''; });
+    $$('[data-bindr]').forEach(function (el) { el.checked = (getp(el.dataset.bindr) === el.value); });
+    $('#cNombre').value = state.nombre;
+  }
+  function updateNames() {
+    [0, 1, 2].forEach(function (i) { $$('[data-name="c' + i + '"]').forEach(function (el) { el.textContent = bizName('c' + i); }); });
+    $$('#fichaTabs .tab span').forEach(function (el) { el.textContent = bizName(el.dataset.n); });
+  }
+  document.addEventListener('input', function (e) {
+    var t = e.target;
+    if (t.dataset && t.dataset.bind) { setp(t.dataset.bind, t.value); updateNames(); save(true); }
+    if (t.id === 'cNombre') { state.nombre = t.value; save(true); }
+  });
+  document.addEventListener('change', function (e) {
+    var t = e.target;
+    if (t.dataset && t.dataset.bindr) { setp(t.dataset.bindr, t.value); save(true); }
+  });
+
+  /* ---------- Tercer competidor y pestañas de fichas ---------- */
+  var tab = 0;
+  function hasContent(c) { return Object.keys(c).some(function (k) { return k !== 'tipo' && c[k].trim(); }); }
+  function syncC3() {
+    $('#cc2').hidden = !state.c3;
+    $('#btnC3').textContent = state.c3 ? '− Quitar el tercer competidor' : '+ Añadir un tercer competidor';
+    if (!state.c3 && tab === 2) tab = 0;
+    drawTabs();
+  }
+  $('#btnC3').addEventListener('click', function () {
+    if (state.c3) {
+      if (hasContent(state.comp[2]) && !confirm('Se borrarán los datos del tercer competidor. ¿Seguro?')) return;
+      state.c3 = false; state.comp[2] = blankComp(); delete state.pos.c2; state.placed.c2 = false;
+      fillBinds();
+    } else state.c3 = true;
+    syncC3(); save();
+  });
+  function drawTabs() {
+    var n = state.c3 ? 3 : 2;
+    $('#fichaTabs').innerHTML = [0, 1, 2].slice(0, n).map(function (i) {
+      return '<button type="button" class="tab" data-tab="' + i + '" aria-pressed="' + (tab === i) + '" style="--c:' + COL[CCOLOR[i]] + '"><i aria-hidden="true"></i><span data-n="c' + i + '">' + esc(bizName('c' + i)) + '</span></button>';
+    }).join('');
+    [0, 1, 2].forEach(function (i) { $('#fp' + i).hidden = (i !== tab) || (i === 2 && !state.c3); });
+  }
+  $('#fichaTabs').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-tab]'); if (!b) return;
+    tab = +b.dataset.tab; drawTabs();
+    var nb = $('[data-tab="' + tab + '"]'); if (nb) nb.focus();
+  });
+
+  /* ---------- Pasos ---------- */
+  var steps = $$('.step');
+  $('#stepper').innerHTML = steps.map(function (s, i) {
+    return '<button class="step-chip" type="button" data-go="' + i + '"><span class="n">' + (i === 0 ? '<svg class="espora" viewBox="28.5 14.5 340.8 372.5" aria-hidden="true"><use href="#espora"/></svg>' : i) + '</span>' + esc(s.dataset.title) + '</button>';
+  }).join('');
+  $('#toc').innerHTML = steps.slice(1).map(function (s, i) {
+    return '<button type="button" data-go="' + (i + 1) + '"><span class="k">Paso ' + (i + 1) + '</span><span class="t">' + esc(s.dataset.title) + '</span><span class="d">' + esc(s.dataset.desc || '') + '</span></button>';
+  }).join('');
+  function show(i, scroll) {
+    i = Math.max(0, Math.min(steps.length - 1, i));
+    state.step = i;
+    if (state.visited.indexOf(i) < 0) state.visited.push(i);
+    steps.forEach(function (s, k) { s.classList.toggle('on', k === i); });
+    $$('.step-chip').forEach(function (c, k) {
+      c.classList.toggle('on', k === i);
+      c.classList.toggle('done', k !== i && state.visited.indexOf(k) >= 0);
+      if (k === i) c.setAttribute('aria-current', 'step'); else c.removeAttribute('aria-current');
+    });
+    $('#progBar').style.width = (i / (steps.length - 1) * 100) + '%';
+    var on = $$('.step-chip')[i];
+    if (on && on.scrollIntoView) on.scrollIntoView({ block: 'nearest', inline: 'center' });
+    updateNames();
+    if (i === 3) drawTabs();
+    if (i === 4) { buildSliders(); drawAll(); }
+    if (i === 5) { renderCompare(); }
+    if (i === 6) renderVias();
+    if (i === 7) renderReview();
+    if (scroll !== false) window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    save();
+  }
+  document.addEventListener('click', function (e) {
+    var g = e.target.closest('[data-go]'); if (g) { show(+g.dataset.go); return; }
+    if (e.target.closest('[data-next]')) show(state.step + 1);
+    if (e.target.closest('[data-prev]')) show(state.step - 1);
+  });
+
+  /* ---------- Mapa ---------- */
+  var mapBox = $('#mapBox'), mapW = 600, mapH = 380;
+  var geom = function (w, h) { return { L: 42, T: 12, R: 12, B: 50, W: w - 54, H: h - 62 }; };
+  var px = function (g, v) { return g.L + (v - 1) / 9 * g.W; };
+  var py = function (g, v) { return g.T + g.H - (v - 1) / 9 * g.H; };
+  function mapSummary() {
+    var X = dim(state.ej.x), Y = dim(state.ej.y);
+    return 'Mapa de posición. Eje horizontal: ' + X.n + ', de «' + X.lo + '» a «' + X.hi + '». Eje vertical: ' + Y.n + ', de «' + Y.lo + '» a «' + Y.hi + '». ' +
+      activeBiz().map(function (b) { var p = xy(b); return bizName(b) + ': ' + p[0] + ' y ' + p[1] + (state.placed[b] ? '' : ' (sin colocar)'); }).join('; ') + '.';
+  }
+  function drawMap(w, h, uid) {
+    var g = geom(w, h), X = dim(state.ej.x), Y = dim(state.ej.y), F = ' font-family="Inter, system-ui, sans-serif"';
+    var placedC = activeBiz().filter(function (b) { return b !== 'own' && state.placed[b]; });
+    var hc = huecoDe(placedC.map(xy));
+    var s = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + w + ' ' + h + '" width="' + w + '" height="' + h + '" role="img" aria-label="' + esc(mapSummary()) + '"' + F + '>';
+    s += '<defs><clipPath id="clip' + uid + '"><rect x="' + g.L + '" y="' + g.T + '" width="' + g.W + '" height="' + g.H + '" rx="10"/></clipPath></defs>';
+    s += '<rect x="' + g.L + '" y="' + g.T + '" width="' + g.W + '" height="' + g.H + '" rx="10" fill="#FBFCEF" stroke="#8B847A" stroke-width="1"/>';
+    s += '<g stroke="#E8E1D6" stroke-width="1">';
+    [4, 7].forEach(function (v) { s += '<line x1="' + px(g, v) + '" y1="' + g.T + '" x2="' + px(g, v) + '" y2="' + (g.T + g.H) + '"/><line x1="' + g.L + '" y1="' + py(g, v) + '" x2="' + (g.L + g.W) + '" y2="' + py(g, v) + '"/>'; });
+    s += '</g><g stroke="#8B847A" stroke-width="1" stroke-dasharray="4 4"><line x1="' + px(g, 5.5) + '" y1="' + g.T + '" x2="' + px(g, 5.5) + '" y2="' + (g.T + g.H) + '"/><line x1="' + g.L + '" y1="' + py(g, 5.5) + '" x2="' + (g.L + g.W) + '" y2="' + py(g, 5.5) + '"/></g>';
+    var bx = g.T + g.H;
+    s += '<g font-size="12" fill="#4A463F"><text x="' + g.L + '" y="' + (bx + 17) + '">' + esc(X.lo) + '</text><text x="' + (g.L + g.W) + '" y="' + (bx + 17) + '" text-anchor="end">' + esc(X.hi) + '</text>' +
+      '<text x="' + (g.L + g.W / 2) + '" y="' + (bx + 38) + '" text-anchor="middle" font-weight="700" fill="#1E1C1A" font-size="13">' + esc(X.n) + ' →</text>' +
+      '<text transform="translate(31 ' + bx + ') rotate(-90)" text-anchor="start">' + esc(Y.lo) + '</text><text transform="translate(31 ' + g.T + ') rotate(-90)" text-anchor="end">' + esc(Y.hi) + '</text>' +
+      '<text transform="translate(13 ' + (g.T + g.H / 2) + ') rotate(-90)" text-anchor="middle" font-weight="700" fill="#1E1C1A" font-size="13">' + esc(Y.n) + ' →</text></g>';
+    if (hc) {
+      var r = Math.min(hc.r, 3.2) * g.W / 9;
+      s += '<g clip-path="url(#clip' + uid + ')"><circle cx="' + px(g, hc.x) + '" cy="' + py(g, hc.y) + '" r="' + r + '" fill="#1672A0" fill-opacity=".1" stroke="#1672A0" stroke-width="2" stroke-dasharray="6 5"/></g>' +
+        '<text x="' + Math.max(g.L + 36, Math.min(g.L + g.W - 36, px(g, hc.x))) + '" y="' + Math.max(g.T + 16, Math.min(g.T + g.H - 8, py(g, hc.y) + 4)) + '" text-anchor="middle" font-size="13" font-weight="700" fill="#0E4F70" stroke="#FBFCEF" stroke-width="3" paint-order="stroke">Zona libre</text>';
+    }
+    activeBiz().forEach(function (b, k) {
+      var p = xy(b), cx = px(g, p[0]), cy = py(g, p[1]), col = COL[b], pl = state.placed[b];
+      var nm = bizName(b); if (nm.length > 20) nm = nm.slice(0, 19) + '…';
+      var anchor = cx < g.L + 50 ? 'start' : (cx > g.L + g.W - 50 ? 'end' : 'middle'), lx = anchor === 'start' ? cx - 14 : (anchor === 'end' ? cx + 14 : cx);
+      var ly = cy > g.T + g.H - 36 ? cy - 24 : cy + 33;
+      s += '<g data-b="' + b + '"><circle cx="' + cx + '" cy="' + cy + '" r="26" fill="transparent"/>' +
+        '<circle cx="' + cx + '" cy="' + cy + '" r="15" fill="' + col + '" fill-opacity="' + (pl ? 1 : .55) + '" stroke="#fff" stroke-width="3"' + (pl ? '' : ' stroke-dasharray="3 3"') + '/>' +
+        '<circle cx="' + cx + '" cy="' + cy + '" r="17" fill="none" stroke="#1E1C1A" stroke-width="1"/>' +
+        '<text x="' + cx + '" y="' + (cy + 5) + '" text-anchor="middle" font-size="' + (b === 'own' ? 11 : 14) + '" font-weight="700" fill="#fff">' + (b === 'own' ? 'Tú' : (+b.slice(1) + 1)) + '</text>' +
+        '<text x="' + lx + '" y="' + ly + '" text-anchor="' + anchor + '" font-size="12.5" font-weight="650" fill="#1E1C1A" stroke="#FBFCEF" stroke-width="3.5" paint-order="stroke">' + esc(nm) + '</text></g>';
+    });
+    return s + '</svg>';
+  }
+  function drawAll() {
+    mapW = Math.max(300, Math.min(960, mapBox.clientWidth || 600));
+    mapH = mapW < 520 ? Math.round(mapW * 1.05) : Math.round(mapW * .62);
+    mapBox.innerHTML = drawMap(mapW, mapH, 'a');
+    var ul = '<ul>' + insights().map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ul>';
+    $('#insight').innerHTML = '<h3>Lo que dice tu mapa</h3>' + ul;
+  }
+  var resizeT;
+  window.addEventListener('resize', function () { clearTimeout(resizeT); resizeT = setTimeout(function () { if (state.step === 4) drawAll(); }, 120); });
+
+  $('#selX').innerHTML = $('#selY').innerHTML = DIMS.map(function (d) { return '<option value="' + d.id + '">' + esc(d.n) + '</option>'; }).join('');
+  function syncSelects() { $('#selX').value = state.ej.x; $('#selY').value = state.ej.y; }
+  function onAxis(role) {
+    var other = role === 'x' ? 'y' : 'x', v = $(role === 'x' ? '#selX' : '#selY').value;
+    state.ej[role] = v;
+    if (state.ej[other] === v) state.ej[other] = DIMS.filter(function (d) { return d.id !== v; })[0].id;
+    syncSelects(); buildSliders(); drawAll(); save(true);
+  }
+  $('#selX').addEventListener('change', function () { onAxis('x'); });
+  $('#selY').addEventListener('change', function () { onAxis('y'); });
+
+  function buildSliders() {
+    syncSelects();
+    $('#sliders').innerHTML = activeBiz().map(function (b) {
+      var X = dim(state.ej.x), Y = dim(state.ej.y), px_ = xy(b);
+      var rg = function (role, D, v) {
+        return '<div><label for="rg-' + b + '-' + role + '"><span>' + esc(D.n) + '</span><output id="o-' + b + '-' + role + '">' + v + '</output></label>' +
+          '<input type="range" id="rg-' + b + '-' + role + '" data-b="' + b + '" data-role="' + role + '" min="1" max="10" step="0.5" value="' + v + '" aria-describedby="h-' + role + '"><div class="ends"><span>' + esc(D.lo) + '</span><span>' + esc(D.hi) + '</span></div></div>';
+      };
+      return '<div class="slc" style="--c:' + COL[b] + '"><h4>' + esc(bizName(b)) + ' <span class="st' + (state.placed[b] ? ' ok' : '') + '" id="st-' + b + '">' + (state.placed[b] ? 'Colocado' : 'Sin colocar') + '</span></h4>' +
+        rg('x', X, px_[0]) + rg('y', Y, px_[1]) + '</div>';
+    }).join('') + '<p class="hint" id="h-x" style="grid-column:1/-1">' + esc(dim(state.ej.x).q) + ' ' + esc(dim(state.ej.y).q) + '</p><span id="h-y" hidden></span>';
+    $$('#sliders input[type=range]').forEach(aria);
+  }
+  function aria(el) {
+    var D = dim(state.ej[el.dataset.role]);
+    el.setAttribute('aria-valuetext', el.value + ' de 10, entre «' + D.lo + '» y «' + D.hi + '»');
+  }
+  function syncOne(b) {
+    ['x', 'y'].forEach(function (r, k) {
+      var el = $('#rg-' + b + '-' + r), v = xy(b)[k];
+      if (el) { el.value = v; aria(el); }
+      var o = $('#o-' + b + '-' + r); if (o) o.textContent = v;
+    });
+    var st = $('#st-' + b); if (st) { st.textContent = 'Colocado'; st.classList.add('ok'); }
+  }
+  $('#sliders').addEventListener('input', function (e) {
+    var t = e.target; if (!t.dataset.b) return;
+    setVal(t.dataset.b, t.dataset.role, t.value); syncOne(t.dataset.b); drawAll(); save(true);
+  });
+  var drag = null;
+  function moveTo(e) {
+    var r = mapBox.querySelector('svg').getBoundingClientRect(), g = geom(mapW, mapH);
+    var vx = 1 + (e.clientX - r.left - g.L) / g.W * 9, vy = 1 + (g.T + g.H - (e.clientY - r.top)) / g.H * 9;
+    setVal(drag, 'x', vx); setVal(drag, 'y', vy); syncOne(drag); drawAll();
+  }
+  mapBox.addEventListener('pointerdown', function (e) {
+    var g = e.target.closest('[data-b]'); if (!g) return;
+    drag = g.dataset.b; try { mapBox.setPointerCapture(e.pointerId); } catch (x) {}
+    e.preventDefault(); moveTo(e);
+  });
+  mapBox.addEventListener('pointermove', function (e) { if (drag) moveTo(e); });
+  ['pointerup', 'pointercancel'].forEach(function (n) { mapBox.addEventListener(n, function () { if (drag) { drag = null; save(true); } }); });
+
+  /* ---------- Cuadro comparativo ---------- */
+  var ROWS = [['Qué ofrece', 'ofrece'], ['A cuánto', 'precio'], ['Cómo lo vende', 'canal'], ['Cómo lo da a conocer', 'comunica']];
+  function cell(v, l) { v = (v || '').trim(); return '<td data-l="' + esc(l) + '">' + (v ? esc(v) : '<span class="empty">sin rellenar</span>') + '</td>'; }
+  function posTxt(b) {
+    if (!state.placed[b]) return 'sin colocar';
+    var p = xy(b); return dim(state.ej.x).n + ': ' + p[0] + '/10 · ' + dim(state.ej.y).n + ': ' + p[1] + '/10';
+  }
+  function compareTable(forPrint) {
+    var act = activeBiz();
+    var h = '<thead><tr><th scope="col"><span class="sr-only"></span></th>' + act.map(function (b) { return '<th scope="col"' + (b === 'own' ? ' class="own"' : '') + '>' + esc(bizName(b)) + '</th>'; }).join('') + '</tr></thead><tbody>';
+    var row = function (label, fn) { return '<tr><th scope="row">' + label + '</th>' + act.map(function (b) { return fn(b, bizName(b)); }).join('') + '</tr>'; };
+    h += row('Por qué es competidor', function (b, n) { return b === 'own' ? '<td data-l="' + esc(n) + '"><span class="empty">—</span></td>' : cell((state.comp[+b.slice(1)].tipo === 'indirecto' ? 'Indirecto. ' : 'Directo. ') + state.comp[+b.slice(1)].porque, n); });
+    ROWS.forEach(function (r) { h += row(r[0], function (b, n) { return cell(b === 'own' ? state.emp[r[1]] : state.comp[+b.slice(1)][r[1]], n); }); });
+    h += row('Posición en el mapa', function (b, n) { return '<td data-l="' + esc(n) + '">' + esc(posTxt(b)) + '</td>'; });
+    h += row('Fuente', function (b, n) { return b === 'own' ? '<td data-l="' + esc(n) + '"><span class="empty">—</span></td>' : cell(state.comp[+b.slice(1)].fuente, n); });
+    return h + '</tbody>';
+  }
+  function renderCompare() {
+    $('#cmp').innerHTML = compareTable();
+    $('#insight2').innerHTML = '<h3>Lo que dice tu mapa</h3><ul>' + insights().map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ul>';
+  }
+
+  /* ---------- Vías de Porter ---------- */
+  function renderVias() {
+    $('#vias').innerHTML = VIAS.map(function (v) {
+      return '<button type="button" class="via" data-via="' + v.id + '" aria-pressed="' + (state.via === v.id) + '"><span class="vn">' + v.n + '</span><span class="vt">' + v.t + '</span><p>' + v.d + '</p><p>' + v.c + '</p></button>';
+    }).join('');
+    var pl = porterPista();
+    $('#insight3').innerHTML = '<h3>Una pista de tu mapa</h3><p>' + (pl ? pl.txt : 'Coloca tu empresa y a tus competidores en el mapa del paso 4 y aquí aparecerá una pista. Es solo una pista, no un veredicto.') + '</p>';
+    $('#insight3').hidden = false;
+  }
+  $('#vias').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-via]'); if (!b) return;
+    state.via = (state.via === b.dataset.via) ? '' : b.dataset.via; save(true); renderVias();
+    var nb = $('[data-via="' + b.dataset.via + '"]'); if (nb) nb.focus();
+  });
+
+  /* ---------- Revisión ---------- */
+  function review() {
+    var L = [], e = state.emp, t = function (s) { return !!String(s).trim(); };
+    L.push([t(e.nombre) && t(e.ofrece) && t(e.precio), 'Tu empresa: nombre, qué ofreces y a cuánto', 1]);
+    [0, 1].concat(state.c3 ? [2] : []).forEach(function (i) {
+      var c = state.comp[i], n = 'Competidor ' + (i + 1) + (c.nombre.trim() ? ' (' + c.nombre.trim() + ')' : '');
+      L.push([t(c.nombre) && t(c.porque), n + ': nombre y motivo', 2]);
+      L.push([t(c.ofrece) && t(c.precio) && (t(c.canal) || t(c.comunica)), n + ': qué ofrece, a cuánto y cómo', 3]);
+      L.push([t(c.fuente), n + ': fuente de los datos', 3]);
+    });
+    L.push([activeBiz().every(function (b) { return state.placed[b]; }), 'Mapa: todos los negocios colocados', 4]);
+    L.push([t(state.cierre.hueco), 'Conclusión: dónde hay hueco', 5]);
+    L.push([t(state.cierre.pregunta), 'Pregunta de análisis respondida', 6]);
+    return L;
+  }
+  function renderReview() {
+    var L = review(), falta = L.filter(function (x) { return !x[0]; }).length;
+    $('#review').innerHTML = L.map(function (x) {
+      return '<li class="' + (x[0] ? 'ok' : 'no') + '"><span class="mk" aria-hidden="true">' + (x[0] ? '✓' : '!') + '</span><span>' + esc(x[1]) + '<span class="sr-only">' + (x[0] ? ': hecho' : ': falta') + '</span></span>' + (x[0] ? '' : '<button type="button" data-go="' + x[2] + '">Ir al paso ' + x[2] + '</button>') + '</li>';
+    }).join('') + (falta ? '' : '');
+  }
+
+  /* ---------- Informe ---------- */
+  $('#btnPrint').addEventListener('click', function () {
+    var hoy = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' }), c = state.cierre, e = state.emp;
+    var via = VIAS.filter(function (v) { return v.id === state.via; })[0];
+    var ans = function (v) { return v.trim() ? esc(v) : '<i>(sin responder)</i>'; };
+    var h = '<div class="ph"><div><h1>Benchmarking de la competencia</h1><div class="sub">' + esc(bizName('own')) + ' · Marketing estratégico</div></div><div class="meta">' + esc(state.nombre || 'Sin nombre') + '<br>' + hoy + '</div></div>';
+    h += '<h2>1. Tu empresa y tus competidores</h2>';
+    if (e.publico.trim() || e.dif.trim()) h += '<p><b>Público:</b> ' + ans(e.publico) + '<br><b>Tu diferencia hoy:</b> ' + ans(e.dif) + '</p>';
+    h += '<table>' + compareTable(true) + '</table>';
+    h += '<h2>2. Mapa de posición</h2><div class="mapfig">' + drawMap(660, 400, 'b') + '</div>';
+    h += '<ul>' + insights().map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ul>';
+    h += '<h2>3. Conclusiones</h2>';
+    h += '<div class="pq"><b>¿Qué hacen mejor que yo?</b><div class="ans">' + ans(c.mejor) + '</div></div>';
+    h += '<div class="pq"><b>¿Dónde hay hueco para mí?</b><div class="ans">' + ans(c.hueco) + '</div></div>';
+    h += '<div class="pq"><b>¿Qué le diría a un cliente de ' + esc(bizName('c0')) + ' para que se pase a mí?</b><div class="ans">' + ans(c.pregunta) + '</div></div>';
+    h += '<div class="pq"><b>Primera intuición hacia Porter</b><div class="ans">' + (via ? esc(via.t) + ': ' + esc(via.d) : '<i>(sin elegir)</i>') + '</div></div>';
+    h += '<p class="foot">Esplora · esplora.es/benchmarking.html · Los datos de la competencia los ha recogido la persona que firma este informe.</p>';
+    $('#printSheet').innerHTML = h;
+    window.print();
+  });
+
+  /* ---------- Guardar y cargar archivo ---------- */
+  function contexto() {
+    var pos = {};
+    activeBiz().forEach(function (b) { var p = xy(b); pos[b] = { colocado: !!state.placed[b], x: p[0], y: p[1] }; });
+    return {
+      aviso: 'Resumen legible para otras herramientas de Esplora (por ejemplo, el plan de acción comercial). Para retomar el trabajo se usan los demás campos.',
+      empresa: JSON.parse(JSON.stringify(state.emp)),
+      competidores: [0, 1, 2].slice(0, state.c3 ? 3 : 2).map(function (i) { return JSON.parse(JSON.stringify(state.comp[i])); }),
+      mapa: { ejeX: { id: state.ej.x, nombre: dim(state.ej.x).n }, ejeY: { id: state.ej.y, nombre: dim(state.ej.y).n }, posiciones: pos },
+      conclusiones: { mejorQueYo: state.cierre.mejor, hueco: state.cierre.hueco, argumentoParaUnCliente: state.cierre.pregunta },
+      ventajaPrevia: state.via
+    };
+  }
+  $('#btnExp').addEventListener('click', function () {
+    var data = Object.assign({ herramienta: 'esplora-benchmarking', v: 1, fecha: new Date().toISOString().slice(0, 10) }, JSON.parse(JSON.stringify(state)), { contexto: contexto() });
+    var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'esplora-benchmarking-progreso.json';
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+  });
+  $('#btnImp').addEventListener('click', function () { $('#fileImp').click(); });
+  function refreshAll() { fillBinds(); syncC3(); updateNames(); }
+  $('#fileImp').addEventListener('change', function () {
+    var f = this.files && this.files[0]; if (!f) return;
+    var r = new FileReader();
+    r.onload = function () {
+      try {
+        var d = JSON.parse(r.result);
+        if (!d || d.herramienta !== 'esplora-benchmarking') throw 0;
+        state = blankState(); apply(d); save(); refreshAll(); show(state.step, false);
+        alert('Progreso cargado.');
+      } catch (e) { alert('Ese archivo no es un progreso de esta herramienta.'); }
+    };
+    r.readAsText(f); this.value = '';
+  });
+
+  /* ---------- Ejemplo ---------- */
+  var EJEMPLO = {
+    nombre: '', emp: { nombre: 'Plantas a domicilio Verdemar', ofrece: 'Plantas de interior fáciles de cuidar, con maceta de diseño y guía de cuidados en papel.', publico: 'Gente joven de ciudad, con poco tiempo y pisos pequeños.', precio: 'De 12 a 45 € por planta con maceta; envío gratis desde 40 €.', canal: 'Web propia y envío a domicilio en 48 horas.', comunica: 'Vídeos de cuidados en Instagram y 10 % de descuento en la primera compra.', dif: 'Plantas que llegan listas para vivir, con maceta y guía incluidas.' },
+    comp: [
+      { nombre: 'Vivero del polígono', tipo: 'directo', porque: 'Vende las mismas plantas de interior, está a diez minutos del barrio y es donde mucha gente compra hoy.', ofrece: 'Gran variedad de plantas de interior y exterior, tierra, macetas y abonos.', precio: 'Plantas de 4 a 30 €; la maceta se paga aparte.', canal: 'Solo tienda física; no vende por internet.', comunica: 'Cartel en la entrada y una página de Facebook poco actualizada.', fuente: 'Visita a la tienda y su página de Facebook.' },
+      { nombre: 'Gran superficie de bricolaje', tipo: 'indirecto', porque: 'Vende plantas como complemento. No es especialista, pero llega a muchísima gente y a buen precio.', ofrece: 'Plantas básicas de temporada junto a herramientas y decoración.', precio: 'Plantas de 3 a 15 €, casi siempre en oferta.', canal: 'Tienda física y web con recogida en tienda.', comunica: 'Folleto mensual y ofertas de temporada.', fuente: 'Web de la cadena y folleto del mes.' },
+      blankComp()],
+    c3: false, ej: { x: 'precio', y: 'calidad' },
+    pos: { own: { precio: 6.5, calidad: 8 }, c0: { precio: 4.5, calidad: 6 }, c1: { precio: 2, calidad: 3.5 } },
+    placed: { own: true, c0: true, c1: true },
+    cierre: { mejor: 'El vivero tiene más variedad y precios más bajos, y la gran superficie llega a muchísima más gente.', hueco: 'Nadie vende plantas fáciles de cuidar, bonitas y listas para regalar con envío a casa: el vivero no vende online y la gran superficie no asesora.', pregunta: 'Que con nosotros recibe la planta con maceta y guía en 48 horas sin ir al polígono, porque ellos no venden por internet.' },
+    via: 'diferenciacion'
+  };
+  $('#btnEj').addEventListener('click', function () {
+    var usado = state.emp.nombre.trim() || state.emp.ofrece.trim() || hasContent(state.comp[0]) || hasContent(state.comp[1]);
+    if (usado && !confirm('Se sustituirá lo que has escrito por un ejemplo. ¿Seguro?')) return;
+    state = blankState(); apply(EJEMPLO); state.visited = [0]; save(); refreshAll(); show(1);
+  });
+
+  /* ---------- Empezar de cero ---------- */
+  $('#btnReset').addEventListener('click', function () {
+    if (!confirm('Se borrarán tus respuestas de esta herramienta en este navegador. ¿Seguro?')) return;
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    location.reload();
+  });
+
+  refreshAll();
+  show(state.step || 0, false);
+})();
+</script>
+<style>.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}</style>
+<!-- pie-legal:inicio (scripts/generar.ps1) -->
+<nav class="pie-legal" aria-label="Información legal" style="clear:both;max-width:880px;margin:32px auto 0;padding:16px 16px 28px;text-align:center;font:14px/1.6 system-ui,-apple-system,'Segoe UI',sans-serif;color:inherit"><a href="aviso-legal.html">Aviso legal</a> · <a href="privacidad.html">Privacidad</a> · <a href="cookies.html">Cookies</a> · <a href="licencia.html">Licencia y créditos</a> · <a href="accesibilidad.html">Accesibilidad</a></nav>
+<style>.pie-legal a{color:inherit;display:inline-block;padding-block:6px;text-underline-offset:3px}@media print{.pie-legal{display:none!important}}</style>
+<!-- pie-legal:fin -->
+</body>
+</html>
