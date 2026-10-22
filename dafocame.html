@@ -4,16 +4,16 @@
 <meta charset="UTF-8">
 <script>/* Esplora Labs: recupera el progreso guardado con el nombre antiguo (educa…) */try{for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(/^educa/.test(k)){var n=k.replace(/^educatools/,'esplora').replace(/^educa/,'esplora');if(localStorage.getItem(n)===null)localStorage.setItem(n,localStorage.getItem(k));}}}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Análisis DAFO y CAME · Esplora</title>
-<meta name="description" content="Diagnostica tu proyecto con el análisis DAFO y crúzalo con el CAME para decidir qué hacer. Herramienta gratuita para FP, en el navegador y con informe en PDF.">
+<title>Análisis DAFO cruzado · Esplora</title>
+<meta name="description" content="Diagnostica tu proyecto con el DAFO y crúzalo para sacar 4 estrategias: ofensivas, defensivas, reorientativas y de supervivencia. Gratis, con informe en PDF.">
 <link rel="canonical" href="https://esplora.es/dafocame.html">
 <!-- compartir:inicio (scripts/generar.ps1) -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Esplora">
 <meta property="og:locale" content="es_ES">
 <meta property="og:url" content="https://esplora.es/dafocame.html">
-<meta property="og:title" content="Análisis DAFO y CAME · Esplora">
-<meta property="og:description" content="Diagnostica tu proyecto con el análisis DAFO y crúzalo con el CAME para decidir qué hacer. Herramienta gratuita para FP, en el navegador y con informe en PDF.">
+<meta property="og:title" content="Análisis DAFO cruzado · Esplora">
+<meta property="og:description" content="Diagnostica tu proyecto con el DAFO y crúzalo para sacar 4 estrategias: ofensivas, defensivas, reorientativas y de supervivencia. Gratis, con informe en PDF.">
 <meta property="og:image" content="https://esplora.es/marca/compartir.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -24,7 +24,7 @@
 <link rel="stylesheet" href="fuentes/fuentes.css">
 <style>
 /* ══════════════════════════════════════════════════════════════
-   ESPLORA — DAFO + CAME
+   ESPLORA — DAFO cruzado
    Paleta de marca (canónica, brand-kit-especificacion.md) +
    familias de color por cuadrante, heredadas del sistema PESTEL.
    Tema claro únicamente — decisión de marca del proyecto.
@@ -53,7 +53,7 @@
   --font-display: 'Fraunces', Georgia, serif;
   --font-ui: 'Inter', -apple-system, 'Segoe UI', sans-serif;
 
-  /* Acento de herramienta — DAFO/CAME (índigo, nuevo dentro del kit) */
+  /* Acento de herramienta — DAFO cruzado (índigo, nuevo dentro del kit) */
   --tool-soft: #E7E8F1;
   --tool-mid: #8890BE;
   --tool-deep: #454B78;
@@ -415,7 +415,7 @@ h3.subtitle { font-size: 22px; font-weight: 600; }
 .bal-txt { grid-column: 1 / -1; font-size: calc(12.5px * var(--k)); line-height: 1.5; color: var(--ink); }
 .bal-txt b { color: var(--tool-deep); }
 
-/* matriz CAME del informe */
+/* matriz del DAFO cruzado en el informe */
 .came { flex: 1; min-height: 0; display: grid; grid-template-columns: 112px 1fr 1fr; grid-template-rows: auto minmax(0,1fr) minmax(0,1fr); gap: 8px; }
 .came-h { border-radius: 12px; padding: 10px 12px; color: #fff; font-family: var(--font-display); font-weight: 600; font-size: 17px; display: flex; align-items: center; gap: 10px; }
 .came-h b { width: 32px; height: 32px; border-radius: 9px; background: rgba(255,255,255,.18); display: grid; place-items: center; font-size: 20px; flex: none; }
@@ -436,10 +436,47 @@ h3.subtitle { font-size: 22px; font-weight: 600; }
 .rp-legend b { display: block; font-family: var(--font-display); font-size: 14px; color: var(--tool-deep); }
 .rp-foot { margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; font-size: 11px; color: var(--ink-muted); font-weight: 600; }
 
+/* Términos enlazados al glosario (mismo sistema que PESTEL) */
+.gl-term { all: unset; cursor: help; color: inherit; text-decoration: underline dotted var(--tool-mid); text-decoration-thickness: 1.5px; text-underline-offset: 4px; border-radius: 3px; transition: background .15s ease; }
+.gl-term:hover { background: var(--tool-soft); }
+.gl-term:focus-visible { outline: 2px solid var(--tool-deep); outline-offset: 2px; }
+
+/* ══ Glosario: en el margen (pantallas anchas) o botón flotante (resto) ══ */
+.glos { position: fixed; right: 16px; bottom: 16px; z-index: 40; }
+.glos summary { list-style: none; display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; padding: 11px 16px 11px 14px; border-radius: 999px; background: var(--tool-deep); color: #fff; font-size: 15px; font-weight: 600; box-shadow: 0 8px 24px -8px rgba(31,36,23,.45); }
+.glos summary::-webkit-details-marker { display: none; }
+.glos summary > svg:first-child { width: 18px; height: 18px; flex: none; }
+.glos-n { min-width: 22px; height: 22px; padding: 0 6px; border-radius: 999px; background: rgba(255,255,255,.2); font-size: 12.5px; font-weight: 700; display: grid; place-items: center; }
+.glos-chev { width: 16px; height: 16px; transition: transform .2s ease; transform: rotate(180deg); }
+.glos details[open] .glos-chev { transform: rotate(0); }
+.glos-panel { position: absolute; right: 0; bottom: calc(100% + 10px); width: min(360px, calc(100vw - 32px)); max-height: min(62vh, 520px); overflow: auto; overscroll-behavior: contain; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px 6px; box-shadow: 0 24px 48px -16px rgba(31,36,23,.35); }
+.glos-ctx { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--tool-deep); margin-bottom: 6px; }
+.glos-it { padding: 11px 10px; margin: 0 -10px; border-top: 1px solid var(--line-soft); border-radius: 8px; }
+.glos-it:first-child { border-top: none; }
+.glos-it dt { font-family: var(--font-display); font-size: 16px; font-weight: 600; color: var(--ink); line-height: 1.25; margin-bottom: 3px; }
+.glos-it dd { font-size: 14px; line-height: 1.5; color: var(--ink-soft); }
+.glos-it.flash { animation: glosFlash 1.6s ease; }
+@keyframes glosFlash { 0%, 40% { background: var(--tool-soft); } 100% { background: transparent; } }
+.glos-sep { font-size: 11.5px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--ink-soft); padding: 14px 0 2px; border-top: 1px solid var(--line); margin-top: 4px; }
+.glos-sep + .glos-it { border-top: none; }
+
+/* En el margen: tarjeta fija junto al contenido */
+/* (la clase glos-margen la pone el script: ≥1280 px, o ≥1440 px en el informe) */
+body.glos-margen .glos { right: auto; bottom: auto; top: 78px; left: calc(50% + 380px + 24px); width: clamp(220px, calc(50vw - 380px - 48px), 300px); }
+body.glos-margen.on-results .glos { left: calc(50% + 440px + 24px); width: clamp(220px, calc(50vw - 440px - 48px), 280px); }
+body.glos-margen .glos summary { border-radius: 14px; background: var(--surface); color: var(--ink); border: 1px solid var(--line); box-shadow: none; padding: 12px 14px; }
+body.glos-margen .glos details[open] summary { border-radius: 14px 14px 0 0; border-bottom-color: var(--line-soft); }
+body.glos-margen .glos summary > svg:first-child { color: var(--tool-deep); }
+body.glos-margen .glos-n { background: var(--line-soft); color: var(--ink-soft); }
+body.glos-margen .glos-chev { margin-left: auto; transform: rotate(0); }
+body.glos-margen .glos details[open] .glos-chev { transform: rotate(180deg); }
+body.glos-margen .glos-panel { position: static; width: auto; max-height: calc(100vh - 150px); border-top: none; border-radius: 0 0 14px 14px; box-shadow: none; }
+@media (prefers-reduced-motion: reduce) { .glos-it.flash { animation: none; } .glos-chev, .gl-term { transition: none; } }
+
 @media print {
   @page { size: A4; margin: 0; }
   body { background: #fff; }
-  .brandbar, .dossier-actions { display: none !important; }
+  .brandbar, .dossier-actions, .glos { display: none !important; }
   .dossier-wrap { padding: 0; max-width: none; }
   html, body { height: auto; min-height: 0; }
   .rp { width: 210mm; height: 296mm; margin: 0; border-radius: 0; box-shadow: none; padding: 12mm 13mm 10mm; overflow: hidden; break-inside: avoid; page-break-inside: avoid; page-break-after: always; break-after: page; }
@@ -459,7 +496,23 @@ h3.subtitle { font-size: 22px; font-weight: 600; }
 
 </head>
 <body>
-<header class="brandbar"><div class="brandbar-in"><a href="index.html" aria-label="Esplora, volver al catálogo"><img src="marca/logo-horizontal-crema.svg" alt="" width="114" height="28"></a><small>DAFO · CAME</small></div></header>
+<header class="brandbar"><div class="brandbar-in"><a href="index.html" aria-label="Esplora, volver al catálogo"><img src="marca/logo-horizontal-crema.svg" alt="" width="114" height="28"></a><small>DAFO cruzado</small></div></header>
+
+<!-- ═══ GLOSARIO (margen derecho en pantallas anchas; botón flotante en móvil) ═══ -->
+<aside class="glos" aria-label="Glosario">
+  <details id="glos-det">
+    <summary>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5V5a2 2 0 0 1 2-2h13v15H6.5A2.5 2.5 0 0 0 4 20.5 2.5 2.5 0 0 0 6.5 23H19"/><path d="M8 7h7M8 11h5"/></svg>
+      <span class="glos-sum-t">Glosario</span>
+      <span class="glos-n" id="glos-n"></span>
+      <svg class="glos-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+    </summary>
+    <div class="glos-panel">
+      <p class="glos-ctx" id="glos-ctx"></p>
+      <dl class="glos-list" id="glos-list"></dl>
+    </div>
+  </details>
+</aside>
 <!-- ═══════════════════════════════════════════════════════════════ -->
 <!-- INTRO                                                            -->
 <!-- ═══════════════════════════════════════════════════════════════ -->
@@ -467,7 +520,7 @@ h3.subtitle { font-size: 22px; font-weight: 600; }
   <div class="container">
     <div class="eyebrow-line fade"><span class="eyebrow">IPE 1/2 · Diagnóstico estratégico</span></div>
 
-    <h1 class="display fade-1" style="margin-bottom: 22px;">El análisis <em>DAFO</em> y su cruce <em>CAME</em></h1>
+    <h1 class="display fade-1" style="margin-bottom: 22px;">El análisis <em>DAFO</em> cruzado</h1>
 
     <p class="prose-italic fade-2" style="font-size: 18px; margin-bottom: 40px;">
       Diagnostica tu idea de negocio por dentro y por fuera, y convierte cada cuadrante en una estrategia concreta cruzando fortalezas, debilidades, oportunidades y amenazas.
@@ -482,19 +535,22 @@ h3.subtitle { font-size: 22px; font-weight: 600; }
         </li>
         <li style="display:flex; gap:14px; margin-bottom:12px; align-items:flex-start;">
           <div class="step-badge">2</div>
-          <span class="prose" style="font-size:16px;">Cruza tus cuadrantes en las <span class="keyword">4 estrategias CAME</span>: explotar, corregir, mantener y afrontar.</span>
+          <span class="prose" style="font-size:16px;">Cruza tus cuadrantes para sacar <span class="keyword">4 estrategias</span>: ofensivas, defensivas, reorientativas y de supervivencia.</span>
         </li>
         <li style="display:flex; gap:14px; align-items:flex-start;">
           <div class="step-badge">3</div>
-          <span class="prose" style="font-size:16px;">Recibe tu <span class="keyword">informe estratégico</span> con matriz DAFO y hoja de ruta CAME.</span>
+          <span class="prose" style="font-size:16px;">Recibe tu <span class="keyword">informe estratégico</span> con la matriz DAFO y tus 4 estrategias.</span>
         </li>
       </ol>
     </div>
 
     <div class="card fade-3" style="padding: 20px 24px; margin-bottom: 36px; background: var(--tool-soft); border-color: var(--tool-mid);">
-      <p class="sans" style="font-size: 16px; color: var(--tool-deep); margin: 0 0 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.4px;">¿Qué es el DAFO-CAME?</p>
+      <p class="sans" style="font-size: 16px; color: var(--tool-deep); margin: 0 0 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.4px;">¿Qué es el DAFO cruzado?</p>
       <p class="prose" style="font-size: 16px; color: var(--ink-soft);">
-        El <span class="keyword">DAFO</span> (Debilidades, Amenazas, Fortalezas, Oportunidades) diagnostica tu negocio distinguiendo lo interno de lo externo y lo favorable de lo desfavorable. El <span class="keyword">CAME</span> da el paso siguiente: cruza esos cuadrantes dos a dos para decidir qué <span class="keyword">Corregir</span>, <span class="keyword">Afrontar</span>, <span class="keyword">Mantener</span> y <span class="keyword">Explotar</span>.
+        El <span class="keyword">DAFO</span> (Debilidades, Amenazas, Fortalezas, Oportunidades) diagnostica tu negocio distinguiendo lo interno de lo externo y lo favorable de lo desfavorable. El <span class="keyword">DAFO cruzado</span> da el paso siguiente: combina lo interno con lo externo, dos a dos, y de cada pareja sale una estrategia: <span class="keyword">ofensiva</span> (F&nbsp;+&nbsp;O), <span class="keyword">defensiva</span> (F&nbsp;+&nbsp;A), <span class="keyword">reorientativa</span> (D&nbsp;+&nbsp;O) y <span class="keyword">de supervivencia</span> (D&nbsp;+&nbsp;A).
+      </p>
+      <p class="prose" style="font-size: 15px; color: var(--ink-muted); margin-top: 12px;">
+        <b>¿Y el CAME?</b> Es otro método que verás en algunos libros. No cruza cuadrantes: propone una acción para cada uno por separado. Corregir las debilidades, Afrontar las amenazas, Mantener las fortalezas y Explotar las oportunidades.
       </p>
     </div>
 
@@ -526,7 +582,7 @@ h3.subtitle { font-size: 22px; font-weight: 600; }
     <p id="idea-display-quadrants" class="idea-display" style="margin-bottom: 28px;"></p>
 
     <h3 class="subtitle" style="margin-bottom: 6px;">Tu matriz DAFO</h3>
-    <p class="prose" style="font-size:15.5px; margin-bottom:18px; color:var(--ink-muted);">Necesitas al menos 2 elementos en cada cuadrante para poder cruzarlos en el CAME.</p>
+    <p class="prose" style="font-size:15.5px; margin-bottom:18px; color:var(--ink-muted);">Necesitas al menos 2 elementos en cada cuadrante para poder cruzarlos después.</p>
     <div id="quadrants-matrix" class="matrix-shell fade" style="margin-bottom: 28px;"></div>
 
     <div id="quadrants-list" style="display:flex; flex-direction:column; gap:12px; margin-bottom: 28px;"></div>
@@ -591,7 +647,7 @@ h3.subtitle { font-size: 22px; font-weight: 600; }
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════════ -->
-<!-- PANEL DE CRUCES CAME                                             -->
+<!-- PANEL DE CRUCES (DAFO CRUZADO)                                   -->
 <!-- ═══════════════════════════════════════════════════════════════ -->
 <div id="screen-cruces" class="screen">
   <div class="container">
@@ -601,8 +657,8 @@ h3.subtitle { font-size: 22px; font-weight: 600; }
     </button>
 
     <span class="eyebrow" style="display:block; margin-bottom:10px;">Cruce estratégico</span>
-    <h2 class="title fade" style="margin-bottom:10px;">Del DAFO al <em style="font-style:italic; color:var(--tool-deep);">CAME</em></h2>
-    <p class="prose" style="font-size:16px; margin-bottom:24px; color:var(--ink-soft);">Cruza cada pareja de cuadrantes: selecciona qué elementos combinas y escribe la acción estratégica que se deriva de ellos.</p>
+    <h2 class="title fade" style="margin-bottom:10px;">Del DAFO a las <em style="font-style:italic; color:var(--tool-deep);">4 estrategias</em></h2>
+    <p class="prose" style="font-size:16px; margin-bottom:24px; color:var(--ink-soft);">Cruza cada pareja de cuadrantes: selecciona qué elementos combinas y escribe la estrategia que sale de ellos.</p>
 
     <div id="cruces-list" style="display:flex; flex-direction:column; gap:12px; margin-bottom:28px;"></div>
 
@@ -620,7 +676,7 @@ h3.subtitle { font-size: 22px; font-weight: 600; }
     <div class="top-bar">
       <button class="btn-back" onclick="go('cruces')" style="margin:0;">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
-        Cruces CAME
+        Estrategias
       </button>
       <div id="cruce-progress" class="progress-dots"></div>
     </div>
@@ -662,7 +718,7 @@ h3.subtitle { font-size: 22px; font-weight: 600; }
 
     <!-- PÁGINA 1 — DAFO -->
     <article class="rp" id="rp1">
-      <div class="rp-top"><span>Informe DAFO · CAME</span><span>1 / 2</span></div>
+      <div class="rp-top"><span>Informe DAFO cruzado</span><span>1 / 2</span></div>
       <h1>Diagnóstico <em>DAFO</em></h1>
       <p class="rp-idea"><b>Idea de negocio:</b> <span id="rp-idea-1"></span></p>
       <p class="rp-intro">El <b>DAFO</b> ordena lo que afecta a un proyecto en cuatro cuadrantes: lo que depende de ti (<b>interno</b>: fortalezas y debilidades) y lo que viene del entorno (<b>externo</b>: oportunidades y amenazas), separando lo que te favorece de lo que te perjudica. Cada elemento suma 1 punto; los <b>factores clave</b> (★) suman 3.</p>
@@ -671,17 +727,17 @@ h3.subtitle { font-size: 22px; font-weight: 600; }
       <div class="rp-foot"><span>Esplora</span><span id="rp-date-1"></span></div>
     </article>
 
-    <!-- PÁGINA 2 — CAME -->
+    <!-- PÁGINA 2 — DAFO CRUZADO -->
     <article class="rp" id="rp2">
-      <div class="rp-top"><span>Informe DAFO · CAME</span><span>2 / 2</span></div>
-      <h1>Análisis cruzado <em>CAME</em></h1>
-      <p class="rp-intro">El <b>CAME</b> convierte el diagnóstico en acción cruzando lo interno con lo externo: <b>Explotar</b> las fortalezas para aprovechar las oportunidades, <b>Mantener</b> las fortalezas frente a las amenazas, <b>Corregir</b> las debilidades con ayuda de las oportunidades y <b>Afrontar</b> las debilidades para que las amenazas no te dejen expuesto. Los códigos (F1, O2…) remiten a la matriz de la página anterior.</p>
+      <div class="rp-top"><span>Informe DAFO cruzado</span><span>2 / 2</span></div>
+      <h1>Las 4 estrategias del <em>DAFO cruzado</em></h1>
+      <p class="rp-intro">El <b>DAFO cruzado</b> convierte el diagnóstico en acción combinando lo interno con lo externo. Las estrategias <b>ofensivas</b> usan las fortalezas para aprovechar las oportunidades; las <b>defensivas</b>, para neutralizar las amenazas. Las <b>reorientativas</b> corrigen las debilidades para sacar partido a las oportunidades, y las <b>de supervivencia</b> trabajan las debilidades para limitar las amenazas. Los códigos (F1, O2…) remiten a la matriz de la página anterior.</p>
       <div class="came" id="rp-came"></div>
       <div class="rp-legend">
-        <div><b>Explotar · FO</b>Estrategia ofensiva</div>
-        <div><b>Mantener · FA</b>Estrategia defensiva</div>
-        <div><b>Corregir · DO</b>Estrategia de reorientación</div>
-        <div><b>Afrontar · DA</b>Estrategia de supervivencia</div>
+        <div><b>1 · Ofensivas</b>Fortalezas + Oportunidades (FO)</div>
+        <div><b>2 · Defensivas</b>Fortalezas + Amenazas (FA)</div>
+        <div><b>3 · Reorientativas</b>Debilidades + Oportunidades (DO)</div>
+        <div><b>4 · Supervivencia</b>Debilidades + Amenazas (DA)</div>
       </div>
       <div class="rp-foot"><span>Esplora</span><span id="rp-date-2"></span></div>
     </article>
@@ -711,19 +767,21 @@ const QUADRANTS = [
     placeholder:'Ej: Una gran superficie de mobiliario va a abrir a 200 metros' },
 ];
 
+// DAFO cruzado: cada estrategia combina un factor interno con uno externo.
+// Los id (FO, FA, DO, DA) no cambian: son las claves del progreso guardado.
 const CRUCES = [
-  { id:'FO', from:'F', to:'O', verbo:'Explotar', tipo:'Estrategia ofensiva',
-    def:'Usa tus fortalezas para aprovechar al máximo las oportunidades detectadas.',
-    pregunta:'¿Cómo puedes apoyarte en estas fortalezas para lanzarte a por estas oportunidades?' },
-  { id:'DO', from:'D', to:'O', verbo:'Corregir', tipo:'Estrategia de reorientación',
-    def:'Corrige tus debilidades apoyándote en las oportunidades que ofrece el entorno.',
-    pregunta:'¿Cómo pueden estas oportunidades ayudarte a superar estas debilidades?' },
-  { id:'FA', from:'F', to:'A', verbo:'Mantener', tipo:'Estrategia defensiva',
+  { id:'FO', n:1, from:'F', to:'O', corto:'Ofensivas', nombre:'Estrategias ofensivas',
+    def:'Usa tus fortalezas para aprovechar al máximo las oportunidades del entorno.',
+    pregunta:'¿Cómo podemos usar estas fortalezas para beneficiarnos de estas oportunidades?' },
+  { id:'FA', n:2, from:'F', to:'A', corto:'Defensivas', nombre:'Estrategias defensivas',
     def:'Usa tus fortalezas para neutralizar o amortiguar el efecto de las amenazas.',
-    pregunta:'¿Cómo puedes defenderte de estas amenazas apoyándote en estas fortalezas?' },
-  { id:'DA', from:'D', to:'A', verbo:'Afrontar', tipo:'Estrategia de supervivencia',
-    def:'Reduce tus debilidades y evita quedar expuesto ante las amenazas del entorno.',
-    pregunta:'¿Qué puedes hacer para que estas debilidades no te dejen expuesto ante estas amenazas?' },
+    pregunta:'¿Cómo podemos utilizar cada fortaleza para neutralizar estas amenazas?' },
+  { id:'DO', n:3, from:'D', to:'O', corto:'Reorientativas', nombre:'Estrategias reorientativas',
+    def:'Corrige tus debilidades para poder sacar partido a las oportunidades del entorno.',
+    pregunta:'¿Cómo podemos corregir estas debilidades para sacar partido a estas oportunidades?' },
+  { id:'DA', n:4, from:'D', to:'A', corto:'Supervivencia', nombre:'Estrategias de supervivencia',
+    def:'Trabaja tus debilidades para que las amenazas no te dejen expuesto.',
+    pregunta:'¿Cómo podemos trabajar estas debilidades para limitar estas amenazas?' },
 ];
 
 const W_KEY = 3, W_NORMAL = 1;
@@ -764,7 +822,7 @@ function q(id) { return QUADRANTS.find(x => x.id === id); }
 function esc(str) { const d = document.createElement('div'); d.textContent = str; return d.innerHTML; }
 
 function highlightKeywords(text) {
-  const keywords = ['idea de negocio','fortaleza','debilidad','oportunidad','amenaza','estrategia','ventaja competitiva','DAFO','CAME','entorno','sector','mercado','riesgo'];
+  const keywords = ['idea de negocio','fortaleza','debilidad','oportunidad','amenaza','estrategia','ventaja competitiva','DAFO','entorno','sector','mercado','riesgo'];
   let result = text;
   keywords.forEach(kw => { const re = new RegExp(`\\b(${kw}s?)\\b`, 'gi'); result = result.replace(re, '<span class="keyword">$1</span>'); });
   return result;
@@ -810,6 +868,7 @@ function go(screen) {
   if (screen === 'quadrant-detail') renderQuadrantDetail();
   if (screen === 'cruces') renderCruces();
   if (screen === 'cruce-detail') renderCruceDetail();
+  renderGlos();
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -899,7 +958,7 @@ function renderQuadrants() {
   const allDone = allQuadrantsComplete();
   document.getElementById('btn-to-cruces').disabled = !allDone;
   document.getElementById('btn-to-cruces-text').textContent = allDone
-    ? 'Continuar al cruce CAME'
+    ? 'Continuar al DAFO cruzado'
     : `Completa los ${QUADRANTS.length - done} cuadrantes restantes`;
 }
 
@@ -919,9 +978,9 @@ function renderQuadrantDetail() {
   document.getElementById('quadrant-eyebrow').style.color = `var(--${f.color}-deep)`;
   document.getElementById('quadrant-title').textContent = f.label;
   document.getElementById('quadrant-title').style.color = `var(--${f.color}-ink)`;
-  document.getElementById('quadrant-desc').textContent = f.desc;
+  document.getElementById('quadrant-desc').innerHTML = glosLink(f.desc, 'quadrants');
   document.getElementById('quadrant-desc').style.color = `var(--${f.color}-ink)`;
-  document.getElementById('quadrant-bullets').innerHTML = f.bullets.map(b => `<li style="margin-bottom:4px;">${b}</li>`).join('');
+  document.getElementById('quadrant-bullets').innerHTML = f.bullets.map(b => `<li style="margin-bottom:4px;">${glosLink(b, 'quadrants')}</li>`).join('');
 
   const dots = document.getElementById('quadrant-progress');
   dots.innerHTML = '';
@@ -1026,10 +1085,10 @@ function renderCruces() {
       </div>
       <div style="flex:1; min-width:0;">
         <div style="display:flex; align-items:center; gap:8px; margin-bottom:2px;">
-          <span style="font-size:13px; font-weight:500; color:var(--tool-deep); text-transform:uppercase; letter-spacing:1px;">${c.tipo}</span>
+          <span style="font-size:13px; font-weight:500; color:var(--tool-deep); text-transform:uppercase; letter-spacing:1px;">${fromQ.label} + ${toQ.label}</span>
           ${isDone ? `<span style="display:inline-flex; align-items:center; gap:3px; font-size:13px; color:var(--f-deep); font-weight:500;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Completo</span>` : ''}
         </div>
-        <h3 class="subtitle" style="font-size:17px; font-weight:500; margin:0;">${c.verbo} (${c.id})</h3>
+        <h3 class="subtitle" style="font-size:17px; font-weight:500; margin:0;">${c.n}. ${c.nombre}</h3>
       </div>
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ink-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
     `;
@@ -1055,10 +1114,10 @@ function renderCruceDetail() {
   const header = document.getElementById('cruce-header');
   header.style.background = 'var(--tool-soft)';
   const pill = document.getElementById('cruce-pill');
-  pill.textContent = `${c.tipo} · ${c.id}`;
+  pill.textContent = `Estrategia ${c.n} de ${CRUCES.length} · ${c.id}`;
   pill.style.background = 'var(--surface)';
   pill.style.color = 'var(--tool-deep)';
-  document.getElementById('cruce-title').textContent = `${c.verbo}: ${fromQ.label.toLowerCase()} + ${toQ.label.toLowerCase()}`;
+  document.getElementById('cruce-title').textContent = `${c.nombre}: ${fromQ.label.toLowerCase()} + ${toQ.label.toLowerCase()}`;
   document.getElementById('cruce-title').style.color = 'var(--tool-deep)';
   document.getElementById('cruce-def').textContent = c.def;
 
@@ -1159,7 +1218,7 @@ function renderResults() {
     <span class="lab neg">En contra<b>${neg} pt</b></span>
     <p class="bal-txt">${lectura}: ${RESUMEN[estado]}</p>`;
 
-  // ── Página 2: matriz CAME ──
+  // ── Página 2: DAFO cruzado ──
   const head = (id, v) => { const f = q(id); return `<div class="came-h${v ? ' v' : ''}" style="background:var(--${f.color}-deep)"><b>${f.id}</b><span>${f.label}<small>${f.axis.split(' · ')[0]}</small></span></div>`; };
   const cell = cid => {
     const c = CRUCES.find(x => x.id === cid), st = cruceState(cid), [kF, kT] = cruceSelKeys(cid);
@@ -1167,7 +1226,7 @@ function renderResults() {
     const codes = [...sorted(c.from).filter(it => st[kF].has(it.id)).map(it => `<span style="background:var(--${fq.color}-deep)">${code[it.id]}</span>`),
                    ...sorted(c.to).filter(it => st[kT].has(it.id)).map(it => `<span style="background:var(--${tq.color}-deep)">${code[it.id]}</span>`)].join('');
     return `<section class="cs" style="--c1:var(--${fq.color}-soft);--c2:var(--${tq.color}-soft)">
-      <div class="cs-top"><span class="cs-v">${c.verbo}</span><span class="cs-tp">${c.id} · ${c.tipo.replace('Estrategia ', '')}</span></div>
+      <div class="cs-top"><span class="cs-v">${c.corto}</span><span class="cs-tp">${c.n} · ${c.id}</span></div>
       <p class="cs-q">${c.def}</p>
       <div class="cs-codes">${codes}</div>
       <p class="cs-txt">${esc(st.texto.trim())}</p></section>`;
@@ -1211,6 +1270,104 @@ function resetAll() {
   document.getElementById('btn-start').disabled = true;
   go('intro');
 }
+
+// ═══════════════════════════════════════════════════════════════
+// GLOSARIO — t: término · d: definición · m: cómo aparece en los textos (se vuelve enlace)
+// ═══════════════════════════════════════════════════════════════
+const GLOS = {
+  // básicos
+  dafo:{ t:'Análisis DAFO', d:'Diagnóstico que ordena en cuatro cuadrantes lo que favorece y lo que perjudica a un proyecto: por dentro (fortalezas y debilidades) y por fuera (oportunidades y amenazas).' },
+  cruzado:{ t:'DAFO cruzado', d:'Paso siguiente al DAFO: combina cada factor interno con uno externo (F + O, F + A, D + O, D + A) y de cada pareja sale un tipo de estrategia.' },
+  interno:{ t:'Factor interno', d:'Lo que depende de tu propio proyecto y puedes cambiar: equipo, dinero, local, procesos, conocimientos… Son las fortalezas y las debilidades.' },
+  externo:{ t:'Factor externo', d:'Lo que viene del entorno y no controlas: mercado, competencia, leyes, tecnología, hábitos de consumo… Son las oportunidades y las amenazas.' },
+  estrategia:{ t:'Estrategia', d:'Plan de acción para conseguir un objetivo: qué vas a hacer, con qué recursos y por qué.' },
+  came:{ t:'Análisis CAME', d:'Otro método que aparece en algunos libros. No cruza cuadrantes: propone una acción para cada uno por separado (Corregir las debilidades, Afrontar las amenazas, Mantener las fortalezas y Explotar las oportunidades).' },
+  // cuadrantes
+  fortaleza:{ t:'Fortaleza', d:'Algo propio que te da ventaja: lo que haces bien o tienes y otros no.' },
+  debilidad:{ t:'Debilidad', d:'Algo propio que te limita o te deja por detrás de la competencia. Está en tu mano corregirlo.' },
+  oportunidad:{ t:'Oportunidad', d:'Situación del entorno que te favorece si sabes aprovecharla a tiempo.' },
+  amenaza:{ t:'Amenaza', d:'Situación del entorno que puede perjudicarte. No la controlas, pero puedes prepararte.' },
+  clave:{ t:'Factor clave', d:'Elemento que pesa de verdad en tu proyecto. En esta herramienta cuenta triple: 3 puntos en vez de 1.' },
+  ventaja:{ t:'Ventaja competitiva', d:'Algo que tu negocio hace mejor o distinto que la competencia y que los clientes valoran: precio, calidad, trato, ubicación…', m:'ventajas?' },
+  nicho:{ t:'Nicho de mercado', d:'Grupo pequeño de clientes con una necesidad concreta que nadie atiende bien todavía.', m:'nichos' },
+  sustitutivo:{ t:'Producto sustitutivo', d:'Producto distinto al tuyo que cubre la misma necesidad. Por ejemplo, el patinete eléctrico frente al autobús.', m:'productos sustitutivos' },
+  barreras:{ t:'Barreras de entrada', d:'Lo que hace difícil que entren competidores nuevos en un sector: mucha inversión, permisos, conocimientos… Si son bajas, cualquiera puede entrar.', m:'barreras de entrada' },
+  canal:{ t:'Canal de distribución', d:'Camino por el que el producto llega al cliente: tienda propia, web, distribuidores, plataformas…', m:'canales de distribución' },
+  // estrategias
+  ofensiva:{ t:'Estrategia ofensiva (F + O)', d:'Usa las fortalezas para aprovechar las oportunidades. Es la combinación más favorable: toca crecer o lanzarse.' },
+  defensiva:{ t:'Estrategia defensiva (F + A)', d:'Usa las fortalezas para neutralizar o reducir el efecto de las amenazas.' },
+  reorientativa:{ t:'Estrategia reorientativa (D + O)', d:'Corrige las debilidades para poder aprovechar las oportunidades. Suele obligar a cambiar algo del proyecto.' },
+  supervivencia:{ t:'Estrategia de supervivencia (D + A)', d:'Trabaja las debilidades para limitar las amenazas. Es la combinación más delicada: toca protegerse o replantear el proyecto.' },
+  // informe
+  balance:{ t:'Balance a favor y en contra', d:'Suma de los puntos de fortalezas y oportunidades frente a los de debilidades y amenazas. Orienta, pero no sustituye a tu propio análisis.' },
+};
+const GLOS_PANTALLA = {
+  intro:{ ctx:'Términos para empezar', k:['dafo','cruzado','interno','externo','estrategia','came'] },
+  quadrants:{ ctx:'Términos del DAFO', k:['fortaleza','debilidad','oportunidad','amenaza','clave','ventaja','nicho','sustitutivo','barreras','canal'] },
+  cruces:{ ctx:'Las 4 estrategias', k:['cruzado','ofensiva','defensiva','reorientativa','supervivencia','estrategia','came'] },
+  results:{ ctx:'Términos del informe', k:['dafo','clave','balance','cruzado','ofensiva','defensiva','reorientativa','supervivencia'] },
+};
+const GLOS_BASICOS = ['interno','externo'];
+
+// Convierte en enlace al glosario la primera aparición de cada término en un texto
+function glosLink(text, pantalla) {
+  const saved = []; let r = text;
+  (GLOS_PANTALLA[pantalla]?.k || []).forEach(k => {
+    const m = GLOS[k].m; if (!m) return;
+    r = r.replace(new RegExp(`(?<!\\p{L})(${m})(?!\\p{L})`, 'iu'), w => { saved.push(`<button type="button" class="gl-term" data-g="${k}">${w}</button>`); return `\u0000${saved.length - 1}\u0000`; });
+  });
+  return r.replace(/\u0000(\d+)\u0000/g, (_, n) => saved[n]);
+}
+
+function glosPantalla() { return { 'quadrant-detail':'quadrants', 'cruce-detail':'cruces' }[state.screen] || state.screen; }
+function glosEnMargen() { return matchMedia(state.screen === 'results' ? '(min-width:1440px)' : '(min-width:1280px)').matches; }
+const GLOS_PREF = 'esplora-dafocame-glosario';
+
+function renderGlos() {
+  const p = GLOS_PANTALLA[glosPantalla()]; if (!p) return;
+  document.body.classList.toggle('glos-margen', glosEnMargen());
+  document.body.classList.toggle('on-results', state.screen === 'results');
+  const extra = GLOS_BASICOS.filter(k => !p.k.includes(k));
+  const nb = s => s.replace(/([FD]) \+ ([OA])/g, '$1&nbsp;+&nbsp;$2'); // «F + O» nunca se parte
+  const item = k => `<div class="glos-it" id="gl-${k}"><dt>${nb(GLOS[k].t)}</dt><dd>${nb(GLOS[k].d)}</dd></div>`;
+  document.getElementById('glos-ctx').textContent = p.ctx;
+  document.getElementById('glos-n').textContent = p.k.length + extra.length;
+  document.getElementById('glos-list').innerHTML = p.k.map(item).join('')
+    + (extra.length ? `<div class="glos-sep" role="presentation">Siempre a mano</div>${extra.map(item).join('')}` : '');
+  document.querySelector('.glos-panel').scrollTop = 0;
+  // en pantallas anchas se abre solo, salvo que el alumno lo haya cerrado
+  let pref = null; try { pref = localStorage.getItem(GLOS_PREF); } catch (e) {}
+  document.getElementById('glos-det').open = glosEnMargen() && pref !== 'cerrado';
+}
+
+function glosMostrar(k) {
+  const det = document.getElementById('glos-det');
+  det.open = true;
+  const el = document.getElementById('gl-' + k); if (!el) return;
+  el.scrollIntoView({ block:'nearest', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+  el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
+}
+
+document.getElementById('glos-det').addEventListener('toggle', e => {
+  if (glosEnMargen()) try { localStorage.setItem(GLOS_PREF, e.target.open ? 'abierto' : 'cerrado'); } catch (err) {}
+});
+document.addEventListener('click', e => {
+  const t = e.target.closest('.gl-term');
+  if (t) { e.preventDefault(); glosMostrar(t.dataset.g); return; }
+  // en móvil, tocar fuera del panel lo cierra
+  const det = document.getElementById('glos-det');
+  if (det.open && !glosEnMargen() && !e.target.closest('.glos')) det.open = false;
+});
+let glosAncho = null;
+window.addEventListener('resize', () => {
+  const m = glosEnMargen(); if (m === glosAncho) return;
+  glosAncho = m; renderGlos();
+});
+document.addEventListener('keydown', e => {
+  const det = document.getElementById('glos-det');
+  if (e.key === 'Escape' && det.open && !glosEnMargen()) { det.open = false; det.querySelector('summary').focus(); }
+});
+renderGlos();
 
 // ═══════════════════════════════════════════════════════════════
 // GUARDADO AUTOMÁTICO (en este navegador)

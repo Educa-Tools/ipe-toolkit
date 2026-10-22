@@ -83,7 +83,7 @@ Otras herramientas de Esplora de la misma temática (idea de negocio y análisis
 
 - [Generador de ideas de negocio](../generador-ideas-negocio/)
 - [Análisis PESTEL](../analisis-pestel/)
-- [DAFO y CAME](../dafo-came/)
+- [DAFO cruzado](../dafo-came/)
 
 ---
 

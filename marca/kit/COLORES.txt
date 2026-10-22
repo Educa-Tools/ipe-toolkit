@@ -59,7 +59,7 @@ catálogo. Sobre ellos el logo va en crema.
 #6B7028  Generador de ideas de negocio (el oliva de marca)
 #7A3244  Modelo Canvas
 #8A5232  Guía de las vibraciones
-#8A5A2B  DAFO y CAME
+#8A5A2B  DAFO cruzado
 #8B3A3A  Buscador de enfermedades profesionales
 #8B6430  Selector de forma jurídica
 #946500  Guía de la iluminación

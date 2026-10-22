@@ -78,7 +78,7 @@ Sí, con el botón "Nueva idea" del informe se empieza de cero.
 Otras herramientas de Esplora de la misma temática (análisis del entorno y del mercado):
 
 - [Generador de ideas de negocio](../generador-ideas-negocio/)
-- [DAFO y CAME](../dafo-came/)
+- [DAFO cruzado](../dafo-came/)
 - [Modelo Canvas](../modelo-canvas/)
 
 ---
