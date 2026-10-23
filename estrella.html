@@ -15,10 +15,10 @@
 <meta property="og:url" content="https://esplora.es/estrella.html">
 <meta property="og:title" content="Matriz Estrella: evalúa tu idea de negocio · Esplora">
 <meta property="og:description" content="Evalúa tu idea de negocio en cinco dimensiones con la Matriz Estrella y detecta sus puntos fuertes y débiles. Gratis, en el navegador y con informe en PDF.">
-<meta property="og:image" content="https://esplora.es/marca/compartir.png">
+<meta property="og:image" content="https://esplora.es/marca/compartir-estrella.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Esplora: herramientas y recursos didácticos sobre empleabilidad y emprendimiento">
+<meta property="og:image:alt" content="Matriz Estrella · Esplora">
 <meta name="twitter:card" content="summary_large_image">
 <!-- compartir:fin -->
 <link rel="stylesheet" href="fuentes/fuentes.css">
@@ -121,6 +121,7 @@
   .legend-chip{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 6px;border-radius:12px;border:1px solid var(--c-line);background:var(--c-bg);text-align:center;}
   .legend-chip b{font-size:13.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--c);}
   .legend-chip span{font-family:var(--font-display);font-weight:700;font-size:20px;color:var(--c);}
+  @media (max-width:400px){ .legend-chip b{font-size:12px;letter-spacing:.02em;} }
   .c-fav{--c:var(--fav);--c-bg:var(--fav-bg);--c-line:var(--fav-line);}
   .c-neu{--c:var(--neu);--c-bg:var(--neu-bg);--c-line:var(--neu-line);}
   .c-desf{--c:var(--desf);--c-bg:var(--desf-bg);--c-line:var(--desf-line);}
@@ -377,7 +378,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     <div class="fields">
       <div class="field">
         <label for="in-name">Tu nombre</label>
-        <input id="in-name" type="text" autocomplete="name" placeholder="Nombre y apellidos">
+        <input id="in-name" type="text" autocomplete="given-name" placeholder="Nombre">
       </div>
       <div class="field">
         <label for="in-idea">Tu idea de negocio</label>

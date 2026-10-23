@@ -16,7 +16,8 @@
     - robots.txt                   añade la línea Sitemap si falta
     - <herramienta>.html           añade <link rel="canonical"> si falta y mantiene
                                    el pie legal entre <!-- pie-legal:inicio --> y :fin
-    - herramientas y legales       etiquetas para compartir (imagen marca/compartir.png)
+    - herramientas y legales       etiquetas para compartir (imagen marca/compartir.png, o
+                                   marca/compartir-<id>.png si la herramienta tiene la suya)
                                    entre <!-- compartir:inicio --> y :fin
   No borra nada: si sobra una ficha de una herramienta que ya no está, lo avisa.
 #>
@@ -35,6 +36,18 @@ $ImagenCompartir = @"
 <meta property="og:image:alt" content="Esplora: herramientas y recursos didácticos sobre empleabilidad y emprendimiento">
 <meta name="twitter:card" content="summary_large_image">
 "@
+
+# Imagen para compartir de una herramienta: marca/compartir-<id>.png si existe; si no, la general
+function ImagenCompartirDe([string]$id, [string]$nombre) {
+  if (-not $id -or -not (Test-Path (Join-Path $Root "marca/compartir-$id.png"))) { return $ImagenCompartir }
+@"
+<meta property="og:image" content="$Sitio/marca/compartir-$id.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="$(Esc $nombre) · Esplora">
+<meta name="twitter:card" content="summary_large_image">
+"@
+}
 
 # ---------- Utilidades ----------
 function Esc([string]$s) { if ($null -eq $s) { return '' }; $s.Replace('&','&amp;').Replace('<','&lt;').Replace('>','&gt;').Replace('"','&quot;') }
@@ -96,7 +109,7 @@ $Marca
 <meta property="og:url" content="$Sitio/$($o.ruta)">
 <meta property="og:title" content="$(Esc $o.titulo)">
 <meta property="og:description" content="$(Esc $o.desc)">
-$ImagenCompartir
+$(ImagenCompartirDe $o.imagen $o.nombre)
 <meta name="theme-color" content="#FBFCEF">
 <link rel="icon" href="$($o.base)marca/simbolo-oliva.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="$($o.base)marca/apple-touch-icon.png">
@@ -267,7 +280,7 @@ foreach ($e in $entradas) {
     $md = MdConvertir ([IO.File]::ReadAllText($rutaMd, $utf8))
     $tituloMd = $md.fm['title']; $descMd = $md.fm['meta_description']
     if (-not $tituloMd -or -not $descMd -or -not $md.h1) { $avisos.Add("data/fichas/$($t.slug).md necesita title, meta_description y un título #."); continue }
-    $cab = Cabeza @{ titulo = $tituloMd; desc = $descMd; ruta = "recursos/$($t.slug)/"; base = '../../' }
+    $cab = Cabeza @{ titulo = $tituloMd; desc = $descMd; ruta = "recursos/$($t.slug)/"; base = '../../'; imagen = $e.id; nombre = $t.titulo }
     if ($md.fm['palabras_clave']) { $cab = $cab.Replace('<link rel="canonical"', "<meta name=""keywords"" content=""$(Esc $md.fm['palabras_clave'])"">`n<link rel=""canonical""") }
     $urlFicha = "$Sitio/recursos/$($t.slug)/"
     $jsonFaq = [ordered]@{ '@context' = 'https://schema.org'; '@type' = 'FAQPage'; mainEntity = @($md.faq | ForEach-Object { [ordered]@{ '@type' = 'Question'; name = $_.q; acceptedAnswer = [ordered]@{ '@type' = 'Answer'; text = $_.a } } }) }
@@ -312,7 +325,7 @@ $(JsonLd $jsonFaq)
     continue
   }
 
-  $html = (Cabeza @{ titulo = $titulo; desc = $desc; ruta = "recursos/$($t.slug)/"; base = '../../' }) + @"
+  $html = (Cabeza @{ titulo = $titulo; desc = $desc; ruta = "recursos/$($t.slug)/"; base = '../../'; imagen = $e.id; nombre = $t.titulo }) + @"
 <main id="contenido" class="wrap">
   <nav class="crumbs" aria-label="Estás aquí">
     <ol>
@@ -454,6 +467,7 @@ foreach ($e in $entradas) {
 # Bloque marcado justo debajo del canonical, con el título y la descripción de la propia página
 "Compartir"
 $paraCompartir = @($entradas | ForEach-Object { $_.t.url } | Select-Object -Unique) + @($Legales.Keys) + @('sobre-esplora.html')
+$entradaPorUrl = @{}; foreach ($e in $entradas) { $entradaPorUrl[$e.t.url] = $e }
 foreach ($url in $paraCompartir) {
   $ruta = Join-Path $Root $url
   if (-not (Test-Path $ruta)) { continue }
@@ -464,6 +478,7 @@ foreach ($url in $paraCompartir) {
   $tit = [regex]::Match($txt, '<title>([^<]*)</title>').Groups[1].Value
   $des = [regex]::Match($txt, '<meta name="description" content="([^"]*)"').Groups[1].Value
   $sang = $can.Groups[1].Value
+  $img = if ($entradaPorUrl[$url]) { ImagenCompartirDe $entradaPorUrl[$url].id $entradaPorUrl[$url].t.titulo } else { $ImagenCompartir }
   $lineas = @('<!-- compartir:inicio (scripts/generar.ps1) -->',
     '<meta property="og:type" content="website">',
     '<meta property="og:site_name" content="Esplora">',
@@ -471,7 +486,7 @@ foreach ($url in $paraCompartir) {
     "<meta property=""og:url"" content=""$($can.Groups[2].Value)"">",
     "<meta property=""og:title"" content=""$tit"">",
     "<meta property=""og:description"" content=""$des"">") +
-    @($ImagenCompartir.Replace("`r`n", "`n").Split("`n")) + @('<!-- compartir:fin -->')
+    @($img.Replace("`r`n", "`n").Split("`n")) + @('<!-- compartir:fin -->')
   $bloque = ($lineas | ForEach-Object { "$sang$_" }) -join $nl
   $re = '(?s)[ \t]*<!-- compartir:inicio.*?<!-- compartir:fin -->'
   $nuevo = if ([regex]::IsMatch($txt, $re)) { [regex]::Replace($txt, $re, { param($x) $bloque }) }
