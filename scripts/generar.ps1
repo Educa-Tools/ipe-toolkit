@@ -312,23 +312,27 @@ $Ico = @{
   save  = '<path d="M7 3h10a1 1 0 0 1 1 1v17l-6-4-6 4V4a1 1 0 0 1 1-1z"/>'
   print = '<path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><rect x="7" y="14" width="10" height="7"/>'
   arrow = '<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>'
+  check = '<polyline points="5 12.5 10 17 19 7"/>'
 }
 function Icono($n) { "<svg class=""ic ic-$n"" viewBox=""0 0 24 24"" fill=""none"" stroke=""currentColor"" stroke-width=""1.7"" stroke-linecap=""round"" stroke-linejoin=""round"" aria-hidden=""true"" focusable=""false"">$($Ico[$n])</svg>" }
 $Espora = '<svg viewBox="28.5 14.5 340.8 372.5" aria-hidden="true"><use href="#simbolo" fill="currentColor"/></svg>'
 
 # Ventanita de una herramienta (la de la portada anterior). El dibujo lo pone js/esplora.js.
-function Ventanita($id, [string]$base, [string]$kick = '') {
+# $estado: 'empezada' o 'informe' resaltan esa etiqueta (para enseñar cómo se ve); $sinEnlace: solo imagen
+function Ventanita($id, [string]$base, [string]$kick = '', [string]$estado = '', [switch]$sinEnlace) {
   $t = $H[$id]
   $m = @()
   if ($t.minutos) { $m += "<span>$(Icono clock)≈ $($t.minutos) min</span>" }
-  if ($t.guarda) { $m += "<span>$(Icono save)Guarda progreso</span>" }
-  if ($t.informe) { $m += "<span>$(Icono print)Informe PDF</span>" }
+  if ($t.guarda) { $m += $(if ($estado -eq 'empezada') { '<span class="on">' + (Icono check) + 'Empezada</span>' } else { "<span>$(Icono save)Guarda progreso</span>" }) }
+  if ($t.informe) { $m += $(if ($estado -eq 'informe') { '<span class="on">' + (Icono print) + 'Informe PDF</span>' } else { "<span>$(Icono print)Informe PDF</span>" }) }
   $preg = if ($t.pregunta) { $t.pregunta } elseif ($t.titular) { $t.titular } else { Esc $t.titulo }
   $c = if ($t.color) { $t.color } else { '#6B7028' }
   $kickHtml = if ($kick) { '<span class="clip-kick">' + (Esc $kick) + '</span>' } else { '' }
   $metaHtml = if ($m) { '<span class="tool-meta">' + ($m -join '') + '</span>' } else { '' }
+  $abre = if ($sinEnlace) { "<div class=""tool-card"" style=""--c:$c"">" } else { "<a class=""tool-card"" style=""--c:$c"" href=""$($base)recursos/$($t.slug)/"">" }
+  $cierra = if ($sinEnlace) { '</div>' } else { '</a>' }
   @"
-<a class="tool-card" style="--c:$c" href="$($base)recursos/$($t.slug)/">
+$abre
         <span class="clip-bar"><span><svg viewBox="28.5 14.5 340.8 372.5" aria-hidden="true"><use href="#simbolo"/></svg><span translate="no">Esplora</span></span><span>$(Esc $t.titulo)</span></span>
         <span class="clip-body">
           $kickHtml
@@ -338,7 +342,7 @@ function Ventanita($id, [string]$base, [string]$kick = '') {
           $metaHtml
           <span class="clip-go">Ver la ficha $(Icono arrow)</span>
         </span>
-      </a>
+      $cierra
 "@
 }
 function Rejilla($ids, [string]$base, [switch]$conTema) {
@@ -823,31 +827,106 @@ $mas
   Escribir "recursos/$($t.slug)/index.html" (PaginaNueva @{ titulo = $titulo; desc = $desc; ruta = "recursos/$($t.slug)/"; base = '../../'; main = $main; imagen = $id; nombre = $t.titulo })
 }
 
-# ---------- Portada: catálogo ya escrito (lo sustituye el JavaScript al cargar) ----------
+# ---------- Portada: index.html ----------
+# La portada se escribe a mano; el generador rellena lo que sale del catálogo entre las marcas
+# <!-- generado:NOMBRE:inicio --> y <!-- generado:NOMBRE:fin -->: menu, caminos, informes, vista,
+# total, indice, datos, pie y datos-js (claves de guardado y redirección de los enlaces antiguos).
 "Portada"
-$bloques = foreach ($m in $materias) {
-  $w = PalabraUnidad $m
-  $suyas = $entradas | Where-Object { $_.m -eq $m }
-  if (-not $suyas) { continue }
-  "<section class=""pre-mod""><h3><a href=""$(CarpetaModulo $m)/"">$(Esc $m.tag) · $(Esc $m.nombre)</a></h3>"
-  foreach ($u in $m.unidades) {
-    $deU = $suyas | Where-Object { $_.u -eq $u }
-    if (-not $deU) { continue }
-    "<h4>$(Esc $w.sing) $($u.n) · $(Esc $u.titulo)</h4><ul>"
-    foreach ($e in $deU) { "<li><a href=""recursos/$($e.t.slug)/"">$(Esc $e.t.titulo)</a>: $(Esc $e.t.descripcion)</li>" }
-    "</ul>"
-  }
-  "</section>"
-}
 $rutaIndex = Join-Path $Root 'index.html'
 $idx = [IO.File]::ReadAllText($rutaIndex, $utf8)
-$re = '(?s)(<!-- catalogo-generado:inicio -->).*?(<!-- catalogo-generado:fin -->)'
-if ([regex]::IsMatch($idx, $re)) {
-  $nl = if ($idx.Contains("`r`n")) { "`r`n" } else { "`n" }
-  $dentro = "<div class=""pre-cat"">$nl" + ($bloques -join $nl) + "$nl</div>"
-  $nuevo = [regex]::Replace($idx, $re, { param($x) $x.Groups[1].Value + $nl + $dentro + $nl + $x.Groups[2].Value })
-  if ($nuevo -ne $idx) { [IO.File]::WriteAllText($rutaIndex, $nuevo, $utf8); "  escrito   index.html (catálogo)" } else { "  igual     index.html (catálogo)" }
-} else { $avisos.Add('index.html no tiene las marcas <!-- catalogo-generado:inicio --> y :fin: no se ha escrito el catálogo en la portada.') }
+$nlI = if ($idx.Contains("`r`n")) { "`r`n" } else { "`n" }
+function Rellenar([string]$nombre, [string]$contenido) {
+  $re = "(?s)(<!-- generado:$([regex]::Escape($nombre)):inicio -->).*?(<!-- generado:$([regex]::Escape($nombre)):fin -->)"
+  if (-not [regex]::IsMatch($script:idx, $re)) { $avisos.Add("index.html no tiene las marcas generado:$($nombre): no se ha rellenado."); return }
+  $c = $contenido.Replace("`r`n", "`n").Replace("`n", $nlI)
+  $script:idx = [regex]::Replace($script:idx, $re, { param($x) $x.Groups[1].Value + $c + $x.Groups[2].Value })
+}
+$enCamino = @($ordenH | Where-Object { $caminos[$H[$_].camino] -and $temas["$($H[$_].camino)/$($H[$_].tema)"] })
+$conInforme = @($enCamino | Where-Object { $H[$_].informe })
+
+Rellenar 'menu' ("$nlI" + (Menu './') + "$nlI")
+
+# Caminos: tarjetas simétricas con sus temas en recuadros y una espora en la esquina
+$coloresEspora = @(@('#6B7028', -12), @('#C5CD78', 18))
+$k = 0
+$tarjetas = foreach ($c in $db.caminos) {
+  $vis = TemasVisibles $c; if (-not $vis) { continue }
+  $n = ($vis | ForEach-Object { (HerrDeTema $c $_).Count } | Measure-Object -Sum).Sum
+  $lista = if ($c.numerado) { 'ol' } else { 'ul' }
+  $ce = $coloresEspora[$k % 2]; $k++
+  $etq = if ($c.etiqueta) { '<span class="etq">' + (Esc $c.etiqueta) + '</span>' } else { '' }
+  @"
+    <li><article class="camino" aria-labelledby="cam-$($c.id)">
+      <div class="cab-cam">$etq<h3 id="cam-$($c.id)">$(Esc $c.nombre)</h3></div>
+      <p class="ley">$(Esc $c.leyenda)</p>
+      <$lista>$(ItemsTema $c "$($c.id)/" -largo)</$lista>
+      <p class="pie"><a class="btn btn-sec" href="$($c.id)/">Ver las $n herramientas</a></p>
+      <div class="formas"><svg viewBox="28.5 14.5 340.8 372.5" style="--c:$($ce[0]);--s:88px;--x:0px;--y:0px;--r:$($ce[1])deg" aria-hidden="true"><use href="#simbolo" fill="currentColor"/></svg></div>
+    </article></li>
+"@
+}
+Rellenar 'caminos' ("`n" + ($tarjetas -join "`n") + "`n")
+
+Rellenar 'informes' "$($conInforme.Count) de las $($enCamino.Count)"
+Rellenar 'total' "$($enCamino.Count)"
+
+# Vista de «Cómo se usa»: las ventanitas que dice data-herramientas (id o id:estado), en orden
+$mv = [regex]::Match($idx, 'id="vista" data-herramientas="([^"]+)"')
+if ($mv.Success) {
+  $i = 0
+  $vista = foreach ($par in ($mv.Groups[1].Value -split '\s+')) {
+    $id, $estado = $par -split ':'
+    if (-not $H[$id]) { $avisos.Add("La vista de «Cómo se usa» cita «$id», que no está en herramientas."); continue }
+    $pie = if ($estado -eq 'empezada') { '<p class="pie-vista">Así aparece una herramienta empezada en este navegador.</p>' } else { '' }
+    "      <div aria-hidden=""$(if ($i++) { 'true' } else { 'false' })"">$(Ventanita $id './' '' $estado -sinEnlace)$pie</div>"
+  }
+  Rellenar 'vista' ("`n" + ($vista -join "`n") + "`n")
+}
+
+# Índice completo, por camino y tema
+$flechaFina = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
+$cols = foreach ($c in $db.caminos) {
+  $vis = TemasVisibles $c; if (-not $vis) { continue }
+  $i = 0
+  $bloques = foreach ($te in $vis) {
+    $i++
+    $lis = foreach ($id in (HerrDeTema $c $te)) {
+      $t = $H[$id]
+      $busca = Norm "$($t.titulo) $($t.pregunta) $($t.descripcion) $($te.nombre)"
+      $min = if ($t.minutos) { "≈ $($t.minutos) min" } else { '' }
+      "        <li data-busca=""$(Esc $busca)""><a href=""recursos/$($t.slug)/""><span class=""c"" style=""--c:$($t.color)"" aria-hidden=""true""></span><b>$(Esc $t.titulo)</b><small>$min$flechaFina</small></a></li>"
+    }
+    "      <div class=""tema-i"">`n        <h4>$(if ($c.numerado) { "$i. " })$(Esc $te.nombre)</h4>`n        <ul>`n$($lis -join "`n")`n        </ul>`n      </div>"
+  }
+  "    <div>`n      <h3><a href=""$($c.id)/"">$(Esc $c.nombre)</a></h3>`n$($bloques -join "`n")`n    </div>"
+}
+Rellenar 'indice' ("`n" + ($cols -join "`n") + "`n")
+
+$datos = @(
+  @($enCamino.Count, 'herramientas en el catálogo'),
+  @($conInforme.Count, 'generan un informe para entregar'),
+  @(@($enCamino | Where-Object { $H[$_].guarda }).Count, 'guardan el progreso en el navegador'))
+Rellenar 'datos' ("`n" + (($datos | ForEach-Object { "        <div><dt>$($_[0])</dt><dd>$($_[1])</dd></div>" }) -join "`n") + "`n")
+
+Rellenar 'pie' ("`n" + (PieNuevo './') + "`n")
+
+# Datos para js/portada.js: claves de guardado («Seguir donde lo dejaste») y enlaces antiguos con #
+$guarda = @($enCamino | Where-Object { $H[$_].guarda } | ForEach-Object { [ordered]@{ k = $H[$_].guarda; t = $H[$_].titulo; u = $H[$_].url; c = $H[$_].color } })
+$red = [ordered]@{}
+foreach ($m in $materias) {
+  $w = PalabraUnidad $m
+  $red[$m.id] = "$(CarpetaModulo $m)/"
+  foreach ($u in $m.unidades) {
+    $primera = @($u.herramientas | Where-Object { $H[$_] -and $caminos[$H[$_].camino] }) | Select-Object -First 1
+    $red["$($m.id)-$($w.abrev.ToLower())$($u.n)"] = if ($primera) { "$($H[$primera].camino)/#$($H[$primera].tema)" } else { "$(CarpetaModulo $m)/" }
+  }
+}
+foreach ($c in $db.caminos) { foreach ($te in $c.temas) { foreach ($a in @($te.antes)) { if ($a) { $red["tema-$a"] = "$($c.id)/#$($te.id)" } } } }
+$jsonG = (ConvertTo-Json @($guarda) -Compress -Depth 3).Replace('<', '<')
+$jsonR = (ConvertTo-Json $red -Compress).Replace('<', '<')
+Rellenar 'datos-js' ("`n<script>window.ESPLORA = { guarda: $jsonG, antiguos: $jsonR };</script>`n")
+
+if ($idx -ne [IO.File]::ReadAllText($rutaIndex, $utf8)) { [IO.File]::WriteAllText($rutaIndex, $idx, $utf8); "  escrito   index.html" } else { "  igual     index.html" }
 
 # ---------- Herramientas: pie legal y canonical ----------
 "Herramientas"

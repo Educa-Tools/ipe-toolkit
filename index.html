@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="tema-auto">
 <head>
 <meta charset="UTF-8">
 <script>/* Esplora Labs: recupera el progreso guardado con el nombre antiguo (educa…) */try{for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(/^educa/.test(k)){var n=k.replace(/^educatools/,'esplora').replace(/^educa/,'esplora');if(localStorage.getItem(n)===null)localStorage.setItem(n,localStorage.getItem(k));}}}catch(e){}</script>
@@ -7,7 +7,8 @@
 <title>Esplora · Herramientas y recursos didácticos</title>
 <meta name="description" content="Herramientas interactivas y recursos para explorar la empleabilidad y el emprendimiento, en FP, en secundaria o por tu cuenta. En el navegador y sin cuentas.">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://esplora.es/#organizacion","name":"Esplora","url":"https://esplora.es/","logo":"https://esplora.es/marca/apple-touch-icon.png","description":"Herramientas y recursos didácticos interactivos sobre empleabilidad y emprendimiento para Formación Profesional.","contactPoint":{"@type":"ContactPoint","contactType":"customer support","email":"contacto@esplora.es","availableLanguage":"es"}},{"@type":"WebSite","@id":"https://esplora.es/#web","name":"Esplora","url":"https://esplora.es/","inLanguage":"es-ES","description":"Herramientas para explorar en el aula: recursos interactivos de empleabilidad y emprendimiento (IPE 1 e IPE 2) que funcionan en el navegador, sin cuentas.","publisher":{"@id":"https://esplora.es/#organizacion"}}]}</script>
-<meta name="theme-color" content="#1E1C1A">
+<meta name="theme-color" content="#FBFCEF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1E1C1A" media="(prefers-color-scheme: dark)">
 <!-- Cómo se ve el enlace al compartirlo en LinkedIn, Instagram o WhatsApp -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Esplora">
@@ -27,521 +28,70 @@
 <link rel="apple-touch-icon" href="marca/apple-touch-icon.png">
 <link rel="stylesheet" href="fuentes/fuentes.css">
 <link rel="stylesheet" href="estilos/esplora.css">
-<style>
-  /* Colores, letras, espacios y piezas comunes: estilos/esplora.css. Aquí, solo lo propio de la portada */
-  :root{
-    /* Alto de la barra de navegación fija (12px de margen + 58px de píldora) */
-    --nav-h:70px;
-  }
-  html{scroll-behavior:smooth;}
-  body{overflow-x:hidden;}
-  /* Al saltar a una sección, el título no queda debajo de la barra fija */
-  header[id],section[id],#como-se-usa{scroll-margin-top:calc(var(--nav-h) + 14px);}
-  /* Con el teclado, lo enfocado en el catálogo no queda tapado por la barra de filtros, que también se queda fija */
-  .catalog a,.catalog button{scroll-margin-top:calc(var(--nav-h) + 100px);}
-
-  /* Todo lo que se pulsa responde con un leve hundimiento */
-  .door,.other,.clip,.tool-card,.btn-small,.seg a,.nav-links a,.resume-item,.unit-chip,.copy-link,.contact-item.is-live{transition-property:background-color,color,box-shadow,translate,rotate,scale,border-color;transition-duration:.18s;transition-timing-function:var(--ease-out);}
-  .door:active,.other:active,.btn-small:active,.seg a:active,.nav-links a:active,.unit-chip:active,.copy-link:active,.contact-item.is-live:active{scale:.97;}
-  .tool-card:active,.clip:active,.resume-item:active{scale:.98;}
-
-  /* ---------- Barra superior flotante (píldora) ---------- */
-  .nav{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);z-index:30;margin-top:12px;}
-  .nav-pill{
-    display:flex;align-items:center;justify-content:space-between;gap:16px;
-    background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-    border:var(--frame);border-radius:var(--radius-pill);padding:6px 6px 6px 20px;
-    transition:box-shadow .2s ease;
-  }
-  .nav.scrolled .nav-pill{box-shadow:var(--sticker);}
-  .nav-brand{display:inline-flex;align-items:center;gap:8px;min-height:44px;text-decoration:none;color:var(--ink);}
-  .nav-brand img{display:block;width:auto;height:28px;}
-  .nav-links{display:flex;align-items:center;gap:2px;}
-  .nav-links a{display:inline-flex;align-items:center;min-height:44px;text-decoration:none;color:var(--ink);font-weight:500;font-size:.95rem;padding:0 14px;border-radius:var(--radius-pill);}
-  .nav-links a.nav-cta{background:var(--ink);color:var(--surface);font-weight:700;padding:0 20px;margin-left:6px;}
-  @media (max-width:620px){.nav-links a.hide-sm{display:none;}.nav-pill{padding-left:14px;}.nav-links a.nav-cta{padding:0 16px;}}
-
-  /* ---------- Portada: una página de cuaderno de campo ---------- */
-  .hero{position:relative;isolation:isolate;padding-block:118px 150px;}
-  /* Mosaico tenue de esporas que se desvanece hacia abajo */
-  .hero::before{
-    content:"";position:absolute;inset:-96px 0 0;z-index:-1;pointer-events:none;
-    background-image:url(marca/mosaico-claro.svg);background-size:112px 112px;background-position:center top;
-    -webkit-mask-image:linear-gradient(to bottom,#000 50%,transparent 96%);mask-image:linear-gradient(to bottom,#000 50%,transparent 96%);
-  }
-  /* En escritorio: titular y texto a la izquierda, a la altura del selector, que va a la derecha; debajo, centrada,
-     la herramienta en acción. En móvil: titular, selector, texto y herramienta en acción */
-  .hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,420px);grid-template-rows:auto 1fr auto;grid-template-areas:"titulo desk" "texto desk" "demo demo";column-gap:88px;row-gap:28px;}
-  .hero-grid > :first-child{grid-area:titulo;}
-  .desk{grid-area:desk;align-self:start;position:relative;}
-  .hero-more{grid-area:texto;}
-  .hero h1{margin:0;}
-  .wordmark{display:block;width:clamp(240px,40vw,460px);height:auto;}
-  .h1-sub{display:block;margin-top:22px;font-family:var(--font-display);font-weight:500;font-size:clamp(1.45rem,2.7vw,2.05rem);line-height:1.18;letter-spacing:-.4px;max-width:25ch;text-wrap:balance;}
-  .hero-lede{font-size:1.12rem;line-height:1.65;color:var(--ink-soft);max-width:46ch;margin:0;}
-  /* Lo práctico, justo debajo: para quién es y qué se lleva el alumnado */
-  .hero-facts{font-size:1rem;line-height:1.6;max-width:46ch;margin:16px 0 0;font-weight:500;}
-  .hero-resume{margin:20px 0 0;font-size:.95rem;color:var(--ink-soft);}
-  .hero-resume a{color:var(--ink);font-weight:700;text-underline-offset:4px;}
-
-  /* Selector de módulo: una tarjeta grande por módulo. Las esporas de colores son sus herramientas, una por herramienta y con su color */
-  .picker{color:var(--bg);}
-  .picker-q{font-family:var(--font-display);font-weight:600;font-size:1.35rem;line-height:1.2;letter-spacing:-.01em;margin:0 0 16px;}
-  .doors{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-  .doors li{display:flex;}
-  .door{flex:1;display:flex;flex-direction:column;min-height:212px;padding:18px 18px 16px;border-radius:var(--radius-card);text-decoration:none;border:var(--frame);box-shadow:4px 4px 0 var(--sh);}
-  .door-1{background:var(--olive-deep);color:var(--bg);--sh:var(--lime-mid);--sb:var(--bg);}
-  .door-2{background:var(--lime-mid);color:var(--ink);--sh:var(--olive-mid);--sb:var(--ink);}
-  .door-tag{font-family:var(--font-display);font-weight:800;font-size:2.3rem;line-height:.95;letter-spacing:-.03em;}
-  .door-lema{font-family:var(--font-display);font-style:italic;font-weight:500;font-size:1.05rem;line-height:1.2;margin-top:4px;}
-  .door-desc{font-size:.84rem;line-height:1.4;margin-top:10px;}
-  .door-foot{margin-top:auto;padding-top:14px;display:flex;flex-direction:column;align-items:flex-start;gap:8px;}
-  .spores{display:flex;flex-wrap:wrap;gap:4px;}
-  .spores i{width:11px;height:11px;border-radius:50% 50% 50% 4px;background:var(--s);border:1.5px solid var(--sb);transition:translate .3s var(--ease-out);transition-delay:calc(var(--k) * 18ms);}
-  .door-n{font-size:.8rem;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap;}
-  /* La tercera puerta, para quien da otra materia: ancha y en verde pálido, para que se vea sin competir con los módulos */
-  .other{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;margin-top:14px;min-height:64px;padding:12px 16px;border-radius:var(--radius-card);border:var(--frame);background:var(--lime-soft);color:var(--ink);text-decoration:none;box-shadow:4px 4px 0 var(--olive-mid);}
-  .other-ic{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--bg);border:var(--frame);}
-  .other-ic svg{width:22px;height:22px;}
-  .other b{display:block;font-family:var(--font-display);font-weight:700;font-size:1.1rem;line-height:1.2;}
-  .other small{display:block;font-size:.84rem;color:var(--ink-soft);line-height:1.35;}
-  .other-go{display:flex;transition:translate .18s var(--ease-out);}
-  .other-go svg{width:18px;height:18px;}
-  .door:focus-visible,.other:focus-visible{outline-offset:4px;}
-  .all-link{display:inline-flex;align-items:center;min-height:44px;margin-top:10px;font-weight:600;font-size:.95rem;color:var(--bg);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:6px;font-variant-numeric:tabular-nums;}
-  @media (max-width:480px){
-    .door{min-height:0;padding:16px 14px 14px;}
-    .door-tag{font-size:2rem;}
-    .door-desc{display:none;}
-  }
-  .doodle{fill:none;stroke:var(--olive-deep);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
-  .draw{stroke-dasharray:140;stroke-dashoffset:140;}
-
-  /* Tres miniaturas de herramientas bajo el selector: en fila, sin superponerse */
-  /* Reclamo de la portada: el Generador de ideas de negocio en acción, en la misma ventanita de las tarjetas */
-  .hero-demo{grid-area:demo;justify-self:center;width:min(100%,640px);margin-top:48px;text-align:center;}
-  .demo-lead{margin:0 0 22px;font-family:var(--font-display);font-weight:500;font-size:clamp(1.3rem,2.2vw,1.6rem);line-height:1.25;color:var(--bg);}
-  .demo-lead .doodle{stroke:var(--lime-mid);}
-  .demo{margin:0;text-align:left;}
-  .demo-win{display:flex;flex-direction:column;overflow:hidden;color:var(--ink);background:var(--bg);border:var(--frame);border-radius:12px;box-shadow:4px 4px 0 var(--olive-deep);}
-  .demo .clip-bar{font-size:.66rem;padding:6px 11px;}
-  .demo-body{display:flex;flex-direction:column;gap:12px;padding:14px 16px 16px;}
-  .demo-body p{margin:0;}
-  .demo-q{font-family:var(--font-display);font-weight:600;font-size:1.12rem;line-height:1.15;letter-spacing:-.2px;}
-  .demo-q em{font-style:italic;color:var(--c);}
-  /* Dos pantallas en el mismo sitio: las respuestas (el cursor marca casillas) y las ideas que salen de ellas */
-  .gi-stage{position:relative;display:grid;}
-  .gi-s{grid-area:1/1;display:flex;flex-direction:column;gap:12px;transition:opacity .35s var(--ease-out),translate .45s var(--ease-out),visibility 0s;transition-delay:.3s,.3s,0s;}
-  .gi-s2{opacity:0;translate:24px 0;visibility:hidden;transition-delay:0s,0s,.45s;}
-  .demo.ver .gi-s1{opacity:0;translate:-24px 0;visibility:hidden;transition-delay:0s,0s,.45s;}
-  .demo.ver .gi-s2{opacity:1;translate:0 0;visibility:visible;transition-delay:.3s,.3s,0s;}
-  .gi-ciclo{display:flex;align-items:center;gap:10px;align-self:flex-start;max-width:100%;padding:6px 10px 6px 12px;background:var(--surface);border:var(--frame);border-radius:8px;font-size:.85rem;}
-  .gi-k{font-size:.62rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);}
-  .gi-v{font-weight:700;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:opacity .25s;}
-  .gi-v.cambia{opacity:0;}
-  .gi-ciclo svg{width:15px;height:15px;flex:none;color:var(--c);}
-  .gi-g{display:flex;flex-direction:column;gap:6px;}
-  .gi-ps{display:flex;flex-wrap:wrap;gap:5px;}
-  .gi-p{padding:4px 10px;border:1.5px solid color-mix(in srgb,var(--ink) 18%,transparent);border-radius:var(--radius-pill);background:var(--surface);font-size:.76rem;font-weight:600;transition:background-color .2s,color .2s,border-color .2s,scale .2s var(--ease-out);}
-  .gi-p.si{background:var(--c);border-color:var(--c);color:var(--surface);}
-  .gi-p.pulsa,.gi-btn.pulsa{scale:.92;}
-  .gi-btn{align-self:flex-end;display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:var(--radius-pill);background:var(--ink);color:var(--surface);font-size:.8rem;font-weight:700;transition:scale .2s var(--ease-out);}
-  .gi-btn svg{width:14px;height:14px;}
-  .gi-res{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;font-size:.85rem;font-weight:700;}
-  .gi-ideas{list-style:none;margin:0;padding:0;display:grid;gap:7px;}
-  .gi-ideas li{display:flex;flex-direction:column;gap:2px;padding:8px 12px;background:var(--surface);border:1.5px solid color-mix(in srgb,var(--c) 30%,transparent);border-left:5px solid var(--c);border-radius:8px;opacity:0;translate:0 10px;transition:opacity .3s var(--ease-out),translate .45s var(--ease-out);}
-  .gi-ideas li.in{opacity:1;translate:0 0;}
-  .gi-n{font-size:.62rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--c);}
-  .gi-t{font-size:.9rem;font-weight:600;line-height:1.3;}
-  /* El cursor que «pulsa»: solo se ve mientras se anima */
-  .gi-cursor{position:absolute;left:0;top:0;width:22px;height:22px;margin:-3px 0 0 -4px;pointer-events:none;opacity:0;transition:translate .6s cubic-bezier(.45,0,.2,1),opacity .3s,scale .15s;filter:drop-shadow(1px 2px 1px color-mix(in srgb,var(--ink) 35%,transparent));}
-  .gi-cursor.vivo{opacity:1;}
-  .gi-cursor.pulsa{scale:.82;}
-  @media (max-width:480px){.demo-body{padding:12px 12px 14px;}.gi-p{font-size:.7rem;padding:3px 8px;}.gi-ideas li{padding:7px 10px;}.gi-t{font-size:.84rem;}}
-  .demo figcaption{margin-top:14px;font-size:.92rem;line-height:1.5;color:var(--lime-soft);text-align:center;text-wrap:balance;}
-  /* Las tres razones para entrar y el botón: lo primero que se pulsa en la portada */
-  .gen-facts{list-style:none;margin:22px 0 0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;}
-  .gen-facts li{padding:5px 14px;border:1.5px solid color-mix(in srgb,var(--lime-mid) 55%,transparent);border-radius:var(--radius-pill);color:var(--bg);font-size:.9rem;font-weight:600;}
-  .gen-go{margin-top:22px;}
-  /* El único momento de entrada de la página: las esporas de cada módulo brotan una tras otra */
-  .spores i{animation:brota .4s var(--ease-out) backwards;animation-delay:calc(.25s + var(--k) * 35ms);}
-  @keyframes brota{from{scale:0;}}
-  @keyframes ink{to{stroke-dashoffset:0;}}
-  @keyframes fade{from{opacity:0;}}
-  /* Al filtrar, las tarjetas entran con un fundido corto y escalonado: se ve que el catálogo ha cambiado */
-  @keyframes rise{from{opacity:0;translate:0 6px;}}
-
-  @media (max-width:980px){
-    .hero{padding-block:32px 64px;}
-    .hero-grid{grid-template-columns:1fr;grid-template-rows:none;grid-template-areas:none;row-gap:32px;}
-    .hero-grid > :first-child,.desk,.hero-more,.hero-demo{grid-area:auto;}
-    .hero-demo{margin-top:16px;}
-    .desk{max-width:440px;}
-    .h1-sub{margin-top:16px;}
-  }
-
-  /* ---------- Cabecera en tinta: la tapa del cuaderno (el pie es la contratapa) ---------- */
-  /* Sube por detrás de la barra de navegación para que la tinta empiece en el borde de la pantalla */
-  .hero{background:var(--ink);color:var(--bg);margin-top:calc(-1 * var(--nav-h));padding-top:calc(118px + var(--nav-h));}
-  .hero::before{inset:0;}
-  .hero :focus-visible{outline-color:var(--lime-mid);}
-  .hero .h1-sub{color:var(--bg);}
-  .hero-lede{color:var(--lime-soft);}
-  .hero-facts{color:var(--bg);}
-  .hero-resume{color:var(--lime-soft);}
-  .hero-resume a{color:var(--surface);}
-  /* Sobre la tinta, la sombra de pegatina pasa a oliva */
-  @media (max-width:980px){.hero{padding-top:calc(32px + var(--nav-h));}}
-  /* ---------- Secciones ---------- */
-  section.block{padding-block:104px;}
-  @media (max-width:620px){section.block{padding-block:68px;}}
-  h2.sec-title{font-family:var(--font-display);font-weight:700;font-size:clamp(2rem,4.6vw,3.1rem);line-height:1.06;letter-spacing:-1px;margin:0 0 16px;text-wrap:balance;}
-  .sec-lede{color:var(--ink-soft);font-size:1.1rem;max-width:58ch;margin:0;}
-  /* Subrayado a mano bajo un título; se dibuja una vez al aparecer */
-  .ink-under{position:relative;display:inline-block;}
-  .ink-under svg{position:absolute;left:-2%;bottom:-.22em;width:104%;height:.36em;overflow:visible;pointer-events:none;}
-  .ink-under .draw{stroke-dasharray:420;stroke-dashoffset:420;transition:stroke-dashoffset 1s var(--ease-in-out);}
-  .ink-under.in .draw{stroke-dashoffset:0;}
-
-  /* ---------- Catálogo ---------- */
-  .catalog{border-top:var(--frame);}
-  .cat-head{margin-bottom:28px;}
-  /* Barra de búsqueda y filtros: en escritorio se queda fija bajo la navegación al bajar */
-  .toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px;position:sticky;top:var(--nav-h);z-index:20;margin:0 -24px 28px;padding:14px 24px;background:color-mix(in srgb,var(--bg) 95%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .2s ease;}
-  .toolbar.stuck{border-bottom-color:var(--ink);padding-block:8px;}
-  /* Fija, la barra se vuelve más fina para dejar sitio a las tarjetas */
-  .toolbar.stuck .seg a{min-height:36px;}
-  .toolbar.stuck .search input{min-height:42px;}
-  .toolbar.stuck .dd{min-height:40px;}
-  .toolbar.stuck .dd select{min-height:38px;}
-  .toolbar-sentinel{height:1px;margin-bottom:-1px;}
-  .finder{flex:1 1 400px;min-width:0;display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px;}
-  .seg{display:inline-flex;gap:4px;padding:4px;background:var(--surface);border:var(--frame);border-radius:var(--radius-pill);}
-  .seg a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 18px;border-radius:var(--radius-pill);text-decoration:none;font-weight:700;font-size:.94rem;color:var(--ink-soft);white-space:nowrap;}
-  .seg a[aria-current="true"]{background:var(--ink);color:var(--surface);}
-  .search{position:relative;flex:1 1 160px;}
-  .search svg{position:absolute;left:18px;top:50%;translate:0 -50%;width:19px;height:19px;color:var(--olive-deep);pointer-events:none;}
-  .search input{width:100%;min-height:52px;font:inherit;font-size:1rem;color:var(--ink);background:var(--surface);border:var(--frame);border-radius:var(--radius-pill);padding:0 48px;transition:box-shadow .15s var(--ease-out);}
-  .search input::placeholder{color:var(--ink-muted);}
-  .search input:focus{outline:none;box-shadow:var(--sticker);}
-  .search input::-webkit-search-cancel-button{display:none;}
-  .search-clear{position:absolute;right:6px;top:50%;translate:0 -50%;width:40px;height:40px;border:none;border-radius:50%;background:none;cursor:pointer;color:var(--ink-soft);display:flex;align-items:center;justify-content:center;}
-  .search-clear svg{position:static;translate:none;width:16px;height:16px;color:currentColor;}
-  @media (max-width:820px){.toolbar{position:static;margin:0 0 24px;padding:0;background:none;backdrop-filter:none;-webkit-backdrop-filter:none;border:0;}}
-  @media (max-width:520px){.seg{display:grid;grid-template-columns:repeat(3,1fr);width:100%;}.seg a{padding:0 8px;}}
-
-  /* Filtros: dos desplegables (temática y tipo de recurso) y el número de resultados */
-  .filters{flex:0 1 auto;display:flex;flex-wrap:wrap;align-items:center;gap:12px;}
-  .dd{position:relative;display:inline-flex;align-items:center;gap:8px;flex:0 1 auto;min-width:0;min-height:46px;padding-left:18px;background:var(--surface);border:var(--frame);border-radius:var(--radius-pill);transition:box-shadow .15s var(--ease-out),background-color .15s ease;}
-  .dd:focus-within{box-shadow:var(--sticker);}
-  /* El mismo anillo de foco que el resto de la web, en el buscador y en los desplegables */
-  .dd:has(select:focus-visible),.search input:focus-visible{outline:3px solid var(--ink);outline-offset:3px;}
-  .dd.on{background:var(--lime-soft);}
-  .dd > span{flex:none;font-size:.86rem;font-weight:500;color:var(--ink-soft);}
-  .dd select{appearance:none;-webkit-appearance:none;min-width:0;max-width:160px;min-height:44px;margin:0;padding:0 42px 0 0;border:0;background-color:transparent;font:inherit;font-size:.94rem;font-weight:700;color:var(--ink);cursor:pointer;text-overflow:ellipsis;}
-  .dd select:focus{outline:none;}
-  .dd select option{background-color:var(--surface);color:var(--ink);}
-  .dd svg{position:absolute;right:16px;top:50%;translate:0 -50%;width:14px;height:14px;pointer-events:none;}
-  .filters-end{display:flex;align-items:center;gap:6px 14px;margin-left:auto;}
-  .res-count{margin:0;font-weight:600;color:var(--ink-soft);font-variant-numeric:tabular-nums;}
-  .res-count mark{background:var(--lime-soft);color:var(--ink);padding:0 6px;border-radius:6px;}
-  .link-btn{min-height:44px;padding:0 4px;border:0;background:none;cursor:pointer;font-weight:600;font-size:.92rem;color:var(--ink);text-decoration:underline;text-underline-offset:5px;}
-  @media (max-width:620px){
-    .filters{flex:1 1 100%;display:grid;grid-template-columns:1fr;gap:10px;}
-    .dd{flex:none;}
-    .dd select{flex:1;max-width:none;}
-    .filters-end{margin-left:0;justify-content:space-between;}
-  }
-
-  /* Grupos por temática dentro de "Todo" */
-  .group + .group{margin-top:56px;}
-  .group-h{display:flex;align-items:center;gap:12px;margin:0 0 18px;font-family:var(--font-display);font-weight:700;font-size:1.5rem;line-height:1.2;letter-spacing:-.4px;}
-  .group-h em{flex:none;font-family:var(--font-ui);font-style:normal;font-size:.8rem;font-weight:700;line-height:1;padding:4px 9px;border-radius:var(--radius-pill);background:var(--lime-soft);font-variant-numeric:tabular-nums;}
-  .group-h::after{content:"";flex:1;min-width:24px;height:1px;background:var(--ink);opacity:.2;}
-  @media (max-width:620px){.group + .group{margin-top:40px;}.group-h{font-size:1.25rem;}.group-h::after{display:none;}}
-
-  /* Tarjetas de recurso: una "ventanita" con la barra de color de cada herramienta */
-  .tool-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:22px;}
-  .tool-grid li{display:flex;}
-  .tool-card{flex:1;display:flex;flex-direction:column;overflow:hidden;text-decoration:none;color:var(--ink);background:var(--bg);border:var(--frame);border-radius:12px;box-shadow:3px 3px 0 var(--ink);}
-  .tool-card:focus-visible{translate:0 -5px;box-shadow:6px 6px 0 var(--c);}
-  /* Barra superior, como la de cada herramienta */
-  .clip-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--c);color:var(--surface);font-size:.62rem;font-weight:700;padding:6px 10px;border-bottom:var(--frame);white-space:nowrap;}
-  .clip-bar svg{width:9px;height:9px;margin-right:4px;vertical-align:-1px;}
-  .clip-bar > span:last-child{overflow:hidden;text-overflow:ellipsis;opacity:.9;}
-  .clip-body{flex:1;display:flex;flex-direction:column;gap:6px;padding:12px 14px;}
-  .clip-kick{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);}
-  .clip-h{font-family:var(--font-display);font-weight:600;font-size:1.06rem;line-height:1.12;letter-spacing:-.3px;}
-  .clip-h em{font-style:italic;color:var(--c);}
-  .clip-art{display:block;width:100%;max-width:200px;height:auto;margin-top:4px;}
-  .win-desc{font-size:.84rem;line-height:1.45;color:var(--ink-soft);}
-  .clip-go{display:inline-flex;align-items:center;gap:5px;margin-top:auto;padding-top:4px;font-size:.74rem;font-weight:700;}
-  .clip-go svg{width:13px;height:13px;color:var(--c);transition:translate .18s var(--ease-out);}
-  /* Etiquetas pequeñas de cada tarjeta: tiempo, si guarda y si saca informe */
-  .tool-meta{display:flex;flex-wrap:wrap;gap:5px;margin-top:2px;}
-  .tool-meta span{display:inline-flex;align-items:center;gap:4px;font-size:.68rem;font-weight:700;line-height:1;padding:4px 8px;border-radius:var(--radius-pill);border:1px solid var(--line);background:var(--surface);color:var(--ink-soft);white-space:nowrap;font-variant-numeric:tabular-nums;}
-  .tool-meta svg{width:11px;height:11px;color:var(--c);}
-  .tool-meta .on{background:var(--lime-soft);border-color:var(--lime-mid);color:var(--ink);}
-  /* En el móvil, dos tarjetas por fila y solo lo esencial: la descripción se lee al abrir */
-  @media (max-width:560px){
-    .tool-grid{grid-template-columns:1fr 1fr;gap:14px;}
-    .clip-bar > span:last-child{display:none;}
-    .clip-body{padding:10px 11px;gap:5px;}
-    .clip-h{font-size:.98rem;}
-    .win-desc{display:none;}
-    .tool-meta span:not(.on){display:none;}
-  }
-  /* Al cambiar un filtro, las tarjetas nuevas entran rápido y en cascada corta para que se note el cambio */
-  .pop{animation:rise .3s var(--ease-out) backwards;animation-delay:calc(var(--i,0) * 25ms);}
-
-  /* Estados vacíos y de carga */
-  .empty{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:28px;background:var(--surface);border:1px dashed var(--ink-muted);border-radius:var(--radius-card);}
-  .empty h3{display:flex;align-items:center;gap:10px;margin:0;font-family:var(--font-display);font-weight:700;font-size:1.3rem;}
-  .empty h3 svg{width:22px;height:22px;color:var(--olive-deep);}
-  .empty p{margin:0;color:var(--ink-soft);max-width:60ch;}
-  .btn-small{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;margin-top:6px;cursor:pointer;font-weight:700;font-size:.92rem;color:var(--ink);background:var(--lime-mid);border:1.5px solid var(--ink);border-radius:var(--radius-pill);box-shadow:var(--sticker);}
-  .load-msg{background:var(--surface);border:1px dashed var(--ink-muted);border-radius:var(--radius-card);padding:28px;color:var(--ink-soft);text-align:center;}
-  .loading{display:flex;align-items:center;justify-content:center;gap:10px;}
-  /* Catálogo ya escrito en la página (scripts/generar.ps1): lo ven los buscadores
-     y quien no tenga JavaScript; al cargar, el catálogo interactivo lo sustituye */
-  .pre-cat{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-card);padding:20px 24px;}
-  .pre-cat h3{font-family:var(--font-display);font-size:1.3rem;margin:8px 0 4px;}
-  .pre-cat h4{font-size:1rem;margin:14px 0 4px;}
-  .pre-cat ul{margin:0;padding-left:20px;color:var(--ink-soft);}
-  .pre-cat a{color:var(--ink);font-weight:600;}
-  .loading img{width:20px;height:22px;animation:spin .9s linear infinite;}
-  @keyframes spin{to{rotate:360deg;}}
-
-  /* Vista de un módulo: sus unidades o bloques, cada uno con sus tarjetas */
-  .mod-head{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:12px 24px;margin-bottom:22px;}
-  .mod-head > div{flex:1 1 320px;}
-  .mod-title{font-family:var(--font-display);font-weight:700;font-size:clamp(1.6rem,3.4vw,2.3rem);line-height:1.12;margin:0 0 6px;text-wrap:balance;}
-  .mod-title:focus{outline:none;}
-  .mod-title:focus-visible{outline:3px solid var(--ink);}
-  .mod-desc{margin:0;color:var(--ink-soft);font-variant-numeric:tabular-nums;}
-  .unit-index{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 40px;padding:0;list-style:none;}
-  .unit-chip{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:var(--radius-pill);background:var(--surface);border:var(--frame);color:var(--ink);font-weight:600;font-size:.92rem;text-decoration:none;}
-  .unit-chip b{color:var(--olive-deep);}
-  .unit-chip.soon{color:var(--ink-soft);border-style:dashed;}
-  @media (max-width:620px){.unit-chip .chip-t{display:none;}.unit-chip{min-width:56px;justify-content:center;}}
-  .unit-list{display:grid;gap:44px;}
-  /* La barra fija de escritorio ocupa sitio: el título de la unidad queda visible debajo */
-  section.unit-sec[id]{scroll-margin-top:calc(var(--nav-h) + 96px);}
-  @media (max-width:820px){section.unit-sec[id]{scroll-margin-top:calc(var(--nav-h) + 14px);}}
-  .unit-head{display:flex;align-items:center;gap:16px;padding-bottom:14px;margin-bottom:16px;border-bottom:var(--frame);}
-  .unit-num{flex:none;font-family:var(--font-display);font-weight:700;font-size:2.3rem;line-height:1;color:var(--olive-deep);min-width:50px;font-variant-numeric:tabular-nums;}
-  .unit-head-tx{flex:1;min-width:0;}
-  .unit-meta{display:block;font-size:.86rem;font-weight:600;color:var(--ink-soft);}
-  .unit-title{font-family:var(--font-display);font-weight:600;font-size:1.35rem;line-height:1.22;margin:2px 0 0;text-wrap:balance;}
-  @media (max-width:620px){.unit-num{font-size:1.9rem;min-width:40px;}}
-  .unit-empty{display:flex;align-items:center;gap:10px;margin:0;padding:20px 22px;border:1px dashed var(--ink-muted);border-radius:var(--radius-card);background:var(--surface);color:var(--ink-soft);font-size:.97rem;}
-  .unit-empty svg{width:20px;height:20px;flex:none;color:var(--olive-deep);}
-
-  /* Copiar el enlace directo a un módulo o a una unidad */
-  .copy-link{display:inline-flex;align-items:center;gap:6px;flex:none;min-height:40px;padding:0 14px;cursor:pointer;font-weight:600;font-size:.82rem;color:var(--ink-soft);background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-pill);}
-  .copy-link.done{background:var(--lime-mid);color:var(--ink);border-color:var(--ink);}
-  .copy-link svg{width:14px;height:14px;}
-  @media (max-width:620px){.unit-head .copy-link span{display:none;}.unit-head .copy-link{padding:0 12px;}}
-
-  /* Seguir donde lo dejaste: recursos con trabajo guardado en este navegador */
-  .resume{scroll-margin-top:calc(var(--nav-h) + 14px);margin-bottom:28px;padding:20px 22px;background:var(--surface);border:var(--frame);border-radius:var(--radius-card);box-shadow:var(--sticker);}
-  .resume-h{display:flex;align-items:center;gap:10px;margin:0 0 4px;font-family:var(--font-display);font-weight:700;font-size:1.25rem;}
-  .resume-h svg{width:20px;height:20px;color:var(--olive-deep);}
-  .resume-sub{margin:0 0 14px;font-size:.9rem;color:var(--ink-soft);}
-  .resume-list{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px;}
-  .resume-item{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 8px 0 14px;text-decoration:none;color:var(--ink);background:var(--bg);border:var(--frame);border-left:6px solid var(--c);border-radius:12px;font-weight:600;font-size:.94rem;}
-  .resume-item small{display:block;font-size:.72rem;font-weight:600;color:var(--ink-soft);}
-  .resume-go{display:inline-flex;align-items:center;gap:4px;font-size:.78rem;font-weight:700;background:var(--lime-mid);border-radius:var(--radius-pill);padding:5px 10px;}
-  .resume-go svg{width:13px;height:13px;}
-
-  /* ---------- Tipos de recurso: titular a un lado, filas al otro ---------- */
-  .kinds{border-top:var(--frame);}
-  .kinds-grid{display:grid;grid-template-columns:5fr 7fr;gap:64px;align-items:start;}
-  .kinds-grid > div:first-child{position:sticky;top:calc(var(--nav-h) + 40px);}
-  @media (max-width:860px){.kinds-grid{grid-template-columns:1fr;gap:28px;}.kinds-grid > div:first-child{position:static;}}
-  .kind-list{list-style:none;margin:0;padding:0;}
-  .kind{display:grid;grid-template-columns:auto 1fr;gap:6px 22px;padding:28px 0;border-bottom:var(--frame);}
-  .kind:first-child{padding-top:0;}
-  .kind-icon{grid-row:span 3;width:52px;height:52px;border-radius:14px;border:var(--frame);background:var(--lime-soft);color:var(--olive-deep);display:flex;align-items:center;justify-content:center;rotate:-4deg;}
-  .kind:nth-child(2) .kind-icon{rotate:3deg;}
-  .kind-icon svg{width:24px;height:24px;}
-  .kind h3{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;font-family:var(--font-display);font-size:1.45rem;font-weight:700;margin:0;line-height:1.2;}
-  .kind h3 small{font-family:var(--font-ui);font-size:.82rem;font-weight:700;color:var(--ink-soft);font-variant-numeric:tabular-nums;}
-  .kind-n{margin:0;font-size:.82rem;font-weight:700;color:var(--ink-soft);font-variant-numeric:tabular-nums;}
-  .kind p{margin:0;color:var(--ink-soft);}
-  .kind a{justify-self:start;display:inline-flex;align-items:center;min-height:44px;font-weight:700;color:var(--ink);text-underline-offset:5px;}
-
-  /* ---------- El proyecto: franja oliva con la línea de tiempo de una sesión ---------- */
-  .about{background:var(--olive-deep) url(marca/mosaico-claro.svg) center top / 112px 112px;color:var(--surface);position:relative;overflow:hidden;}
-  .about h2.sec-title{color:var(--surface);}
-  .about .sec-lede{color:var(--surface);}
-  .about-head{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:end;margin-bottom:64px;}
-  .about-head h2.sec-title{margin:0;}
-  @media (max-width:860px){.about-head{grid-template-columns:1fr;gap:20px;margin-bottom:44px;}}
-  .session-t{font-family:var(--font-display);font-weight:600;font-style:italic;font-size:1.35rem;color:var(--lime-soft);margin:0 0 28px;}
-  .steps{position:relative;list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:28px;}
-  /* Línea discontinua que une las paradas y se dibuja al aparecer */
-  .steps::before{
-    content:"";position:absolute;left:30px;right:calc((100% - 84px) / 4 - 30px);top:29px;height:2px;
-    background:repeating-linear-gradient(90deg,var(--lime-mid) 0 10px,transparent 10px 18px);
-    transform:scaleX(0);transform-origin:left;transition:transform 1s var(--ease-in-out) .15s;
-  }
-  .steps.in::before{transform:scaleX(1);}
-  .step{position:relative;}
-  .step-dot{position:relative;width:60px;height:60px;border-radius:50%;background:var(--lime-soft);color:var(--ink);border:1.5px solid var(--ink);display:flex;align-items:center;justify-content:center;margin-bottom:20px;box-shadow:3px 3px 0 var(--ink);}
-  .step-dot svg{width:26px;height:26px;}
-  .step-when{display:block;font-size:.86rem;font-weight:700;color:var(--lime-soft);margin-bottom:6px;}
-  .step h3{font-family:var(--font-display);font-size:1.35rem;font-weight:700;margin:0 0 8px;line-height:1.2;}
-  .step p{margin:0;color:var(--surface);font-size:1rem;}
-  @media (max-width:860px){
-    .steps{grid-template-columns:1fr;gap:32px;padding-left:84px;}
-    .steps::before{left:29px;right:auto;top:30px;bottom:30px;width:2px;height:auto;background:repeating-linear-gradient(180deg,var(--lime-mid) 0 10px,transparent 10px 18px);transform:scaleY(0);transform-origin:top;}
-    .steps.in::before{transform:scaleY(1);}
-    .step-dot{position:absolute;left:-84px;top:0;}
-  }
-
-  /* ---------- Contacto ---------- */
-  .contact-card{position:relative;overflow:hidden;border-radius:var(--radius-card);padding:64px 56px;background:var(--surface);border:var(--frame);box-shadow:var(--sticker);display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center;}
-  @media (max-width:860px){.contact-card{grid-template-columns:1fr;gap:32px;padding:40px 24px;}}
-  .contact-card .big-deco{position:absolute;right:-60px;top:-60px;width:220px;height:220px;color:var(--lime-soft);pointer-events:none;}
-  .contact-card h2{position:relative;font-family:var(--font-display);font-weight:700;font-size:clamp(1.9rem,4.2vw,2.8rem);line-height:1.08;margin:0 0 16px;letter-spacing:-.9px;text-wrap:balance;}
-  .contact-card p{position:relative;margin:0;color:var(--ink-soft);max-width:44ch;font-size:1.05rem;}
-  .contact-list{display:grid;gap:12px;position:relative;margin:0;padding:0;list-style:none;}
-  .contact-item{display:flex;align-items:center;gap:14px;border:1px dashed var(--ink-muted);border-radius:var(--radius-card);padding:16px 18px;background:var(--bg);}
-  .contact-item .ci{width:44px;height:44px;border-radius:50%;background:var(--lime-soft);border:var(--frame);color:var(--ink);display:flex;align-items:center;justify-content:center;flex:none;}
-  .contact-item .ci svg{width:20px;height:20px;}
-  .contact-item .ct{flex:1;min-width:0;}
-  .contact-item .ct small{display:block;font-size:.8rem;font-weight:600;color:var(--ink-soft);}
-  .contact-item .ct span{display:block;font-weight:700;font-size:1.05rem;overflow-wrap:break-word;word-break:normal;}
-  a.contact-item{color:inherit;text-decoration:none;}
-  .contact-item.is-live{border-style:solid;border-color:var(--ink);}
-
-  /* ---------- Pie de página: el cierre del cuaderno, en tinta ---------- */
-  footer{position:relative;overflow:hidden;background:var(--ink) url(marca/mosaico-claro.svg) center top / 112px 112px;color:var(--lime-soft);padding-top:88px;}
-  footer a{color:var(--surface);}
-  .foot-top{display:grid;grid-template-columns:1.1fr 1.4fr;gap:48px 72px;align-items:start;}
-  .foot-claim{margin:0 0 26px;font-family:var(--font-display);font-weight:600;font-size:clamp(1.6rem,3vw,2.2rem);line-height:1.15;letter-spacing:-.5px;color:var(--surface);max-width:20ch;text-wrap:balance;}
-  .foot-claim em{font-style:italic;color:var(--lime-mid);}
-  .btn-foot{display:inline-flex;align-items:center;gap:10px;min-height:50px;padding:0 24px;border-radius:var(--radius-pill);background:var(--lime-mid);border:1.5px solid var(--lime-mid);box-shadow:3px 3px 0 var(--olive-deep);color:var(--ink)!important;font-weight:700;text-decoration:none;white-space:nowrap;transition:translate .18s var(--ease-out),box-shadow .18s var(--ease-out),scale .18s var(--ease-out);}
-  .btn-foot svg{width:17px;height:17px;}
-  .btn-foot:active{scale:.97;}
-  .foot-cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.5fr);gap:32px;}
-  .foot-cols h3{margin:0 0 12px;font-family:var(--font-display);font-style:italic;font-weight:500;font-size:1.05rem;color:var(--lime-mid);}
-  .foot-cols ul{list-style:none;margin:0;padding:0;}
-  .foot-cols a{display:inline-flex;align-items:center;min-height:38px;font-weight:600;text-decoration:none;}
-  .foot-cols a.mail{text-decoration:underline;text-decoration-color:var(--olive-mid);text-underline-offset:5px;}
-  /* La marca en grande, recortada al pie como una firma */
-  .foot-mark{display:block;width:100%;height:auto;margin:28px 0 -1.2%;pointer-events:none;user-select:none;}
-  .foot-bottom{position:relative;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 24px;margin-top:64px;padding:14px 0;border-top:1px solid color-mix(in srgb,var(--lime-soft) 22%,transparent);font-size:.88rem;color:var(--olive-mid);}
-  .foot-bottom .foot-note{font-family:var(--font-display);font-style:italic;font-size:1rem;color:var(--lime-soft);}
-  .foot-legal{display:flex;flex-wrap:wrap;gap:0 16px;order:3;flex-basis:100%;}
-  .foot-legal a{display:inline-block;padding-block:6px;}
-  .foot-bottom a{display:inline-flex;align-items:center;gap:6px;min-height:44px;font-weight:600;text-decoration:none;}
-  .foot-bottom a svg{width:15px;height:15px;transition:translate .18s var(--ease-out);}
-  @media (max-width:900px){.foot-top{grid-template-columns:1fr;}}
-  @media (max-width:560px){footer{padding-top:64px;}.foot-cols{grid-template-columns:1fr 1fr;}.foot-cols > div:last-child{grid-column:1 / -1;}.foot-bottom{margin-top:44px;}}
-
-  /* Efectos al pasar el ratón: solo con ratón de verdad (en móviles y tablets el toque los dispara por error) */
-  @media (hover:hover) and (pointer:fine){
-    .nav-links a:hover{background:var(--lime-soft);}
-    .nav-links a.nav-cta:hover{background:var(--olive-deep);}
-    .door:hover{translate:-2px -4px;box-shadow:7px 8px 0 var(--sh);}
-    .door:hover .spores i{translate:0 -3px;}
-    .other:hover{translate:-2px -2px;box-shadow:6px 6px 0 var(--olive-mid);}
-    .other:hover .other-go{translate:3px 0;}
-    .all-link:hover{color:var(--lime-mid);}
-    .seg a:not([aria-current="true"]):hover{background:var(--lime-soft);color:var(--ink);}
-    .search-clear:hover{background:var(--lime-soft);color:var(--ink);}
-    .dd:hover{background:var(--lime-soft);}
-    .link-btn:hover{color:var(--olive-deep);}
-    .tool-card:hover{translate:0 -5px;rotate:-.6deg;box-shadow:6px 6px 0 var(--c);}
-    .tool-grid li:nth-child(even) .tool-card:hover{rotate:.6deg;}
-    .tool-card:hover .clip-go svg{translate:3px 0;}
-    .btn-small:hover{translate:-2px -2px;box-shadow:var(--sticker-lift);}
-    .unit-chip:hover{background:var(--lime-soft);}
-    .copy-link:hover{background:var(--lime-soft);color:var(--ink);border-color:var(--ink);}
-    .resume-item:hover{translate:-2px -2px;box-shadow:3px 3px 0 var(--c);}
-    .kind a:hover{color:var(--olive-deep);}
-    .contact-item.is-live:hover{translate:0 -2px;}
-    .btn-foot:hover{translate:-2px -2px;box-shadow:5px 5px 0 var(--olive-deep);}
-    .foot-cols a:hover,.foot-bottom a:hover{color:var(--lime-mid);}
-    .foot-bottom a:hover svg{translate:0 -3px;}
-  }
-
-  /* Quien pida menos movimiento en su ordenador, ve la página quieta y completa */
-  @media (prefers-reduced-motion: reduce){
-    *,*::before,*::after{animation:none!important;transition:none!important;}
-    html{scroll-behavior:auto;}
-    .draw,.ink-under .draw{stroke-dashoffset:0!important;}
-    .steps::before{transform:none!important;}
-  }
-</style>
+<link rel="stylesheet" href="estilos/comun.css">
+<link rel="stylesheet" href="estilos/portada.css">
+<script>document.documentElement.classList.add('js')</script>
 </head>
-<body class="ancho">
-<!-- Símbolo de la marca, una sola vez; los iconos lo reutilizan con <use> -->
+<body>
+<!-- generado:menu:inicio -->
+<a class="skip" href="#contenido">Saltar al contenido</a>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol fill="currentColor" id="simbolo" viewBox="28.5 14.5 340.8 372.5"><path d="M 217.7 41.6C230.4 48.3 239.5 48.5 241.6 44.4C243.8 40.3 238.3 33.5 225.6 26.7C212.8 20 203.4 18.9 201.2 23C199.1 27.1 205 34.9 217.7 41.6"/><path d="M 70.2 105.1C82.3 97.3 86.9 89.5 84.3 85.6C81.8 81.7 73.1 83.2 61.1 91.1C49 98.9 43.4 106.6 45.9 110.5C48.5 114.4 58.2 113 70.2 105.1"/><path d="M 363.1 135.7C362.2 121.3 357.7 113.5 353.1 113.8C348.5 114.1 345.5 122.3 346.3 136.7C347.2 151.1 351.1 159.8 355.8 159.5C360.4 159.2 364 150.1 363.1 135.7"/><path d="M 328 295.8C315.8 303.4 310 311 312.5 314.9C314.9 318.9 324.7 317.7 336.9 310.1C349.1 302.5 353.8 294.8 351.4 290.8C348.9 286.9 340.2 288.2 328 295.8"/><path d="M 181.2 360.3C168.5 353.3 159.1 352 156.9 356C154.7 360.1 160.4 368 173 375C185.7 381.9 194.7 382.3 196.9 378.2C199.2 374.2 193.8 367.2 181.2 360.3"/><path d="M 42.1 242.9C37.5 243.2 33.9 252.3 34.8 266.7C35.6 281.1 40.1 288.9 44.8 288.6C49.4 288.3 52.4 280.1 51.5 265.7C50.7 251.3 46.7 242.6 42.1 242.9"/><path d="M 215.2 256.3C213.1 255.2 211.2 253.9 208.9 253C205 251.3 200.7 250.4 196.4 250.4C191.2 250.4 186.2 251.7 181.8 254C177.3 256 171.3 258.3 166.5 256.3C161.5 254.2 160.5 248.5 160.5 243.7C160.6 230.9 156.7 219.5 145.3 212.5C144.8 212.1 144.2 211.8 143.6 211.5C138.6 208.4 126.3 198.4 146.5 185.1C151.9 181.5 155.9 176.3 158.3 170.3C160.7 164.1 160.1 157.6 162.3 151.4C164.2 145.8 168.7 141.8 174.9 142.4C179.4 142.9 183.1 145.6 187 147.7C191.6 150.3 196.4 151.7 201.7 151.7C207.8 151.7 213.4 150 218.3 147.1C222.6 144.5 228.2 142.8 232.8 145.9C237.2 148.9 238.6 153.6 238.4 158.7C237.8 170.4 244.2 181.7 254.2 187.5C261.8 191.9 266.3 201.3 259.6 208.6C257.1 211.3 253.9 212.7 250.8 214.8C248 216.7 245.4 219.2 243.4 221.9C239.1 227.6 237.2 234.2 236.9 241.2C236.8 246.4 235.8 252.5 231.6 256C228.3 258.7 223.8 258.9 219.8 258C218.2 257.6 216.7 257 215.2 256.3M322.5 230.4C322.5 230.4 322.6 230.5 322.6 230.5C322.7 230.5 322.8 230.5 322.8 230.5C331.1 230.9 340.7 224.3 346 213.6C352.6 200.5 350.4 186 341.1 181.4C331.7 176.7 318.9 183.6 312.3 196.8C310.9 199.6 309.9 202.4 309.3 205.2C309.3 205.2 309.3 205.2 309.3 205.2C308.9 205.7 308.8 207.3 308.6 207.9C308.3 209 308 209.9 307.6 210.9C306.8 212.8 305.8 214.7 304.5 216.3C301.4 219.8 297 220.9 292.8 218.6C290.7 217.5 288.8 216 286.9 214.6C284.9 213.2 282.5 212.4 280.6 211C271 203.6 279 192 286.8 187.4C296.2 181.8 302.5 171.5 302.5 159.7C302.5 152.8 300.1 146 295.9 140.5C292.2 135.6 286.8 132.2 284 126.6C281.4 121.4 281.3 113.9 285.6 109.6C286.2 109 286.7 108.4 287.2 107.8C287.2 107.7 287.3 107.6 287.3 107.6L287.3 107.6C292.2 100.5 291.1 88.5 283.9 78.4C275.4 66.4 261.6 61.6 253.1 67.6C244.6 73.6 244.6 88.2 253.1 100.2C255.1 103 257.4 105.4 260.1 107.5C263 109.7 264.5 112.6 265.4 116C266.7 120.7 265.2 125.4 261.2 128.2C259.4 129.6 257.2 130.5 255.2 131.6C251.2 133.7 247.3 135.9 242.6 135.3C238.6 134.7 235.9 131.7 234.7 127.9C232.9 122 234.2 115.8 232.3 109.8C230.6 104.4 227.4 99.4 223.1 95.6C215.1 88.5 204.7 86.4 194.3 88.4C185.7 90.1 177.1 92.7 169.3 87.1C166.4 85.1 164.1 82.1 162.8 78.8C162.8 78.8 162.8 78.8 162.8 78.8C159.3 70.3 147.4 65.4 134.4 67.5C119.9 69.9 109.5 80.1 111.2 90.4C112.8 100.7 125.9 107.1 140.5 104.8C145.5 103.9 150.2 100.7 155.3 100.6C163.5 100.5 170.2 106.4 169.9 114.8C169.7 116.4 169.6 118 169.6 119.6C168.8 129.6 162.9 136.2 152.2 133.7C148.1 132.7 144.7 130.3 140.8 128.7C136.9 127.1 132.8 126.3 128.6 126.3C119.7 126.3 111.1 130.1 105 136.6C102.1 139.8 99.7 143.6 98.3 147.7C97.5 149.8 97 152 96.7 154.3C96.4 156.6 96.9 159.1 95.7 161.3C95.5 161.7 95.3 162 95.1 162.4C93.8 164 92 165.2 90.1 166.2C86 168.4 81.6 169.8 77.1 170.3C74.8 170.6 72.4 170.7 70.2 171.2C65.9 172.2 62.1 174.8 59 177.9C52.9 184.2 49.1 192.7 48.8 201.5C48.7 205.2 49.1 209.1 50.7 212.5C52.2 215.9 54.8 218.9 58.2 220.5C61.6 222 65.6 222 69.2 220.9C72.8 219.7 75.9 217.5 78.6 214.9C83.6 210.1 87.1 203.7 88.5 196.8C89 194.1 89.2 191.4 90.2 188.8C91.3 185.7 93.6 183.5 96.6 182.4C98.8 181.5 101.4 181 103.8 181.2C105.1 181.3 106.1 181.6 107 182.3C108.3 183.3 109.5 184.3 110.8 185.1C112.5 186.3 114.4 187.2 116.1 188.4C119 190.5 121.2 193.3 121.6 196.9C122.3 203.4 116.9 208.7 112.1 212.3C102.7 217.9 96.4 228.2 96.4 239.9C96.4 247.9 99.5 255.6 104.8 261.5C107.4 264.3 110.9 266.1 113.4 268.9C116.1 272.1 117.3 276.3 117 280.5C116.7 285.1 115 288.3 112.1 291.8C105 300.4 109 313.6 114.8 321.8C123.3 333.8 137.1 338.7 145.6 332.6C159.2 322.9 149.2 301.5 139.3 293.2C134.9 289.5 131.4 284.1 132.8 278.1C133.2 276.4 133.9 274.6 134.8 273.2C136.6 270.2 140.8 269.6 143.7 268C146.9 266.4 150.2 264.7 153.9 265.1C157.7 265.5 161.1 267.5 162.9 270.9C164.4 273.8 164.8 276.7 164.5 279.9C162.6 298.4 178.1 314.7 196.4 314.7C205.5 314.7 214.1 309 223.3 310.7C228 311.5 233.1 314.8 234.5 319.6L234.5 319.5C237.2 328.2 248.5 334.3 261.6 333.5C276.3 332.6 287.7 323.5 287.1 313.1C286.4 302.7 274 295 259.3 295.9C255.9 296.1 252.5 296.8 249.3 297.9C243.5 300.1 234.6 303 230 296.9C227.5 293.6 227.8 290.4 228.3 286.5C228.6 283.7 228.4 280.8 228.7 277.9C229.6 270.9 235.2 267 242 267C244.7 267 247.4 267.4 250 268.2C251.7 268.6 253.1 269 254.6 269.8C259 272.2 264.1 273.3 269.1 273.3C285 273.3 298.3 261.7 300.8 246.4C300.8 246.4 300.8 246.3 300.8 246.3C300.8 246 300.9 245.7 300.9 245.4C303.3 228.9 320.3 230.2 322.5 230.4"/></symbol></svg>
-<a class="skip" href="#explorar">Saltar al catálogo</a>
-
-<nav class="nav" id="nav" aria-label="Principal">
-  <div class="wrap">
-    <div class="nav-pill">
-      <a class="nav-brand" href="#inicio" aria-label="Esplora, inicio">
-        <img src="marca/logo-horizontal-oliva.svg" alt="" width="114" height="28">
-      </a>
-      <div class="nav-links">
-        <a href="#como-se-usa" class="hide-sm">Cómo se usa</a>
-        <a href="#proyecto" class="hide-sm">Proyecto</a>
-        <a href="#contacto" class="hide-sm">Contacto</a>
-        <a href="#catalogo" class="nav-cta">Catálogo</a>
-      </div>
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="logo" href="./" aria-label="Esplora, ir a la portada"><img class="claro" src="./marca/logo-horizontal-oliva.svg" alt="" width="114" height="28"><img class="oscuro" src="./marca/logo-horizontal-crema.svg" alt="" width="114" height="28"></a>
+    <nav aria-label="Principal">
+      <ul class="nav-links">
+        <li><button type="button" id="megaBtn" aria-expanded="false" aria-controls="mega">Herramientas <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button></li>
+        <li><a href="./#como-se-usa">Cómo se usa</a></li>
+        <li><a href="./#todas">Índice</a></li>
+        <li><a href="./#proyecto">Proyecto</a></li>
+        <li><a href="./#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+    <a class="btn nav-cta" href="./generador.html">Prueba el generador</a>
+    <button type="button" class="btn btn-sec nav-movil" id="hojaBtn" aria-expanded="false" aria-controls="hoja">Menú</button>
+  </div>
+  <div class="mega wrap" id="mega">
+    <div class="mega-in">
+    <div>
+      <h2><a href="./trabajar/">Trabajar por cuenta ajena</a></h2>
+      <p class="ley">11 herramientas en 2 temas</p>
+      <ul><li><a href="./trabajar/#prevencion"><span class="punto" aria-hidden="true"></span><span>Prevención de Riesgos Laborales</span><small>6</small></a></li>
+<li><a href="./trabajar/#derecho"><span class="punto" aria-hidden="true"></span><span>Derecho del trabajo y Seguridad Social</span><small>5</small></a></li></ul>
+    </div>
+    <div>
+      <h2><a href="./emprender/">Emprender</a></h2>
+      <p class="ley">10 herramientas en 3 temas</p>
+      <ul><li><a href="./emprender/#idea"><span class="num" aria-hidden="true">1</span><span><span class="sr">1. </span>Emprendimiento, innovación y sostenibilidad</span><small>4</small></a></li>
+<li><a href="./emprender/#mercado"><span class="num" aria-hidden="true">2</span><span><span class="sr">2. </span>Análisis del entorno, sector y mercado</span><small>4</small></a></li>
+<li><a href="./emprender/#viabilidad"><span class="num" aria-hidden="true">3</span><span><span class="sr">3. </span>La viabilidad del proyecto emprendedor</span><small>2</small></a></li></ul>
+    </div>
+    <div class="otras"><h2>Otras formas de buscar</h2><ul><li><a href="./#todas">Índice completo<span>Las 21 herramientas en una lista</span></a></li><li><a href="./materias/">Por materia<span>IPE 1 e IPE 2, por bloques y unidades</span></a></li><li><a href="./criterios/">Por criterios de evaluación<span>Resultados de aprendizaje y criterios</span></a></li></ul></div>
     </div>
   </div>
-</nav>
+</header>
+<div class="hoja" id="hoja" aria-label="Menú">
+  <h2><a href="./trabajar/">Trabajar por cuenta ajena</a></h2><ul><li><a href="./trabajar/#prevencion"><span>Prevención de Riesgos Laborales</span><small>6 herramientas</small></a></li><li><a href="./trabajar/#derecho"><span>Derecho del trabajo y Seguridad Social</span><small>5 herramientas</small></a></li></ul>
+  <h2><a href="./emprender/">Emprender</a></h2><ul><li><a href="./emprender/#idea"><span>1. Emprendimiento, innovación y sostenibilidad</span><small>4 herramientas</small></a></li><li><a href="./emprender/#mercado"><span>2. Análisis del entorno, sector y mercado</span><small>4 herramientas</small></a></li><li><a href="./emprender/#viabilidad"><span>3. La viabilidad del proyecto emprendedor</span><small>2 herramientas</small></a></li></ul>
+  <h2>Más</h2><ul><li><a href="./#como-se-usa">Cómo se usa</a></li><li><a href="./#todas">Índice completo</a></li><li><a href="./materias/">Por materia</a></li><li><a href="./criterios/">Por criterios de evaluación</a></li><li><a href="./#proyecto">Proyecto</a></li><li><a href="./#contacto">Contacto</a></li></ul>
+  <a class="btn" href="./generador.html">Prueba el generador</a>
+</div>
+<!-- generado:menu:fin -->
 
-<main>
-<header class="hero" id="inicio">
-  <div class="wrap hero-grid">
-    <div>
-      <h1>
-        <img class="wordmark" src="marca/logotipo-crema.svg" alt="Esplora" width="460" height="132">
-        <span class="h1-sub">Herramientas y recursos didácticos sobre empleabilidad y emprendimiento</span>
-      </h1>
+<main id="contenido">
+<section class="hero wrap" aria-labelledby="hero-t">
+  <div class="panel" id="panel">
+    <div class="hero-txt">
+      <svg class="espora" viewBox="28.5 14.5 340.8 372.5" aria-hidden="true"><use href="#simbolo" fill="currentColor"/></svg>
+      <h1 id="hero-t" class="entra">Herramientas y recursos didácticos sobre <em>empleabilidad y emprendimiento</em></h1>
+      <p class="lede entra" style="--d:1">Esplora nace dentro del aula con un objetivo claro: impulsar al alumnado a trabajar los contenidos de forma interactiva, probando, equivocándose y aprendiendo por el camino.</p>
+      <div class="acciones entra" style="--d:2">
+        <a class="btn" href="#caminos">Ver las herramientas</a>
+        <a class="btn btn-sec" href="#como-se-usa">Cómo se usa en clase</a>
+      </div>
+      <p class="nota entra" style="--d:3">Se abren en el navegador del aula o del móvil, sin instalar nada ni crear cuentas.</p>
     </div>
-
-    <!-- Selector de materia: índice de cuaderno con un separador por materia
-         y, debajo, tres miniaturas de herramientas variadas (se rellenan desde el catálogo) -->
-    <div class="desk" id="desk">
-    <div class="picker" role="navigation" aria-labelledby="picker-t">
-      <h2 class="picker-q" id="picker-t">¿Con qué módulo trabajas?</h2>
-      <ul class="doors">
-        <li><a class="door door-1" href="#ipe1">
-          <span class="door-tag">IPE 1</span>
-          <span class="door-lema">Trabajo por cuenta ajena</span>
-          <span class="door-desc">Prevención de riesgos, Derecho del trabajo y Seguridad Social</span>
-          <span class="door-foot"><span class="spores" data-mod="ipe1" aria-hidden="true"></span><span class="door-n" data-n-mod="ipe1">11 herramientas</span></span>
-        </a></li>
-        <li><a class="door door-2" href="#ipe2">
-          <span class="door-tag">IPE 2</span>
-          <span class="door-lema">Emprendimiento</span>
-          <span class="door-desc">Idea de negocio, viabilidad y empleabilidad</span>
-          <span class="door-foot"><span class="spores" data-mod="ipe2" aria-hidden="true"></span><span class="door-n" data-n-mod="ipe2">9 herramientas</span></span>
-        </a></li>
-      </ul>
-      <a class="other" href="#tematicas">
-        <span class="other-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg></span>
-        <span><b>¿Das otra materia?</b><small>Busca por temática: idea de negocio, mercado, prevención…</small></span>
-        <span class="other-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="all-link" href="#catalogo" id="allLink">Ver todo el catálogo</a>
-    </div>
-    </div>
-
-    <div class="hero-more">
-      <p class="hero-lede">Esplora nace dentro del aula con un objetivo claro: impulsar al alumnado a trabajar los contenidos de forma interactiva, probando, equivocándose y aprendiendo por el camino.</p>
-      <p class="hero-facts">Para FP, secundaria y cualquiera con curiosidad. Funciona en el navegador, sin instalar nada ni crear cuentas.</p>
-      <p class="hero-resume" id="heroResume" hidden></p>
-    </div>
-
+    <div class="escena">
     <!-- El reclamo de la portada: el Generador de ideas de negocio en acción, centrado bajo el titular y el selector.
          Un cursor elige ciclo, marca aficiones, habilidades y forma de trabajar y pulsa «Ver mis ideas»; la pantalla cambia
          y aparecen tres ideas que encajan con ese perfil (las de verdad, sacadas de generador.html). Luego, otro perfil.
@@ -582,701 +132,265 @@
       </ul>
       <a class="btn btn-lima gen-go" href="generador.html">Busca tu idea de negocio<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
-  </div>
-</header>
-
-<section class="block catalog" id="explorar" aria-labelledby="explorar-t">
-  <div class="wrap">
-    <div class="cat-head">
-      <h2 class="sec-title" id="explorar-t"><span class="ink-under" id="inkUnder">El catálogo.<svg viewBox="0 0 300 14" preserveAspectRatio="none" aria-hidden="true"><path class="doodle draw" d="M3 9C60 4 140 3 200 6S280 10 297 5"/></svg></span></h2>
-      <p class="sec-lede">Entra por tu materia o mira todo el catálogo y fíltralo por temática.</p>
-    </div>
-    <!-- Solo aparece si en este navegador hay trabajo guardado en algún recurso -->
-    <div class="resume" id="seguir" hidden></div>
-    <!-- Marca invisible: cuando la barra pasa por aquí, se queda fija y se le dibuja un borde -->
-    <div class="toolbar-sentinel" id="toolbarSentinel"></div>
-    <div class="toolbar" id="toolbar">
-    <div class="finder">
-      <nav class="seg" id="seg" aria-label="Qué ver">
-        <a href="#ipe1" data-view="ipe1">IPE 1</a>
-        <a href="#ipe2" data-view="ipe2">IPE 2</a>
-        <a href="#catalogo" data-view="todo" aria-current="true">Todo</a>
-      </nav>
-      <div class="search" role="search">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
-        <label class="sr" for="q">Buscar en el catálogo</label>
-        <input type="search" id="q" name="q" placeholder="Buscar…" autocomplete="off" spellcheck="false">
-        <button type="button" class="search-clear" id="qClear" aria-label="Borrar la búsqueda" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>
-      </div>
-    </div>
-    <!-- Desplegables de temática, duración y tipo (solo en "Todo") y número de resultados, que se anuncia en voz alta -->
-    <div class="filters" id="filters" hidden></div>
-    <p class="sr" id="liveCount" role="status" aria-live="polite"></p>
-    </div>
-    <div id="stage">
-<!-- catalogo-generado:inicio -->
-<div class="pre-cat">
-<section class="pre-mod"><h3><a href="ipe-1/">IPE 1 · Itinerario Personal para la Empleabilidad I</a></h3>
-<h4>Bloque 1 · Prevención de Riesgos Laborales</h4><ul>
-<li><a href="recursos/patologias-inespecificas/">Diagnóstico de patologías inespecíficas</a>: Empareja seis casos con su patología: fatiga, estrés, burnout, mobbing…</li>
-<li><a href="recursos/ruta-articulo-22/">Ruta al Artículo 22</a>: Repaso exprés de los arts. 17 a 21 de la LPRL en formato de niveles con estrellas.</li>
-<li><a href="recursos/simulador-expedientes-prl/">Simulador de expedientes PRL</a>: Resuelve casos reales y justifica cada respuesta con su artículo de la LPRL.</li>
-<li><a href="recursos/organizacion-preventiva/">Organización de la prevención en la empresa</a>: Las cinco modalidades del RD 39/1997, el Anexo I, un simulador que dice qué le toca a cada empresa y tres casos para entregar.</li>
-<li><a href="recursos/enfermedades-profesionales/">Buscador de enfermedades profesionales</a>: Descubre qué enfermedades profesionales del RD 1299/2006 pueden afectar a tu oficio.</li>
-<li><a href="recursos/guia-ruido/">Guía del ruido</a>: Decibelios, los tres escalones del RD 286/2006, simulador de obligaciones y caso práctico para entregar.</li>
-</ul>
-<h4>Bloque 2 · Derecho del trabajo y Seguridad Social</h4><ul>
-<li><a href="recursos/jerarquia-normativa/">Pirámide de la jerarquía normativa</a>: Las ocho fuentes del Derecho del trabajo con su base legal, los principios que resuelven los conflictos entre normas y diez casos prácticos.</li>
-<li><a href="recursos/mapa-union-europea/">Mapa interactivo de la Unión Europea</a>: Estados miembro, euro y espacio Schengen, país a país.</li>
-<li><a href="recursos/determinacion-contingencias/">Asistente de determinación de contingencias</a>: Recorre el procedimiento: calificación, EVI, INSS, reclamación previa y vía judicial.</li>
-<li><a href="recursos/prestaciones-seguridad-social/">Prestaciones de la Seguridad Social</a>: Incapacidad temporal, nacimiento y desempleo: ficha, comprobador de requisitos, calculadora, casos y glosario.</li>
-<li><a href="recursos/casos-practicos-nominas/">Casos prácticos de nóminas</a>: Cinco casos guiados con datos de 2026: clasificar percepciones, comprobar el SMI, calcular bases, cuotas y líquido, y cazar errores en una nómina.</li>
-</ul>
-</section>
-<section class="pre-mod"><h3><a href="ipe-2/">IPE 2 · Itinerario Personal para la Empleabilidad II</a></h3>
-<h4>Unidad didáctica 1 · Emprendimiento, innovación y sostenibilidad</h4><ul>
-<li><a href="recursos/generador-ideas-negocio/">Generador de ideas de negocio</a>: Ideas de negocio pensadas para tu ciclo, tus aficiones y tus recursos, en las 26 familias profesionales.</li>
-<li><a href="recursos/ficha-idea-negocio/">Ficha inicial de la idea</a>: Describe tu idea en ocho pasos guiados, con ejemplos y vista previa en directo, y descárgala en una ficha PDF.</li>
-<li><a href="recursos/matriz-estrella/">Matriz Estrella</a>: Evalúa tu idea de negocio y detecta sus puntos fuertes y débiles.</li>
-<li><a href="recursos/modelo-canvas/">Modelo Canvas</a>: Construye tu modelo de negocio bloque a bloque, listo para imprimir.</li>
-</ul>
-<h4>Unidad didáctica 2 · Análisis del entorno, sector y mercado</h4><ul>
-<li><a href="recursos/analisis-pestel/">Análisis PESTEL</a>: Mapa de impacto de los factores del entorno general, con dossier imprimible.</li>
-<li><a href="recursos/dafo-came/">DAFO cruzado</a>: Diagnostica tu proyecto con el DAFO y crúzalo para sacar cuatro estrategias con las que decidir qué hacer.</li>
-<li><a href="recursos/benchmarking-competencia/">Benchmarking de la competencia</a>: Investiga a tus competidores (qué ofrecen, a cuánto y cómo), colócalos en un mapa de posición y descubre dónde queda hueco para tu proyecto.</li>
-<li><a href="recursos/buyer-persona/">Buyer Persona</a>: Da forma a tu cliente ideal: quién es, qué necesita y cómo llegar a él.</li>
-</ul>
-<h4>Unidad didáctica 3 · La viabilidad del proyecto emprendedor</h4><ul>
-<li><a href="recursos/forma-juridica/">Selector de forma jurídica</a>: Responde unas preguntas y descubre qué forma jurídica encaja mejor con tu proyecto.</li>
-<li><a href="recursos/inversion-financiacion/">Plan de inversión y financiación</a>: Elige lo que necesita tu negocio, calcula la amortización y el colchón de tesorería y cuadra la balanza con la financiación.</li>
-</ul>
-</section>
-</div>
-<!-- catalogo-generado:fin -->
     </div>
   </div>
+  <div class="seguir" id="seguir" hidden><h2>Seguir donde lo dejaste</h2></div>
 </section>
 
-<section class="block kinds" id="recursos" aria-labelledby="recursos-t">
-  <div class="wrap kinds-grid">
-    <div>
-      <h2 class="sec-title" id="recursos-t">Herramientas interactivas.</h2>
-      <p class="sec-lede">Todo funciona en el navegador del aula o del móvil, sin instalar nada y sin crear cuentas.</p>
-    </div>
-    <ul class="kind-list" id="kindList"></ul>
+<section class="seccion wrap" id="caminos" aria-labelledby="caminos-t">
+  <div class="cab-sec">
+    <h2 id="caminos-t">¿Qué te trae por aquí?</h2>
+    <p>Cada camino agrupa sus herramientas por temas. Entra por el que se parece a lo que estás trabajando; si dudas, el índice completo está más abajo.</p>
   </div>
+  <ul class="caminos">
+<!-- generado:caminos:inicio -->
+    <li><article class="camino" aria-labelledby="cam-trabajar">
+      <div class="cab-cam"><span class="etq">IPE 1</span><h3 id="cam-trabajar">Trabajar por cuenta ajena</h3></div>
+      <p class="ley">Prevención de riesgos laborales, fuentes del Derecho del trabajo, salario y acción protectora de la Seguridad Social.</p>
+      <ul><li><a href="trabajar/#prevencion"><span class="punto" aria-hidden="true"></span><span>Prevención de Riesgos Laborales</span><small>6 herramientas</small></a></li>
+<li><a href="trabajar/#derecho"><span class="punto" aria-hidden="true"></span><span>Derecho del trabajo y Seguridad Social</span><small>5 herramientas</small></a></li></ul>
+      <p class="pie"><a class="btn btn-sec" href="trabajar/">Ver las 11 herramientas</a></p>
+      <div class="formas"><svg viewBox="28.5 14.5 340.8 372.5" style="--c:#6B7028;--s:88px;--x:0px;--y:0px;--r:-12deg" aria-hidden="true"><use href="#simbolo" fill="currentColor"/></svg></div>
+    </article></li>
+    <li><article class="camino" aria-labelledby="cam-emprender">
+      <div class="cab-cam"><span class="etq">IPE 2</span><h3 id="cam-emprender">Emprender</h3></div>
+      <p class="ley">Proyecto de empresa: generación de la idea, análisis del entorno y del mercado y estudio de viabilidad.</p>
+      <ol><li><a href="emprender/#idea"><span class="num" aria-hidden="true">1</span><span><span class="sr">1. </span>Emprendimiento, innovación y sostenibilidad</span><small>4 herramientas</small></a></li>
+<li><a href="emprender/#mercado"><span class="num" aria-hidden="true">2</span><span><span class="sr">2. </span>Análisis del entorno, sector y mercado</span><small>4 herramientas</small></a></li>
+<li><a href="emprender/#viabilidad"><span class="num" aria-hidden="true">3</span><span><span class="sr">3. </span>La viabilidad del proyecto emprendedor</span><small>2 herramientas</small></a></li></ol>
+      <p class="pie"><a class="btn btn-sec" href="emprender/">Ver las 10 herramientas</a></p>
+      <div class="formas"><svg viewBox="28.5 14.5 340.8 372.5" style="--c:#C5CD78;--s:88px;--x:0px;--y:0px;--r:18deg" aria-hidden="true"><use href="#simbolo" fill="currentColor"/></svg></div>
+    </article></li>
+<!-- generado:caminos:fin -->
+  </ul>
 </section>
 
-<section class="block about" id="proyecto" aria-labelledby="proyecto-t">
-  <div class="wrap">
-    <div class="about-head">
-      <h2 class="sec-title" id="proyecto-t">Un aula que se construye curso a curso.</h2>
-      <p class="sec-lede">Esplora nace en el aula de Formación Profesional (IPE 1 e IPE 2), pero es igualmente útil en distintas asignaturas de secundaria y para cualquier persona que quiera profundizar en la empleabilidad y el emprendimiento. El proyecto arranca en el curso 2026/27 y suma recursos curso a curso.</p>
-    </div>
-
-    <p class="session-t" id="como-se-usa">Así cabe un recurso en una sesión de 50 minutos:</p>
-    <ol class="steps" id="steps">
-      <li class="step">
-        <span class="step-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="15" rx="2"/><line x1="3" y1="8" x2="21" y2="8"/><path d="M10.5 11v5l4-2.5z" fill="currentColor"/></svg></span>
-        <span class="step-when">Al empezar</span>
-        <h3>Abrir y listo</h3>
-        <p>Se abre en el navegador del aula o del móvil. Sin instalar nada y sin crear cuentas.</p>
+<section class="seccion wrap" id="como-se-usa" aria-labelledby="como-t">
+  <div class="cab-sec">
+    <h2 id="como-t">Una herramienta cabe en una clase de 50 minutos</h2>
+    <p>Así se reparte una sesión con cualquiera de ellas, desde que se abre hasta que se entrega.</p>
+  </div>
+  <div class="pasos">
+    <ol class="acordeon" id="acordeon">
+      <li class="abierto">
+        <h3><button type="button" id="paso-0" aria-expanded="true" aria-controls="cuerpo-0"><span class="n" aria-hidden="true">1</span><span><span class="t">Abrir y listo</span><span class="cuando">Al empezar</span></span><svg class="mas" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h3>
+        <div class="cuerpo" id="cuerpo-0" role="region" aria-labelledby="paso-0"><div><p>Se abre desde el navegador del aula o del móvil. El alumnado entra directamente, sin instalar nada ni crear una cuenta.</p></div></div>
       </li>
-      <li class="step">
-        <span class="step-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1-4.5L15.5 5a2 2 0 0 1 3 0l.5.5a2 2 0 0 1 0 3L8.5 19z"/><line x1="13.5" y1="7" x2="17" y2="10.5"/></svg></span>
-        <span class="step-when">Durante la clase</span>
-        <h3>Probar y equivocarse</h3>
-        <p>Hay margen para equivocarse. En los casos de nóminas, por ejemplo, un error abre una pista y otro intento, y tras dos fallos se puede ver la solución.</p>
+      <li>
+        <h3><button type="button" id="paso-1" aria-expanded="false" aria-controls="cuerpo-1"><span class="n" aria-hidden="true">2</span><span><span class="t">Probar y equivocarse</span><span class="cuando">Durante la clase</span></span><svg class="mas" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h3>
+        <div class="cuerpo" id="cuerpo-1" role="region" aria-labelledby="paso-1"><div><p>Equivocarse forma parte del ejercicio. En los casos prácticos de nóminas, un error abre una pista y un segundo intento; después de dos fallos se puede ver la solución.</p></div></div>
       </li>
-      <li class="step">
-        <span class="step-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h10a1 1 0 0 1 1 1v17l-6-4-6 4V4a1 1 0 0 1 1-1z"/></svg></span>
-        <span class="step-when">Al sonar el timbre</span>
-        <h3>Guardar el progreso</h3>
-        <p>El trabajo queda guardado en el navegador de ese equipo para retomarlo en la siguiente sesión. No se envía a ningún sitio: <a href="privacidad.html">así cuidamos la privacidad</a>.</p>
+      <li>
+        <h3><button type="button" id="paso-2" aria-expanded="false" aria-controls="cuerpo-2"><span class="n" aria-hidden="true">3</span><span><span class="t">Guardar el progreso</span><span class="cuando">Al sonar el timbre</span></span><svg class="mas" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h3>
+        <div class="cuerpo" id="cuerpo-2" role="region" aria-labelledby="paso-2"><div><p>Lo escrito se queda en el navegador de ese equipo y se recupera en la sesión siguiente. No se envía a ningún servidor (<a href="privacidad.html">privacidad</a>).</p></div></div>
       </li>
-      <li class="step">
-        <span class="step-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><rect x="7" y="14" width="10" height="7" fill="#E8EDC4"/></svg></span>
-        <span class="step-when">Para entregar</span>
-        <h3>Imprimir el informe</h3>
-        <p><span data-n="informe">13</span> de las <span data-n="total">20</span> herramientas generan un informe listo para imprimir o guardar en PDF.</p>
+      <li>
+        <h3><button type="button" id="paso-3" aria-expanded="false" aria-controls="cuerpo-3"><span class="n" aria-hidden="true">4</span><span><span class="t">Entregar el informe</span><span class="cuando">Para entregar</span></span><svg class="mas" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h3>
+        <div class="cuerpo" id="cuerpo-3" role="region" aria-labelledby="paso-3"><div><p><!-- generado:informes:inicio -->14 de las 21<!-- generado:informes:fin --> herramientas generan un informe con el trabajo del alumno, listo para imprimir o guardar en PDF.</p></div></div>
       </li>
     </ol>
+    <!-- Ventanita que ilustra cada paso, en el mismo orden: id de la herramienta y, si hace falta, su estado -->
+    <div class="vista" id="vista" data-herramientas="simuladorprl casosnomina buyer:empezada pestel:informe">
+<!-- generado:vista:inicio -->
+      <div aria-hidden="false"><div class="tool-card" style="--c:#2B2E4A">
+        <span class="clip-bar"><span><svg viewBox="28.5 14.5 340.8 372.5" aria-hidden="true"><use href="#simbolo"/></svg><span translate="no">Esplora</span></span><span>Simulador de expedientes PRL</span></span>
+        <span class="clip-body">
+          
+          <span class="clip-h">¿Qué <em>artículo de la LPRL</em> resuelve cada caso?</span>
+          <svg class="clip-art" viewBox="0 0 160 56" aria-hidden="true" data-dibujo="expediente"></svg>
+          <span class="win-desc">Resuelve casos reales y justifica cada respuesta con su artículo de la LPRL.</span>
+          <span class="tool-meta"><span><svg class="ic ic-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"/><g class="hands"><line x1="12" y1="12" x2="12" y2="7"/><line x1="12" y1="12" x2="15.5" y2="14"/></g></svg>≈ 30 min</span><span><svg class="ic ic-save" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 3h10a1 1 0 0 1 1 1v17l-6-4-6 4V4a1 1 0 0 1 1-1z"/></svg>Guarda progreso</span></span>
+          <span class="clip-go">Ver la ficha <svg class="ic ic-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </span>
+      </div></div>
+      <div aria-hidden="true"><div class="tool-card" style="--c:#557A35">
+        <span class="clip-bar"><span><svg viewBox="28.5 14.5 340.8 372.5" aria-hidden="true"><use href="#simbolo"/></svg><span translate="no">Esplora</span></span><span>Casos prácticos de nóminas</span></span>
+        <span class="clip-body">
+          
+          <span class="clip-h">¿Te salen las cuentas de una <em>nómina</em>?</span>
+          <svg class="clip-art" viewBox="0 0 160 56" aria-hidden="true" data-dibujo="nomina"></svg>
+          <span class="win-desc">Cinco casos guiados con datos de 2026: clasificar percepciones, comprobar el SMI, calcular bases, cuotas y líquido, y cazar errores en una nómina.</span>
+          <span class="tool-meta"><span><svg class="ic ic-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"/><g class="hands"><line x1="12" y1="12" x2="12" y2="7"/><line x1="12" y1="12" x2="15.5" y2="14"/></g></svg>≈ 45 min</span><span><svg class="ic ic-save" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 3h10a1 1 0 0 1 1 1v17l-6-4-6 4V4a1 1 0 0 1 1-1z"/></svg>Guarda progreso</span><span><svg class="ic ic-print" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><rect x="7" y="14" width="10" height="7"/></svg>Informe PDF</span></span>
+          <span class="clip-go">Ver la ficha <svg class="ic ic-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </span>
+      </div></div>
+      <div aria-hidden="true"><div class="tool-card" style="--c:#B03A78">
+        <span class="clip-bar"><span><svg viewBox="28.5 14.5 340.8 372.5" aria-hidden="true"><use href="#simbolo"/></svg><span translate="no">Esplora</span></span><span>Buyer Persona</span></span>
+        <span class="clip-body">
+          
+          <span class="clip-h">¿Quién es tu <em>cliente ideal</em>?</span>
+          <svg class="clip-art" viewBox="0 0 160 56" aria-hidden="true" data-dibujo="buyer"></svg>
+          <span class="win-desc">Da forma a tu cliente ideal: quién es, qué necesita y cómo llegar a él.</span>
+          <span class="tool-meta"><span><svg class="ic ic-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"/><g class="hands"><line x1="12" y1="12" x2="12" y2="7"/><line x1="12" y1="12" x2="15.5" y2="14"/></g></svg>≈ 30 min</span><span class="on"><svg class="ic ic-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="5 12.5 10 17 19 7"/></svg>Empezada</span><span><svg class="ic ic-print" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><rect x="7" y="14" width="10" height="7"/></svg>Informe PDF</span></span>
+          <span class="clip-go">Ver la ficha <svg class="ic ic-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </span>
+      </div><p class="pie-vista">Así aparece una herramienta empezada en este navegador.</p></div>
+      <div aria-hidden="true"><div class="tool-card" style="--c:#3E5778">
+        <span class="clip-bar"><span><svg viewBox="28.5 14.5 340.8 372.5" aria-hidden="true"><use href="#simbolo"/></svg><span translate="no">Esplora</span></span><span>Análisis PESTEL</span></span>
+        <span class="clip-body">
+          
+          <span class="clip-h">¿Qué factores del <em>entorno</em> pesan en tu proyecto?</span>
+          <svg class="clip-art" viewBox="0 0 160 56" aria-hidden="true" data-dibujo="pestel"></svg>
+          <span class="win-desc">Mapa de impacto de los factores del entorno general, con dossier imprimible.</span>
+          <span class="tool-meta"><span><svg class="ic ic-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"/><g class="hands"><line x1="12" y1="12" x2="12" y2="7"/><line x1="12" y1="12" x2="15.5" y2="14"/></g></svg>≈ 40 min</span><span><svg class="ic ic-save" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 3h10a1 1 0 0 1 1 1v17l-6-4-6 4V4a1 1 0 0 1 1-1z"/></svg>Guarda progreso</span><span class="on"><svg class="ic ic-print" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><rect x="7" y="14" width="10" height="7"/></svg>Informe PDF</span></span>
+          <span class="clip-go">Ver la ficha <svg class="ic ic-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </span>
+      </div></div>
+<!-- generado:vista:fin -->
+    </div>
   </div>
 </section>
 
-<section class="block" id="contacto" aria-labelledby="contacto-t">
-  <div class="wrap">
-    <div class="contact-card">
-      <svg class="big-deco" viewBox="28.5 14.5 340.8 372.5" aria-hidden="true"><use href="#simbolo"/></svg>
-      <div>
-        <h2 id="contacto-t">¿Hablamos de recursos o ideas para el aula?</h2>
-        <p>Si eres docente y quieres usar estos recursos, proponer mejoras o colaborar en el proyecto, escríbenos.</p>
+<section class="seccion wrap" id="todas" aria-labelledby="todas-t">
+  <div class="cab-sec">
+    <h2 id="todas-t">Todas las herramientas, por temas</h2>
+    <p>Las <!-- generado:total:inicio -->21<!-- generado:total:fin --> herramientas en una sola lista. Escribe lo que buscas o recórrela por temas.</p>
+  </div>
+  <div class="buscador" role="search">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+    <label class="sr" for="q">Buscar una herramienta</label>
+    <input type="search" id="q" placeholder="Busca por nombre o tema: nómina, PESTEL, ruido…" autocomplete="off" spellcheck="false">
+  </div>
+  <p class="sr" id="cuenta" role="status" aria-live="polite"></p>
+  <div class="indice" id="indice">
+<!-- generado:indice:inicio -->
+    <div>
+      <h3><a href="trabajar/">Trabajar por cuenta ajena</a></h3>
+      <div class="tema-i">
+        <h4>Prevención de Riesgos Laborales</h4>
+        <ul>
+        <li data-busca="diagnostico de patologias inespecificas ¿fatiga, estres, burnout o mobbing? empareja seis casos con su patologia: fatiga, estres, burnout, mobbing… prevencion de riesgos laborales"><a href="recursos/patologias-inespecificas/"><span class="c" style="--c:#2E4B8B" aria-hidden="true"></span><b>Diagnóstico de patologías inespecíficas</b><small>≈ 15 min<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></small></a></li>
+        <li data-busca="ruta al articulo 22 ¿llegaras al articulo 22 de la lprl? repaso expres de los arts. 17 a 21 de la lprl en formato de niveles con estrellas. prevencion de riesgos laborales"><a href="recursos/ruta-articulo-22/"><span class="c" style="--c:#6A3FA0" aria-hidden="true"></span><b>Ruta al Artículo 22</b><small>≈ 25 min<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></small></a></li>
+        <li data-busca="simulador de expedientes prl ¿que articulo de la lprl resuelve cada caso? resuelve casos reales y justifica cada respuesta con su articulo de la lprl. prevencion de riesgos laborales"><a href="recursos/simulador-expedientes-prl/"><span class="c" style="--c:#2B2E4A" aria-hidden="true"></span><b>Simulador de expedientes PRL</b><small>≈ 30 min<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></small></a></li>
+        <li data-busca="organizacion de la prevencion en la empresa  las cinco modalidades del rd 39/1997, el anexo i, un simulador que dice que le toca a cada empresa y tres casos para entregar. prevencion de riesgos laborales"><a href="recursos/organizacion-preventiva/"><span class="c" style="--c:#2F6670" aria-hidden="true"></span><b>Organización de la prevención en la empresa</b><small>≈ 45 min<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></small></a></li>
+        <li data-busca="buscador de enfermedades profesionales  descubre que enfermedades profesionales del rd 1299/2006 pueden afectar a tu oficio. prevencion de riesgos laborales"><a href="recursos/enfermedades-profesionales/"><span class="c" style="--c:#8B3A3A" aria-hidden="true"></span><b>Buscador de enfermedades profesionales</b><small>≈ 10 min<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></small></a></li>
+        <li data-busca="guia del ruido ¿cuanto ruido es demasiado en el trabajo? decibelios, los tres escalones del rd 286/2006, simulador de obligaciones y caso practico para entregar. prevencion de riesgos laborales"><a href="recursos/guia-ruido/"><span class="c" style="--c:#4B44A0" aria-hidden="true"></span><b>Guía del ruido</b><small>≈ 40 min<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></small></a></li>
+        </ul>
       </div>
-      <ul class="contact-list">
-        <li>
-          <a class="contact-item is-live" href="mailto:contacto@esplora.es">
-            <span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg></span>
-            <span class="ct"><small>Correo electrónico</small><span>contacto@esplora.es</span></span>
-          </a>
-        </li>
-      </ul>
+      <div class="tema-i">
+        <h4>Derecho del trabajo y Seguridad Social</h4>
+        <ul>
+        <li data-busca="piramide de la jerarquia normativa ¿que norma manda cuando dos chocan? las ocho fuentes del derecho del trabajo con su base legal, los principios que resuelven los conflictos entre normas y diez casos practicos. derecho del trabajo y seguridad social"><a href="recursos/jerarquia-normativa/"><span class="c" style="--c:#4B4F1D" aria-hidden="true"></span><b>Pirámide de la jerarquía normativa</b><small>≈ 30 min<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></small></a></li>
+        <li data-busca="mapa interactivo de la union europea ¿que paises de la ue tienen euro y schengen? estados miembro, euro y espacio schengen, pais a pais. derecho del trabajo y seguridad social"><a href="recursos/mapa-union-europea/"><span class="c" style="--c:#5D3D66" aria-hidden="true"></span><b>Mapa interactivo de la Unión Europea</b><small>≈ 15 min<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></small></a></li>
+        <li data-busca="asistente de determinacion de contingencias  recorre el procedimiento: calificacion, evi, inss, reclamacion previa y via judicial. derecho del trabajo y seguridad social"><a href="recursos/determinacion-contingencias/"><span class="c" style="--c:#2D6A6A" aria-hidden="true"></span><b>Asistente de determinación de contingencias</b><small>≈ 15 min<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></small></a></li>
+        <li data-busca="prestaciones de la seguridad social ¿cumples los requisitos de una prestacion? incapacidad temporal, nacimiento y desempleo: ficha, comprobador de requisitos, calculadora, casos y glosario. derecho del trabajo y seguridad social"><a href="recursos/prestaciones-seguridad-social/"><span class="c" style="--c:#3E5778" aria-hidden="true"></span><b>Prestaciones de la Seguridad Social</b><small>≈ 40 min<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></small></a></li>
+        <li data-busca="casos practicos de nominas ¿te salen las cuentas de una nomina? cinco casos guiados con datos de 2026: clasificar percepciones, comprobar el smi, calcular bases, cuotas y liquido, y cazar errores en una nomina. derecho del trabajo y seguridad social"><a href="recursos/casos-practicos-nominas/"><span class="c" style="--c:#557A35" aria-hidden="true"></span><b>Casos prácticos de nóminas</b><small>≈ 45 min<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></small></a></li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <h3><a href="emprender/">Emprender</a></h3>
+      <div class="tema-i">
+        <h4>1. Emprendimiento, innovación y sostenibilidad</h4>
+        <ul>
+        <li data-busca="generador de ideas de negocio ¿que negocio sale de lo que te interesa? ideas de negocio pensadas para tu ciclo, tus aficiones y tus recursos, en las 26 familias profesionales. emprendimiento, innovacion y sostenibilidad"><a href="recursos/generador-ideas-negocio/"><span class="c" style="--c:#6B7028" aria-hidden="true"></span><b>Generador de ideas de negocio</b><small>≈ 30 min<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></small></a></li>
+        <li data-busca="ficha inicial de la idea ¿sabes contar tu idea en ocho pasos? describe tu idea en ocho pasos guiados, con ejemplos y vista previa en directo, y descargala en una ficha pdf. emprendimiento, innovacion y sostenibilidad"><a href="recursos/ficha-idea-negocio/"><span class="c" style="--c:#4B4F1D" aria-hidden="true"></span><b>Ficha inicial de la idea</b><small>≈ 20 min<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></small></a></li>
+        <li data-busca="matriz estrella ¿donde flojea tu idea de negocio? evalua tu idea de negocio y detecta sus puntos fuertes y debiles. emprendimiento, innovacion y sostenibilidad"><a href="recursos/matriz-estrella/"><span class="c" style="--c:#557A35" aria-hidden="true"></span><b>Matriz Estrella</b><small>≈ 25 min<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></small></a></li>
+        <li data-busca="modelo canvas ¿cabe tu modelo de negocio en nueve bloques? construye tu modelo de negocio bloque a bloque, listo para imprimir. emprendimiento, innovacion y sostenibilidad"><a href="recursos/modelo-canvas/"><span class="c" style="--c:#7A3244" aria-hidden="true"></span><b>Modelo Canvas</b><small>≈ 50 min<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></small></a></li>
+        </ul>
+      </div>
+      <div class="tema-i">
+        <h4>2. Análisis del entorno, sector y mercado</h4>
+        <ul>
+        <li data-busca="analisis pestel ¿que factores del entorno pesan en tu proyecto? mapa de impacto de los factores del entorno general, con dossier imprimible. analisis del entorno, sector y mercado"><a href="recursos/analisis-pestel/"><span class="c" style="--c:#3E5778" aria-hidden="true"></span><b>Análisis PESTEL</b><small>≈ 40 min<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></small></a></li>
+        <li data-busca="buyer persona ¿quien es tu cliente ideal? da forma a tu cliente ideal: quien es, que necesita y como llegar a el. analisis del entorno, sector y mercado"><a href="recursos/buyer-persona/"><span class="c" style="--c:#B03A78" aria-hidden="true"></span><b>Buyer Persona</b><small>≈ 30 min<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></small></a></li>
+        <li data-busca="benchmarking de la competencia ¿donde queda hueco frente a tu competencia? investiga a tus competidores (que ofrecen, a cuanto y como), colocalos en un mapa de posicion y descubre donde queda hueco para tu proyecto. analisis del entorno, sector y mercado"><a href="recursos/benchmarking-competencia/"><span class="c" style="--c:#1672A0" aria-hidden="true"></span><b>Benchmarking de la competencia</b><small>≈ 50 min<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></small></a></li>
+        <li data-busca="dafo cruzado ¿que decides despues del dafo? diagnostica tu proyecto con el dafo y cruzalo para sacar cuatro estrategias con las que decidir que hacer. analisis del entorno, sector y mercado"><a href="recursos/dafo-came/"><span class="c" style="--c:#8A5A2B" aria-hidden="true"></span><b>DAFO cruzado</b><small>≈ 45 min<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></small></a></li>
+        </ul>
+      </div>
+      <div class="tema-i">
+        <h4>3. La viabilidad del proyecto emprendedor</h4>
+        <ul>
+        <li data-busca="selector de forma juridica ¿que forma juridica encaja con tu proyecto? responde unas preguntas y descubre que forma juridica encaja mejor con tu proyecto. la viabilidad del proyecto emprendedor"><a href="recursos/forma-juridica/"><span class="c" style="--c:#8B6430" aria-hidden="true"></span><b>Selector de forma jurídica</b><small>≈ 20 min<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></small></a></li>
+        <li data-busca="plan de inversion y financiacion  elige lo que necesita tu negocio, calcula la amortizacion y el colchon de tesoreria y cuadra la balanza con la financiacion. la viabilidad del proyecto emprendedor"><a href="recursos/inversion-financiacion/"><span class="c" style="--c:#2C6E5A" aria-hidden="true"></span><b>Plan de inversión y financiación</b><small>≈ 50 min<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></small></a></li>
+        </ul>
+      </div>
+    </div>
+<!-- generado:indice:fin -->
+  </div>
+  <div class="vacio" id="vacio" hidden>
+    <p>Ninguna herramienta coincide con «<span id="vacioQ"></span>». Prueba con otra palabra.</p>
+    <button type="button" class="btn btn-sec" id="borrar">Borrar la búsqueda</button>
+  </div>
+  <div class="curriculo">
+    <p>¿Programas por módulo o por criterios de evaluación? Tienes las mismas herramientas ordenadas por bloques y unidades, y relacionadas con cada criterio.</p>
+    <a class="btn btn-sec" href="materias/">Ver por materia</a>
+    <a class="btn btn-sec" href="criterios/">Ver por criterios</a>
+  </div>
+</section>
+
+<section class="seccion wrap" id="proyecto" aria-labelledby="proyecto-t">
+  <div class="proyecto">
+    <h2 id="proyecto-t">Un aula que se construye curso a curso</h2>
+    <div class="txt">
+      <p>Esplora nace en el aula de Formación Profesional, con los módulos de IPE 1 e IPE 2, y sirve igual en otras asignaturas de secundaria y a cualquier persona que quiera entender su nómina o montar un negocio.</p>
+      <p>El proyecto arranca en el curso 2026/27 y suma herramientas curso a curso. Cada una cita la norma en la que se apoya, artículo por artículo. <a href="sobre-esplora.html">Sobre Esplora</a></p>
+      <dl class="datos">
+<!-- generado:datos:inicio -->
+        <div><dt>21</dt><dd>herramientas en el catálogo</dd></div>
+        <div><dt>14</dt><dd>generan un informe para entregar</dd></div>
+        <div><dt>17</dt><dd>guardan el progreso en el navegador</dd></div>
+<!-- generado:datos:fin -->
+      </dl>
     </div>
   </div>
 </section>
 </main>
 
+<!-- generado:pie:inicio -->
+<section class="banda" id="contacto" aria-labelledby="contacto-t">
+  <div class="wrap">
+    <div>
+      <h2 id="contacto-t">¿Echas en falta una herramienta para tu clase?</h2>
+      <p>Si das clase y quieres proponer un tema, avisar de un error o colaborar en el proyecto, escríbenos.</p>
+    </div>
+    <a class="btn" href="mailto:contacto@esplora.es">Escribir a contacto@esplora.es</a>
+  </div>
+</section>
 <footer>
   <div class="wrap">
-    <div class="foot-top">
+    <div class="pie-cols">
       <div>
-        <p class="foot-claim">Herramientas para explorar en el aula, <em>probando y equivocándose</em>.</p>
-        <a class="btn-foot" href="#catalogo">Explorar el catálogo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        <img src="./marca/logotipo-crema.svg" alt="Esplora" width="112" height="32" loading="lazy">
+        <p>Herramientas para explorar en el aula, probando y equivocándose.</p>
       </div>
-      <nav class="foot-cols" aria-label="Pie de página">
-        <div>
-          <h3>Módulos</h3>
-          <ul>
-            <li><a href="ipe-1/">IPE 1</a></li>
-            <li><a href="ipe-2/">IPE 2</a></li>
-          </ul>
-        </div>
-        <div>
-          <h3><span translate="no">Esplora</span></h3>
-          <ul>
-            <li><a href="#como-se-usa">Cómo se usa</a></li>
-            <li><a href="#recursos">Tipos de recurso</a></li>
-            <li><a href="#proyecto">El proyecto</a></li>
-            <li><a href="sobre-esplora.html">Sobre Esplora</a></li>
-            <li><a href="#contacto">Contacto</a></li>
-          </ul>
-        </div>
-        <div>
-          <h3>Escríbenos</h3>
-          <ul>
-            <li><a class="mail" href="mailto:contacto@esplora.es">contacto@esplora.es</a></li>
-          </ul>
-        </div>
-      </nav>
+      <div>
+        <h2>Herramientas</h2>
+        <ul>
+          <li><a href="./trabajar/">Trabajar por cuenta ajena</a></li>
+          <li><a href="./emprender/">Emprender</a></li>
+          <li><a href="./generador.html">Generador de ideas de negocio</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Para docentes</h2>
+        <ul>
+          <li><a href="./materias/">Por materia</a></li>
+          <li><a href="./criterios/">Por criterios de evaluación</a></li>
+          <li><a href="./#como-se-usa">Cómo se usa</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Esplora</h2>
+        <ul>
+          <li><a href="./#proyecto">El proyecto</a></li>
+          <li><a href="./sobre-esplora.html">Sobre Esplora</a></li>
+          <li><a href="mailto:contacto@esplora.es">contacto@esplora.es</a></li>
+        </ul>
+      </div>
     </div>
-    <div class="foot-bottom">
-      <span><span translate="no">esplora.es</span> · Curso 2026/27</span>
-      <span class="foot-note">Hecho dentro del aula, para el aula.</span>
-      <nav class="foot-legal" aria-label="Información legal"><a href="aviso-legal.html">Aviso legal</a><a href="privacidad.html">Privacidad</a><a href="cookies.html">Cookies</a><a href="licencia.html">Licencia</a><a href="accesibilidad.html">Accesibilidad</a></nav>
-      <a href="#inicio">Volver arriba <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg></a>
+    <div class="pie-legal">
+      <p>Curso 2026/27. Hecho dentro del aula, para el aula.</p>
+      <nav aria-label="Información legal"><a href="./aviso-legal.html">Aviso legal</a><a href="./privacidad.html">Privacidad</a><a href="./cookies.html">Cookies</a><a href="./licencia.html">Licencia y créditos</a><a href="./accesibilidad.html">Accesibilidad</a></nav>
     </div>
-    <img class="foot-mark" src="marca/logotipo-oliva.svg" alt="" width="1200" height="344" loading="lazy">
   </div>
 </footer>
-
-<script>
-// Iconos con piezas marcadas (glass, bar, hands…) para poder animarlas por separado
-const ICONS = {
-  shield:'<path d="M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6l7-3z"/>',
-  scale:'<line x1="12" y1="3" x2="12" y2="19"/><g class="beam"><line x1="5" y1="7" x2="19" y2="7"/><path d="M5 7 2.5 13 A2.5 2.5 0 0 0 7.5 13 Z"/><path d="M19 7 16.5 13 A2.5 2.5 0 0 0 21.5 13 Z"/></g><line x1="8" y1="21" x2="16" y2="21"/>',
-  clock:'<circle cx="12" cy="12" r="8.5"/><g class="hands"><line x1="12" y1="12" x2="12" y2="7"/><line x1="12" y1="12" x2="15.5" y2="14"/></g>',
-  target:'<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/>',
-  bulb:'<path d="M9 18h6"/><path d="M9.5 21h5"/><path fill="transparent" d="M12 3a6 6 0 0 0-3.5 10.9c.5.4.8 1 .8 1.6h5.4c0-.6.3-1.2.8-1.6A6 6 0 0 0 12 3Z"/>',
-  chart:'<line x1="4" y1="20" x2="20" y2="20"/><rect x="6" y="13" width="3" height="7"/><rect x="11" y="9" width="3" height="11"/><rect x="16" y="5" width="3" height="15"/>',
-  checkshield:'<path d="M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6l7-3z"/><path d="M9 12.3l2 2 4-4.3"/>',
-  compass:'<circle cx="12" cy="12" r="8.5"/><polygon points="14.5,9.5 10.5,10.5 9.5,14.5 13.5,13.5"/>',
-  book:'<path d="M12 6c-1.6-1.3-3.6-2-6-2v13c2.4 0 4.4.7 6 2 1.6-1.3 3.6-2 6-2V4c-2.4 0-4.4.7-6 2Z"/><line x1="12" y1="6" x2="12" y2="19"/>',
-  tool:'<path d="M14.5 6.5a3.5 3.5 0 0 1-4.6 4.6L4 17l3 3 5.9-5.9a3.5 3.5 0 0 1 4.6-4.6L21 6l-3-3-3.5 3.5Z"/>',
-  grid:'<rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><path d="M17 13v8M13 17h8"/>',
-  slides:'<rect x="3" y="4" width="18" height="12" rx="2"/><line x1="12" y1="16" x2="12" y2="20"/><line x1="8" y1="20" x2="16" y2="20"/>',
-  arrow:'<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>',
-  save:'<path d="M7 3h10a1 1 0 0 1 1 1v17l-6-4-6 4V4a1 1 0 0 1 1-1z"/>',
-  print:'<path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><rect x="7" y="14" width="10" height="7"/>',
-  link:'<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
-  check:'<polyline points="5 12.5 10 17 19 7"/>',
-  search:'<circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/>',
-  resume:'<path d="M4 12a8 8 0 1 0 2.4-5.7"/><polyline points="4 3 4 8 9 8"/><polygon points="10 9 15.5 12 10 15" fill="currentColor" stroke="none"/>'
-};
-const icon = n => '<svg class="ic ic-'+n+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'+(ICONS[n]||'')+'</svg>';
-// Icono de cada tipo de recurso (los ids están en "tipos" de data/estructura.json)
-const KIND_ICON = {herramienta:'grid', material:'slides'};
-
-// Mini dibujos a línea fina (160 x 56), uno por herramienta. var(--c) es el color de cada herramienta.
-// Para una herramienta nueva: elige uno de estos nombres en su "dibujo" o añade aquí uno nuevo.
-const K = 'stroke="#1E1C1A"';
-const TINT = 'style="fill:color-mix(in srgb,var(--c) 22%,#FFFFFF)"';
-const SOLID = 'style="fill:var(--c)"';
-const st = (x,y,s) => `<path d="M${x} ${y-s}Q${x} ${y} ${x+s} ${y}Q${x} ${y} ${x} ${y+s}Q${x} ${y} ${x-s} ${y}Q${x} ${y} ${x} ${y-s}Z" ${SOLID}/>`;
-const ART = {
-  canvas:`<g ${K} fill="#FFFFFF"><rect x="1" y="1" width="30" height="36" rx="3"/><rect x="33" y="1" width="30" height="17" rx="3"/><rect x="33" y="20" width="30" height="17" rx="3"/><rect x="65" y="1" width="30" height="36" rx="3" ${TINT}/><rect x="97" y="1" width="30" height="17" rx="3"/><rect x="97" y="20" width="30" height="17" rx="3"/><rect x="129" y="1" width="30" height="36" rx="3"/><rect x="1" y="39" width="78" height="16" rx="3"/><rect x="81" y="39" width="78" height="16" rx="3"/></g>`,
-  pestel:`<g ${K}><rect x="1" y="1" width="158" height="54" rx="4" fill="#FFFFFF"/><rect x="107" y="1" width="52" height="18" ${TINT} stroke="none"/><line x1="54" y1="1" x2="54" y2="55"/><line x1="107" y1="1" x2="107" y2="55"/><line x1="1" y1="19" x2="159" y2="19"/><line x1="1" y1="37" x2="159" y2="37"/><rect x="1" y="1" width="158" height="54" rx="4" fill="none"/></g><g ${K} ${SOLID}><circle cx="128" cy="10" r="4"/><circle cx="142" cy="12" r="4"/><circle cx="80" cy="27" r="4"/><circle cx="30" cy="46" r="4"/></g>`,
-  nomina:`<g ${K}><rect x="30" y="1" width="76" height="54" rx="4" fill="#FFFFFF"/><path d="M30 13V5a4 4 0 0 1 4-4h68a4 4 0 0 1 4 4v8z" ${TINT}/><line x1="38" y1="22" x2="80" y2="22" stroke-linecap="round"/><line x1="38" y1="31" x2="96" y2="31" stroke-linecap="round"/><line x1="38" y1="40" x2="72" y2="40" stroke-linecap="round"/><circle cx="112" cy="42" r="12" fill="#FFFFFF"/></g><path d="M106 42l4 4 8-8" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="stroke:var(--c)"/>`,
-  buyer:`<g ${K}><circle cx="34" cy="28" r="26" ${TINT}/><path d="M14 46c4-8 11-11 20-11s16 3 20 11" fill="#FFFFFF"/><circle cx="34" cy="22" r="10" fill="#F2E8D9"/><path d="M24 20c1-8 18-10 20 0" fill="#4A463F"/></g><g ${K} stroke-linecap="round"><line x1="72" y1="16" x2="150" y2="16"/><line x1="72" y1="28" x2="132" y2="28"/></g><rect x="72" y="38" width="78" height="8" rx="4" fill="#FFFFFF" ${K}/><rect x="72" y="38" width="52" height="8" rx="4" ${K} ${SOLID}/>`,
-  mapa:`<rect x="30" y="3" width="100" height="50" rx="6" fill="#FFFFFF" ${K}/><g ${K} stroke-dasharray="3 3"><line x1="80" y1="3" x2="80" y2="53"/><line x1="30" y1="28" x2="130" y2="28"/></g><circle cx="108" cy="40" r="11" ${TINT} ${K} stroke-dasharray="3 2"/><g ${K}><circle cx="52" cy="16" r="5" ${SOLID}/><circle cx="70" cy="38" r="5" fill="#FFFFFF"/><circle cx="102" cy="14" r="5" fill="#FFFFFF"/></g>`,
-  idea:`<g ${K} stroke-linecap="round"><circle cx="80" cy="21" r="15" ${TINT}/><path d="M73 34h14v6H73z" fill="#FFFFFF"/><line x1="75" y1="45" x2="85" y2="45"/><path d="M75 21a5 5 0 0 1 5-5" fill="none"/><line x1="56" y1="21" x2="50" y2="21"/><line x1="104" y1="21" x2="110" y2="21"/><line x1="63" y1="6" x2="59" y2="2"/><line x1="97" y1="6" x2="101" y2="2"/></g>${st(36,36,7)}${st(126,40,5)}${st(122,12,4)}`,
-  ficha:`<g ${K}><rect x="30" y="1" width="100" height="54" rx="4" fill="#FFFFFF"/><path d="M30 12V5a4 4 0 0 1 4-4h92a4 4 0 0 1 4 4v7z" ${TINT}/><rect x="38" y="19" width="18" height="7" rx="2" ${TINT}/><rect x="38" y="31" width="18" height="7" rx="2" ${TINT}/><rect x="38" y="43" width="18" height="7" rx="2" ${TINT}/></g><g ${K} stroke-linecap="round"><line x1="62" y1="22.5" x2="120" y2="22.5"/><line x1="62" y1="34.5" x2="108" y2="34.5"/><line x1="62" y1="46.5" x2="116" y2="46.5"/></g>`,
-  estrella:`<g ${K}><rect x="40" y="1" width="80" height="54" rx="4" fill="#FFFFFF"/><rect x="80" y="1" width="40" height="27" ${TINT} stroke="none"/><line x1="80" y1="1" x2="80" y2="55"/><line x1="40" y1="28" x2="120" y2="28"/><rect x="40" y="1" width="80" height="54" rx="4" fill="none"/></g><g ${K}>${st(100,14,9)}</g><g ${K} fill="#FFFFFF"><circle cx="58" cy="16" r="3.5"/><circle cx="62" cy="42" r="3.5"/><circle cx="98" cy="42" r="3.5"/></g>`,
-  porter:`<g ${K}><rect x="62" y="18" width="36" height="20" rx="4" ${SOLID}/><g fill="#FFFFFF"><rect x="6" y="20" width="32" height="16" rx="3"/><rect x="122" y="20" width="32" height="16" rx="3"/><rect x="68" y="1" width="24" height="11" rx="3"/><rect x="68" y="44" width="24" height="11" rx="3"/></g></g><g ${K} fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M38 28h20M54 24l4 4-4 4"/><path d="M122 28h-20M106 24l-4 4 4 4"/><path d="M80 12v4M77 14l3 3 3-3"/><path d="M80 44v-4M77 42l3-3 3 3"/></g>`,
-  dafo:`<g ${K}><rect x="16" y="1" width="76" height="54" rx="4" fill="#FFFFFF"/><rect x="16" y="1" width="38" height="27" ${TINT} stroke="none"/><line x1="54" y1="1" x2="54" y2="55"/><line x1="16" y1="28" x2="92" y2="28"/><rect x="16" y="1" width="76" height="54" rx="4" fill="none"/></g><g font-family="Fraunces, Georgia, serif" font-weight="700" font-size="14" fill="#1E1C1A" text-anchor="middle"><text x="35" y="20">D</text><text x="73" y="20">A</text><text x="35" y="47">F</text><text x="73" y="47">O</text></g><g ${K} fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M98 28h16M110 24l4 4-4 4"/></g><g ${K}><rect x="120" y="12" width="36" height="32" rx="3" fill="#FFFFFF"/><rect x="138" y="12" width="18" height="16" ${SOLID}/><line x1="138" y1="12" x2="138" y2="44"/><line x1="120" y1="28" x2="156" y2="28"/><rect x="120" y="12" width="36" height="32" rx="3" fill="none"/></g>`,
-  forma:`<g ${K} fill="none" stroke-linecap="round"><path d="M28 28C44 28 44 9 60 9"/><path d="M28 28h32" style="stroke:var(--c)" stroke-width="2.2"/><path d="M28 28C44 28 44 47 60 47"/><path d="M100 28h18" style="stroke:var(--c)" stroke-width="2.2"/></g><g ${K}><circle cx="20" cy="28" r="8" ${TINT}/><rect x="60" y="2" width="40" height="14" rx="3" fill="#FFFFFF"/><rect x="60" y="21" width="40" height="14" rx="3" ${TINT}/><rect x="60" y="40" width="40" height="14" rx="3" fill="#FFFFFF"/><circle cx="132" cy="28" r="13" fill="#FFFFFF"/></g><path d="M126 28l4 4 8-8" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="stroke:var(--c)"/>`,
-  patologias:`<g ${K} fill="none" stroke-linecap="round"><path d="M30 10C70 10 70 46 110 46"/><path d="M30 46C70 46 70 28 110 28"/></g><path d="M30 28C70 28 70 10 110 10" fill="none" stroke-width="2.2" stroke-linecap="round" style="stroke:var(--c)"/><g ${K}><circle cx="24" cy="10" r="6" ${TINT}/><circle cx="24" cy="28" r="6" ${TINT}/><circle cx="24" cy="46" r="6" ${TINT}/><g fill="#FFFFFF"><rect x="110" y="4" width="40" height="12" rx="3"/><rect x="110" y="22" width="40" height="12" rx="3"/><rect x="110" y="40" width="40" height="12" rx="3"/></g></g>`,
-  ruta:`<path d="M14 46C30 46 40 30 58 30S90 40 102 38S136 16 146 12" fill="none" ${K} stroke-dasharray="4 4"/><g ${K} fill="#FFFFFF"><circle cx="14" cy="46" r="8"/><circle cx="58" cy="30" r="8"/><circle cx="102" cy="38" r="8"/><circle cx="146" cy="12" r="9" ${TINT}/></g>${st(14,46,5)}${st(58,30,5)}${st(102,38,5)}<text x="146" y="16" font-family="Inter, sans-serif" font-size="9" font-weight="700" text-anchor="middle" fill="#1E1C1A">22</text>`,
-  expediente:`<g ${K}><path d="M28 12h22l5 5h51v37H28z" ${TINT}/><rect x="34" y="22" width="66" height="28" rx="2" fill="#FFFFFF"/></g><g ${K} stroke-linecap="round"><line x1="40" y1="30" x2="86" y2="30"/><line x1="40" y1="38" x2="76" y2="38"/></g><g ${K}><circle cx="118" cy="38" r="14" fill="#FFFFFF" stroke-dasharray="3 2"/></g><text x="118" y="42" font-family="Inter, sans-serif" font-size="10" font-weight="700" text-anchor="middle" style="fill:var(--c)">Art.</text>`,
-  buscador:`<g ${K}><rect x="8" y="2" width="144" height="16" rx="8" fill="#FFFFFF"/><circle cx="21" cy="10" r="4" fill="none"/><line x1="24" y1="13" x2="27" y2="16" stroke-linecap="round"/><rect x="8" y="24" width="144" height="14" rx="3" ${TINT} stroke="none"/></g><g ${K}><circle cx="18" cy="31" r="3.5" ${SOLID}/><circle cx="18" cy="48" r="3.5" fill="#FFFFFF"/></g><g ${K} stroke-linecap="round"><line x1="28" y1="31" x2="120" y2="31"/><line x1="28" y1="48" x2="100" y2="48"/><line x1="34" y1="10" x2="90" y2="10" stroke-dasharray="2 3"/></g>`,
-  piramide:`<g ${K} stroke-linejoin="round"><polygon points="80,2 126,54 34,54" fill="#FFFFFF"/><polygon points="80,2 91.5,15 68.5,15" ${SOLID}/><polygon points="68.5,15 91.5,15 103,28 57,28" ${TINT}/><line x1="45.5" y1="41" x2="114.5" y2="41"/></g>`,
-  ue:`<circle cx="80" cy="28" r="27" ${K} ${TINT}/>${[[80,6],[91,8.9],[99.1,17],[102,28],[99.1,39],[91,47.1],[80,50],[69,47.1],[60.9,39],[58,28],[60.9,17],[69,8.9]].map(([x,y])=>st(x,y,3.6)).join('')}`,
-  contingencias:`<g ${K} fill="none" stroke-linecap="round"><path d="M28 28C42 28 42 13 56 13"/><path d="M28 28C42 28 42 43 56 43"/></g><g ${K}><circle cx="18" cy="28" r="10" fill="#FFFFFF"/><rect x="56" y="4" width="62" height="18" rx="3" ${TINT}/><rect x="56" y="34" width="62" height="18" rx="3" fill="#FFFFFF"/></g><g font-family="Inter, sans-serif" font-weight="700" fill="#1E1C1A" text-anchor="middle"><text x="18" y="32" font-size="12">?</text><text x="87" y="16.5" font-size="8.5">Común</text><text x="87" y="46.5" font-size="8.5">Profesional</text></g><g ${K} fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M122 13h16M134 9l4 4-4 4"/></g><circle cx="147" cy="13" r="6" ${K} ${SOLID}/>`,
-  umbral:`<g ${K} stroke-linecap="round"><line x1="20" y1="4" x2="20" y2="50"/><line x1="20" y1="50" x2="150" y2="50"/></g><path d="M20 30L120 14.6L20 50Z" ${TINT}/><line x1="20" y1="30" x2="150" y2="10" stroke="#1E1C1A" stroke-width="1.5" stroke-linecap="round"/><line x1="20" y1="50" x2="150" y2="4" stroke-width="2.2" stroke-linecap="round" style="stroke:var(--c)"/><g ${K}><circle cx="120" cy="14.6" r="4.5" ${SOLID}/></g>`,
-  balanza:`<g ${K} stroke-linecap="round" fill="none"><line x1="80" y1="12" x2="80" y2="50"/><line x1="36" y1="12" x2="124" y2="12"/><path d="M40 12L30 32M40 12L50 32M120 12L110 32M120 12L130 32"/></g><g ${K}><path d="M27 32h26a13 7 0 0 1-26 0z" ${TINT}/><path d="M107 32h26a13 7 0 0 1-26 0z" ${SOLID}/><rect x="64" y="50" width="32" height="5" rx="2.5" fill="#FFFFFF"/><circle cx="80" cy="12" r="4" fill="#FFFFFF"/></g>`,
-  prestaciones:`<g ${K} stroke-linecap="round" stroke-linejoin="round"><path d="M44 30Q80 -4 116 30Q107 24 98 30Q89 24 80 30Q71 24 62 30Q53 24 44 30Z" ${TINT}/><path d="M80 30v16q0 6-6 4" fill="none"/></g><g ${K}><circle cx="128" cy="46" r="6" ${SOLID}/><circle cx="141" cy="44" r="6" fill="#FFFFFF"/><circle cx="28" cy="46" r="5" ${SOLID}/></g>`,
-  organigrama:`<g ${K} fill="none" stroke-linecap="round"><path d="M80 18V28H32V38M80 28H64V38M80 28H96V38M80 28H128V38"/></g><g ${K}><rect x="56" y="2" width="48" height="16" rx="4" ${SOLID}/><circle cx="32" cy="46" r="8" fill="#FFFFFF"/><circle cx="64" cy="46" r="8" fill="#FFFFFF"/><circle cx="96" cy="46" r="8" ${TINT}/><circle cx="128" cy="46" r="8" fill="#FFFFFF"/></g>`,
-  // Guías de agentes físicos
-  ruido:`<g ${K} stroke-linejoin="round"><rect x="40" y="20" width="14" height="16" rx="3" ${TINT}/><path d="M54 20L72 8V48L54 36Z" fill="#FFFFFF"/></g><g ${K} fill="none" stroke-linecap="round"><path d="M84 20q6 8 0 16"/><path d="M95 13q11 15 0 30"/></g><path d="M106 6q16 22 0 44" fill="none" stroke-width="2.2" stroke-linecap="round" style="stroke:var(--c)"/>`,
-  luz:`<g ${K} stroke-linecap="round"><path d="M56 4a15 15 0 0 1 9 27v6H47v-6A15 15 0 0 1 56 4z" ${TINT}/><rect x="48" y="41" width="16" height="6" rx="2" fill="#FFFFFF"/><line x1="30" y1="19" x2="24" y2="19"/><line x1="82" y1="19" x2="88" y2="19"/><line x1="36" y1="5" x2="32" y2="1"/><line x1="76" y1="5" x2="80" y2="1"/><rect x="100" y="14" width="46" height="26" rx="5" fill="#FFFFFF"/></g><text x="123" y="31" font-family="Inter, sans-serif" font-size="10" font-weight="700" text-anchor="middle" style="fill:var(--c)">500 lx</text>`,
-  vibracion:`<g ${K} stroke-linecap="round"><line x1="12" y1="50" x2="148" y2="50"/></g><path d="M12 28q7-20 14 0t14 0t14 0t14 0t14 0t14 0t14 0t14 0t14 0t14 0" fill="none" stroke-width="2.2" stroke-linecap="round" style="stroke:var(--c)"/><g ${K} fill="none" stroke-linecap="round" opacity=".5"><path d="M12 40q7-8 14 0t14 0t14 0t14 0t14 0t14 0t14 0t14 0t14 0t14 0"/></g>`,
-  termo:`<g ${K}><rect x="62" y="2" width="14" height="38" rx="7" fill="#FFFFFF"/><circle cx="69" cy="45" r="9" ${SOLID}/></g><rect x="66.5" y="16" width="5" height="26" rx="2.5" ${SOLID}/><g ${K} stroke-linecap="round"><line x1="80" y1="10" x2="86" y2="10"/><line x1="80" y1="18" x2="86" y2="18"/><line x1="80" y1="26" x2="86" y2="26"/></g><path d="M112 10C106 20 101 26 101 32a11 11 0 0 0 22 0C123 26 118 20 112 10Z" ${K} ${TINT}/>`
-};
-// Dibujo por defecto si un recurso no tiene "dibujo" en el catálogo
-const ART_DEF = `<g ${K} stroke-linecap="round"><line x1="20" y1="16" x2="140" y2="16"/><line x1="20" y1="28" x2="120" y2="28"/><line x1="20" y1="40" x2="96" y2="40"/></g>`;
-const art = t => '<svg class="clip-art" viewBox="0 0 160 56" aria-hidden="true">'+(ART[t.dibujo]||ART_DEF)+'</svg>';
-
-// DB: el catálogo ya preparado. tipo y tema: el tipo de recurso y la primera temática de cada uno.
-let DB = {tools:{}, mods:[], tags:[], tipos:[], where:{}, tipo:{}, tema:{}, text:{}, order:[]};
-// S: lo que se está viendo. view = 'todo' o el id de un módulo; tag y tipo = 'all' o un id.
-let S = {view:'todo', tag:'all', tipo:'all', dur:'all', q:''};
-const stage = document.getElementById('stage');
-const pad = n => String(n).padStart(2,'0');
-const plural = (n, sing, plu) => n + ' ' + (n===1 ? sing : plu);
-
-const UNIT_DEF = {sing:'Unidad didáctica', plural:'unidades didácticas', abrev:'UD', corto:'Unidad', este:'esta'};
-const unitWord = m => ({...UNIT_DEF, ...(m && m.nomUnidad || {})});
-const toolsOf = ids => (ids||[]).map(id=>({id, ...DB.tools[id]})).filter(t=>t.url);
-const tipoById = id => DB.tipos.find(x=>x.id===id);
-// Solo se muestran los tipos que ya tienen algún recurso: lo que no existe no se enseña
-const tiposConRecursos = () => DB.tipos.filter(tp=>DB.order.some(id=>DB.tipo[id]===tp.id && DB.tools[id].url));
-const tipoName = (tp, n) => n===1 ? tp.sing.toLowerCase() : tp.nombre.toLowerCase();
-
-function load(json){
-  DB.tools = json.herramientas || {};
-  DB.mods = json.materias || json.modulos || [];
-  DB.tipos = json.tipos || [];
-  // Las temáticas del filtro salen de los temas de cada camino; conservan su id antiguo (#tema-prl…)
-  const temasCat = json.etiquetas || (json.caminos||[]).flatMap(c=>c.temas.map(te=>({
-    id: (te.antes && te.antes[0]) || te.id, nombre: te.nombre, icono: te.icono,
-    herramientas: Object.keys(DB.tools).filter(id=>DB.tools[id].camino===c.id && DB.tools[id].tema===te.id)
-  })));
-  DB.tags = temasCat.filter(t=>(t.herramientas||[]).some(id=>DB.tools[id]));
-  DB.where = {}; DB.tipo = {}; DB.tema = {}; DB.text = {}; DB.order = [];
-  // Texto en el que busca el buscador: nombre, descripción, módulo, unidad, tipo y temática de cada recurso
-  const addText = (id, s) => { DB.text[id] = (DB.text[id]||'') + ' ' + norm(s); };
-  Object.entries(DB.tools).forEach(([id,t])=>{
-    addText(id, [t.titulo, t.titular, t.pregunta, t.descripcion].join(' '));
-    if(t.tipo) DB.tipo[id] = t.tipo;   // un recurso puede indicar su propio tipo
-  });
-  DB.mods.forEach(m=>m.unidades.forEach(u=>(u.herramientas||[]).forEach(id=>{
-    if(!DB.tools[id]) return;
-    if(!DB.where[id]) DB.where[id] = m.tag+' · '+unitWord(m).corto+' '+u.n;
-    if(!DB.tipo[id] && m.tipo) DB.tipo[id] = m.tipo;  // si no, hereda el de su módulo
-    if(!DB.order.includes(id)) DB.order.push(id);
-    addText(id, [m.tag, m.nombre, unitWord(m).sing, u.titulo].join(' '));
-  })));
-  DB.tags.forEach(x=>(x.herramientas||[]).forEach(id=>{
-    if(!DB.tools[id]) return;
-    if(!DB.tema[id]) DB.tema[id] = x.id;
-    addText(id, x.nombre);
-  }));
-  Object.keys(DB.tools).forEach(id=>{
-    if(!DB.order.includes(id)) DB.order.push(id);
-    const tp = tipoById(DB.tipo[id]);
-    if(tp) addText(id, tp.nombre+' '+tp.sing);
-  });
-}
-
-const isExt = url => /^https?:/.test(url);
-// Quita etiquetas, tildes y mayúsculas para comparar ("Nómina" = "nomina")
-const norm = s => String(s||'').replace(/<[^>]+>/g,' ').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
-const esc = s => String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-
-// ¿Tiene este recurso trabajo guardado en este navegador? (cada uno guarda con su propia clave)
-// Algunos guardan su pantalla de inicio vacía nada más abrirse, así que solo cuenta si hay algo escrito
-// o respondido. Estos campos son de navegación o ajustes por defecto, no trabajo del alumno.
-const NO_CUENTA = new Set(['screen','theme','nivel','nivelTexto','cur','step','currentQ','currentFactor','itemSeq']);
-function filled(v, k){
-  if(NO_CUENTA.has(k) || v == null) return false;
-  if(Array.isArray(v)) return v.length > 0;
-  if(typeof v === 'object') return Object.entries(v).some(([kk,vv])=>filled(vv, kk));
-  if(typeof v === 'string') return v.trim() !== '';
-  if(typeof v === 'number') return v !== 0;
-  return v === true;
-}
-function hasSave(t){
-  if(!t.guarda) return false;
-  try{
-    const raw = localStorage.getItem(t.guarda);
-    if(raw === null) return false;
-    try{ return filled(JSON.parse(raw), ''); }catch(e){ return raw.trim() !== ''; }
-  }catch(e){ return false; }
-}
-
-// Barra superior de la ventanita, como la de cada herramienta
-const winBar = t => `<span class="clip-bar"><span><svg viewBox="28.5 14.5 340.8 372.5" aria-hidden="true"><use href="#simbolo"/></svg><span translate="no">Esplora</span></span><span>${t.titulo}</span></span>`;
-// Etiquetas pequeñas: tiempo aproximado, si guarda el progreso (o si ya está empezada) y si saca informe
-function toolMeta(t){
-  const m = [];
-  if(t.minutos) m.push(`<span>${icon('clock')}≈ ${t.minutos} min</span>`);
-  if(t.guarda) m.push(hasSave(t) ? `<span class="on">${icon('check')}Empezada</span>` : `<span>${icon('save')}Guarda progreso</span>`);
-  if(t.informe) m.push(`<span>${icon('print')}Informe PDF</span>`);
-  return m.length ? `<span class="tool-meta">${m.join('')}</span>` : '';
-}
-// Tarjetas del catálogo: dónde está, titular, mini dibujo, descripción y etiquetas
-function toolCards(list){
-  return '<ul class="tool-grid">' + list.map((t,i)=>{
-    const ext = isExt(t.url);
-    return `<li class="pop" style="--i:${Math.min(i,10)}"><a class="tool-card" style="--c:${t.color||'#6B7028'}" href="${t.url}"${ext?' target="_blank" rel="noopener"':''}>
-      ${winBar(t)}
-      <span class="clip-body">
-        <span class="clip-kick">${DB.where[t.id]||''}</span>
-        <span class="clip-h">${t.pregunta||t.titular||t.titulo}</span>
-        ${art(t)}
-        ${t.descripcion ? `<span class="win-desc">${t.descripcion}</span>` : ''}
-        ${toolMeta(t)}
-        <span class="clip-go">Abrir ${icon('arrow')}</span>
-      </span>
-    </a></li>`;}).join('') + '</ul>';
-}
-
-// ---------- Todo el catálogo: búsqueda + temática + duración + tipo de recurso ----------
-// Duración pensada para una sesión de 50 minutos: cabe con otra actividad, ocupa media sesión o casi toda
-const DURACIONES = [
-  {id:'corta', nombre:'Hasta 20 min', ok:m=>m<=20},
-  {id:'media', nombre:'De 21 a 35 min', ok:m=>m>20 && m<=35},
-  {id:'larga', nombre:'Más de 35 min', ok:m=>m>35}
-];
-function matches(id, f){
-  const t = DB.tools[id];
-  if(!t || !t.url) return false;
-  if(f.tag!=='all'){ const x = DB.tags.find(x=>x.id===f.tag); if(!x || !(x.herramientas||[]).includes(id)) return false; }
-  if(f.dur!=='all'){ const d = DURACIONES.find(d=>d.id===f.dur); if(!d || !t.minutos || !d.ok(t.minutos)) return false; }
-  if(f.tipo!=='all' && DB.tipo[id]!==f.tipo) return false;
-  const words = norm(f.q).split(/\s+/).filter(w=>w.length>=2);
-  return words.every(w=>DB.text[id].includes(w));
-}
-const CHEVRON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>';
-// Desplegables de temática, duración y tipo, con el número de resultados (van en la barra que se queda fija)
-const filtersBox = document.getElementById('filters');
-const liveCount = document.getElementById('liveCount');
-function filtersHTML(n){
-  const f = {tag:S.tag, tipo:S.tipo, dur:S.dur, q:S.q};
-  const count = patch => DB.order.filter(id=>matches(id, {...f, ...patch})).length;
-  const optTema = [{id:'all', nombre:'Todas'}, ...DB.tags].map(x=>
-    `<option value="${x.id}"${S.tag===x.id?' selected':''}>${x.nombre}${x.id==='all' ? '' : ' ('+count({tag:x.id})+')'}</option>`).join('');
-  const optDur = [{id:'all', nombre:'Cualquiera'}, ...DURACIONES].map(x=>
-    `<option value="${x.id}"${S.dur===x.id?' selected':''}>${x.nombre}${x.id==='all' ? '' : ' ('+count({dur:x.id})+')'}</option>`).join('');
-  // Con un solo tipo con recursos, el desplegable de tipo no aporta nada y no se muestra
-  const tipos = tiposConRecursos();
-  const optTipo = [{id:'all', nombre:'Todos'}, ...tipos].map(x=>
-    `<option value="${x.id}"${S.tipo===x.id?' selected':''}>${x.nombre}${x.id==='all' ? '' : ' ('+count({tipo:x.id})+')'}</option>`).join('');
-  const q = S.q.trim();
-  const filtered = S.tag!=='all' || S.tipo!=='all' || S.dur!=='all';
-  return `<label class="dd${S.tag!=='all'?' on':''}"><span>Temática</span><select id="fTema" data-key="tag">${optTema}</select>${CHEVRON}</label>
-    <label class="dd${S.dur!=='all'?' on':''}"><span>Duración</span><select id="fDur" data-key="dur">${optDur}</select>${CHEVRON}</label>
-    ${tipos.length>1 ? `<label class="dd${S.tipo!=='all'?' on':''}"><span>Tipo</span><select id="fTipo" data-key="tipo" aria-label="Tipo de recurso">${optTipo}</select>${CHEVRON}</label>` : ''}
-    <div class="filters-end">
-      <p class="res-count" aria-hidden="true">${plural(n,'resultado','resultados')}${q ? ` para <mark>${esc(q)}</mark>` : ''}</p>
-      ${filtered ? '<button type="button" class="link-btn" data-reset>Quitar filtros</button>' : ''}
-    </div>`;
-}
-// Sin filtro de temática ni búsqueda, el catálogo se ordena en grupos por temática para recorrerlo de un vistazo
-function groupedCards(list){
-  const groups = DB.tags.map(x=>({id:x.id, nombre:x.nombre, items:list.filter(t=>DB.tema[t.id]===x.id)})).filter(g=>g.items.length);
-  const rest = list.filter(t=>!DB.tema[t.id]);
-  if(rest.length) groups.push({id:'otros', nombre:'Otros recursos', items:rest});
-  return groups.map(g=>`<section class="group" aria-labelledby="g-${g.id}">
-      <h3 class="group-h" id="g-${g.id}">${g.nombre}<em>${g.items.length}<span class="sr"> ${g.items.length===1?'recurso':'recursos'}</span></em></h3>
-      ${toolCards(g.items)}
-    </section>`).join('');
-}
-function exploreView(){
-  const list = DB.order.filter(id=>matches(id, {tag:S.tag, tipo:S.tipo, dur:S.dur, q:S.q})).map(id=>({id, ...DB.tools[id]}));
-  const q = S.q.trim();
-  let body;
-  if(list.length){
-    body = (S.tag==='all' && !q) ? groupedCards(list) : toolCards(list);
-  } else {
-    // Sin resultados: la combinación de búsqueda y filtros no encaja
-    const why = q ? `Nada coincide con «${esc(q)}» con estos filtros. Prueba con otra palabra o quita los filtros.` : 'No hay recursos con esta combinación de filtros. Cambia alguno de los desplegables.';
-    body = `<div class="empty"><h3>${icon('search')}Ningún resultado</h3><p>${why}</p><button type="button" class="btn-small" data-reset>Quitar filtros</button></div>`;
-  }
-  return {n:list.length, filters:filtersHTML(list.length), body};
-}
-
-// ---------- Un módulo: todas sus unidades o bloques a la vista ----------
-// Enlaces directos: #ipe2 abre el módulo; #ipe2-ud1 o #ipe1-b2 abren el módulo y bajan a esa unidad o bloque
-const unitHash = (m,u) => m.id+'-'+unitWord(m).abrev.toLowerCase()+u.n;
-const linkTo = hash => location.href.split('#')[0]+'#'+hash;
-const copyBtn = (hash, label) => `<button type="button" class="copy-link" data-copy="${hash}" title="Copia un enlace que abre directamente aquí">${icon('link')}<span>${label}</span></button>`;
-function moduleView(m){
-  const w = unitWord(m);
-  const tp = tipoById(m.tipo);
-  const uid = u => unitHash(m,u);
-  const n = m.unidades.reduce((a,u)=>a+toolsOf(u.herramientas).length, 0);
-  const index = '<ul class="unit-index" aria-label="Ir a">' + m.unidades.map(u=>{
-    const k = toolsOf(u.herramientas).length;
-    return `<li><a class="unit-chip ${k?'':'soon'}" href="#${uid(u)}"><b>${w.abrev}${u.n}</b><span class="chip-t" aria-hidden="true">${u.titulo.length>28 ? u.titulo.slice(0,26).trim()+'…' : u.titulo}</span><span class="sr">${u.titulo}</span></a></li>`;
-  }).join('') + '</ul>';
-  const units = m.unidades.map(u=>{
-    const list = toolsOf(u.herramientas);
-    const what = tp ? plural(list.length, tp.sing.toLowerCase(), tp.nombre.toLowerCase()) : plural(list.length,'recurso','recursos');
-    return `<section class="unit-sec" id="${uid(u)}" aria-labelledby="${uid(u)}-t">
-      <div class="unit-head">
-        <span class="unit-num" aria-hidden="true">${pad(u.n)}</span>
-        <div class="unit-head-tx">
-          <span class="unit-meta">${w.sing} ${u.n} · ${list.length ? what : 'En construcción'}</span>
-          <h4 class="unit-title" id="${uid(u)}-t">${u.titulo}</h4>
-        </div>
-        ${list.length ? copyBtn(uid(u), 'Copiar enlace') : ''}
-      </div>
-      ${list.length ? toolCards(list) : `<p class="unit-empty">${icon('tool')}Los recursos de ${w.este} ${w.sing.toLowerCase()} están en camino.</p>`}
-    </section>`;
-  }).join('');
-  const sub = [m.lema, tp ? plural(n, tipoName(tp,1), tipoName(tp,2)) : '', plural(m.unidades.length, w.sing.toLowerCase(), w.plural)].filter(Boolean).join(' · ');
-  return `<div class="mod-head"><div><h3 class="mod-title" id="modTitle" tabindex="-1">${m.tag}: ${m.nombre}</h3><p class="mod-desc">${sub}</p></div>${copyBtn(m.id, 'Copiar enlace a '+m.tag)}</div>
-    ${index}<div class="unit-list">${units}</div>`;
-}
-
-function render(){
-  const m = DB.mods.find(x=>x.id===S.view);
-  if(m){
-    stage.innerHTML = moduleView(m);
-    filtersBox.hidden = true;
-    filtersBox.innerHTML = '';
-    liveCount.textContent = '';
-  } else {
-    const v = exploreView();
-    filtersBox.innerHTML = v.filters;
-    filtersBox.hidden = false;
-    stage.innerHTML = v.body;
-    // Región que no se vuelve a crear: así los lectores de pantalla anuncian cada cambio de resultados
-    const msg = plural(v.n,'resultado','resultados') + (S.q.trim() ? ' para ' + S.q.trim() : '');
-    if(liveCount.textContent !== msg) liveCount.textContent = msg;
-  }
-  document.querySelectorAll('#seg a').forEach(a=>{
-    if(a.dataset.view===(m ? m.id : 'todo')) a.setAttribute('aria-current','true'); else a.removeAttribute('aria-current');
-  });
-}
-function go(patch){ Object.assign(S, patch); render(); }
-
-// Clics y cambios en el catálogo (los controles se crean de nuevo en cada render)
-document.getElementById('explorar').addEventListener('click', e=>{
-  const b = e.target.closest('button');
-  if(!b) return;
-  if(b.dataset.copy) return copyLink(b);
-  if(b.hasAttribute('data-reset')){ clearSearch(false); go({tag:'all', tipo:'all', dur:'all'}); history.replaceState(null,'','#catalogo'); }
-});
-filtersBox.addEventListener('change', e=>{
-  const s = e.target.closest('select[data-key]');
-  if(!s) return;
-  go({[s.dataset.key]: s.value});
-  history.replaceState(null,'','#catalogo');
-  const again = document.getElementById(s.id);
-  if(again) again.focus({preventScroll:true});
-});
-
-// ---------- Buscador: busca siempre en todo el catálogo ----------
-const q = document.getElementById('q');
-const qClear = document.getElementById('qClear');
-q.addEventListener('input', ()=>{
-  S.q = q.value; qClear.hidden = !q.value;
-  if(S.view!=='todo'){ S.view = 'todo'; history.replaceState(null,'','#catalogo'); }
-  render();
-});
-q.addEventListener('keydown', e=>{ if(e.key==='Escape' && q.value) clearSearch(); });
-qClear.onclick = ()=>{ clearSearch(); q.focus(); };
-function clearSearch(doRender=true){
-  q.value = ''; S.q = ''; qClear.hidden = true;
-  if(doRender) render();
-}
-
-// ---------- Enlaces directos ----------
-// #ipe1, #ipe2-ud1… (módulo o unidad) · #catalogo (todo) · #tematicas (todo, con el foco en las temáticas)
-// #tema-prl, #tipo-aula… (todo, ya filtrado por esa temática o ese tipo)
-const currentHash = () => { try{ return decodeURIComponent(location.hash.slice(1)); }catch(e){ return ''; } };
-function findRoute(h){
-  for(const m of DB.mods){
-    if(h===m.id) return {view:m.id};
-    const u = m.unidades.find(u=>unitHash(m,u)===h);
-    if(u) return {view:m.id, unit:u, m};
-  }
-  if(h==='catalogo') return {view:'todo', tag:'all', tipo:'all'};
-  if(h==='tematicas') return {view:'todo', tag:'all', tipo:'all', focus:true};
-  let r;
-  if((r = h.match(/^tema-(.+)$/)) && DB.tags.some(x=>x.id===r[1])) return {view:'todo', tag:r[1], tipo:'all'};
-  if((r = h.match(/^tipo-(.+)$/)) && tiposConRecursos().some(x=>x.id===r[1])) return {view:'todo', tag:'all', tipo:r[1]};
-  // Enlaces antiguos (#tipo-aula, o un tipo aún sin recursos): todo el catálogo
-  if(/^tipo-/.test(h)) return {view:'todo', tag:'all', tipo:'all'};
-  return null;
-}
-function applyRoute(){
-  const r = findRoute(currentHash());
-  if(!r) return false;
-  if(S.q) clearSearch(false);
-  const patch = {view:r.view, dur:'all'};
-  if(r.tag) patch.tag = r.tag;
-  if(r.tipo) patch.tipo = r.tipo;
-  go(patch);
-  setTimeout(()=>{
-    const sec = r.unit && document.getElementById(unitHash(r.m, r.unit));
-    if(sec) sec.scrollIntoView({behavior: calm ? 'auto' : 'smooth', block:'start'});
-    else scrollToCatalog();
-    if(r.focus){ const c = document.getElementById('fTema'); if(c) c.focus({preventScroll:true}); }
-    else if(!r.unit && r.view!=='todo'){ const h = document.getElementById('modTitle'); if(h) h.focus({preventScroll:true}); }
-  }, 60);
-  return true;
-}
-function scrollToCatalog(){
-  const top = document.getElementById('explorar').getBoundingClientRect().top + window.scrollY - 80;
-  if(Math.abs(window.scrollY - top) > 120) window.scrollTo({top, behavior: calm ? 'auto' : 'smooth'});
-}
-addEventListener('hashchange', applyRoute);
-// Pulsar un enlace al mismo sitio en el que ya se está (por ejemplo, IPE 1 dos veces) vuelve a llevar allí
-document.addEventListener('click', e=>{
-  const a = e.target.closest('a[href^="#"]');
-  if(!a || !DB.order.length) return;
-  const h = a.getAttribute('href').slice(1);
-  if(h===currentHash() && findRoute(h)){ e.preventDefault(); applyRoute(); }
-});
-
-function copyLink(b){
-  const url = linkTo(b.dataset.copy);
-  const label = b.querySelector('span');
-  const done = ()=>{
-    const old = label.textContent;
-    b.classList.add('done'); label.textContent = '¡Enlace copiado!';
-    setTimeout(()=>{ b.classList.remove('done'); label.textContent = old; }, 2200);
-  };
-  (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject())
-    .then(done)
-    .catch(()=>window.prompt('Copia este enlace:', url));
-}
-
-// ---------- Portada: total del catálogo y tipos de recurso ----------
-function fillPicker(){
-  const total = DB.order.filter(id=>DB.tools[id].url).length;
-  // Esporas de cada módulo: una por herramienta, con su color, en el orden de sus unidades
-  for(const m of DB.mods){
-    const ids = [...new Set(m.unidades.flatMap(u=>u.herramientas||[]))].filter(id=>DB.tools[id] && DB.tools[id].url);
-    const box = document.querySelector(`.spores[data-mod="${m.id}"]`);
-    if(box) box.innerHTML = ids.map((id,k)=>`<i style="--s:${DB.tools[id].color||'#6B7028'};--k:${k}"></i>`).join('');
-    const n = document.querySelector(`[data-n-mod="${m.id}"]`);
-    if(n) n.textContent = plural(ids.length,'herramienta','herramientas');
-  }
-}
-function renderKinds(){
-  const tipos = tiposConRecursos();
-  const nums = ['', 'Un', 'Dos', 'Tres', 'Cuatro'];
-  document.getElementById('recursos-t').textContent = tipos.length===1 ? tipos[0].nombre+'.' : (nums[tipos.length]||tipos.length)+' tipos de recurso.';
-  document.getElementById('kindList').innerHTML = tipos.map(tp=>{
-    const n = DB.order.filter(id=>DB.tipo[id]===tp.id && DB.tools[id].url).length;
-    // Con un solo tipo, el enlace lleva al catálogo entero (es lo mismo)
-    const href = tipos.length===1 ? '#catalogo' : '#tipo-'+tp.id;
-    return `<li class="kind">
-      <span class="kind-icon">${icon(KIND_ICON[tp.id]||'tool')}</span>
-      ${tipos.length>1 ? `<h3>${tp.nombre}<small>${plural(n,'disponible','disponibles')}</small></h3>` : `<p class="kind-n">${plural(n,'disponible','disponibles')}</p>`}
-      <p>${tp.descripcion||''}</p>
-      <a href="${href}">Ver ${n===1 ? 'el recurso' : 'los '+n}</a>
-    </li>`;
-  }).join('');
-  // Cifras exactas del texto: herramientas con informe y total
-  const total = DB.order.filter(id=>DB.tools[id].url).length;
-  const conInforme = DB.order.filter(id=>DB.tools[id].url && DB.tools[id].informe).length;
-  document.querySelectorAll('[data-n="informe"]').forEach(e=>e.textContent = conInforme);
-  document.querySelectorAll('[data-n="total"]').forEach(e=>e.textContent = total);
-}
-
-// ---------- Seguir donde lo dejaste ----------
-function renderResume(){
-  const box = document.getElementById('seguir');
-  const hero = document.getElementById('heroResume');
-  const list = DB.order.map(id=>({id, ...DB.tools[id]})).filter(t=>t.url && hasSave(t));
-  box.hidden = hero.hidden = !list.length;
-  if(!list.length){ box.innerHTML = ''; hero.innerHTML = ''; return; }
-  box.innerHTML = `<h3 class="resume-h">${icon('resume')}Seguir donde lo dejaste</h3>
-    <p class="resume-sub">Tienes trabajo guardado en este navegador. Ábrelo y continúa justo donde lo dejaste.</p>
-    <ul class="resume-list">${list.map(t=>`<li><a class="resume-item" style="--c:${t.color||'#6B7028'}" href="${t.url}"><span>${t.titulo}<small>${DB.where[t.id]||''}</small></span><span class="resume-go">Retomar ${icon('arrow')}</span></a></li>`).join('')}</ul>`;
-  hero.innerHTML = `Tienes trabajo guardado en ${plural(list.length,'recurso','recursos')}. <a href="#seguir">Seguir donde lo dejaste</a>`;
-}
-// Al volver a la portada con el botón "atrás", se actualiza lo que hay guardado
-addEventListener('pageshow', e=>{ if(e.persisted && DB.order.length){ renderResume(); render(); } });
-
-const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
-// Reclamo de la portada: un cursor elige ciclo, marca casillas y pulsa «Ver mis ideas»; la pantalla cambia y aparecen
-// tres ideas que encajan con ese perfil (ideas y etiquetas reales de generador.html). Luego, otro perfil.
-// Se repite solo mientras se ve en pantalla; con menos movimiento se quedan quietas las ideas del primer perfil
-(function(){
-  const fig = document.getElementById('demo');
-  if(!fig || calm || !('IntersectionObserver' in window)) return;
-  const wait = ms => new Promise(r=>setTimeout(r, ms));
-  let visible = false, seguir = null;
-  const enPantalla = () => visible ? Promise.resolve() : new Promise(r=>{ seguir = r; });
-  new IntersectionObserver(([e])=>{ visible = e.isIntersecting; if(visible && seguir){ seguir(); seguir = null; } }).observe(fig);
-  const perfiles = [
-    { ciclo:'Marketing y Publicidad', marca:['Moda / belleza','Tecnología / gaming','Creatividad','Tecnología / RRSS','100% online'],
-      ideas:[['Contenido UGC','Creación de contenido UGC en vídeo para marcas'],['Social media para pymes','Gestión de redes sociales y contenido para negocios locales'],['Mini-agencia de lanzamiento','Branding y plan de lanzamiento para emprendedores']] },
-    { ciclo:'Cocina y Gastronomía', marca:['Gastronomía','Viajes / turismo','Trato con personas','Creatividad','A domicilio'],
-      ideas:[['Cocina privada','Chef a domicilio y clases de cocina'],['Catering','Catering para empresas, celebraciones y eventos pequeños'],['Cocina sobre ruedas','Food truck o puesto en mercados gastronómicos']] },
-    { ciclo:'Comercio Internacional', marca:['Gastronomía','Viajes / turismo','Ventas','Idiomas','100% online'],
-      ideas:[['E-commerce cross-border de nicho','Tienda online de producto español para la diáspora en el extranjero'],['Agente de exportación','Departamento de exportación externalizado para pymes productoras'],['Comercio digital internacional','Gestor de ventas cross-border en marketplaces europeos']] }
-  ];
-  const stage = document.getElementById('giStage'), cursor = document.getElementById('giCursor');
-  const valor = document.getElementById('giCiclo'), res = document.getElementById('giRes');
-  const casillas = [...fig.querySelectorAll('.gi-s1 .gi-p')], boton = fig.querySelector('.gi-btn'), ideas = [...fig.querySelectorAll('.gi-ideas li')];
-  // Lleva la punta del cursor al centro de un elemento de la pantalla
-  const ir = el => { const s = stage.getBoundingClientRect(), r = el.getBoundingClientRect();
-    cursor.style.translate = `${r.left - s.left + r.width * .55}px ${r.top - s.top + r.height * .6}px`; };
-  const pulsar = async el => { await enPantalla(); ir(el); await wait(700);
-    cursor.classList.add('pulsa'); el.classList.add('pulsa'); await wait(160);
-    cursor.classList.remove('pulsa'); el.classList.remove('pulsa'); };
-  (async function bucle(){
-    await wait(3200);
-    for(let i = 0;; i = (i + 1) % perfiles.length){
-      const p = perfiles[i];
-      await enPantalla();
-      // Pantalla de respuestas, vacía, con el ciclo del nuevo perfil
-      valor.classList.add('cambia'); casillas.forEach(c=>c.classList.remove('si'));
-      fig.classList.remove('ver'); ideas.forEach(li=>li.classList.remove('in'));
-      await wait(300); valor.textContent = p.ciclo; valor.classList.remove('cambia');
-      ir(boton); await wait(500); cursor.classList.add('vivo'); await wait(300);
-      for(const texto of p.marca){
-        const c = casillas.find(c=>c.textContent === texto);
-        await pulsar(c); c.classList.add('si'); await wait(250);
-      }
-      await pulsar(boton); await wait(250);
-      // Pantalla de ideas
-      res.textContent = `${p.ciclo} · ${p.marca[p.marca.length - 1]}`;
-      p.ideas.forEach(([n, t], k)=>{ ideas[k].querySelector('.gi-n').textContent = n; ideas[k].querySelector('.gi-t').textContent = t; });
-      cursor.classList.remove('vivo'); fig.classList.add('ver'); await wait(500);
-      for(const li of ideas){ await enPantalla(); li.classList.add('in'); await wait(450); }
-      await wait(4800);
-    }
-  })();
-})();
-// Trazos que se dibujan una sola vez al aparecer en pantalla: la línea de la sesión de 50 minutos y los subrayados del catálogo y de «¿Qué negocio sale de tu ciclo?»
-const toDraw = [document.getElementById('steps'), document.getElementById('inkUnder'), document.getElementById('demoUnder')];
-const toolbar = document.getElementById('toolbar');
-if('IntersectionObserver' in window){
-  const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }), {threshold:.3});
-  toDraw.forEach(el=>io.observe(el));
-  // La barra del catálogo recibe un borde cuando se queda fija bajo la navegación
-  new IntersectionObserver(([e])=>toolbar.classList.toggle('stuck', !e.isIntersecting && e.boundingClientRect.top < 120),
-    {rootMargin:'-71px 0px 0px 0px'}).observe(document.getElementById('toolbarSentinel'));
-} else toDraw.forEach(el=>el.classList.add('in'));
-
-fetch('data/estructura.json', {cache:'no-store'})
-  .then(r=>{ if(!r.ok) throw new Error(r.status); return r.json(); })
-  .then(json=>{ load(json); fillPicker(); renderKinds(); renderResume(); if(!applyRoute()) render(); })
-  .catch(()=>{
-    stage.innerHTML = '<div class="empty" role="alert"><h3>No se ha podido cargar el catálogo.</h3><p>Revisa que <code>data/estructura.json</code> existe y no tiene errores de formato (comas o llaves de más). Después, recarga la página.</p></div>';
-    document.getElementById('recursos').hidden = true;
-  });
-
-// Sombra bajo la barra flotante al bajar por la página
-const nav = document.getElementById('nav');
-addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>10),{passive:true});
-</script>
-
+<!-- generado:pie:fin -->
+<!-- generado:datos-js:inicio -->
+<script>window.ESPLORA = { guarda: [{"k":"esplora-generador-v1","t":"Generador de ideas de negocio","u":"generador.html","c":"#6B7028"},{"k":"esplora-fichaidea-v1","t":"Ficha inicial de la idea","u":"fichaidea.html","c":"#4B4F1D"},{"k":"esplora-estrella-v1","t":"Matriz Estrella","u":"estrella.html","c":"#557A35"},{"k":"esplora-canvas-v1","t":"Modelo Canvas","u":"modelocanvas.html","c":"#7A3244"},{"k":"esplora-pestel-v1","t":"Análisis PESTEL","u":"pestel.html","c":"#3E5778"},{"k":"esplora_buyer_persona_v1","t":"Buyer Persona","u":"buyerpersona.html","c":"#B03A78"},{"k":"esplora-benchmarking-v1","t":"Benchmarking de la competencia","u":"benchmarking.html","c":"#1672A0"},{"k":"esplora-dafocame-v1","t":"DAFO cruzado","u":"dafocame.html","c":"#8A5A2B"},{"k":"esplora-formajuridica-v1","t":"Selector de forma jurídica","u":"selector_forma_juridica.html","c":"#8B6430"},{"k":"esplora-expediente","t":"Plan de inversión y financiación","u":"inversionfinanciacion.html","c":"#2C6E5A"},{"k":"ipe_ruta_art22_progreso_v1","t":"Ruta al Artículo 22","u":"rutaarticulo22.html","c":"#6A3FA0"},{"k":"ipe-expedientes-prl-v1","t":"Simulador de expedientes PRL","u":"simuladorprl.html","c":"#2B2E4A"},{"k":"esplora-organizacion-preventiva-v1","t":"Organización de la prevención en la empresa","u":"organizacion-preventiva.html","c":"#2F6670"},{"k":"esplora-guia-ruido-v1","t":"Guía del ruido","u":"guia-ruido.html","c":"#4B44A0"},{"k":"esplora-piramide-v1","t":"Pirámide de la jerarquía normativa","u":"piramide.html","c":"#4B4F1D"},{"k":"esplora-prestaciones-v1","t":"Prestaciones de la Seguridad Social","u":"prestaciones.html","c":"#3E5778"},{"k":"esplora-casosnomina-v1","t":"Casos prácticos de nóminas","u":"casosnomina.html","c":"#557A35"}], antiguos: {"ipe1":"ipe-1/","ipe1-b1":"trabajar/#prevencion","ipe1-b2":"trabajar/#derecho","ipe1-b3":"ipe-1/","ipe2":"ipe-2/","ipe2-ud1":"emprender/#idea","ipe2-ud2":"emprender/#mercado","ipe2-ud3":"emprender/#viabilidad","ipe2-ud4":"ipe-2/","tema-prl":"trabajar/#prevencion","tema-laboral":"trabajar/#derecho","tema-idea":"emprender/#idea","tema-mercado":"emprender/#mercado","tema-viabilidad":"emprender/#viabilidad"} };</script>
+<!-- generado:datos-js:fin -->
+<script src="js/miniaturas.js"></script>
+<script src="js/esplora.js"></script>
+<script src="js/portada.js"></script>
 </body>
 </html>

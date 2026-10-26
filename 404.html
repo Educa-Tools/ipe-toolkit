@@ -122,7 +122,7 @@
       <h1>Aquí no ha brotado nada</h1>
       <p>La espora ha caído en terreno equivocado: esta página no existe, se ha movido o nunca llegó a germinar.</p>
       <div class="actions">
-        <a class="btn btn-lima" id="toCatalog" href="/#catalogo">Ir al catálogo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        <a class="btn btn-lima" id="toCatalog" href="/#todas">Ir al catálogo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
         <a class="link" id="toHome" href="/">Volver a la portada</a>
       </div>
     </div>
@@ -147,7 +147,7 @@
 <script>
 (function () {
   var base = window.ESPLORA_BASE || '/';
-  document.getElementById('toCatalog').href = base + '#catalogo';
+  document.getElementById('toCatalog').href = base + '#todas';
   document.getElementById('toHome').href = base;
   // Enlaces legales relativos a la raíz del sitio (esplora.es o la dirección antigua de github.io)
   Array.prototype.forEach.call(document.querySelectorAll('[data-ruta]'), function (a) { a.href = base + a.getAttribute('data-ruta'); });
