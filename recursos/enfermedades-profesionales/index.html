@@ -1,77 +1,209 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="tema-auto">
 <head>
 <!-- Generado por scripts/generar.ps1 desde data/estructura.json: no lo edites a mano. -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Buscador de enfermedades profesionales para IPE 1 · Esplora</title>
-<meta name="description" content="Descubre qué enfermedades profesionales del RD 1299/2006 pueden afectar a tu oficio. Recurso gratuito para IPE 1, bloque 1: Prevención de Riesgos Laborales.">
+<title>Buscador de enfermedades profesionales: ficha para el aula · Esplora</title>
+<meta name="description" content="Descubre qué enfermedades profesionales del RD 1299/2006 pueden afectar a tu oficio. Herramienta gratuita, en el navegador y sin crear cuentas.">
 <link rel="canonical" href="https://esplora.es/recursos/enfermedades-profesionales/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Esplora">
 <meta property="og:locale" content="es_ES">
 <meta property="og:url" content="https://esplora.es/recursos/enfermedades-profesionales/">
-<meta property="og:title" content="Buscador de enfermedades profesionales para IPE 1 · Esplora">
-<meta property="og:description" content="Descubre qué enfermedades profesionales del RD 1299/2006 pueden afectar a tu oficio. Recurso gratuito para IPE 1, bloque 1: Prevención de Riesgos Laborales.">
+<meta property="og:title" content="Buscador de enfermedades profesionales: ficha para el aula · Esplora">
+<meta property="og:description" content="Descubre qué enfermedades profesionales del RD 1299/2006 pueden afectar a tu oficio. Herramienta gratuita, en el navegador y sin crear cuentas.">
 <meta property="og:image" content="https://esplora.es/marca/compartir.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Esplora: herramientas y recursos didácticos sobre empleabilidad y emprendimiento">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#FBFCEF">
+
+<meta name="theme-color" content="#FBFCEF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1E1C1A" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="../../marca/simbolo-oliva.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="../../marca/apple-touch-icon.png">
 <link rel="stylesheet" href="../../fuentes/fuentes.css">
 <link rel="stylesheet" href="../../estilos/esplora.css">
+<link rel="stylesheet" href="../../estilos/comun.css">
+<link rel="stylesheet" href="../../estilos/paginas.css">
 </head>
-<body class="doc">
+<body>
 <a class="skip" href="#contenido">Saltar al contenido</a>
-<header class="top">
-  <div class="wrap">
-    <a href="../../" aria-label="Esplora, ir a la portada"><img src="../../marca/logo-horizontal-oliva.svg" alt="" width="114" height="28"></a>
-    <a class="link" href="../../#catalogo">Todo el catálogo</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol fill="currentColor" id="simbolo" viewBox="28.5 14.5 340.8 372.5"><path d="M 217.7 41.6C230.4 48.3 239.5 48.5 241.6 44.4C243.8 40.3 238.3 33.5 225.6 26.7C212.8 20 203.4 18.9 201.2 23C199.1 27.1 205 34.9 217.7 41.6"/><path d="M 70.2 105.1C82.3 97.3 86.9 89.5 84.3 85.6C81.8 81.7 73.1 83.2 61.1 91.1C49 98.9 43.4 106.6 45.9 110.5C48.5 114.4 58.2 113 70.2 105.1"/><path d="M 363.1 135.7C362.2 121.3 357.7 113.5 353.1 113.8C348.5 114.1 345.5 122.3 346.3 136.7C347.2 151.1 351.1 159.8 355.8 159.5C360.4 159.2 364 150.1 363.1 135.7"/><path d="M 328 295.8C315.8 303.4 310 311 312.5 314.9C314.9 318.9 324.7 317.7 336.9 310.1C349.1 302.5 353.8 294.8 351.4 290.8C348.9 286.9 340.2 288.2 328 295.8"/><path d="M 181.2 360.3C168.5 353.3 159.1 352 156.9 356C154.7 360.1 160.4 368 173 375C185.7 381.9 194.7 382.3 196.9 378.2C199.2 374.2 193.8 367.2 181.2 360.3"/><path d="M 42.1 242.9C37.5 243.2 33.9 252.3 34.8 266.7C35.6 281.1 40.1 288.9 44.8 288.6C49.4 288.3 52.4 280.1 51.5 265.7C50.7 251.3 46.7 242.6 42.1 242.9"/><path d="M 215.2 256.3C213.1 255.2 211.2 253.9 208.9 253C205 251.3 200.7 250.4 196.4 250.4C191.2 250.4 186.2 251.7 181.8 254C177.3 256 171.3 258.3 166.5 256.3C161.5 254.2 160.5 248.5 160.5 243.7C160.6 230.9 156.7 219.5 145.3 212.5C144.8 212.1 144.2 211.8 143.6 211.5C138.6 208.4 126.3 198.4 146.5 185.1C151.9 181.5 155.9 176.3 158.3 170.3C160.7 164.1 160.1 157.6 162.3 151.4C164.2 145.8 168.7 141.8 174.9 142.4C179.4 142.9 183.1 145.6 187 147.7C191.6 150.3 196.4 151.7 201.7 151.7C207.8 151.7 213.4 150 218.3 147.1C222.6 144.5 228.2 142.8 232.8 145.9C237.2 148.9 238.6 153.6 238.4 158.7C237.8 170.4 244.2 181.7 254.2 187.5C261.8 191.9 266.3 201.3 259.6 208.6C257.1 211.3 253.9 212.7 250.8 214.8C248 216.7 245.4 219.2 243.4 221.9C239.1 227.6 237.2 234.2 236.9 241.2C236.8 246.4 235.8 252.5 231.6 256C228.3 258.7 223.8 258.9 219.8 258C218.2 257.6 216.7 257 215.2 256.3M322.5 230.4C322.5 230.4 322.6 230.5 322.6 230.5C322.7 230.5 322.8 230.5 322.8 230.5C331.1 230.9 340.7 224.3 346 213.6C352.6 200.5 350.4 186 341.1 181.4C331.7 176.7 318.9 183.6 312.3 196.8C310.9 199.6 309.9 202.4 309.3 205.2C309.3 205.2 309.3 205.2 309.3 205.2C308.9 205.7 308.8 207.3 308.6 207.9C308.3 209 308 209.9 307.6 210.9C306.8 212.8 305.8 214.7 304.5 216.3C301.4 219.8 297 220.9 292.8 218.6C290.7 217.5 288.8 216 286.9 214.6C284.9 213.2 282.5 212.4 280.6 211C271 203.6 279 192 286.8 187.4C296.2 181.8 302.5 171.5 302.5 159.7C302.5 152.8 300.1 146 295.9 140.5C292.2 135.6 286.8 132.2 284 126.6C281.4 121.4 281.3 113.9 285.6 109.6C286.2 109 286.7 108.4 287.2 107.8C287.2 107.7 287.3 107.6 287.3 107.6L287.3 107.6C292.2 100.5 291.1 88.5 283.9 78.4C275.4 66.4 261.6 61.6 253.1 67.6C244.6 73.6 244.6 88.2 253.1 100.2C255.1 103 257.4 105.4 260.1 107.5C263 109.7 264.5 112.6 265.4 116C266.7 120.7 265.2 125.4 261.2 128.2C259.4 129.6 257.2 130.5 255.2 131.6C251.2 133.7 247.3 135.9 242.6 135.3C238.6 134.7 235.9 131.7 234.7 127.9C232.9 122 234.2 115.8 232.3 109.8C230.6 104.4 227.4 99.4 223.1 95.6C215.1 88.5 204.7 86.4 194.3 88.4C185.7 90.1 177.1 92.7 169.3 87.1C166.4 85.1 164.1 82.1 162.8 78.8C162.8 78.8 162.8 78.8 162.8 78.8C159.3 70.3 147.4 65.4 134.4 67.5C119.9 69.9 109.5 80.1 111.2 90.4C112.8 100.7 125.9 107.1 140.5 104.8C145.5 103.9 150.2 100.7 155.3 100.6C163.5 100.5 170.2 106.4 169.9 114.8C169.7 116.4 169.6 118 169.6 119.6C168.8 129.6 162.9 136.2 152.2 133.7C148.1 132.7 144.7 130.3 140.8 128.7C136.9 127.1 132.8 126.3 128.6 126.3C119.7 126.3 111.1 130.1 105 136.6C102.1 139.8 99.7 143.6 98.3 147.7C97.5 149.8 97 152 96.7 154.3C96.4 156.6 96.9 159.1 95.7 161.3C95.5 161.7 95.3 162 95.1 162.4C93.8 164 92 165.2 90.1 166.2C86 168.4 81.6 169.8 77.1 170.3C74.8 170.6 72.4 170.7 70.2 171.2C65.9 172.2 62.1 174.8 59 177.9C52.9 184.2 49.1 192.7 48.8 201.5C48.7 205.2 49.1 209.1 50.7 212.5C52.2 215.9 54.8 218.9 58.2 220.5C61.6 222 65.6 222 69.2 220.9C72.8 219.7 75.9 217.5 78.6 214.9C83.6 210.1 87.1 203.7 88.5 196.8C89 194.1 89.2 191.4 90.2 188.8C91.3 185.7 93.6 183.5 96.6 182.4C98.8 181.5 101.4 181 103.8 181.2C105.1 181.3 106.1 181.6 107 182.3C108.3 183.3 109.5 184.3 110.8 185.1C112.5 186.3 114.4 187.2 116.1 188.4C119 190.5 121.2 193.3 121.6 196.9C122.3 203.4 116.9 208.7 112.1 212.3C102.7 217.9 96.4 228.2 96.4 239.9C96.4 247.9 99.5 255.6 104.8 261.5C107.4 264.3 110.9 266.1 113.4 268.9C116.1 272.1 117.3 276.3 117 280.5C116.7 285.1 115 288.3 112.1 291.8C105 300.4 109 313.6 114.8 321.8C123.3 333.8 137.1 338.7 145.6 332.6C159.2 322.9 149.2 301.5 139.3 293.2C134.9 289.5 131.4 284.1 132.8 278.1C133.2 276.4 133.9 274.6 134.8 273.2C136.6 270.2 140.8 269.6 143.7 268C146.9 266.4 150.2 264.7 153.9 265.1C157.7 265.5 161.1 267.5 162.9 270.9C164.4 273.8 164.8 276.7 164.5 279.9C162.6 298.4 178.1 314.7 196.4 314.7C205.5 314.7 214.1 309 223.3 310.7C228 311.5 233.1 314.8 234.5 319.6L234.5 319.5C237.2 328.2 248.5 334.3 261.6 333.5C276.3 332.6 287.7 323.5 287.1 313.1C286.4 302.7 274 295 259.3 295.9C255.9 296.1 252.5 296.8 249.3 297.9C243.5 300.1 234.6 303 230 296.9C227.5 293.6 227.8 290.4 228.3 286.5C228.6 283.7 228.4 280.8 228.7 277.9C229.6 270.9 235.2 267 242 267C244.7 267 247.4 267.4 250 268.2C251.7 268.6 253.1 269 254.6 269.8C259 272.2 264.1 273.3 269.1 273.3C285 273.3 298.3 261.7 300.8 246.4C300.8 246.4 300.8 246.3 300.8 246.3C300.8 246 300.9 245.7 300.9 245.4C303.3 228.9 320.3 230.2 322.5 230.4"/></symbol></svg>
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="logo" href="../../" aria-label="Esplora, ir a la portada"><img class="claro" src="../../marca/logo-horizontal-oliva.svg" alt="" width="114" height="28"><img class="oscuro" src="../../marca/logo-horizontal-crema.svg" alt="" width="114" height="28"></a>
+    <nav aria-label="Principal">
+      <ul class="nav-links">
+        <li><button type="button" id="megaBtn" aria-expanded="false" aria-controls="mega">Herramientas <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button></li>
+        <li><a href="../../#como-se-usa">Cómo se usa</a></li>
+        <li><a href="../../#todas">Índice</a></li>
+        <li><a href="../../#proyecto">Proyecto</a></li>
+        <li><a href="../../#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+    <a class="btn nav-cta" href="../../generador.html">Prueba el generador</a>
+    <button type="button" class="btn btn-sec nav-movil" id="hojaBtn" aria-expanded="false" aria-controls="hoja">Menú</button>
   </div>
-</header><main id="contenido" class="wrap">
-  <nav class="crumbs" aria-label="Estás aquí">
-    <ol>
-      <li><a href="../../">Inicio</a></li>
-      <li><a href="../../ipe-1/">IPE 1</a></li>
-      <li aria-current="page">Buscador de enfermedades profesionales</li>
-    </ol>
-  </nav>
-  <article class="ficha" style="--c:#8B3A3A">
-    <p class="eyebrow">IPE 1 · Bloque 1 · Prevención de Riesgos Laborales</p>
-    <h1>¿Qué enfermedad profesional puede tener <em>tu oficio</em>?</h1>
+  <div class="mega wrap" id="mega">
+    <div class="mega-in">
+    <div>
+      <h2><a href="../../trabajar/">Trabajar por cuenta ajena</a></h2>
+      <p class="ley">11 herramientas en 2 temas</p>
+      <ul><li><a href="../../trabajar/#prevencion"><span class="punto" aria-hidden="true"></span><span>Prevención de Riesgos Laborales</span><small>6</small></a></li>
+<li><a href="../../trabajar/#derecho"><span class="punto" aria-hidden="true"></span><span>Derecho del trabajo y Seguridad Social</span><small>5</small></a></li></ul>
+    </div>
+    <div>
+      <h2><a href="../../emprender/">Emprender</a></h2>
+      <p class="ley">10 herramientas en 3 temas</p>
+      <ul><li><a href="../../emprender/#idea"><span class="num" aria-hidden="true">1</span><span><span class="sr">1. </span>Emprendimiento, innovación y sostenibilidad</span><small>4</small></a></li>
+<li><a href="../../emprender/#mercado"><span class="num" aria-hidden="true">2</span><span><span class="sr">2. </span>Análisis del entorno, sector y mercado</span><small>4</small></a></li>
+<li><a href="../../emprender/#viabilidad"><span class="num" aria-hidden="true">3</span><span><span class="sr">3. </span>La viabilidad del proyecto emprendedor</span><small>2</small></a></li></ul>
+    </div>
+    <div class="otras"><h2>Otras formas de buscar</h2><ul><li><a href="../../#todas">Índice completo<span>Las 21 herramientas en una lista</span></a></li><li><a href="../../materias/">Por materia<span>IPE 1 e IPE 2, por bloques y unidades</span></a></li><li><a href="../../criterios/">Por criterios de evaluación<span>Resultados de aprendizaje y criterios</span></a></li></ul></div>
+    </div>
+  </div>
+</header>
+<div class="hoja" id="hoja" aria-label="Menú">
+  <h2><a href="../../trabajar/">Trabajar por cuenta ajena</a></h2><ul><li><a href="../../trabajar/#prevencion"><span>Prevención de Riesgos Laborales</span><small>6 herramientas</small></a></li><li><a href="../../trabajar/#derecho"><span>Derecho del trabajo y Seguridad Social</span><small>5 herramientas</small></a></li></ul>
+  <h2><a href="../../emprender/">Emprender</a></h2><ul><li><a href="../../emprender/#idea"><span>1. Emprendimiento, innovación y sostenibilidad</span><small>4 herramientas</small></a></li><li><a href="../../emprender/#mercado"><span>2. Análisis del entorno, sector y mercado</span><small>4 herramientas</small></a></li><li><a href="../../emprender/#viabilidad"><span>3. La viabilidad del proyecto emprendedor</span><small>2 herramientas</small></a></li></ul>
+  <h2>Más</h2><ul><li><a href="../../#como-se-usa">Cómo se usa</a></li><li><a href="../../#todas">Índice completo</a></li><li><a href="../../materias/">Por materia</a></li><li><a href="../../criterios/">Por criterios de evaluación</a></li><li><a href="../../#proyecto">Proyecto</a></li><li><a href="../../#contacto">Contacto</a></li></ul>
+  <a class="btn" href="../../generador.html">Prueba el generador</a>
+</div>
+
+<main id="contenido">
+<section class="wrap cab-pag" aria-labelledby="titulo">
+  <div class="panel-pag ficha-pag" style="--c:#8B3A3A">
+    <svg class="espora-pag" viewBox="28.5 14.5 340.8 372.5" aria-hidden="true"><use href="#simbolo" fill="currentColor"/></svg>
+    <nav class="migas" aria-label="Estás aquí"><ol><li><a href="../../">Inicio</a></li><li><a href="../../trabajar/">Trabajar por cuenta ajena</a></li><li><a href="../../trabajar/#prevencion">Prevención de Riesgos Laborales</a></li><li aria-current="page">Buscador de enfermedades profesionales</li></ol></nav>
+    <p class="antetitulo">Trabajar por cuenta ajena · Prevención de Riesgos Laborales</p>
+    <h1 id="titulo">¿Qué enfermedad profesional puede tener <em>tu oficio</em>?</h1>
     <p class="lede">Descubre qué enfermedades profesionales del RD 1299/2006 pueden afectar a tu oficio.</p>
     <dl class="facts">
       <div><dt>Duración</dt><dd>≈ 10 min</dd></div>
       <div><dt>Tipo</dt><dd>Herramienta interactiva</dd></div>
-      <div><dt>Temática</dt><dd>Prevención de Riesgos Laborales</dd></div>
       <div><dt>Progreso</dt><dd>Se hace en una sesión</dd></div>
     </dl>
-    <p class="actions">
-      <a class="btn" href="../../enfermedadesprofesionales.html">Abrir la herramienta <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-      <a class="btn-sec" href="../../#ipe1-b1">Ver bloque 1 en el catálogo</a>
-    </p>
-    <p class="note">Se abre en el navegador del aula o del móvil, sin instalar nada y sin crear cuentas.</p>
-  </article>
-  <section aria-labelledby="mas-t">
-    <h2 id="mas-t">Más recursos de este bloque</h2>
-    <ul class="list">
-  <li><a href="../patologias-inespecificas/" style="--c:#2E4B8B"><b>Diagnóstico de patologías inespecíficas</b><span>Empareja seis casos con su patología: fatiga, estrés, burnout, mobbing…</span><small>≈ 15 min</small></a></li>
-  <li><a href="../ruta-articulo-22/" style="--c:#6A3FA0"><b>Ruta al Artículo 22</b><span>Repaso exprés de los arts. 17 a 21 de la LPRL en formato de niveles con estrellas.</span><small>≈ 25 min · Guarda progreso</small></a></li>
-  <li><a href="../simulador-expedientes-prl/" style="--c:#2B2E4A"><b>Simulador de expedientes PRL</b><span>Resuelve casos reales y justifica cada respuesta con su artículo de la LPRL.</span><small>≈ 30 min · Guarda progreso</small></a></li>
-  <li><a href="../organizacion-preventiva/" style="--c:#2F6670"><b>Organización de la prevención en la empresa</b><span>Las cinco modalidades del RD 39/1997, el Anexo I, un simulador que dice qué le toca a cada empresa y tres casos para entregar.</span><small>≈ 45 min · Guarda progreso · Informe PDF</small></a></li>
-  <li><a href="../guia-ruido/" style="--c:#4B44A0"><b>Guía del ruido</b><span>Decibelios, los tres escalones del RD 286/2006, simulador de obligaciones y caso práctico para entregar.</span><small>≈ 40 min · Guarda progreso · Informe PDF</small></a></li>
+    <p class="acciones"><a class="btn" href="../../enfermedadesprofesionales.html">Abrir la herramienta <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a><a class="btn btn-sec" href="../../trabajar/#prevencion">Ver el tema</a></p>
+    <p class="nota">Se abre en el navegador del aula o del móvil, sin instalar nada y sin crear cuentas.</p>
+  </div>
+</section>
+<section class="wrap donde" aria-labelledby="donde-t">
+  <h2 id="donde-t">Camino, materia y criterios</h2>
+  <dl><div><dt>Camino y tema</dt><dd><a href="../../trabajar/">Trabajar por cuenta ajena</a> › <a href="../../trabajar/#prevencion">Prevención de Riesgos Laborales</a></dd></div><div><dt>Materia</dt><dd><ul><li><a href="../../ipe-1/#b1">IPE 1 · Bloque 1</a>: Prevención de Riesgos Laborales</li></ul></dd></div></dl>
+</section>
+<section class="wrap mas-tema" aria-labelledby="mas-t">
+  <h2 id="mas-t">Más herramientas de este tema</h2>
+  <ul class="tool-grid">
+    <li data-busca="diagnostico de patologias inespecificas ¿fatiga, estres, burnout o mobbing? empareja seis casos con su patologia: fatiga, estres, burnout, mobbing… prevencion de riesgos laborales" data-tipo="herramienta"><a class="tool-card" style="--c:#2E4B8B" href="../../recursos/patologias-inespecificas/">
+        <span class="clip-bar"><span><svg viewBox="28.5 14.5 340.8 372.5" aria-hidden="true"><use href="#simbolo"/></svg><span translate="no">Esplora</span></span><span>Diagnóstico de patologías inespecíficas</span></span>
+        <span class="clip-body">
+          
+          <span class="clip-h">¿Fatiga, estrés, <em>burnout</em> o mobbing?</span>
+          <svg class="clip-art" viewBox="0 0 160 56" aria-hidden="true" data-dibujo="patologias"></svg>
+          <span class="win-desc">Empareja seis casos con su patología: fatiga, estrés, burnout, mobbing…</span>
+          <span class="tool-meta"><span><svg class="ic ic-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"/><g class="hands"><line x1="12" y1="12" x2="12" y2="7"/><line x1="12" y1="12" x2="15.5" y2="14"/></g></svg>≈ 15 min</span></span>
+          <span class="clip-go">Ver la ficha <svg class="ic ic-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </span>
+      </a></li>
+    <li data-busca="ruta al articulo 22 ¿llegaras al articulo 22 de la lprl? repaso expres de los arts. 17 a 21 de la lprl en formato de niveles con estrellas. prevencion de riesgos laborales" data-tipo="herramienta"><a class="tool-card" style="--c:#6A3FA0" href="../../recursos/ruta-articulo-22/">
+        <span class="clip-bar"><span><svg viewBox="28.5 14.5 340.8 372.5" aria-hidden="true"><use href="#simbolo"/></svg><span translate="no">Esplora</span></span><span>Ruta al Artículo 22</span></span>
+        <span class="clip-body">
+          
+          <span class="clip-h">¿Llegarás al <em>artículo 22</em> de la LPRL?</span>
+          <svg class="clip-art" viewBox="0 0 160 56" aria-hidden="true" data-dibujo="ruta"></svg>
+          <span class="win-desc">Repaso exprés de los arts. 17 a 21 de la LPRL en formato de niveles con estrellas.</span>
+          <span class="tool-meta"><span><svg class="ic ic-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"/><g class="hands"><line x1="12" y1="12" x2="12" y2="7"/><line x1="12" y1="12" x2="15.5" y2="14"/></g></svg>≈ 25 min</span><span><svg class="ic ic-save" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 3h10a1 1 0 0 1 1 1v17l-6-4-6 4V4a1 1 0 0 1 1-1z"/></svg>Guarda progreso</span></span>
+          <span class="clip-go">Ver la ficha <svg class="ic ic-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </span>
+      </a></li>
+    <li data-busca="simulador de expedientes prl ¿que articulo de la lprl resuelve cada caso? resuelve casos reales y justifica cada respuesta con su articulo de la lprl. prevencion de riesgos laborales" data-tipo="herramienta"><a class="tool-card" style="--c:#2B2E4A" href="../../recursos/simulador-expedientes-prl/">
+        <span class="clip-bar"><span><svg viewBox="28.5 14.5 340.8 372.5" aria-hidden="true"><use href="#simbolo"/></svg><span translate="no">Esplora</span></span><span>Simulador de expedientes PRL</span></span>
+        <span class="clip-body">
+          
+          <span class="clip-h">¿Qué <em>artículo de la LPRL</em> resuelve cada caso?</span>
+          <svg class="clip-art" viewBox="0 0 160 56" aria-hidden="true" data-dibujo="expediente"></svg>
+          <span class="win-desc">Resuelve casos reales y justifica cada respuesta con su artículo de la LPRL.</span>
+          <span class="tool-meta"><span><svg class="ic ic-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"/><g class="hands"><line x1="12" y1="12" x2="12" y2="7"/><line x1="12" y1="12" x2="15.5" y2="14"/></g></svg>≈ 30 min</span><span><svg class="ic ic-save" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 3h10a1 1 0 0 1 1 1v17l-6-4-6 4V4a1 1 0 0 1 1-1z"/></svg>Guarda progreso</span></span>
+          <span class="clip-go">Ver la ficha <svg class="ic ic-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </span>
+      </a></li>
+    <li data-busca="organizacion de la prevencion en la empresa  las cinco modalidades del rd 39/1997, el anexo i, un simulador que dice que le toca a cada empresa y tres casos para entregar. prevencion de riesgos laborales" data-tipo="herramienta"><a class="tool-card" style="--c:#2F6670" href="../../recursos/organizacion-preventiva/">
+        <span class="clip-bar"><span><svg viewBox="28.5 14.5 340.8 372.5" aria-hidden="true"><use href="#simbolo"/></svg><span translate="no">Esplora</span></span><span>Organización de la prevención en la empresa</span></span>
+        <span class="clip-body">
+          
+          <span class="clip-h">¿Quién hace la <em>prevención</em> en la empresa?</span>
+          <svg class="clip-art" viewBox="0 0 160 56" aria-hidden="true" data-dibujo="organigrama"></svg>
+          <span class="win-desc">Las cinco modalidades del RD 39/1997, el Anexo I, un simulador que dice qué le toca a cada empresa y tres casos para entregar.</span>
+          <span class="tool-meta"><span><svg class="ic ic-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"/><g class="hands"><line x1="12" y1="12" x2="12" y2="7"/><line x1="12" y1="12" x2="15.5" y2="14"/></g></svg>≈ 45 min</span><span><svg class="ic ic-save" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 3h10a1 1 0 0 1 1 1v17l-6-4-6 4V4a1 1 0 0 1 1-1z"/></svg>Guarda progreso</span><span><svg class="ic ic-print" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><rect x="7" y="14" width="10" height="7"/></svg>Informe PDF</span></span>
+          <span class="clip-go">Ver la ficha <svg class="ic ic-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </span>
+      </a></li>
+    <li data-busca="guia del ruido ¿cuanto ruido es demasiado en el trabajo? decibelios, los tres escalones del rd 286/2006, simulador de obligaciones y caso practico para entregar. prevencion de riesgos laborales" data-tipo="herramienta"><a class="tool-card" style="--c:#4B44A0" href="../../recursos/guia-ruido/">
+        <span class="clip-bar"><span><svg viewBox="28.5 14.5 340.8 372.5" aria-hidden="true"><use href="#simbolo"/></svg><span translate="no">Esplora</span></span><span>Guía del ruido</span></span>
+        <span class="clip-body">
+          
+          <span class="clip-h">¿Cuánto <em>ruido</em> es demasiado en el trabajo?</span>
+          <svg class="clip-art" viewBox="0 0 160 56" aria-hidden="true" data-dibujo="ruido"></svg>
+          <span class="win-desc">Decibelios, los tres escalones del RD 286/2006, simulador de obligaciones y caso práctico para entregar.</span>
+          <span class="tool-meta"><span><svg class="ic ic-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"/><g class="hands"><line x1="12" y1="12" x2="12" y2="7"/><line x1="12" y1="12" x2="15.5" y2="14"/></g></svg>≈ 40 min</span><span><svg class="ic ic-save" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 3h10a1 1 0 0 1 1 1v17l-6-4-6 4V4a1 1 0 0 1 1-1z"/></svg>Guarda progreso</span><span><svg class="ic ic-print" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><rect x="7" y="14" width="10" height="7"/></svg>Informe PDF</span></span>
+          <span class="clip-go">Ver la ficha <svg class="ic ic-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+        </span>
+      </a></li>
     </ul>
-  </section>
+</section>
 </main>
+
+<section class="banda" id="contacto" aria-labelledby="contacto-t">
+  <div class="wrap">
+    <div>
+      <h2 id="contacto-t">¿Echas en falta una herramienta para tu clase?</h2>
+      <p>Si das clase y quieres proponer un tema, avisar de un error o colaborar en el proyecto, escríbenos.</p>
+    </div>
+    <a class="btn" href="mailto:contacto@esplora.es">Escribir a contacto@esplora.es</a>
+  </div>
+</section>
 <footer>
   <div class="wrap">
-    <p><span translate="no">Esplora</span> · Herramientas para explorar en el aula · <a href="mailto:contacto@esplora.es">contacto@esplora.es</a></p>
-    <p>Gratis, en el navegador y sin crear cuentas. <a href="../../licencia.html">Licencia CC BY-NC-SA 4.0</a>.</p>
-    <p class="legal"><a href="../../aviso-legal.html">Aviso legal</a> · <a href="../../privacidad.html">Privacidad</a> · <a href="../../cookies.html">Cookies</a> · <a href="../../licencia.html">Licencia y créditos</a> · <a href="../../accesibilidad.html">Accesibilidad</a></p>
+    <div class="pie-cols">
+      <div>
+        <img src="../../marca/logotipo-crema.svg" alt="Esplora" width="112" height="32" loading="lazy">
+        <p>Herramientas para explorar en el aula, probando y equivocándose.</p>
+      </div>
+      <div>
+        <h2>Herramientas</h2>
+        <ul>
+          <li><a href="../../trabajar/">Trabajar por cuenta ajena</a></li>
+          <li><a href="../../emprender/">Emprender</a></li>
+          <li><a href="../../generador.html">Generador de ideas de negocio</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Para docentes</h2>
+        <ul>
+          <li><a href="../../materias/">Por materia</a></li>
+          <li><a href="../../criterios/">Por criterios de evaluación</a></li>
+          <li><a href="../../#como-se-usa">Cómo se usa</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Esplora</h2>
+        <ul>
+          <li><a href="../../#proyecto">El proyecto</a></li>
+          <li><a href="../../sobre-esplora.html">Sobre Esplora</a></li>
+          <li><a href="mailto:contacto@esplora.es">contacto@esplora.es</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="pie-legal">
+      <p>Curso 2026/27. Hecho dentro del aula, para el aula.</p>
+      <nav aria-label="Información legal"><a href="../../aviso-legal.html">Aviso legal</a><a href="../../privacidad.html">Privacidad</a><a href="../../cookies.html">Cookies</a><a href="../../licencia.html">Licencia y créditos</a><a href="../../accesibilidad.html">Accesibilidad</a></nav>
+    </div>
   </div>
 </footer>
+<script src="../../js/miniaturas.js"></script>
+<script src="../../js/esplora.js"></script>
+
 </body>
 </html>

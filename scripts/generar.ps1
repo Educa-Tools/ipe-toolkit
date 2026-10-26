@@ -282,117 +282,6 @@ function MdConvertir([string]$md) {
   $r
 }
 
-# ---------- Fichas: recursos/<slug>/index.html ----------
-"Fichas de recurso"
-$slugs = @{}
-foreach ($e in $entradas) {
-  $t = $e.t; $m = $e.m; $u = $e.u; $w = $e.w
-  if ($slugs[$t.slug]) { $avisos.Add("El slug «$($t.slug)» está repetido."); continue }
-  $slugs[$t.slug] = $true
-  $unidadLarga = "$($w.sing) $($u.n)"
-  $tipoId = if ($t.tipo) { $t.tipo } else { $m.tipo }
-  $tipo = $tipos[$tipoId]
-  $hashUnidad = "$($m.id)-$($w.abrev.ToLower())$($u.n)"
-  $titulo = "$($t.titulo) para $($m.tag) · Esplora"
-  $desc = Recortar "$($t.descripcion) Recurso gratuito para $($m.tag), $($unidadLarga.ToLower()): $($u.titulo)." 160
-  $hermanas = $entradas | Where-Object { $_.u -eq $u -and $_.id -ne $e.id }
-
-  $facts = @()
-  if ($t.minutos) { $facts += "<div><dt>Duración</dt><dd>≈ $($t.minutos) min</dd></div>" }
-  if ($tipo) { $facts += "<div><dt>Tipo</dt><dd>$(Esc $tipo.sing)</dd></div>" }
-  if ($tematica[$e.id]) { $facts += "<div><dt>Temática</dt><dd>$(Esc $tematica[$e.id])</dd></div>" }
-  $facts += "<div><dt>Progreso</dt><dd>$(if ($t.guarda) { 'Se guarda en el navegador' } else { 'Se hace en una sesión' })</dd></div>"
-  if ($t.informe) { $facts += "<div><dt>Entregable</dt><dd>Informe para imprimir o PDF</dd></div>" }
-
-  # Ficha larga para el profesorado (data/fichas/<slug>.md): sustituye a la ficha corta
-  $rutaMd = Join-Path $Root "data/fichas/$($t.slug).md"
-  if (Test-Path $rutaMd) {
-    $md = MdConvertir ([IO.File]::ReadAllText($rutaMd, $utf8))
-    $tituloMd = $md.fm['title']; $descMd = $md.fm['meta_description']
-    if (-not $tituloMd -or -not $descMd -or -not $md.h1) { $avisos.Add("data/fichas/$($t.slug).md necesita title, meta_description y un título #."); continue }
-    $cab = Cabeza @{ titulo = $tituloMd; desc = $descMd; ruta = "recursos/$($t.slug)/"; base = '../../'; imagen = $e.id; nombre = $t.titulo }
-    if ($md.fm['palabras_clave']) { $cab = $cab.Replace('<link rel="canonical"', "<meta name=""keywords"" content=""$(Esc $md.fm['palabras_clave'])"">`n<link rel=""canonical""") }
-    $urlFicha = "$Sitio/recursos/$($t.slug)/"
-    $jsonFaq = [ordered]@{ '@context' = 'https://schema.org'; '@type' = 'FAQPage'; mainEntity = @($md.faq | ForEach-Object { [ordered]@{ '@type' = 'Question'; name = $_.q; acceptedAnswer = [ordered]@{ '@type' = 'Answer'; text = $_.a } } }) }
-    $jsonRec = [ordered]@{ '@context' = 'https://schema.org'; '@type' = 'LearningResource'; name = $md.h1; description = $descMd; url = $urlFicha; inLanguage = 'es'
-      educationalLevel = 'Formación Profesional (grado medio y superior) y secundaria'; learningResourceType = 'Herramienta interactiva'; timeRequired = 'PT55M'
-      isAccessibleForFree = $true; license = 'https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es'; publisher = [ordered]@{ '@type' = 'Organization'; name = 'Esplora'; url = "$Sitio/" } }
-    function JsonLd($o) { '<script type="application/ld+json">' + ((ConvertTo-Json $o -Depth 8 -Compress).Replace('<', '<')) + '</script>' }
-    $factsMd = ($facts -join "`n      ").Replace('<dt>Duración</dt>', '<dt>Tiempo con la herramienta</dt>')
-    $html = $cab + "`n" + @"
-<main id="contenido" class="wrap">
-  <nav class="crumbs" aria-label="Estás aquí">
-    <ol>
-      <li><a href="../../">Inicio</a></li>
-      <li><a href="../../$(CarpetaModulo $m)/">$(Esc $m.tag)</a></li>
-      <li aria-current="page">$(Esc $t.titulo)</li>
-    </ol>
-  </nav>
-  <article class="ficha"$(if ($t.color) { " style=""--c:$($t.color)""" })>
-    <p class="eyebrow">Guía para el profesorado · $(Esc $m.tag) · $(Esc $unidadLarga)</p>
-    <h1>$(Esc $md.h1)</h1>
-    <div class="lede">$($md.intro)</div>
-    <dl class="facts">
-      $factsMd
-    </dl>
-    <p class="actions">
-      <a class="btn" href="../../$($t.url)">Abrir la herramienta <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-      <button type="button" class="btn btn-lima" data-rubrica>Descargar rúbrica</button>
-      <a class="btn-sec" href="../../#$hashUnidad">Ver $(Esc $unidadLarga.ToLower()) en el catálogo</a>
-    </p>
-    <p class="note">Se abre en el navegador del aula o del móvil, sin instalar nada y sin crear cuentas.</p>
-  </article>
-  <div class="prosa">
-$($md.cuerpo)
-  </div>
-</main>
-$(JsonLd $jsonRec)
-$(JsonLd $jsonFaq)
-<script>document.querySelectorAll('[data-rubrica]').forEach(function(b){b.addEventListener('click',function(){document.body.classList.add('imprime-rubrica');window.print();});});window.addEventListener('afterprint',function(){document.body.classList.remove('imprime-rubrica');});</script>
-
-"@ + (Pie '../../')
-    Escribir "recursos/$($t.slug)/index.html" $html
-    continue
-  }
-
-  $html = (Cabeza @{ titulo = $titulo; desc = $desc; ruta = "recursos/$($t.slug)/"; base = '../../'; imagen = $e.id; nombre = $t.titulo }) + @"
-<main id="contenido" class="wrap">
-  <nav class="crumbs" aria-label="Estás aquí">
-    <ol>
-      <li><a href="../../">Inicio</a></li>
-      <li><a href="../../$(CarpetaModulo $m)/">$(Esc $m.tag)</a></li>
-      <li aria-current="page">$(Esc $t.titulo)</li>
-    </ol>
-  </nav>
-  <article class="ficha"$(if ($t.color) { " style=""--c:$($t.color)""" })>
-    <p class="eyebrow">$(Esc $m.tag) · $(Esc $unidadLarga) · $(Esc $u.titulo)</p>
-    <h1>$(if ($t.titular) { $t.titular } else { Esc $t.titulo })</h1>
-    <p class="lede">$(Esc $t.descripcion)</p>
-    <dl class="facts">
-      $($facts -join "`n      ")
-    </dl>
-    <p class="actions">
-      <a class="btn" href="../../$($t.url)">Abrir la herramienta <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-      <a class="btn-sec" href="../../#$hashUnidad">Ver $(Esc $unidadLarga.ToLower()) en el catálogo</a>
-    </p>
-    <p class="note">Se abre en el navegador del aula o del móvil, sin instalar nada y sin crear cuentas.</p>
-  </article>
-"@
-  if ($hermanas) {
-    $html += @"
-
-  <section aria-labelledby="mas-t">
-    <h2 id="mas-t">Más recursos de $(if ($w.sing -eq 'Bloque') { 'este bloque' } else { 'esta unidad' })</h2>
-    <ul class="list">
-$(($hermanas | ForEach-Object { Tarjeta $_ "../$($_.t.slug)/" }) -join "`n")
-    </ul>
-  </section>
-"@
-  }
-  $html += "`n</main>`n" + (Pie '../../')
-  Escribir "recursos/$($t.slug)/index.html" $html
-}
-
 # ---------- Línea nueva (sesión 6): piezas comunes ----------
 # Páginas con el diseño nuevo: caminos, materias, criterios, ipe-1/ e ipe-2/. Cargan esplora.css,
 # comun.css y paginas.css, y js/miniaturas.js + js/esplora.js (menú, dibujos, buscador).
@@ -605,7 +494,8 @@ $Marca
 <meta property="og:url" content="$Sitio/$($o.ruta)">
 <meta property="og:title" content="$(Esc $o.titulo)">
 <meta property="og:description" content="$(Esc $o.desc)">
-$ImagenCompartir
+$(if ($o.imagen) { ImagenCompartirDe $o.imagen $o.nombre } else { $ImagenCompartir })
+$($o.cabeza)
 <meta name="theme-color" content="#FBFCEF" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1E1C1A" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="$($o.base)marca/simbolo-oliva.svg" type="image/svg+xml">
@@ -625,6 +515,7 @@ $($o.main)
 $(PieNuevo $o.base)
 <script src="$($o.base)js/miniaturas.js"></script>
 <script src="$($o.base)js/esplora.js"></script>
+$($o.final)
 </body>
 </html>
 "@
@@ -791,6 +682,146 @@ $main = (PanelPagina 'Por criterios de evaluación' 'Herramientas por criterios 
   "<div class=""wrap"">`n$($bloquesCur -join "`n")`n</div>`n" +
   '<div class="wrap"><p class="nota">«Cobertura parcial»: la herramienta trabaja el criterio sin abarcarlo por completo.</p></div>'
 Escribir 'criterios/index.html' (PaginaNueva @{ titulo = 'Herramientas por criterios de evaluación (RA y CE) · Esplora'; desc = 'Qué herramientas de Esplora trabajan cada resultado de aprendizaje y criterio de evaluación de IPE, con su ficha y si lo cubren entero o en parte.'; ruta = 'criterios/'; base = '../'; main = $main })
+
+# ---------- Fichas: recursos/<slug>/index.html ----------
+# Una ficha por herramienta, sin depender de ninguna materia: arriba, su camino y su tema;
+# en «Camino, materia y criterios», las materias (bloque o unidad) y los criterios de evaluación que trabaja.
+# Si existe data/fichas/<slug>.md, la ficha es la guía larga para el profesorado.
+"Fichas de recurso"
+$enMaterias = @{}
+foreach ($m in $materias) {
+  $w = PalabraUnidad $m
+  foreach ($u in $m.unidades) { foreach ($id in $u.herramientas) {
+    if (-not $enMaterias[$id]) { $enMaterias[$id] = [System.Collections.Generic.List[object]]::new() }
+    $enMaterias[$id].Add([pscustomobject]@{ m = $m; u = $u; w = $w })
+  } }
+}
+$enCriterios = @{}
+foreach ($mc in $db.curriculo) {
+  $mm = $materias | Where-Object id -eq $mc.materia | Select-Object -First 1
+  $tagMc = if ($mm) { $mm.tag } else { $mc.materia }
+  foreach ($ra in $mc.ras) { foreach ($ce in $ra.ces) { foreach ($x in $ce.herramientas) {
+    if (-not $enCriterios[$x.id]) { $enCriterios[$x.id] = [System.Collections.Generic.List[object]]::new() }
+    $enCriterios[$x.id].Add([pscustomobject]@{ tag = $tagMc; ce = $ce; parcial = [bool]$x.parcial })
+  } } }
+}
+function DondeEncaja($id) {
+  $t = $H[$id]; $c = $caminos[$t.camino]; $te = $temas["$($t.camino)/$($t.tema)"]
+  $filas = @()
+  if ($c -and $te) {
+    $filas += '<div><dt>Camino y tema</dt><dd><a href="../../' + $c.id + '/">' + (Esc $c.nombre) + '</a> › <a href="../../' + $c.id + '/#' + $te.id + '">' + (Esc (DondeTxt $id)) + '</a></dd></div>'
+  }
+  if ($enMaterias[$id]) {
+    $ls = $enMaterias[$id] | ForEach-Object { '<li><a href="../../' + (CarpetaModulo $_.m) + '/#' + $_.w.abrev.ToLower() + $_.u.n + '">' + (Esc $_.m.tag) + ' · ' + (Esc $_.w.sing) + ' ' + $_.u.n + '</a>: ' + (Esc $_.u.titulo) + '</li>' }
+    $filas += '<div><dt>Materia</dt><dd><ul>' + ($ls -join '') + '</ul></dd></div>'
+  }
+  if ($enCriterios[$id]) {
+    $ls = $enCriterios[$id] | ForEach-Object { $p = if ($_.parcial) { ' <small>(cobertura parcial)</small>' } else { '' }; '<li><a href="../../criterios/">' + (Esc $_.tag) + ' · ' + (Esc $_.ce.id) + '</a>: ' + (Esc $_.ce.texto) + $p + '</li>' }
+    $filas += '<div><dt>Criterios de evaluación</dt><dd><ul>' + ($ls -join '') + '</ul></dd></div>'
+  }
+  if (-not $filas) { return '' }
+  @"
+<section class="wrap donde" aria-labelledby="donde-t">
+  <h2 id="donde-t">Camino, materia y criterios</h2>
+  <dl>$($filas -join '')</dl>
+</section>
+"@
+}
+function JsonLd($o) { '<script type="application/ld+json">' + ((ConvertTo-Json $o -Depth 8 -Compress).Replace('<', '<')) + '</script>' }
+$flechaBtn = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>'
+
+$slugs = @{}
+foreach ($id in $ordenH) {
+  $t = $H[$id]
+  if (-not $t.slug) { $avisos.Add("«$id» no tiene slug: no se genera su ficha."); continue }
+  if ($slugs[$t.slug]) { $avisos.Add("El slug «$($t.slug)» está repetido."); continue }
+  $slugs[$t.slug] = $true
+  $c = $caminos[$t.camino]; $te = $temas["$($t.camino)/$($t.tema)"]
+  if (-not $c -or -not $te) { continue }   # ya avisado arriba
+  $tipo = $tipos[$(if ($t.tipo) { $t.tipo } else { 'herramienta' })]
+  $temaTxt = DondeTxt $id
+
+  $facts = @()
+  if ($t.minutos) { $facts += "<div><dt>Duración</dt><dd>≈ $($t.minutos) min</dd></div>" }
+  if ($tipo) { $facts += "<div><dt>Tipo</dt><dd>$(Esc $tipo.sing)</dd></div>" }
+  $facts += "<div><dt>Progreso</dt><dd>$(if ($t.guarda) { 'Se guarda en el navegador' } else { 'Se hace en una sesión' })</dd></div>"
+  if ($t.informe) { $facts += "<div><dt>Entregable</dt><dd>Informe para imprimir o PDF</dd></div>" }
+
+  $migas = '<li><a href="../../">Inicio</a></li><li><a href="../../' + $c.id + '/">' + (Esc $c.nombre) + '</a></li><li><a href="../../' + $c.id + '/#' + $te.id + '">' + (Esc $te.nombre) + '</a></li><li aria-current="page">' + (Esc $t.titulo) + '</li>'
+  $verTema = '<a class="btn btn-sec" href="../../' + $c.id + '/#' + $te.id + '">Ver el tema</a>'
+  $abrir = '<a class="btn" href="../../' + $t.url + '">Abrir la herramienta ' + $flechaBtn + '</a>'
+  $hermanas = @(HerrDeTema $c $te | Where-Object { $_ -ne $id })
+  $mas = if ($hermanas) { @"
+<section class="wrap mas-tema" aria-labelledby="mas-t">
+  <h2 id="mas-t">Más herramientas de este tema</h2>
+  $(Rejilla $hermanas '../../')
+</section>
+"@ } else { '' }
+  $color = if ($t.color) { $t.color } else { '#6B7028' }
+
+  $rutaMd = Join-Path $Root "data/fichas/$($t.slug).md"
+  if (Test-Path $rutaMd) {
+    # Guía larga para el profesorado
+    $md = MdConvertir ([IO.File]::ReadAllText($rutaMd, $utf8))
+    $tituloMd = $md.fm['title']; $descMd = $md.fm['meta_description']
+    if (-not $tituloMd -or -not $descMd -or -not $md.h1) { $avisos.Add("data/fichas/$($t.slug).md necesita title, meta_description y un título #."); continue }
+    $urlFicha = "$Sitio/recursos/$($t.slug)/"
+    $jsonFaq = [ordered]@{ '@context' = 'https://schema.org'; '@type' = 'FAQPage'; mainEntity = @($md.faq | ForEach-Object { [ordered]@{ '@type' = 'Question'; name = $_.q; acceptedAnswer = [ordered]@{ '@type' = 'Answer'; text = $_.a } } }) }
+    $jsonRec = [ordered]@{ '@context' = 'https://schema.org'; '@type' = 'LearningResource'; name = $md.h1; description = $descMd; url = $urlFicha; inLanguage = 'es'
+      educationalLevel = 'Formación Profesional (grado medio y superior) y secundaria'; learningResourceType = 'Herramienta interactiva'; timeRequired = 'PT55M'
+      isAccessibleForFree = $true; license = 'https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es'; publisher = [ordered]@{ '@type' = 'Organization'; name = 'Esplora'; url = "$Sitio/" } }
+    $factsMd = ($facts -join "`n      ").Replace('<dt>Duración</dt>', '<dt>Tiempo con la herramienta</dt>')
+    $main = @"
+<section class="wrap cab-pag" aria-labelledby="titulo">
+  <div class="panel-pag ficha-pag" style="--c:$color">
+    $($Espora.Replace('<svg ', '<svg class="espora-pag" '))
+    <nav class="migas" aria-label="Estás aquí"><ol>$migas</ol></nav>
+    <p class="antetitulo">Guía para el profesorado · $(Esc $c.nombre) · $(Esc $temaTxt)</p>
+    <h1 id="titulo">$(Esc $md.h1)</h1>
+    <div class="lede">$($md.intro)</div>
+    <dl class="facts">
+      $factsMd
+    </dl>
+    <p class="acciones">$abrir<button type="button" class="btn btn-sec" data-rubrica>Descargar rúbrica</button>$verTema</p>
+    <p class="nota">Se abre en el navegador del aula o del móvil, sin instalar nada y sin crear cuentas.</p>
+  </div>
+</section>
+<div class="wrap prosa">
+$($md.cuerpo)
+</div>
+$(DondeEncaja $id)
+$mas
+"@
+    $cabeza = if ($md.fm['palabras_clave']) { "<meta name=""keywords"" content=""$(Esc $md.fm['palabras_clave'])"">" } else { '' }
+    $final = (JsonLd $jsonRec) + "`n" + (JsonLd $jsonFaq) + "`n" + '<script>document.querySelectorAll(''[data-rubrica]'').forEach(function(b){b.addEventListener(''click'',function(){document.body.classList.add(''imprime-rubrica'');window.print();});});window.addEventListener(''afterprint'',function(){document.body.classList.remove(''imprime-rubrica'');});</script>'
+    Escribir "recursos/$($t.slug)/index.html" (PaginaNueva @{ titulo = $tituloMd; desc = $descMd; ruta = "recursos/$($t.slug)/"; base = '../../'; main = $main; imagen = $id; nombre = $t.titulo; cabeza = $cabeza; final = $final })
+    continue
+  }
+
+  # Ficha corta
+  $titulo = "$($t.titulo): ficha para el aula · Esplora"
+  $desc = Recortar "$($t.descripcion) Herramienta gratuita, en el navegador y sin crear cuentas." 160
+  $titular = if ($t.titular) { $t.titular } else { Esc $t.titulo }
+  $main = @"
+<section class="wrap cab-pag" aria-labelledby="titulo">
+  <div class="panel-pag ficha-pag" style="--c:$color">
+    $($Espora.Replace('<svg ', '<svg class="espora-pag" '))
+    <nav class="migas" aria-label="Estás aquí"><ol>$migas</ol></nav>
+    <p class="antetitulo">$(Esc $c.nombre) · $(Esc $temaTxt)</p>
+    <h1 id="titulo">$titular</h1>
+    <p class="lede">$(Esc $t.descripcion)</p>
+    <dl class="facts">
+      $($facts -join "`n      ")
+    </dl>
+    <p class="acciones">$abrir$verTema</p>
+    <p class="nota">Se abre en el navegador del aula o del móvil, sin instalar nada y sin crear cuentas.</p>
+  </div>
+</section>
+$(DondeEncaja $id)
+$mas
+"@
+  Escribir "recursos/$($t.slug)/index.html" (PaginaNueva @{ titulo = $titulo; desc = $desc; ruta = "recursos/$($t.slug)/"; base = '../../'; main = $main; imagen = $id; nombre = $t.titulo })
+}
 
 # ---------- Portada: catálogo ya escrito (lo sustituye el JavaScript al cargar) ----------
 "Portada"
