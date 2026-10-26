@@ -56,10 +56,22 @@
       els.forEach(e => { e.style.minHeight = alto + 'px'; });
     }
   }
+  // Recuadros de los temas en las tarjetas de camino de la portada: todos a la misma altura,
+  // para que los dos caminos queden fila con fila aunque un nombre ocupe dos líneas
+  function igualarTemas() {
+    const lista = document.querySelector('.caminos');
+    if (!lista) return;
+    const as = [...lista.querySelectorAll('.camino :is(ol,ul) > li > a')];
+    as.forEach(a => { a.style.minHeight = ''; });
+    if (getComputedStyle(lista).gridTemplateColumns.split(' ').length < 2) return;
+    const alto = Math.max(...as.map(a => a.offsetHeight));
+    as.forEach(a => { a.style.minHeight = alto + 'px'; });
+  }
   let espera;
-  addEventListener('resize', () => { clearTimeout(espera); espera = setTimeout(igualar, 120); });
-  if (document.fonts) document.fonts.ready.then(igualar);
+  addEventListener('resize', () => { clearTimeout(espera); espera = setTimeout(() => { igualar(); igualarTemas(); }, 120); });
+  if (document.fonts) document.fonts.ready.then(() => { igualar(); igualarTemas(); });
   igualar();
+  igualarTemas();
 
   // ---------- Buscador de un camino (y filtro de tipo, si hay más de uno) ----------
   const q = $('#q[data-buscar="camino"]');

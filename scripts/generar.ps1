@@ -768,7 +768,7 @@ $mas
 
 # ---------- Portada: index.html ----------
 # La portada se escribe a mano; el generador rellena lo que sale del catálogo entre las marcas
-# <!-- generado:NOMBRE:inicio --> y <!-- generado:NOMBRE:fin -->: menu, caminos, informes, vista,
+# <!-- generado:NOMBRE:inicio --> y <!-- generado:NOMBRE:fin -->: menu, caminos, vista,
 # total, indice, datos, pie y datos-js (claves de guardado y redirección de los enlaces antiguos).
 "Portada"
 $rutaIndex = Join-Path $Root 'index.html'
@@ -806,7 +806,6 @@ $tarjetas = foreach ($c in $db.caminos) {
 }
 Rellenar 'caminos' ("`n" + ($tarjetas -join "`n") + "`n")
 
-Rellenar 'informes' "$($conInforme.Count) de las $($enCamino.Count)"
 Rellenar 'total' "$($enCamino.Count)"
 
 # Vista de «Cómo se usa»: las ventanitas que dice data-herramientas (id o id:estado), en orden
