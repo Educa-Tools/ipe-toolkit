@@ -158,7 +158,7 @@
     .then(function (data) {
       var tools = data.herramientas || {};
       var where = {};
-      (data.modulos || []).forEach(function (m) {
+      (data.materias || data.modulos || []).forEach(function (m) {
         var corto = (m.nomUnidad && m.nomUnidad.corto) || 'Unidad';
         (m.unidades || []).forEach(function (u) {
           (u.herramientas || []).forEach(function (id) { if (!where[id]) where[id] = m.tag + ' · ' + corto + ' ' + u.n; });

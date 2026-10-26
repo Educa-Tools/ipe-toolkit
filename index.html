@@ -852,9 +852,14 @@ const tipoName = (tp, n) => n===1 ? tp.sing.toLowerCase() : tp.nombre.toLowerCas
 
 function load(json){
   DB.tools = json.herramientas || {};
-  DB.mods = json.modulos || [];
+  DB.mods = json.materias || json.modulos || [];
   DB.tipos = json.tipos || [];
-  DB.tags = (json.etiquetas||[]).filter(t=>(t.herramientas||[]).some(id=>DB.tools[id]));
+  // Las temáticas del filtro salen de los temas de cada camino; conservan su id antiguo (#tema-prl…)
+  const temasCat = json.etiquetas || (json.caminos||[]).flatMap(c=>c.temas.map(te=>({
+    id: (te.antes && te.antes[0]) || te.id, nombre: te.nombre, icono: te.icono,
+    herramientas: Object.keys(DB.tools).filter(id=>DB.tools[id].camino===c.id && DB.tools[id].tema===te.id)
+  })));
+  DB.tags = temasCat.filter(t=>(t.herramientas||[]).some(id=>DB.tools[id]));
   DB.where = {}; DB.tipo = {}; DB.tema = {}; DB.text = {}; DB.order = [];
   // Texto en el que busca el buscador: nombre, descripción, módulo, unidad, tipo y temática de cada recurso
   const addText = (id, s) => { DB.text[id] = (DB.text[id]||'') + ' ' + norm(s); };

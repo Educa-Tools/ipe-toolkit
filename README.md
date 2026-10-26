@@ -10,11 +10,12 @@ Herramientas interactivas y recursos para **Itinerario Personal para la Empleabi
 ## Cómo está organizado
 
 - `index.html` — la portada. No hace falta tocarla para añadir herramientas.
-- `data/estructura.json` — **todo el contenido**, en cuatro bloques:
-  - `herramientas`: el catálogo. Cada herramienta tiene un identificador corto y sus datos.
-  - `modulos`: IPE 1 e IPE 2 (en el orden en que salen en la portada), con sus unidades y la lista de herramientas de cada una (por identificador, en el orden en que deben aparecer). Cada módulo lleva su `lema` (la frase corta del selector "¿Con qué materia trabajas?") y su `tipo` de recurso.
+- `data/estructura.json` — **todo el contenido**, en cinco bloques:
+  - `herramientas`: el catálogo. Cada herramienta tiene un identificador corto y sus datos, entre ellos `camino` y `tema` (dónde vive: ver `caminos`). Dentro de un tema, las herramientas salen en el orden en que están escritas aquí.
+  - `caminos`: la estructura principal. Dos caminos («Trabajar por cuenta ajena» y «Emprender»), cada uno con su leyenda y sus temas (`id`, nombre y resumen). Un tema sin herramientas no se muestra. `antes` guarda el nombre corto antiguo del tema para que los enlaces viejos (`#tema-prl`) sigan funcionando.
+  - `materias` (antes `modulos`): IPE 1 e IPE 2, con sus bloques o unidades y la lista de herramientas de cada uno (por identificador). Una materia nueva puede citar herramientas que ya existen, sin duplicarlas. Cada materia lleva su `lema` y su `tipo` de recurso.
+  - `curriculo`: resultados de aprendizaje y criterios de evaluación (de momento, IPE 2), con las herramientas que trabajan cada criterio; `"parcial": true` si lo trabaja sin cubrirlo entero.
   - `tipos`: los tipos de recurso, según el boceto: `herramienta` (herramientas interactivas: se usan en el navegador, guardan lo que escribe el alumnado y la mayoría dan un informe) y `material` (materiales didácticos: píldoras, guías, casos prácticos, boletines y diapositivas). Un tipo sin ningún recurso no se muestra en la portada; con un solo tipo con recursos, tampoco sale el desplegable «Tipo».
-  - `etiquetas`: las temáticas del filtro "Temática", también con su lista de herramientas.
 
 Cada recurso toma el tipo de su módulo. Si alguno es de otro tipo (por ejemplo, unas diapositivas de IPE 1), ponle `"tipo": "material"` en su línea de `herramientas`.
 - El resto de `.html` — cada herramienta interactiva, independiente.
@@ -40,7 +41,7 @@ Cada recurso toma el tipo de su módulo. Si alguno es de otro tipo (por ejemplo,
 
    - `slug`: la dirección de su ficha, `esplora.es/recursos/<slug>/`. En minúsculas, sin tildes y con guiones (`"slug": "dafo-came"`). **No lo cambies una vez publicado**: rompería los enlaces compartidos.
 
-3. Añade `"miid"` a la lista `"herramientas"` de su unidad (en `modulos`) y de su temática (en `etiquetas`).
+3. Ponle en su línea `"camino"` y `"tema"` (los `id` de `caminos`, por ejemplo `"camino": "emprender", "tema": "mercado"`) y añade `"miid"` a la lista `"herramientas"` de su unidad (en `materias`). Si trabaja algún criterio de evaluación, añádela también en `curriculo`.
 4. Ejecuta el generador desde la carpeta del proyecto (PowerShell 7, no hay que instalar nada más):
 
 ```
@@ -67,7 +68,7 @@ Y dentro del catálogo interactivo de la portada:
 - `https://esplora.es/#ipe2` abre IPE 2; `#ipe1` abre IPE 1.
 - `https://esplora.es/#ipe2-ud1` baja a la Unidad didáctica 1 de IPE 2; `#ipe1-b2` baja al Bloque 2 de IPE 1.
 - `https://esplora.es/#catalogo` abre todo el catálogo.
-- `#tema-prl` abre el catálogo filtrado por una temática (el `id` de `etiquetas`: `idea`, `mercado`, `viabilidad`, `prl`, `laboral`).
+- `#tema-prl` abre el catálogo filtrado por una temática (el nombre corto antiguo de cada tema, en su campo `antes`: `idea`, `mercado`, `viabilidad`, `prl`, `laboral`).
 - `#tipo-herramienta`, `#tipo-aula` o `#tipo-material` lo abren filtrado por tipo de recurso.
 - En la portada, cada módulo y cada unidad tiene un botón "Copiar enlace" que copia la dirección.
 

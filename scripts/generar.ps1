@@ -1,6 +1,8 @@
 <#
   Esplora · genera las páginas que salen del catálogo (data/estructura.json).
 
+  Lee herramientas, caminos (camino > tema), materias y currículo, y avisa si algo no cuadra.
+
   Cuándo ejecutarlo: cada vez que cambies data/estructura.json (herramienta
   nueva, nombre, descripción, unidad…). Después, revisa y haz commit de todo.
 
@@ -69,7 +71,35 @@ function Recortar([string]$s, [int]$max) {
 $db = Get-Content -Raw -Encoding utf8 (Join-Path $Root 'data/estructura.json') | ConvertFrom-Json
 $H = @{}; foreach ($p in $db.herramientas.PSObject.Properties) { $H[$p.Name] = $p.Value }
 $tipos = @{}; foreach ($t in $db.tipos) { $tipos[$t.id] = $t }
-$tematica = @{}; foreach ($e in $db.etiquetas) { foreach ($id in $e.herramientas) { $tematica[$id] = $e.nombre } }
+# Materias (antes «modulos»): IPE 1, IPE 2 y, más adelante, las afines. Se admite el nombre antiguo.
+$materias = if ($db.materias) { $db.materias } else { $db.modulos }
+
+# Caminos y temas: cada herramienta dice en su ficha a qué camino y tema pertenece
+$caminos = @{}; $temas = @{}
+foreach ($c in $db.caminos) {
+  if ($caminos[$c.id]) { $avisos.Add("El camino «$($c.id)» está repetido.") }
+  $caminos[$c.id] = $c
+  foreach ($te in $c.temas) {
+    if ($temas["$($c.id)/$($te.id)"]) { $avisos.Add("El tema «$($te.id)» está repetido en el camino «$($c.id)».") }
+    $temas["$($c.id)/$($te.id)"] = $te
+  }
+}
+$tematica = @{}
+foreach ($id in $H.Keys) {
+  $t = $H[$id]
+  if (-not $t.camino -or -not $t.tema) { $avisos.Add("«$id» no tiene camino y tema: no saldrá en ningún camino."); continue }
+  if (-not $caminos[$t.camino]) { $avisos.Add("«$id» dice camino «$($t.camino)», que no existe en caminos."); continue }
+  $te = $temas["$($t.camino)/$($t.tema)"]
+  if (-not $te) { $avisos.Add("«$id» dice tema «$($t.tema)», que no existe en el camino «$($t.camino)»."); continue }
+  $tematica[$id] = $te.nombre
+}
+# Currículo: cada criterio cita herramientas que tienen que existir
+foreach ($mc in $db.curriculo) {
+  if (-not ($materias | Where-Object id -eq $mc.materia)) { $avisos.Add("El currículo cita la materia «$($mc.materia)», que no existe en materias.") }
+  foreach ($ra in $mc.ras) { foreach ($ce in $ra.ces) { foreach ($x in $ce.herramientas) {
+    if (-not $H[$x.id]) { $avisos.Add("El criterio $($ce.id) cita «$($x.id)», que no está en herramientas.") }
+  } } }
+}
 
 $UNIDAD_DEF = @{ sing = 'Unidad didáctica'; plural = 'unidades didácticas'; abrev = 'UD' }
 function PalabraUnidad($m) { if ($m.nomUnidad) { @{ sing = $m.nomUnidad.sing; plural = $m.nomUnidad.plural; abrev = $m.nomUnidad.abrev } } else { $UNIDAD_DEF } }
@@ -77,7 +107,7 @@ function CarpetaModulo($m) { $m.id -replace '^([a-z]+)(\d+)$', '$1-$2' }   # ipe
 
 # Recorrido en el orden del catálogo: módulo > unidad > herramienta
 $entradas = [System.Collections.Generic.List[object]]::new()
-foreach ($m in $db.modulos) {
+foreach ($m in $materias) {
   $w = PalabraUnidad $m
   foreach ($u in $m.unidades) {
     foreach ($id in $u.herramientas) {
@@ -365,7 +395,7 @@ $(($hermanas | ForEach-Object { Tarjeta $_ "../$($_.t.slug)/" }) -join "`n")
 
 # ---------- Páginas de módulo: ipe-1/, ipe-2/ ----------
 "Páginas de módulo"
-foreach ($m in $db.modulos) {
+foreach ($m in $materias) {
   $w = PalabraUnidad $m
   $suyas = $entradas | Where-Object { $_.m -eq $m }
   if (-not $suyas) { continue }
@@ -404,7 +434,7 @@ $(($deU | ForEach-Object { Tarjeta $_ "../recursos/$($_.t.slug)/" }) -join "`n")
 
 # ---------- Portada: catálogo ya escrito (lo sustituye el JavaScript al cargar) ----------
 "Portada"
-$bloques = foreach ($m in $db.modulos) {
+$bloques = foreach ($m in $materias) {
   $w = PalabraUnidad $m
   $suyas = $entradas | Where-Object { $_.m -eq $m }
   if (-not $suyas) { continue }
@@ -497,7 +527,7 @@ foreach ($url in $paraCompartir) {
 # ---------- sitemap.xml ----------
 "Índices"
 $urls = @("$Sitio/")
-foreach ($m in $db.modulos) { if ($entradas | Where-Object { $_.m -eq $m }) { $urls += "$Sitio/$(CarpetaModulo $m)/" } }
+foreach ($m in $materias) { if ($entradas | Where-Object { $_.m -eq $m }) { $urls += "$Sitio/$(CarpetaModulo $m)/" } }
 foreach ($e in $entradas) { $urls += "$Sitio/recursos/$($e.t.slug)/" }
 foreach ($e in $entradas) { $urls += "$Sitio/$($e.t.url)" }
 foreach ($l in (@($Legales.Keys) + 'sobre-esplora.html')) { if (Test-Path (Join-Path $Root $l)) { $urls += "$Sitio/$l" } }
@@ -526,7 +556,7 @@ Cómo llamarla: no hay API ni cuentas. Elige el recurso en el catálogo de abajo
 Cada recurso tiene una ficha (enlace principal) y la herramienta en sí (enlace «abrir»). Las duraciones son aproximadas, para sesiones de clase de 50 minutos.
 "@
 $llms += "`n`n"
-foreach ($m in $db.modulos) {
+foreach ($m in $materias) {
   $w = PalabraUnidad $m
   foreach ($u in $m.unidades) {
     $deU = $entradas | Where-Object { $_.u -eq $u }
