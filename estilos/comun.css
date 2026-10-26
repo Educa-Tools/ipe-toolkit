@@ -1,0 +1,180 @@
+/* Esplora · componentes comunes de la línea nueva (sesión 6)
+   Menú, botones, buscador, tarjeta de camino, ventanita de herramienta, banda de contacto y pie.
+   La cargan las páginas con el diseño nuevo, después de esplora.css (que tiene los tokens).
+   El modo oscuro se activa con la clase tema-auto en <html>. */
+
+/* ---------- Base ---------- */
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 var(--font-ui)}
+[hidden]{display:none!important}
+a{color:inherit;text-underline-offset:3px}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:4px}
+h1,h2,h3{font-family:var(--font-display);font-weight:600;letter-spacing:-.015em;text-wrap:balance;margin:0}
+p{margin:0}
+.sr{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:absolute;left:12px;top:-60px;z-index:80;background:var(--ink);color:var(--bg);font-weight:700;padding:12px 16px;border-radius:999px;text-decoration:none}
+.skip:focus{top:12px}
+.wrap{max-width:var(--wrap,1180px);margin-inline:auto;padding-inline:24px}
+@media (max-width:620px){.wrap{padding-inline:16px}}
+section[id]{scroll-margin-top:calc(var(--nav-h) + 16px)}
+
+/* ---------- Botones: finos, con hundimiento al pulsar ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 24px;border-radius:999px;border:1px solid var(--ink);background:var(--ink);color:var(--bg);font-weight:600;font-size:16px;text-decoration:none;white-space:nowrap;cursor:pointer;box-shadow:none;transition:transform .16s var(--ease-out),background-color .2s ease}
+.btn svg{width:18px;height:18px;flex:none}
+.btn:active{transform:scale(.97)}
+.btn-sec{background:transparent;color:var(--ink)}
+.btn-acento{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.enlace{display:inline-flex;align-items:center;gap:8px;min-height:var(--tap);font-weight:600;text-decoration:none;border-bottom:1.5px solid var(--accent);padding-bottom:2px;min-height:auto}
+
+/* ---------- Menú ---------- */
+.nav{position:sticky;top:0;z-index:60;background:color-mix(in srgb,var(--bg) 88%,transparent);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .2s ease}
+.nav.bajado{border-bottom-color:var(--line)}
+.nav-in{display:flex;align-items:center;gap:24px;min-height:var(--nav-h)}
+.logo{display:inline-flex;align-items:center;min-height:var(--tap);flex:none}
+.logo img{display:block;height:28px;width:auto}
+.logo .oscuro{display:none}
+
+.nav-links{display:flex;align-items:center;gap:4px;margin:0 auto;padding:0;list-style:none}
+.nav-links>li>a,.nav-links>li>button{display:inline-flex;align-items:center;gap:6px;min-height:var(--tap);padding:0 14px;border:0;border-radius:999px;background:none;font-size:15px;font-weight:500;text-decoration:none;cursor:pointer;white-space:nowrap;transition:background-color .2s ease}
+.nav-links svg{width:14px;height:14px;transition:transform .2s var(--ease-out)}
+.nav-links button[aria-expanded="true"] svg{transform:rotate(180deg)}
+@media (hover:hover) and (pointer:fine){.nav-links>li>a:hover,.nav-links>li>button:hover{background:var(--surface-2)}}
+.nav-cta{flex:none;min-height:44px;padding:10px 20px;font-size:15px}
+.nav-movil{display:none}
+
+/* Desplegable de herramientas: sale de su botón */
+.mega{position:absolute;left:0;right:0;top:100%;padding-top:8px;opacity:0;transform:translateY(-4px) scale(.98);transform-origin:top center;visibility:hidden;pointer-events:none;transition:opacity .18s var(--ease-out),transform .18s var(--ease-out),visibility 0s .18s}
+.mega.abierto{opacity:1;transform:none;visibility:visible;pointer-events:auto;transition:opacity .18s var(--ease-out),transform .18s var(--ease-out),visibility 0s}
+.mega-in{display:grid;grid-template-columns:1fr 1fr .8fr;gap:24px;padding:24px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:0 16px 40px -24px rgba(30,28,26,.35)}
+.mega h2{font-size:18px;margin-bottom:4px}
+.mega h2 a{text-decoration:none}
+.mega .ley{font-size:14px;color:var(--ink-soft);margin-bottom:12px}
+.mega ul{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.mega li a{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;min-height:var(--tap);padding:8px 12px;border-radius:var(--r-sm);text-decoration:none;font-size:15px;transition:background-color .15s ease}
+@media (hover:hover) and (pointer:fine){.mega li a:hover{background:var(--surface-2)}}
+.mega .num{width:24px;height:24px;display:grid;place-items:center;border-radius:50%;background:var(--panel);color:var(--ink);font:600 13px/1 var(--font-ui)}
+.mega .punto{width:24px;height:24px;display:grid;place-items:center}
+.mega .punto::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.mega small{font-size:13px;color:var(--ink-soft)}
+.mega .otras{padding-left:24px;border-left:1px solid var(--line)}
+.mega .otras li a{grid-template-columns:1fr}
+.mega .otras li a span{display:block;font-size:13px;color:var(--ink-soft)}
+
+@media (max-width:980px){
+  .nav-links,.nav-cta,.mega{display:none}
+  .nav-movil{display:inline-flex;margin-left:auto}
+}
+/* Menú del móvil: hoja que baja bajo la barra */
+.hoja{position:fixed;inset:var(--nav-h) 0 0 0;z-index:55;overflow:auto;background:var(--bg);padding:16px 16px 40px;opacity:0;transform:translateY(-8px);visibility:hidden;transition:opacity .22s var(--ease-out),transform .22s var(--ease-out),visibility 0s .22s}
+.hoja.abierto{opacity:1;transform:none;visibility:visible;transition:opacity .22s var(--ease-out),transform .22s var(--ease-out),visibility 0s}
+.hoja h2{font-size:20px;margin:24px 0 8px}
+.hoja ul{list-style:none;margin:0;padding:0}
+.hoja li a{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:48px;padding:8px 0;border-bottom:1px solid var(--line);text-decoration:none}
+.hoja li small{color:var(--ink-soft);font-size:14px;white-space:nowrap}
+.hoja .btn{width:100%;margin-top:24px}
+body.sin-scroll{overflow:hidden}
+
+/* ---------- Buscador y estado vacío ---------- */
+.buscador{position:relative;max-width:520px;margin-bottom:40px}
+.buscador svg{position:absolute;left:16px;top:50%;width:18px;height:18px;transform:translateY(-50%);color:var(--ink-soft)}
+.buscador input{width:100%;min-height:52px;padding:12px 16px 12px 46px;border:1px solid var(--ink);border-radius:999px;background:var(--surface);color:var(--ink);font:inherit;font-size:16px}
+.buscador input::placeholder{color:var(--ink-soft)}
+.vacio{padding:32px;border:1px dashed var(--line);border-radius:var(--r-md);text-align:center;color:var(--ink-soft)}
+.vacio button{margin-top:12px}
+
+/* ---------- Tarjeta de camino ---------- */
+.camino{position:relative;isolation:isolate;overflow:hidden;display:grid;grid-row:span 4;grid-template-rows:subgrid;row-gap:16px;padding:40px;border-radius:var(--r-lg);background:var(--surface-2);border:1px solid var(--line)}
+.camino h3{font-size:clamp(26px,2.6vw,34px);line-height:1.1;max-width:14ch}
+.camino .ley{color:var(--ink-soft);max-width:36ch}
+.camino ol,.camino ul{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:8px;align-content:start}
+.camino :is(ol,ul) a{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;min-height:64px;padding:12px 16px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--surface);text-decoration:none;font-weight:500;line-height:1.35;transition:border-color .2s ease,box-shadow .2s ease}
+@media (hover:hover) and (pointer:fine){.camino :is(ol,ul) a:hover{border-color:var(--accent);box-shadow:3px 3px 0 var(--accent)}}
+.camino :is(ol,ul) a:active{transform:scale(.99)}
+.camino .num{width:28px;height:28px;display:grid;place-items:center;border-radius:50%;background:var(--ink);color:var(--bg);font:600 14px/1 var(--font-ui)}
+.camino .punto{width:28px;height:28px;display:grid;place-items:center}
+.camino .punto::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--accent)}
+.camino :is(ol,ul) small{justify-self:end;padding:4px 10px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line);font-size:13px;font-weight:600;color:var(--ink-soft);white-space:nowrap}
+.camino .pie{align-self:end;padding-top:16px}
+.formas{position:absolute;right:32px;top:32px;width:88px;height:88px;z-index:-1;pointer-events:none}
+.cab-cam{display:grid;gap:12px;align-content:start}
+.etq{justify-self:start;padding:4px 12px;border-radius:999px;border:1px solid var(--ink);font-size:13px;font-weight:600;line-height:1.4}
+.formas svg{position:absolute;width:var(--s);height:var(--s);left:var(--x);top:var(--y);transform:rotate(var(--r));color:var(--c)}
+@media (max-width:860px){.caminos{grid-template-columns:1fr}.camino{padding:32px 24px}.formas{right:24px;top:24px}}
+@media (max-width:620px){.formas{width:64px;height:64px;right:20px;top:20px}.formas svg{width:64px;height:64px}.camino :is(ol,ul) a{grid-template-columns:auto 1fr;row-gap:0}.camino :is(ol,ul) small{grid-column:2;justify-self:start;margin-top:8px}}
+
+/* ---------- Ventanita de herramienta (la de la portada anterior) ---------- */
+.tool-card{transition-property:box-shadow,translate,rotate,scale;transition-duration:.18s;transition-timing-function:var(--ease-out)}
+  @keyframes rise{from{opacity:0;translate:0 6px;}}
+  .tool-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:22px;}
+  .tool-grid li{display:flex;}
+  .tool-card{flex:1;display:flex;flex-direction:column;overflow:hidden;text-decoration:none;color:var(--ink);background:var(--bg);border:var(--frame);border-radius:12px;box-shadow:3px 3px 0 var(--ink);}
+  .tool-card:focus-visible{translate:0 -5px;box-shadow:6px 6px 0 var(--c);}
+  /* Barra superior, como la de cada herramienta */
+  .clip-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--c);color:var(--surface);font-size:.62rem;font-weight:700;padding:6px 10px;border-bottom:var(--frame);white-space:nowrap;}
+  .clip-bar svg{width:9px;height:9px;margin-right:4px;vertical-align:-1px;}
+  .clip-bar > span:last-child{overflow:hidden;text-overflow:ellipsis;opacity:.9;}
+  .clip-body{flex:1;display:flex;flex-direction:column;gap:6px;padding:12px 14px;}
+  .clip-kick{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);}
+  .clip-h{font-family:var(--font-display);font-weight:600;font-size:1.06rem;line-height:1.12;letter-spacing:-.3px;}
+  .clip-h em{font-style:italic;color:var(--c);}
+  .clip-art{display:block;width:100%;max-width:200px;height:auto;margin-top:4px;}
+  .win-desc{font-size:.84rem;line-height:1.45;color:var(--ink-soft);}
+  .clip-go{display:inline-flex;align-items:center;gap:5px;margin-top:auto;padding-top:4px;font-size:.74rem;font-weight:700;}
+  .clip-go svg{width:13px;height:13px;color:var(--c);transition:translate .18s var(--ease-out);}
+  /* Etiquetas pequeñas de cada tarjeta: tiempo, si guarda y si saca informe */
+  .tool-meta{display:flex;flex-wrap:wrap;gap:5px;margin-top:2px;}
+  .tool-meta span{display:inline-flex;align-items:center;gap:4px;font-size:.68rem;font-weight:700;line-height:1;padding:4px 8px;border-radius:var(--radius-pill);border:1px solid var(--line);background:var(--surface);color:var(--ink-soft);white-space:nowrap;font-variant-numeric:tabular-nums;}
+  .tool-meta svg{width:11px;height:11px;color:var(--c);}
+  .tool-meta .on{background:var(--lime-soft);border-color:var(--lime-mid);color:var(--ink);}
+  /* En el móvil, dos tarjetas por fila y solo lo esencial: la descripción se lee al abrir */
+  @media (max-width:560px){
+    .tool-grid{grid-template-columns:1fr 1fr;gap:14px;}
+    .clip-bar > span:last-child{display:none;}
+    .clip-body{padding:10px 11px;gap:5px;}
+    .clip-h{font-size:.98rem;}
+    .win-desc{display:none;}
+    .tool-meta span:not(.on){display:none;}
+  }
+  /* Al cambiar un filtro, las tarjetas nuevas entran rápido y en cascada corta para que se note el cambio */
+  .pop{animation:rise .3s var(--ease-out) backwards;animation-delay:calc(var(--i,0) * 25ms);}
+  @media (hover:hover) and (pointer:fine){
+    .tool-card:hover{translate:0 -5px;rotate:-.6deg;box-shadow:6px 6px 0 var(--c);}
+    .tool-grid li:nth-child(even) .tool-card:hover{rotate:.6deg;}
+    .tool-card:hover .clip-go svg{translate:3px 0;}
+  }
+  .tool-card:active,.clip:active,.resume-item:active{scale:.98;}
+/* Las ventanitas van siempre en claro: sus dibujos están hechos para fondo claro */
+.tool-card{--bg:#FBFCEF;--surface:#FFFFFF;--ink:#1E1C1A;--ink-soft:#4A463F;--line:#E8E1D6;--frame:1px solid #1E1C1A;--radius-pill:999px;--lime-mid:#C5CD78;--lime-soft:#E8EDC4;--olive-deep:#6B7028;--olive-mid:#A8AD5C}
+
+/* ---------- Banda de contacto y pie ---------- */
+.banda{margin-top:96px;padding:72px 0;background:var(--band) url("../marca/mosaico-claro.svg") center/112px 112px;color:var(--on-band)}
+.banda .wrap{display:grid;grid-template-columns:minmax(0,1.2fr) auto;gap:24px 48px;align-items:center}
+.banda h2{font-size:clamp(28px,3.4vw,42px);line-height:1.1;max-width:20ch}
+.banda p{margin-top:12px;color:var(--on-band-soft);max-width:52ch}
+.banda .btn{background:var(--lime);border-color:var(--lime);color:#1E1C1A}
+@media (max-width:800px){.banda .wrap{grid-template-columns:1fr}}
+footer{background:var(--band);color:var(--on-band-soft);border-top:1px solid rgba(232,237,196,.15);padding:56px 0 32px;font-size:15px}
+.pie-cols{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px}
+.pie-cols img{height:32px;width:auto}
+.pie-cols p{margin-top:12px;max-width:30ch}
+.pie-cols h2{font:600 14px/1.4 var(--font-ui);letter-spacing:0;color:var(--on-band);margin-bottom:8px}
+.pie-cols ul{list-style:none;margin:0;padding:0}
+.pie-cols li a{display:inline-flex;align-items:center;min-height:36px;text-decoration:none}
+@media (hover:hover) and (pointer:fine){.pie-cols li a:hover{color:var(--lime)}}
+.pie-legal{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;margin-top:48px;padding-top:24px;border-top:1px solid rgba(232,237,196,.15);font-size:14px}
+.pie-legal nav{display:flex;flex-wrap:wrap;gap:4px 16px}
+.pie-legal a{text-decoration:none}
+@media (max-width:800px){.pie-cols{grid-template-columns:1fr 1fr}.pie-cols>div:first-child{grid-column:1/-1}}
+
+/* ---------- Modo oscuro (solo con tema-auto) ---------- */
+@media (prefers-color-scheme:dark){
+  .tema-auto .logo .claro{display:none}
+  .tema-auto .logo .oscuro{display:block}
+  .tema-auto .tool-card{box-shadow:3px 3px 0 #6B7028}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition-duration:.01ms!important;animation:none!important}
+}

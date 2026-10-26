@@ -64,7 +64,45 @@
   /* Mínimo para que algo se pulse bien con el dedo */
   --tap:44px;
 
+  /* Línea nueva (sesión 6): nombres que usan comun.css, portada.css y paginas.css */
+  --surface-2:#F5F6E4;     /* superficie-2: tarjetas de camino y zonas alternas */
+  --panel:#E8EDC4;         /* verde-pálido: panel de cabecera, con el mosaico */
+  --accent:#6B7028;        /* oliva: el único acento */
+  --on-accent:#FBFCEF;
+  --lime:#C5CD78;          /* lima: botón de la banda oscura */
+  --band:#1E1C1A;          /* negro: banda de contacto y pie */
+  --on-band:#FBFCEF;
+  --on-band-soft:#E8EDC4;
+  --mosaico:url("../marca/mosaico-oliva.svg");
+  --r-sm:12px;
+  --r-md:14px;
+  --r-lg:16px;
+  --nav-h:72px;
+
   color-scheme:light;
+}
+
+/* Modo oscuro: solo en las páginas que lo admiten (clase tema-auto en <html>).
+   Las demás siguen en claro hasta que se pasen al diseño nuevo. */
+@media (prefers-color-scheme:dark){
+  :root.tema-auto{
+    --bg:#1E1C1A;            /* negro */
+    --surface:#2B2D14;       /* texto-antiguo, como superficie oscura */
+    --surface-alt:#2B2D14;
+    --surface-2:#2B2D14;
+    --panel:#2B2D14;
+    --ink:#FBFCEF;           /* crema */
+    --ink-soft:#E8EDC4;      /* verde-pálido */
+    --ink-muted:#C5CD78;
+    --line:#4A463F;          /* tinta-suave, como borde */
+    --olive-deep:#A7AE4B;    /* oliva-oscuro-modo */
+    --accent:#A7AE4B;
+    --on-olive:#1E1C1A;
+    --on-accent:#1E1C1A;
+    --band:#2B2D14;
+    --mosaico:url("../marca/mosaico-claro.svg");
+    color-scheme:dark;
+  }
 }
 
 /* ---------- 2. Base ---------- */
