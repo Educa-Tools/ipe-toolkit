@@ -9,7 +9,10 @@ Herramientas interactivas y recursos para **Itinerario Personal para la Empleabi
 
 ## Cómo está organizado
 
-- `index.html` — la portada. No hace falta tocarla para añadir herramientas.
+- `index.html` — la portada. Está escrita a mano, pero lo que sale del catálogo (menú, caminos, índice, cifras, pie) lo rellena el generador entre marcas `<!-- generado:… -->`. No hace falta tocarla para añadir herramientas. Las cuatro ventanitas de «Cómo se usa» se eligen en su `data-herramientas`.
+- `trabajar/`, `emprender/`, `materias/`, `criterios/`, `ipe-1/`, `ipe-2/` y `recursos/<slug>/` — páginas que escribe el generador. No se editan a mano.
+- `estilos/` — `esplora.css` (colores y medidas, con modo oscuro en las páginas con la clase `tema-auto`), `comun.css` (menú, botones, ventanitas, banda y pie), `portada.css` y `paginas.css`.
+- `js/` — `esplora.js` (menú, mini dibujos, alturas iguales y buscador de los caminos), `miniaturas.js` (símbolo, iconos y dibujos de las ventanitas) y `portada.js` (lo propio de la portada y los enlaces antiguos con #).
 - `data/estructura.json` — **todo el contenido**, en cinco bloques:
   - `herramientas`: el catálogo. Cada herramienta tiene un identificador corto y sus datos, entre ellos `camino` y `tema` (dónde vive: ver `caminos`). Dentro de un tema, las herramientas salen en el orden en que están escritas aquí.
   - `caminos`: la estructura principal. Dos caminos («Trabajar por cuenta ajena» y «Emprender»), cada uno con su leyenda y sus temas (`id`, nombre y resumen). Un tema sin herramientas no se muestra. `antes` guarda el nombre corto antiguo del tema para que los enlaces viejos (`#tema-prl`) sigan funcionando.
@@ -31,7 +34,7 @@ Cada recurso toma el tipo de su módulo. Si alguno es de otro tipo (por ejemplo,
 ```
 
    - `titular`: el titular grande de la ficha del recurso (`recursos/<slug>/`). Copia el de la propia herramienta; lo que vaya entre `<em>` y `</em>` sale en cursiva y en su color. Si lo omites, se usa el `titulo`.
-   - `pregunta`: el titular de su tarjeta en la portada (y en la 404), siempre en forma de pregunta y sin repetir el nombre, que ya sale en la barra de la tarjeta. Si lo omites, se usa el `titular`.
+   - `pregunta`: el titular de su ventanita en los caminos, las materias y las fichas (y en la 404), siempre en forma de pregunta y sin repetir el nombre, que ya sale en la barra de la tarjeta. Si lo omites, se usa el `titular`.
    - `dibujo`: el mini dibujo de la ventanita. Elige uno de los que ya existen (`idea`, `ficha`, `estrella`, `canvas`, `pestel`, `porter`, `buyer`, `dafo`, `forma`, `patologias`, `ruta`, `expediente`, `buscador`, `piramide`, `ue`, `contingencias`, `prestaciones`, `nomina`, `balanza`) o pide uno nuevo. Si lo omites, sale un dibujo genérico.
 
    Campos opcionales para las etiquetas pequeñas de la tarjeta:
@@ -48,29 +51,24 @@ Cada recurso toma el tipo de su módulo. Si alguno es de otro tipo (por ejemplo,
 pwsh scripts/generar.ps1
 ```
 
-   Crea o actualiza la ficha de la herramienta, las páginas `ipe-1/` e `ipe-2/`, el catálogo escrito dentro de la portada, `sitemap.xml` y `llms.txt`, y añade la etiqueta canonical a la herramienta si le falta. Al final avisa si algo no cuadra (una herramienta sin unidad, un slug repetido…). Los archivos generados no se editan a mano: se cambia el JSON y se vuelve a ejecutar.
+   Crea o actualiza su ficha, su camino y su tema, `materias/`, `criterios/`, `ipe-1/` e `ipe-2/`, el menú y el índice de la portada, `sitemap.xml` y `llms.txt`, y añade la etiqueta canonical a la herramienta si le falta. Al final avisa si algo no cuadra (una herramienta sin camino o tema, un criterio que cita una herramienta que no existe, un slug repetido…). Los archivos generados no se editan a mano: se cambia el JSON y se vuelve a ejecutar.
 5. Guarda (commit) y sube a `main`. En uno o dos minutos está en la web.
 
 Usa siempre rutas relativas (`archivo.html`, no `/archivo.html`), para que funcionen tanto en `esplora.es` como en la dirección antigua.
 
 Notas:
-- Una unidad con la lista vacía `[]` aparece como "En construcción".
-- Una temática sin herramientas no se muestra.
+- Un tema, un bloque o una unidad sin herramientas no se muestra (lo que no existe no se enseña).
 - Separa los elementos con **comas**, sin coma después del último. Si la web muestra un aviso de error, casi siempre es eso.
 
 ## Enlaces directos para compartir con la clase
 
-- `https://esplora.es/ipe-1/` e `https://esplora.es/ipe-2/`: página de cada módulo con todos sus recursos.
-- `https://esplora.es/recursos/<slug>/`: ficha de un recurso (por ejemplo, `recursos/dafo-came/`).
+- `https://esplora.es/trabajar/` y `https://esplora.es/emprender/`: cada camino con sus temas. `#` + el `id` del tema baja a él (`emprender/#mercado`, `trabajar/#prevencion`).
+- `https://esplora.es/materias/`, `https://esplora.es/ipe-1/` e `https://esplora.es/ipe-2/`: por materia; `ipe-1/#b2` o `ipe-2/#ud1` bajan a un bloque o una unidad.
+- `https://esplora.es/criterios/`: por resultados de aprendizaje y criterios de evaluación.
+- `https://esplora.es/recursos/<slug>/`: ficha de una herramienta (por ejemplo, `recursos/dafo-came/`).
+- `https://esplora.es/#todas`: el índice completo de la portada.
 
-Y dentro del catálogo interactivo de la portada:
-
-- `https://esplora.es/#ipe2` abre IPE 2; `#ipe1` abre IPE 1.
-- `https://esplora.es/#ipe2-ud1` baja a la Unidad didáctica 1 de IPE 2; `#ipe1-b2` baja al Bloque 2 de IPE 1.
-- `https://esplora.es/#catalogo` abre todo el catálogo.
-- `#tema-prl` abre el catálogo filtrado por una temática (el nombre corto antiguo de cada tema, en su campo `antes`: `idea`, `mercado`, `viabilidad`, `prl`, `laboral`).
-- `#tipo-herramienta`, `#tipo-aula` o `#tipo-material` lo abren filtrado por tipo de recurso.
-- En la portada, cada módulo y cada unidad tiene un botón "Copiar enlace" que copia la dirección.
+Los enlaces antiguos de la portada siguen funcionando: `#ipe1` y `#ipe2` llevan a `ipe-1/` e `ipe-2/`; `#ipe2-ud1` o `#ipe1-b2`, al tema equivalente; `#tema-prl` y compañía (el campo `antes` de cada tema), a su tema; `#catalogo`, `#tematicas` y `#tipo-…`, al índice. Lo resuelve `js/portada.js` con los datos que escribe el generador.
 
 ## Nombres de archivo
 

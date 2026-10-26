@@ -10,10 +10,14 @@
       pwsh scripts/generar.ps1
 
   Qué escribe (todo se puede volver a generar; no edites esos archivos a mano):
-    - recursos/<slug>/index.html   ficha de cada herramienta
-    - ipe-1/index.html, ipe-2/…    página de cada módulo
-    - index.html                   solo el trozo entre las marcas
-                                   <!-- catalogo-generado:inicio --> y :fin
+    - trabajar/, emprender/        página de cada camino, con sus temas y herramientas
+    - materias/, criterios/        las mismas herramientas por materia y por criterio de evaluación
+    - ipe-1/, ipe-2/…              página de cada materia (misma dirección y anclajes #b1, #ud2…)
+    - recursos/<slug>/index.html   ficha de cada herramienta (o guía larga, si hay data/fichas/<slug>.md)
+    - index.html                   solo lo que va entre marcas <!-- generado:NOMBRE:inicio --> y :fin
+                                   (menú, caminos, ventanitas, índice, cifras, pie y datos para js/portada.js)
+  Las páginas nuevas cargan estilos/esplora.css, comun.css y paginas.css (o portada.css),
+  y js/miniaturas.js + js/esplora.js. El símbolo de Esplora lo lee de js/miniaturas.js.
     - sitemap.xml, llms.txt        índices para Google y para los asistentes de IA
     - robots.txt                   añade la línea Sitemap si falta
     - <herramienta>.html           añade <link rel="canonical"> si falta y mantiene
@@ -120,75 +124,11 @@ foreach ($m in $materias) {
 }
 foreach ($id in $H.Keys) { if (-not ($entradas | Where-Object id -eq $id)) { $avisos.Add("«$id» está en herramientas pero en ninguna unidad: no sale en las páginas generadas.") } }
 
-# ---------- Piezas comunes de las páginas ----------
-function Cabeza($o) {
-  # $o: titulo, desc, ruta (relativa al sitio, con / final), base (../ o ../../)
-@"
-<!DOCTYPE html>
-<html lang="es">
-<head>
-$Marca
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>$(Esc $o.titulo)</title>
-<meta name="description" content="$(Esc $o.desc)">
-<link rel="canonical" href="$Sitio/$($o.ruta)">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Esplora">
-<meta property="og:locale" content="es_ES">
-<meta property="og:url" content="$Sitio/$($o.ruta)">
-<meta property="og:title" content="$(Esc $o.titulo)">
-<meta property="og:description" content="$(Esc $o.desc)">
-$(ImagenCompartirDe $o.imagen $o.nombre)
-<meta name="theme-color" content="#FBFCEF">
-<link rel="icon" href="$($o.base)marca/simbolo-oliva.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="$($o.base)marca/apple-touch-icon.png">
-<link rel="stylesheet" href="$($o.base)fuentes/fuentes.css">
-<link rel="stylesheet" href="$($o.base)estilos/esplora.css">
-</head>
-<body class="doc">
-<a class="skip" href="#contenido">Saltar al contenido</a>
-<header class="top">
-  <div class="wrap">
-    <a href="$($o.base)" aria-label="Esplora, ir a la portada"><img src="$($o.base)marca/logo-horizontal-oliva.svg" alt="" width="114" height="28"></a>
-    <a class="link" href="$($o.base)#catalogo">Todo el catálogo</a>
-  </div>
-</header>
-"@
-}
-
-# Páginas legales: se enlazan desde el pie de todas las páginas
+# ---------- Páginas legales: se enlazan desde el pie de todas las páginas ----------
 $Legales = [ordered]@{ 'aviso-legal.html' = 'Aviso legal'; 'privacidad.html' = 'Privacidad'; 'cookies.html' = 'Cookies'; 'licencia.html' = 'Licencia y créditos'; 'accesibilidad.html' = 'Accesibilidad' }
 function EnlacesLegales($base, [string]$sep) { ($Legales.Keys | ForEach-Object { "<a href=""$base$_"">$($Legales[$_])</a>" }) -join $sep }
 
-function Pie($base) {
-@"
-<footer>
-  <div class="wrap">
-    <p><span translate="no">Esplora</span> · Herramientas para explorar en el aula · <a href="mailto:contacto@esplora.es">contacto@esplora.es</a></p>
-    <p>Gratis, en el navegador y sin crear cuentas. <a href="$($base)licencia.html">Licencia CC BY-NC-SA 4.0</a>.</p>
-    <p class="legal">$(EnlacesLegales $base ' · ')</p>
-  </div>
-</footer>
-</body>
-</html>
-"@
-}
 
-function Datos($e) {
-  # Etiquetas cortas: duración, informe
-  $d = @()
-  if ($e.t.minutos) { $d += "≈ $($e.t.minutos) min" }
-  if ($e.t.guarda) { $d += 'Guarda progreso' }
-  if ($e.t.informe) { $d += 'Informe PDF' }
-  $d -join ' · '
-}
-
-function Tarjeta($e, [string]$href) {
-  $c = if ($e.t.color) { " style=""--c:$($e.t.color)""" } else { '' }
-  $meta = Datos $e
-  "  <li><a href=""$href""$c><b>$(Esc $e.t.titulo)</b><span>$(Esc $e.t.descripcion)</span>$(if ($meta) { "<small>$meta</small>" })</a></li>"
-}
 
 # ---------- Fichas largas: data/fichas/<slug>.md -> HTML ----------
 # Markdown mínimo (títulos, párrafos, listas, tablas, negrita, cursiva, enlaces y
