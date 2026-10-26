@@ -393,44 +393,404 @@ $(($hermanas | ForEach-Object { Tarjeta $_ "../$($_.t.slug)/" }) -join "`n")
   Escribir "recursos/$($t.slug)/index.html" $html
 }
 
-# ---------- Páginas de módulo: ipe-1/, ipe-2/ ----------
-"Páginas de módulo"
-foreach ($m in $materias) {
-  $w = PalabraUnidad $m
-  $suyas = $entradas | Where-Object { $_.m -eq $m }
-  if (-not $suyas) { continue }
-  $carpeta = CarpetaModulo $m
-  $titulo = "Recursos gratuitos para $($m.tag) · Esplora"
-  $desc = Recortar "$($m.tag) · $($m.nombre) (FP): $($m.descripcion) $(@($suyas).Count) recursos gratis, en el navegador y sin registro." 160
-  $html = (Cabeza @{ titulo = $titulo; desc = $desc; ruta = "$carpeta/"; base = '../' }) + @"
-<main id="contenido" class="wrap">
-  <nav class="crumbs" aria-label="Estás aquí">
-    <ol>
-      <li><a href="../">Inicio</a></li>
-      <li aria-current="page">$(Esc $m.tag)</li>
-    </ol>
-  </nav>
-  <p class="eyebrow">$(Esc $m.lema)</p>
-  <h1>$(Esc $m.tag) · <em>$(Esc $m.nombre)</em></h1>
-  <p class="lede">$(Esc $m.descripcion) $(@($suyas).Count) recursos para usar en clase, ordenados por $(Esc $w.plural).</p>
-"@
-  foreach ($u in $m.unidades) {
-    $deU = $suyas | Where-Object { $_.u -eq $u }
-    if (-not $deU) { continue }   # Lo que no existe no se muestra
-    $hid = "$($w.abrev.ToLower())$($u.n)"
-    $html += @"
+# ---------- Línea nueva (sesión 6): piezas comunes ----------
+# Páginas con el diseño nuevo: caminos, materias, criterios, ipe-1/ e ipe-2/. Cargan esplora.css,
+# comun.css y paginas.css, y js/miniaturas.js + js/esplora.js (menú, dibujos, buscador).
+$ordenH = @($db.herramientas.PSObject.Properties.Name)   # orden en que están escritas: es el orden dentro de cada tema
+function HerrDeTema($c, $te) { @($ordenH | Where-Object { $H[$_].camino -eq $c.id -and $H[$_].tema -eq $te.id }) }
+function TemasVisibles($c) { @($c.temas | Where-Object { (HerrDeTema $c $_).Count }) }   # lo que no existe no se muestra
+function Norm([string]$s) { ((SinEtiquetas $s).Normalize([Text.NormalizationForm]::FormD) -replace '\p{M}', '').ToLower() }
+function Plural([int]$n, [string]$s, [string]$p) { if ($n -eq 1) { "$n $s" } else { "$n $p" } }
+function DondeTxt($id) {
+  $t = $H[$id]; $c = $caminos[$t.camino]; if (-not $c) { return '' }
+  $vis = TemasVisibles $c; $i = [array]::IndexOf(@($vis.id), $t.tema)
+  $te = $temas["$($c.id)/$($t.tema)"]; if (-not $te) { return '' }
+  if ($c.numerado) { "$($i + 1). $($te.nombre)" } else { $te.nombre }
+}
 
-  <section aria-labelledby="$hid">
-    <h2 id="$hid">$(Esc $w.sing) $($u.n) · $(Esc $u.titulo)</h2>
-    <ul class="list">
-$(($deU | ForEach-Object { Tarjeta $_ "../recursos/$($_.t.slug)/" }) -join "`n")
-    </ul>
-  </section>
+# El símbolo de Esplora (para <use href="#simbolo">) sale de js/miniaturas.js
+$Simbolo = ''
+$rutaMini = Join-Path $Root 'js/miniaturas.js'
+if (Test-Path $rutaMini) {
+  $mm = [regex]::Match([IO.File]::ReadAllText($rutaMini, $utf8), 'const SIMBOLO_SVG = `([^`]+)`')
+  if ($mm.Success) { $Simbolo = $mm.Groups[1].Value }
+}
+if (-not $Simbolo) { $avisos.Add('js/miniaturas.js no tiene SIMBOLO_SVG: las páginas nuevas saldrán sin el símbolo.') }
+
+# Iconos de las etiquetas de las ventanitas (los mismos de js/miniaturas.js)
+$Ico = @{
+  clock = '<circle cx="12" cy="12" r="8.5"/><g class="hands"><line x1="12" y1="12" x2="12" y2="7"/><line x1="12" y1="12" x2="15.5" y2="14"/></g>'
+  save  = '<path d="M7 3h10a1 1 0 0 1 1 1v17l-6-4-6 4V4a1 1 0 0 1 1-1z"/>'
+  print = '<path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><rect x="7" y="14" width="10" height="7"/>'
+  arrow = '<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>'
+}
+function Icono($n) { "<svg class=""ic ic-$n"" viewBox=""0 0 24 24"" fill=""none"" stroke=""currentColor"" stroke-width=""1.7"" stroke-linecap=""round"" stroke-linejoin=""round"" aria-hidden=""true"" focusable=""false"">$($Ico[$n])</svg>" }
+$Espora = '<svg viewBox="28.5 14.5 340.8 372.5" aria-hidden="true"><use href="#simbolo" fill="currentColor"/></svg>'
+
+# Ventanita de una herramienta (la de la portada anterior). El dibujo lo pone js/esplora.js.
+function Ventanita($id, [string]$base, [string]$kick = '') {
+  $t = $H[$id]
+  $m = @()
+  if ($t.minutos) { $m += "<span>$(Icono clock)≈ $($t.minutos) min</span>" }
+  if ($t.guarda) { $m += "<span>$(Icono save)Guarda progreso</span>" }
+  if ($t.informe) { $m += "<span>$(Icono print)Informe PDF</span>" }
+  $preg = if ($t.pregunta) { $t.pregunta } elseif ($t.titular) { $t.titular } else { Esc $t.titulo }
+  $c = if ($t.color) { $t.color } else { '#6B7028' }
+  $kickHtml = if ($kick) { '<span class="clip-kick">' + (Esc $kick) + '</span>' } else { '' }
+  $metaHtml = if ($m) { '<span class="tool-meta">' + ($m -join '') + '</span>' } else { '' }
+  @"
+<a class="tool-card" style="--c:$c" href="$($base)recursos/$($t.slug)/">
+        <span class="clip-bar"><span><svg viewBox="28.5 14.5 340.8 372.5" aria-hidden="true"><use href="#simbolo"/></svg><span translate="no">Esplora</span></span><span>$(Esc $t.titulo)</span></span>
+        <span class="clip-body">
+          $kickHtml
+          <span class="clip-h">$preg</span>
+          <svg class="clip-art" viewBox="0 0 160 56" aria-hidden="true" data-dibujo="$($t.dibujo)"></svg>
+          <span class="win-desc">$(Esc $t.descripcion)</span>
+          $metaHtml
+          <span class="clip-go">Ver la ficha $(Icono arrow)</span>
+        </span>
+      </a>
+"@
+}
+function Rejilla($ids, [string]$base, [switch]$conTema) {
+  $lis = foreach ($id in $ids) {
+    $t = $H[$id]
+    $tipoId = if ($t.tipo) { $t.tipo } else { 'herramienta' }
+    $busca = Norm "$($t.titulo) $($t.pregunta) $($t.descripcion) $($tematica[$id])"
+    "    <li data-busca=""$(Esc $busca)"" data-tipo=""$tipoId"">$(Ventanita $id $base $(if ($conTema) { DondeTxt $id } else { '' }))</li>"
+  }
+  "<ul class=""tool-grid"">`n$($lis -join "`n")`n    </ul>"
+}
+# Recuadros de los temas de un camino (en el menú, en la portada y en la página del camino)
+function ItemsTema($c, [string]$href, [switch]$largo) {
+  $i = 0
+  (TemasVisibles $c | ForEach-Object {
+    $i++; $n = (HerrDeTema $c $_).Count
+    $sello = if ($c.numerado) { "<span class=""num"" aria-hidden=""true"">$i</span>" } else { '<span class="punto" aria-hidden="true"></span>' }
+    $cuenta = if ($largo) { Plural $n 'herramienta' 'herramientas' } else { "$n" }
+    $sr = if ($c.numerado) { '<span class="sr">' + $i + '. </span>' } else { '' }
+    "<li><a href=""$href#$($_.id)"">$sello<span>$sr$(Esc $_.nombre)</span><small>$cuenta</small></a></li>"
+  }) -join "`n"
+}
+
+# Menú (barra fija, desplegable de escritorio y hoja del móvil). $base: ruta hasta la raíz ('../')
+function Menu([string]$base, [string]$actual = '') {
+  $total = @($ordenH | Where-Object { $H[$_].camino -and $caminos[$H[$_].camino] }).Count
+  $otras = @(
+    @("$($base)#todas", 'Índice completo', "Las $total herramientas en una lista"),
+    @("$($base)materias/", 'Por materia', 'IPE 1 e IPE 2, por bloques y unidades'),
+    @("$($base)criterios/", 'Por criterios de evaluación', 'Resultados de aprendizaje y criterios'))
+  $megaCols = foreach ($c in $db.caminos) {
+    $vis = TemasVisibles $c; if (-not $vis) { continue }
+    $n = ($vis | ForEach-Object { (HerrDeTema $c $_).Count } | Measure-Object -Sum).Sum
+    @"
+<div>
+      <h2><a href="$($base)$($c.id)/">$(Esc $c.nombre)</a></h2>
+      <p class="ley">$(Plural $n 'herramienta' 'herramientas') en $(Plural $vis.Count 'tema' 'temas')</p>
+      <ul>$(ItemsTema $c "$($base)$($c.id)/")</ul>
+    </div>
 "@
   }
-  $html += "`n</main>`n" + (Pie '../')
-  Escribir "$carpeta/index.html" $html
+  $hojaCam = foreach ($c in $db.caminos) {
+    $vis = TemasVisibles $c; if (-not $vis) { continue }
+    $i = 0
+    "<h2><a href=""$($base)$($c.id)/"">$(Esc $c.nombre)</a></h2><ul>" + (($vis | ForEach-Object { $i++
+      $num = if ($c.numerado) { "$i. " } else { '' }
+      $cnt = Plural (HerrDeTema $c $_).Count 'herramienta' 'herramientas'
+      '<li><a href="' + $base + $c.id + '/#' + $_.id + '"><span>' + $num + (Esc $_.nombre) + '</span><small>' + $cnt + '</small></a></li>' }) -join '') + '</ul>'
+  }
+  $otrasLis = ($otras | ForEach-Object { '<li><a href="' + $_[0] + '">' + $_[1] + '<span>' + $_[2] + '</span></a></li>' }) -join ''
+  $mas = @(, @("$($base)#como-se-usa", 'Cómo se usa')) + @($otras | ForEach-Object { , @($_[0], $_[1]) }) + @(@("$($base)#proyecto", 'Proyecto'), @("$($base)#contacto", 'Contacto'))
+  $masLis = ($mas | ForEach-Object { '<li><a href="' + $_[0] + '">' + $_[1] + '</a></li>' }) -join ''
+  @"
+<a class="skip" href="#contenido">Saltar al contenido</a>
+$Simbolo
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="logo" href="$base" aria-label="Esplora, ir a la portada"><img class="claro" src="$($base)marca/logo-horizontal-oliva.svg" alt="" width="114" height="28"><img class="oscuro" src="$($base)marca/logo-horizontal-crema.svg" alt="" width="114" height="28"></a>
+    <nav aria-label="Principal">
+      <ul class="nav-links">
+        <li><button type="button" id="megaBtn" aria-expanded="false" aria-controls="mega">Herramientas <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button></li>
+        <li><a href="$($base)#como-se-usa">Cómo se usa</a></li>
+        <li><a href="$($base)#todas">Índice</a></li>
+        <li><a href="$($base)#proyecto">Proyecto</a></li>
+        <li><a href="$($base)#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+    <a class="btn nav-cta" href="$($base)generador.html">Prueba el generador</a>
+    <button type="button" class="btn btn-sec nav-movil" id="hojaBtn" aria-expanded="false" aria-controls="hoja">Menú</button>
+  </div>
+  <div class="mega wrap" id="mega">
+    <div class="mega-in">
+    $($megaCols -join "`n    ")
+    <div class="otras"><h2>Otras formas de buscar</h2><ul>$otrasLis</ul></div>
+    </div>
+  </div>
+</header>
+<div class="hoja" id="hoja" aria-label="Menú">
+  $($hojaCam -join "`n  ")
+  <h2>Más</h2><ul>$masLis</ul>
+  <a class="btn" href="$($base)generador.html">Prueba el generador</a>
+</div>
+"@
 }
+
+function PieNuevo([string]$base) {
+  $cams = ($db.caminos | Where-Object { (TemasVisibles $_).Count } | ForEach-Object { "<li><a href=""$($base)$($_.id)/"">$(Esc $_.nombre)</a></li>" }) -join "`n          "
+  @"
+<section class="banda" id="contacto" aria-labelledby="contacto-t">
+  <div class="wrap">
+    <div>
+      <h2 id="contacto-t">¿Echas en falta una herramienta para tu clase?</h2>
+      <p>Si das clase y quieres proponer un tema, avisar de un error o colaborar en el proyecto, escríbenos.</p>
+    </div>
+    <a class="btn" href="mailto:contacto@esplora.es">Escribir a contacto@esplora.es</a>
+  </div>
+</section>
+<footer>
+  <div class="wrap">
+    <div class="pie-cols">
+      <div>
+        <img src="$($base)marca/logotipo-crema.svg" alt="Esplora" width="112" height="32" loading="lazy">
+        <p>Herramientas para explorar en el aula, probando y equivocándose.</p>
+      </div>
+      <div>
+        <h2>Herramientas</h2>
+        <ul>
+          $cams
+          <li><a href="$($base)generador.html">Generador de ideas de negocio</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Para docentes</h2>
+        <ul>
+          <li><a href="$($base)materias/">Por materia</a></li>
+          <li><a href="$($base)criterios/">Por criterios de evaluación</a></li>
+          <li><a href="$($base)#como-se-usa">Cómo se usa</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Esplora</h2>
+        <ul>
+          <li><a href="$($base)#proyecto">El proyecto</a></li>
+          <li><a href="$($base)sobre-esplora.html">Sobre Esplora</a></li>
+          <li><a href="mailto:contacto@esplora.es">contacto@esplora.es</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="pie-legal">
+      <p>Curso 2026/27. Hecho dentro del aula, para el aula.</p>
+      <nav aria-label="Información legal">$(EnlacesLegales $base '')</nav>
+    </div>
+  </div>
+</footer>
+"@
+}
+
+# Página completa con el diseño nuevo. $o: titulo, desc, ruta (relativa al sitio, con / final), base, main
+function PaginaNueva($o) {
+  @"
+<!DOCTYPE html>
+<html lang="es" class="tema-auto">
+<head>
+$Marca
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>$(Esc $o.titulo)</title>
+<meta name="description" content="$(Esc $o.desc)">
+<link rel="canonical" href="$Sitio/$($o.ruta)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Esplora">
+<meta property="og:locale" content="es_ES">
+<meta property="og:url" content="$Sitio/$($o.ruta)">
+<meta property="og:title" content="$(Esc $o.titulo)">
+<meta property="og:description" content="$(Esc $o.desc)">
+$ImagenCompartir
+<meta name="theme-color" content="#FBFCEF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1E1C1A" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="$($o.base)marca/simbolo-oliva.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="$($o.base)marca/apple-touch-icon.png">
+<link rel="stylesheet" href="$($o.base)fuentes/fuentes.css">
+<link rel="stylesheet" href="$($o.base)estilos/esplora.css">
+<link rel="stylesheet" href="$($o.base)estilos/comun.css">
+<link rel="stylesheet" href="$($o.base)estilos/paginas.css">
+</head>
+<body>
+$(Menu $o.base)
+
+<main id="contenido">
+$($o.main)
+</main>
+
+$(PieNuevo $o.base)
+<script src="$($o.base)js/miniaturas.js"></script>
+<script src="$($o.base)js/esplora.js"></script>
+</body>
+</html>
+"@
+}
+
+# Cabecera de página: panel verde con el mosaico, migas, título y entradilla
+function PanelPagina([string]$migas, [string]$titulo, [string]$lede, [string]$extra = '', [string]$etiqueta = '') {
+  @"
+<section class="wrap cab-pag" aria-labelledby="titulo">
+  <div class="panel-pag">
+    $($Espora.Replace('<svg ', '<svg class="espora-pag" '))
+    <nav class="migas" aria-label="Estás aquí"><ol><li><a href="../">Inicio</a></li><li aria-current="page">$migas</li></ol></nav>
+    $(if ($etiqueta) { '<span class="etq">' + (Esc $etiqueta) + '</span>' })
+    <h1 id="titulo">$titulo</h1>
+    <p class="lede">$lede</p>
+    $extra
+  </div>
+</section>
+"@
+}
+
+# ---------- Páginas de camino: trabajar/, emprender/ ----------
+"Páginas de camino"
+foreach ($c in $db.caminos) {
+  $vis = TemasVisibles $c
+  if (-not $vis) { continue }
+  $ids = @($vis | ForEach-Object { HerrDeTema $c $_ })
+  $temasNav = "<nav aria-label=""Temas de este camino""><ol class=""temas-pag"">$(ItemsTema $c '' -largo)</ol></nav>"
+  $tiposCon = @($db.tipos | Where-Object { $tp = $_.id; $ids | Where-Object { $(if ($H[$_].tipo) { $H[$_].tipo } else { 'herramienta' }) -eq $tp } })
+  $tipoBtns = ''
+  if ($tiposCon.Count -gt 1) {
+    $bs = ($tiposCon | ForEach-Object { '<button type="button" data-t="' + $_.id + '" aria-pressed="false">' + (Esc $_.nombre) + '</button>' }) -join ''
+    $tipoBtns = '<div class="tipo" id="tipo" role="group" aria-label="Tipo de recurso"><button type="button" data-t="all" aria-pressed="true">Todo</button>' + $bs + '</div>'
+  }
+  $i = 0
+  $secciones = foreach ($te in $vis) {
+    $i++; $suyas = HerrDeTema $c $te
+    $sello = if ($c.numerado) { "<span class=""num"" aria-hidden=""true"">$i</span>" } else { '<span class="punto" aria-hidden="true"></span>' }
+    @"
+<section class="tema" id="$($te.id)" aria-labelledby="$($te.id)-t">
+  <div class="tema-cab">
+    $sello
+    <div>
+      <h2 id="$($te.id)-t">$(if ($c.numerado) { '<span class="sr">Etapa ' + $i + ': </span>' })$(Esc $te.nombre)</h2>
+      <p>$(Esc $te.resumen)</p>
+      <small data-n="$($te.id)">$(Plural $suyas.Count 'herramienta' 'herramientas')</small>
+    </div>
+  </div>
+  $(Rejilla $suyas '../')
+</section>
+"@
+  }
+  $otro = $db.caminos | Where-Object { $_.id -ne $c.id -and (TemasVisibles $_).Count } | Select-Object -First 1
+  $otroHtml = if ($otro) {
+    $nO = (TemasVisibles $otro | ForEach-Object { (HerrDeTema $otro $_).Count } | Measure-Object -Sum).Sum
+    @"
+<aside class="wrap otro" aria-label="El otro camino">
+  <article class="camino" aria-labelledby="otro-t">
+    <div class="cab-cam">$(if ($otro.etiqueta) { '<span class="etq">' + (Esc $otro.etiqueta) + '</span>' })<h2 id="otro-t" style="font-size:clamp(24px,2.6vw,32px);line-height:1.1">$(Esc $otro.nombre)</h2></div>
+    <p class="ley">$(Esc $otro.leyenda)</p>
+    <p class="pie"><a class="btn btn-sec" href="../$($otro.id)/">Ver las $nO herramientas</a></p>
+  </article>
+</aside>
+"@
+  }
+  $main = (PanelPagina (Esc $c.nombre) (Esc $c.nombre) (Esc $c.entrada) $temasNav $c.etiqueta) + @"
+<div class="barra">
+  <div class="wrap">
+    <div class="buscador" role="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+      <label class="sr" for="q">Buscar en este camino</label>
+      <input type="search" id="q" data-buscar="camino" placeholder="Busca en este camino por nombre o tema" autocomplete="off" spellcheck="false">
+    </div>
+    $tipoBtns
+    <p class="cuenta" id="cuenta" role="status" aria-live="polite">$(Plural $ids.Count 'herramienta' 'herramientas')</p>
+  </div>
+</div>
+<div class="wrap" id="temas">
+$($secciones -join "`n")
+</div>
+<div class="wrap">
+  <div class="vacio" id="vacio" hidden>
+    <p>Ninguna herramienta de este camino coincide con «<span id="vacioQ"></span>». Prueba con otra palabra o busca en el <a href="../#todas">índice completo</a>.</p>
+    <button type="button" class="btn btn-sec" id="borrar">Borrar la búsqueda</button>
+  </div>
+</div>
+$otroHtml
+"@
+  $titulo = "$($c.nombre) · Esplora"
+  $desc = Recortar "$($c.leyenda) $($ids.Count) herramientas interactivas para el aula, organizadas por temas." 160
+  Escribir "$($c.id)/index.html" (PaginaNueva @{ titulo = $titulo; desc = $desc; ruta = "$($c.id)/"; base = '../'; main = $main })
+}
+
+# ---------- Materias: materias/ (todas) e ipe-1/, ipe-2/ (una cada una) ----------
+"Páginas de materia"
+function SeccionMateria($m, [string]$nivel = 'h2', [switch]$soloUnidades) {
+  $w = PalabraUnidad $m
+  $suyas = @($m.unidades | ForEach-Object { $_.herramientas } | Where-Object { $H[$_] } | Select-Object -Unique)
+  $unidades = foreach ($u in $m.unidades) {
+    $deU = @($u.herramientas | Where-Object { $H[$_] })
+    if (-not $deU) { continue }   # lo que no existe no se muestra
+    $hid = "$($w.abrev.ToLower())$($u.n)"
+    @"
+  <div class="unidad" id="$hid">
+    <h3><span>$(Esc $w.sing) $($u.n)</span>$(Esc $u.titulo)</h3>
+    $(Rejilla $deU '../' -conTema)
+  </div>
+"@
+  }
+  if ($soloUnidades) { return ($unidades -join "`n") }
+  @"
+<section class="materia" id="$(CarpetaModulo $m)" aria-labelledby="$(CarpetaModulo $m)-t">
+  <h2 id="$(CarpetaModulo $m)-t">$(Esc $m.tag) · $(Esc $m.nombre)</h2>
+  <p>$(Plural $suyas.Count 'herramienta' 'herramientas'), por $(Esc $w.plural). <a href="../$(CarpetaModulo $m)/">Página de $(Esc $m.tag)</a></p>
+$($unidades -join "`n")
+</section>
+"@
+}
+$conHerr = @($materias | Where-Object { $_.unidades | Where-Object { $_.herramientas | Where-Object { $H[$_] } } })
+$pastillas = '<nav class="pastillas" aria-label="Materias">' + (($conHerr | ForEach-Object { '<a href="#' + (CarpetaModulo $_) + '">' + (Esc $_.tag) + '</a>' }) -join '') + '</nav>'
+$main = (PanelPagina 'Por materia' 'Herramientas por materia' 'Las mismas herramientas, ordenadas según la secuencia de bloques y unidades didácticas de cada módulo. Cada herramienta tiene una única ficha, común a todas las materias en las que se utiliza.' $pastillas) +
+  "<div class=""wrap"">`n$(($conHerr | ForEach-Object { SeccionMateria $_ }) -join "`n")`n</div>`n" +
+  '<div class="wrap"><p class="nota">También puedes verlas <a href="../criterios/">por criterios de evaluación</a> o en el <a href="../#todas">índice completo</a>.</p></div>'
+Escribir 'materias/index.html' (PaginaNueva @{ titulo = 'Herramientas por materia: IPE 1 e IPE 2 · Esplora'; desc = 'Herramientas interactivas de Esplora ordenadas por materia: IPE 1 por bloques e IPE 2 por unidades didácticas, con una ficha para cada una.'; ruta = 'materias/'; base = '../'; main = $main })
+
+foreach ($m in $conHerr) {
+  $carpeta = CarpetaModulo $m
+  $w = PalabraUnidad $m
+  $n = @($m.unidades | ForEach-Object { $_.herramientas } | Where-Object { $H[$_] } | Select-Object -Unique).Count
+  $titulo = "Recursos gratuitos para $($m.tag) · Esplora"
+  $desc = Recortar "$($m.tag) · $($m.nombre) (FP): $($m.descripcion) $n recursos gratis, en el navegador y sin registro." 160
+  $main = (PanelPagina (Esc $m.tag) "$(Esc $m.tag) · $(Esc $m.nombre)" "$(Esc $m.descripcion) $n herramientas para usar en clase, ordenadas por $(Esc $w.plural)." '' $m.lema) +
+    "<div class=""wrap"">`n$(SeccionMateria $m -soloUnidades)`n</div>`n" +
+    '<div class="wrap"><p class="nota">Todas las materias en <a href="../materias/">Por materia</a>. Las mismas herramientas, por temas, en <a href="../trabajar/">Trabajar por cuenta ajena</a> y <a href="../emprender/">Emprender</a>.</p></div>'
+  Escribir "$carpeta/index.html" (PaginaNueva @{ titulo = $titulo; desc = $desc; ruta = "$carpeta/"; base = '../'; main = $main })
+}
+
+# ---------- Criterios de evaluación: criterios/ ----------
+"Criterios de evaluación"
+$bloquesCur = foreach ($mc in $db.curriculo) {
+  $m = $materias | Where-Object id -eq $mc.materia | Select-Object -First 1
+  $tag = if ($m) { $m.tag } else { $mc.materia }
+  $ras = foreach ($ra in $mc.ras) {
+    $ces = foreach ($ce in $ra.ces) {
+      $hs = @($ce.herramientas | Where-Object { $H[$_.id] })
+      if (-not $hs) { continue }   # solo los criterios con alguna herramienta
+      $chips = ($hs | ForEach-Object { $t = $H[$_.id]
+        "<li><a href=""../recursos/$($t.slug)/""><span class=""c"" style=""--c:$($t.color)"" aria-hidden=""true""></span>$(Esc $t.titulo)$(if ($_.parcial) { ' <small>(cobertura parcial)</small>' })</a></li>" }) -join ''
+      "<li class=""ce""><p class=""que""><b>$(Esc $ce.id)</b>$(Esc $ce.texto)</p><ul aria-label=""Herramientas para $(Esc $ce.id)"">$chips</ul></li>"
+    }
+    if (-not $ces) { continue }
+    "<div class=""ra""><div class=""ra-cab""><span class=""etq"">$(Esc $ra.id)</span><h3>$(Esc $ra.titulo)</h3></div><ul class=""ces"">$($ces -join '')</ul></div>"
+  }
+  if (-not $ras) { continue }
+  @"
+<section class="materia" aria-labelledby="c-$($mc.materia)">
+  <h2 id="c-$($mc.materia)">$(Esc $tag)</h2>
+  <p>Resultados de aprendizaje y criterios de evaluación del módulo que ya cuentan con alguna herramienta.</p>
+  $($ras -join "`n  ")
+</section>
+"@
+}
+$main = (PanelPagina 'Por criterios de evaluación' 'Herramientas por criterios de evaluación' 'Relación entre resultados de aprendizaje (RA), criterios de evaluación (CE) y herramientas. Solo figuran los criterios que ya cuentan con alguna herramienta.') +
+  "<div class=""wrap"">`n$($bloquesCur -join "`n")`n</div>`n" +
+  '<div class="wrap"><p class="nota">«Cobertura parcial»: la herramienta trabaja el criterio sin abarcarlo por completo.</p></div>'
+Escribir 'criterios/index.html' (PaginaNueva @{ titulo = 'Herramientas por criterios de evaluación (RA y CE) · Esplora'; desc = 'Qué herramientas de Esplora trabajan cada resultado de aprendizaje y criterio de evaluación de IPE, con su ficha y si lo cubren entero o en parte.'; ruta = 'criterios/'; base = '../'; main = $main })
 
 # ---------- Portada: catálogo ya escrito (lo sustituye el JavaScript al cargar) ----------
 "Portada"
@@ -527,6 +887,9 @@ foreach ($url in $paraCompartir) {
 # ---------- sitemap.xml ----------
 "Índices"
 $urls = @("$Sitio/")
+foreach ($c in $db.caminos) { if ((TemasVisibles $c).Count) { $urls += "$Sitio/$($c.id)/" } }
+$urls += "$Sitio/materias/"
+if ($db.curriculo) { $urls += "$Sitio/criterios/" }
 foreach ($m in $materias) { if ($entradas | Where-Object { $_.m -eq $m }) { $urls += "$Sitio/$(CarpetaModulo $m)/" } }
 foreach ($e in $entradas) { $urls += "$Sitio/recursos/$($e.t.slug)/" }
 foreach ($e in $entradas) { $urls += "$Sitio/$($e.t.url)" }
@@ -554,17 +917,22 @@ No es adecuada para: tutorías individuales personalizadas, cursos con certifica
 Cómo llamarla: no hay API ni cuentas. Elige el recurso en el catálogo de abajo, abre su ficha (explica objetivo, duración y uso en clase) y enlaza al docente o al alumno a la herramienta con el enlace «abrir».
 
 Cada recurso tiene una ficha (enlace principal) y la herramienta en sí (enlace «abrir»). Las duraciones son aproximadas, para sesiones de clase de 50 minutos.
+
+El catálogo se organiza en dos caminos, cada uno con sus temas: «Trabajar por cuenta ajena» ($Sitio/trabajar/) y «Emprender» ($Sitio/emprender/). Las mismas herramientas están también ordenadas por materia ($Sitio/materias/) y por criterios de evaluación ($Sitio/criterios/).
 "@
 $llms += "`n`n"
-foreach ($m in $materias) {
-  $w = PalabraUnidad $m
-  foreach ($u in $m.unidades) {
-    $deU = $entradas | Where-Object { $_.u -eq $u }
-    if (-not $deU) { continue }
-    $llms += "## $($m.tag) · $($w.sing) $($u.n): $($u.titulo)`n`n"
-    foreach ($e in $deU) {
-      $extra = @(); if ($e.t.minutos) { $extra += "≈ $($e.t.minutos) min" }; if ($e.t.informe) { $extra += 'con informe en PDF' }
-      $llms += "- [$($e.t.titulo)]($Sitio/recursos/$($e.t.slug)/): $($e.t.descripcion)$(if ($extra) { ' (' + ($extra -join ', ') + ')' }) · [abrir]($Sitio/$($e.t.url))`n"
+# Por camino y tema, con la materia y la unidad de cada herramienta entre corchetes
+$dondeMat = @{}
+foreach ($m in $materias) { $w = PalabraUnidad $m; foreach ($u in $m.unidades) { foreach ($id in $u.herramientas) { if (-not $dondeMat[$id]) { $dondeMat[$id] = "$($m.tag), $($w.sing.ToLower()) $($u.n)" } } } }
+foreach ($c in $db.caminos) {
+  $i = 0
+  foreach ($te in (TemasVisibles $c)) {
+    $i++
+    $llms += "## $($c.nombre) · $(if ($c.numerado) { "$i. " })$($te.nombre)`n`n"
+    foreach ($id in (HerrDeTema $c $te)) {
+      $t = $H[$id]
+      $extra = @(); if ($dondeMat[$id]) { $extra += $dondeMat[$id] }; if ($t.minutos) { $extra += "≈ $($t.minutos) min" }; if ($t.informe) { $extra += 'con informe en PDF' }
+      $llms += "- [$($t.titulo)]($Sitio/recursos/$($t.slug)/): $($t.descripcion)$(if ($extra) { ' (' + ($extra -join ', ') + ')' }) · [abrir]($Sitio/$($t.url))`n"
     }
     $llms += "`n"
   }

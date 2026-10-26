@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://esplora.es/</loc></url>
+  <url><loc>https://esplora.es/trabajar/</loc></url>
+  <url><loc>https://esplora.es/emprender/</loc></url>
+  <url><loc>https://esplora.es/materias/</loc></url>
+  <url><loc>https://esplora.es/criterios/</loc></url>
   <url><loc>https://esplora.es/ipe-1/</loc></url>
   <url><loc>https://esplora.es/ipe-2/</loc></url>
   <url><loc>https://esplora.es/recursos/patologias-inespecificas/</loc></url>
