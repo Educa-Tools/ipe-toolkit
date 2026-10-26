@@ -504,7 +504,6 @@ foreach ($c in $db.caminos) {
     $sello
     <div>
       <h2 id="$($te.id)-t">$(if ($c.numerado) { '<span class="sr">Etapa ' + $i + ': </span>' })$(Esc $te.nombre)</h2>
-      <p>$(Esc $te.resumen)</p>
       <small data-n="$($te.id)">$(Plural $suyas.Count 'herramienta' 'herramientas')</small>
     </div>
   </div>
@@ -593,7 +592,7 @@ foreach ($m in $conHerr) {
   $desc = Recortar "$($m.tag) · $($m.nombre) (FP): $($m.descripcion) $n recursos gratis, en el navegador y sin registro." 160
   $main = (PanelPagina (Esc $m.tag) "$(Esc $m.tag) · $(Esc $m.nombre)" "$(Esc $m.descripcion) $n herramientas para usar en clase, ordenadas por $(Esc $w.plural)." '' $m.lema) +
     "<div class=""wrap"">`n$(SeccionMateria $m -soloUnidades)`n</div>`n" +
-    '<div class="wrap"><p class="nota">Todas las materias en <a href="../materias/">Por materia</a>. Las mismas herramientas, por temas, en <a href="../trabajar/">Trabajar por cuenta ajena</a> y <a href="../emprender/">Emprender</a>.</p></div>'
+    '<div class="wrap"><p class="nota">Todas las materias en <a href="../materias/">Por materia</a>. Las mismas herramientas, por temas, en <a href="../trabajar/">Trabajo por cuenta ajena</a> y <a href="../emprender/">Emprendimiento</a>.</p></div>'
   Escribir "$carpeta/index.html" (PaginaNueva @{ titulo = $titulo; desc = $desc; ruta = "$carpeta/"; base = '../'; main = $main })
 }
 
@@ -968,7 +967,7 @@ Cómo llamarla: no hay API ni cuentas. Elige el recurso en el catálogo de abajo
 
 Cada recurso tiene una ficha (enlace principal) y la herramienta en sí (enlace «abrir»). Las duraciones son aproximadas, para sesiones de clase de 50 minutos.
 
-El catálogo se organiza en dos caminos, cada uno con sus temas: «Trabajar por cuenta ajena» ($Sitio/trabajar/) y «Emprender» ($Sitio/emprender/). Las mismas herramientas están también ordenadas por materia ($Sitio/materias/) y por criterios de evaluación ($Sitio/criterios/).
+El catálogo se organiza en dos caminos, cada uno con sus temas: «Trabajo por cuenta ajena» ($Sitio/trabajar/) y «Emprendimiento» ($Sitio/emprender/). Las mismas herramientas están también ordenadas por materia ($Sitio/materias/) y por criterios de evaluación ($Sitio/criterios/).
 "@
 $llms += "`n`n"
 # Por camino y tema, con la materia y la unidad de cada herramienta entre corchetes

@@ -16,9 +16,9 @@ Cómo llamarla: no hay API ni cuentas. Elige el recurso en el catálogo de abajo
 
 Cada recurso tiene una ficha (enlace principal) y la herramienta en sí (enlace «abrir»). Las duraciones son aproximadas, para sesiones de clase de 50 minutos.
 
-El catálogo se organiza en dos caminos, cada uno con sus temas: «Trabajar por cuenta ajena» (https://esplora.es/trabajar/) y «Emprender» (https://esplora.es/emprender/). Las mismas herramientas están también ordenadas por materia (https://esplora.es/materias/) y por criterios de evaluación (https://esplora.es/criterios/).
+El catálogo se organiza en dos caminos, cada uno con sus temas: «Trabajo por cuenta ajena» (https://esplora.es/trabajar/) y «Emprendimiento» (https://esplora.es/emprender/). Las mismas herramientas están también ordenadas por materia (https://esplora.es/materias/) y por criterios de evaluación (https://esplora.es/criterios/).
 
-## Trabajar por cuenta ajena · Prevención de Riesgos Laborales
+## Trabajo por cuenta ajena · Prevención de Riesgos Laborales
 
 - [Diagnóstico de patologías inespecíficas](https://esplora.es/recursos/patologias-inespecificas/): Empareja seis casos con su patología: fatiga, estrés, burnout, mobbing… (IPE 1, bloque 1, ≈ 15 min) · [abrir](https://esplora.es/patologias.html)
 - [Ruta al Artículo 22](https://esplora.es/recursos/ruta-articulo-22/): Repaso exprés de los arts. 17 a 21 de la LPRL en formato de niveles con estrellas. (IPE 1, bloque 1, ≈ 25 min) · [abrir](https://esplora.es/rutaarticulo22.html)
@@ -27,7 +27,7 @@ El catálogo se organiza en dos caminos, cada uno con sus temas: «Trabajar por 
 - [Buscador de enfermedades profesionales](https://esplora.es/recursos/enfermedades-profesionales/): Descubre qué enfermedades profesionales del RD 1299/2006 pueden afectar a tu oficio. (IPE 1, bloque 1, ≈ 10 min) · [abrir](https://esplora.es/enfermedadesprofesionales.html)
 - [Guía del ruido](https://esplora.es/recursos/guia-ruido/): Decibelios, los tres escalones del RD 286/2006, simulador de obligaciones y caso práctico para entregar. (IPE 1, bloque 1, ≈ 40 min, con informe en PDF) · [abrir](https://esplora.es/guia-ruido.html)
 
-## Trabajar por cuenta ajena · Derecho del trabajo y Seguridad Social
+## Trabajo por cuenta ajena · Derecho del trabajo y Seguridad Social
 
 - [Pirámide de la jerarquía normativa](https://esplora.es/recursos/jerarquia-normativa/): Las ocho fuentes del Derecho del trabajo con su base legal, los principios que resuelven los conflictos entre normas y diez casos prácticos. (IPE 1, bloque 2, ≈ 30 min, con informe en PDF) · [abrir](https://esplora.es/piramide.html)
 - [Mapa interactivo de la Unión Europea](https://esplora.es/recursos/mapa-union-europea/): Estados miembro, euro y espacio Schengen, país a país. (IPE 1, bloque 2, ≈ 15 min) · [abrir](https://esplora.es/mapaeuropa.html)
@@ -35,21 +35,21 @@ El catálogo se organiza en dos caminos, cada uno con sus temas: «Trabajar por 
 - [Prestaciones de la Seguridad Social](https://esplora.es/recursos/prestaciones-seguridad-social/): Incapacidad temporal, nacimiento y desempleo: ficha, comprobador de requisitos, calculadora, casos y glosario. (IPE 1, bloque 2, ≈ 40 min, con informe en PDF) · [abrir](https://esplora.es/prestaciones.html)
 - [Casos prácticos de nóminas](https://esplora.es/recursos/casos-practicos-nominas/): Cinco casos guiados con datos de 2026: clasificar percepciones, comprobar el SMI, calcular bases, cuotas y líquido, y cazar errores en una nómina. (IPE 1, bloque 2, ≈ 45 min, con informe en PDF) · [abrir](https://esplora.es/casosnomina.html)
 
-## Emprender · 1. Emprendimiento, innovación y sostenibilidad
+## Emprendimiento · 1. Emprendimiento, innovación y sostenibilidad
 
 - [Generador de ideas de negocio](https://esplora.es/recursos/generador-ideas-negocio/): Ideas de negocio pensadas para tu ciclo, tus aficiones y tus recursos, en las 26 familias profesionales. (IPE 2, unidad didáctica 1, ≈ 30 min) · [abrir](https://esplora.es/generador.html)
 - [Ficha inicial de la idea](https://esplora.es/recursos/ficha-idea-negocio/): Describe tu idea en ocho pasos guiados, con ejemplos y vista previa en directo, y descárgala en una ficha PDF. (IPE 2, unidad didáctica 1, ≈ 20 min, con informe en PDF) · [abrir](https://esplora.es/fichaidea.html)
 - [Matriz Estrella](https://esplora.es/recursos/matriz-estrella/): Evalúa tu idea de negocio y detecta sus puntos fuertes y débiles. (IPE 2, unidad didáctica 1, ≈ 25 min, con informe en PDF) · [abrir](https://esplora.es/estrella.html)
 - [Modelo Canvas](https://esplora.es/recursos/modelo-canvas/): Construye tu modelo de negocio bloque a bloque, listo para imprimir. (IPE 2, unidad didáctica 1, ≈ 50 min, con informe en PDF) · [abrir](https://esplora.es/modelocanvas.html)
 
-## Emprender · 2. Análisis del entorno, sector y mercado
+## Emprendimiento · 2. Análisis del entorno, sector y mercado
 
 - [Análisis PESTEL](https://esplora.es/recursos/analisis-pestel/): Mapa de impacto de los factores del entorno general, con dossier imprimible. (IPE 2, unidad didáctica 2, ≈ 40 min, con informe en PDF) · [abrir](https://esplora.es/pestel.html)
 - [Buyer Persona](https://esplora.es/recursos/buyer-persona/): Da forma a tu cliente ideal: quién es, qué necesita y cómo llegar a él. (IPE 2, unidad didáctica 2, ≈ 30 min, con informe en PDF) · [abrir](https://esplora.es/buyerpersona.html)
 - [Benchmarking de la competencia](https://esplora.es/recursos/benchmarking-competencia/): Investiga a tus competidores (qué ofrecen, a cuánto y cómo), colócalos en un mapa de posición y descubre dónde queda hueco para tu proyecto. (IPE 2, unidad didáctica 2, ≈ 50 min, con informe en PDF) · [abrir](https://esplora.es/benchmarking.html)
 - [DAFO cruzado](https://esplora.es/recursos/dafo-came/): Diagnostica tu proyecto con el DAFO y crúzalo para sacar cuatro estrategias con las que decidir qué hacer. (IPE 2, unidad didáctica 2, ≈ 45 min, con informe en PDF) · [abrir](https://esplora.es/dafocame.html)
 
-## Emprender · 3. La viabilidad del proyecto emprendedor
+## Emprendimiento · 3. La viabilidad del proyecto emprendedor
 
 - [Selector de forma jurídica](https://esplora.es/recursos/forma-juridica/): Responde unas preguntas y descubre qué forma jurídica encaja mejor con tu proyecto. (IPE 2, unidad didáctica 3, ≈ 20 min, con informe en PDF) · [abrir](https://esplora.es/selector_forma_juridica.html)
 - [Plan de inversión y financiación](https://esplora.es/recursos/inversion-financiacion/): Elige lo que necesita tu negocio, calcula la amortización y el colchón de tesorería y cuadra la balanza con la financiación. (IPE 2, unidad didáctica 3, ≈ 50 min, con informe en PDF) · [abrir](https://esplora.es/inversionfinanciacion.html)

@@ -178,3 +178,5 @@ footer{background:var(--band);color:var(--on-band-soft);border-top:1px solid rgb
   html{scroll-behavior:auto}
   *,*::before,*::after{transition-duration:.01ms!important;animation:none!important}
 }
+/* Etiqueta de materia en las tarjetas de camino, algo mayor que la del resto */
+.camino .etq{padding:6px 16px;font-size:15px}

@@ -28,7 +28,7 @@
   "caminos": [
     {
       "id": "trabajar",
-      "nombre": "Trabajar por cuenta ajena",
+      "nombre": "Trabajo por cuenta ajena",
       "leyenda": "Prevención de riesgos laborales, fuentes del Derecho del trabajo, salario y acción protectora de la Seguridad Social.",
       "entrada": "La relación laboral con la normativa citada por artículo: Ley 31/1995, de Prevención de Riesgos Laborales; Estatuto de los Trabajadores (RDLeg 2/2015) y Ley General de la Seguridad Social (RDLeg 8/2015).",
       "numerado": false,
@@ -42,7 +42,7 @@
     },
     {
       "id": "emprender",
-      "nombre": "Emprender",
+      "nombre": "Emprendimiento",
       "leyenda": "Proyecto de empresa: generación de la idea, análisis del entorno y del mercado y estudio de viabilidad.",
       "entrada": "El proyecto de empresa por etapas, cada una con su método: del perfil de la persona emprendedora y la idea de negocio al análisis estratégico y a la viabilidad jurídica y económico-financiera.",
       "numerado": true,

@@ -157,9 +157,9 @@ a,button,select,input,label{touch-action:manipulation}
 .doc h3{font-size:var(--fs-h3);margin:var(--sp-5) 0 var(--sp-1)}
 
 /* Ficha de recurso: tarjeta con el color de la herramienta en el borde (--c) */
-.ficha{background:var(--surface);border:var(--frame);border-left:8px solid var(--c,var(--olive-deep));border-radius:var(--radius-card);box-shadow:var(--sticker);padding:var(--sp-5) 26px 26px;margin-top:22px}
+.ficha{background:var(--surface);border:var(--frame);border-radius:var(--radius-card);box-shadow:var(--sticker);padding:var(--sp-5) 26px 26px;margin-top:22px}
 .ficha .eyebrow{margin-top:0}
-@media (max-width:620px){.ficha{padding:20px 18px 22px;border-left-width:6px}}
+@media (max-width:620px){.ficha{padding:20px 18px 22px}}
 
 /* Datos rápidos de una ficha (duración, nivel…) */
 .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:var(--sp-3);margin:0 0 var(--sp-5);padding:0}
@@ -169,7 +169,7 @@ a,button,select,input,label{touch-action:manipulation}
 
 /* Tarjeta de recurso en lista (páginas de módulo y «relacionados») */
 .list{list-style:none;margin:0;padding:0;display:grid;gap:var(--sp-3)}
-.list a{display:block;background:var(--surface);border:var(--frame);border-left:6px solid var(--c,var(--olive-deep));border-radius:var(--radius-md);padding:14px 18px;text-decoration:none}
+.list a{display:block;background:var(--surface);border:var(--frame);border-radius:var(--radius-md);padding:14px 18px;text-decoration:none}
 .list b{display:block;font-size:var(--fs-h3)}
 .list span{display:block;color:var(--ink-soft);font-size:16px}
 .list small{display:block;margin-top:var(--sp-1);font-size:14px;font-weight:600;color:var(--olive-deep)}

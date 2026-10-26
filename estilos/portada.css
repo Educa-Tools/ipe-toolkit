@@ -5,10 +5,11 @@
 .hero{padding-top:8px}
 .panel{position:relative;isolation:isolate;overflow:hidden;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:48px;align-items:center;padding:56px;border-radius:var(--r-lg);background:var(--panel) var(--mosaico) center top/112px 112px}
 .hero-txt{position:relative}
-.hero h1{font-size:clamp(36px,4.3vw,58px);line-height:1.04;letter-spacing:-.025em;max-width:15ch}
-.hero h1 em{font-style:italic;font-weight:500;color:var(--accent)}
-.espora{position:absolute;width:44px;height:44px;color:var(--accent)}
-.hero .espora{right:4%;top:-8px}
+.hero h1{margin:0}
+.hero .logotipo{display:block;width:min(400px,80%);height:auto}
+.hero .logotipo.oscuro{display:none}
+.hero .titular{display:block;margin-top:28px;font-size:clamp(26px,2.7vw,36px);line-height:1.12;letter-spacing:-.02em;max-width:20ch}
+.hero .titular em{font-style:italic;font-weight:500;color:var(--accent)}
 .hero .lede{margin-top:24px;font-size:19px;line-height:1.55;color:var(--ink-soft);max-width:46ch}
 .acciones{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
 .hero .nota{margin-top:16px;font-size:15px;color:var(--ink-soft)}
@@ -19,23 +20,21 @@
 .escena .demo-lead{display:none}
 .escena .demo-win{box-shadow:6px 6px 0 #6B7028}
 .escena .demo figcaption{display:none}
-.escena .gen-pie{display:flex;flex-wrap:wrap;gap:12px 16px;align-items:center;justify-content:flex-start;margin-top:20px}
-.escena .gen-facts{justify-content:flex-start;margin:0}
+.escena .gen-pie{display:flex;flex-direction:column;align-items:center;gap:16px;margin-top:24px;text-align:center}
+.escena .gen-facts{justify-content:center;margin:0}
 .escena .gen-facts li{color:var(--ink);border-color:color-mix(in srgb,var(--ink) 25%,transparent);font-size:14px}
 .escena .gen-go{margin:0}
 @media (max-width:980px){
   .panel{grid-template-columns:1fr;padding:40px 24px;gap:40px}
 
 }
-@media (max-width:620px){.panel{padding:32px 16px}.hero .espora{display:none}}
+@media (max-width:620px){.panel{padding:32px 16px}}
 
 /* Entrada de la portada: un solo momento orquestado al cargar */
 .js .entra{opacity:0;transform:translateY(12px)}
 .js .listo .entra{opacity:1;transform:none;transition:opacity .6s var(--ease-out),transform .6s var(--ease-out);transition-delay:calc(var(--d,0) * 70ms)}
 .js .escena{opacity:0;transform:translateX(24px)}
 .js .listo .escena{opacity:1;transform:none;transition:opacity .7s var(--ease-out) .2s,transform .7s var(--ease-out) .2s}
-.js .hero .espora{opacity:0;transform:scale(.9) rotate(-20deg)}
-.js .listo .espora{opacity:1;transform:none;transition:opacity .5s var(--ease-out) .35s,transform .9s var(--ease-out) .35s}
 
 /* ---------- Secciones ---------- */
 .seccion{padding-block:96px 0}
@@ -47,7 +46,7 @@
 /* Seguir donde lo dejaste */
 .seguir{margin-top:24px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 .seguir h2{font:600 15px/1.4 var(--font-ui);letter-spacing:0;margin-right:8px}
-.seguir a{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 16px;border:1px solid var(--line);border-left:4px solid var(--c);border-radius:var(--r-sm);background:var(--surface);font-size:15px;font-weight:600;text-decoration:none}
+.seguir a{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 16px;border:1px solid var(--line);border-radius:999px;background:var(--surface);font-size:15px;font-weight:600;text-decoration:none}
 .caminos{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:24px}
 .caminos>li{display:grid;grid-row:span 4;grid-template-rows:subgrid}
 
@@ -135,7 +134,7 @@
   .gi-btn svg{width:14px;height:14px;}
   .gi-res{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;font-size:.85rem;font-weight:700;}
   .gi-ideas{list-style:none;margin:0;padding:0;display:grid;gap:7px;}
-  .gi-ideas li{display:flex;flex-direction:column;gap:2px;padding:8px 12px;background:var(--surface);border:1.5px solid color-mix(in srgb,var(--c) 30%,transparent);border-left:5px solid var(--c);border-radius:8px;opacity:0;translate:0 10px;transition:opacity .3s var(--ease-out),translate .45s var(--ease-out);}
+  .gi-ideas li{display:flex;flex-direction:column;gap:2px;padding:8px 12px;background:var(--surface);border:1.5px solid color-mix(in srgb,var(--c) 30%,transparent);border-radius:8px;opacity:0;translate:0 10px;transition:opacity .3s var(--ease-out),translate .45s var(--ease-out);}
   .gi-ideas li.in{opacity:1;translate:0 0;}
   .gi-n{font-size:.62rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--c);}
   .gi-t{font-size:.9rem;font-weight:600;line-height:1.3;}
@@ -165,7 +164,12 @@
   .tema-auto .escena .gen-facts li{color:#FBFCEF;border-color:color-mix(in srgb,#FBFCEF 30%,transparent)}
 }
 @media (prefers-reduced-motion:reduce){
-  .js .entra,.js .escena,.js .hero .espora{opacity:1!important;transform:none!important}
+  .js .entra,.js .escena{opacity:1!important;transform:none!important}
   .vista>div{transition:opacity .2s ease!important}
   .draw,.ink-under .draw{stroke-dashoffset:0!important}
+}@media (prefers-color-scheme:dark){
+  .tema-auto .hero .logotipo.claro{display:none}
+  .tema-auto .hero .logotipo.oscuro{display:block}
 }
+/* Cada herramienta empezada, con un punto de su color (sin bordes de color) */
+.seguir a::before{content:"";width:8px;height:8px;flex:none;border-radius:50%;background:var(--c)}
