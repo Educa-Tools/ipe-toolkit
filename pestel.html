@@ -410,6 +410,99 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
 .page-fichas .fx2-z{ font-size:14px; }
 .page-fichas .fx2-b{ justify-content:center; }
 
+/* ══ Hoja de ruta en cada ficha: cuándo, pasos, ejemplo y dónde mirar ══ */
+.page-header{ gap:12px; }
+.page-mark-line{ flex:none; }
+.page-num{ white-space:nowrap; }
+.page-fichas .fx2-grid{ grid-auto-rows:1fr; gap:16px; }
+.page-fichas .fx2-b{ padding:16px 24px 16px; gap:14px; justify-content:flex-start; }
+/* cabecera en una línea: letra, nombre e impacto/incertidumbre a la derecha */
+.page-fichas .fx2-h{ grid-template-columns:auto 1fr auto; padding:10px 16px; }
+.page-fichas .fx2-lv{ grid-column:auto; border-top:none; padding-top:0; gap:16px; justify-content:flex-end; }
+/* tono de texto de cada zona con contraste AA sobre su fondo claro */
+.z-planificar,.z-monitorear,.z-vigilar,.z-investigar,.z-ignorar{ --zt:var(--zc); }
+.z-vigilar{ --zt:var(--e1-ink); }
+.z-investigar{ --zt:var(--e2-ink); }
+.z-ignorar{ --zt:var(--ink-soft); }
+/* franja de la zona: icono, nombre y cuándo actuar */
+.fx2-zona{ display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; padding:8px 12px 8px 8px; border-radius:12px; background:var(--zs); }
+.fx2-zi{ width:32px; height:32px; border-radius:50%; background:#fff; color:var(--zc); display:grid; place-items:center; flex:none; }
+.fx2-zi svg{ width:16px; height:16px; }
+.fx2-zt{ flex:1 1 180px; display:flex; flex-wrap:wrap; align-items:baseline; gap:2px 10px; min-width:0; }
+.fx2-zt b{ font-family:'Fraunces',Georgia,serif; font-size:19px; font-weight:500; color:var(--zt); line-height:1.2; }
+.fx2-zt span{ font-size:13.5px; color:var(--ink-soft); }
+.fx2-cuando{ display:inline-flex; align-items:center; gap:6px; background:#fff; color:var(--zt); border-radius:999px; padding:4px 12px; font-size:13px; font-weight:600; white-space:nowrap; }
+.fx2-cuando svg{ width:14px; height:14px; flex:none; }
+/* punto clave como frase destacada */
+.fx2-clave{ font-family:'Fraunces',Georgia,serif; font-size:17.5px; line-height:1.45; color:var(--ink); padding-left:16px; border-left:3px solid var(--zc); }
+.fx2-k{ display:block; font-size:11.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:8px; }
+/* pasos y ejemplo: dos columnas alineadas arriba y abajo */
+.fx2-plan{ display:grid; grid-template-columns:1.1fr 1fr; gap:24px; padding-top:14px; border-top:1px solid var(--line); }
+.fx2-col{ display:flex; flex-direction:column; }
+.fx2-pasos{ list-style:none; counter-reset:paso; display:grid; gap:8px; }
+.fx2-pasos li{ counter-increment:paso; display:grid; grid-template-columns:24px 1fr; gap:12px; font-size:14.5px; line-height:1.5; color:var(--ink); }
+.fx2-pasos li::before{ content:counter(paso); width:24px; height:24px; border-radius:50%; border:1px solid color-mix(in srgb,var(--zc) 40%,transparent); color:var(--zt); display:grid; place-items:center; font-family:'Fraunces',Georgia,serif; font-size:13px; font-weight:600; }
+.fx2-ej{ flex:1; background:color-mix(in srgb,var(--zs) 65%,#fff); border-radius:12px; padding:12px 16px; font-size:14.5px; line-height:1.5; color:var(--ink); }
+.fx2-ej b{ display:block; font-family:'Fraunces',Georgia,serif; font-size:16px; font-weight:500; color:var(--zt); margin-bottom:4px; }
+/* dónde mirar: pie de la ficha, siempre abajo */
+.fx2-mirar{ margin-top:auto; padding-top:12px; border-top:1px solid var(--line); font-size:13.5px; line-height:1.5; color:var(--ink-soft); }
+.fx2-mirar .fx2-k{ display:inline; margin:0 8px 0 0; }
+@media (max-width:600px){
+  .page-fichas .fx2-b{ padding:16px; }
+  .fx2-plan{ grid-template-columns:1fr; gap:16px; }
+  .page-fichas .fx2-grid{ grid-auto-rows:auto; }
+  .page-fichas .fx2-h{ grid-template-columns:auto 1fr; }
+  .page-fichas .fx2-lv{ grid-column:1 / -1; flex-wrap:wrap; justify-content:space-between; gap:4px 12px; padding-top:8px; border-top:1px solid rgba(255,255,255,.22); }
+}
+
+/* ══ Guardar y cargar el progreso en archivo ══ */
+.io-row{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px; }
+.io-row .btn{ padding:12px 16px; font-size:15px; }
+.io-hint{ font-size:14px; line-height:1.55; color:var(--ink-soft); margin-top:12px; }
+.io-intro{ font-size:15px; color:var(--ink-soft); text-align:center; margin-top:16px; }
+.io-link{ background:none; border:0; padding:4px 0; font:inherit; font-weight:600; color:var(--olive-deep); text-decoration:underline; text-underline-offset:3px; cursor:pointer; }
+.io-link:hover{ color:var(--ink); }
+.dossier-actions{ flex-wrap:wrap; }
+@media (max-width:600px){
+  .io-row{ grid-template-columns:1fr; }
+  .dossier-actions{ display:grid; grid-template-columns:1fr 1fr; }
+  .dossier-actions .btn-primary{ grid-column:1 / -1; }
+}
+
+/* ══ Página 5: Mi plan (campos en pantalla, líneas para escribir a mano al imprimir) ══ */
+.mp-intro{ margin-bottom:24px; }
+.mp-t{ font-family:'Fraunces',Georgia,serif; font-size:30px; font-weight:400; line-height:1.15; letter-spacing:-.01em; color:var(--ink); margin-bottom:8px; }
+.mp-intro p{ font-size:15px; line-height:1.55; color:var(--ink-soft); max-width:56ch; }
+.mp-list{ display:grid; gap:16px; }
+.mp{ border:1.5px solid var(--line); border-radius:14px; background:#fff; padding:16px 20px 20px; }
+.mp-h{ display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; padding-bottom:12px; margin-bottom:16px; border-bottom:1px solid var(--line); }
+.mp-l{ width:32px; height:32px; border-radius:8px; background:var(--fc); color:#fff; display:grid; place-items:center; font-family:'Fraunces',Georgia,serif; font-size:19px; font-weight:600; flex:none; }
+.mp-n{ font-family:'Fraunces',Georgia,serif; font-size:20px; color:var(--ink); flex:1 1 auto; }
+.mp-zona{ display:inline-flex; align-items:center; gap:6px; background:var(--zs); color:var(--zt); border-radius:999px; padding:4px 12px; font-size:13px; font-weight:600; white-space:nowrap; }
+.mp-zona svg{ width:14px; height:14px; flex:none; }
+.mp-campos{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+.mp-campo{ display:flex; flex-direction:column; gap:8px; }
+.mp-campo label{ font-size:13.5px; font-weight:600; color:var(--zt); line-height:1.3; }
+.mp-campo textarea{ flex:1; width:100%; min-height:96px; resize:none; overflow:hidden; border:1px solid var(--line); border-radius:12px; padding:8px 12px; background:var(--canvas); font:15px/1.5 'Inter',system-ui,sans-serif; color:var(--ink); transition:border-color .2s ease, background .2s ease; }
+.mp-campo textarea::placeholder{ color:var(--ink-muted); }
+.mp-campo textarea:focus{ outline:none; border-color:var(--zc); background:#fff; }
+.mp-campo textarea:focus-visible{ outline:2.5px solid var(--kit-accent); outline-offset:2px; }
+.mp-out{ display:none; }
+.mp-resto{ margin-top:24px; padding-top:16px; border-top:1px solid var(--line); }
+.mp-resto > div{ display:flex; flex-wrap:wrap; gap:8px; }
+.mp-chip{ display:inline-flex; align-items:center; gap:6px; background:var(--zs); color:var(--ink-soft); border-radius:999px; padding:4px 12px; font-size:13px; white-space:nowrap; }
+.mp-chip svg{ width:14px; height:14px; color:var(--zt); flex:none; }
+.mp-chip b{ color:var(--zt); font-weight:600; }
+@media (max-width:600px){
+  .mp{ padding:16px; }
+  .mp-campos{ grid-template-columns:1fr; }
+  .mp-t{ font-size:26px; }
+}
+@media print{
+  .mp-campo textarea{ display:none; }
+  .mp-out{ display:block; flex:1; min-height:112px; font-size:14.5px; line-height:28px; color:var(--ink); white-space:pre-wrap; background:linear-gradient(to bottom,transparent 26.5px,var(--olive-soft) 26.5px) 0 0 / 100% 28px; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+}
+
 /* ══ Pulido de la interfaz (oct-2026) ══ */
 :focus-visible{ outline:2.5px solid var(--kit-accent); outline-offset:3px; border-radius:6px; }
 .btn:focus-visible{ outline-offset:3px; border-radius:999px; }
@@ -601,8 +694,10 @@ body.glos-margen .glos-panel{ position:static; width:auto; max-height:calc(100vh
       <span>Comenzar el análisis</span>
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
     </button>
+    <p class="io-intro fade-3">¿Empezaste en otro equipo? <button type="button" class="io-link" data-io="importar">Cargar progreso desde un archivo</button></p>
   </div>
 </div>
+<input type="file" id="io-file" accept="application/json,.json" hidden>
 
 <!-- ═══ DASHBOARD ═══ -->
 <div id="screen-dashboard" class="screen">
@@ -621,6 +716,11 @@ body.glos-margen .glos-panel{ position:static; width:auto; max-height:calc(100vh
     <button id="btn-generate" class="btn btn-primary" style="width:100%;padding:16px;font-size:16.5px;" disabled>
       <span id="btn-generate-text">Completa los factores restantes</span>
     </button>
+    <div class="io-row">
+      <button type="button" class="btn btn-ghost" data-io="exportar">Guardar progreso en archivo</button>
+      <button type="button" class="btn btn-ghost" data-io="importar">Cargar progreso</button>
+    </div>
+    <p class="io-hint">Tus respuestas se guardan solas en este navegador y no se envían a ningún sitio. Para seguir en otro equipo, guarda el progreso en un archivo y cárgalo allí.</p>
   </div>
 </div>
 
@@ -663,6 +763,7 @@ body.glos-margen .glos-panel{ position:static; width:auto; max-height:calc(100vh
   <div class="dossier-wrap">
     <div class="dossier-actions">
       <button class="btn btn-ghost" onclick="reset()">Nueva idea</button>
+      <button type="button" class="btn btn-ghost" data-io="exportar">Guardar en archivo</button>
       <button class="btn btn-primary" onclick="window.print()">Imprimir o guardar en PDF</button>
     </div>
 
@@ -670,7 +771,7 @@ body.glos-margen .glos-panel{ position:static; width:auto; max-height:calc(100vh
     <article class="page-a4 fade">
       <header class="page-header">
         <div class="page-mark"><div class="page-mark-line"></div><span class="eyebrow">Informe PESTEL · Mapa de impacto</span></div>
-        <span class="page-num">01 / 03</span>
+        <span class="page-num">01 / 05</span>
       </header>
       <div style="margin-bottom:18px;">
         <span class="eyebrow" style="color:var(--olive-deep);margin-bottom:8px;display:block;">Análisis estratégico</span>
@@ -687,7 +788,7 @@ body.glos-margen .glos-panel{ position:static; width:auto; max-height:calc(100vh
       <div class="prio prio-p1" id="prio-p1"></div>
     </article>
 
-    <!-- PÁGINAS 2–3 — FICHAS P·E·S y T·E·L (se generan en renderResults) -->
+    <!-- PÁGINAS 2–4 — FICHAS P·E, S·T y E·L (se generan en renderResults) -->
   </div>
 </div>
 
@@ -860,6 +961,85 @@ const ACCION = {
   investigar:'Busca información fiable sobre este factor (fuentes oficiales, informes del sector) antes de tu próxima revisión estratégica.',
   ignorar:'No requiere acción inmediata. Revisa su posición en tu próxima revisión anual del entorno.',
 };
+
+// Hoja de ruta por zona: cuándo actuar y tres pasos concretos
+const RUTA = {
+  planificar:{ cuando:'Esta semana', pasos:[
+    'Escribe en una frase el peor caso y el mejor caso para este factor.',
+    'Para cada caso, decide qué harías: «si pasa esto, haré esto otro».',
+    'Elige la señal que te dirá cuál de los dos casos está ocurriendo.' ]},
+  monitorear:{ cuando:'Cada mes', pasos:[
+    'Elige uno o dos indicadores que midan este factor.',
+    'Apunta dónde se consultan y quién del equipo los revisa.',
+    'Fija la cifra a partir de la cual cambiarás algo en tu negocio.' ]},
+  investigar:{ cuando:'Antes de decidir', pasos:[
+    'Apunta dos o tres preguntas sobre este factor que hoy no sabes responder.',
+    'Búscalas en una fuente fiable o pregunta a quien conozca el sector.',
+    'Con lo que averigües, vuelve a valorar este factor en la herramienta.' ]},
+  vigilar:{ cuando:'Cada trimestre', pasos:[
+    'Pon en tu calendario la fecha de la próxima revisión.',
+    'Escribe qué cambio haría que este factor subiera a «Planificar».',
+    'En cada revisión, comprueba si ese cambio ha llegado.' ]},
+  ignorar:{ cuando:'Una vez al año', pasos:[
+    'Comprueba que cumples lo básico: permisos, normas y contratos.',
+    'No le dediques tiempo ni dinero extra por ahora.',
+    'Vuelve a valorarlo en tu revisión anual del entorno.' ]},
+};
+
+// Ejemplo de cada zona con un negocio por factor, y dónde mirar
+const GUIA = {
+  politico:{ negocio:'tienda de bicicletas eléctricas',
+    mirar:'BOE y boletín oficial de tu comunidad, web de tu ayuntamiento y Base de Datos Nacional de Subvenciones.',
+    planificar:'Si se mantienen las ayudas a la compra, ofrezco tramitárselas al cliente. Si se eliminan, lanzo un alquiler mensual para no depender de ellas. Señal: lo que publique el boletín de mi comunidad al aprobar los presupuestos.',
+    monitorear:'Sigo cada mes las convocatorias de ayudas a la movilidad en el boletín de mi comunidad. Si se abre un plazo, lo anuncio en mis redes esa misma semana.',
+    vigilar:'Reviso cada trimestre si cambian las ayudas o los planes de carril bici de mi ciudad. Si anuncian que las ayudas se acaban, el factor pasa a «Planificar».',
+    investigar:'¿Hay ayudas para comprar bicis eléctricas en mi comunidad? ¿Planea mi ayuntamiento más carriles bici? Lo busco en el boletín autonómico y en la web municipal, y lo pregunto en la Cámara de Comercio.',
+    ignorar:'Las ayudas no cambian mis ventas: hago bien los trámites de apertura y vuelvo a mirarlo en la revisión anual.' },
+  economico:{ negocio:'cafetería de especialidad',
+    mirar:'IPC y paro (INE), euríbor (Banco de España) y la lista de precios de tus proveedores.',
+    planificar:'Si el café sube un 20 %, acorto la carta y subo 0,20 € la taza. Si baja, amplío la oferta de dulces. Señal: el precio que me pasa el tostador cada mes.',
+    monitorear:'Miro cada mes el IPC y el precio del café de mi proveedor. Si lo que me cuesta cada taza pasa de 0,60 €, reviso los precios de la carta.',
+    vigilar:'Cada trimestre comparo mis costes con los del trimestre anterior. Si suben dos trimestres seguidos, el factor pasa a «Planificar».',
+    investigar:'¿Cuánto gastan al mes en cafeterías los estudiantes de mi zona? ¿Cómo ha cambiado el precio del café este año? Lo busco en el INE y pido presupuesto a dos proveedores.',
+    ignorar:'Mis márgenes aguantan subidas pequeñas: llevo las cuentas al día y lo reviso una vez al año.' },
+  social:{ negocio:'tienda online de ropa de segunda mano',
+    mirar:'Datos de población y consumo (INE), barómetros del CIS, Google Trends y lo que te dicen tus clientes.',
+    planificar:'Si la moda de segunda mano sigue creciendo, amplío a ropa infantil. Si se enfría, me especializo en prendas de marca y arreglos. Señal: mis ventas de cada mes y lo que se busca en Google Trends.',
+    monitorear:'Sigo cada mes cuántos clientes nuevos tengo y de qué edad. Si el público joven baja dos meses seguidos, cambio el tono de mis redes.',
+    vigilar:'Cada trimestre miro qué hacen las grandes marcas con la ropa de segunda mano. Si abren su propia sección, el factor pasa a «Planificar».',
+    investigar:'¿Quién compra ropa de segunda mano en mi ciudad? ¿Lo hace por precio o por sus valores? Hago una encuesta breve a veinte posibles clientes y busco estudios del sector.',
+    ignorar:'Mi público es amplio y estable: me centro en vender bien y reviso las tendencias una vez al año.' },
+  tecnologico:{ negocio:'agencia de redes sociales para comercios',
+    mirar:'Informes del ONTSI, encuesta de uso de tecnología del INE y novedades de las herramientas de tu sector.',
+    planificar:'Si la IA permite a los comercios hacerse sus publicaciones, ofrezco formación y estrategia en lugar de solo publicar. Si no se extiende, sigo con mi servicio. Señal: cuántos clientes me dicen que ya usan IA.',
+    monitorear:'Miro cada mes el alcance de las cuentas de mis clientes en cada red. Si una red pierde alcance tres meses seguidos, propongo moverse a otra.',
+    vigilar:'Cada trimestre reviso qué herramientas nuevas usan otras agencias. Si una hace en minutos lo que yo cobro, el factor pasa a «Planificar».',
+    investigar:'¿Qué partes de mi servicio puede hacer ya la IA? ¿La usan los comercios de mi barrio? Pruebo dos herramientas y consulto los informes del ONTSI.',
+    ignorar:'La tecnología es solo un apoyo: mantengo mis programas al día y lo reviso una vez al año.' },
+  ecologico:{ negocio:'tienda de alimentación a granel',
+    mirar:'Web del Ministerio para la Transición Ecológica (MITECO), ordenanzas de tu ayuntamiento y certificaciones de tu sector.',
+    planificar:'Si aumentan las exigencias sobre envases, hago de «sin plástico» mi argumento de venta. Si mis clientes pierden interés, destaco el ahorro por kilo. Señal: cuántos clientes traen su propio envase.',
+    monitorear:'Llevo la cuenta mensual de envases reutilizados y de residuos. Si los residuos suben, hablo con mis proveedores.',
+    vigilar:'Cada trimestre miro las novedades de mi ayuntamiento sobre residuos y comercio. Si anuncian una ordenanza nueva, el factor pasa a «Planificar».',
+    investigar:'¿Qué normas de residuos y envases afectan a mi tienda? ¿Pagarían mis clientes algo más por evitar el plástico? Consulto la web del MITECO y lo pregunto en mi ayuntamiento.',
+    ignorar:'Mi huella es pequeña: separo residuos, cumplo lo básico y lo reviso una vez al año.' },
+  legal:{ negocio:'tienda online de cosmética natural',
+    mirar:'BOE, Agencia Española de Protección de Datos (AEPD), Agencia Española de Medicamentos y Productos Sanitarios (AEMPS) y Cámara de Comercio.',
+    planificar:'Si endurecen las normas de etiquetado, pido a una asesoría que revise mis etiquetas. Si no cambian, presento mi cumplimiento como garantía para el cliente. Señal: las novedades sobre cosméticos que publica la AEMPS.',
+    monitorear:'Cada mes compruebo que el aviso legal, la privacidad y las condiciones de venta de mi web están al día. Si cambio de forma de pago o de envío, los actualizo esa semana.',
+    vigilar:'Cada trimestre miro las novedades de la AEMPS y de la AEPD. Si anuncian cambios para tiendas online, el factor pasa a «Planificar».',
+    investigar:'¿Qué necesito para vender cosméticos? ¿Qué debo explicar en mi web sobre los datos de mis clientes? Lo consulto en las webs de la AEMPS y la AEPD y pido cita en la Cámara de Comercio.',
+    ignorar:'Vendo productos de proveedores que ya cumplen la normativa: tengo al día el aviso legal de la web y lo reviso una vez al año.' },
+};
+
+// Mi plan: tres campos por zona para los factores prioritarios (los escribe el alumnado)
+const MI_PLAN = {
+  planificar:[['si','Si pasa…','El cambio que más te preocupa'],['hare','Haré…','Tu respuesta concreta'],['senal','Me avisará…','La señal que vas a vigilar']],
+  monitorear:[['indicador','Indicador','El dato que vas a seguir'],['donde','Dónde y cada cuánto','Fuente y frecuencia'],['umbral','Actuaré si…','La cifra que te hará cambiar algo']],
+  investigar:[['pregunta','Quiero averiguar…','Tu pregunta principal'],['fuente','Lo buscaré en…','Fuente o persona'],['fecha','Para el…','Fecha límite']],
+  vigilar:[['mirar','Revisaré…','Qué vas a mirar'],['fecha','Próxima revisión','Fecha'],['sube','Pasará a Planificar si…','El cambio que lo haría subir']],
+};
+const PRIORIDAD = ['planificar','monitorear','investigar','vigilar','ignorar'];
 
 const ANALISIS = {
   politico:{
@@ -1081,7 +1261,7 @@ document.addEventListener('keydown',e=>{
 // ═══════════════════════════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════════════════════════
-const state = { screen:'intro', idea:'', respuestas:{}, currentFactor:0 };
+const state = { screen:'intro', idea:'', respuestas:{}, currentFactor:0, plan:{} };
 
 // ═══════════════════════════════════════════════════════════════
 // UTILS
@@ -1334,7 +1514,7 @@ function fichaFactor(f){
 }
 
 // ═══════════════════════════════════════════════════════════════
-// RESULTADOS — 3 páginas: portada + P·E·S + T·E·L
+// RESULTADOS — 5 páginas: portada + P·E + S·T + E·L + Mi plan
 // ═══════════════════════════════════════════════════════════════
 function renderResults(){
   document.getElementById('map-mount').innerHTML=renderMap();
@@ -1366,14 +1546,20 @@ function renderResults(){
   wrap.querySelectorAll('.page-fichas').forEach(p=>p.remove());
   const lv=(t,v)=>`<span class="lv-g"><span>${t}</span><span class="lv">${[1,2,3].map(n=>`<i${n<=v?' class="on"':''}></i>`).join('')}</span><b>${getScoreLabel(v)}</b></span>`;
   const ficha=f=>{
-    const zona=getZona(f), zd=ZONAS[zona], imp=getEjeScore(f,'impacto'), inc=getEjeScore(f,'incertidumbre');
+    const zona=getZona(f), zd=ZONAS[zona], imp=getEjeScore(f,'impacto'), inc=getEjeScore(f,'incertidumbre'), g=GUIA[f.id];
     return `<section class="fx2 z-${zona}" style="--fc:${FACTOR_COLORS[f.id]};">
       <div class="fx2-h"><span class="fx2-l">${f.letter}</span><span class="fx2-n">${f.label.replace(/^Factores /,"").replace(/^./,c=>c.toUpperCase())}</span>
         <div class="fx2-lv">${lv('Impacto',imp)}${lv('Incertidumbre',inc)}</div></div>
       <div class="fx2-b">
-        <div class="fx2-z">${ZONA_ICON[zona]}${zd.name} · ${zd.sub}</div>
-        <p><small>Punto clave</small>${PUNTO_CLAVE[f.id][zona]}</p>
-        <p><small>Qué hacer</small>${ACCION[zona]}</p>
+        <div class="fx2-zona"><span class="fx2-zi">${ZONA_ICON[zona]}</span>
+          <span class="fx2-zt"><b>${zd.name}</b><span>${zd.sub}</span></span>
+          <span class="fx2-cuando"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>${RUTA[zona].cuando}</span></div>
+        <div class="fx2-clave">${PUNTO_CLAVE[f.id][zona]}</div>
+        <div class="fx2-plan">
+          <div class="fx2-col"><span class="fx2-k">Qué hacer</span><ol class="fx2-pasos">${RUTA[zona].pasos.map(p=>`<li>${p}</li>`).join('')}</ol></div>
+          <div class="fx2-col"><span class="fx2-k">Un ejemplo</span><div class="fx2-ej"><b>${g.negocio.replace(/^./,c=>c.toUpperCase())}</b>${g[zona]}</div></div>
+        </div>
+        <div class="fx2-mirar"><span class="fx2-k">Dónde mirar</span><span>${g.mirar}</span></div>
       </div></section>`;
   };
   const prioTxt=[
@@ -1383,21 +1569,68 @@ function renderResults(){
     porZona('investigar').length?`<b>Investigar más:</b> ${lista(porZona('investigar'))}.`:''
   ].filter(Boolean).join(' ')||'Ningún factor exige una acción prioritaria: céntrate en ejecutar tu plan.';
   document.getElementById('prio-p1').innerHTML=`<small>Tus prioridades</small>${prioTxt}`;
-  const grupos=[[0,3,'P · E · S','02'],[3,6,'T · E · L','03']];
+  const grupos=[[0,2,'P · E','02'],[2,4,'S · T','03'],[4,6,'E · L','04']];
   grupos.forEach(([a,b,tit,n],gi)=>{
     const page=document.createElement('article');
-    page.className='page-a4 page-fichas fade'+(gi===grupos.length-1?' is-last':'');
+    page.className='page-a4 page-fichas fade';
     page.innerHTML=`
     <header class="page-header">
       <div class="page-mark"><div class="page-mark-line"></div><span class="eyebrow">Factores del entorno · ${tit}</span></div>
-      <span class="page-num">${n} / 03</span>
+      <span class="page-num">${n} / 05</span>
     </header>
     <div class="fitbox">
       <div class="fx2-grid">${FACTORS.slice(a,b).map(ficha).join('')}</div>
     </div>`;
     wrap.appendChild(page);
-  });  fitPages();
-  if(document.fonts) document.fonts.ready.then(fitPages);
+  });
+  wrap.appendChild(paginaPlan());
+  fitPages();
+  if(document.fonts) document.fonts.ready.then(()=>fitPages());
+}
+
+// Página 5 — Mi plan: los tres factores prioritarios con campos para escribir; el resto, en una línea
+function paginaPlan(){
+  const orden=FACTORS.map(f=>({f,zona:getZona(f),peso:getEjeScore(f,'impacto')+getEjeScore(f,'incertidumbre')}))
+    .sort((a,b)=>PRIORIDAD.indexOf(a.zona)-PRIORIDAD.indexOf(b.zona)||b.peso-a.peso);
+  const top=orden.filter(o=>o.zona!=='ignorar').slice(0,3), resto=orden.filter(o=>!top.includes(o));
+  const nombre=f=>f.label.replace(/^Factores /,'').replace(/^./,c=>c.toUpperCase());
+  const page=document.createElement('article');
+  page.className='page-a4 page-fichas page-plan fade is-last';
+  page.innerHTML=`
+    <header class="page-header">
+      <div class="page-mark"><div class="page-mark-line"></div><span class="eyebrow">Tu hoja de ruta · Mi plan</span></div>
+      <span class="page-num">05 / 05</span>
+    </header>
+    <div class="fitbox">
+      <div class="mp-intro">
+        <h2 class="mp-t">Mi plan de acción</h2>
+        <p>${top.length?`Concreta qué harás con ${top.length>1?`tus ${top.length} factores prioritarios`:'tu factor prioritario'}. Se guarda en este navegador; si imprimes el informe sin rellenarlo, puedes escribirlo a mano.`:'Ningún factor necesita un plan ahora mismo: revisa tu entorno una vez al año.'}</p>
+      </div>
+      <div class="mp-list">${top.map(({f,zona})=>`
+        <section class="mp z-${zona}" style="--fc:${FACTOR_COLORS[f.id]};">
+          <div class="mp-h">
+            <span class="mp-l">${f.letter}</span><span class="mp-n">${nombre(f)}</span>
+            <span class="mp-zona">${ZONA_ICON[zona]}${ZONAS[zona].name} · ${RUTA[zona].cuando.toLowerCase()}</span>
+          </div>
+          <div class="mp-campos">${MI_PLAN[zona].map(([k,t,ph])=>`
+            <div class="mp-campo">
+              <label for="mp-${f.id}-${k}">${t}</label>
+              <textarea id="mp-${f.id}-${k}" rows="2" data-f="${f.id}" data-k="${k}" placeholder="${ph}"></textarea>
+              <div class="mp-out" aria-hidden="true"></div>
+            </div>`).join('')}</div>
+        </section>`).join('')}</div>
+      ${resto.length?`<div class="mp-resto"><span class="fx2-k">El resto de tu entorno</span><div>${resto.map(({f,zona})=>
+        `<span class="mp-chip z-${zona}">${ZONA_ICON[zona]}<b>${nombre(f)}</b> ${ZONAS[zona].name.toLowerCase()} · ${RUTA[zona].cuando.toLowerCase()}</span>`).join('')}</div></div>`:''}
+    </div>`;
+  // Rellena con lo guardado y guarda al escribir (el texto se copia también a la versión impresa)
+  page.querySelectorAll('textarea').forEach(t=>{
+    const out=t.nextElementSibling, d=t.dataset;
+    const crecer=()=>{ t.style.minHeight=''; t.style.minHeight=(t.scrollHeight+2)+'px'; };
+    t.value=(state.plan[d.f]||{})[d.k]||''; out.textContent=t.value;
+    t.addEventListener('input',()=>{ (state.plan[d.f]=state.plan[d.f]||{})[d.k]=t.value; out.textContent=t.value; crecer(); });
+    requestAnimationFrame(crecer);
+  });
+  return page;
 }
 
 // Ajuste automático: si el contenido no cabe en el A4, se reduce con «zoom» hasta que quepa
@@ -1425,11 +1658,43 @@ window.addEventListener('afterprint',()=>{ if(document.getElementById('screen-re
 // RESET
 // ═══════════════════════════════════════════════════════════════
 function reset(){
-  state.idea=''; state.respuestas={}; state.currentFactor=0;
+  state.idea=''; state.respuestas={}; state.currentFactor=0; state.plan={};
   document.getElementById('idea-input').value='';
   document.getElementById('btn-start').disabled=true;
   go('intro');
 }
+
+// ═══════════════════════════════════════════════════════════════
+// GUARDAR Y CARGAR EL PROGRESO EN ARCHIVO (idea, respuestas y Mi plan)
+// ═══════════════════════════════════════════════════════════════
+const IO_ID='esplora-pestel';
+function exportarProgreso(){
+  const datos={ herramienta:IO_ID, v:1, fecha:new Date().toISOString().slice(0,10),
+    idea:state.idea, respuestas:state.respuestas, plan:state.plan, currentFactor:state.currentFactor };
+  const blob=new Blob([JSON.stringify(datos,null,2)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='esplora-pestel-progreso.json';
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+}
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-io]'); if(!b) return;
+  if(b.dataset.io==='exportar') exportarProgreso(); else document.getElementById('io-file').click();
+});
+document.getElementById('io-file').addEventListener('change',function(){
+  const f=this.files&&this.files[0]; if(!f) return;
+  const r=new FileReader();
+  r.onload=()=>{
+    try{
+      const d=JSON.parse(r.result);
+      if(!d||d.herramienta!==IO_ID||typeof d.idea!=='string') throw 0;
+      state.idea=d.idea; state.respuestas=d.respuestas||{}; state.plan=d.plan||{}; state.currentFactor=d.currentFactor||0;
+      document.getElementById('idea-input').value=state.idea;
+      document.getElementById('btn-start').disabled=state.idea.trim().length<15;
+      go(FACTORS.every(isFactorComplete)?'results':'dashboard');
+      alert('Progreso cargado.');
+    }catch(err){ alert('Ese archivo no es un progreso de esta herramienta.'); }
+  };
+  r.readAsText(f); this.value='';
+});
 
 // ═══════════════════════════════════════════════════════════════
 // GUARDADO AUTOMÁTICO (en este navegador)
@@ -1439,7 +1704,7 @@ function reset(){
   try{
     const sv=JSON.parse(localStorage.getItem(KEY)||'null');
     if(sv&&sv.idea){
-      state.idea=sv.idea; state.respuestas=sv.respuestas||{}; state.currentFactor=sv.currentFactor||0;
+      state.idea=sv.idea; state.respuestas=sv.respuestas||{}; state.currentFactor=sv.currentFactor||0; state.plan=sv.plan||{};
       document.getElementById('idea-input').value=state.idea;
       document.getElementById('btn-start').disabled=state.idea.trim().length<15;
       let to=sv.screen||'dashboard';
