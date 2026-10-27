@@ -111,7 +111,7 @@
   .lvl{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:14.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
   .lvl .name{color:var(--tool);display:inline-flex;align-items:center;gap:6px;}
   .lvl .name svg{width:11px;height:11px;}
-  .lvl .xp{color:var(--ink-muted);font-variant-numeric:tabular-nums;}
+  .lvl .xp{color:var(--ink-muted);font-variant-numeric:tabular-nums;white-space:nowrap;}
   .xp-track,.bar-track{height:7px;border-radius:99px;background:var(--line-soft);overflow:hidden;}
   .xp-track i,.bar-track i{display:block;height:100%;border-radius:99px;width:0;transition:width .4s ease;}
   .xp-track i{background:var(--tool);}
@@ -130,9 +130,10 @@
 
   /* ── Stepper ── */
   .stepper{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-card);padding:14px 16px 12px;margin-bottom:14px;}
-  .groups{display:grid;grid-template-columns:3fr 3fr 1fr;gap:6px;margin-bottom:6px;font-size:13.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
-  .groups span:nth-child(1){color:var(--soc-deep);} .groups span:nth-child(2){color:var(--psi-deep);} .groups span:nth-child(3){color:var(--tool);text-align:right;}
-  .segs{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}
+  .groups{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:6px;margin-bottom:6px;font-size:13.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
+  .groups span{grid-column:span 3;} .groups span:nth-child(3){grid-column:span 2;}
+  .groups span:nth-child(1){color:var(--soc-deep);} .groups span:nth-child(2){color:var(--psi-deep);} .groups span:nth-child(3){color:var(--tool);}
+  .segs{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:6px;}
   .seg{--c:var(--ink-muted);height:34px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);font-weight:700;font-size:15px;cursor:pointer;color:var(--ink-muted);transition:all .15s ease;display:grid;place-items:center;}
   .seg.g1{--c:var(--soc-deep);--cs:var(--soc-soft);} .seg.g2{--c:var(--psi-deep);--cs:var(--psi-soft);} .seg.g3{--c:var(--tool);--cs:var(--tool-bg);}
   .seg.done{background:var(--cs);border-color:var(--c);color:var(--c);}
@@ -144,6 +145,22 @@
   /* ── Pasos ── */
   .step{--c:var(--soc-deep);--cs:var(--soc-soft);--cm:var(--soc-mid);--ci:var(--soc-ink);border-top:4px solid var(--c);}
   .step.psi{--c:var(--psi-deep);--cs:var(--psi-soft);--cm:var(--psi-mid);--ci:var(--psi-ink);}
+  .step.tool{--c:var(--tool);--cs:var(--tool-bg);--cm:var(--tool-line);--ci:var(--tool);}
+  .field > label em{font-style:normal;font-weight:500;text-transform:none;letter-spacing:0;}
+  .block-note{margin:-4px 0 12px;}
+  .h3-em{font-family:var(--font-ui);font-size:15px;font-weight:500;font-style:normal;color:var(--ink-muted);}
+  .group-gap{margin-top:16px;}
+  .b-lle .bar-top{color:var(--tool);} .b-lle i{background:var(--tool);}
+
+  /* Fiabilidad de las fuentes: tres tramos */
+  .trust{--t:var(--ink-muted);margin-top:16px;padding:12px 16px;border-radius:12px;border:1px solid var(--line);background:var(--surface-alt);}
+  .trust.t-baja{--t:var(--warn);} .trust.t-media{--t:var(--psi-deep);} .trust.t-alta{--t:var(--soc-deep);}
+  .trust-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:14.5px;font-weight:600;color:var(--ink-soft);}
+  .trust-top b{color:var(--t);font-size:15px;}
+  .trust-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin:8px 0;}
+  .trust-bar i{height:7px;border-radius:99px;background:var(--line);transition:background-color .3s ease;}
+  .trust-bar i.on{background:var(--t);}
+  .trust p{font-size:14.5px;color:var(--ink-soft);}
   .kicker{font-size:14.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c);margin-bottom:4px;}
   .step-title{font-size:27px;line-height:1.15;}
   .step-desc{color:var(--ink-soft);margin:8px 0 18px;max-width:62ch;}
@@ -298,7 +315,14 @@
   .panel{border-radius:16px;padding:24px;border:1px solid var(--cm);background:var(--cs);color:var(--ci);}
   .panel.soc{--cs:var(--soc-soft);--cm:var(--soc-mid);--ci:var(--soc-ink);--c:var(--soc-deep);}
   .panel.psi{--cs:var(--psi-soft);--cm:var(--psi-mid);--ci:var(--psi-ink);--c:var(--psi-deep);}
-  .panel > h3{font-size:19px;color:var(--c);padding-bottom:10px;border-bottom:2px solid var(--c);margin-bottom:20px;}
+  .panel.lle{--cs:var(--tool-bg);--cm:var(--tool-line);--ci:var(--ink);--c:var(--tool);}
+  .panel > h3{font-size:19px;color:var(--c);padding-bottom:10px;border-bottom:2px solid var(--c);margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px 12px;}
+  .tbadge{--t:var(--ink-muted);font-family:var(--font-ui);font-size:13.5px;font-weight:700;letter-spacing:0;padding:4px 12px;border-radius:var(--radius-pill);background:#fff;border:1px solid var(--t);color:var(--t);white-space:nowrap;}
+  .tbadge.t-baja{--t:var(--warn);} .tbadge.t-media{--t:var(--psi-deep);} .tbadge.t-alta{--t:var(--soc-deep);}
+  .src{margin-top:20px;padding-top:12px;border-top:1px dashed var(--cm);font-size:14.5px;line-height:1.5;}
+  .cols2{grid-template-columns:repeat(2,minmax(0,1fr));}
+  @media (max-width:760px){.cols2{grid-template-columns:1fr;}}
+  .grp-txt{margin-top:12px;}
   .grp h4 + .pills{margin-top:0;}
   .grp .pills + h4{margin-top:20px;}
   dl{margin:0;display:grid;gap:12px;}
@@ -359,6 +383,7 @@
     .hero{grid-template-columns:96px 1fr;gap:14px;}
     .rep-meta{text-align:left;}
     .segs{gap:4px;} .seg{height:32px;}
+    .groups{display:none;}
   }
   @media (prefers-reduced-motion:reduce){*{transition:none !important;}}
 
@@ -367,20 +392,21 @@
   #print-sheet .rep-head{display:flex !important;flex-wrap:nowrap !important;justify-content:space-between;align-items:flex-end;margin-bottom:12px;padding-bottom:8px;}
   #print-sheet .rep-meta{text-align:right !important;white-space:nowrap;}
   #print-sheet .rep-title{font-size:16pt;}
-  #print-sheet .hero{display:grid !important;grid-template-columns:26mm 1fr !important;gap:16px !important;margin-bottom:12px;align-items:center;}
-  #print-sheet .hero h2{font-size:22pt;}
+  #print-sheet .hero{display:grid !important;grid-template-columns:22mm 1fr !important;gap:16px !important;margin-bottom:10px;align-items:center;}
+  #print-sheet .hero h2{font-size:20pt;}
+  #print-sheet .hero .lvl{margin-top:4px;}
   #print-sheet .hero .lvl{margin-top:8px;}
   #print-sheet .quote{font-size:11pt;margin-top:6px;}
-  #print-sheet .summary{font-size:9.5pt;line-height:1.5;padding:8px 12px;margin:0 0 12px;}
+  #print-sheet .summary{font-size:9pt;line-height:1.45;padding:8px 12px;margin:0 0 10px;}
   #print-sheet .summary .sum-k{font-size:7.5pt;margin-bottom:4px;}
-  #print-sheet .res-grid{gap:12px;}
-  #print-sheet .panel{padding:10px 14px 12px;}
-  #print-sheet .panel > h3{font-size:12.5pt;margin-bottom:10px;padding-bottom:5px;}
+  #print-sheet .res-grid{gap:8px;}
+  #print-sheet .panel{padding:8px 14px 10px;}
+  #print-sheet .panel > h3{font-size:12.5pt;margin-bottom:8px;padding-bottom:4px;}
   #print-sheet .cols{grid-template-columns:repeat(3,minmax(0,1fr)) !important;gap:8px 18px;}
   #print-sheet .grp h4,#print-sheet .mot h4,#print-sheet .attrs-sub h4{font-size:7.5pt;margin-bottom:6px;}
   #print-sheet .grp .pills + h4{margin-top:8px;}
   #print-sheet .mot-head{margin-bottom:8px;}
-  #print-sheet dl{gap:4px;}
+  #print-sheet dl{gap:2px;}
   #print-sheet .kv{grid-template-columns:22mm 1fr !important;font-size:8.5pt;gap:6px;}
   #print-sheet .kv dt{font-size:8.5pt;}
   #print-sheet .panel p.txt{font-size:8.5pt;line-height:1.45;}
@@ -390,13 +416,19 @@
   #print-sheet .ps{grid-template-columns:1fr 1fr !important;gap:10px;}
   #print-sheet .ps-box{padding:6px 10px;border-radius:8px;}
   #print-sheet .ps-box b{font-size:8pt;margin-bottom:2px;}
-  #print-sheet .attrs-grid{grid-template-columns:30mm 24mm 1fr 24mm 32mm !important;gap:5px 10px;}
-  #print-sheet .attr{display:grid !important;grid-template-columns:subgrid !important;grid-template-areas:"n l t r d" !important;row-gap:0;}
+  /* Atributos en dos columnas (nombre · barra · valoración) para que la hoja quepa en un A4 sin encoger tanto */
+  #print-sheet .attrs-grid{grid-template-columns:repeat(2,25mm minmax(0,1fr) 29mm) !important;gap:3px 8px;}
+  #print-sheet .attr .an,#print-sheet .attr .desc{font-size:8pt !important;white-space:nowrap;}
+  #print-sheet .attrs-sub h4{margin-bottom:4px;}
+  #print-sheet .hero .xp-track{display:none;}
+  #print-sheet .attr{grid-column:span 3 !important;display:grid !important;grid-template-columns:subgrid !important;grid-template-areas:"n t d" !important;row-gap:0;}
+  #print-sheet .attr .ae{display:none !important;}
   #print-sheet .attr .tr{margin:0 !important;}
-  #print-sheet .attr .an,#print-sheet .attr .desc{font-size:8.5pt;}
-  #print-sheet .attr .ae{font-size:8pt;}
-  #print-sheet .attr .ae.l{text-align:right !important;} #print-sheet .attr .ae.r{text-align:left !important;}
   #print-sheet .attr .tr i{width:11px;height:11px;}
+  #print-sheet .cols.cols2{grid-template-columns:1fr 1fr !important;}
+  #print-sheet .tbadge{font-size:7.5pt;padding:1px 8px;}
+  #print-sheet .src{font-size:8pt;margin-top:6px;padding-top:4px;}
+  #print-sheet .grp-txt{margin-top:6px;}
   #print-sheet .ps-credit{text-align:center;font-size:8pt;color:var(--ink-muted);margin-top:8px;}
   @media print{
     @page{size:A4;margin:10mm 11mm;}
@@ -436,7 +468,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
       <span class="eyebrow"><svg viewBox="0 0 340.8 372.5" aria-hidden="true"><use href="#espora"/></svg>IPE · Tu cliente ideal</span>
       <button type="button" class="intro-avatar" id="intro-avatar" aria-label="Cambiar de personaje al azar" title="Pulsa para sacar otro personaje"></button>
       <h1>Forja a tu <em>cliente ideal</em></h1>
-      <p class="subtitle">Diseña a tu buyer persona como el personaje de un videojuego: primero su aspecto y sus datos, luego su carácter y lo que le hace comprar. Al final tendrás una ficha con sus dos perfiles.</p>
+      <p class="subtitle">Diseña a tu buyer persona como el personaje de un videojuego: primero su aspecto y sus datos, luego su carácter y lo que le hace comprar, y por último cómo llegar a él. Al final tendrás una ficha con todo.</p>
     </header>
 
     <div class="card">
@@ -479,20 +511,21 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     <div class="layout">
       <aside class="char-card" aria-label="Ficha del personaje en vivo">
         <div class="char-avatar" id="card-avatar"></div>
-        <div class="lvl"><span class="name"><svg viewBox="0 0 340.8 372.5" aria-hidden="true"><use href="#espora"/></svg><span id="lvl-name">Boceto a lápiz</span></span><span class="xp" id="xp-txt">0 / 170 XP</span></div>
+        <div class="lvl"><span class="name"><svg viewBox="0 0 340.8 372.5" aria-hidden="true"><use href="#espora"/></svg><span id="lvl-name">Boceto a lápiz</span></span><span class="xp" id="xp-txt">0 / 220 XP</span></div>
         <div class="xp-track"><i id="xp-bar"></i></div>
         <h2 class="char-name empty" id="card-name">Sin nombre aún</h2>
         <p class="char-line" id="card-line"></p>
         <div class="bars">
           <div class="bar b-soc"><div class="bar-top"><span>Perfil sociodemográfico</span><b id="bar-soc-n">0/10</b></div><div class="bar-track"><i id="bar-soc"></i></div></div>
-          <div class="bar b-psi"><div class="bar-top"><span>Perfil psicosocial</span><b id="bar-psi-n">0/7</b></div><div class="bar-track"><i id="bar-psi"></i></div></div>
+          <div class="bar b-psi"><div class="bar-top"><span>Perfil psicosocial</span><b id="bar-psi-n">0/8</b></div><div class="bar-track"><i id="bar-psi"></i></div></div>
+          <div class="bar b-lle"><div class="bar-top"><span>Cómo llegar</span><b id="bar-lle-n">0/3</b></div><div class="bar-track"><i id="bar-lle"></i></div></div>
         </div>
         <div class="char-tags" id="card-tags"></div>
       </aside>
 
       <main style="min-width:0;">
         <div class="stepper">
-          <div class="groups"><span>Perfil sociodemográfico</span><span>Perfil psicosocial</span><span>Ficha</span></div>
+          <div class="groups" aria-hidden="true"><span>Perfil sociodemográfico</span><span>Perfil psicosocial</span><span>Estrategia</span></div>
           <div class="segs" id="segs" role="group" aria-label="Pasos">
             <button type="button" class="seg g1" data-step="1" aria-label="Paso 1">1</button>
             <button type="button" class="seg g1" data-step="2" aria-label="Paso 2">2</button>
@@ -500,7 +533,8 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
             <button type="button" class="seg g2" data-step="4" aria-label="Paso 4">4</button>
             <button type="button" class="seg g2" data-step="5" aria-label="Paso 5">5</button>
             <button type="button" class="seg g2" data-step="6" aria-label="Paso 6">6</button>
-            <button type="button" class="seg g3" data-step="7" aria-label="Ficha final"><svg class="espora" viewBox="0 0 340.8 372.5" aria-hidden="true"><use href="#espora"/></svg></button>
+            <button type="button" class="seg g3" data-step="7" aria-label="Paso 7">7</button>
+            <button type="button" class="seg g3" data-step="8" aria-label="Ficha final"><svg class="espora" viewBox="0 0 340.8 372.5" aria-hidden="true"><use href="#espora"/></svg></button>
           </div>
           <p class="step-label" id="step-label"></p>
         </div>
@@ -517,7 +551,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
               <div class="plate">
                 <p class="plate-name" id="stage-name">Sin nombre aún</p>
                 <div class="lvl"><span class="name"><svg viewBox="0 0 340.8 372.5" aria-hidden="true"><use href="#espora"/></svg><span id="stage-lvl">Nv. 1 · Boceto a lápiz</span></span></div>
-                <div class="xp-row"><div class="xp-track"><i id="stage-xpbar"></i></div><span class="xp" id="stage-xp">0 / 170 XP</span></div>
+                <div class="xp-row"><div class="xp-track"><i id="stage-xpbar"></i></div><span class="xp" id="stage-xp">0 / 220 XP</span></div>
               </div>
               <button type="button" class="btn btn-ghost dice" id="btn-dice"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8.5" cy="8.5" r="1.2" fill="currentColor"/><circle cx="15.5" cy="15.5" r="1.2" fill="currentColor"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg>Aspecto al azar</button>
             </div>
@@ -593,6 +627,13 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
             <div class="group"><div class="field"><label for="f-res">Lugar de residencia</label><input id="f-res" type="text" maxlength="60" placeholder="Ej: Santiago de Compostela, barrio de Conxo" data-f="soc.residencia" autocomplete="off"></div></div>
             <div class="group"><span class="lbl">Tipo de entorno <em>(opcional)</em></span><div class="chips" data-path="soc.entorno" data-mode="single" data-list="ENTORNO"></div></div>
           </div>
+          <div class="block">
+            <h3>¿De dónde salen estos datos?</h3>
+            <p class="note block-note">Un buyer persona vale lo que valen sus datos. Marca todas las fuentes que hayas usado para este perfil.</p>
+            <div class="group"><div class="chips" data-path="soc.fuentes" data-mode="multi" data-max="7" data-list="FUENTES"></div></div>
+            <div class="group"><div class="field"><label for="f-fsoc">¿Cuál, en concreto? <em>(opcional)</em></label><input id="f-fsoc" type="text" maxlength="120" placeholder="Ej: INE, salarios por ocupación; ofertas de empleo de la zona" data-f="soc.fuenteDet" autocomplete="off"></div></div>
+            <div class="trust" data-trust="soc"></div>
+          </div>
           <div class="tip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg><span><b>Misión cumplida:</b> con este paso terminas el perfil sociodemográfico. Ahora toca meterte en su cabeza.</span></div>
         </section>
 
@@ -645,6 +686,32 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
             <div class="group"><div class="field"><label for="f-sol">¿Cómo lo resuelve tu producto o servicio? <em style="text-transform:none;letter-spacing:0;font-weight:500;">(opcional)</em></label><textarea id="f-sol" maxlength="240" placeholder="Ej: Diseñamos el mueble a su medida y se lo montamos en casa en una semana." data-f="psi.solucion" style="min-height:76px;"></textarea></div></div>
             <div class="group"><div class="field"><label for="f-frase">Su frase típica <em style="text-transform:none;letter-spacing:0;font-weight:500;">(opcional)</em></label><input id="f-frase" type="text" maxlength="110" placeholder="Ej: «No tengo tiempo, solo quiero que funcione.»" data-f="psi.frase" autocomplete="off"></div></div>
           </div>
+          <div class="block">
+            <h3>¿De dónde salen estos datos?</h3>
+            <p class="note block-note">El carácter y las motivaciones no salen en las estadísticas: se descubren hablando con clientes. Marca todas las fuentes que hayas usado.</p>
+            <div class="group"><div class="chips" data-path="psi.fuentes" data-mode="multi" data-max="7" data-list="FUENTES"></div></div>
+            <div class="group"><div class="field"><label for="f-fpsi">¿Cuál, en concreto? <em>(opcional)</em></label><input id="f-fpsi" type="text" maxlength="120" placeholder="Ej: Entrevistas a 4 compradores de muebles en una tienda del barrio" data-f="psi.fuenteDet" autocomplete="off"></div></div>
+            <div class="trust" data-trust="psi"></div>
+          </div>
+        </section>
+
+        <!-- Paso 7 -->
+        <section class="card step tool" id="step-7" hidden>
+          <p class="kicker">Estrategia</p>
+          <h2 class="step-title">Cómo llegar a tu cliente</h2>
+          <p class="step-desc">Ya sabes quién es y qué le mueve. Ahora toca decidir dónde le encuentras y qué le frena antes de comprar.</p>
+          <div class="block">
+            <h3>Dónde encontrarle</h3>
+            <div class="group"><span class="lbl">Canales donde está <em>(hasta 3)</em></span><div class="chips" data-path="lle.canales" data-mode="multi" data-max="3" data-list="CANALES"></div></div>
+            <div class="group"><div class="field"><label for="f-momento">¿Cuándo y cómo suele comprar? <em>(opcional)</em></label><input id="f-momento" type="text" maxlength="160" placeholder="Ej: Desde el móvil, por la noche, cuando los niños ya duermen" data-f="lle.momento" autocomplete="off"></div></div>
+          </div>
+          <div class="block">
+            <h3>Frenos y objeciones <em class="h3-em">hasta 3</em></h3>
+            <p class="note block-note">Lo que le haría decir «no» aunque le guste lo que ofreces.</p>
+            <div class="tags" data-path="lle.frenos" data-max="3" data-list="FRENOS" data-ph="Escribe un freno y pulsa Intro"></div>
+            <div class="group group-gap"><div class="field"><label for="f-conv">¿Cómo le convences? <em>(opcional)</em></label><textarea id="f-conv" maxlength="240" placeholder="Ej: Le dejamos probarlo 30 días y le enseñamos opiniones de otras familias del barrio." data-f="lle.convencer"></textarea><span class="count" id="cnt-conv">0 / 240</span></div></div>
+          </div>
+          <div class="tip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg><span><b>Pista:</b> si no sabes qué le frena, pregúntaselo. Dos o tres entrevistas cortas a clientes reales valen más que cualquier suposición.</span></div>
         </section>
 
         <div class="alerts" id="alerts-box" hidden></div>
@@ -725,6 +792,9 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     ESTILOS: ['Activo y deportista','Casero/a','Social y de salir','Minimalista','Muy familiar','Nómada digital','Sin tiempo para nada','Ahorrador/a consciente'],
     AFIC: ['Videojuegos','Gimnasio','Cine y series','Viajar','Cocinar','Conciertos','Senderismo','Lectura','Redes sociales','Bricolaje','Deportes de combate'],
     INQ: ['Llegar a fin de mes','Sostenibilidad','Ahorrar tiempo','Estabilidad laboral','Salud mental','Crecer profesionalmente','Acceso a la vivienda','Privacidad'],
+    FUENTES: ['Estadísticas oficiales (INE…)','Informes del sector','Entrevistas','Encuestas','Observación directa','Conozco a alguien así','Intuición'],
+    CANALES: ['Instagram','TikTok','YouTube','LinkedIn','Grupos de WhatsApp','Buscadores (Google…)','Medios locales (prensa, radio)','Tienda física','Ferias o eventos','Boca a boca','Correo electrónico','Marketplaces (Amazon, Wallapop…)'],
+    FRENOS: ['Le parece caro','No conoce la marca','Ya usa otra solución','Le da pereza cambiar','Duda de la calidad','Gastos de envío','Miedo a equivocarse','Necesita consultarlo'],
     MOTORES: ['Ahorrar dinero','Ahorrar tiempo','Cuidar su imagen','Cuidar su salud','Sentirse seguro/a','Divertirse','Sentirse parte de una comunidad','Aprender']
   };
   var SLIDERS = [
@@ -734,7 +804,16 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     {k:'razon', n:'Al decidir', l:'Racional', r:'Emocional'},
     {k:'precio',n:'Qué valora más', l:'El precio', r:'La calidad'}
   ];
-  var STEPS = ['Identidad y aspecto','Formación y economía','Entorno vital','Carácter','Estilo de vida','Motivación de compra'];
+  var STEPS = ['Crea a tu personaje','Formación y economía','Entorno vital','Carácter','Estilo de vida','Motivación de compra','Cómo llegar a tu cliente'];
+  var LAST = STEPS.length, FICHA = LAST + 1;
+  // Peso de cada fuente para la fiabilidad (mismo orden que L.FUENTES)
+  var FUENTE_PESO = [3, 3, 3, 2, 2, 1, 0];
+  var TRUST_TXT = {
+    none: ['Sin indicar', 'Marca de dónde has sacado la información.'],
+    baja: ['Baja', 'Está hecho sobre todo a ojo. Contrástalo con un dato real: el INE, una encuesta rápida o dos entrevistas.'],
+    media: ['Media', 'Va bien. Para llegar a alta, contrástalo con una segunda fuente distinta y anota cuál es.'],
+    alta: ['Alta', 'Perfil apoyado en datos. Así sí se pueden tomar decisiones.']
+  };
   var LEVELS = [[0,'Boceto a lápiz'],[25,'Silueta'],[50,'Retrato robot'],[75,'Casi de carne y hueso'],[100,'Persona real']];
   // Selectores ‹ › del creador: [ruta, lista, nombre]
   var CYC = [['av.face','FACES','Expresión'],['av.beard','BEARDS','Vello facial'],['av.hs','HAIRS','Peinado'],['av.top','TOPS','Prenda'],['av.glasses','GLASSES','Gafas'],['av.head','HEADS','Cabeza'],['av.ear','EARS','Pendientes']];
@@ -743,8 +822,9 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     return {
       alumno:'', negocio:'',
       av:{skin:1, hs:'corto', hc:1, outfit:0, top:'camiseta', face:'auto', beard:'none', glasses:'none', head:'none', ear:'none', extra:'none'},
-      soc:{nombre:'',edad:'',genero:'',nacionalidad:'',estudios:'',trabajo:'',ingM:'',ingA:'',ingAauto:false,familia:'',familiaDet:'',residencia:'',entorno:''},
-      psi:{descripcion:'',rasgos:[],sl:{intro:50,plan:50,innov:50,razon:50,precio:50},estilo:[],aficiones:[],inquietudes:[],motor:[],necesidad:'',solucion:'',frase:''}
+      soc:{nombre:'',edad:'',genero:'',nacionalidad:'',estudios:'',trabajo:'',ingM:'',ingA:'',ingAauto:false,familia:'',familiaDet:'',residencia:'',entorno:'',fuentes:[],fuenteDet:''},
+      psi:{descripcion:'',rasgos:[],sl:{intro:50,plan:50,innov:50,razon:50,precio:50},estilo:[],aficiones:[],inquietudes:[],motor:[],necesidad:'',solucion:'',frase:'',fuentes:[],fuenteDet:''},
+      lle:{canales:[],momento:'',frenos:[],convencer:''}
     };
   }
   var state = blank();
@@ -892,9 +972,20 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
   /* ───────── Progreso ───────── */
   function has(v) { return v != null && String(v).trim() !== ''; }
   var SOC_F = ['nombre','edad','genero','nacionalidad','estudios','trabajo','ingM','ingA','familia','residencia'];
-  function socDone() { return SOC_F.filter(function (k) { return has(state.soc[k]); }).length; }
-  function psiChecks() { var p = state.psi; return [has(p.descripcion), p.rasgos.length > 0, p.estilo.length > 0, p.aficiones.length > 0, p.inquietudes.length > 0, p.motor.length > 0, has(p.necesidad)]; }
+  function socDone() { return SOC_F.filter(function (k) { return has(state.soc[k]); }).length + (state.soc.fuentes.length > 0 ? 1 : 0); }
+  function psiChecks() { var p = state.psi; return [has(p.descripcion), p.rasgos.length > 0, p.estilo.length > 0, p.aficiones.length > 0, p.inquietudes.length > 0, p.motor.length > 0, has(p.necesidad), p.fuentes.length > 0]; }
   function psiDone() { return psiChecks().filter(Boolean).length; }
+  function lleDone() { var l = state.lle; return (l.canales.length > 0 ? 1 : 0) + (has(l.momento) ? 1 : 0) + (l.frenos.length > 0 ? 1 : 0); }
+  var SOC_N = SOC_F.length + 1, PSI_N = 8, LLE_N = 3, TOTAL_N = SOC_N + PSI_N + LLE_N;
+  function progress() { var t = socDone() + psiDone() + lleDone(); return { total: t, pct: Math.round(t / TOTAL_N * 100), xp: t * 10 + ' / ' + TOTAL_N * 10 + ' XP' }; }
+  function trust(prof) {
+    var o = state[prof], pts = 0;
+    if (!o.fuentes.length) return 'none';
+    o.fuentes.forEach(function (f) { var i = L.FUENTES.indexOf(f); pts += i > -1 ? FUENTE_PESO[i] : 1; });
+    if (has(o.fuenteDet)) pts += 1;
+    return pts >= 5 ? 'alta' : pts >= 3 ? 'media' : 'baja';
+  }
+  function firstOpen() { for (var n = 1; n <= LAST; n++) if (!stepDone(n)) return n; return 1; }
   function stepDone(n) {
     var s = state.soc, p = state.psi;
     switch (n) {
@@ -904,6 +995,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
       case 4: return has(p.descripcion) && p.rasgos.length > 0;
       case 5: return p.estilo.length > 0 && p.aficiones.length > 0 && p.inquietudes.length > 0;
       case 6: return p.motor.length > 0 && has(p.necesidad);
+      case 7: return state.lle.canales.length > 0 && state.lle.frenos.length > 0;
     }
     return false;
   }
@@ -916,6 +1008,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     if (!has(s.residencia)) m.push('lugar de residencia');
     if (!has(p.descripcion)) m.push('descripción de su personalidad');
     if (!has(p.necesidad)) m.push('necesidad o problema');
+    if (!state.lle.canales.length) m.push('canales donde encontrarle');
     return m;
   }
   function levelIdx(pct) { var r = 0; LEVELS.forEach(function (l, i) { if (pct >= l[0]) r = i; }); return r; }
@@ -936,6 +1029,8 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     }
     if (im > -1 && ia > -1 && Math.abs(im - ia) > 1) a.push('Los ingresos mensuales y anuales no cuadran. Recuerda: anual ≈ mensual × 12.');
     if (im === 0 && has(tr) && !noJob.test(tr)) a.push('Dices que no tiene ingresos propios, pero tiene un trabajo. ¿Es un trabajo sin remunerar o hay que ajustar los ingresos?');
+    var pf = state.psi.fuentes;
+    if (pf.length && !pf.some(function (f) { return /Entrevistas|Encuestas|Observación/.test(f); })) a.push('Ojo con las fuentes|Su carácter y sus motivaciones no salen de hablar con clientes ni de observarlos. Prueba con dos o tres entrevistas cortas: es donde aparecen los frenos de verdad.');
     return a;
   }
 
@@ -1008,7 +1103,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     document.querySelectorAll('[data-f]').forEach(function (el) { el.value = get(el.getAttribute('data-f')) || ''; });
   }
   function refreshCard() {
-    var s = state.soc, sd = socDone(), pd = psiDone(), total = sd + pd, pct = Math.round(total / 17 * 100);
+    var s = state.soc, sd = socDone(), pd = psiDone(), ld = lleDone(), pr = progress(), pct = pr.pct;
     var nm = $('card-name');
     nm.textContent = has(s.nombre) ? s.nombre : 'Sin nombre aún';
     nm.classList.toggle('empty', !has(s.nombre));
@@ -1016,39 +1111,41 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     $('card-line').textContent = line || 'Tu cliente ideal está por definir';
     var li = levelIdx(pct);
     $('lvl-name').textContent = level(pct);
-    $('xp-txt').textContent = total * 10 + ' / 170 XP';
+    $('xp-txt').textContent = pr.xp;
     $('xp-bar').style.width = pct + '%';
     var pn = $('stage-name');
     pn.textContent = nm.textContent; pn.classList.toggle('empty', !has(s.nombre));
     $('stage-lvl').textContent = 'Nv. ' + (li + 1) + ' · ' + level(pct);
-    $('stage-xp').textContent = total * 10 + ' / 170 XP';
+    $('stage-xp').textContent = pr.xp;
     $('stage-xpbar').style.width = pct + '%';
     if (lastLvl !== null && li > lastLvl) {
       document.querySelectorAll('#screen-app .lvl, #screen-app .xp-track').forEach(function (el) { animate(el, 'up'); });
       toast('¡Sube de nivel! Ahora es «' + LEVELS[li][1] + '»');
     }
     lastLvl = li;
-    $('bar-soc-n').textContent = sd + '/10'; $('bar-soc').style.width = sd * 10 + '%';
-    $('bar-psi-n').textContent = pd + '/7'; $('bar-psi').style.width = Math.round(pd / 7 * 100) + '%';
+    $('bar-soc-n').textContent = sd + '/' + SOC_N; $('bar-soc').style.width = Math.round(sd / SOC_N * 100) + '%';
+    $('bar-psi-n').textContent = pd + '/' + PSI_N; $('bar-psi').style.width = Math.round(pd / PSI_N * 100) + '%';
+    $('bar-lle-n').textContent = ld + '/' + LLE_N; $('bar-lle').style.width = Math.round(ld / LLE_N * 100) + '%';
     $('card-tags').innerHTML = state.psi.rasgos.map(function (r) { return '<span class="pill">' + esc(r) + '</span>'; }).join('');
     paintAvatars();
   }
   function renderAlertsInto(el) {
     var a = alerts();
     el.hidden = a.length === 0;
-    el.innerHTML = a.map(function (t) { return '<div class="alert"><b>Ojo con la coherencia</b>' + esc(t) + '</div>'; }).join('');
+    // Un aviso puede traer su propio título delante de «|»
+    el.innerHTML = a.map(function (t) { var p = t.split('|'); return '<div class="alert"><b>' + esc(p.length > 1 ? p[0] : 'Ojo con la coherencia') + '</b>' + esc(p[p.length - 1]) + '</div>'; }).join('');
   }
   function refreshStepper() {
     document.querySelectorAll('.seg').forEach(function (b) {
       var n = Number(b.getAttribute('data-step'));
       b.classList.toggle('current', n === step);
-      b.classList.toggle('done', n < 7 && n !== step && stepDone(n));
-      b.disabled = (n === 7 && missing().length > 0);
+      b.classList.toggle('done', n < FICHA && n !== step && stepDone(n));
+      b.disabled = (n === FICHA && missing().length > 0);
     });
-    if (step >= 1 && step <= 6) $('step-label').innerHTML = 'Paso <b>' + step + ' de 6</b> · ' + esc(STEPS[step - 1]);
+    if (step >= 1 && step <= LAST) $('step-label').innerHTML = 'Paso <b>' + step + ' de ' + LAST + '</b> · ' + esc(STEPS[step - 1]);
     var next = $('btn-next'), hint = $('hint'), miss = missing();
     $('btn-prev').style.visibility = step <= 1 ? 'hidden' : 'visible';
-    if (step === 6) {
+    if (step === LAST) {
       next.textContent = 'Generar ficha →';
       next.disabled = miss.length > 0;
       hint.textContent = miss.length ? 'Falta: ' + miss.join(', ') + '.' : '';
@@ -1059,6 +1156,13 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     refreshCard();
     refreshStepper();
     renderAlertsInto($('alerts-box'));
+    document.querySelectorAll('[data-trust]').forEach(function (el) {
+      var t = trust(el.getAttribute('data-trust')), lv = { none: 0, baja: 1, media: 2, alta: 3 }[t];
+      el.className = 'trust t-' + t;
+      el.innerHTML = '<div class="trust-top"><span>Fiabilidad de este perfil</span><b>' + TRUST_TXT[t][0] + '</b></div>' +
+        '<div class="trust-bar" aria-hidden="true"><i class="' + (lv > 0 ? 'on' : '') + '"></i><i class="' + (lv > 1 ? 'on' : '') + '"></i><i class="' + (lv > 2 ? 'on' : '') + '"></i></div><p>' + TRUST_TXT[t][1] + '</p>';
+    });
+    $('cnt-conv').textContent = state.lle.convencer.length + ' / 240';
     var biz = has(state.negocio);
     $('biz-box').hidden = !biz; $('biz-name').textContent = state.negocio;
     save();
@@ -1067,14 +1171,14 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
   /* ───────── Navegación ───────── */
   function show(id, on) { $(id).hidden = !on; }
   function goTo(n) {
-    if (n === 7 && missing().length) { toast('Completa los datos obligatorios para generar la ficha.'); return; }
+    if (n === FICHA && missing().length) { toast('Completa los datos obligatorios para generar la ficha.'); return; }
     step = n;
     show('screen-intro', n === 0);
-    show('screen-app', n >= 1 && n <= 6);
-    show('screen-result', n === 7);
-    for (var i = 1; i <= 6; i++) show('step-' + i, i === n);
+    show('screen-app', n >= 1 && n <= LAST);
+    show('screen-result', n === FICHA);
+    for (var i = 1; i <= LAST; i++) show('step-' + i, i === n);
     document.querySelector('#screen-app .layout').classList.toggle('creator', n === 1);
-    if (n === 7) renderResult();
+    if (n === FICHA) renderResult();
     else if (n >= 1) refresh();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
@@ -1104,19 +1208,31 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     var parts = [];
     if (p.rasgos.length) parts.push('se define como ' + joinEs(p.rasgos.map(function (r) { return lc(gend(r)); })));
     if (p.motor.length) parts.push((parts.length ? 'y ' : '') + 'le mueve ' + joinEs(p.motor.map(function (r) { return lc(gend(r)); })));
-    if (!parts.length) return a;
+    var c = '', l = state.lle;
+    // Las marcas mantienen su mayúscula; el resto va en minúscula dentro de la frase
+    if (l.canales.length) c += ' Se le encuentra sobre todo en ' + joinEs(l.canales.map(function (x) { return /^(Instagram|TikTok|YouTube|LinkedIn)$/.test(x) ? x : lc(x); })) + '.';
+    if (l.frenos.length) c += ' Lo que más le frena: ' + joinEs(l.frenos.map(lc)) + '.';
+    if (!parts.length) return a + c;
     var b = parts.join(' ');
-    return a + ' ' + b.charAt(0).toUpperCase() + b.slice(1) + '.';
+    return a + ' ' + b.charAt(0).toUpperCase() + b.slice(1) + '.' + c;
+  }
+  function trustBadge(prof) {
+    var t = trust(prof);
+    return '<span class="tbadge t-' + t + '">' + (t === 'none' ? 'Fuentes sin indicar' : 'Fiabilidad ' + TRUST_TXT[t][0].toLowerCase()) + '</span>';
+  }
+  function srcLine(prof) {
+    var o = state[prof], t = [o.fuentes.join(', '), o.fuenteDet].filter(has).join('. ');
+    return t ? '<p class="src"><b>Fuentes:</b> ' + esc(t) + '</p>' : '';
   }
   function renderResult() {
-    var s = state.soc, p = state.psi, total = socDone() + psiDone(), pct = Math.round(total / 17 * 100);
+    var s = state.soc, p = state.psi, l = state.lle, pr = progress(), pct = pr.pct;
     $('rep-title').textContent = has(state.negocio) ? state.negocio : 'Mi negocio';
     $('rep-alumno').textContent = state.alumno;
     $('rep-date').textContent = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
     $('res-name').textContent = s.nombre;
     $('res-sub').textContent = [has(s.edad) ? s.edad + ' años' : '', s.genero, s.nacionalidad, s.residencia].filter(has).join(' · ');
     $('res-lvl').textContent = level(pct);
-    $('res-xp').textContent = total * 10 + ' / 170 XP';
+    $('res-xp').textContent = pr.xp;
     $('res-xpbar').style.width = pct + '%';
     var q = $('res-quote'); q.hidden = !has(p.frase); q.textContent = has(p.frase) ? '«' + p.frase.replace(/^[«"“]+|[»"”]+$/g, '') + '»' : '';
     paintAvatars();
@@ -1124,30 +1240,33 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     var fam = [s.familia, s.familiaDet].filter(has).join('. ');
     var res = [s.residencia, s.entorno].filter(has).join(' · ');
     $('res-summary').innerHTML = '<span class="sum-k">En resumen</span>' + esc(summaryParas());
-    var socH = '<section class="panel soc"><h3>Perfil sociodemográfico</h3><div class="cols">' +
+    var socH = '<section class="panel soc"><h3><span>Perfil sociodemográfico</span>' + trustBadge('soc') + '</h3><div class="cols">' +
       '<div class="grp"><h4>Identidad</h4><dl>' + kv('Edad', has(s.edad) ? s.edad + ' años' : '') + kv('Género', s.genero) + kv('Nacionalidad', s.nacionalidad) + '</dl></div>' +
       '<div class="grp"><h4>Formación y trabajo</h4><dl>' + kv('Nivel educativo', s.estudios) + kv('Trabajo actual', s.trabajo) + kv('Ingresos / mes', s.ingM) + kv('Ingresos / año', s.ingA) + '</dl></div>' +
-      '<div class="grp"><h4>Entorno vital</h4><dl>' + kv('Situación familiar', fam) + kv('Residencia', res) + '</dl></div></div></section>';
+      '<div class="grp"><h4>Entorno vital</h4><dl>' + kv('Situación familiar', fam) + kv('Residencia', res) + '</dl></div></div>' + srcLine('soc') + '</section>';
     var attrs = SLIDERS.map(function (sl) {
       var v = p.sl[sl.k];
       return '<div class="attr"><span class="an">' + esc(sl.n) + '</span><span class="ae l' + (v < 40 ? ' on' : '') + '">' + esc(gend(sl.l)) + '</span><div class="tr"><i style="left:' + v + '%"></i></div><span class="ae r' + (v > 60 ? ' on' : '') + '">' + esc(gend(sl.r)) + '</span><span class="desc">' + esc(gend(sliderLabel(sl, v))) + '</span></div>';
     }).join('');
-    var psiH = '<section class="panel psi"><h3>Perfil psicosocial</h3><div class="cols">' +
+    var psiH = '<section class="panel psi"><h3><span>Perfil psicosocial</span>' + trustBadge('psi') + '</h3><div class="cols">' +
       '<div class="grp"><h4>Personalidad</h4><p class="txt">' + (has(p.descripcion) ? esc(p.descripcion) : '<i style="opacity:.5">Sin definir</i>') + '</p>' + pills(p.rasgos.map(gend)) + '</div>' +
       '<div class="grp"><h4>Estilo de vida</h4>' + pills(p.estilo.map(gend)) + '<h4>Aficiones</h4>' + pills(p.aficiones) + '</div>' +
       '<div class="grp"><h4>Inquietudes</h4>' + pills(p.inquietudes) + '</div></div>' +
       '<div class="mot"><div class="mot-head"><h4>Motivación de compra</h4>' + (p.motor.length ? pills(p.motor.map(gend), 'tool') : '') + '</div>' +
       '<div class="ps"><div class="ps-box"><b>Necesidad o problema</b><p class="txt">' + (has(p.necesidad) ? esc(p.necesidad) : '<i style="opacity:.5">Sin definir</i>') + '</p></div>' +
       (has(p.solucion) ? '<div class="ps-box"><b>Nuestra respuesta</b><p class="txt">' + esc(p.solucion) + '</p></div>' : '') + '</div></div>' +
-      '<div class="attrs-sub"><h4>Atributos del personaje</h4><div class="attrs-grid">' + attrs + '</div></div></section>';
-    $('res-grid').innerHTML = socH + psiH;
+      '<div class="attrs-sub"><h4>Atributos del personaje</h4><div class="attrs-grid">' + attrs + '</div></div>' + srcLine('psi') + '</section>';
+    var lleH = '<section class="panel lle"><h3><span>Cómo llegar</span></h3><div class="cols cols2">' +
+      '<div class="grp"><h4>Dónde encontrarle</h4>' + pills(l.canales, 'tool') + (has(l.momento) ? '<p class="txt grp-txt"><b>Cuándo compra:</b> ' + esc(l.momento) + '</p>' : '') + '</div>' +
+      '<div class="grp"><h4>Frenos y objeciones</h4>' + pills(l.frenos) + (has(l.convencer) ? '<p class="txt grp-txt"><b>Cómo le convencemos:</b> ' + esc(l.convencer) + '</p>' : '') + '</div></div></section>';
+    $('res-grid').innerHTML = socH + psiH + lleH;
     renderAlertsInto($('res-alerts'));
     save();
   }
   function fitPrint() {
     var sheet = $('print-sheet');
     sheet.style.zoom = 1; sheet.innerHTML = '';
-    if (step !== 7) return;
+    if (step !== FICHA) return;
     ['.rep-head', '.hero', '.summary', '.res-grid'].forEach(function (sel) {
       var n = document.querySelector('#screen-result ' + sel);
       if (n) sheet.appendChild(n.cloneNode(true));
@@ -1177,6 +1296,17 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     t += '- Motivación de compra: ' + list(p.motor) + '\n- Necesidad o problema: ' + p.necesidad + '\n';
     if (has(p.solucion)) t += '- Cómo lo resuelve nuestro negocio: ' + p.solucion + '\n';
     if (has(p.frase)) t += '- Frase típica: ' + p.frase + '\n';
+    var l = state.lle;
+    t += '\nCÓMO LLEGAR\n';
+    t += '- Canales: ' + list(l.canales) + '\n';
+    if (has(l.momento)) t += '- Cuándo compra: ' + l.momento + '\n';
+    t += '- Frenos y objeciones: ' + list(l.frenos) + '\n';
+    if (has(l.convencer)) t += '- Cómo le convencemos: ' + l.convencer + '\n';
+    t += '\nFUENTES\n';
+    [['soc', 'Perfil sociodemográfico'], ['psi', 'Perfil psicosocial']].forEach(function (x) {
+      var o = state[x[0]], tr = trust(x[0]);
+      t += '- ' + x[1] + ': ' + ([o.fuentes.join(', '), o.fuenteDet].filter(has).join('. ') || 'Sin indicar') + (tr !== 'none' ? ' (fiabilidad ' + TRUST_TXT[tr][0].toLowerCase() + ')' : '') + '\n';
+    });
     return t;
   }
   function copy(text, okMsg) {
@@ -1204,7 +1334,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
   function loadData(obj) {
     if (!obj || obj.herramienta !== 'Buyer Persona' || !obj.state) throw new Error('formato');
     var b = blank(); mergeDeep(b, obj.state); fixAv(b.av); state = b; lastLvl = null;
-    syncInputs(); goTo(missing().length ? 1 : 7);
+    syncInputs(); goTo(missing().length ? firstOpen() : FICHA);
     toast('Personaje cargado.');
   }
   function resetAll() { state = blank(); lastLvl = null; clearSaved(); syncInputs(); paintAvatars(); goTo(0); }
@@ -1303,7 +1433,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     if (saved && saved.state === undefined && (has(saved.alumno) || has(saved.negocio) || (saved.soc && has(saved.soc.nombre)))) {
       var b = blank(); mergeDeep(b, saved); fixAv(b.av);
       $('saved-banner').hidden = false; $('saved-name').textContent = has(b.soc.nombre) ? b.soc.nombre : (has(b.negocio) ? b.negocio : 'sin nombre');
-      $('btn-continue').addEventListener('click', function () { state = b; syncInputs(); goTo(missing().length ? 1 : 7); });
+      $('btn-continue').addEventListener('click', function () { state = b; syncInputs(); goTo(missing().length ? firstOpen() : FICHA); });
       $('btn-discard').addEventListener('click', function () { clearSaved(); $('saved-banner').hidden = true; });
     }
     syncInputs(); paintAvatars(); syncControls();
