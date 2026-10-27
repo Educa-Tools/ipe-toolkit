@@ -481,8 +481,10 @@
   @media print{
     @page{size:A4;margin:10mm 11mm;}
     *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
-    html,body{background:#fff;}
+    :root,:root body{background:#fff !important;}
     .wrap{max-width:none;padding:0;}
+    /* Si aun así no cupiera, que ningún bloque se parta entre dos páginas */
+    #print-sheet .panel,#print-sheet .summary,#print-sheet .hero,#print-sheet .ps-box{break-inside:avoid;}
     .wrap > *:not(#print-sheet),.toast{display:none !important;}
     #print-sheet{position:static;left:auto;margin:0 auto;}
   }
@@ -1501,15 +1503,25 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
       var n = document.querySelector('#screen-result ' + sel);
       if (n) sheet.appendChild(n.cloneNode(true));
     });
-    sheet.querySelectorAll('[id]').forEach(function (e) { e.removeAttribute('id'); });
+    // El recorte redondo del avatar necesita su clipPath: se renombra en la copia en vez de quitarle el id
+    sheet.querySelectorAll('clipPath[id]').forEach(function (cp) {
+      var nid = cp.id + '-hoja';
+      sheet.querySelectorAll('[clip-path="url(#' + cp.id + ')"]').forEach(function (g) { g.setAttribute('clip-path', 'url(#' + nid + ')'); });
+      cp.id = nid;
+    });
+    sheet.querySelectorAll('[id]:not(clipPath)').forEach(function (e) { e.removeAttribute('id'); });
     var cr = document.createElement('div'); cr.className = 'ps-credit'; var qs = quizScore();
     cr.textContent = 'Esplora' + (qs.done && !viewing ? ' · Test rápido: ' + qs.ok + ' de ' + QZ.length + ' aciertos' : ''); sheet.appendChild(cr);
-    var avail = Math.floor(276 / 25.4 * 96);
+    // A4 menos márgenes (277 mm), con 9 mm de holgura por si el navegador añade cabecera y pie
+    var avail = Math.floor(268 / 25.4 * 96);
     var h = sheet.getBoundingClientRect().height;
     sheet.style.zoom = h > avail ? (avail / h) : 1;
   }
+  // La medida se toma una sola vez, antes de imprimir y con la hoja en pantalla. Al cambiar a modo impresión
+  // algunos navegadores miden distinto y dejaban la hoja sin encoger; ese segundo aviso solo actúa si no hubo «beforeprint»
   window.addEventListener('beforeprint', fitPrint);
-  if (window.matchMedia) { var mq = window.matchMedia('print'); if (mq.addEventListener) mq.addEventListener('change', function (e) { if (e.matches) fitPrint(); }); }
+  window.addEventListener('afterprint', function () { $('print-sheet').innerHTML = ''; });
+  if (window.matchMedia) { var mq = window.matchMedia('print'); if (mq.addEventListener) mq.addEventListener('change', function (e) { if (e.matches && !$('print-sheet').innerHTML) fitPrint(); }); }
   function summaryText() {
     var s = state.soc, p = state.psi;
     function list(a) { return a.length ? a.join(', ') : 'Sin definir'; }
