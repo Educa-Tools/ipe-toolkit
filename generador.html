@@ -154,7 +154,7 @@
   }
 
   .biz-loading { text-align: center; padding: 4rem 1rem; }
-  .biz-spinner { display: inline-block; width: 40px; height: 40px; border: 3px solid var(--olive-soft); border-top-color: var(--olive-deep); border-right-color: var(--olive-mid); border-radius: 50%; animation: bizSpin 0.8s linear infinite; margin-bottom: 1.5rem; }
+  .biz-spinner { display: block; width: 56px; height: 56px; margin: 0 auto 1.5rem; animation: bizSpin 1.6s linear infinite; }
   @keyframes bizSpin { to { transform: rotate(360deg); } }
   .biz-loading-text { font-size: 16.5px; color: var(--ink-soft); margin: 0; transition: opacity 0.3s ease; }
 
@@ -375,7 +375,6 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
 
 /* Carga */
 .biz-loading{ padding:5rem 1rem; }
-.biz-spinner{ width:46px; height:46px; border:3px solid var(--olive-soft); border-top-color:var(--olive-deep); border-right-color:var(--olive-deep); }
 .biz-loading-text{ font-family:var(--font-display); font-style:italic; font-size:19px; color:var(--ink); }
 
 /* Cabecera de resultados: banda oscura de marca */
@@ -785,7 +784,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
   </div>
 
   <div class="biz-card biz-loading" id="biz-loading" style="display: none;">
-    <div class="biz-spinner"></div>
+    <img class="biz-spinner" src="marca/simbolo-oliva.svg" alt="" width="56" height="56">
     <p class="biz-loading-text" id="biz-loading-text">Analizando tu perfil emprendedor...</p>
   </div>
 
