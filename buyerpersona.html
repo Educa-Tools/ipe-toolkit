@@ -103,6 +103,56 @@
   details.loader .lo{display:grid;gap:8px;margin-top:10px;}
   details.loader textarea{min-height:64px;font-size:14.5px;font-family:ui-monospace,Menlo,monospace;}
 
+  /* ── Casos de ejemplo y test ── */
+  .extras{margin-top:24px;}
+  .extras-head{display:grid;gap:4px;margin-bottom:16px;}
+  .extras-head h2{font-size:22px;}
+  .examples{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;}
+  .ex{display:grid;grid-template-rows:auto 1fr auto;justify-items:center;gap:8px;text-align:center;padding:16px 12px;border:1px solid var(--line);border-radius:14px;background:var(--surface);cursor:pointer;font:inherit;color:inherit;transition:border-color .15s ease,transform .15s ease;}
+  .ex:hover{border-color:var(--tool-line);transform:translateY(-2px);}
+  .ex:focus-visible{outline:3px solid var(--tool-line);outline-offset:2px;}
+  .ex-av{width:88px;}
+  .ex-av svg{width:100%;height:auto;display:block;}
+  .ex-txt{display:grid;gap:2px;align-content:start;}
+  .ex-txt b{font-family:var(--font-display);font-size:18px;line-height:1.2;}
+  .ex-txt span{font-size:14.5px;color:var(--ink-soft);line-height:1.35;}
+  .ex-go{font-size:14.5px;font-weight:700;color:var(--tool);}
+  .test-cta{display:flex;justify-content:space-between;align-items:center;gap:12px 16px;flex-wrap:wrap;margin-top:16px;padding:16px;border-radius:14px;background:var(--tool-bg);border:1px solid var(--tool-line);}
+  .test-cta div{display:grid;gap:2px;}
+  .test-cta b{font-family:var(--font-display);font-size:18px;}
+  .test-cta span{font-size:15px;color:var(--ink-soft);}
+  .result .test-cta{margin-top:24px;}
+  @media (max-width:640px){.examples{grid-template-columns:minmax(0,1fr);} .ex{grid-template-columns:72px minmax(0,1fr);grid-template-rows:auto auto;justify-items:start;text-align:left;align-items:center;column-gap:16px;} .ex-av{width:72px;grid-row:1 / span 2;} .test-cta .btn{width:100%;}}
+
+  .demo-bar{max-width:900px;margin:0 auto 16px;display:flex;justify-content:space-between;align-items:center;gap:12px 16px;flex-wrap:wrap;padding:12px 16px;border-radius:14px;background:var(--ink);color:#fff;}
+  .demo-bar p{font-size:15.5px;}
+  .demo-bar p b{display:inline-block;margin-right:8px;padding:2px 10px;border-radius:var(--radius-pill);background:var(--tool);font-size:13.5px;letter-spacing:.06em;text-transform:uppercase;}
+  .demo-actions{display:flex;gap:8px;flex-wrap:wrap;}
+  .demo-bar .btn{padding:0 16px;height:42px;line-height:1.25;font-size:15.5px;white-space:nowrap;}
+  @media (max-width:640px){.demo-actions{display:grid;grid-template-columns:minmax(0,1fr);width:100%;}}
+  .demo-bar .btn-primary{background:#fff;color:var(--ink);}
+  .demo .no-demo{display:none !important;}
+
+  .test-card{max-width:820px;margin:0 auto;border-top:5px solid var(--tool);}
+  .test-top{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start;gap:8px 16px;}
+  @media (max-width:640px){.test-top{grid-template-columns:minmax(0,1fr);} .test-top .score{justify-self:start;grid-row:1;}}
+  .test-top .step-desc{margin-bottom:24px;}
+  .score{display:inline-flex;align-items:center;font-weight:700;font-size:15px;background:var(--tool-bg);color:var(--tool);border:1px solid var(--tool-line);border-radius:var(--radius-pill);padding:6px 16px;font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .quiz{display:grid;gap:12px;}
+  .q{border:1px solid var(--line);border-radius:14px;padding:16px;background:var(--surface);transition:border-color .2s ease;}
+  .q.right{border-color:var(--soc-deep);} .q.wrong{border-color:var(--warn);}
+  .qs{font-size:16.5px;font-weight:600;line-height:1.45;}
+  .qn{font-family:var(--font-display);font-weight:700;color:var(--tool);margin-right:8px;}
+  .qopts{display:grid;gap:8px;margin-top:12px;}
+  .qopt{text-align:left;font:inherit;font-size:15.5px;color:var(--ink);padding:10px 16px;border:1.5px solid var(--line);border-radius:12px;background:var(--surface);cursor:pointer;transition:background-color .15s ease,border-color .15s ease;}
+  .qopt:hover{background:var(--surface-alt);}
+  .qopt:focus-visible{outline:3px solid var(--tool-line);outline-offset:2px;}
+  .qopt.sel-right{background:var(--soc-deep);border-color:var(--soc-deep);color:#fff;}
+  .qopt.sel-wrong{background:var(--warn-bg);border-color:var(--warn);color:#5C2417;}
+  .fb{margin-top:12px;padding:10px 12px;border-radius:10px;font-size:15px;line-height:1.5;}
+  .fb.right{background:var(--soc-soft);color:var(--soc-ink);} .fb.wrong{background:var(--warn-bg);color:#5C2417;}
+  .test-actions{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-top:24px;}
+
   /* ── Layout de la app ── */
   .layout{display:grid;grid-template-columns:320px minmax(0,1fr);gap:24px;align-items:start;}
   .char-card{position:sticky;top:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-card);padding:20px;box-shadow:0 14px 34px -26px rgba(30,28,26,.35);display:flex;flex-direction:column;gap:12px;}
@@ -504,6 +554,18 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
         </details>
       </div>
     </div>
+
+    <div class="card extras">
+      <div class="extras-head">
+        <h2>¿Quieres ver cómo queda?</h2>
+        <p class="tiny">Tres casos ficticios, con su ficha completa. Tu personaje no se toca.</p>
+      </div>
+      <div class="examples" id="examples"></div>
+      <div class="test-cta">
+        <div><b>Test rápido</b><span>Diez preguntas para comprobar si dominas el buyer persona.</span></div>
+        <button type="button" class="btn btn-ghost" id="btn-test-intro">Hacer el test →</button>
+      </div>
+    </div>
   </section>
 
   <!-- ═════════ APP ═════════ -->
@@ -727,6 +789,13 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
 
   <!-- ═════════ FICHA ═════════ -->
   <section id="screen-result" hidden>
+    <div class="demo-bar" id="demo-bar" hidden>
+      <p><b>Caso de ejemplo</b> Es ficticio y sirve de modelo. Tu personaje sigue guardado.</p>
+      <div class="demo-actions">
+        <button type="button" class="btn btn-ghost" id="btn-demo-use">Usarlo de punto de partida</button>
+        <button type="button" class="btn btn-primary" id="btn-demo-back">← Volver</button>
+      </div>
+    </div>
     <div class="card result">
       <div class="rep-head">
         <div><p class="rep-kicker">Ficha · Buyer persona</p><h2 class="rep-title" id="rep-title">Tu negocio</h2></div>
@@ -751,10 +820,30 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
         <button type="button" class="btn btn-primary only-standalone" id="btn-print">Imprimir / Guardar en PDF</button>
         <button type="button" class="btn btn-primary only-artifact" id="btn-copytext">Copiar ficha como texto</button>
         <button type="button" class="btn btn-ghost only-standalone" id="btn-copytext-2">Copiar como texto</button>
-        <button type="button" class="btn btn-ghost" id="btn-copyjson">Copiar código para guardar</button>
-        <button type="button" class="btn btn-ghost only-standalone" id="btn-download">Descargar .json</button>
-        <button type="button" class="btn btn-ghost" id="btn-edit">← Seguir editando</button>
-        <button type="button" class="btn btn-ghost" id="btn-restart-2">Crear otro personaje</button>
+        <button type="button" class="btn btn-ghost no-demo" id="btn-copyjson">Copiar código para guardar</button>
+        <button type="button" class="btn btn-ghost only-standalone no-demo" id="btn-download">Descargar .json</button>
+        <button type="button" class="btn btn-ghost no-demo" id="btn-edit">← Seguir editando</button>
+        <button type="button" class="btn btn-ghost no-demo" id="btn-restart-2">Crear otro personaje</button>
+      </div>
+      <div class="test-cta no-demo no-print">
+        <div><b>Test rápido</b><span>Diez preguntas para comprobar lo que has aprendido.</span></div>
+        <button type="button" class="btn btn-ghost" id="btn-test">Hacer el test →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════ TEST ═════════ -->
+  <section id="screen-test" hidden>
+    <div class="card test-card">
+      <div class="test-top">
+        <div><p class="rep-kicker">Test rápido</p><h2 class="step-title">¿Dominas el buyer persona?</h2>
+          <p class="step-desc">Diez preguntas. Si fallas, lee la explicación y vuelve a probar: cuenta tu última respuesta.</p></div>
+        <span class="score" id="sc-q" aria-live="polite"></span>
+      </div>
+      <div class="quiz" id="quiz"></div>
+      <div class="test-actions">
+        <button type="button" class="btn btn-primary" id="btn-test-back">← Volver</button>
+        <button type="button" class="link-btn" id="btn-test-reset">Borrar mis respuestas</button>
       </div>
     </div>
   </section>
@@ -805,7 +894,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     {k:'precio',n:'Qué valora más', l:'El precio', r:'La calidad'}
   ];
   var STEPS = ['Crea a tu personaje','Formación y economía','Entorno vital','Carácter','Estilo de vida','Motivación de compra','Cómo llegar a tu cliente'];
-  var LAST = STEPS.length, FICHA = LAST + 1;
+  var LAST = STEPS.length, FICHA = LAST + 1, TEST = FICHA + 1;
   // Peso de cada fuente para la fiabilidad (mismo orden que L.FUENTES)
   var FUENTE_PESO = [3, 3, 3, 2, 2, 1, 0];
   var TRUST_TXT = {
@@ -815,6 +904,83 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     alta: ['Alta', 'Perfil apoyado en datos. Así sí se pueden tomar decisiones.']
   };
   var LEVELS = [[0,'Boceto a lápiz'],[25,'Silueta'],[50,'Retrato robot'],[75,'Casi de carne y hueso'],[100,'Persona real']];
+  /* Casos de ejemplo (ficticios) para ver una ficha completa antes de empezar */
+  var EXAMPLES = [
+    { negocio: 'Cafetería de especialidad con zona de trabajo', alumno: 'Caso de ejemplo',
+      av: { skin: 0, hs: 'melena', hc: 4, outfit: 5, top: 'sudadera', face: 'auto', beard: 'none', glasses: 'none', head: 'auri', ear: 'aros' },
+      soc: { nombre: 'Andrea Vidal', edad: '27', genero: 'Mujer', nacionalidad: 'Española', estudios: 'Grado universitario', trabajo: 'Diseñadora gráfica en una agencia, en remoto',
+        ingM: '1.500 – 2.000 €', ingA: '18.000 – 24.000 €', familia: 'Comparte piso', familiaDet: 'Con dos amigas', residencia: 'Valencia, barrio de Ruzafa', entorno: 'Gran ciudad',
+        fuentes: ['Encuestas', 'Observación directa'], fuenteDet: 'Encuesta a 25 clientes de cafeterías del barrio' },
+      psi: { descripcion: 'Creativa y sociable. Trabaja desde casa y busca sitios con buen café para cambiar de aires. Se fija mucho en cómo es el local y lo comparte en redes.',
+        rasgos: ['Creativo/a', 'Sociable'], sl: { intro: 75, plan: 65, innov: 80, razon: 70, precio: 75 }, estilo: ['Social y de salir', 'Nómada digital'],
+        aficiones: ['Fotografía', 'Conciertos', 'Café de especialidad'], inquietudes: ['Salud mental', 'Acceso a la vivienda'], motor: ['Sentirse parte de una comunidad', 'Cuidar su imagen'],
+        necesidad: 'Trabajar fuera de casa unas horas al día sin sentirse sola, en un sitio tranquilo, con enchufes y buen café, sin que le cueste una fortuna.',
+        solucion: 'Zona de trabajo con enchufes y wifi, bono de 10 cafés y una cata cada jueves por la tarde.', frase: 'Si el café es bueno, vuelvo.',
+        fuentes: ['Entrevistas', 'Observación directa'], fuenteDet: 'Entrevistas a 5 personas que teletrabajan' },
+      lle: { canales: ['Instagram', 'Buscadores (Google…)', 'Boca a boca'], momento: 'Entre semana, a media mañana. Antes de ir mira las reseñas y las fotos en el mapa del móvil.',
+        frenos: ['Le parece caro', 'No conoce la marca', 'Teme que haya mucho ruido'], convencer: 'Primer café gratis con el bono y fotos reales de la zona de trabajo en Instagram.' } },
+    { negocio: 'Tienda online de recambios para bicis eléctricas', alumno: 'Caso de ejemplo',
+      av: { skin: 2, hs: 'corto', hc: 0, outfit: 1, top: 'camiseta', face: 'auto', beard: 'barba', glasses: 'none', head: 'none', ear: 'none' },
+      soc: { nombre: 'Javier Romero', edad: '45', genero: 'Hombre', nacionalidad: 'Española', estudios: 'FP Grado Medio', trabajo: 'Electricista autónomo',
+        ingM: '2.000 – 3.000 €', ingA: '24.000 – 36.000 €', familia: 'En pareja, con hijos', familiaDet: 'Dos hijos adolescentes', residencia: 'Lugo', entorno: 'Ciudad mediana',
+        fuentes: ['Estadísticas oficiales (INE…)', 'Informes del sector'], fuenteDet: 'Informes de venta de bicicletas del sector y datos de población del INE' },
+      psi: { descripcion: 'Práctico y desconfiado con las compras por internet. Va al trabajo en bici eléctrica y prefiere arreglarla él antes que pagar un taller.',
+        rasgos: ['Prudente', 'Detallista', 'Escéptico/a'], sl: { intro: 35, plan: 20, innov: 45, razon: 20, precio: 40 }, estilo: ['Activo y deportista', 'Ahorrador/a consciente'],
+        aficiones: ['Bricolaje', 'Senderismo', 'Ciclismo'], inquietudes: ['Llegar a fin de mes', 'Sostenibilidad'], motor: ['Ahorrar dinero', 'Sentirse seguro/a'],
+        necesidad: 'Encontrar la pieza exacta para su modelo de bici sin esperar dos semanas al taller ni arriesgarse a comprar una que no encaje.',
+        solucion: 'Buscador por modelo de bici, garantía de compatibilidad y vídeos cortos de montaje.', frase: 'Prefiero hacerlo yo, pero bien hecho.',
+        fuentes: ['Entrevistas', 'Encuestas'], fuenteDet: 'Encuesta en dos grupos de ciclistas de la zona y 4 entrevistas' },
+      lle: { canales: ['YouTube', 'Grupos de WhatsApp', 'Marketplaces (Amazon, Wallapop…)'], momento: 'Por la noche, desde el ordenador, justo después de ver un vídeo del arreglo.',
+        frenos: ['Duda de la calidad', 'Gastos de envío', 'Miedo a equivocarse'], convencer: 'Devolución gratis si la pieza no encaja y envío sin coste a partir de 40 €.' } },
+    { negocio: 'Comida casera a domicilio para personas mayores', alumno: 'Caso de ejemplo',
+      av: { skin: 1, hs: 'melena', hc: 1, outfit: 2, top: 'jersey', face: 'auto', beard: 'none', glasses: 'cuadradas', head: 'none', ear: 'perlas' },
+      soc: { nombre: 'Carmen Ortega', edad: '58', genero: 'Mujer', nacionalidad: 'Española', estudios: 'Bachillerato', trabajo: 'Administrativa en una gestoría',
+        ingM: '1.500 – 2.000 €', ingA: '18.000 – 24.000 €', familia: 'En pareja, con hijos', familiaDet: 'Hijos independizados; su madre, de 84 años, vive sola', residencia: 'Jerez de la Frontera', entorno: 'Ciudad mediana',
+        fuentes: ['Estadísticas oficiales (INE…)', 'Observación directa'], fuenteDet: 'Padrón municipal: personas mayores que viven solas en el barrio' },
+      psi: { descripcion: 'Responsable y muy organizada. Cuida de su madre a distancia y se siente culpable cuando no llega a todo.',
+        rasgos: ['Organizado/a', 'Solidario/a'], sl: { intro: 50, plan: 20, innov: 30, razon: 65, precio: 75 }, estilo: ['Muy familiar', 'Sin tiempo para nada'],
+        aficiones: ['Cocinar', 'Lectura', 'Caminar'], inquietudes: ['Ahorrar tiempo', 'La salud de su madre'], motor: ['Sentirse seguro/a', 'Ahorrar tiempo'],
+        necesidad: 'Asegurarse de que su madre come bien todos los días sin tener que cocinar para dos casas ni llevarle táperes cada tarde.',
+        solucion: 'Menús caseros adaptados (sin sal, triturados…) que se reparten tres veces por semana, con un aviso al móvil de la hija.', frase: 'Con que mi madre coma bien, yo duermo tranquila.',
+        fuentes: ['Entrevistas'], fuenteDet: 'Entrevistas a 6 personas que cuidan de sus padres mayores' },
+      lle: { canales: ['Grupos de WhatsApp', 'Boca a boca', 'Medios locales (prensa, radio)'], momento: 'Al salir del trabajo. Lo decide con sus hermanos por WhatsApp.',
+        frenos: ['Necesita consultarlo', 'Le parece caro', 'Duda de la calidad'], convencer: 'Semana de prueba a mitad de precio y una llamada de bienvenida a su madre.' } }
+  ];
+
+  /* Test rápido: [id, pregunta, opciones, correcta, explicación] */
+  var QZ = [
+    ['q1', '¿Qué es un buyer persona?',
+      ['Un cliente real al que ya le vendes.', 'Una representación semificticia de tu cliente ideal, basada en datos reales.', 'La media estadística de toda la población.'], 1,
+      'Es semificticio: el nombre y la cara son inventados, pero lo que piensa, gana y necesita sale de datos reales.'],
+    ['q2', '¿Cuál de estos datos pertenece al perfil psicosocial?',
+      ['Su nivel de ingresos.', 'Su lugar de residencia.', 'Lo que le empuja a comprar.'], 2,
+      'Ingresos y residencia dicen quién es (perfil sociodemográfico). Sus motivaciones, su carácter y su estilo de vida dicen cómo es (psicosocial).'],
+    ['q3', '¿Para qué sirve ponerle nombre y cara?',
+      ['Para tomar decisiones pensando en una persona concreta, no en «todo el mundo».', 'Para que la ficha quede más bonita.', 'Porque lo exige la ley de protección de datos.'], 0,
+      'Es más fácil decidir el precio, el mensaje o el canal para «Andrea, 27 años» que para «gente joven».'],
+    ['q4', 'Tu producto es para «gente de 18 a 65 años». ¿Qué problema tiene ese público?',
+      ['Ninguno: cuanto más amplio, más ventas.', 'Que deja fuera a los menores de edad.', 'Es tan amplio que no te ayuda a elegir canal, precio ni mensaje.'], 2,
+      'Un público que lo abarca todo no te dice dónde anunciarte ni cómo hablarle. Hay que concretar.'],
+    ['q5', '¿Qué fuente te dice mejor por qué compra tu cliente?',
+      ['Tu intuición.', 'Entrevistas a clientes reales.', 'Las estadísticas de población.'], 1,
+      'Las estadísticas te dicen quién es; las entrevistas, por qué compra y qué le frena.'],
+    ['q6', '¿Y para saber cuánto cobra de media alguien con ese trabajo en tu zona?',
+      ['Estadísticas oficiales o portales de empleo.', 'Preguntárselo a un amigo.', 'Calcularlo a ojo.'], 0,
+      'Para datos de quién es (ingresos, edad, dónde vive) lo fiable son las fuentes oficiales o las ofertas de empleo reales.'],
+    ['q7', 'En la ficha pone «Le parece caro». ¿Qué es eso?',
+      ['Un canal para llegar a él.', 'Un freno que tu propuesta tiene que resolver.', 'Un rasgo de su personalidad.'], 1,
+      'Es una objeción. Si no la resuelves (prueba gratis, pago a plazos, más valor), no comprará aunque le guste.'],
+    ['q8', 'Tu cliente ideal pasa horas en LinkedIn y no usa TikTok. ¿Qué haces?',
+      ['Anunciarte en TikTok, que está de moda.', 'Estar en todas las redes por igual.', 'Darle prioridad a LinkedIn, que es donde está.'], 2,
+      'Los canales se eligen por tu cliente, no por la moda. Estar en todas partes reparte tu tiempo y tu dinero.'],
+    ['q9', '¿Puede un negocio tener más de un buyer persona?',
+      ['Sí: cada tipo de cliente importante puede tener el suyo.', 'No, solo uno.', 'Sí, uno por cada cliente que tenga.'], 0,
+      'Lo normal es tener dos o tres: los grupos de clientes que más pesan en tu negocio. Uno por cliente ya no sería útil.'],
+    ['q10', '¿Cuándo conviene revisar el buyer persona?',
+      ['Nunca: se hace una vez y ya.', 'Cuando cambian el mercado o tus clientes, con datos nuevos.', 'Cada día.'], 1,
+      'Tus clientes cambian. Revísalo cuando tengas datos nuevos: ventas, encuestas o entrevistas.']
+  ];
+
   // Selectores ‹ › del creador: [ruta, lista, nombre]
   var CYC = [['av.face','FACES','Expresión'],['av.beard','BEARDS','Vello facial'],['av.hs','HAIRS','Peinado'],['av.top','TOPS','Prenda'],['av.glasses','GLASSES','Gafas'],['av.head','HEADS','Cabeza'],['av.ear','EARS','Pendientes']];
 
@@ -824,7 +990,8 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
       av:{skin:1, hs:'corto', hc:1, outfit:0, top:'camiseta', face:'auto', beard:'none', glasses:'none', head:'none', ear:'none', extra:'none'},
       soc:{nombre:'',edad:'',genero:'',nacionalidad:'',estudios:'',trabajo:'',ingM:'',ingA:'',ingAauto:false,familia:'',familiaDet:'',residencia:'',entorno:'',fuentes:[],fuenteDet:''},
       psi:{descripcion:'',rasgos:[],sl:{intro:50,plan:50,innov:50,razon:50,precio:50},estilo:[],aficiones:[],inquietudes:[],motor:[],necesidad:'',solucion:'',frase:'',fuentes:[],fuenteDet:''},
-      lle:{canales:[],momento:'',frenos:[],convencer:''}
+      lle:{canales:[],momento:'',frenos:[],convencer:''},
+      quiz:{}
     };
   }
   var state = blank();
@@ -844,7 +1011,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
   }
   var toastT;
   function toast(msg) { var t = $('toast'); t.textContent = msg; t.hidden = false; clearTimeout(toastT); toastT = setTimeout(function () { t.hidden = true; }, 2600); }
-  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); var k = document.getElementById("kitSave"); if (k) k.hidden = false; } catch (e) {} }
+  function save() { if (viewing) return; try { localStorage.setItem(KEY, JSON.stringify(state)); var k = document.getElementById("kitSave"); if (k) k.hidden = false; } catch (e) {} }
   function readSaved() { try { var s = localStorage.getItem(KEY); return s ? JSON.parse(s) : null; } catch (e) { return null; } }
   function clearSaved() { try { localStorage.removeItem(KEY); } catch (e) {} }
 
@@ -1176,12 +1343,77 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     show('screen-intro', n === 0);
     show('screen-app', n >= 1 && n <= LAST);
     show('screen-result', n === FICHA);
+    show('screen-test', n === TEST);
+    show('demo-bar', !!viewing);
+    $('screen-result').classList.toggle('demo', !!viewing);
     for (var i = 1; i <= LAST; i++) show('step-' + i, i === n);
     document.querySelector('#screen-app .layout').classList.toggle('creator', n === 1);
     if (n === FICHA) renderResult();
+    else if (n === TEST) renderQuiz();
     else if (n >= 1) refresh();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+
+  /* ───────── Casos de ejemplo ───────── */
+  // Mientras se ve un ejemplo, «viewing» guarda el personaje del alumno y no se escribe nada en el navegador
+  var viewing = null;
+  // Personaje guardado que aún no se ha cargado (portada). Se adopta antes del test o de un ejemplo para no sobrescribirlo
+  var pending = null;
+  function adoptSaved() { if (pending && state !== pending) { pending.quiz = state.quiz; state = pending; } }
+  function exampleState(i) { var b = blank(); mergeDeep(b, JSON.parse(JSON.stringify(EXAMPLES[i]))); fixAv(b.av); return b; }
+  function avatarFor(st) { var own = state; state = st; var s = avatarSVG(st.av); state = own; return s; }
+  function renderExamples() {
+    $('examples').innerHTML = EXAMPLES.map(function (e, i) {
+      var st = exampleState(i);
+      return '<button type="button" class="ex" data-ex="' + i + '"><span class="ex-av" aria-hidden="true">' + avatarFor(st) + '</span>' +
+        '<span class="ex-txt"><b>' + esc(st.soc.nombre) + ', ' + esc(st.soc.edad) + '</b><span>' + esc(st.negocio) + '</span></span><span class="ex-go">Ver su ficha →</span></button>';
+    }).join('');
+  }
+  function openExample(i) {
+    if (!viewing) { adoptSaved(); viewing = { own: state, from: step }; }
+    state = exampleState(i); lastLvl = null;
+    goTo(FICHA);
+  }
+  function closeExample() {
+    var from = viewing.from;
+    state = viewing.own; viewing = null; lastLvl = null;
+    syncInputs(); paintAvatars(); goTo(from);
+  }
+  function useExample() {
+    var b = $('btn-demo-use'), own = viewing.own;
+    if ((has(own.soc.nombre) || has(own.negocio)) && b.getAttribute('data-sure') !== '1') {
+      b.setAttribute('data-sure', '1'); b.textContent = 'Pulsa otra vez: sustituye a tu personaje';
+      setTimeout(function () { b.removeAttribute('data-sure'); b.textContent = 'Usarlo de punto de partida'; }, 3500);
+      return;
+    }
+    b.removeAttribute('data-sure'); b.textContent = 'Usarlo de punto de partida';
+    state.alumno = own.alumno; state.quiz = own.quiz; viewing = null; lastLvl = null;
+    syncInputs(); save(); goTo(1);
+    toast('Ejemplo cargado. Cámbialo para que encaje con tu negocio.');
+  }
+
+  /* ───────── Test rápido ───────── */
+  var testFrom = 0;
+  function cleanQuiz(q) {
+    var r = {};
+    if (q && typeof q === 'object') QZ.forEach(function (x) { var v = q[x[0]]; if (typeof v === 'number' && v >= 0 && v < x[2].length) r[x[0]] = v; });
+    return r;
+  }
+  function quizScore() { var ok = 0, done = 0; QZ.forEach(function (x) { var a = state.quiz[x[0]]; if (a != null) { done++; if (a === x[3]) ok++; } }); return { ok: ok, done: done }; }
+  function renderQuiz() {
+    $('quiz').innerHTML = QZ.map(function (q, i) {
+      var a = state.quiz[q[0]], ans = a != null, right = ans && a === q[3];
+      return '<div class="q' + (ans ? (right ? ' right' : ' wrong') : '') + '" role="group" aria-labelledby="qs-' + q[0] + '"><p class="qs" id="qs-' + q[0] + '"><span class="qn">' + (i + 1) + '</span>' + esc(q[1]) + '</p><div class="qopts">' +
+        q[2].map(function (o, k) {
+          var cls = ans && a === k ? (right ? ' sel-right' : ' sel-wrong') : '';
+          return '<button type="button" class="qopt' + cls + '" data-q="' + q[0] + '" data-k="' + k + '" aria-pressed="' + (ans && a === k) + '">' + esc(o) + '</button>';
+        }).join('') +
+        '</div>' + (ans ? '<p class="fb ' + (right ? 'right' : 'wrong') + '" role="status"><b>' + (right ? 'Correcto.' : 'Vuelve a probar.') + '</b> ' + esc(q[4]) + '</p>' : '') + '</div>';
+    }).join('');
+    var sc = quizScore();
+    $('sc-q').textContent = sc.ok + ' de ' + QZ.length + ' aciertos';
+  }
+  function openTest() { adoptSaved(); testFrom = step; goTo(TEST); }
 
   /* ───────── Ficha final ───────── */
   function kv(label, val) { return '<div class="kv"><dt>' + esc(label) + '</dt>' + (has(val) ? '<dd>' + esc(val) + '</dd>' : '<dd class="none">Sin definir</dd>') + '</div>'; }
@@ -1272,7 +1504,8 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
       if (n) sheet.appendChild(n.cloneNode(true));
     });
     sheet.querySelectorAll('[id]').forEach(function (e) { e.removeAttribute('id'); });
-    var cr = document.createElement('div'); cr.className = 'ps-credit'; cr.textContent = 'Esplora'; sheet.appendChild(cr);
+    var cr = document.createElement('div'); cr.className = 'ps-credit'; var qs = quizScore();
+    cr.textContent = 'Esplora' + (qs.done && !viewing ? ' · Test rápido: ' + qs.ok + ' de ' + QZ.length + ' aciertos' : ''); sheet.appendChild(cr);
     var avail = Math.floor(276 / 25.4 * 96);
     var h = sheet.getBoundingClientRect().height;
     sheet.style.zoom = h > avail ? (avail / h) : 1;
@@ -1307,6 +1540,8 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
       var o = state[x[0]], tr = trust(x[0]);
       t += '- ' + x[1] + ': ' + ([o.fuentes.join(', '), o.fuenteDet].filter(has).join('. ') || 'Sin indicar') + (tr !== 'none' ? ' (fiabilidad ' + TRUST_TXT[tr][0].toLowerCase() + ')' : '') + '\n';
     });
+    var qs = quizScore();
+    if (qs.done && !viewing) t += '\nTest rápido: ' + qs.ok + ' de ' + QZ.length + ' aciertos\n';
     return t;
   }
   function copy(text, okMsg) {
@@ -1333,11 +1568,11 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
   }
   function loadData(obj) {
     if (!obj || obj.herramienta !== 'Buyer Persona' || !obj.state) throw new Error('formato');
-    var b = blank(); mergeDeep(b, obj.state); fixAv(b.av); state = b; lastLvl = null;
+    var b = blank(); mergeDeep(b, obj.state); fixAv(b.av); b.quiz = cleanQuiz(obj.state.quiz); state = b; lastLvl = null;
     syncInputs(); goTo(missing().length ? firstOpen() : FICHA);
     toast('Personaje cargado.');
   }
-  function resetAll() { state = blank(); lastLvl = null; clearSaved(); syncInputs(); paintAvatars(); goTo(0); }
+  function resetAll() { state = blank(); lastLvl = null; pending = null; clearSaved(); syncInputs(); paintAvatars(); goTo(0); }
 
   /* ───────── Eventos ───────── */
   function afterChange(path) {
@@ -1431,12 +1666,29 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     else document.querySelectorAll('.only-artifact').forEach(function (el) { el.remove(); });
     var saved = readSaved();
     if (saved && saved.state === undefined && (has(saved.alumno) || has(saved.negocio) || (saved.soc && has(saved.soc.nombre)))) {
-      var b = blank(); mergeDeep(b, saved); fixAv(b.av);
+      var b = blank(); mergeDeep(b, saved); fixAv(b.av); b.quiz = cleanQuiz(saved.quiz);
       $('saved-banner').hidden = false; $('saved-name').textContent = has(b.soc.nombre) ? b.soc.nombre : (has(b.negocio) ? b.negocio : 'sin nombre');
-      $('btn-continue').addEventListener('click', function () { state = b; syncInputs(); goTo(missing().length ? firstOpen() : FICHA); });
-      $('btn-discard').addEventListener('click', function () { clearSaved(); $('saved-banner').hidden = true; });
+      pending = b;
+      $('btn-continue').addEventListener('click', function () { adoptSaved(); syncInputs(); goTo(missing().length ? firstOpen() : FICHA); });
+      $('btn-discard').addEventListener('click', function () { clearSaved(); pending = null; $('saved-banner').hidden = true; });
     }
-    syncInputs(); paintAvatars(); syncControls();
+    // Las respuestas del test se conservan aunque no haya personaje guardado
+    if (saved) state.quiz = cleanQuiz(saved.quiz);
+    syncInputs(); paintAvatars(); syncControls(); renderExamples();
+
+    $('examples').addEventListener('click', function (e) { var b = e.target.closest('[data-ex]'); if (b) openExample(Number(b.getAttribute('data-ex'))); });
+    $('btn-demo-back').addEventListener('click', closeExample);
+    $('btn-demo-use').addEventListener('click', useExample);
+    $('btn-test-intro').addEventListener('click', openTest);
+    $('btn-test').addEventListener('click', openTest);
+    $('btn-test-back').addEventListener('click', function () { goTo(testFrom); });
+    $('btn-test-reset').addEventListener('click', function () { state.quiz = {}; save(); renderQuiz(); });
+    $('quiz').addEventListener('click', function (e) {
+      var b = e.target.closest('[data-q]'); if (!b) return;
+      var id = b.getAttribute('data-q'), k = b.getAttribute('data-k');
+      state.quiz[id] = Number(k); save(); renderQuiz();
+      var nb = document.querySelector('[data-q="' + id + '"][data-k="' + k + '"]'); if (nb) nb.focus();
+    });
 
     $('intro-avatar').addEventListener('click', randomAv);
     $('btn-dice').addEventListener('click', randomAv);
