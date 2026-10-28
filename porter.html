@@ -140,10 +140,11 @@ h3.subtitle { font-family: 'Fraunces', Georgia, serif; font-size: 18px; line-hei
 
 /* análisis */
 .recap { padding: 18px 20px; border-radius: 14px; margin-bottom: 14px; background: var(--s); color: var(--k); }
-.recap ul { list-style: none; display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+.recap ul { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
 .recap li { font: 400 16px/1.45 'Fraunces', Georgia, serif; padding-left: 14px; position: relative; }
 .recap li::before { content: ''; position: absolute; left: 0; top: 9px; width: 5px; height: 5px; border-radius: 50%; background: currentColor; opacity: .55; }
-.recap li small { font: 400 14.5px 'Inter', sans-serif; opacity: .75; }
+.recap li small { display: block; margin-top: 2px; font: 400 14.5px 'Inter', sans-serif; opacity: .85; }
+.recap li .nw { white-space: nowrap; }
 
 /* niveles (intro e informe) */
 .levels { display: flex; flex-direction: column; }
@@ -216,7 +217,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
 .p5 .fc-h { background:var(--d); color:#fff; padding:8px 12px; display:flex; align-items:center; justify-content:space-between; gap:8px; }
 .p5 .fc-h b { font-family:'Fraunces',Georgia,serif; font-weight:600; font-size:calc(15.5px*var(--fk)); line-height:1.15; }
 .p5 .fc-h span { font-family:'Fraunces',Georgia,serif; font-weight:700; font-size:calc(22px*var(--fk)); white-space:nowrap; }
-.p5 .fc-h span small { font-family:'Inter',sans-serif; font-size:11px; font-weight:600; opacity:.85; }
+.p5 .fc-h span small { font-family:'Inter',sans-serif; font-size:11px; font-weight:600; }
 .p5 .fc-b { padding:8px 12px 10px; display:flex; flex-direction:column; gap:6px; min-height:0; }
 .p5 .fc-b > * { flex-shrink:0; }
 .p5 .lvl { font-size:11px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--k); }
@@ -285,7 +286,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
 .glos summary::-webkit-details-marker{ display:none; }
 .glos summary:focus-visible{ outline:2px solid var(--ink); outline-offset:3px; }
 .glos summary > svg:first-child{ width:18px; height:18px; flex:none; }
-.glos-n{ min-width:22px; height:22px; padding:0 6px; border-radius:999px; background:rgba(255,255,255,.2); font-size:12.5px; font-weight:700; display:grid; place-items:center; }
+.glos-n{ min-width:22px; height:22px; padding:0 6px; border-radius:999px; background:rgba(0,0,0,.22); font-size:12.5px; font-weight:700; display:grid; place-items:center; }
 .glos-chev{ width:16px; height:16px; transition:transform .2s ease; transform:rotate(180deg); }
 .glos details[open] .glos-chev{ transform:rotate(0); }
 .glos-panel{ position:absolute; right:0; bottom:calc(100% + 10px); width:min(360px,calc(100vw - 32px)); max-height:min(62vh,520px); overflow:auto; overscroll-behavior:contain; background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:16px 18px 6px; box-shadow:0 24px 48px -16px rgba(31,36,23,.35); }
@@ -576,6 +577,84 @@ const FORCES = [
         a:['Salir es fácil: activos vendibles y sin ataduras','Salir tiene costes moderados','Salir es muy costoso: activos especializados o contratos largos'],
         tip:'Evita al inicio inversiones muy especializadas e irrecuperables y apuesta por modelos ligeros en activos.' } ] },
 ];
+// Frase del análisis por factor: [poca presión, presión media, mucha presión]
+const FRASES = {
+  E1:['Abrir en tu sector exige permisos o licencias difíciles de conseguir, así que pocos se animarán a competir contigo.',
+      'Para empezar hay que pasar varios trámites: frenan algo a los nuevos competidores, pero no los detienen.',
+      'Casi no hay requisitos legales para abrir, así que cualquiera puede montar un negocio como el tuyo en poco tiempo.'],
+  E2:['Competir exige una inversión inicial alta, y eso deja fuera a muchos posibles competidores.',
+      'La inversión para empezar es moderada y se puede financiar: frena a algunos competidores, pero no a todos.',
+      'Basta con muy poco dinero para empezar, así que es fácil que aparezcan negocios como el tuyo.'],
+  E3:['Los grandes producen mucho más barato, y a un recién llegado le costaría competir en precio.',
+      'Producir en volumen da algo de ventaja en costes: los nuevos lo tienen más difícil, pero no imposible.',
+      'Producir en volumen apenas abarata los costes, así que un recién llegado puede competir en precio desde el primer día.'],
+  E4:['Mandan marcas muy conocidas con clientes fieles: a un recién llegado le costará ganarse su confianza.',
+      'Hay marcas conocidas, pero los clientes cambian con facilidad: un nuevo competidor puede hacerse un hueco.',
+      'No hay marcas de referencia ni clientes fieles, así que un recién llegado puede ganarse la clientela rápido.'],
+  E5:['Los canales de venta están en manos de quienes ya operan: a un recién llegado le costará llegar al cliente.',
+      'Llegar al cliente es posible, pero cuesta dinero o acuerdos: eso frena algo a los nuevos competidores.',
+      'Llegar al cliente es fácil y barato (web, redes, marketplaces), también para cualquier competidor nuevo.'],
+  S1:['Apenas hay otras formas de resolver lo que ofreces, así que el cliente no tiene adónde irse.',
+      'Hay alternativas que cubren parte de lo que ofreces: algunos clientes podrían optar por ellas.',
+      'Hay muchas otras formas de cubrir la misma necesidad, y el cliente puede prescindir de ti con facilidad.'],
+  S2:['Las alternativas son peores y no más baratas: al cliente no le compensa cambiarte por ellas.',
+      'Las alternativas ofrecen algo parecido a un precio parecido: compiten contigo de tú a tú.',
+      'Hay alternativas igual de buenas o mejores y más baratas, lo que pone techo a tu precio.'],
+  S3:['Los gustos en tu sector cambian poco, así que es difícil que algo nuevo desplace a tu producto.',
+      'Los gustos cambian poco a poco: hay tiempo para adaptarte antes de que algo te sustituya.',
+      'Las modas cambian rápido, y lo que hoy se compra mañana puede quedar sustituido por otra cosa.'],
+  S4:['La tecnología del sector es estable: es poco probable que aparezca una solución nueva que te deje atrás.',
+      'La tecnología avanza poco a poco: conviene vigilarla, aunque no amenaza tu producto a corto plazo.',
+      'La tecnología cambia sin parar, y en cualquier momento puede surgir otra forma de cubrir lo que ofreces.'],
+  S5:['Cubres una necesidad muy concreta, difícil de resolver de otra forma: hay pocos sustitutos posibles.',
+      'La necesidad que cubres admite algunas alternativas, aunque no cualquiera sirve.',
+      'Cubres una necesidad muy general, y el cliente puede satisfacerla de muchas otras maneras.'],
+  P1:['Hay muchos proveedores que pueden servirte, así que puedes comparar y quedarte con el que mejor te trate.',
+      'Hay pocos proveedores donde elegir: aún puedes comparar, pero con menos margen.',
+      'Dependes de muy pocos proveedores, o de uno solo, y ellos pueden fijar precios y condiciones.'],
+  P2:['Tus proveedores son pequeños o están dispersos, y no tienen fuerza para imponerte condiciones.',
+      'Tus proveedores son de tamaño medio: negocian contigo de forma bastante equilibrada.',
+      'Tus proveedores son grandes y están bien organizados, lo que les da fuerza para imponerte condiciones.'],
+  P3:['Cambiar de proveedor es fácil y barato, así que no puede apretarte sin arriesgarse a perderte.',
+      'Cambiar de proveedor te costaría algo de tiempo o dinero: no estás atado, pero tampoco del todo libre.',
+      'Cambiar de proveedor te saldría caro o arriesgado, y eso te deja atado al que tienes.'],
+  P4:['Lo que compras es estándar y lo venden muchos, así que ningún proveedor es imprescindible.',
+      'Lo que compras está algo diferenciado: sustituirlo es posible, pero no inmediato.',
+      'Lo que te suministran es único o imprescindible, y eso da al proveedor la sartén por el mango.'],
+  P5:['Eres un cliente clave para tus proveedores: no les interesa perderte y te tratarán bien.',
+      'Eres un cliente relevante, pero no clave: tus proveedores te escuchan, sin hacer grandes concesiones.',
+      'Para tus proveedores eres un cliente pequeño: pierden poco si te vas, así que pueden imponerte condiciones.'],
+  C1:['Vendes a muchos clientes pequeños: ninguno puede apretarte, porque perder uno apenas te afecta.',
+      'Algunos clientes pesan bastante en tus ventas y pueden negociar contigo con cierta fuerza.',
+      'Pocos clientes concentran casi todas tus ventas, y pueden exigirte descuentos porque no puedes perderlos.'],
+  C2:['Tus clientes se informan poco y compran por separado, así que tienen poca fuerza para negociar.',
+      'Tus clientes comparan de vez en cuando: conviene que tu precio esté bien justificado.',
+      'Tus clientes están muy informados, comparan siempre o compran en grupo, y eso les da fuerza para apretarte el precio.'],
+  C3:['A tus clientes les cuesta mucho irse a la competencia, y eso les quita fuerza para negociar contigo.',
+      'Cambiarse a la competencia les supone algo de esfuerzo: pueden irse, pero no lo harán por cualquier cosa.',
+      'Tus clientes pueden irse a la competencia sin coste ni esfuerzo, y eso les da poder para exigirte.'],
+  C4:['Tus clientes compran por calidad, marca o servicio, no por precio: puedes defender lo que cobras.',
+      'El precio importa a tus clientes, aunque no es lo único que miran.',
+      'Tus clientes eligen sobre todo por precio, y cualquier rebaja de la competencia puede llevárselos.'],
+  C5:['Es muy difícil que los clientes resuelvan esto por su cuenta, y eso les quita poder para negociar contigo.',
+      'Los clientes podrían resolverlo por su cuenta, pero es poco probable que lo hagan.',
+      'A tus clientes les resulta fácil y rentable hacerlo por su cuenta, y pueden usarlo como amenaza para negociar.'],
+  R1:['Hay pocos competidores, o uno que lidera claramente, y eso suele calmar la competencia.',
+      'Hay varios competidores con fuerzas parecidas: se disputan los clientes, pero sin guerras constantes.',
+      'Hay muchos competidores de tamaño parecido y ninguno manda, así que todos pelean duro por cada cliente.'],
+  R2:['La demanda crece rápido y hay clientes para todos, así que no hace falta quitárselos a nadie.',
+      'La demanda crece con moderación: hay algo de hueco, pero también hay que pelear por los clientes.',
+      'La demanda no crece o baja, así que cada cliente que ganes tendrás que quitárselo a otro.'],
+  R3:['Casi todos los costes se ajustan a lo que se vende, así que nadie necesita bajar precios para llenar capacidad.',
+      'Hay una mezcla de costes fijos y variables: en épocas flojas puede haber alguna rebaja de precios.',
+      'Los costes fijos son altos, y las empresas bajan precios para vender más y poder cubrirlos.'],
+  R4:['La oferta del sector es muy distinta entre empresas, así que el cliente no decide solo por precio.',
+      'Hay diferencias entre las ofertas, pero se pueden copiar: la ventaja dura poco.',
+      'Todas las empresas ofrecen casi lo mismo, así que el cliente decide por precio y la pelea es dura.'],
+  R5:['Salir del sector es fácil, así que las empresas que no ganan dinero se van y dejan de presionar.',
+      'Salir del sector tiene algún coste: algunas empresas aguantan aunque no ganen mucho.',
+      'Salir del sector es muy caro, así que empresas que no ganan dinero siguen compitiendo y aprietan los precios.'],
+};
 const FORCE_LVL = ['Muy baja','Baja','Media','Alta'];
 const FACT_LBL = ['Favorable','Aceptable','A vigilar','Crítico'];
 const RIVALIDAD = [
@@ -831,10 +910,11 @@ $('btn-save-force').addEventListener('click', () => go('map'));
 function ranked() { return allFactors().map(f => ({ ...f, t:threat(f, state.vals[f.id]) })).sort((a, b) => b.t - a.t); }
 function renderAnalysis() {
   const r = ranked(), des = r.slice(0, 3), fav = r.slice(-3).reverse();
-  const list = rows => rows.map(x => `<li>${x.label} · <b>${fmt(x.t)}</b> <small>· ${x.F.short}</small></li>`).join('');
+  const frase = x => FRASES[x.id][x.t <= 3.5 ? 0 : x.t <= 5.5 ? 1 : 2];
+  const list = rows => rows.map(x => `<li>${frase(x)}<small>${x.label} · ${x.F.short} · <span class="nw">${fmt(x.t)} / 10</span></small></li>`).join('');
   $('recap').innerHTML = `
-    <div class="recap l0"><span class="eyebrow" style="color:var(--d); font-weight:600;">Más favorables según el modelo · menos presión</span><ul>${list(fav)}</ul></div>
-    <div class="recap l3"><span class="eyebrow" style="color:var(--d); font-weight:600;">Más desfavorables según el modelo · más presión</span><ul>${list(des)}</ul></div>`;
+    <div class="recap l0"><span class="eyebrow" style="color:var(--k); font-weight:600;">Más favorables según el modelo · menos presión</span><ul>${list(fav)}</ul></div>
+    <div class="recap l3"><span class="eyebrow" style="color:var(--k); font-weight:600;">Más desfavorables según el modelo · más presión</span><ul>${list(des)}</ul></div>`;
 }
 $('btn-report').addEventListener('click', () => go('report'));
 
