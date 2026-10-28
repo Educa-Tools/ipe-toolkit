@@ -106,21 +106,24 @@
   q.addEventListener('input', filtrar);
   $('#borrar').addEventListener('click', () => { q.value = ''; filtrar(); q.focus(); });
 })();
-// Carrusel de herramientas por tema (páginas de camino): 4 a la vista y flechas para pasar
+// Carrusel de herramientas por tema (páginas de camino): 4 a la vista y flechas a los lados para pasar
 (function(){
   var flecha = function(d){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="'+(d<0?'15 18 9 12 15 6':'9 18 15 12 9 6')+'"/></svg>'; };
   document.querySelectorAll('.tema').forEach(function(tema){
     var grid = tema.querySelector('.tool-grid'), cab = tema.querySelector('.tema-cab');
     if (!grid || !cab) return;
-    var nombre = (cab.querySelector('h2') || {}).textContent || 'este tema';
+    var nombre = ((cab.querySelector('h2') || {}).textContent || 'este tema').trim();
     grid.classList.add('carrusel');
+    var marco = document.createElement('div');
+    marco.className = 'carr-marco';
+    grid.parentNode.insertBefore(marco, grid);
+    marco.appendChild(grid);
     var ctl = document.createElement('div');
     ctl.className = 'carr-ctl';
-    ctl.innerHTML = '<span class="carr-pos" aria-live="polite"></span>'
-      + '<button type="button" class="carr-btn" data-d="-1" aria-label="Herramientas anteriores de '+nombre.trim()+'">'+flecha(-1)+'</button>'
-      + '<button type="button" class="carr-btn" data-d="1" aria-label="Más herramientas de '+nombre.trim()+'">'+flecha(1)+'</button>';
-    cab.classList.add('con-ctl');
-    cab.appendChild(ctl);
+    ctl.innerHTML = '<span class="carr-pos sr" aria-live="polite"></span>'
+      + '<button type="button" class="carr-btn" data-d="-1" aria-label="Herramientas anteriores de '+nombre+'">'+flecha(-1)+'</button>'
+      + '<button type="button" class="carr-btn" data-d="1" aria-label="Más herramientas de '+nombre+'">'+flecha(1)+'</button>';
+    marco.appendChild(ctl);
     var pos = ctl.querySelector('.carr-pos'), ant = ctl.querySelector('[data-d="-1"]'), sig = ctl.querySelector('[data-d="1"]');
     function visibles(){ return [].filter.call(grid.children, function(li){ return !li.hidden && li.offsetParent !== null; }); }
     function actualiza(){
@@ -130,7 +133,7 @@
       var porVista = Math.max(1, Math.round((grid.clientWidth + parseFloat(getComputedStyle(grid).columnGap || 0)) / paso));
       ctl.hidden = n <= porVista;
       var primero = Math.round(grid.scrollLeft / paso);
-      pos.textContent = (primero + 1) + '–' + Math.min(n, primero + porVista) + ' de ' + n;
+      pos.textContent = 'Herramientas ' + (primero + 1) + ' a ' + Math.min(n, primero + porVista) + ' de ' + n;
       ant.disabled = grid.scrollLeft <= 2;
       sig.disabled = grid.scrollLeft + grid.clientWidth >= grid.scrollWidth - 2;
     }
