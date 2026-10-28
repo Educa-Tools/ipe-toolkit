@@ -118,3 +118,19 @@
   body.imprime-rubrica .solo-imprimir{display:block;font-weight:600;margin:0 0 8px}
   body.imprime-rubrica .rubrica{margin-top:0}
 }
+/* Carrusel de herramientas por tema: 4 a la vista y flechas (js/esplora.js) */
+.tema-cab.con-ctl{grid-template-columns:auto minmax(0,1fr) auto;align-items:end}
+.carr-ctl{display:flex;align-items:center;gap:8px}
+.carr-ctl[hidden]{display:none}
+.carr-pos{font-size:13px;font-weight:600;color:var(--ink-soft);margin-right:4px;white-space:nowrap}
+.carr-btn{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;border:1px solid var(--ink);background:var(--surface);color:var(--ink);cursor:pointer}
+.carr-btn svg{width:18px;height:18px}
+.carr-btn:disabled{opacity:.35;cursor:default}
+.carr-btn:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.carrusel{--cols:4;--gap:22px;grid-template-columns:none!important;grid-auto-flow:column;grid-auto-columns:calc((100% - (var(--cols) - 1)*var(--gap))/var(--cols));gap:var(--gap)!important;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;padding:8px 8px 12px;margin:-8px -8px -12px}
+.carrusel::-webkit-scrollbar{display:none}
+.carrusel>li{scroll-snap-align:start}
+
+@media (max-width:760px){.carrusel{--cols:3;--gap:10px}}
+@media (max-width:620px){.tema-cab.con-ctl{grid-template-columns:1fr}.carr-ctl{justify-content:flex-end}}
+@media (prefers-reduced-motion:reduce){.carrusel{scroll-behavior:auto}}

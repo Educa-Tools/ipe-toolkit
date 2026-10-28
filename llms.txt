@@ -48,9 +48,10 @@ El catálogo se organiza en dos caminos, cada uno con sus temas: «Trabajo por c
 ## Emprendimiento · 2. Análisis del entorno, sector y mercado
 
 - [Análisis PESTEL](https://esplora.es/recursos/analisis-pestel/): Mapa de impacto de los factores del entorno general, con dossier imprimible. (IPE 2, unidad didáctica 2, ≈ 40 min, con informe en PDF) · [abrir](https://esplora.es/pestel.html)
-- [Buyer Persona](https://esplora.es/recursos/buyer-persona/): Da forma a tu cliente ideal: quién es, qué necesita y cómo llegar a él. (IPE 2, unidad didáctica 2, ≈ 30 min, con informe en PDF) · [abrir](https://esplora.es/buyerpersona.html)
-- [Benchmarking de la competencia](https://esplora.es/recursos/benchmarking-competencia/): Investiga a tus competidores (qué ofrecen, a cuánto y cómo), colócalos en un mapa de posición y descubre dónde queda hueco para tu proyecto. (IPE 2, unidad didáctica 2, ≈ 50 min, con informe en PDF) · [abrir](https://esplora.es/benchmarking.html)
+- [Las cinco fuerzas de Porter](https://esplora.es/recursos/analisis-porter/): Mide las cinco fuerzas con 25 factores y saca el nivel de rivalidad y la respuesta estratégica. (≈ 50 min, con informe en PDF) · [abrir](https://esplora.es/porter.html)
 - [DAFO cruzado](https://esplora.es/recursos/dafo-came/): Diagnostica tu proyecto con el DAFO y crúzalo para sacar cuatro estrategias con las que decidir qué hacer. (IPE 2, unidad didáctica 2, ≈ 45 min, con informe en PDF) · [abrir](https://esplora.es/dafocame.html)
+- [Benchmarking de la competencia](https://esplora.es/recursos/benchmarking-competencia/): Investiga a tus competidores (qué ofrecen, a cuánto y cómo), colócalos en un mapa de posición y descubre dónde queda hueco para tu proyecto. (IPE 2, unidad didáctica 2, ≈ 50 min, con informe en PDF) · [abrir](https://esplora.es/benchmarking.html)
+- [Buyer Persona](https://esplora.es/recursos/buyer-persona/): Da forma a tu cliente ideal: quién es, qué necesita y cómo llegar a él. (IPE 2, unidad didáctica 2, ≈ 30 min, con informe en PDF) · [abrir](https://esplora.es/buyerpersona.html)
 
 ## Emprendimiento · 3. La viabilidad del proyecto emprendedor
 
