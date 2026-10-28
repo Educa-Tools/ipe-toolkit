@@ -273,10 +273,65 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
   * { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
 }
 @media screen and (max-width:820px) { .rp { height:auto; padding:24px 16px; } .p5 { grid-template-columns:1fr; grid-template-rows:none; } .p5 .fc { grid-column:auto !important; grid-row:auto !important; } .p5 .arr, .p5 .tip-corner { display:none; } .cr2, .rf2 { grid-template-columns:1fr; } .rk2 .r { grid-template-columns:120px 1fr 50px; } }
+
+/* Términos enlazados al glosario dentro de los textos de cada fuerza */
+.gl-term{ all:unset; cursor:help; color:inherit; text-decoration:underline dotted color-mix(in srgb,var(--tool-deep) 70%,transparent); text-decoration-thickness:1.5px; text-underline-offset:4px; border-radius:3px; transition:background .15s ease; }
+.gl-term:hover{ background:var(--tool-soft); }
+.gl-term:focus-visible{ outline:2px solid var(--tool-deep); outline-offset:2px; }
+
+/* ══ Glosario: en el margen (pantallas anchas) o botón flotante (resto) ══ */
+.glos{ position:fixed; right:16px; bottom:16px; z-index:40; }
+.glos summary{ list-style:none; display:flex; align-items:center; gap:8px; cursor:pointer; user-select:none; padding:11px 16px 11px 14px; border-radius:999px; background:var(--tool-deep); color:#fff; font-size:15px; font-weight:600; box-shadow:0 8px 24px -8px rgba(31,36,23,.45); }
+.glos summary::-webkit-details-marker{ display:none; }
+.glos summary:focus-visible{ outline:2px solid var(--ink); outline-offset:3px; }
+.glos summary > svg:first-child{ width:18px; height:18px; flex:none; }
+.glos-n{ min-width:22px; height:22px; padding:0 6px; border-radius:999px; background:rgba(255,255,255,.2); font-size:12.5px; font-weight:700; display:grid; place-items:center; }
+.glos-chev{ width:16px; height:16px; transition:transform .2s ease; transform:rotate(180deg); }
+.glos details[open] .glos-chev{ transform:rotate(0); }
+.glos-panel{ position:absolute; right:0; bottom:calc(100% + 10px); width:min(360px,calc(100vw - 32px)); max-height:min(62vh,520px); overflow:auto; overscroll-behavior:contain; background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:16px 18px 6px; box-shadow:0 24px 48px -16px rgba(31,36,23,.35); }
+.glos-ctx{ font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--tool-deep); margin-bottom:6px; }
+.glos-it{ padding:11px 10px; margin:0 -10px; border-top:1px solid var(--line-soft); border-radius:8px; }
+.glos-it:first-child{ border-top:none; }
+.glos-it dt{ font-family:'Fraunces',Georgia,serif; font-size:16px; font-weight:600; color:var(--ink); line-height:1.25; margin-bottom:3px; }
+.glos-it dd{ font-size:14px; line-height:1.5; color:var(--ink-soft); }
+.glos-it.flash{ animation:glosFlash 1.6s ease; }
+@keyframes glosFlash{ 0%,40%{ background:var(--tool-soft); } 100%{ background:transparent; } }
+.glos-sep{ font-size:11.5px; font-weight:700; letter-spacing:1.4px; text-transform:uppercase; color:var(--ink-soft); padding:14px 0 2px; border-top:1px solid var(--line); margin-top:4px; }
+.glos-sep + .glos-it{ border-top:none; }
+
+/* En el margen: tarjeta fija junto al contenido */
+/* (la clase glos-margen la pone el script: ≥1300 px, o ≥1420 px en el informe) */
+body.glos-margen .glos{ right:auto; bottom:auto; top:78px; left:calc(50% + 380px + 24px); width:clamp(220px,calc(50vw - 380px - 44px),300px); }
+body.glos-margen.on-report .glos{ left:calc(50% + 440px + 24px); width:clamp(220px,calc(50vw - 440px - 44px),280px); }
+body.glos-margen .glos summary{ border-radius:14px; background:var(--surface); color:var(--ink); border:1px solid var(--line); box-shadow:none; padding:12px 14px; }
+body.glos-margen .glos details[open] summary{ border-radius:14px 14px 0 0; border-bottom-color:var(--line-soft); }
+body.glos-margen .glos summary > svg:first-child{ color:var(--tool-deep); }
+body.glos-margen .glos-n{ background:var(--line-soft); color:var(--ink-soft); }
+body.glos-margen .glos-chev{ margin-left:auto; transform:rotate(0); }
+body.glos-margen .glos details[open] .glos-chev{ transform:rotate(180deg); }
+body.glos-margen .glos-panel{ position:static; width:auto; max-height:calc(100vh - 150px); border-top:none; border-radius:0 0 14px 14px; box-shadow:none; }
+@media print{ .glos{ display:none !important; } }
+@media (prefers-reduced-motion:reduce){ .glos-chev,.gl-term{ transition:none; } .glos-it.flash{ animation:none; } }
 </style>
 </head>
 <body>
 <header class="kit-bar"><div class="kit-bar-in"><a href="index.html" aria-label="Esplora, volver al catálogo"><img src="marca/logo-horizontal-crema.svg" alt="" width="114" height="28"></a><small><span class="kit-save" id="kitSave" hidden><i></i>Progreso guardado en este navegador</span> &nbsp;Análisis de Porter</small></div></header>
+
+<!-- ═══ GLOSARIO (margen derecho en pantallas anchas; botón flotante en móvil) ═══ -->
+<aside class="glos" aria-label="Glosario">
+  <details id="glos-det">
+    <summary>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5V5a2 2 0 0 1 2-2h13v15H6.5A2.5 2.5 0 0 0 4 20.5 2.5 2.5 0 0 0 6.5 23H19"/><path d="M8 7h7M8 11h5"/></svg>
+      <span class="glos-sum-t">Glosario</span>
+      <span class="glos-n" id="glos-n"></span>
+      <svg class="glos-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+    </summary>
+    <div class="glos-panel">
+      <p class="glos-ctx" id="glos-ctx"></p>
+      <dl class="glos-list" id="glos-list"></dl>
+    </div>
+  </details>
+</aside>
 <!-- INTRO -->
 <div id="screen-intro" class="screen active">
   <div class="container">
@@ -569,6 +624,122 @@ function levelsHTML(active) {
 }
 $('levels-intro').innerHTML = levelsHTML(-1);
 
+// ═════════ GLOSARIO ═════════
+// t: término · d: definición · m: cómo aparece en los textos de cada fuerza (se enlaza la primera vez)
+const GLOS = {
+  // generales
+  cincoFuerzas:{ t:'Cinco fuerzas de Porter', d:'Modelo de Michael Porter para analizar la competencia de un sector a través de cinco fuerzas: nuevos competidores, productos sustitutivos, proveedores, clientes y rivalidad entre las empresas actuales.' },
+  microentorno:{ t:'Microentorno', d:'El entorno cercano de la empresa: clientes, proveedores, competidores y sustitutivos. A diferencia del macroentorno (el que analiza el PESTEL), la empresa puede influir en él.' },
+  sector:{ t:'Sector', d:'Conjunto de empresas que ofrecen productos o servicios parecidos para cubrir la misma necesidad.' },
+  presion:{ t:'Presión competitiva', d:'Fuerza con la que la competencia empuja a bajar precios o a gastar más para conservar clientes. Cuanta más presión, más difícil es ganar dinero en el sector.' },
+  rivalidad:{ t:'Nivel de rivalidad', d:'Puntuación de 0 a 10 que resume la presión competitiva de las cinco fuerzas. Cuanto más alta, más dura es la competencia en tu sector.' },
+  rentabilidad:{ t:'Rentabilidad', d:'Lo que gana un negocio en relación con lo que ha invertido. Un sector con mucha presión competitiva suele ser menos rentable.' },
+  factor:{ t:'Factor', d:'Cada aspecto concreto que se valora dentro de una fuerza. Cada fuerza tiene cinco.' },
+  peso:{ t:'Peso del factor', d:'Importancia que le das a un factor en tu sector. Un peso mayor hace que cuente más en la puntuación de su fuerza.' },
+  favorable:{ t:'Favorable y desfavorable', d:'En este modelo, «favorable» significa poca presión competitiva y «desfavorable», mucha. No siempre equivale a bueno o malo para tu proyecto.' },
+  // nuevos competidores
+  barreraEntrada:{ t:'Barreras de entrada', d:'Obstáculos que dificultan que una empresa nueva empiece a competir en un sector: inversión alta, permisos, marcas fuertes, acceso a los canales de venta…', m:'barreras de entrada' },
+  entrante:{ t:'Entrante', d:'Empresa que empieza a competir en un sector en el que antes no estaba.', m:'entrantes|entrante' },
+  certificacion:{ t:'Certificación', d:'Documento que acredita que un producto, un servicio o una empresa cumple una norma de calidad, seguridad o medio ambiente (por ejemplo, las normas ISO).', m:'certificaciones' },
+  escala:{ t:'Economías de escala', d:'Ahorro que se consigue al producir o comprar en grandes cantidades: el coste de cada unidad baja cuanto más se produce.', m:'producen más y a menor coste' },
+  fidelizacion:{ t:'Fidelización', d:'Conseguir que los clientes vuelvan a comprarte y no se vayan a la competencia: buen trato, programas de puntos, garantías, comunidad…', m:'clientes fieles|fidelidad|fidelizar' },
+  canal:{ t:'Canal de distribución', d:'Camino por el que el producto llega al cliente: tienda propia, web, distribuidores, grandes superficies, plataformas en línea…', m:'canales de venta o distribución' },
+  margen:{ t:'Margen', d:'Diferencia entre el precio de venta y lo que cuesta producir o comprar lo que vendes.', m:'márgenes|margen' },
+  // sustitutivos
+  sustitutivo:{ t:'Producto sustitutivo', d:'Producto o servicio distinto del tuyo que cubre la misma necesidad de otra forma. Por ejemplo, el tren frente al avión o una videollamada frente a un viaje.', m:'sustitutivo' },
+  calidadPrecio:{ t:'Relación calidad-precio', d:'Lo que ofrece un producto comparado con lo que cuesta. Si un sustitutivo da mucho por poco, limita lo que puedes cobrar.', m:'relación calidad-precio' },
+  dinamismo:{ t:'Dinamismo del sector', d:'Rapidez con la que cambian los gustos, las modas o las tecnologías en un sector. Un sector muy dinámico facilita que aparezcan sustitutivos.' },
+  cambioTec:{ t:'Cambio tecnológico', d:'Aparición de tecnologías nuevas que permiten hacer las cosas de otra manera, a menudo más rápida o más barata.', m:'la tecnología avanza rápido' },
+  plataforma:{ t:'Plataforma digital', d:'Servicio en internet que pone en contacto a quien ofrece algo con quien lo busca: tiendas en línea, reparto, reservas…', m:'plataformas digitales' },
+  necesidad:{ t:'Necesidad', d:'Lo que el cliente quiere resolver al comprar: comer, desplazarse, divertirse, verse bien… Cuanto más general es, más formas hay de cubrirla.', m:'necesidad' },
+  // proveedores
+  proveedor:{ t:'Proveedor', d:'Empresa o persona que te vende lo que necesitas para producir o prestar tu servicio: materias primas, mercancía, maquinaria, servicios…', m:'proveedores' },
+  poderNeg:{ t:'Poder de negociación', d:'Capacidad de una parte para imponer sus condiciones en una compraventa: precio, plazos, calidad, pedidos mínimos…', m:'poder de negociación' },
+  pedidoMin:{ t:'Pedido mínimo', d:'Cantidad mínima que un proveedor exige comprar en cada pedido.', m:'pedidos mínimos' },
+  costeCambio:{ t:'Coste de cambio', d:'Lo que cuesta cambiar de proveedor o de producto: dinero, tiempo, adaptar procesos o arriesgar la calidad. Cuanto más alto, más atado estás.', m:'cambiar implica costes' },
+  insumo:{ t:'Insumo', d:'Cualquier material, producto o servicio que se usa para producir otra cosa.', m:'insumo' },
+  patente:{ t:'Patente', d:'Derecho que da a su titular la exclusiva para fabricar y vender un invento durante un tiempo (en España, 20 años).', m:'patentado' },
+  materiaPrima:{ t:'Materia prima', d:'Material básico que se transforma para fabricar un producto: madera, harina, tela, metal… Si es igual en todos los proveedores, se dice que es intercambiable.', m:'materia prima' },
+  // clientes
+  concentracion:{ t:'Concentración de clientes', d:'Situación en la que unos pocos clientes compran gran parte de lo que vendes. Cuanto más concentrados, más poder tienen sobre ti.', m:'pocos clientes compran mucho' },
+  centralCompras:{ t:'Central de compras', d:'Organización que agrupa las compras de varias empresas o tiendas para conseguir mejores precios y condiciones.', m:'centrales' },
+  sensibilidad:{ t:'Sensibilidad al precio', d:'Lo mucho que cambia la decisión de compra cuando cambia el precio. Un cliente muy sensible se va en cuanto encuentra algo más barato.' },
+  indiferenciado:{ t:'Producto indiferenciado', d:'Producto que el cliente ve igual en todas las empresas, de modo que elige sobre todo por precio.', m:'indiferenciado' },
+  integracion:{ t:'Integración hacia atrás', d:'Cuando un cliente empieza a fabricar o hacer por su cuenta lo que antes compraba. Si puede hacerlo, tiene más fuerza para negociar contigo.', m:'fabricar o resolver por sí mismo' },
+  // rivalidad
+  cuota:{ t:'Cuota de mercado', d:'Parte de las ventas totales de un sector que consigue una empresa, normalmente en porcentaje.', m:'cuota' },
+  lider:{ t:'Líder del mercado', d:'Empresa con la mayor cuota de mercado de un sector. Suele marcar los precios y el ritmo de la competencia.', m:'líder dominante|líder claro' },
+  declive:{ t:'Mercado en declive', d:'Mercado en el que la demanda baja año tras año. Para crecer hay que quitar clientes a la competencia.', m:'declive' },
+  costesFijos:{ t:'Costes fijos', d:'Gastos que se pagan aunque no se venda nada: alquiler, sueldos fijos, seguros, cuotas de maquinaria…', m:'costes fijos' },
+  capacidad:{ t:'Exceso de capacidad', d:'Cuando las empresas pueden producir más de lo que el mercado compra. Para llenar esa capacidad suelen bajar precios.', m:'capacidad' },
+  diferenciacion:{ t:'Diferenciación', d:'Lo que hace que tu producto o servicio sea distinto del de la competencia y que el cliente lo valore: calidad, diseño, trato, rapidez, especialización…', m:'diferenciación' },
+  barreraSalida:{ t:'Barreras de salida', d:'Obstáculos que impiden cerrar o abandonar un sector aunque no sea rentable: maquinaria que no se puede vender, contratos largos, indemnizaciones, apego personal…', m:'activos especializados' },
+  // análisis e informe
+  factorCritico:{ t:'Factor crítico', d:'Factor que ejerce mucha presión competitiva (más de 7,5 sobre 10). Es el primero al que conviene responder con alguna medida.' },
+  respuesta:{ t:'Respuesta estratégica', d:'Medida concreta que propones para reducir la presión de un factor crítico o aprovechar uno favorable.' },
+  estrategia:{ t:'Estrategia competitiva', d:'Forma en que un negocio decide competir: por precio, por diferenciación o centrándose en un tipo concreto de cliente.' },
+};
+const GLOS_PANTALLA = {
+  intro:{ ctx:'Términos para empezar', k:['cincoFuerzas','microentorno','sector','presion','rivalidad','rentabilidad','factor','favorable'] },
+  map:{ ctx:'Términos del mapa', k:['cincoFuerzas','presion','rivalidad','factor','peso'] },
+  E:{ ctx:'Nuevos competidores', k:['barreraEntrada','entrante','certificacion','escala','fidelizacion','canal','margen','diferenciacion'] },
+  S:{ ctx:'Productos sustitutivos', k:['sustitutivo','calidadPrecio','dinamismo','cambioTec','plataforma','necesidad'] },
+  P:{ ctx:'Proveedores', k:['proveedor','poderNeg','pedidoMin','costeCambio','insumo','patente','materiaPrima'] },
+  C:{ ctx:'Clientes', k:['poderNeg','concentracion','centralCompras','fidelizacion','sensibilidad','indiferenciado','integracion'] },
+  R:{ ctx:'Rivalidad actual', k:['lider','cuota','declive','costesFijos','capacidad','diferenciacion','fidelizacion','barreraSalida'] },
+  analysis:{ ctx:'Términos del análisis', k:['favorable','factorCritico','presion','rivalidad','peso'] },
+  report:{ ctx:'Términos del informe', k:['rivalidad','factorCritico','respuesta','estrategia','cincoFuerzas','peso'] },
+};
+const GLOS_BASICOS = ['presion','peso'];
+
+// Convierte en enlace al glosario la primera aparición de cada término en un texto
+function glosLink(text, pantalla) {
+  const saved = []; let r = text;
+  (GLOS_PANTALLA[pantalla]?.k || []).forEach(k => {
+    const m = GLOS[k].m; if (!m) return;
+    r = r.replace(new RegExp(`(?<!\\p{L})(${m})(?!\\p{L})`, 'iu'), w => { saved.push(`<button type="button" class="gl-term" data-g="${k}">${w}</button>`); return `\u0000${saved.length - 1}\u0000`; });
+  });
+  return r.replace(/\u0000(\d+)\u0000/g, (_, n) => saved[n]);
+}
+function glosPantalla() { return $('screen-force').classList.contains('active') ? state.cur : (document.querySelector('.screen.active')?.id || '').replace('screen-', ''); }
+function glosEnMargen() { return matchMedia(glosPantalla() === 'report' ? '(min-width:1420px)' : '(min-width:1300px)').matches; }
+const GLOS_PREF = 'esplora-porter-glosario';
+function renderGlos() {
+  const pant = glosPantalla(), p = GLOS_PANTALLA[pant]; if (!p) return;
+  document.body.classList.toggle('on-report', pant === 'report');
+  document.body.classList.toggle('glos-margen', glosEnMargen());
+  const extra = GLOS_BASICOS.filter(k => !p.k.includes(k));
+  const item = k => `<div class="glos-it" id="gl-${k}"><dt>${GLOS[k].t}</dt><dd>${GLOS[k].d}</dd></div>`;
+  $('glos-ctx').textContent = p.ctx;
+  $('glos-n').textContent = p.k.length + extra.length;
+  $('glos-list').innerHTML = p.k.map(item).join('')
+    + (extra.length ? `<div class="glos-sep" role="presentation">Siempre a mano</div>${extra.map(item).join('')}` : '');
+  document.querySelector('.glos-panel').scrollTop = 0;
+  // en pantallas anchas se abre solo, salvo que el alumno lo haya cerrado
+  let pref = null; try { pref = localStorage.getItem(GLOS_PREF); } catch (e) {}
+  $('glos-det').open = glosEnMargen() && pref !== 'cerrado';
+}
+function glosMostrar(k) {
+  const det = $('glos-det'); det.open = true;
+  const el = $('gl-' + k); if (!el) return;
+  el.scrollIntoView({ block:'nearest', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+  el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
+}
+$('glos-det').addEventListener('toggle', e => { if (glosEnMargen()) try { localStorage.setItem(GLOS_PREF, e.target.open ? 'abierto' : 'cerrado'); } catch (err) {} });
+document.addEventListener('click', e => {
+  const t = e.target.closest('.gl-term');
+  if (t) { e.preventDefault(); glosMostrar(t.dataset.g); return; }
+  // en móvil, tocar fuera del panel lo cierra
+  const det = $('glos-det');
+  if (det.open && !glosEnMargen() && !e.target.closest('.glos')) det.open = false;
+});
+let glosAncho = null;
+window.addEventListener('resize', () => { const m = glosEnMargen(); if (m === glosAncho) return; glosAncho = m; renderGlos(); });
+document.addEventListener('keydown', e => {
+  const det = $('glos-det');
+  if (e.key === 'Escape' && det.open && !glosEnMargen()) { det.open = false; det.querySelector('summary').focus(); }
+});
+
 // ═════════ NAVEGACIÓN ═════════
 function go(s) {
   document.querySelectorAll('.screen').forEach(e => e.classList.remove('active'));
@@ -625,7 +796,7 @@ function renderForce() {
   $('force-head').innerHTML = `<span class="eyebrow" style="color:var(--tool-deep); font-weight:600; display:block; margin-bottom:8px;">Fuerza ${FORCES.indexOf(F) + 1} de ${FORCES.length}</span>
     <h2 class="title" style="color:var(--tool-deep); margin-bottom:10px;">${F.name}</h2>
     <p class="serif" style="font-size:17px; margin-bottom:10px;">${F.ask}</p>
-    <p class="prose-italic" style="font-size:16.5px;">${F.def}</p>`;
+    <p class="prose-italic" style="font-size:16.5px;">${glosLink(F.def, F.id)}</p>`;
   $('force-dots').innerHTML = FORCES.map(x => `<div class="dot ${x.id === F.id ? 'active' : forceDone(x) ? 'done' : ''}"></div>`).join('');
   $('factors').innerHTML = F.factors.map(f => {
     const v = state.vals[f.id];
@@ -635,7 +806,7 @@ function renderForce() {
     const legend = [1, 3, 5].map((r, k) => `<div class="${on(r) ? 'on' : ''}"><b>${r}</b><span>${f.a[k]}</span></div>`).join('');
     const chips = PESOS.map((p, i) => `<button type="button" class="chip" aria-pressed="${weight(f) === p}" data-wf="${f.id}" data-w="${p}">${PESO_LBL[i]}</button>`).join('');
     return `<div class="card factor"><div class="factor-top"><div><h3 class="subtitle">${f.label}</h3>${f.inv ? '<div class="factor-tag">Valor alto = barrera: reduce la presión</div>' : ''}</div>${pill}</div>
-      <p class="factor-help">${f.help}</p><p class="factor-ask">${f.ask}</p>
+      <p class="factor-help">${glosLink(f.help, F.id)}</p><p class="factor-ask">${f.ask}</p>
       <div class="seg" role="group" aria-label="${f.label}">${seg}</div><div class="legend">${legend}</div>
       <div class="chips"><span class="lab">Peso en tu sector</span>${chips}</div></div>`;
   }).join('');
@@ -772,7 +943,7 @@ $('btn-reset').addEventListener('click', () => {
 const SAVE_KEY = 'esplora-porter-v1';
 let curScreen = 'intro', lastSaved = '';
 const goBase = go;
-go = function (s) { curScreen = s; return goBase(s); };
+go = function (s) { curScreen = s; const r = goBase(s); renderGlos(); return r; };
 try {
   const sv = JSON.parse(localStorage.getItem(SAVE_KEY) || 'null');
   if (sv && sv.state && sv.state.idea) {
@@ -784,6 +955,7 @@ try {
     go(to);
   }
 } catch (e) {}
+renderGlos();
 setInterval(() => {
   try {
     const j = JSON.stringify({ state, screen: curScreen });
