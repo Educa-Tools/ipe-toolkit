@@ -101,7 +101,7 @@ body.sin-scroll{overflow:hidden}
 .etq{justify-self:start;padding:4px 12px;border-radius:999px;border:1px solid var(--ink);font-size:13px;font-weight:600;line-height:1.4}
 .formas svg{position:absolute;width:var(--s);height:var(--s);left:var(--x);top:var(--y);transform:rotate(var(--r));color:var(--c)}
 @media (max-width:860px){.caminos{grid-template-columns:1fr}.camino{padding:32px 24px}.formas{right:24px;top:24px}}
-@media (max-width:620px){.formas{width:64px;height:64px;right:20px;top:20px}.formas svg{width:64px;height:64px}.camino :is(ol,ul) a{grid-template-columns:auto 1fr;row-gap:0}.camino :is(ol,ul) small{grid-column:2;justify-self:start;margin-top:8px}}
+@media (max-width:620px){.formas{width:64px;height:64px;right:20px;top:20px}.formas svg{width:64px;height:64px}.camino :is(ol,ul) a{grid-template-columns:auto 1fr;row-gap:0}.camino :is(ol,ul) small{grid-column:2;justify-self:start;margin-top:8px}.camino{padding:24px 16px}.camino .pie .btn{width:100%}}
 
 /* ---------- Ventanita de herramienta (la de la portada anterior) ---------- */
 .tool-card{transition-property:box-shadow,translate,rotate,scale;transition-duration:.18s;transition-timing-function:var(--ease-out)}

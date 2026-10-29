@@ -130,5 +130,13 @@
 .carrusel{--cols:4;--gap:22px;grid-template-columns:none!important;grid-auto-flow:column;grid-auto-columns:calc((100% - (var(--cols) - 1)*var(--gap))/var(--cols));gap:var(--gap)!important;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;padding:8px 8px 12px;margin:-8px -8px -12px}
 .carrusel::-webkit-scrollbar{display:none}
 .carrusel>li{scroll-snap-align:start}
-@media (max-width:760px){.carrusel{--cols:3;--gap:10px}.carr-btn{width:40px;height:40px}.carr-btn[data-d="-1"]{left:-12px}.carr-btn[data-d="1"]{right:-12px}}
+@media (max-width:980px){.carrusel{--cols:3}}
+@media (max-width:760px){.carrusel{--cols:2.3;--gap:12px}.carr-btn{width:40px;height:40px}.carr-btn[data-d="-1"]{left:-12px}.carr-btn[data-d="1"]{right:-12px}}
+/* En el móvil: una tarjeta y media a la vista, de borde a borde, y se pasa con el dedo */
+@media (max-width:560px){
+  .carrusel{--cols:1.55;--gap:12px;margin-inline:-16px;padding-inline:16px;scroll-padding-inline:16px}
+  .carrusel .clip-body{padding:12px 14px;gap:6px}
+  .carrusel .win-desc{display:block}
+}
+@media (max-width:560px) and (pointer:coarse){.carr-btn{display:none}}
 @media (prefers-reduced-motion:reduce){.carrusel{scroll-behavior:auto}.carr-btn{transition:none}}
