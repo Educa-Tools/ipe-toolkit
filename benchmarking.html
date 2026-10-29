@@ -514,6 +514,41 @@
     #printSheet .pg:first-child .quote .ans { font-size: 11.5pt; }
     #printSheet .pg:first-child h2 { margin-top: 9pt; }
   }
+  /* Términos enlazados al glosario dentro de los textos de cada paso */
+  .gl-term { all: unset; cursor: help; color: inherit; text-decoration: underline dotted color-mix(in srgb, var(--acc-deep) 70%, transparent); text-decoration-thickness: 1.5px; text-underline-offset: 4px; border-radius: 3px; transition: background .15s ease; }
+  .gl-term:hover { background: var(--acc-soft); }
+  .gl-term:focus-visible { outline: 2px solid var(--acc-deep); outline-offset: 2px; }
+
+  /* ══ Glosario: en el margen (pantallas anchas) o botón flotante (resto) ══ */
+  .glos { position: fixed; right: 16px; bottom: 16px; z-index: 40; }
+  .glos summary { list-style: none; display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; padding: 11px 16px 11px 14px; border-radius: 999px; background: var(--acc-deep); color: #fff; font-size: 15px; font-weight: 600; box-shadow: 0 8px 24px -8px rgba(31, 36, 23, .45); }
+  .glos summary::-webkit-details-marker { display: none; }
+  .glos summary:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+  .glos summary > svg:first-child { width: 18px; height: 18px; flex: none; }
+  .glos-n { min-width: 22px; height: 22px; padding: 0 6px; border-radius: 999px; background: rgba(255, 255, 255, .2); font-size: 12.5px; font-weight: 700; display: grid; place-items: center; }
+  .glos-chev { width: 16px; height: 16px; transition: transform .2s ease; transform: rotate(180deg); }
+  .glos details[open] .glos-chev { transform: rotate(0); }
+  .glos-panel { position: absolute; right: 0; bottom: calc(100% + 10px); width: min(360px, calc(100vw - 32px)); max-height: min(62vh, 520px); overflow: auto; overscroll-behavior: contain; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px 6px; box-shadow: 0 24px 48px -16px rgba(31, 36, 23, .35); }
+  .glos-ctx { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--acc-deep); margin: 0 0 6px; }
+  .glos-list { margin: 0; }
+  .glos-it { padding: 11px 10px; margin: 0 -10px; border-top: 1px solid var(--line-soft); border-radius: 8px; }
+  .glos-it:first-child { border-top: none; }
+  .glos-it dt { font-family: var(--font-display); font-size: 16px; font-weight: 600; color: var(--ink); line-height: 1.25; margin-bottom: 3px; }
+  .glos-it dd { margin: 0; font-size: 14px; line-height: 1.5; color: var(--ink-soft); }
+  .glos-it.flash { animation: glosFlash 1.6s ease; }
+  @keyframes glosFlash { 0%, 40% { background: var(--acc-soft); } 100% { background: transparent; } }
+  .glos-sep { font-size: 11.5px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--ink-soft); padding: 14px 0 2px; border-top: 1px solid var(--line); margin-top: 4px; }
+  .glos-sep + .glos-it { border-top: none; }
+  /* En el margen: tarjeta fija junto al contenido (la clase glos-margen la pone el script, ≥1300 px) */
+  body.glos-margen .glos { right: auto; bottom: auto; top: 116px; left: calc(50% + 380px + 24px); width: clamp(220px, calc(50vw - 380px - 44px), 300px); }
+  body.glos-margen .glos summary { border-radius: 14px; background: var(--surface); color: var(--ink); border: 1px solid var(--line); box-shadow: none; padding: 12px 14px; }
+  body.glos-margen .glos details[open] summary { border-radius: 14px 14px 0 0; border-bottom-color: var(--line-soft); }
+  body.glos-margen .glos summary > svg:first-child { color: var(--acc-deep); }
+  body.glos-margen .glos-n { background: var(--line-soft); color: var(--ink-soft); }
+  body.glos-margen .glos-chev { margin-left: auto; transform: rotate(0); }
+  body.glos-margen .glos details[open] .glos-chev { transform: rotate(180deg); }
+  body.glos-margen .glos-panel { position: static; width: auto; max-height: calc(100vh - 190px); border-top: none; border-radius: 0 0 14px 14px; box-shadow: none; }
+  @media (prefers-reduced-motion: reduce) { .glos-it.flash { animation: none; } }
   svg.espora { width: 1em; height: 1em; fill: currentColor; vertical-align: -.12em; }
 </style>
 </head>
@@ -521,6 +556,22 @@
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol fill="currentColor" id="espora" viewBox="28.5 14.5 340.8 372.5"><path d="M 217.7 41.6C230.4 48.3 239.5 48.5 241.6 44.4C243.8 40.3 238.3 33.5 225.6 26.7C212.8 20 203.4 18.9 201.2 23C199.1 27.1 205 34.9 217.7 41.6"/><path d="M 70.2 105.1C82.3 97.3 86.9 89.5 84.3 85.6C81.8 81.7 73.1 83.2 61.1 91.1C49 98.9 43.4 106.6 45.9 110.5C48.5 114.4 58.2 113 70.2 105.1"/><path d="M 363.1 135.7C362.2 121.3 357.7 113.5 353.1 113.8C348.5 114.1 345.5 122.3 346.3 136.7C347.2 151.1 351.1 159.8 355.8 159.5C360.4 159.2 364 150.1 363.1 135.7"/><path d="M 328 295.8C315.8 303.4 310 311 312.5 314.9C314.9 318.9 324.7 317.7 336.9 310.1C349.1 302.5 353.8 294.8 351.4 290.8C348.9 286.9 340.2 288.2 328 295.8"/><path d="M 181.2 360.3C168.5 353.3 159.1 352 156.9 356C154.7 360.1 160.4 368 173 375C185.7 381.9 194.7 382.3 196.9 378.2C199.2 374.2 193.8 367.2 181.2 360.3"/><path d="M 42.1 242.9C37.5 243.2 33.9 252.3 34.8 266.7C35.6 281.1 40.1 288.9 44.8 288.6C49.4 288.3 52.4 280.1 51.5 265.7C50.7 251.3 46.7 242.6 42.1 242.9"/><path d="M 215.2 256.3C213.1 255.2 211.2 253.9 208.9 253C205 251.3 200.7 250.4 196.4 250.4C191.2 250.4 186.2 251.7 181.8 254C177.3 256 171.3 258.3 166.5 256.3C161.5 254.2 160.5 248.5 160.5 243.7C160.6 230.9 156.7 219.5 145.3 212.5C144.8 212.1 144.2 211.8 143.6 211.5C138.6 208.4 126.3 198.4 146.5 185.1C151.9 181.5 155.9 176.3 158.3 170.3C160.7 164.1 160.1 157.6 162.3 151.4C164.2 145.8 168.7 141.8 174.9 142.4C179.4 142.9 183.1 145.6 187 147.7C191.6 150.3 196.4 151.7 201.7 151.7C207.8 151.7 213.4 150 218.3 147.1C222.6 144.5 228.2 142.8 232.8 145.9C237.2 148.9 238.6 153.6 238.4 158.7C237.8 170.4 244.2 181.7 254.2 187.5C261.8 191.9 266.3 201.3 259.6 208.6C257.1 211.3 253.9 212.7 250.8 214.8C248 216.7 245.4 219.2 243.4 221.9C239.1 227.6 237.2 234.2 236.9 241.2C236.8 246.4 235.8 252.5 231.6 256C228.3 258.7 223.8 258.9 219.8 258C218.2 257.6 216.7 257 215.2 256.3M322.5 230.4C322.5 230.4 322.6 230.5 322.6 230.5C322.7 230.5 322.8 230.5 322.8 230.5C331.1 230.9 340.7 224.3 346 213.6C352.6 200.5 350.4 186 341.1 181.4C331.7 176.7 318.9 183.6 312.3 196.8C310.9 199.6 309.9 202.4 309.3 205.2C309.3 205.2 309.3 205.2 309.3 205.2C308.9 205.7 308.8 207.3 308.6 207.9C308.3 209 308 209.9 307.6 210.9C306.8 212.8 305.8 214.7 304.5 216.3C301.4 219.8 297 220.9 292.8 218.6C290.7 217.5 288.8 216 286.9 214.6C284.9 213.2 282.5 212.4 280.6 211C271 203.6 279 192 286.8 187.4C296.2 181.8 302.5 171.5 302.5 159.7C302.5 152.8 300.1 146 295.9 140.5C292.2 135.6 286.8 132.2 284 126.6C281.4 121.4 281.3 113.9 285.6 109.6C286.2 109 286.7 108.4 287.2 107.8C287.2 107.7 287.3 107.6 287.3 107.6L287.3 107.6C292.2 100.5 291.1 88.5 283.9 78.4C275.4 66.4 261.6 61.6 253.1 67.6C244.6 73.6 244.6 88.2 253.1 100.2C255.1 103 257.4 105.4 260.1 107.5C263 109.7 264.5 112.6 265.4 116C266.7 120.7 265.2 125.4 261.2 128.2C259.4 129.6 257.2 130.5 255.2 131.6C251.2 133.7 247.3 135.9 242.6 135.3C238.6 134.7 235.9 131.7 234.7 127.9C232.9 122 234.2 115.8 232.3 109.8C230.6 104.4 227.4 99.4 223.1 95.6C215.1 88.5 204.7 86.4 194.3 88.4C185.7 90.1 177.1 92.7 169.3 87.1C166.4 85.1 164.1 82.1 162.8 78.8C162.8 78.8 162.8 78.8 162.8 78.8C159.3 70.3 147.4 65.4 134.4 67.5C119.9 69.9 109.5 80.1 111.2 90.4C112.8 100.7 125.9 107.1 140.5 104.8C145.5 103.9 150.2 100.7 155.3 100.6C163.5 100.5 170.2 106.4 169.9 114.8C169.7 116.4 169.6 118 169.6 119.6C168.8 129.6 162.9 136.2 152.2 133.7C148.1 132.7 144.7 130.3 140.8 128.7C136.9 127.1 132.8 126.3 128.6 126.3C119.7 126.3 111.1 130.1 105 136.6C102.1 139.8 99.7 143.6 98.3 147.7C97.5 149.8 97 152 96.7 154.3C96.4 156.6 96.9 159.1 95.7 161.3C95.5 161.7 95.3 162 95.1 162.4C93.8 164 92 165.2 90.1 166.2C86 168.4 81.6 169.8 77.1 170.3C74.8 170.6 72.4 170.7 70.2 171.2C65.9 172.2 62.1 174.8 59 177.9C52.9 184.2 49.1 192.7 48.8 201.5C48.7 205.2 49.1 209.1 50.7 212.5C52.2 215.9 54.8 218.9 58.2 220.5C61.6 222 65.6 222 69.2 220.9C72.8 219.7 75.9 217.5 78.6 214.9C83.6 210.1 87.1 203.7 88.5 196.8C89 194.1 89.2 191.4 90.2 188.8C91.3 185.7 93.6 183.5 96.6 182.4C98.8 181.5 101.4 181 103.8 181.2C105.1 181.3 106.1 181.6 107 182.3C108.3 183.3 109.5 184.3 110.8 185.1C112.5 186.3 114.4 187.2 116.1 188.4C119 190.5 121.2 193.3 121.6 196.9C122.3 203.4 116.9 208.7 112.1 212.3C102.7 217.9 96.4 228.2 96.4 239.9C96.4 247.9 99.5 255.6 104.8 261.5C107.4 264.3 110.9 266.1 113.4 268.9C116.1 272.1 117.3 276.3 117 280.5C116.7 285.1 115 288.3 112.1 291.8C105 300.4 109 313.6 114.8 321.8C123.3 333.8 137.1 338.7 145.6 332.6C159.2 322.9 149.2 301.5 139.3 293.2C134.9 289.5 131.4 284.1 132.8 278.1C133.2 276.4 133.9 274.6 134.8 273.2C136.6 270.2 140.8 269.6 143.7 268C146.9 266.4 150.2 264.7 153.9 265.1C157.7 265.5 161.1 267.5 162.9 270.9C164.4 273.8 164.8 276.7 164.5 279.9C162.6 298.4 178.1 314.7 196.4 314.7C205.5 314.7 214.1 309 223.3 310.7C228 311.5 233.1 314.8 234.5 319.6L234.5 319.5C237.2 328.2 248.5 334.3 261.6 333.5C276.3 332.6 287.7 323.5 287.1 313.1C286.4 302.7 274 295 259.3 295.9C255.9 296.1 252.5 296.8 249.3 297.9C243.5 300.1 234.6 303 230 296.9C227.5 293.6 227.8 290.4 228.3 286.5C228.6 283.7 228.4 280.8 228.7 277.9C229.6 270.9 235.2 267 242 267C244.7 267 247.4 267.4 250 268.2C251.7 268.6 253.1 269 254.6 269.8C259 272.2 264.1 273.3 269.1 273.3C285 273.3 298.3 261.7 300.8 246.4C300.8 246.4 300.8 246.3 300.8 246.3C300.8 246 300.9 245.7 300.9 245.4C303.3 228.9 320.3 230.2 322.5 230.4"/></symbol></svg>
 
 <header class="kit-bar"><div class="kit-bar-in"><a href="index.html" aria-label="Esplora, volver al catálogo"><img src="marca/logo-horizontal-crema.svg" alt="" width="114" height="28"></a><small><button class="kit-reset" id="btnReset" type="button">Empezar de cero</button>Benchmarking de la competencia</small></div></header>
+
+<!-- ═══ GLOSARIO (margen derecho en pantallas anchas; botón flotante en móvil) ═══ -->
+<aside class="glos" aria-label="Glosario">
+  <details id="glos-det">
+    <summary>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5V5a2 2 0 0 1 2-2h13v15H6.5A2.5 2.5 0 0 0 4 20.5 2.5 2.5 0 0 0 6.5 23H19"/><path d="M8 7h7M8 11h5"/></svg>
+      <span class="glos-sum-t">Glosario</span>
+      <span class="glos-n" id="glos-n"></span>
+      <svg class="glos-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+    </summary>
+    <div class="glos-panel">
+      <p class="glos-ctx" id="glos-ctx"></p>
+      <dl class="glos-list" id="glos-list"></dl>
+    </div>
+  </details>
+</aside>
 
 <nav class="stepper" aria-label="Pasos de la herramienta">
   <div class="wrap stepper-in"><div class="dots" id="stepper"></div></div>
@@ -1014,8 +1065,110 @@
     var nb = $('[data-tab="' + tab + '"]'); if (nb) nb.focus();
   });
 
+  /* ---------- Glosario ---------- */
+  /* t: término · d: definición · m: cómo aparece en los textos de cada paso (se enlaza la primera vez) */
+  var GLOS = {
+    benchmarking: { t: 'Benchmarking', d: 'Comparar de forma ordenada tu empresa con otras (competidores o empresas de referencia) para aprender de ellas y encontrar tu sitio en el mercado.', m: 'benchmarking' },
+    competidor: { t: 'Competidor', d: 'Empresa que intenta atraer a los mismos clientes que tú, ya sea con el mismo producto o con otro que cubre la misma necesidad.', m: 'competidores|competidor' },
+    mapaPos: { t: 'Mapa de posición', d: 'Gráfico con dos ejes en el que se coloca a cada negocio según cómo lo ve el cliente. Sirve para ver quién compite con quién y qué zonas quedan vacías.', m: 'mapa de posición' },
+    hueco: { t: 'Hueco de mercado', d: 'Necesidad o tipo de cliente que ninguna empresa está atendiendo bien. Es una oportunidad, pero hay que comprobar que haya gente dispuesta a pagar por ello.', m: 'hueco' },
+    posicionamiento: { t: 'Posicionamiento', d: 'Lugar que ocupa una marca en la cabeza del cliente frente a la competencia: la más barata, la más cercana, la más rápida, la de más calidad…' },
+    marketingEst: { t: 'Marketing estratégico', d: 'Parte del marketing que decide a qué clientes dirigirse y cómo diferenciarse de la competencia, antes de pasar a las acciones concretas de precio, venta y comunicación.' },
+    publicoObj: { t: 'Público objetivo', d: 'Grupo de clientes al que se dirige la empresa: quiénes son, qué necesitan y cómo compran.', m: 'cliente al que te diriges' },
+    buyerPersona: { t: 'Buyer persona', d: 'Retrato de tu cliente ideal: edad, situación, necesidades, hábitos de compra y lo que le preocupa. Se construye con datos, no con suposiciones.', m: 'buyer persona' },
+    canal: { t: 'Canal de venta', d: 'Camino por el que el producto llega al cliente: tienda física, web, marketplace, reparto a domicilio, comerciales…', m: 'canales|canal' },
+    comunicacion: { t: 'Comunicación comercial', d: 'Todo lo que hace una empresa para darse a conocer y convencer al cliente: publicidad, redes sociales, promociones y el tono de sus mensajes.', m: 'publicidad' },
+    diferenciacion: { t: 'Diferenciación', d: 'Lo que hace que tu producto o servicio sea distinto del de la competencia y que el cliente lo valore: calidad, trato, rapidez, especialización, diseño…', m: 'distingue|distinto|diferencia' },
+    directo: { t: 'Competidor directo', d: 'Empresa que vende lo mismo que tú al mismo tipo de cliente. Por ejemplo, otra pastelería del barrio si abres una pastelería.', m: 'lo mismo al mismo cliente' },
+    indirecto: { t: 'Competidor indirecto', d: 'Empresa que vende algo distinto, pero que cubre la misma necesidad: el cliente podría gastar ahí el dinero que gastaría contigo.', m: 'algo distinto' },
+    mercado: { t: 'Mercado', d: 'Conjunto de clientes que podrían comprar un producto y de empresas que lo ofrecen, en una zona o un canal concretos.', m: 'mercado real|mercado' },
+    necesidad: { t: 'Necesidad', d: 'Lo que el cliente quiere resolver al comprar: comer, regalar, ahorrar tiempo, verse bien… Varios productos distintos pueden cubrir la misma necesidad.', m: 'necesidad' },
+    fuente: { t: 'Fuente', d: 'De dónde sale un dato: una web, una visita, un folleto, unas reseñas, una conversación. Anotarla permite comprobarlo y saber si sigue al día.', m: 'de dónde los has sacado|fuente' },
+    datoImpresion: { t: 'Dato e impresión', d: 'Un dato se puede comprobar (un precio, un horario, un canal); una impresión es una opinión tuya. En el benchmarking pesan los datos.', m: 'impresiones' },
+    propuestaValor: { t: 'Propuesta de valor', d: 'Lo que una empresa promete a su cliente: qué problema le resuelve y por qué debería elegirla a ella y no a otra.', m: 'qué promete' },
+    marketplace: { t: 'Marketplace', d: 'Tienda en línea en la que venden muchas empresas a la vez. La plataforma pone la web y los clientes y, a veces, se encarga del cobro y del envío.', m: 'marketplace' },
+    eje: { t: 'Eje del mapa', d: 'Cada una de las dos líneas del mapa. Representa algo que el cliente valora (precio, calidad, trato…) y va de un extremo al otro.', m: 'ejes|eje' },
+    calidadPercibida: { t: 'Calidad percibida', d: 'La calidad que el cliente cree que tiene un producto, por sus materiales, su marca, sus reseñas o su presentación. No siempre coincide con la real.', m: 'cómo lo ve el cliente' },
+    especialista: { t: 'Generalista y especialista', d: 'Un negocio generalista vende de todo para todo tipo de cliente; uno especialista se centra en un tipo de producto o de cliente y lo conoce a fondo.', m: 'generalista|especialista' },
+    posventa: { t: 'Atención posventa', d: 'Ayuda que recibe el cliente después de comprar: dudas, garantías, devoluciones, reparaciones.', m: 'posventa' },
+    demanda: { t: 'Demanda', d: 'Clientes dispuestos a comprar un producto a un precio determinado. Sin demanda no hay negocio, aunque nadie más ocupe esa zona del mapa.', m: 'hay quien compre' },
+    cuadroComp: { t: 'Cuadro comparativo', d: 'Tabla que pone en paralelo los mismos datos de cada empresa para compararlos de un vistazo.', m: 'cuadro' },
+    ventaja: { t: 'Ventaja competitiva', d: 'Algo que haces mejor que la competencia, que el cliente valora y que no es fácil de copiar. La trabajarás en la herramienta del mismo nombre.', m: 'ventaja competitiva' },
+    json: { t: 'Archivo JSON', d: 'Archivo de texto con tus respuestas ordenadas, que la herramienta sabe leer. Sirve para retomar el trabajo en otro equipo o cargarlo en otra herramienta.', m: 'JSON' },
+    planComercial: { t: 'Plan de acción comercial', d: 'Documento que recoge los objetivos de venta de la empresa y las acciones para conseguirlos: producto, precio, distribución y comunicación.', m: 'plan de acción comercial' }
+  };
+  /* términos de cada paso, en el mismo orden que las secciones .step */
+  var GLOS_PASO = [
+    { ctx: 'Términos para empezar', k: ['benchmarking', 'competidor', 'mapaPos', 'hueco', 'posicionamiento', 'marketingEst'] },
+    { ctx: 'Tu punto de partida', k: ['publicoObj', 'buyerPersona', 'canal', 'comunicacion', 'diferenciacion'] },
+    { ctx: 'Elegir competidores', k: ['competidor', 'directo', 'indirecto', 'mercado', 'necesidad'] },
+    { ctx: 'Las fichas', k: ['fuente', 'datoImpresion', 'propuestaValor', 'marketplace', 'canal', 'comunicacion'] },
+    { ctx: 'El mapa de posición', k: ['eje', 'posicionamiento', 'calidadPercibida', 'especialista', 'posventa', 'demanda'] },
+    { ctx: 'El cuadro comparativo', k: ['cuadroComp', 'hueco', 'necesidad', 'demanda'] },
+    { ctx: 'Diferencias', k: ['diferenciacion', 'ventaja', 'propuestaValor'] },
+    { ctx: 'Entregar y guardar', k: ['json', 'planComercial'] }
+  ];
+  var GLOS_BASICOS = ['benchmarking', 'mapaPos', 'hueco'];
+  var GLOS_TEXTOS = '.lead, .norm p, .step-head p, .qa p, .fhelp, .note p, .axpick p, .fmt p, .fmt li, .ordh, p.hint';
+  var GLOS_PREF = 'esplora-benchmarking-glosario';
+  var glosHechos = [];   /* por paso: términos ya enlazados en los textos fijos */
+  /* Convierte en enlace al glosario la primera aparición de cada término del paso en esos textos */
+  function glosEnlazar(els, paso, hechos) {
+    els.forEach(function (el) {
+      GLOS_PASO[paso].k.forEach(function (k) {
+        if (!GLOS[k].m || hechos[k]) return;
+        var re = new RegExp('(?<!\\p{L})(' + GLOS[k].m + ')(?!\\p{L})', 'iu');
+        var w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), n, r;
+        while ((n = w.nextNode())) {
+          if (n.parentNode.closest('.gl-term') || !(r = re.exec(n.nodeValue))) continue;
+          var t = n.splitText(r.index); t.splitText(r[0].length);
+          var b = document.createElement('button');
+          b.type = 'button'; b.className = 'gl-term'; b.dataset.g = k; b.textContent = t.nodeValue;
+          t.parentNode.replaceChild(b, t);
+          hechos[k] = 1; break;
+        }
+      });
+    });
+  }
+  function glosEnMargen() { return matchMedia('(min-width: 1300px)').matches; }
+  function renderGlos() {
+    var p = GLOS_PASO[state.step]; if (!p) return;
+    document.body.classList.toggle('glos-margen', glosEnMargen());
+    var extra = GLOS_BASICOS.filter(function (k) { return p.k.indexOf(k) < 0; });
+    var item = function (k) { return '<div class="glos-it" id="gl-' + k + '"><dt>' + GLOS[k].t + '</dt><dd>' + GLOS[k].d + '</dd></div>'; };
+    $('#glos-ctx').textContent = p.ctx;
+    $('#glos-n').textContent = p.k.length + extra.length;
+    $('#glos-list').innerHTML = p.k.map(item).join('') +
+      (extra.length ? '<div class="glos-sep" role="presentation">Siempre a mano</div>' + extra.map(item).join('') : '');
+    $('.glos-panel').scrollTop = 0;
+    /* en pantallas anchas se abre solo, salvo que el alumno lo haya cerrado */
+    var pref = null; try { pref = localStorage.getItem(GLOS_PREF); } catch (e) {}
+    $('#glos-det').open = glosEnMargen() && pref !== 'cerrado';
+  }
+  function glosMostrar(k) {
+    $('#glos-det').open = true;
+    var el = $('#gl-' + k); if (!el) return;
+    el.scrollIntoView({ block: 'nearest', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
+  }
+  $('#glos-det').addEventListener('toggle', function (e) { if (glosEnMargen()) try { localStorage.setItem(GLOS_PREF, e.target.open ? 'abierto' : 'cerrado'); } catch (err) {} });
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest('.gl-term');
+    if (t) { e.preventDefault(); glosMostrar(t.dataset.g); return; }
+    /* en móvil, tocar fuera del panel lo cierra */
+    var det = $('#glos-det');
+    if (det.open && !glosEnMargen() && !e.target.closest('.glos')) det.open = false;
+  });
+  var glosAncho = null;
+  window.addEventListener('resize', function () { var m = glosEnMargen(); if (m === glosAncho) return; glosAncho = m; renderGlos(); });
+  document.addEventListener('keydown', function (e) {
+    var det = $('#glos-det');
+    if (e.key === 'Escape' && det.open && !glosEnMargen()) { det.open = false; det.querySelector('summary').focus(); }
+  });
+
   /* ---------- Pasos ---------- */
   var steps = $$('.step');
+  steps.forEach(function (sec, i) { glosHechos[i] = {}; glosEnlazar($$(GLOS_TEXTOS, sec), i, glosHechos[i]); });
   $('#stepper').innerHTML = steps.map(function (s, i) {
     return '<button class="step-dot" type="button" data-go="' + i + '"><span class="n">' + (i === 0 ? '<svg class="espora" viewBox="28.5 14.5 340.8 372.5" aria-hidden="true"><use href="#espora"/></svg>' : i) + '</span><span class="t">' + esc(s.dataset.title) + '</span></button>';
   }).join('');
@@ -1039,6 +1192,7 @@
     if (i === 4) { buildNiv(); drawAll(); equalizeOrd(); }
     if (i === 5) { renderCompare(); }
     if (i === 7) renderReview();
+    renderGlos();
     if (scroll !== false) window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
     save();
   }
@@ -1182,6 +1336,7 @@
         '<p class="ordh">' + esc(D.q) + ' Compáralos <b>solo entre ellos</b>: a la izquierda, el que tenga menos; a la derecha, el que tenga más. Deja casillas vacías en medio si la diferencia es grande; si son parecidos, ponlos juntos.</p>' +
         '<div class="nvscale"><span>◀ ' + esc(D.lo) + '</span><span>' + esc(D.hi) + ' ▶</span></div>' + rows + '</div>';
     }).join('');
+    glosEnlazar($$('#orders .ordh'), 4, Object.assign({}, glosHechos[4]));
     equalizeOrd();
   }
   /* las dos tarjetas de niveles (eje horizontal y vertical) comparten alturas: título, explicación y
