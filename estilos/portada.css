@@ -165,11 +165,10 @@
 }
 
 /* ---------- Proyecto ---------- */
-.proyecto{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"t x" "f x";gap:24px 48px;align-items:start}
-.proyecto h2{grid-area:t;font-size:clamp(30px,3.6vw,44px);line-height:1.08}
-.proyecto .txt{grid-area:x}
-/* Ilustración del aula bajo el título; en el móvil pasa debajo del texto */
-.proyecto-ilustra{grid-area:f;display:block;width:100%;max-width:480px;height:auto}
+/* Texto a la izquierda y, en paralelo, la ilustración del aula a la derecha, centradas en altura */
+.proyecto{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px 48px;align-items:center}
+.proyecto h2{margin:0 0 24px;font-size:clamp(30px,3.6vw,44px);line-height:1.08}
+.proyecto-ilustra{display:block;justify-self:center;width:100%;max-width:400px;height:auto}
 .proyecto p+p{margin-top:16px}
 .proyecto .txt{color:var(--ink-soft)}
 .datos{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:32px 0 0;padding:0}
@@ -177,8 +176,8 @@
 .datos dt{font:600 32px/1.1 var(--font-display)}
 .datos dd{margin:4px 0 0;font-size:14px;color:var(--ink-soft)}
 @media (max-width:800px){
-  .proyecto{grid-template-columns:1fr;grid-template-areas:"t" "x" "f"}
-  .proyecto-ilustra{max-width:400px;margin-inline:auto}
+  .proyecto{grid-template-columns:1fr}
+  .proyecto-ilustra{max-width:340px}
 }
 /* En el móvil, cada cifra en su fila: número a la izquierda y texto al lado, sin palabras sueltas */
 @media (max-width:620px){
