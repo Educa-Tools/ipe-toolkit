@@ -825,7 +825,7 @@ if ($mv.Success) {
 $flechaFina = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
 $cols = foreach ($c in $db.caminos) {
   $vis = TemasVisibles $c; if (-not $vis) { continue }
-  $i = 0
+  $i = 0; $nC = 0
   $bloques = foreach ($te in $vis) {
     $i++
     $lis = foreach ($id in (HerrDeTema $c $te)) {
@@ -834,9 +834,13 @@ $cols = foreach ($c in $db.caminos) {
       $min = if ($t.minutos) { "≈ $($t.minutos) min" } else { '' }
       "        <li data-busca=""$(Esc $busca)""><a href=""recursos/$($t.slug)/""><span class=""c"" style=""--c:$($t.color)"" aria-hidden=""true""></span><b>$(Esc $t.titulo)</b><small>$min$flechaFina</small></a></li>"
     }
-    "      <div class=""tema-i"">`n        <h4>$(if ($c.numerado) { "$i. " })$(Esc $te.nombre)</h4>`n        <ul>`n$($lis -join "`n")`n        </ul>`n      </div>"
+    # Cabecera del tema: número en círculo (como en los caminos), nombre y cuántas herramientas tiene
+    $nT = @($lis).Count; $nC += $nT
+    $num = if ($c.numerado) { "<span class=""num"" aria-hidden=""true"">$i</span><span class=""sr"">$i. </span>" } else { '' }
+    "      <div class=""tema-i"">`n        <h4>$num<span>$(Esc $te.nombre)</span><small>$nT</small></h4>`n        <ul>`n$($lis -join "`n")`n        </ul>`n      </div>"
   }
-  "    <div>`n      <h3><a href=""$($c.id)/"">$(Esc $c.nombre)</a></h3>`n$($bloques -join "`n")`n    </div>"
+  $etq = if ($c.etiqueta) { "<span class=""etq"">$(Esc $c.etiqueta)</span>" } else { '' }
+  "    <div style=""--filas:$($i + 1)"">`n      <h3>$etq<a href=""$($c.id)/"">$(Esc $c.nombre)</a><small>$(Plural $nC 'herramienta' 'herramientas')</small></h3>`n$($bloques -join "`n")`n    </div>"
 }
 Rellenar 'indice' ("`n" + ($cols -join "`n") + "`n")
 
@@ -849,7 +853,7 @@ Rellenar 'datos' ("`n" + (($datos | ForEach-Object { "        <div><dt>$($_[0])<
 Rellenar 'pie' ("`n" + (PieNuevo './') + "`n")
 
 # Datos para js/portada.js: claves de guardado («Seguir donde lo dejaste») y enlaces antiguos con #
-$guarda = @($enCamino | Where-Object { $H[$_].guarda } | ForEach-Object { [ordered]@{ k = $H[$_].guarda; t = $H[$_].titulo; u = $H[$_].url; c = $H[$_].color } })
+$guarda = @($enCamino | Where-Object { $H[$_].guarda } | ForEach-Object { [ordered]@{ k = $H[$_].guarda; t = $H[$_].titulo; u = $H[$_].url; c = $H[$_].color; m = $caminos[$H[$_].camino].nombre } })
 $red = [ordered]@{}
 foreach ($m in $materias) {
   $w = PalabraUnidad $m

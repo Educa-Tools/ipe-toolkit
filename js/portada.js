@@ -42,11 +42,46 @@
   const empezadas = guarda.filter(g => { try { return localStorage.getItem(g.k); } catch (e) { return false; } });
   const seguir = $('#seguir');
   if (seguir && empezadas.length) {
+    // Cuál se usó la última: se guarda una huella de cada progreso y, si cambia entre una visita y la siguiente,
+    // esa herramienta pasa delante. También al abrirla desde aquí. Todo se queda en este navegador.
+    const CLAVE = 'esplora-portada-huellas';
+    let vistas = {};
+    try { vistas = JSON.parse(localStorage.getItem(CLAVE)) || {}; } catch (e) {}
+    const huella = s => { let h = 5381; for (let i = 0; i < s.length; i++) h = (h * 33 ^ s.charCodeAt(i)) | 0; return s.length + ':' + h; };
+    const ahora = Date.now();
     empezadas.forEach(g => {
-      const a = document.createElement('a');
-      a.href = g.u; a.textContent = g.t; a.style.setProperty('--c', g.c);
-      seguir.append(a);
+      let v = ''; try { v = localStorage.getItem(g.k) || ''; } catch (e) {}
+      const h = huella(v), antes = vistas[g.k];
+      g.cuando = !antes ? 0 : antes.h === h ? antes.t : ahora;
+      vistas[g.k] = { h, t: g.cuando };
     });
+    const guardar = () => { try { localStorage.setItem(CLAVE, JSON.stringify(vistas)); } catch (e) {} };
+    guardar();
+    empezadas.sort((a, b) => b.cuando - a.cuando);   // estable: sin datos, queda el orden del catálogo
+
+    const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+    const flecha = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+    const [ult, ...otras] = empezadas;
+    seguir.innerHTML =
+      `<div class="seg-card" style="--c:${esc(ult.c)}">
+        <span class="seg-ico" aria-hidden="true"><svg viewBox="28.5 14.5 340.8 372.5"><use href="#simbolo" fill="currentColor"/></svg></span>
+        <div class="seg-txt"><h2>Seguir donde lo dejaste</h2><p class="seg-t">${esc(ult.t)}</p>${ult.m ? `<p class="seg-m">${esc(ult.m)}</p>` : ''}</div>
+        <a class="btn seg-go" href="${esc(ult.u)}" data-k="${esc(ult.k)}" aria-label="Continuar con ${esc(ult.t)}">Continuar${flecha}</a>
+      </div>` +
+      (otras.length ? `<details class="seg-mas">
+        <summary>Otras empezadas<span class="seg-n">${otras.length}</span><svg class="seg-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <ul class="seg-lista">${otras.map(g => `<li><a href="${esc(g.u)}" data-k="${esc(g.k)}"><span class="c" style="--c:${esc(g.c)}" aria-hidden="true"></span><span><b>${esc(g.t)}</b>${g.m ? `<small>${esc(g.m)}</small>` : ''}</span></a></li>`).join('')}</ul>
+      </details>` : '');
+    seguir.classList.toggle('sola', !otras.length);
+    seguir.addEventListener('click', e => {
+      const a = e.target.closest('a[data-k]'); if (!a || !vistas[a.dataset.k]) return;
+      vistas[a.dataset.k].t = Date.now(); guardar();
+    });
+    const mas = seguir.querySelector('.seg-mas');
+    if (mas) {
+      document.addEventListener('click', e => { if (mas.open && !mas.contains(e.target)) mas.open = false; });
+      mas.addEventListener('keydown', e => { if (e.key === 'Escape' && mas.open) { mas.open = false; mas.querySelector('summary').focus(); } });
+    }
     seguir.hidden = false;
   }
 
@@ -68,12 +103,17 @@
     const filtrar = () => {
       const txt = norm(q.value.trim());
       let total = 0;
-      document.querySelectorAll('.tema-i').forEach(t => {
-        let n = 0;
-        t.querySelectorAll('li[data-busca]').forEach(li => { const ok = !txt || li.dataset.busca.includes(txt); li.hidden = !ok; if (ok) n++; });
-        t.hidden = !n; total += n;
+      document.querySelectorAll('#indice > div').forEach(d => {
+        let enCol = 0;
+        d.querySelectorAll('.tema-i').forEach(t => {
+          let n = 0;
+          t.querySelectorAll('li[data-busca]').forEach(li => { const ok = !txt || li.dataset.busca.includes(txt); li.hidden = !ok; if (ok) n++; });
+          t.hidden = !n; enCol += n;
+          const s = t.querySelector('h4 small'); if (s) s.textContent = n;   // los contadores siguen a la búsqueda
+        });
+        d.hidden = !enCol; total += enCol;
+        const s = d.querySelector('h3 small'); if (s) s.textContent = plural(enCol, 'herramienta', 'herramientas');
       });
-      document.querySelectorAll('#indice > div').forEach(d => { d.hidden = !d.querySelector('.tema-i:not([hidden])'); });
       $('#vacio').hidden = !!total;
       $('#vacioQ').textContent = q.value.trim();
       $('#cuenta').textContent = txt ? plural(total, 'herramienta encontrada', 'herramientas encontradas') : '';
