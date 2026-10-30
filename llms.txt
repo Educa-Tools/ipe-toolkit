@@ -18,7 +18,7 @@ Cada recurso tiene una ficha (enlace principal) y la herramienta en sí (enlace 
 
 El catálogo se organiza en dos caminos, cada uno con sus temas: «Trabajo por cuenta ajena» (https://esplora.es/trabajar/) y «Emprendimiento» (https://esplora.es/emprender/). Las mismas herramientas están también ordenadas por materia (https://esplora.es/materias/) y por criterios de evaluación (https://esplora.es/criterios/).
 
-## Trabajo por cuenta ajena · Prevención de Riesgos Laborales
+## Trabajo por cuenta ajena · 1. Prevención de Riesgos Laborales
 
 - [Diagnóstico de patologías inespecíficas](https://esplora.es/recursos/patologias-inespecificas/): Empareja seis casos con su patología: fatiga, estrés, burnout, mobbing… (IPE 1, bloque 1, ≈ 15 min) · [abrir](https://esplora.es/patologias.html)
 - [Ruta al Artículo 22](https://esplora.es/recursos/ruta-articulo-22/): Repaso exprés de los arts. 17 a 21 de la LPRL en formato de niveles con estrellas. (IPE 1, bloque 1, ≈ 25 min) · [abrir](https://esplora.es/rutaarticulo22.html)
@@ -27,13 +27,13 @@ El catálogo se organiza en dos caminos, cada uno con sus temas: «Trabajo por c
 - [Buscador de enfermedades profesionales](https://esplora.es/recursos/enfermedades-profesionales/): Descubre qué enfermedades profesionales del RD 1299/2006 pueden afectar a tu oficio. (IPE 1, bloque 1, ≈ 10 min) · [abrir](https://esplora.es/enfermedadesprofesionales.html)
 - [Guía del ruido](https://esplora.es/recursos/guia-ruido/): Decibelios, los tres escalones del RD 286/2006, simulador de obligaciones y caso práctico para entregar. (IPE 1, bloque 1, ≈ 40 min, con informe en PDF) · [abrir](https://esplora.es/guia-ruido.html)
 
-## Trabajo por cuenta ajena · Derecho del trabajo
+## Trabajo por cuenta ajena · 2. Derecho del trabajo
 
 - [Pirámide de la jerarquía normativa](https://esplora.es/recursos/jerarquia-normativa/): Las ocho fuentes del Derecho del trabajo con su base legal, los principios que resuelven los conflictos entre normas y diez casos prácticos. (IPE 1, bloque 2, ≈ 30 min, con informe en PDF) · [abrir](https://esplora.es/piramide.html)
 - [Mapa interactivo de la Unión Europea](https://esplora.es/recursos/mapa-union-europea/): Estados miembro, euro y espacio Schengen, país a país. (IPE 1, bloque 2, ≈ 15 min) · [abrir](https://esplora.es/mapaeuropa.html)
 - [Casos prácticos de nóminas](https://esplora.es/recursos/casos-practicos-nominas/): Cinco casos guiados con datos de 2026: clasificar percepciones, comprobar el SMI, calcular bases, cuotas y líquido, y cazar errores en una nómina. (IPE 1, bloque 2, ≈ 45 min, con informe en PDF) · [abrir](https://esplora.es/casosnomina.html)
 
-## Trabajo por cuenta ajena · Seguridad Social
+## Trabajo por cuenta ajena · 3. Seguridad Social
 
 - [Asistente de determinación de contingencias](https://esplora.es/recursos/determinacion-contingencias/): Recorre el procedimiento: calificación, EVI, INSS, reclamación previa y vía judicial. (IPE 1, bloque 2, ≈ 15 min) · [abrir](https://esplora.es/determinacioncontingencias.html)
 - [Prestaciones de la Seguridad Social](https://esplora.es/recursos/prestaciones-seguridad-social/): Incapacidad temporal, nacimiento y desempleo: ficha, comprobador de requisitos, calculadora, casos y glosario. (IPE 1, bloque 2, ≈ 40 min, con informe en PDF) · [abrir](https://esplora.es/prestaciones.html)

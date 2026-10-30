@@ -32,7 +32,7 @@
       "nombre": "Trabajo por cuenta ajena",
       "leyenda": "Prevención de riesgos laborales, fuentes del Derecho del trabajo, salario y acción protectora de la Seguridad Social.",
       "entrada": "La relación laboral con la normativa citada por artículo: Ley 31/1995, de Prevención de Riesgos Laborales; Estatuto de los Trabajadores (RDLeg 2/2015) y Ley General de la Seguridad Social (RDLeg 8/2015).",
-      "numerado": false,
+      "numerado": true,
       "etiqueta": "IPE 1",
       "temas": [
         { "id": "prevencion", "nombre": "Prevención de Riesgos Laborales", "icono": "shield", "antes": ["prl"],
