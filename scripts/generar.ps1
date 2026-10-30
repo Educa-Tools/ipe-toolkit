@@ -598,6 +598,7 @@ foreach ($m in $conHerr) {
 
 # ---------- Criterios de evaluación: criterios/ ----------
 "Criterios de evaluación"
+$botonesCur = [System.Collections.Generic.List[string]]::new()
 $bloquesCur = foreach ($mc in $db.curriculo) {
   $m = $materias | Where-Object id -eq $mc.materia | Select-Object -First 1
   $tag = if ($m) { $m.tag } else { $mc.materia }
@@ -613,6 +614,8 @@ $bloquesCur = foreach ($mc in $db.curriculo) {
     "<div class=""ra""><div class=""ra-cab""><span class=""etq"">$(Esc $ra.id)</span><h3>$(Esc $ra.titulo)</h3></div><ul class=""ces"">$($ces -join '')</ul></div>"
   }
   if (-not $ras) { continue }
+  $nCes = ([regex]::Matches(($ras -join ''), 'class="ce"')).Count
+  $botonesCur.Add("<button type=""button"" data-m=""c-$($mc.materia)"" aria-pressed=""$(if (-not $botonesCur.Count) { 'true' } else { 'false' })"">$(Esc $tag) <small>$nCes criterios</small></button>")
   @"
 <section class="materia" aria-labelledby="c-$($mc.materia)">
   <h2 id="c-$($mc.materia)">$(Esc $tag)</h2>
@@ -621,7 +624,9 @@ $bloquesCur = foreach ($mc in $db.curriculo) {
 </section>
 "@
 }
-$main = (PanelPagina 'Por criterios de evaluación' 'Herramientas por criterios de evaluación' 'Relación entre resultados de aprendizaje (RA), criterios de evaluación (CE) y herramientas. Solo figuran los criterios que ya cuentan con alguna herramienta.') +
+# Con más de una materia, botones para ver una cada vez (sin JavaScript se ven todas)
+$selectorCur = if ($botonesCur.Count -gt 1) { '<div class="tipo selector-materia" id="verMateria" role="group" aria-label="Materia que se muestra" hidden>' + ($botonesCur -join '') + '</div>' } else { '' }
+$main = (PanelPagina 'Por criterios de evaluación' 'Herramientas por criterios de evaluación' 'Relación entre resultados de aprendizaje (RA), criterios de evaluación (CE) y herramientas. Solo figuran los criterios que ya cuentan con alguna herramienta.' $selectorCur) +
   "<div class=""wrap"">`n$($bloquesCur -join "`n")`n</div>`n" +
   '<div class="wrap"><p class="nota">«Cobertura parcial»: la herramienta trabaja el criterio sin abarcarlo por completo.</p></div>'
 Escribir 'criterios/index.html' (PaginaNueva @{ titulo = 'Herramientas por criterios de evaluación (RA y CE) · Esplora'; desc = 'Qué herramientas de Esplora trabajan cada resultado de aprendizaje y criterio de evaluación de IPE, con su ficha y si lo cubren entero o en parte.'; ruta = 'criterios/'; base = '../'; main = $main })
@@ -645,7 +650,7 @@ foreach ($mc in $db.curriculo) {
   $tagMc = if ($mm) { $mm.tag } else { $mc.materia }
   foreach ($ra in $mc.ras) { foreach ($ce in $ra.ces) { foreach ($x in $ce.herramientas) {
     if (-not $enCriterios[$x.id]) { $enCriterios[$x.id] = [System.Collections.Generic.List[object]]::new() }
-    $enCriterios[$x.id].Add([pscustomobject]@{ tag = $tagMc; ce = $ce; parcial = [bool]$x.parcial })
+    $enCriterios[$x.id].Add([pscustomobject]@{ materia = $mc.materia; tag = $tagMc; ce = $ce; parcial = [bool]$x.parcial })
   } } }
 }
 function DondeEncaja($id) {
@@ -659,7 +664,7 @@ function DondeEncaja($id) {
     $filas += '<div><dt>Materia</dt><dd><ul>' + ($ls -join '') + '</ul></dd></div>'
   }
   if ($enCriterios[$id]) {
-    $ls = $enCriterios[$id] | ForEach-Object { $p = if ($_.parcial) { ' <small>(cobertura parcial)</small>' } else { '' }; '<li><a href="../../criterios/">' + (Esc $_.tag) + ' · ' + (Esc $_.ce.id) + '</a>: ' + (Esc $_.ce.texto) + $p + '</li>' }
+    $ls = $enCriterios[$id] | ForEach-Object { $p = if ($_.parcial) { ' <small>(cobertura parcial)</small>' } else { '' }; '<li><a href="../../criterios/#c-' + $_.materia + '">' + (Esc $_.tag) + ' · ' + (Esc $_.ce.id) + '</a>: ' + (Esc $_.ce.texto) + $p + '</li>' }
     $filas += '<div><dt>Criterios de evaluación</dt><dd><ul>' + ($ls -join '') + '</ul></dd></div>'
   }
   if (-not $filas) { return '' }

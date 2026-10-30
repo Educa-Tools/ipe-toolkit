@@ -35,6 +35,8 @@
 .tipo button{min-height:var(--tap);padding:8px 16px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:15px;font-weight:600;cursor:pointer}
 .tipo button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .cuenta{font-size:15px;color:var(--ink-soft)}
+.selector-materia{margin-top:32px;display:inline-grid;grid-auto-flow:column;grid-auto-columns:1fr}   /* botones del mismo ancho */
+.selector-materia small{margin-left:4px;font-size:14px;font-weight:500}
 @media (max-width:800px){.barra{position:static;background:none;-webkit-backdrop-filter:none;backdrop-filter:none;border:0}.barra .wrap{padding-block:0}}
 
 /* Cada tema: número o punto, título, resumen técnico y sus herramientas */

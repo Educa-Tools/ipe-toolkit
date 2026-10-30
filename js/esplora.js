@@ -73,6 +73,25 @@
   igualar();
   igualarTemas();
 
+  // ---------- Criterios: una materia cada vez (la del #c-… del enlace, o la primera) ----------
+  const verMateria = $('#verMateria');
+  if (verMateria) {
+    const botones = [...verMateria.querySelectorAll('button')];
+    const mostrar = (id, cambiaUrl) => {
+      const b = botones.find(x => x.dataset.m === id) || botones[0];
+      botones.forEach(x => {
+        x.setAttribute('aria-pressed', x === b);
+        const sec = document.getElementById(x.dataset.m).closest('.materia');
+        if (sec) sec.hidden = x !== b;
+      });
+      if (cambiaUrl) history.replaceState(null, '', '#' + b.dataset.m);
+    };
+    verMateria.hidden = false;
+    verMateria.addEventListener('click', e => { const b = e.target.closest('button'); if (b) mostrar(b.dataset.m, true); });
+    mostrar(location.hash.slice(1), false);
+    addEventListener('hashchange', () => mostrar(location.hash.slice(1), false));
+  }
+
   // ---------- Buscador de un camino (y filtro de tipo, si hay más de uno) ----------
   const q = $('#q[data-buscar="camino"]');
   if (!q) return;
