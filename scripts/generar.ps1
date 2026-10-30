@@ -58,7 +58,22 @@ function ImagenCompartirDe([string]$id, [string]$nombre) {
 # ---------- Utilidades ----------
 function Esc([string]$s) { if ($null -eq $s) { return '' }; $s.Replace('&','&amp;').Replace('<','&lt;').Replace('>','&gt;').Replace('"','&quot;') }
 function SinEtiquetas([string]$s) { [regex]::Replace($s, '<[^>]+>', '') }
+# Versión de los estilos y scripts propios (?v=…): cambia cuando cambia el archivo, para que
+# el navegador no se quede con una copia antigua
+$versiones = @{}
+function ConVersion([string]$texto) {
+  [regex]::Replace($texto, '((?:estilos|js)/[\w-]+\.(?:css|js))(?:\?v=\w+)?"', {
+    param($x)
+    $f = $x.Groups[1].Value
+    if (-not $versiones.ContainsKey($f)) {
+      $p = Join-Path $Root $f
+      $versiones[$f] = if (Test-Path $p) { (Get-FileHash $p -Algorithm SHA256).Hash.Substring(0, 8).ToLower() } else { '' }
+    }
+    if ($versiones[$f]) { "$f`?v=$($versiones[$f])""" } else { $x.Value }
+  })
+}
 function Escribir([string]$rel, [string]$texto) {
+  $texto = ConVersion $texto
   $ruta = Join-Path $Root $rel
   $dir = Split-Path -Parent $ruta
   if (-not (Test-Path $dir)) { New-Item -ItemType Directory -Force $dir | Out-Null }
@@ -873,6 +888,7 @@ $jsonG = (ConvertTo-Json @($guarda) -Compress -Depth 3).Replace('<', '<')
 $jsonR = (ConvertTo-Json $red -Compress).Replace('<', '<')
 Rellenar 'datos-js' ("`n<script>window.ESPLORA = { guarda: $jsonG, antiguos: $jsonR };</script>`n")
 
+$idx = ConVersion $idx
 if ($idx -ne [IO.File]::ReadAllText($rutaIndex, $utf8)) { [IO.File]::WriteAllText($rutaIndex, $idx, $utf8); "  escrito   index.html" } else { "  igual     index.html" }
 
 # ---------- Herramientas: pie legal y canonical ----------
