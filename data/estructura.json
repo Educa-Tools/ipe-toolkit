@@ -96,6 +96,27 @@
 
   "curriculo": [
     {
+      "materia": "ipe1",
+      "ras": [
+        { "id": "RA1", "titulo": "Funciones de nivel básico en prevención de riesgos laborales", "ces": [
+          { "id": "CE1.1", "texto": "Cultura preventiva y factores de riesgo", "herramientas": [{ "id": "guiaruido", "parcial": true }, { "id": "patologias", "parcial": true }] },
+          { "id": "CE1.2", "texto": "Daños profesionales: accidentes de trabajo y enfermedades profesionales", "herramientas": [{ "id": "enfprofesionales" }, { "id": "patologias", "parcial": true }, { "id": "contingencias", "parcial": true }] },
+          { "id": "CE1.3", "texto": "Evaluación de riesgos y técnicas de prevención y protección", "herramientas": [{ "id": "guiaruido", "parcial": true }, { "id": "ruta22", "parcial": true }] },
+          { "id": "CE1.4", "texto": "Protocolos de actuación en caso de emergencia", "herramientas": [{ "id": "ruta22", "parcial": true }] },
+          { "id": "CE1.5", "texto": "Derechos y deberes en prevención de riesgos laborales", "herramientas": [{ "id": "ruta22" }, { "id": "simuladorprl" }] },
+          { "id": "CE1.6", "texto": "Gestión de la prevención y representación de las personas trabajadoras", "herramientas": [{ "id": "orgpreventiva" }] },
+          { "id": "CE1.8", "texto": "Vigilancia de la salud", "herramientas": [{ "id": "simuladorprl", "parcial": true }] }
+        ] },
+        { "id": "RA5", "titulo": "Condiciones laborales, relación laboral y Seguridad Social", "ces": [
+          { "id": "CE5.1", "texto": "Derechos y obligaciones de la relación laboral; convenio colectivo", "herramientas": [{ "id": "piramide", "parcial": true }] },
+          { "id": "CE5.4", "texto": "Componentes del recibo de salario", "herramientas": [{ "id": "casosnomina" }] },
+          { "id": "CE5.5", "texto": "Recursos laborales ante las vicisitudes de la relación laboral", "herramientas": [{ "id": "contingencias", "parcial": true }] },
+          { "id": "CE5.6", "texto": "La Seguridad Social como pilar de la calidad de vida", "herramientas": [{ "id": "prestaciones", "parcial": true }, { "id": "contingencias", "parcial": true }] },
+          { "id": "CE5.7", "texto": "Prestaciones por extinción de la relación laboral", "herramientas": [{ "id": "prestaciones", "parcial": true }] }
+        ] }
+      ]
+    },
+    {
       "materia": "ipe2",
       "ras": [
         { "id": "RA4", "titulo": "Ideación y validación con metodologías ágiles", "ces": [
