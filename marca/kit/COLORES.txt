@@ -36,7 +36,7 @@ crema-antigua     #F7F5EC   fondo crema de la identidad provisional
 texto-antiguo     #2B2D14   texto de la identidad provisional
 terracota         #C2683A   acento cálido
 terracota-oscura  #B5482F   acento cálido para texto (más contraste)
-cuerpo-mascota    #8A9136   cuerpo de Explorito
+cuerpo-mascota    #8A9136   cuerpo de Esplorito
 
 
 4. COLOR PROPIO DE CADA HERRAMIENTA (data/estructura.json)
