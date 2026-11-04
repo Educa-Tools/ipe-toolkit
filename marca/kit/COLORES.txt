@@ -35,7 +35,7 @@ oliva-oscuro-modo #A7AE4B   verde de marca en modo oscuro
 crema-antigua     #F7F5EC   fondo crema de la identidad provisional
 texto-antiguo     #2B2D14   texto de la identidad provisional
 terracota         #C2683A   acento cálido
-terracota-oscura  #B5482F   acento cálido para texto (más contraste)
+terracota-oscura  #B5482F   acento cálido para texto (más contraste); color de Ventaja competitiva
 cuerpo-mascota    #8A9136   cuerpo de Esplorito
 
 
@@ -64,6 +64,7 @@ catálogo. Sobre ellos el logo va en crema.
 #8B6430  Selector de forma jurídica
 #946500  Guía de la iluminación
 #B03A78  Buyer Persona
+#B5482F  Ventaja competitiva (la terracota oscura de la identidad anterior)
 
 
 5. COLORES INTERNOS DE UNA HERRAMIENTA QUE SALEN EN LA PORTADA
