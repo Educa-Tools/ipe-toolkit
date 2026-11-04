@@ -122,10 +122,11 @@
 
   /* Preguntas y respuestas: texto con aire, sin cajas */
   .faq { display: grid; grid-template-columns: 1fr 1fr; gap: 32px 40px; padding: 8px 0; }
-  .qa { border-top: 1px solid var(--ink); padding-top: 16px; }
+  .qa { --c: var(--v-costes); border-top: 3px solid var(--c); padding-top: 16px; }
+  .qa:nth-child(2) { --c: var(--v-dif); } .qa:nth-child(3) { --c: var(--v-enfdif); } .qa:nth-child(4) { --c: var(--v-enfcostes); }
   .qa h3 { font-size: 20px; line-height: 1.25; margin-bottom: 8px; }
   .qa p { font-size: 16px; line-height: 1.65; color: var(--ink-soft); }
-  .qa p b { color: var(--ink); }
+  .qa p b { color: var(--ink); background: linear-gradient(transparent 58%, color-mix(in srgb, var(--c) 24%, transparent) 58%); padding: 0 2px; }
 
   /* ---------- Botones ---------- */
   .btn-main { background: var(--ink); color: var(--bg); border: 1px solid var(--ink); border-radius: 999px; padding: 13px 24px; font-size: 15.5px; font-weight: 600; white-space: nowrap; transition: transform .2s var(--ease), background .2s; }
@@ -170,7 +171,7 @@
   .stats { display: grid; grid-template-columns: repeat(4, 1fr); margin: 0 0 40px; padding: 24px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
   .stats > div { padding: 0 16px; border-left: 1px solid var(--line); }
   .stats > div:first-child { border-left: none; padding-left: 0; }
-  .stats dt { font-family: var(--font-display); font-size: 36px; line-height: 1; font-weight: 500; color: var(--ink); letter-spacing: -.02em; font-variation-settings: "opsz" 72; }
+  .stats dt { font-family: var(--font-display); font-size: 36px; line-height: 1; font-weight: 500; color: var(--acc); letter-spacing: -.02em; font-variation-settings: "opsz" 72; }
   .stats dt small { font-size: 18px; margin-left: 2px; color: var(--ink-soft); }
   .stats dd { margin: 8px 0 0; font-size: 14px; line-height: 1.4; color: var(--ink-soft); }
   .scene { width: 100%; max-width: 360px; justify-self: end; }
@@ -194,21 +195,24 @@
 
   /* ---------- Las cuatro vías: matriz de Porter con líneas finas ---------- */
   .vias-wrap { position: relative; }
-  .vias { display: grid; grid-template-columns: 28px 1fr 1fr; grid-template-rows: auto 1fr 1fr; }
-  .vias .ax { font-size: 11.5px; font-weight: 600; letter-spacing: 1.4px; text-transform: uppercase; color: var(--ink-soft); display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 0 12px; }
-  .vias .ax.row { writing-mode: vertical-rl; transform: rotate(180deg); padding: 0 12px 0 0; }
+  .vias { display: grid; grid-template-columns: 44px 1fr 1fr; grid-template-rows: auto 1fr 1fr; }
+  .vias .ax { font-size: 11.5px; font-weight: 600; letter-spacing: 1.4px; text-transform: uppercase; color: var(--ink-soft); display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 0 16px; }
+  .vias .ax.row { writing-mode: vertical-rl; transform: rotate(180deg); padding: 0 0 0 16px; }
   .vias .grid { grid-column: 2 / 4; grid-row: 2 / 4; display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
   .vias .rl { grid-column: 1; }
-  .via { position: relative; background: var(--surface); padding: 24px; display: flex; flex-direction: column; gap: 8px; transition: background .3s var(--ease); }
+  .via { position: relative; background: color-mix(in srgb, var(--c) 6%, #FFFFFF); padding: 24px; display: flex; flex-direction: column; gap: 8px; transition: background .3s var(--ease); }
   .via .cw { display: none; font-size: 11.5px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink-soft); }
   .via h4 { display: flex; align-items: center; gap: 10px; font-size: 21px; color: var(--ink); }
-  .via h4 i { width: 10px; height: 10px; border-radius: 50%; background: var(--c); flex: none; }
+  .vn { text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--c) 70%, transparent); text-decoration-thickness: 3px; text-underline-offset: 6px; text-decoration-skip-ink: none; }
+  .via:hover { background: color-mix(in srgb, var(--c) 11%, #FFFFFF); }
+  .step.on .vias .via { animation: rise .6s var(--ease) both; }
+  .step.on .vias .via:nth-child(2) { animation-delay: .08s; } .step.on .vias .via:nth-child(3) { animation-delay: .16s; } .step.on .vias .via:nth-child(4) { animation-delay: .24s; }
+  @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
   .via p { font-size: 15px; line-height: 1.6; color: var(--ink-soft); }
   .via .ej { font-size: 14px; line-height: 1.5; color: var(--ink-soft); margin-top: auto; padding-top: 12px; border-top: 1px dashed var(--line); }
-  .via.on { background: var(--acc-wash); }
-  .via.on h4 { color: var(--acc-deep); }
-  .via .yo { position: absolute; top: 16px; right: 16px; font-size: 11.5px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--acc-deep); display: inline-flex; align-items: center; gap: 6px; }
-  .via .yo::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--acc); }
+  .via.on { background: color-mix(in srgb, var(--c) 16%, #FFFFFF); box-shadow: inset 0 0 0 2px var(--c); }
+  .via .yo { position: absolute; top: 16px; right: 16px; font-size: 11.5px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--c); display: inline-flex; align-items: center; gap: 6px; }
+  .via .yo::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--c); }
   .medio { position: absolute; left: calc(50% + 14px); top: calc(50% + 14px); transform: translate(-50%, -50%); background: var(--acc); color: #fff; font-size: 13px; font-weight: 600; border-radius: 999px; padding: 8px 16px; box-shadow: 0 0 0 6px var(--bg); white-space: nowrap; }
   .vias.mini .via { padding: 16px; min-height: 64px; justify-content: center; }
   .vias.mini .via p, .vias.mini .via .ej { display: none; }
@@ -228,13 +232,14 @@
   .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   .opts label { position: relative; }
   .opts input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
-  .opts span { display: flex; align-items: center; gap: 8px; height: 100%; border: 1px solid var(--line); background: var(--surface); border-radius: 12px; padding: 10px 12px; font-size: 14.5px; font-weight: 500; transition: border-color .15s, background .15s; }
-  .opts span i { width: 8px; height: 8px; border-radius: 50%; background: var(--c); flex: none; }
-  .opts label:hover span { border-color: var(--ink-muted); }
-  .opts input:checked + span { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
-  .opts input:focus-visible + span { outline: 2px solid var(--acc); outline-offset: 2px; }
-  .opts.ok input:checked + span { border-color: var(--ok); box-shadow: inset 0 0 0 1px var(--ok); background: var(--ok-soft); }
-  .opts.ko input:checked + span { border-color: var(--warn); box-shadow: inset 0 0 0 1px var(--warn); background: var(--warn-soft); }
+  .opts span { display: flex; align-items: center; justify-content: space-between; gap: 8px; height: 100%; border: 1px solid color-mix(in srgb, var(--c) 35%, #FFFFFF); background: color-mix(in srgb, var(--c) 8%, #FFFFFF); color: var(--c); border-radius: 12px; padding: 11px 14px; font-size: 14.5px; font-weight: 600; transition: background .2s, color .2s, border-color .2s, transform .2s var(--ease); }
+  .opts label:hover span { background: color-mix(in srgb, var(--c) 15%, #FFFFFF); border-color: var(--c); }
+  .opts label:active span { transform: scale(.98); }
+  .opts input:checked + span { background: var(--c); border-color: var(--c); color: #FFFFFF; }
+  .opts input:focus-visible + span { outline: 2px solid var(--ink); outline-offset: 2px; }
+  .opts.ok input:checked + span::after { content: "✓"; font-weight: 700; }
+  .opts.ko input:checked + span::after { content: "✗"; font-weight: 700; }
+  .opts .right span { border-style: dashed; border-width: 2px; border-color: var(--c); }
   .fb { font-size: 15px; line-height: 1.6; color: var(--ink-soft); }
   .fb b { color: var(--ink); }
   .fb.ok b { color: #3E5A26; }
@@ -250,7 +255,7 @@
   .purse .lbl { display: none; }
   .levers { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   .lever { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 12px; transition: border-color .25s, box-shadow .25s; }
-  .lever.top { border-color: var(--acc); box-shadow: 0 0 0 1px var(--acc), var(--shadow); }
+  .lever.top { border-color: var(--acc); background: var(--acc-wash); box-shadow: 0 0 0 1px var(--acc), var(--shadow); }
   .lever .lt { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
   .lever h3 { font-size: 20px; }
   .lever .val { font-family: var(--font-display); font-size: 20px; color: var(--ink-soft); white-space: nowrap; }
@@ -260,8 +265,10 @@
   .lever .row { display: flex; align-items: center; gap: 12px; }
   .slots { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; flex: 1; }
   .slots i { height: 10px; border-radius: 999px; background: var(--line-soft); transition: background .25s var(--ease); }
-  .slots i.on { background: var(--ink); }
-  .lever.top .slots i.on { background: var(--acc); }
+  .slots i.on { background: var(--acc); }
+  .slots i.new { animation: pop .45s var(--ease); }
+  @keyframes pop { 0% { transform: scaleY(.3); } 55% { transform: scaleY(1.6); } 100% { transform: none; } }
+  .lever.top .slots i.on { background: var(--acc-deep); }
   .pm { width: 36px; height: 36px; flex: none; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); font-size: 18px; font-weight: 500; line-height: 1; display: grid; place-items: center; transition: border-color .15s, background .15s; }
   .pm:hover:not(:disabled) { border-color: var(--ink); }
   .pm:active:not(:disabled) { background: var(--surface-alt); }
@@ -282,7 +289,9 @@
   .opt > span::after { content: ""; position: absolute; top: 18px; right: 18px; width: 18px; height: 18px; border-radius: 50%; border: 1px solid var(--ink-muted); background: var(--surface); transition: border-color .15s, box-shadow .15s; }
   .opt:hover > span { border-color: var(--ink-muted); }
   .opt b { font-family: var(--font-display); font-size: 19px; font-weight: 500; display: flex; align-items: center; gap: 10px; }
-  .opt b i { width: 10px; height: 10px; border-radius: 50%; background: var(--c); flex: none; }
+  .pick .opt input:checked + span { border-color: var(--c); box-shadow: inset 0 0 0 1px var(--c); background: color-mix(in srgb, var(--c) 8%, #FFFFFF); }
+  .pick .opt input:checked + span::after { border-color: var(--c); box-shadow: inset 0 0 0 5px var(--c); }
+  .pick .opt:hover > span { border-color: var(--c); }
   .opt small { font-size: 14.5px; line-height: 1.55; color: var(--ink-soft); }
   .opt em { font-style: normal; font-size: 11.5px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--acc-deep); }
   .opt input:checked + span { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
@@ -306,6 +315,21 @@
   .foco .zs span:nth-child(2) { text-align: center; }
   .foco .zs span:last-child { text-align: right; }
   .alerts { display: flex; flex-direction: column; gap: 8px; }
+  .vmap { display: block; width: 100%; height: auto; overflow: visible; }
+  .vmap .q > rect:first-child { fill-opacity: .08; transition: fill-opacity .5s var(--ease); }
+  .vmap .q text { transition: opacity .4s; }
+  .vmap .q .ul { transform-box: fill-box; transform-origin: left center; transition: transform .5s var(--ease); }
+  .vmap .q.on > rect:first-child { fill-opacity: .24; }
+  .vmap .q.on .ul { transform: scaleX(3.2); }
+  .vmap.has .q:not(.on) text { opacity: .5; }
+  .vmap .dead { opacity: 0; transition: opacity .5s; }
+  .vmap.trampa .dead { opacity: 1; }
+  .vmap.trampa .q text { opacity: .45; }
+  .vmap .me { transition: transform .8s var(--ease), opacity .4s; }
+  .vmap.vacio .me { opacity: 0; }
+  .vmap .ping { fill: none; stroke: var(--pc, #1E1C1A); stroke-width: 2; transform-box: fill-box; transform-origin: center; animation: ping 2.2s ease-out infinite; }
+  .vmap .ping.p2 { animation-delay: 1.1s; }
+  @keyframes ping { from { transform: scale(1); opacity: .7; } to { transform: scale(2.8); opacity: 0; } }
 
   /* ---------- Prueba de resistencia ---------- */
   .tests { display: flex; flex-direction: column; gap: 16px; }
@@ -414,44 +438,51 @@
     .scene .chip { opacity: 1; }
   }
   @media print {
-    @page { size: A4; margin: 13mm; }
-    body { background: #fff; font-size: 10.5pt; }
+    @page { size: A4; margin: 14mm 15mm; }
+    body { background: #fff; }
     body > *:not(#printSheet) { display: none !important; }
-    #printSheet { display: block; color: #1E1C1A; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    #printSheet .ph { display: flex; justify-content: space-between; align-items: center; padding-bottom: 7pt; border-bottom: 1px solid #E5E8C8; margin-bottom: 10pt; }
-    #printSheet .pm { display: flex; align-items: center; gap: 8pt; font-size: 8.5pt; font-weight: 600; letter-spacing: 1.6pt; text-transform: uppercase; color: #4A463F; }
-    #printSheet .pm i { width: 20pt; height: 1px; background: #B5482F; display: inline-block; }
-    #printSheet .pn { font-size: 8.5pt; font-weight: 600; letter-spacing: 1.2pt; color: #4A463F; }
-    #printSheet .tt { margin-bottom: 8pt; }
-    #printSheet .kk { display: block; font-size: 8.5pt; font-weight: 600; letter-spacing: 2pt; text-transform: uppercase; color: #8B3A3A; margin-bottom: 3pt; }
-    #printSheet h1 { font-family: 'Fraunces', Georgia, serif; font-weight: 400; font-size: 24pt; line-height: 1.12; margin: 0; }
-    #printSheet .sub { color: #4A463F; font-size: 10pt; margin-top: 3pt; }
-    #printSheet h2 { font-family: 'Inter', sans-serif; font-size: 8.5pt; font-weight: 600; letter-spacing: 2.5pt; text-transform: uppercase; color: #8B3A3A; margin: 13pt 0 7pt; padding-bottom: 4pt; border-bottom: 1px solid #E5E8C8; break-after: avoid; }
-    #printSheet p { margin: 0 0 4pt; }
-    #printSheet .via-box { display: flex; gap: 12pt; align-items: stretch; break-inside: avoid; }
-    #printSheet .pv { display: grid; grid-template-columns: 1fr 1fr; gap: 4pt; width: 52%; flex: none; }
-    #printSheet .pv div { border: 1px solid #E5E8C8; border-top: 3pt solid var(--c); border-radius: 6pt; padding: 5pt 7pt; font-size: 9pt; font-weight: 600; color: #4A463F; }
-    #printSheet .pv div.on { background: var(--c); color: #fff; }
-    #printSheet .pv-t { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 4pt; font-size: 10pt; }
-    #printSheet .pv-t b { font-family: 'Fraunces', Georgia, serif; font-size: 15pt; font-weight: 600; }
-    #printSheet .bars { display: grid; grid-template-columns: 1fr 1fr; gap: 3pt 16pt; break-inside: avoid; }
-    #printSheet .bars div { display: grid; grid-template-columns: 34% 1fr 14pt; gap: 6pt; align-items: center; font-size: 9pt; }
-    #printSheet .bars i { display: block; height: 7pt; border-radius: 4pt; background: #EFF1D9; position: relative; overflow: hidden; }
-    #printSheet .bars i span { position: absolute; inset: 0 auto 0 0; background: #B5482F; }
-    #printSheet .hz { background: #F7E1DA; border-left: 3px solid #B5482F; border-radius: 0 6pt 6pt 0; padding: 6pt 11pt; font-size: 9.5pt; margin-top: 6pt; break-inside: avoid; }
-    #printSheet .pq { position: relative; border: 1px solid #E5E8C8; border-radius: 8pt; padding: 7pt 11pt 7pt 14pt; margin-bottom: 6pt; break-inside: avoid; overflow: hidden; }
-    #printSheet .pq::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4pt; background: var(--c, #B5482F); }
-    #printSheet .pq b { display: block; font-size: 8pt; font-weight: 700; letter-spacing: 1.2pt; text-transform: uppercase; color: #4A463F; }
-    #printSheet .pq em { font-style: normal; font-weight: 700; color: #8B3A3A; }
-    #printSheet .ans { white-space: pre-wrap; margin-top: 2pt; font-family: 'Fraunces', Georgia, serif; font-size: 11pt; line-height: 1.5; }
-    #printSheet .quote { background: #F7E1DA; border-left: 3px solid #B5482F; border-radius: 0 6pt 6pt 0; padding: 9pt 14pt 10pt; margin: 4pt 0 8pt; break-inside: avoid; }
-    #printSheet .qq { font-size: 8pt; font-weight: 700; letter-spacing: 1.6pt; text-transform: uppercase; color: #8B3A3A; margin-bottom: 2pt; }
-    #printSheet .quote .ans { font-size: 13pt; }
-    #printSheet .pg { display: flex; flex-direction: column; min-height: 268mm; break-after: page; }
+    #printSheet { display: block; color: #1E1C1A; font-family: 'Inter', sans-serif; font-size: 10pt; line-height: 1.5; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    #printSheet .pg { display: flex; flex-direction: column; min-height: 267mm; break-after: page; }
     #printSheet .pg:last-child { break-after: auto; }
-    #printSheet .pg > .foot { margin-top: auto; }
-    #printSheet .foot { display: flex; align-items: center; gap: 6pt; font-size: 8pt; color: #4A463F; border-top: 1px solid #E5E8C8; padding-top: 5pt; }
-    #printSheet .foot svg { width: 12pt; height: 12pt; fill: #6B7028; flex: none; }
+    #printSheet .ph { display: flex; justify-content: space-between; gap: 12pt; white-space: nowrap; font-size: 7.5pt; font-weight: 600; letter-spacing: 1.4pt; text-transform: uppercase; color: #4A463F; padding-bottom: 6pt; border-bottom: .75pt solid #1E1C1A; margin-bottom: 20pt; }
+    #printSheet .kk, #printSheet .lbl { display: block; font-size: 7.5pt; font-weight: 600; letter-spacing: 1.4pt; text-transform: uppercase; color: #8B3A3A; }
+    #printSheet h1 { font-family: 'Fraunces', Georgia, serif; font-weight: 500; font-size: 28pt; line-height: 1.05; letter-spacing: -.02em; margin: 4pt 0; }
+    #printSheet .sub { color: #4A463F; font-size: 9.5pt; margin: 0; }
+    #printSheet .cita { position: relative; margin: 22pt 0 20pt; padding-left: 32pt; break-inside: avoid; }
+    #printSheet .cita .qm { position: absolute; left: 0; top: -10pt; font-family: 'Fraunces', Georgia, serif; font-size: 50pt; line-height: 1; color: #B5482F; }
+    #printSheet .cita p { font-family: 'Fraunces', Georgia, serif; font-size: 16pt; line-height: 1.35; margin: 0 0 6pt; }
+    #printSheet h2 { font-family: 'Fraunces', Georgia, serif; font-weight: 500; font-size: 13pt; margin: 18pt 0 8pt; padding-top: 8pt; border-top: .75pt solid #E8E1D6; break-after: avoid; }
+    #printSheet .via-row { display: grid; grid-template-columns: 56% 1fr; gap: 18pt; align-items: center; break-inside: avoid; }
+    #printSheet .pv { display: grid; grid-template-columns: 1fr 1fr; border: .75pt solid #E8E1D6; border-radius: 6pt; overflow: hidden; }
+    #printSheet .pv div { padding: 9pt 10pt; font-family: 'Fraunces', Georgia, serif; font-size: 10pt; color: #4A463F; border-right: .75pt solid #E8E1D6; border-bottom: .75pt solid #E8E1D6; text-decoration: underline; text-decoration-color: var(--c); text-decoration-thickness: 1.5pt; text-underline-offset: 3pt; }
+    #printSheet .pv div:nth-child(2n) { border-right: none; }
+    #printSheet .pv div:nth-child(n+3) { border-bottom: none; }
+    #printSheet .pv div.on { background: var(--c); color: #fff; text-decoration-color: rgba(255, 255, 255, .6); }
+    #printSheet .pv-t b { display: block; font-family: 'Fraunces', Georgia, serif; font-weight: 500; font-size: 17pt; line-height: 1.15; margin: 3pt 0 5pt; text-decoration: underline; text-decoration-color: var(--c); text-decoration-thickness: 2pt; text-underline-offset: 4pt; }
+    #printSheet .pv-t p { font-size: 9.5pt; color: #4A463F; margin: 0; }
+    #printSheet .bars { display: grid; grid-template-columns: 1fr 1fr; gap: 6pt 22pt; break-inside: avoid; }
+    #printSheet .bars div { display: grid; grid-template-columns: 40% 1fr 12pt; gap: 8pt; align-items: center; font-size: 9pt; }
+    #printSheet .bars i { display: block; height: 4pt; background: #EFF1D9; border-radius: 2pt; position: relative; overflow: hidden; }
+    #printSheet .bars i b { position: absolute; inset: 0 auto 0 0; background: #B5482F; border-radius: 2pt; }
+    #printSheet .bars em { font-style: normal; font-weight: 600; text-align: right; }
+    #printSheet .dg { margin: 10pt 0 0; font-size: 9.5pt; color: #4A463F; }
+    #printSheet .dg b { color: #1E1C1A; }
+    #printSheet .qa2 { padding: 9pt 0; border-top: .5pt solid #E8E1D6; break-inside: avoid; }
+    #printSheet h2 + .qa2 { border-top: none; padding-top: 0; }
+    #printSheet .qa2 p { font-family: 'Fraunces', Georgia, serif; font-size: 11pt; line-height: 1.5; white-space: pre-wrap; margin: 3pt 0 0; }
+    #printSheet .qa2 p.golpe { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 10pt; }
+    #printSheet .ck { display: grid; grid-template-columns: 30% 14% 1fr; gap: 12pt; padding: 9pt 0; border-top: .5pt solid #E8E1D6; break-inside: avoid; }
+    #printSheet h2 + .ck { border-top: none; padding-top: 0; }
+    #printSheet .ck-q { font-family: 'Fraunces', Georgia, serif; font-size: 11pt; line-height: 1.3; }
+    #printSheet .ck-v { font-size: 8.5pt; font-weight: 700; letter-spacing: 1pt; text-transform: uppercase; }
+    #printSheet .ck p { margin: 0; white-space: pre-wrap; }
+    #printSheet .res { display: flex; align-items: baseline; gap: 10pt; margin-top: 4pt; padding-top: 10pt; border-top: .75pt solid #1E1C1A; }
+    #printSheet .res b { font-family: 'Fraunces', Georgia, serif; font-weight: 500; font-size: 16pt; }
+    #printSheet .res span:last-child { color: #4A463F; font-size: 9pt; }
+    #printSheet .nr { color: #8B847A; font-family: 'Inter', sans-serif; font-size: 9.5pt; }
+    #printSheet .foot { margin-top: auto; display: flex; gap: 8pt; align-items: center; font-size: 7.5pt; color: #4A463F; padding-top: 6pt; border-top: .75pt solid #E8E1D6; }
+    #printSheet .foot svg { width: 10pt; height: 10pt; fill: #6B7028; flex: none; }
+    #printSheet .foot span:last-child { margin-left: auto; }
   }
 </style>
 </head>
@@ -906,7 +937,7 @@
     var cell = function (k) {
       var V = VIAS[k];
       return '<div class="via' + (on === k ? ' on' : '') + '" style="--c:' + V.c + '">' + (on === k ? '<span class="yo">Tu reparto</span>' : '') +
-        '<span class="cw">' + V.how + ' · ' + V.who + '</span><h4><i aria-hidden="true"></i>' + V.n + '</h4><p>' + V.d + '</p><span class="ej">' + V.ej + '</span></div>';
+        '<span class="cw">' + V.how + ' · ' + V.who + '</span><h4><span class="vn">' + V.n + '</span></h4><p>' + V.d + '</p><span class="ej">' + V.ej + '</span></div>';
     };
     return '<div class="vias' + (mini ? ' mini' : '') + '"><span></span><span class="ax">Ganar por coste</span><span class="ax">Ganar por algo diferente</span>' +
       '<span class="ax row rl" style="grid-row:2">Todo el mercado</span><span class="ax row rl" style="grid-row:3">Un nicho</span>' +
@@ -921,7 +952,7 @@
       if (r) { hechas++; if (ok) bien++; }
       return '<div class="cl"><span class="nm" aria-hidden="true">' + (i + 1) + '</span><div class="bd"><p>' + esc(c.t) + '</p>' +
         '<div class="opts' + (r ? (ok ? ' ok' : ' ko') : '') + '" role="radiogroup" aria-label="Vía del negocio ' + (i + 1) + '">' +
-        ORDEN_VIAS.map(function (k) { return '<label style="--c:' + VIAS[k].c + '"><input type="radio" name="cls' + i + '" value="' + k + '" data-cls="' + i + '"' + (r === k ? ' checked' : '') + '><span><i aria-hidden="true"></i>' + VIAS[k].n + '</span></label>'; }).join('') + '</div>' +
+        ORDEN_VIAS.map(function (k) { return '<label' + (r && !ok && k === c.r ? ' class="right"' : '') + ' style="--c:' + VIAS[k].c + '"><input type="radio" name="cls' + i + '" value="' + k + '" data-cls="' + i + '"' + (r === k ? ' checked' : '') + '><span>' + VIAS[k].n + '</span></label>'; }).join('') + '</div>' +
         (r ? '<p class="fb ' + (ok ? 'ok' : 'no') + '" role="status"><b>' + (ok ? 'Bien visto.' : 'No exactamente: es ' + VIAS[c.r].n.toLowerCase() + '.') + '</b> ' + esc(c.x) + '</p>' : '') + '</div></div>';
     }).join('');
     $('#clsScore').textContent = hechas ? bien + ' de ' + hechas + ' acertadas' : '';
@@ -965,6 +996,7 @@
   });
 
   /* ---------- Reparte tus fichas ---------- */
+  var lastFichas = {};
   function drawFichas() {
     var f = state.reparto.fichas, t = usadas(), left = TOTAL - t, D = diagnostico(f, state.reparto.ambito);
         $('#purse').innerHTML = '<span class="cnt">' + left + '</span><span class="cl2">' + (left === 1 ? 'ficha libre' : 'fichas libres') + (left ? '' : ' · todas repartidas') + '</span><span class="coins" aria-hidden="true">' +
@@ -979,10 +1011,11 @@
       }).join('') + '</div>' : '';
       return '<div class="lever' + (l.id === 'precio' ? ' price' : '') + (top ? ' top' : '') + '"><div class="lt"><h3 id="lv-' + l.id + '">' + l.n + '</h3><span class="val" aria-hidden="true"><b>' + v + '</b> / ' + MAXP + '</span></div><p class="lh">' + l.h + '</p>' +
         '<div class="row"><button type="button" class="pm" data-lv="' + l.id + '" data-d="-1" aria-label="Quitar una ficha de ' + l.n + '"' + (v ? '' : ' disabled') + '>−</button>' +
-        '<span class="slots" role="img" aria-label="' + v + ' de ' + MAXP + ' fichas en ' + l.n + '">' + Array.apply(null, Array(MAXP)).map(function (_, i) { return '<i class="' + (i < v ? 'on' : '') + '"></i>'; }).join('') + '</span>' +
+        '<span class="slots" role="img" aria-label="' + v + ' de ' + MAXP + ' fichas en ' + l.n + '">' + Array.apply(null, Array(MAXP)).map(function (_, i) { return '<i class="' + (i < v ? 'on' : '') + (i === v - 1 && v > (lastFichas[l.id] || 0) ? ' new' : '') + '"></i>'; }).join('') + '</span>' +
         '<button type="button" class="pm" data-lv="' + l.id + '" data-d="1" aria-label="Poner una ficha en ' + l.n + '"' + (v < MAXP && left ? '' : ' disabled') + '>+</button></div>' + rv + '</div>';
     }).join('');
     $('#nichoField').hidden = state.reparto.ambito !== 'nicho';
+    lastFichas = JSON.parse(JSON.stringify(f));
     drawDiag(D, left);
   }
   $('#levers').addEventListener('click', function (e) {
@@ -1012,24 +1045,68 @@
     }
     return out;
   }
+  /* mapa de 520 x 330: cuatro cuadrantes de 238 x 148 desde (40, 34) */
+  var MQ = { costes: [40, 34], dif: [278, 34], enfCostes: [40, 182], enfDif: [278, 182] };
+  function mapaSVG() {
+    var F = 'font-family="Inter, sans-serif" font-size="12" font-weight="600" letter-spacing="1.3" fill="#4A463F" text-anchor="middle"';
+    var s = '<svg class="vmap vacio" id="vmap" viewBox="0 0 520 336" role="img" aria-label="Mapa de las cuatro vías de Porter con la posición de tu reparto"><defs><clipPath id="vmc"><rect x="40" y="34" width="476" height="296" rx="16"/></clipPath></defs>';
+    s += '<g ' + F + ' aria-hidden="true"><text x="159" y="20">GANAR POR COSTE</text><text x="397" y="20">GANAR POR ALGO DIFERENTE</text><text transform="translate(20 108) rotate(-90)">TODO EL MERCADO</text><text transform="translate(20 256) rotate(-90)">UN NICHO</text></g>';
+    s += '<g clip-path="url(#vmc)">';
+    ORDEN_VIAS.forEach(function (k) {
+      var q = MQ[k], V = VIAS[k], dos = /^Enfoque/.test(V.n), y = q[1] + 38;
+      var nom = dos ? '<tspan x="' + (q[0] + 20) + '">Enfoque en</tspan><tspan x="' + (q[0] + 20) + '" dy="23">' + V.n.replace(/^Enfoque en /, '') + '</tspan>' : V.n;
+      s += '<g class="q" data-q="' + k + '"><rect x="' + q[0] + '" y="' + q[1] + '" width="238" height="148" fill="' + V.hex + '"/>' +
+        '<text x="' + (q[0] + 20) + '" y="' + y + '" font-family="Fraunces, Georgia, serif" font-size="19" fill="' + V.hex + '">' + nom + '</text>' +
+        '<rect class="ul" x="' + (q[0] + 20) + '" y="' + (y + (dos ? 32 : 10)) + '" width="40" height="3" rx="1.5" fill="' + V.hex + '"/></g>';
+    });
+    s += '<path d="M278 34V330M40 182H516" stroke="#FFFFFF" stroke-width="3"/></g>';
+    s += '<rect x="40" y="34" width="476" height="296" rx="16" fill="none" stroke="#E8E1D6"/>';
+    s += '<g class="dead" aria-hidden="true"><path d="M278 182L130 96M278 182L426 96M278 182L130 268M278 182L426 268" stroke="#B5482F" stroke-width="1.5" stroke-dasharray="2 6" stroke-linecap="round"/>' +
+      '<ellipse cx="278" cy="182" rx="100" ry="60" fill="#B5482F" fill-opacity=".16" stroke="#B5482F" stroke-width="2" stroke-dasharray="6 5"/>' +
+      '<rect x="204" y="126" width="148" height="24" rx="12" fill="#B5482F"/><text x="278" y="142" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#FFFFFF">A MITAD DE CAMINO</text></g>';
+    s += '<g class="me" id="vmMe" style="transform:translate(278px,182px)"><circle class="ping" r="15"/><circle class="ping p2" r="15"/><circle r="15" fill="#1E1C1A"/>' +
+      '<text y="4.5" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#FBFCEF">Tú</text></g></svg>';
+    return s;
+  }
+  /* dónde cae tu reparto: a la izquierda si manda el precio, a la derecha si manda otra palanca; arriba o abajo según a quién te diriges */
+  function posMapa(D) {
+    var f = state.reparto.fichas, pr = f.precio || 0, dm = Math.max.apply(null, LEVERS.filter(function (l) { return l.id !== 'precio'; }).map(function (l) { return f[l.id] || 0; }));
+    var t = (dm - pr) / Math.max(dm + pr, 1), amb = state.reparto.ambito, trampa = D.ruta === 'trampa';
+    var x = 278 + t * (trampa ? 52 : 130), y = amb === 'nicho' ? 292 : (amb === 'amplio' ? 136 : 182);
+    if (trampa) y = 182 + (y - 182) * .3;
+    else if (D.base === 'costes') x = Math.min(Math.max(x, 96), 236);
+    else x = Math.min(Math.max(x, 320), 470);
+    return [Math.round(x), Math.round(y)];
+  }
   function drawDiag(D, left) {
     var el = $('#diag');
-    if (!D.ruta) { el.style.removeProperty('--dc'); el.innerHTML = '<span class="kicker">Lo que dice tu reparto</span><h3>Todavía no hay estrategia</h3><p>Pon tus primeras fichas y aquí verás qué vía sale de tu reparto.</p>' + viasHTML(null, true); return; }
-    var V = VIAS[D.ruta], trampa = D.ruta === 'trampa', P = lever(D.principal);
+    if (!$('#vmap')) el.innerHTML = '<div id="dTxt"></div>' +
+      '<div class="foco"><div class="fl"><span>Foco de tu estrategia</span><b id="dPct"></b></div><div class="bar" id="dBar" role="img"><span></span></div>' +
+      '<div class="zs" aria-hidden="true"><span>Disperso</span><span>Medio</span><span>Claro</span></div>' +
+      '<p class="hint">El foco es la parte de tus fichas que está en tus dos palancas principales.</p></div>' +
+      mapaSVG() + '<div class="alerts" id="dAlerts"></div>';
+    var map = $('#vmap'), me = $('#vmMe'), trampa = D.ruta === 'trampa', V = VIAS[D.ruta];
+    map.classList.toggle('vacio', !D.ruta); map.classList.toggle('trampa', trampa); map.classList.toggle('has', !!V);
+    $$('.q', map).forEach(function (g) { g.classList.toggle('on', g.dataset.q === D.ruta); });
     var pct = Math.round(D.foco * 100), fc = pct < 45 ? 'var(--bad)' : (pct < 70 ? 'var(--warn)' : 'var(--ok)');
+    $('#dPct').textContent = pct + ' %';
+    $('#dBar').setAttribute('aria-label', 'Foco del ' + pct + ' por ciento: fichas en tus dos palancas principales');
+    var bar = $('#dBar span'); bar.style.width = pct + '%'; bar.style.setProperty('--fc', fc);
+    if (D.ruta) { var p = posMapa(D); me.style.transform = 'translate(' + p[0] + 'px,' + p[1] + 'px)'; me.style.setProperty('--pc', trampa ? '#B5482F' : V.hex); }
+    if (!D.ruta) {
+      el.style.removeProperty('--dc');
+      $('#dTxt').innerHTML = '<span class="kicker">Lo que dice tu reparto</span><h3>Todavía no hay estrategia</h3><p>Pon tus primeras fichas y aquí verás en qué vía caes.</p>';
+      $('#dAlerts').innerHTML = ''; return;
+    }
+    var P = lever(D.principal);
     el.style.setProperty('--dc', trampa ? 'var(--bad)' : V.c);
     var titulo = trampa ? 'Cuidado: atrapado a mitad de camino' : 'Tu reparto apunta a: ' + V.n;
     var txt = trampa ? 'Así repartido, no destacas en nada concreto. Es lo que Porter llama quedarse a mitad de camino: más caro que el barato y menos especial que el mejor.' :
       (D.base === 'costes' ? 'Tu palanca principal es el precio. Para que funcione, tus costes tienen que ser de verdad más bajos que los de tu competencia.' :
         'Tu palanca principal es <b>' + P.n.toLowerCase() + '</b>' + (state.reparto.fichas[D.segunda] && D.segunda !== D.principal ? ', apoyada en ' + lever(D.segunda).n.toLowerCase() : '') + '. Es lo que el cliente debería notar nada más conocerte.') +
       (!state.reparto.ambito && !trampa ? ' (Hasta que contestes a quién te diriges, se supone todo el mercado.)' : '');
-    el.innerHTML = '<span class="kicker">Lo que dice tu reparto</span><h3>' + titulo + '</h3><p>' + txt + '</p>' +
-      '<div class="foco"><div class="fl"><span>Foco de tu estrategia</span><b>' + pct + ' %</b></div>' +
-      '<div class="bar" role="img" aria-label="Foco del ' + pct + ' por ciento: fichas en tus dos palancas principales"><span style="width:' + pct + '%;--fc:' + fc + '"></span></div>' +
-      '<div class="zs" aria-hidden="true"><span>Disperso</span><span>Medio</span><span>Claro</span></div>' +
-      '<p class="hint">El foco es la parte de tus fichas que está en tus dos palancas principales.</p></div>' +
-      '<div class="vias-wrap">' + viasHTML(D.ruta, true) + '</div>' +
-      '<div class="alerts">' + avisos(D, left).map(function (a) { return '<div class="note ' + (a[0] === 'warn' ? 'warn' : (a[0] === 'ok' ? 'good' : '')) + '"><span class="tag">' + (a[0] === 'warn' ? 'Ojo' : (a[0] === 'ok' ? 'Bien' : 'Falta')) + '</span><p>' + esc(a[1]) + '</p></div>'; }).join('') + '</div>';
+    $('#dTxt').innerHTML = '<span class="kicker">Lo que dice tu reparto</span><h3>' + titulo + '</h3><p>' + txt + '</p>';
+    $('#dAlerts').innerHTML = avisos(D, left).map(function (a) { return '<div class="note ' + (a[0] === 'warn' ? 'warn' : (a[0] === 'ok' ? 'good' : '')) + '"><span class="tag">' + (a[0] === 'warn' ? 'Ojo' : (a[0] === 'ok' ? 'Bien' : 'Falta')) + '</span><p>' + esc(a[1]) + '</p></div>'; }).join('');
   }
 
   /* ---------- Tu vía ---------- */
@@ -1038,7 +1115,7 @@
     $('#pick').innerHTML = ORDEN_VIAS.map(function (k) {
       var V = VIAS[k];
       return '<label class="opt" style="--c:' + V.c + '"><input type="radio" name="via" value="' + k + '" data-bindr="via.elegida"' + (state.via.elegida === k ? ' checked' : '') + '><span>' +
-        (D.ruta === k ? '<em>Lo que dice tu reparto</em>' : '') + '<b><i aria-hidden="true"></i>' + V.n + '</b><small>' + V.d + '</small></span></label>';
+        (D.ruta === k ? '<em>Lo que dice tu reparto</em>' : '') + '<b><span class="vn">' + V.n + '</span></b><small>' + V.d + '</small></span></label>';
     }).join('');
     drawPickNote();
   }
@@ -1260,24 +1337,25 @@
   $('#btnPrint').addEventListener('click', function () {
     var hoy = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' }), v = state.via, p = state.prueba;
     var D = diagnostico(state.reparto.fichas, state.reparto.ambito), k = v.elegida, R = resistencia();
-    var ans = function (x) { return x.trim() ? esc(x) : '<i>(sin responder)</i>'; };
-    var NV = { si: 'Sí', parte: 'En parte', no: 'No' };
-    var foot = '<p class="foot"><svg viewBox="28.5 14.5 340.8 372.5" aria-hidden="true"><use href="#espora"/></svg><span>Esplora · esplora.es/ventaja-competitiva.html · Estrategias genéricas de Michael Porter (Estrategia competitiva, 1980).</span></p>';
-    var hdr = function (n) { return '<div class="ph"><div class="pm"><i></i><span>Informe · Ventaja competitiva</span></div><span class="pn">0' + n + ' / 02</span></div>'; };
-    var h = '<section class="pg">' + hdr(1) + '<div class="tt"><span class="kk">Marketing estratégico · IPE 2</span><h1>' + esc(projName()) + '</h1><div class="sub">Ventaja competitiva · ' + esc(state.nombre || 'Sin nombre') + ' · ' + hoy + '</div></div>';
-    h += '<h2>Mi ventaja competitiva</h2><div class="quote"><div class="qq">En una frase</div><div class="ans">' + ans(v.frase) + '</div></div>';
-    h += '<div class="via-box"><div class="pv">' + ORDEN_VIAS.map(function (x) { return '<div style="--c:' + VIAS[x].hex + '" class="' + (x === k ? 'on' : '') + '">' + VIAS[x].n + '</div>'; }).join('') + '</div>' +
-      '<div class="pv-t"><span>Mi vía</span><b>' + (k ? VIAS[k].n : 'Sin elegir') + '</b><span>' + (state.reparto.ambito === 'nicho' ? 'Nicho: ' + esc(state.reparto.nicho || 'sin describir') : 'Me dirijo a todo el mercado') + '</span></div></div>';
-    h += '<h2>Mi reparto de fichas</h2><div class="bars">' + LEVERS.map(function (l) { var x = state.reparto.fichas[l.id]; return '<div><span>' + l.n + '</span><i><span style="width:' + Math.round(x / MAXP * 100) + '%"></span></i><b>' + x + '</b></div>'; }).join('') + '</div>';
-    h += '<p class="hz">' + (D.ruta === 'trampa' ? 'El reparto queda <b>a mitad de camino</b>: las fichas no se concentran en una ventaja clara.' : (D.ruta ? 'El reparto apunta a <b>' + VIAS[D.ruta].n.toLowerCase() + '</b>' + (k && k !== D.ruta ? ', aunque he elegido otra vía (lo explico abajo)' : '') + '.' : 'Sin fichas repartidas.')) + ' Foco: ' + Math.round(D.foco * 100) + ' % de las fichas en las dos palancas principales.</p>';
-    h += '<h2>Mi decisión</h2><div class="pq"><b>¿Por qué esta vía?</b><div class="ans">' + ans(v.porque) + '</div></div>';
-    h += '<div class="pq" style="--c:#946500"><b>¿A qué renuncio?</b><div class="ans">' + ans(v.renuncia) + '</div></div>';
-    h += foot + '</section><section class="pg">' + hdr(2) + '<h2>Prueba de resistencia</h2>';
-    h += CHECKS.map(function (c) { return '<div class="pq" style="--c:' + (p[c.id] === 'si' ? '#557A35' : (p[c.id] === 'parte' ? '#946500' : '#B5482F')) + '"><b>' + c.n + ' <em>' + (NV[p[c.id]] || 'Sin responder') + '</em></b><div class="ans">' + ans(p[c.id + 'Pq']) + '</div></div>'; }).join('');
-    h += '<p class="hz">Resultado: <b>' + (R.n < 3 ? 'prueba incompleta' : (p.valora === 'no' ? 'sin ventaja todavía' : (R.s >= 5 ? 'ventaja sostenible' : (R.s >= 3 ? 'ventaja frágil' : 'ventaja débil')))) + '</b> (' + R.s + ' de 6 puntos).</p>';
-    h += '<h2>Golpes de la competencia</h2><div class="pq" style="--c:#8B3A3A"><b>' + esc(ATAQUES[rutaFinal()].t) + '</b><div class="ans">' + ans(p.ataque) + '</div></div>';
-    h += '<div class="pq" style="--c:#8B3A3A"><b>' + esc(ATAQUES.comun.t) + '</b><div class="ans">' + ans(p.comun) + '</div></div>';
-    if (state.proy.cliente.trim() || state.proy.hueco.trim()) h += '<h2>De dónde parto</h2><div class="pq" style="--c:#6B7028"><b>Mi cliente y el hueco que vi</b><div class="ans">' + ans(state.proy.cliente) + '<br>' + ans(state.proy.hueco) + '</div></div>';
+    var ans = function (x) { return x.trim() ? esc(x) : '<span class="nr">Sin responder</span>'; };
+    var NV = { si: ['Sí', '#557A35'], parte: ['En parte', '#946500'], no: ['No', '#B5482F'] };
+    var foot = '<footer class="foot"><svg viewBox="28.5 14.5 340.8 372.5" aria-hidden="true"><use href="#espora"/></svg><span>Esplora · esplora.es/ventaja-competitiva.html</span><span>Estrategias genéricas de Michael Porter (Estrategia competitiva, 1980)</span></footer>';
+    var hdr = function (n) { return '<header class="ph"><span>Esplora · Informe de ventaja competitiva</span><span>' + n + ' / 2</span></header>'; };
+    var h = '<section class="pg">' + hdr(1) + '<div class="tt"><span class="kk">Marketing estratégico · IPE 2</span><h1>' + esc(projName()) + '</h1><p class="sub">' + esc(state.nombre || 'Sin nombre') + ' · ' + hoy + '</p></div>';
+    h += '<div class="cita"><span class="qm" aria-hidden="true">“</span><p>' + ans(v.frase) + '</p><span class="lbl">Mi ventaja competitiva, en una frase</span></div>';
+    h += '<div class="via-row"><div class="pv">' + ORDEN_VIAS.map(function (x) { return '<div style="--c:' + VIAS[x].hex + '"' + (x === k ? ' class="on"' : '') + '>' + VIAS[x].n + '</div>'; }).join('') + '</div>' +
+      '<div class="pv-t"><span class="lbl">Mi vía</span><b style="--c:' + (k ? VIAS[k].hex : '#8B847A') + '">' + (k ? VIAS[k].n : 'Sin elegir') + '</b><p>' + (state.reparto.ambito === 'nicho' ? 'Mi nicho: ' + esc(state.reparto.nicho || 'sin describir') : 'Me dirijo a todo el mercado.') + '</p></div></div>';
+    h += '<h2>Mi reparto de fichas</h2><div class="bars">' + LEVERS.map(function (l) { var x = state.reparto.fichas[l.id]; return '<div><span>' + l.n + '</span><i><b style="width:' + Math.round(x / MAXP * 100) + '%"></b></i><em>' + x + '</em></div>'; }).join('') + '</div>';
+    h += '<p class="dg">' + (D.ruta === 'trampa' ? 'El reparto queda <b>a mitad de camino</b>: las fichas no se concentran en una ventaja clara.' : (D.ruta ? 'El reparto apunta a <b>' + VIAS[D.ruta].n.toLowerCase() + '</b>' + (k && k !== D.ruta ? ', aunque he elegido otra vía y lo explico abajo' : '') + '.' : 'Sin fichas repartidas.')) + ' Foco: ' + Math.round(D.foco * 100) + ' % de las fichas en mis dos palancas principales.</p>';
+    h += '<h2>Mi decisión</h2><div class="qa2"><span class="lbl">¿Por qué esta vía?</span><p>' + ans(v.porque) + '</p></div><div class="qa2"><span class="lbl">¿A qué renuncio?</span><p>' + ans(v.renuncia) + '</p></div>';
+    h += foot + '</section><section class="pg">' + hdr(2) + '<h2 style="border-top:none;padding-top:0;margin-top:0">Prueba de resistencia</h2>';
+    h += CHECKS.map(function (c) { var w = NV[p[c.id]] || ['Sin responder', '#8B847A']; return '<div class="ck"><div class="ck-q">' + c.n + '</div><div class="ck-v" style="color:' + w[1] + '">' + w[0] + '</div><p>' + ans(p[c.id + 'Pq']) + '</p></div>'; }).join('');
+    var res = R.n < 3 ? ['Prueba incompleta', '#8B847A'] : (p.valora === 'no' ? ['Sin ventaja todavía', '#B5482F'] : (R.s >= 5 ? ['Ventaja sostenible', '#557A35'] : (R.s >= 3 ? ['Ventaja frágil', '#946500'] : ['Ventaja débil', '#B5482F'])));
+    h += '<div class="res"><span class="lbl">Resultado</span><b style="color:' + res[1] + '">' + res[0] + '</b><span>' + R.s + ' de 6 puntos</span></div>';
+    h += '<h2>Golpes de la competencia</h2>';
+    h += '<div class="qa2"><span class="lbl">Golpe 1</span><p class="golpe">' + esc(ATAQUES[rutaFinal()].t) + '</p><p>' + ans(p.ataque) + '</p></div>';
+    h += '<div class="qa2"><span class="lbl">Golpe 2</span><p class="golpe">' + esc(ATAQUES.comun.t) + '</p><p>' + ans(p.comun) + '</p></div>';
+    if (state.proy.cliente.trim() || state.proy.hueco.trim()) h += '<h2>De dónde parto</h2><div class="qa2"><span class="lbl">Mi cliente</span><p>' + ans(state.proy.cliente) + '</p></div><div class="qa2"><span class="lbl">El hueco que vi</span><p>' + ans(state.proy.hueco) + '</p></div>';
     h += foot + '</section>';
     $('#printSheet').innerHTML = h;
     window.print();
