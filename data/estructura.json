@@ -8,6 +8,7 @@
     "porter":      { "slug": "analisis-porter", "titulo": "Las cinco fuerzas de Porter", "titular": "Las cinco fuerzas de <em>Porter</em>", "pregunta": "¿Cuánta <em>presión competitiva</em> hay en tu sector?", "dibujo": "porter", "descripcion": "Mide las cinco fuerzas con 25 factores y saca el nivel de rivalidad y la respuesta estratégica.", "url": "porter.html", "color": "#2F6670", "minutos": 50, "guarda": "esplora-porter-v1", "informe": true, "camino": "emprender", "tema": "mercado" },
     "dafocame":    { "slug": "dafo-came", "titulo": "DAFO cruzado", "titular": "El análisis <em>DAFO</em> cruzado", "pregunta": "¿Qué decides después del <em>DAFO</em>?", "dibujo": "dafo", "descripcion": "Diagnostica tu proyecto con el DAFO y crúzalo para sacar cuatro estrategias con las que decidir qué hacer.", "url": "dafocame.html", "color": "#8A5A2B", "minutos": 45, "guarda": "esplora-dafocame-v1", "informe": true, "camino": "emprender", "tema": "mercado" },
     "benchmarking": { "slug": "benchmarking-competencia", "titulo": "Benchmarking de la competencia", "titular": "Dónde está cada uno y dónde <em>queda hueco</em>", "pregunta": "¿Dónde queda <em>hueco</em> frente a tu competencia?", "dibujo": "mapa", "descripcion": "Investiga a tus competidores (qué ofrecen, a cuánto y cómo), colócalos en un mapa de posición y descubre dónde queda hueco para tu proyecto.", "url": "benchmarking.html", "color": "#1672A0", "minutos": 50, "guarda": "esplora-benchmarking-v1", "informe": true, "camino": "emprender", "tema": "mercado" },
+    "ventaja":     { "slug": "ventaja-competitiva", "titulo": "Ventaja competitiva", "titular": "Elige tu <em>ventaja competitiva</em>", "pregunta": "¿En qué vas a ser <em>el mejor</em>?", "dibujo": "fichas", "descripcion": "Reparte tus recursos entre seis palancas, descubre qué estrategia de Porter sale de tu reparto y pon a prueba tu ventaja frente a la competencia.", "url": "ventaja-competitiva.html", "color": "#B5482F", "minutos": 50, "guarda": "esplora-ventaja-v1", "informe": true, "camino": "emprender", "tema": "mercado" },
     "buyer":       { "slug": "buyer-persona", "titulo": "Buyer Persona", "titular": "Forja a tu <em>cliente ideal</em>", "pregunta": "¿Quién es tu <em>cliente ideal</em>?", "dibujo": "buyer", "descripcion": "Da forma a tu cliente ideal: quién es, qué necesita y cómo llegar a él.", "url": "buyerpersona.html", "color": "#B03A78", "minutos": 30, "guarda": "esplora_buyer_persona_v1", "informe": true, "camino": "emprender", "tema": "mercado" },
     "formajuridica":{ "slug": "forma-juridica", "titulo": "Selector de forma jurídica", "titular": "Selector de <em>Forma Jurídica</em>", "pregunta": "¿Qué <em>forma jurídica</em> encaja con tu proyecto?", "dibujo": "forma", "descripcion": "Responde unas preguntas y descubre qué forma jurídica encaja mejor con tu proyecto.", "url": "selector_forma_juridica.html", "color": "#8B6430", "minutos": 20, "guarda": "esplora-formajuridica-v1", "informe": true, "camino": "emprender", "tema": "viabilidad" },
     "inversion":   { "slug": "inversion-financiacion", "titulo": "Plan de inversión y financiación", "titular": "¿Cuánto necesitas para <em>arrancar</em> y de dónde sale?", "dibujo": "balanza", "descripcion": "Elige lo que necesita tu negocio, calcula la amortización y el colchón de tesorería y cuadra la balanza con la financiación.", "url": "inversionfinanciacion.html", "color": "#2C6E5A", "minutos": 50, "guarda": "esplora-expediente", "informe": true, "camino": "emprender", "tema": "viabilidad" },
@@ -54,7 +55,7 @@
         { "id": "idea", "nombre": "Emprendimiento, innovación y sostenibilidad", "icono": "bulb", "antes": ["idea"],
           "resumen": "Generación de ideas a partir del perfil de la persona emprendedora, formulación y evaluación de la idea de negocio y diseño del modelo de negocio con el lienzo Canvas." },
         { "id": "mercado", "nombre": "Análisis del entorno, sector y mercado", "icono": "chart", "antes": ["mercado"],
-          "resumen": "Entorno general (análisis PESTEL), diagnóstico DAFO y su cruce en estrategias, benchmarking con mapa de posicionamiento y definición del cliente objetivo (buyer persona)." },
+          "resumen": "Entorno general (análisis PESTEL), diagnóstico DAFO y su cruce en estrategias, benchmarking con mapa de posicionamiento, elección de la ventaja competitiva y definición del cliente objetivo (buyer persona)." },
         { "id": "viabilidad", "nombre": "La viabilidad del proyecto emprendedor", "icono": "checkshield", "antes": ["viabilidad"],
           "resumen": "Elección de la forma jurídica (responsabilidad, número de socios, capital y fiscalidad) y plan de inversión y financiación: inmovilizado, amortización, colchón de tesorería y fuentes de financiación propias y ajenas." },
         { "id": "empleo", "nombre": "Empleabilidad e inserción laboral", "icono": "compass", "resumen": "" }
@@ -87,7 +88,7 @@
       "descripcion": "Emprendimiento, análisis del entorno, viabilidad e inserción laboral.",
       "unidades": [
         { "n": 1, "titulo": "Emprendimiento, innovación y sostenibilidad", "icono": "bulb",        "herramientas": ["generador", "fichaidea", "estrella", "canvas"] },
-        { "n": 2, "titulo": "Análisis del entorno, sector y mercado",     "icono": "chart",       "herramientas": ["pestel", "dafocame", "benchmarking", "buyer"] },
+        { "n": 2, "titulo": "Análisis del entorno, sector y mercado",     "icono": "chart",       "herramientas": ["pestel", "dafocame", "benchmarking", "ventaja", "buyer"] },
         { "n": 3, "titulo": "La viabilidad del proyecto emprendedor",     "icono": "checkshield", "herramientas": ["formajuridica", "inversion"] },
         { "n": 4, "titulo": "Empleabilidad e inserción laboral",          "icono": "compass",     "herramientas": [] }
       ]
@@ -123,7 +124,7 @@
           { "id": "CE4.1", "texto": "Problemas de los destinatarios", "herramientas": [{ "id": "buyer", "parcial": true }] },
           { "id": "CE4.2", "texto": "Proceso creativo", "herramientas": [{ "id": "generador" }, { "id": "fichaidea" }, { "id": "estrella", "parcial": true }] },
           { "id": "CE4.3", "texto": "Modelo de negocio", "herramientas": [{ "id": "canvas" }] },
-          { "id": "CE4.6", "texto": "Entorno general y específico", "herramientas": [{ "id": "pestel" }, { "id": "dafocame" }, { "id": "benchmarking" }] },
+          { "id": "CE4.6", "texto": "Entorno general y específico", "herramientas": [{ "id": "pestel" }, { "id": "dafocame" }, { "id": "benchmarking" }, { "id": "ventaja", "parcial": true }] },
           { "id": "CE4.7", "texto": "Entrevistas de problema", "herramientas": [{ "id": "buyer", "parcial": true }] }
         ] },
         { "id": "RA5", "titulo": "Proyecto emprendedor de innovación social y/o tecnológica", "ces": [
