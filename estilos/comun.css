@@ -57,7 +57,28 @@ section[id]{scroll-margin-top:calc(var(--nav-h) + 16px)}
 .mega .punto{width:24px;height:24px;display:grid;place-items:center}
 .mega .punto::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent)}
 .mega small{font-size:13px;color:var(--ink-soft)}
-.mega .otras{padding-left:24px;border-left:1px solid var(--line)}
+/* Tarjetas IPE 1 / IPE 2: misma rejilla (subgrid) para que cabecera, temas y enlace queden a la misma altura */
+.mega-in{grid-template-columns:1fr 1fr minmax(0,.7fr);grid-template-rows:auto auto 1fr auto}
+.mega-cam li a{min-height:60px;line-height:1.35}
+.mega-cam{position:relative;isolation:isolate;overflow:hidden;display:grid;grid-row:span 4;grid-template-rows:subgrid;row-gap:0;padding:24px 16px 16px;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface-2)}
+.mega-cam-2{background:var(--panel)}
+.mega-cam h2{padding-inline:12px;margin:0}
+.mega-cam h2 a{display:grid;gap:4px}
+.mega-ipe{font:600 32px/1 var(--font-display);letter-spacing:-.02em;color:var(--accent)}
+.mega-cam-2 .mega-ipe{color:var(--ink)}
+.mega-nom{font-size:18px;line-height:1.25}
+@media (hover:hover) and (pointer:fine){.mega-cam h2 a:hover .mega-nom{text-decoration:underline;text-decoration-color:var(--accent);text-decoration-thickness:1.5px}}
+.mega-cam .ley{padding:8px 12px 0;margin-bottom:12px}
+.mega-cam ul{align-content:start}
+.mega-cam .num{background:var(--surface);border:1px solid var(--line)}
+@media (hover:hover) and (pointer:fine){.mega-cam li a:hover{background:var(--surface)}}
+.mega-mat{justify-self:start;display:inline-flex;align-items:center;gap:8px;min-height:var(--tap);margin:8px 12px 0;font-size:15px;font-weight:600;text-decoration:none;border-bottom:1.5px solid var(--accent)}
+.mega-mat span{transition:transform .2s var(--ease-out)}
+@media (hover:hover) and (pointer:fine){.mega-mat:hover span{transform:translateX(3px)}}
+.mega-espora{position:absolute;right:16px;top:16px;width:56px;height:56px;z-index:-1;color:var(--c);transform:rotate(var(--r));opacity:.9}
+.mega .otras{grid-row:span 4;padding-left:24px;border-left:1px solid var(--line)}
+.hoja h2 a{text-decoration:none}
+.hoja-ipe{display:block;font:600 26px/1.1 var(--font-display);color:var(--accent);margin-bottom:2px}
 .mega .otras li a{grid-template-columns:1fr}
 .mega .otras li a span{display:block;font-size:13px;color:var(--ink-soft)}
 

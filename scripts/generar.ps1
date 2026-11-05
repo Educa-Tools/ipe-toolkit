@@ -328,21 +328,32 @@ function Menu([string]$base, [string]$actual = '') {
     @("$($base)#todas", 'Índice completo', "Las $total herramientas en una lista"),
     @("$($base)materias/", 'Por materia', 'IPE 1 e IPE 2, por bloques y unidades'),
     @("$($base)criterios/", 'Por criterios de evaluación', 'Resultados de aprendizaje y criterios'))
+  # Tarjeta por camino, encabezada por su materia (IPE 1, IPE 2): así lo busca el alumnado.
+  # La espora de la esquina repite el color de la tarjeta del camino en la portada.
+  $esporas = @(@('#6B7028', -12), @('#C5CD78', 18))
+  $k = 0
   $megaCols = foreach ($c in $db.caminos) {
     $vis = TemasVisibles $c; if (-not $vis) { continue }
     $n = ($vis | ForEach-Object { (HerrDeTema $c $_).Count } | Measure-Object -Sum).Sum
+    $ce = $esporas[$k % 2]; $k++
+    $m = if ($c.etiqueta) { $materias | Where-Object { $_.tag -eq $c.etiqueta } | Select-Object -First 1 }
+    $cab = if ($c.etiqueta) { '<span class="mega-ipe">' + (Esc $c.etiqueta) + '</span><span class="mega-nom">' + (Esc $c.nombre) + '</span>' } else { '<span class="mega-nom">' + (Esc $c.nombre) + '</span>' }
+    $mat = if ($m) { "<a class=""mega-mat"" href=""$($base)$(CarpetaModulo $m)/"">$(Esc $m.tag) por $(Esc (PalabraUnidad $m).plural) <span aria-hidden=""true"">→</span></a>" } else { '<span></span>' }
     @"
-<div>
-      <h2><a href="$($base)$($c.id)/">$(Esc $c.nombre)</a></h2>
+<div class="mega-cam mega-cam-$k">
+      <h2><a href="$($base)$($c.id)/">$cab</a></h2>
       <p class="ley">$(Plural $n 'herramienta' 'herramientas') en $(Plural $vis.Count 'tema' 'temas')</p>
       <ul>$(ItemsTema $c "$($base)$($c.id)/")</ul>
+      $mat
+      <svg class="mega-espora" viewBox="28.5 14.5 340.8 372.5" style="--c:$($ce[0]);--r:$($ce[1])deg" aria-hidden="true"><use href="#simbolo" fill="currentColor"/></svg>
     </div>
 "@
   }
   $hojaCam = foreach ($c in $db.caminos) {
     $vis = TemasVisibles $c; if (-not $vis) { continue }
     $i = 0
-    "<h2><a href=""$($base)$($c.id)/"">$(Esc $c.nombre)</a></h2><ul>" + (($vis | ForEach-Object { $i++
+    $ipe = if ($c.etiqueta) { '<span class="hoja-ipe">' + (Esc $c.etiqueta) + '</span>' } else { '' }
+    "<h2><a href=""$($base)$($c.id)/"">$ipe$(Esc $c.nombre)</a></h2><ul>" + (($vis | ForEach-Object { $i++
       $num = if ($c.numerado) { "$i. " } else { '' }
       $cnt = Plural (HerrDeTema $c $_).Count 'herramienta' 'herramientas'
       '<li><a href="' + $base + $c.id + '/#' + $_.id + '"><span>' + $num + (Esc $_.nombre) + '</span><small>' + $cnt + '</small></a></li>' }) -join '') + '</ul>'
