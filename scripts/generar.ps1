@@ -58,6 +58,8 @@ function ImagenCompartirDe([string]$id, [string]$nombre) {
 # ---------- Utilidades ----------
 function Esc([string]$s) { if ($null -eq $s) { return '' }; $s.Replace('&','&amp;').Replace('<','&lt;').Replace('>','&gt;').Replace('"','&quot;') }
 function SinEtiquetas([string]$s) { [regex]::Replace($s, '<[^>]+>', '') }
+# Duración: «≈ 30 min»; si son varias sesiones de 50 minutos, «4 sesiones de 50 min»
+function Duracion($m) { if ($m -gt 50 -and $m % 50 -eq 0) { "$($m / 50) sesiones de 50 min" } else { "≈ $m min" } }
 # Versión de los estilos y scripts propios (?v=…): cambia cuando cambia el archivo, para que
 # el navegador no se quede con una copia antigua
 $versiones = @{}
@@ -277,7 +279,7 @@ $Espora = '<svg viewBox="28.5 14.5 340.8 372.5" aria-hidden="true"><use href="#s
 function Ventanita($id, [string]$base, [string]$kick = '', [string]$estado = '', [switch]$sinEnlace) {
   $t = $H[$id]
   $m = @()
-  if ($t.minutos) { $m += "<span>$(Icono clock)≈ $($t.minutos) min</span>" }
+  if ($t.minutos) { $m += "<span>$(Icono clock)$(Duracion $t.minutos)</span>" }
   if ($t.guarda) { $m += $(if ($estado -eq 'empezada') { '<span class="on">' + (Icono check) + 'Empezada</span>' } else { "<span>$(Icono save)Guarda progreso</span>" }) }
   if ($t.informe) { $m += $(if ($estado -eq 'informe') { '<span class="on">' + (Icono print) + 'Informe PDF</span>' } else { "<span>$(Icono print)Informe PDF</span>" }) }
   $preg = if ($t.pregunta) { $t.pregunta } elseif ($t.titular) { $t.titular } else { Esc $t.titulo }
@@ -716,7 +718,7 @@ foreach ($id in $ordenH) {
   $temaTxt = DondeTxt $id
 
   $facts = @()
-  if ($t.minutos) { $facts += "<div><dt>Duración</dt><dd>≈ $($t.minutos) min</dd></div>" }
+  if ($t.minutos) { $facts += "<div><dt>Duración</dt><dd>$(Duracion $t.minutos)</dd></div>" }
   if ($tipo) { $facts += "<div><dt>Tipo</dt><dd>$(Esc $tipo.sing)</dd></div>" }
   $facts += "<div><dt>Progreso</dt><dd>$(if ($t.guarda) { 'Se guarda en el navegador' } else { 'Se hace en una sesión' })</dd></div>"
   if ($t.informe) { $facts += "<div><dt>Entregable</dt><dd>Informe para imprimir o PDF</dd></div>" }
@@ -862,7 +864,7 @@ $cols = foreach ($c in $db.caminos) {
     $lis = foreach ($id in (HerrDeTema $c $te)) {
       $t = $H[$id]
       $busca = Norm "$($t.titulo) $($t.pregunta) $($t.descripcion) $($te.nombre)"
-      $min = if ($t.minutos) { "≈ $($t.minutos) min" } else { '' }
+      $min = if ($t.minutos) { Duracion $t.minutos } else { '' }
       "        <li data-busca=""$(Esc $busca)""><a href=""recursos/$($t.slug)/""><span class=""c"" style=""--c:$($t.color)"" aria-hidden=""true""></span><b>$(Esc $t.titulo)</b><small>$min$flechaFina</small></a></li>"
     }
     # Cabecera del tema: número en círculo (como en los caminos), nombre y cuántas herramientas tiene
@@ -1015,7 +1017,7 @@ foreach ($c in $db.caminos) {
     $llms += "## $($c.nombre) · $(if ($c.numerado) { "$i. " })$($te.nombre)`n`n"
     foreach ($id in (HerrDeTema $c $te)) {
       $t = $H[$id]
-      $extra = @(); if ($dondeMat[$id]) { $extra += $dondeMat[$id] }; if ($t.minutos) { $extra += "≈ $($t.minutos) min" }; if ($t.informe) { $extra += 'con informe en PDF' }
+      $extra = @(); if ($dondeMat[$id]) { $extra += $dondeMat[$id] }; if ($t.minutos) { $extra += (Duracion $t.minutos) }; if ($t.informe) { $extra += 'con informe en PDF' }
       $llms += "- [$($t.titulo)]($Sitio/recursos/$($t.slug)/): $($t.descripcion)$(if ($extra) { ' (' + ($extra -join ', ') + ')' }) · [abrir]($Sitio/$($t.url))`n"
     }
     $llms += "`n"
