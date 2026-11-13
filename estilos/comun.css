@@ -187,6 +187,7 @@ footer{background:var(--band);color:var(--on-band-soft);border-top:1px solid rgb
 .pie-legal nav{display:flex;flex-wrap:wrap;gap:4px 16px}
 .pie-legal a{text-decoration:none}
 @media (max-width:800px){.pie-cols{grid-template-columns:1fr 1fr}.pie-cols>div:first-child{grid-column:1/-1}}
+@media (max-width:620px){.pie-cols li a,.pie-legal nav a{min-height:44px}.pie-legal nav a{display:inline-flex;align-items:center}.pie-legal nav{gap:0 16px}}
 
 /* ---------- Modo oscuro (solo con tema-auto) ---------- */
 @media (prefers-color-scheme:dark){
