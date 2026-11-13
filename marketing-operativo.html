@@ -199,31 +199,6 @@
   .demo h3 { font-size: 20px; margin-bottom: 4px; }
   .demo p { font-size: 15px; color: var(--ink-soft); max-width: 46ch; }
 
-  /* ---------- Clasificador rápido ---------- */
-  .quiz-h { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 8px; }
-  .quiz-h h3 { font-size: 22px; }
-  .quiz-h .score { font-size: 14px; color: var(--ink-soft); white-space: nowrap; }
-  .cls { display: flex; flex-direction: column; }
-  .cl { display: grid; grid-template-columns: 32px 1fr; gap: 12px; padding: 24px 0; border-top: 1px solid var(--line); }
-  .cl:first-child { border-top: none; padding-top: 16px; }
-  .cl .nm { font-family: var(--font-display); font-size: 17px; color: var(--acc); line-height: 1.6; }
-  .cl .bd { display: flex; flex-direction: column; gap: 12px; }
-  .cl .bd > p { font-size: 16px; line-height: 1.6; }
-  .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .opts label { position: relative; }
-  .opts input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
-  .opts span { display: flex; align-items: center; justify-content: space-between; gap: 8px; height: 100%; border: 1px solid color-mix(in srgb, var(--c) 35%, #FFFFFF); background: color-mix(in srgb, var(--c) 8%, #FFFFFF); color: var(--c); border-radius: 12px; padding: 11px 14px; font-size: 14.5px; font-weight: 600; transition: background .2s, color .2s, border-color .2s, transform .2s var(--ease); }
-  .opts label:hover span { background: color-mix(in srgb, var(--c) 15%, #FFFFFF); border-color: var(--c); }
-  .opts label:active span { transform: scale(.98); }
-  .opts input:checked + span { background: var(--c); border-color: var(--c); color: #FFFFFF; }
-  .opts input:focus-visible + span { outline: 2px solid var(--ink); outline-offset: 2px; }
-  .opts.ok input:checked + span::after { content: "✓"; font-weight: 700; }
-  .opts.ko input:checked + span::after { content: "✗"; font-weight: 700; }
-  .opts .right span { border-style: dashed; border-width: 2px; border-color: var(--c); }
-  .fb { font-size: 15px; line-height: 1.6; color: var(--ink-soft); }
-  .fb b { color: var(--ink); }
-  .fb.ok b { color: #3E5A26; }
-  .fb.no b { color: #6E4B00; }
 
   .scope, .pick { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   .opt { position: relative; display: block; }
@@ -289,14 +264,14 @@
   @media (max-width: 520px) {
     .wrap { padding: 0 16px; }
     main { padding-top: 32px; }
-    .scope, .opts { grid-template-columns: 1fr; }
+    .scope { grid-template-columns: 1fr; }
     .vias { grid-template-columns: 1fr; grid-template-rows: none; }
     .vias .ax { display: none; }
     .vias .grid { grid-column: 1; grid-row: auto; grid-template-columns: 1fr; }
     .via .cw { display: block; }
     .medio { position: static; transform: none; display: block; text-align: center; margin-top: 12px; box-shadow: none; white-space: normal; }
     .demo { flex-direction: column; align-items: flex-start; }
-    .cl, .test-hd { grid-template-columns: 24px 1fr; }
+    .test-hd { grid-template-columns: 24px 1fr; }
     .test > .seg, .test > textarea { margin-left: 0; width: 100%; }
     .purse { padding: 10px 16px; }
     .purse .coins { display: none; }
@@ -311,6 +286,21 @@
   .sec-h { display: flex; align-items: baseline; gap: 12px; padding-top: 24px; border-top: 1px solid var(--line); }
   .sec-h .sk { font-family: var(--font-display); font-size: 17px; color: var(--acc); min-width: 20px; }
   .sec-h h3 { font-size: 24px; }
+  .teo { display: flex; flex-direction: column; gap: 24px; }
+  .teo[hidden] { display: none; }
+  .teo-btn { all: unset; box-sizing: border-box; cursor: pointer; margin-left: auto; align-self: center; min-height: 40px; display: inline-flex; align-items: center; padding: 0 4px; font-size: 14.5px; font-weight: 600; color: var(--acc-deep); text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+  .teo-btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 8px; }
+  @media (max-width: 520px) {
+    .note { grid-template-columns: 1fr; gap: 4px; }
+    .sec-h:has(.teo-btn) { flex-wrap: wrap; row-gap: 0; }
+    .teo-btn { flex-basis: 100%; margin-left: 40px; justify-content: flex-start; padding: 0; }
+  }
+  @media (max-width: 1299px) {
+    .glos summary { padding: 9px 12px; gap: 6px; }
+    .glos-sum-t { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .glos-chev { display: none; }
+    body:has(input[type="text"]:focus, textarea:focus) .glos { display: none; }
+  }
   .sec-p { font-size: 16px; line-height: 1.6; color: var(--ink-soft); max-width: 62ch; margin-top: -8px; }
   .sec-p b { color: var(--ink); }
 
@@ -446,6 +436,11 @@
   .leg3 dt i { width: 10px; height: 10px; border-radius: 50%; flex: none; }
   .leg3 dd { margin: 4px 0 0; font-family: var(--font-display); font-size: 22px; font-variant-numeric: tabular-nums; }
   .leg3 div:first-child dd { color: var(--acc); }
+  .ivaleg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin: 0; padding-top: 16px; border-top: 1px solid var(--line); }
+  .ivaleg dt { display: flex; align-items: baseline; gap: 8px; }
+  .ivaleg dt b { font-family: var(--font-display); font-weight: 500; font-size: 22px; font-variant-numeric: tabular-nums; color: var(--acc); }
+  .ivaleg dt span { font-size: 13.5px; font-weight: 600; color: var(--ink); }
+  .ivaleg dd { margin: 4px 0 0; font-size: 14px; line-height: 1.55; color: var(--ink-soft); }
   .franja { display: grid; grid-template-columns: 1fr 1fr 1.4fr; gap: 16px; align-items: end; }
   .pick3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
   .ptable { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
@@ -503,6 +498,7 @@
   .mx-k input:checked + span small { color: var(--acc-deep); font-weight: 600; }
   .mx-k input:focus-visible + span { outline: 2px solid var(--ink); outline-offset: 2px; }
   @media (max-width: 760px) {
+    .ivaleg { grid-template-columns: 1fr; gap: 12px; }
     .calc-in, .franja, .pick3, .canales, .plat { grid-template-columns: 1fr; }
     .pt-row { grid-template-columns: 1fr 1fr; }
     .pt-n { grid-column: 1 / -1; }
@@ -851,15 +847,6 @@
   .efecto .ep .qi .ico { width: 18px; height: 18px; }
   .efecto li { animation: rise .45s var(--ease) both; }
 
-  .quiz-h h3 { display: flex; align-items: center; gap: 12px; }
-  .quiz-h h3 .qi { --c: var(--pc); width: 36px; height: 36px; }
-  .quiz-h h3 .qi .ico { width: 20px; height: 20px; }
-  .quiz-h .score { display: inline-flex; align-items: center; gap: 10px; }
-  .sdots { display: inline-flex; gap: 4px; }
-  .sdots i { width: 8px; height: 8px; border-radius: 50%; background: var(--line); transition: background .3s, transform .3s var(--ease); }
-  .sdots i.ok { background: var(--ok); transform: scale(1.15); }
-  .sdots i.ko { background: var(--bad); }
-  .fb { animation: rise .4s var(--ease) both; }
 
   .jn { width: 30px; height: 30px; top: -15px; color: var(--acc); border-color: var(--acc); }
   .jn .ico { width: 16px; height: 16px; }
@@ -1038,11 +1025,6 @@
         <div class="qa"><h3>¿Por qué ahora y no al principio?</h3><p>Sin cliente, sin competencia y sin ventaja, cualquier precio o cualquier canal valen igual. Con ellos, cada decisión <b>se puede justificar</b>: este precio porque mi cliente valora esto, este canal porque está aquí.</p></div>
         <div class="qa"><h3>¿Saldré con el precio definitivo?</h3><p>No. Aquí decides con lo que sabes del mercado y sales con un <b>precio provisional</b>. Cuando calcules tus costes comprobarás si te da para vivir y, si no, lo ajustarás.</p></div>
       </div>
-      <div class="panel">
-        <div class="quiz-h"><h3>Calienta: ¿qué decisión es?</h3><span class="score" id="clsScore" aria-live="polite"></span></div>
-        <p class="hint">Ocho decisiones de negocios inventados. Di de cuál de las cuatro P se trata. No cuenta para nota.</p>
-        <div class="cls" id="cls"></div>
-      </div>
     </div>
     <div class="nav-bottom"><button class="btn-ghost" data-prev>← Anterior</button><button class="btn-main" data-next>Tu negocio →</button></div>
   </section>
@@ -1184,11 +1166,6 @@
         <div class="ladder" id="ladderTeoria"></div>
       </div>
       <div class="note"><span class="tag">¿Y la BCG?</span><p>La matriz del Boston Consulting Group clasifica productos en estrella, vaca, interrogante y perro según su <b>cuota de mercado</b> y el crecimiento del mercado. Sirve a empresas que ya venden; tu proyecto todavía no tiene cuota, así que aquí hablamos del <b>papel que esperas</b> que tenga cada producto. Tu producto principal es la vaca que esperas tener.</p></div>
-      <div class="panel">
-        <div class="quiz-h"><h3>Calienta: ¿qué papel tiene?</h3><span class="score" id="rolScore" aria-live="polite"></span></div>
-        <p class="hint">Dos negocios inventados y su oferta. Elige el papel de cada producto.</p>
-        <div class="cls" id="rolQuiz"></div>
-      </div>
 
       <div class="sec-h"><span class="sk">b</span><h3>Ideas para tu negocio</h3></div>
       <p class="sec-p">Según lo que contestaste en tu perfil. Son ideas para pensar, no obligaciones.</p>
@@ -1230,11 +1207,6 @@
         <div class="qa"><h3>¿Compensa hacer un descuento?</h3><p>Depende de la <b>elasticidad</b>. Si la demanda es elástica, al bajar el precio se vende mucho más y puede compensar. Si es inelástica, se vende casi lo mismo y solo ganas menos. Si es unitaria, lo que pierdes por precio lo recuperas en ventas.</p></div>
       </div>
       <div class="note"><span class="tag">¿Y el dinámico?</span><p>El <b>precio dinámico</b> cambia según la demanda del momento: hoteles en verano, entradas de un concierto, billetes de tren. No es poner precios distintos al azar ni cobrar más a quien parece que puede pagar.</p></div>
-      <div class="panel">
-        <div class="quiz-h"><h3>Calienta: ¿con qué método?</h3><span class="score" id="metScore" aria-live="polite"></span></div>
-        <p class="hint">Seis negocios inventados. ¿Desde dónde fijan su precio?</p>
-        <div class="cls" id="metQuiz"></div>
-      </div>
       <div class="calc" id="calc">
         <div class="lh"><h3>Lo que se come cada venta</h3><span class="lg">Antes de pagar ningún coste</span></div>
         <p class="hint">No todo lo que cobras es tuyo. A un particular le anuncias el precio con el IVA incluido, y el banco o la plataforma se quedan su comisión por cobrar. Prueba con un precio final, tu tipo de IVA y la comisión en porcentaje.</p>
@@ -1244,7 +1216,12 @@
           <div class="field"><label class="flab" for="c-com">Comisión</label><div class="num"><input id="c-com" type="text" inputmode="decimal" maxlength="5" data-bind="precio.calc.com" placeholder="0"><span>%</span></div></div>
         </div>
         <div id="calcOut" aria-live="polite"></div>
-        <p class="hint">Tipos de IVA: general del 21 %, reducido del 10 % y superreducido del 4 % (Ley 37/1992, arts. 90 y 91). Algunos servicios, como muchos sanitarios o educativos, están exentos (art. 20). Comprueba el tuyo.</p>
+        <dl class="ivaleg" aria-label="Ejemplos de cada tipo de IVA">
+          <div><dt><b>21&nbsp;%</b><span>General</span></dt><dd>Ropa y calzado, electrónica, peluquería, gimnasio, reparaciones y casi todo lo que no está en las otras dos listas.</dd></div>
+          <div><dt><b>10&nbsp;%</b><span>Reducido</span></dt><dd>Bares, restaurantes y hoteles, transporte de viajeros, alimentos en general, flores y plantas, entradas de cine, teatro y conciertos.</dd></div>
+          <div><dt><b>4&nbsp;%</b><span>Superreducido</span></dt><dd>Pan común, leche, huevos, fruta y verdura; libros, periódicos y revistas; medicamentos de uso humano.</dd></div>
+        </dl>
+        <p class="hint">Ley 37/1992: tipo general en el art.&nbsp;90, reducido en el art.&nbsp;91.Uno y superreducido en el art.&nbsp;91.Dos. Algunos servicios, como muchos sanitarios o educativos, están exentos (art.&nbsp;20). Son ejemplos: comprueba el tuyo.</p>
       </div>
 
       <div class="sec-h"><span class="sk">b</span><h3>Tu punto de partida</h3></div>
@@ -1413,11 +1390,6 @@
         <div class="prow" role="listitem"><div class="pp"><span>Marketing directo</span></div><span class="ar" aria-hidden="true">→</span><div class="cc"><p>Correo y mensajes a quien te ha dado permiso para escribirle.</p></div></div>
       </div>
       <div class="note"><span class="tag">Si tienes local</span><p>Tu <b>ficha del negocio en Google</b>, con fotos, horario y reseñas, es lo primero que ve quien te busca cerca. Para muchos negocios locales pesa más que su web.</p></div>
-      <div class="panel">
-        <div class="quiz-h"><h3>Calienta: ¿propio, pagado o ganado?</h3><span class="score" id="medScore" aria-live="polite"></span></div>
-        <p class="hint">Seis acciones de negocios inventados.</p>
-        <div class="cls" id="medQuiz"></div>
-      </div>
 
       <div class="sec-h"><span class="sk">b</span><h3>Tu mensaje central</h3></div>
       <div class="panel soft">
@@ -1605,19 +1577,6 @@
   var has = function (a, v) { return a.indexOf(v) >= 0; };
 
   /* ---------- Datos fijos ---------- */
-  var P4 = { oferta: 'Producto', precio: 'Precio', canal: 'Distribución', com: 'Comunicación' };
-  var P4_ORDEN = ['oferta', 'precio', 'canal', 'com'];
-  var P4_COL = { oferta: 'var(--v-costes)', precio: 'var(--v-dif)', canal: 'var(--v-enfdif)', com: 'var(--v-enfcostes)' };
-  var CLASIF = [
-    { t: 'Una panadería empieza a preparar cajas de desayuno para reuniones de empresa.', r: 'oferta', x: 'Añade un producto nuevo a su cartera, pensado para otro tipo de cliente.' },
-    { t: 'Una academia de baile deja de cobrar 12 € por clase y pasa a una cuota de 45 € al mes.', r: 'precio', x: 'Vende lo mismo, pero cambia cómo lo cobra: de pago por clase a cuota mensual.' },
-    { t: 'Una tienda de bicicletas de segunda mano se da de alta en un marketplace para vender en toda España.', r: 'canal', x: 'Abre un escaparate nuevo, de un tercero, para llegar a clientes que no pasan por su calle.' },
-    { t: 'Una cafetería pone un cartel en la barra pidiendo a sus clientes que dejen una reseña en Google.', r: 'com', x: 'Busca medios ganados: lo que los clientes cuentan de ella es lo primero que ve quien la busca.' },
-    { t: 'Una floristería envía una foto del ramo antes de entregarlo y añade una tarjeta escrita a mano.', r: 'oferta', x: 'Mejora el producto aumentado: lo que rodea al ramo y hace que el cliente lo prefiera.' },
-    { t: 'Un cine pone la entrada a mitad de precio los miércoles.', r: 'precio', x: 'Usa el precio para llenar el día más flojo de la semana.' },
-    { t: 'Un taller de cerámica empieza a vender sus cursos en una plataforma de reservas de actividades.', r: 'canal', x: 'El curso es el mismo; cambia dónde se encuentra y se paga.' },
-    { t: 'Una librería organiza presentaciones con autores de la zona y avisa a la prensa local.', r: 'com', x: 'Son relaciones públicas: dan que hablar de la librería sin pagar un anuncio.' }
-  ];
   var ROLES = {
     entrada:   { n: 'Entrada',     c: 'var(--r-entrada)',   d: 'Atrae clientes nuevos. Margen bajo.' },
     principal: { n: 'Principal',   c: 'var(--r-principal)', d: 'El que debe dar el margen.' },
@@ -1625,18 +1584,6 @@
     comple:    { n: 'Complemento', c: 'var(--r-comple)',    d: 'Se suma a otro o hace que vuelvan.' }
   };
   var ROL_ORDEN = ['entrada', 'principal', 'premium', 'comple'];
-  var ROL_QUIZ = [
-    { g: 'Una escuela de escalada' },
-    { t: 'Clase de prueba de una hora a 8 €', r: 'entrada', x: 'Es barata y sin compromiso: sirve para que alguien nuevo pruebe.' },
-    { t: 'Cuota mensual con acceso libre al rocódromo', r: 'principal', x: 'Es lo que paga la mayoría todos los meses: sostiene el negocio.' },
-    { t: 'Viaje de una semana a escalar en roca, con guía', r: 'premium', x: 'Pocos lo compran, cuesta mucho más y aporta mucho valor a quien lo quiere.' },
-    { t: 'Alquiler de pies de gato y arnés', r: 'comple', x: 'Se suma a otro producto: nadie va solo a alquilar material.' },
-    { g: 'Una cafetería de especialidad' },
-    { t: 'Café del día para llevar, a 1,60 €', r: 'entrada', x: 'Es la puerta: precio ajustado para que te prueben al pasar.' },
-    { t: 'Desayuno completo en el local', r: 'principal', x: 'Es lo que más se vende y deja más margen cada día.' },
-    { t: 'Cata de cafés de origen los sábados', r: 'premium', x: 'Pocas plazas, precio alto y experiencia para el cliente más fiel.' },
-    { t: 'Bolsa de café molido para casa', r: 'comple', x: 'Se lleva junto al desayuno y hace que se acuerden de ti en casa.' }
-  ];
   var TEORIA = [
     { n: 'Revisión exprés', papel: 'entrada', cuando: 'dia1' },
     { n: 'Puesta a punto completa', papel: 'principal', cuando: 'dia1', ventaja: true },
@@ -1651,7 +1598,7 @@
     return { step: 0, visited: [0], nombre: '',
       proy: { nombre: '', cliente: '', ventaja: '', competencia: '' },
       perfil: { paga: [], vende: [], frecuencia: '', donde: [], regulado: '', sector: '', sectorOtro: '' },
-      cls: {}, rol: {}, metq: {}, medq: {}, just: {},
+      just: {}, teo: {},
       com: { mensaje: '', acciones: [blankAcc0(), blankAcc0(), blankAcc0()], mide: '', clientesMes: '', nps: { p: '', n: '', d: '' } },
       lanz: { forma: '', formaDet: '', exitoN: '', exitoQue: '', exitoPlazo: '', planB: '', items: {}, extra: [], valCuando: '' },
       cartera: [blankProd(), blankProd(), blankProd()],
@@ -1678,8 +1625,6 @@
       state.perfil.sector = has(['nicotina', 'otro'], p.sector) ? p.sector : '';
       state.perfil.sectorOtro = str(p.sectorOtro, 120);
     }
-    if (s.cls && typeof s.cls === 'object') CLASIF.forEach(function (c, i) { if (P4[s.cls[i]]) state.cls[i] = s.cls[i]; });
-    if (s.rol && typeof s.rol === 'object') ROL_QUIZ.forEach(function (c, i) { if (c.r && ROLES[s.rol[i]]) state.rol[i] = s.rol[i]; });
     if (Array.isArray(s.cartera)) {
       state.cartera = s.cartera.slice(0, MAXPROD).map(function (x) {
         x = x && typeof x === 'object' ? x : {};
@@ -1689,7 +1634,6 @@
       });
       while (state.cartera.length < 3) state.cartera.push(blankProd());
     }
-    if (s.metq && typeof s.metq === 'object') Object.keys(s.metq).forEach(function (i) { if (/^\d$/.test(i) && has(['costes', 'competencia', 'valor'], s.metq[i])) state.metq[i] = s.metq[i]; });
     var pr = s.precio;
     if (pr && typeof pr === 'object') {
       state.precio.metodo = has(['costes', 'competencia', 'valor'], pr.metodo) ? pr.metodo : '';
@@ -1711,8 +1655,8 @@
       state.canal.devol = has(['ley', 'mas', 'excepcion', 'na'], ca.devol) ? ca.devol : '';
       state.canal.devolDet = str(ca.devolDet, 400);
     }
+    if (s.teo && typeof s.teo === 'object') Object.keys(s.teo).forEach(function (k) { if (/^[3-7]$/.test(k)) state.teo[k] = !!s.teo[k]; });
     if (s.just && typeof s.just === 'object') Object.keys(s.just).forEach(function (k) { if (/^[3-7]\.[a-z0-9]{2,20}$/.test(k)) state.just[k] = str(s.just[k], 300); });
-    if (s.medq && typeof s.medq === 'object') Object.keys(s.medq).forEach(function (i) { if (/^\d$/.test(i) && has(['propio', 'pagado', 'ganado'], s.medq[i])) state.medq[i] = s.medq[i]; });
     var co = s.com;
     if (co && typeof co === 'object') {
       state.com.mensaje = str(co.mensaje, 200); state.com.mide = str(co.mide, 400); state.com.clientesMes = str(co.clientesMes, 5);
@@ -1769,8 +1713,6 @@
       if (t.checked) arr.push(t.value);
       setp(d.bindm, OPC[d.bindm.split('.')[1]].filter(function (v) { return has(arr, v); })); save(); drawEfecto();
     }
-    if (d.cls != null) { state.cls[d.cls] = t.value; save(); drawCls(); }
-    if (d.rq != null) { state.rol[d.rq] = t.value; save(); drawRolQuiz(); }
     if (d.pi != null && (d.pr || d.pv || d.pc)) {
       var x = state.cartera[+d.pi]; if (!x) return;
       if (d.pr) { x.papel = t.value; t.closest('.prod').dataset.papel = t.value; }
@@ -1780,32 +1722,6 @@
     }
   });
 
-  /* ---------- Calentamiento: ¿qué decisión es? ---------- */
-  function quizHTML(items, sel, attr, opts, label) {
-    var n = 0;
-    return items.map(function (c, i) {
-      if (c.g) return '<p class="kicker" style="padding-top:16px">' + esc(c.g) + '</p>';
-      n++;
-      var r = sel[i], ok = r === c.r;
-      return '<div class="cl"><span class="nm" aria-hidden="true">' + n + '</span><div class="bd"><p>' + esc(c.t) + '</p>' +
-        '<div class="opts' + (r ? (ok ? ' ok' : ' ko') : '') + '" role="radiogroup" aria-label="' + label + ' ' + n + '">' +
-        opts.map(function (o) { return '<label' + (r && !ok && o.k === c.r ? ' class="right"' : '') + ' style="--c:' + o.c + '"><input type="radio" name="' + attr + i + '" value="' + o.k + '" data-' + attr + '="' + i + '"' + (r === o.k ? ' checked' : '') + '><span>' + o.n + '</span></label>'; }).join('') + '</div>' +
-        (r ? '<p class="fb ' + (ok ? 'ok' : 'no') + '" role="status"><b>' + (ok ? 'Bien visto.' : 'No exactamente: es ' + opts.filter(function (o) { return o.k === c.r; })[0].n.toLowerCase() + '.') + '</b> ' + esc(c.x) + '</p>' : '') + '</div></div>';
-    }).join('');
-  }
-  function score(items, sel) {
-    var h = 0, b = 0, dots = '';
-    items.forEach(function (c, i) { if (!c.r) return; var r = sel[i]; if (r) { h++; if (r === c.r) b++; } dots += '<i class="' + (r ? (r === c.r ? 'ok' : 'ko') : '') + '"></i>'; });
-    return '<span class="sdots" aria-hidden="true">' + dots + '</span>' + (h ? '<span>' + b + ' de ' + h + ' acertadas</span>' : '<span>Sin empezar</span>');
-  }
-  function drawCls() {
-    $('#cls').innerHTML = quizHTML(CLASIF, state.cls, 'cls', P4_ORDEN.map(function (k) { return { k: k, n: P4[k], c: P4_COL[k] }; }), 'Decisión');
-    $('#clsScore').innerHTML = score(CLASIF, state.cls);
-  }
-  function drawRolQuiz() {
-    $('#rolQuiz').innerHTML = quizHTML(ROL_QUIZ, state.rol, 'rq', ROL_ORDEN.map(function (k) { return { k: k, n: ROLES[k].n, c: ROLES[k].c }; }), 'Producto');
-    $('#rolScore').innerHTML = score(ROL_QUIZ, state.rol);
-  }
 
   /* ---------- Lo que traes de otras herramientas ---------- */
   function leer(k) { try { var v = JSON.parse(localStorage.getItem(k) || 'null'); return v && typeof v === 'object' ? v : null; } catch (e) { return null; } }
@@ -1998,19 +1914,6 @@
   var num = function (s) { s = String(s == null ? '' : s).replace(/[\s€%]/g, '').replace(/\.(?=\d{3}(\D|$))/g, '').replace(',', '.'); if (!s) return null; var v = parseFloat(s); return isFinite(v) && v >= 0 ? v : null; };
   var eur = function (v) { return v == null ? '—' : v.toLocaleString('es-ES', { minimumFractionDigits: v % 1 ? 2 : 0, maximumFractionDigits: 2 }) + ' €'; };
   var METODOS = { costes: 'Por costes', competencia: 'Por competencia', valor: 'Por valor' };
-  var MET_COL = { costes: 'var(--v-costes)', competencia: 'var(--v-enfdif)', valor: 'var(--v-dif)' };
-  var MET_QUIZ = [
-    { t: 'Una tienda de bicis compra cada casco a 20 € y lo vende a 40 €: siempre el doble de lo que le cuesta.', r: 'costes', x: 'Parte de lo que le cuesta y le suma un margen fijo.' },
-    { t: 'Una autoescuela mira lo que cobran las tres de su barrio y pone su carnet 20 € por debajo.', r: 'competencia', x: 'Su referencia son los precios de las demás autoescuelas.' },
-    { t: 'Un estudio de tatuajes cobra más que la media porque su tatuadora tiene lista de espera de meses.', r: 'valor', x: 'Sus clientes valoran tanto ese trabajo que pagan más por él.' },
-    { t: 'Una panadería calcula lo que le cuesta cada barra y le suma un 30 %.', r: 'costes', x: 'Coste más un porcentaje: el método por costes de manual.' },
-    { t: 'Un fontanero cobra el triple por una urgencia un domingo por la noche.', r: 'valor', x: 'El cliente con una fuga a esa hora valora mucho que alguien vaya: cobra por ese valor.' },
-    { t: 'Una gasolinera ajusta su precio para no estar nunca por encima de la de enfrente.', r: 'competencia', x: 'Sigue de cerca el precio de su competidor directo.' }
-  ];
-  function drawMetQuiz() {
-    $('#metQuiz').innerHTML = quizHTML(MET_QUIZ, state.metq, 'mq', ['costes', 'competencia', 'valor'].map(function (k) { return { k: k, n: METODOS[k], c: MET_COL[k] }; }), 'Negocio');
-    $('#metScore').innerHTML = score(MET_QUIZ, state.metq);
-  }
   /* desglose de un precio: puro */
   function desglose(pvp, ivaPct, comPct, conIva) {
     if (pvp == null) return null;
@@ -2131,7 +2034,7 @@
   }
   function drawPrecio() {
     $('#compTxt').innerHTML = state.proy.competencia.trim() ? esc(state.proy.competencia.trim()) : '<span class="nr">No escribiste nada sobre tu competencia.</span> Puedes hacerlo en <button type="button" class="lnk" data-go="2">tu negocio</button>.';
-    drawMetQuiz(); drawCalc(); drawIdeasPrecio(); drawPtable(); drawPline(); drawEncajaPrecio(); drawLlevaPrecio();
+    drawCalc(); drawIdeasPrecio(); drawPtable(); drawPline(); drawEncajaPrecio(); drawLlevaPrecio();
     $('#normaPrecio').innerHTML = normaHTML(NORMA_PRECIO);
   }
   function refreshPrecio() { drawPline(); drawEncajaPrecio(); drawLlevaPrecio(); }
@@ -2240,7 +2143,6 @@
   });
   document.addEventListener('change', function (e) {
     var t = e.target, d = t.dataset || {};
-    if (d.mq != null) { state.metq[d.mq] = t.value; save(); drawMetQuiz(); }
     if (d.bindr && /^precio\.calc/.test(d.bindr)) drawCalc();
     if (d.bindr && /^precio\.(metodo|estrategia|descuentos)/.test(d.bindr)) { drawEncajaPrecio(); drawLlevaPrecio(); }
     if (d.piva) { state.cartera[+d.pi].iva = t.value; save(); refreshPrecio(); }
@@ -2264,18 +2166,6 @@
   var MED_COL = { propio: 'var(--v-enfdif)', pagado: 'var(--v-dif)', ganado: 'var(--v-costes)' };
   var INSTR = { publicidad: 'Publicidad', venta: 'Venta personal', promo: 'Promoción de ventas', rrpp: 'Relaciones públicas', directo: 'Marketing directo' };
   var MAXACC = 8;
-  var MED_QUIZ = [
-    { t: 'Una heladería publica en su Instagram el sabor de la semana.', r: 'propio', x: 'Es su propia cuenta: no paga por publicar, pero le cuesta tiempo.' },
-    { t: 'El periódico local saca una noticia sobre una librería que abre de noche.', r: 'ganado', x: 'La librería no paga: se lo ha ganado siendo noticia.' },
-    { t: 'Una academia paga anuncios en el buscador para «clases de inglés cerca».', r: 'pagado', x: 'Paga por aparecer cuando alguien lo busca.' },
-    { t: 'Una vecina recomienda una peluquería en el grupo de WhatsApp de su edificio.', r: 'ganado', x: 'Una recomendación que no se ha pagado: la más creíble.' },
-    { t: 'Una marca de ropa paga a una creadora de contenido por enseñar sus prendas.', r: 'pagado', x: 'Es una colaboración pagada, y por ley tiene que quedar claro que es publicidad.' },
-    { t: 'Una tienda envía un boletín por correo a quien se suscribió en su web.', r: 'propio', x: 'Es su propia lista de contactos, con permiso.' }
-  ];
-  function drawMedQuiz() {
-    $('#medQuiz').innerHTML = quizHTML(MED_QUIZ, state.medq, 'md', ['propio', 'pagado', 'ganado'].map(function (k) { return { k: k, n: MEDIOS[k], c: MED_COL[k] }; }), 'Acción');
-    $('#medScore').innerHTML = score(MED_QUIZ, state.medq);
-  }
   var blankAcc = blankAcc0;
   function ideasAcc() {
     var p = state.perfil, I = [];
@@ -2388,7 +2278,7 @@
     if (state.proy.ventaja.trim()) b.push('<b>Tu ventaja:</b> ' + esc(state.proy.ventaja.trim()));
     if (state.proy.cliente.trim()) b.push('<b>Tu cliente:</b> ' + esc(state.proy.cliente.trim()));
     $('#msgBase').innerHTML = b.length ? b.join('<br>') : '<span class="nr">Aún no has escrito tu ventaja ni tu cliente.</span> Puedes hacerlo en <button type="button" class="lnk" data-go="2">tu negocio</button>.';
-    drawMedQuiz(); drawIdeasAcc(); drawJourney(); drawAcciones(); drawNps(); drawEncajaCom(); drawLlevaCom();
+    drawIdeasAcc(); drawJourney(); drawAcciones(); drawNps(); drawEncajaCom(); drawLlevaCom();
     $('#normaCom').innerHTML = normaHTML(NORMA_COM);
   }
   function refreshCom() { drawJourney(); drawEncajaCom(); drawLlevaCom(); }
@@ -2524,7 +2414,6 @@
   });
   document.addEventListener('change', function (e) {
     var t = e.target, d = t.dataset || {};
-    if (d.md != null) { state.medq[d.md] = t.value; save(); drawMedQuiz(); }
     if (d.ai != null && t.tagName === 'SELECT') { state.com.acciones[+d.ai][d.af] = t.value; save(); if (d.af === 'medio') t.closest('.prod').style.setProperty('--c', MED_COL[t.value] || 'var(--line)'); refreshCom(); }
     if (d.bindr && /^lanz\./.test(d.bindr)) { drawEncajaLanz(); drawCalSet(); drawCal(); }
     if (d.d1 && d.d1f === 'e') {
@@ -2858,11 +2747,31 @@
     if (hd) { hd.classList.add('con-medal'); hd.insertAdjacentHTML('afterbegin', '<span class="medal" aria-hidden="true">' + icon(D[1]) + '</span>'); }
     $$('.faq .qa', s).forEach(function (q, k) { var ic = (QA_IC[i] || [])[k]; if (ic) q.querySelector('h3').insertAdjacentHTML('afterbegin', '<span class="qi" aria-hidden="true">' + icon(ic) + '</span>'); });
   });
+  /* teoría de cada parada: se puede plegar, y aparece plegada al volver otro día */
+  var teoPrev = state.visited.slice();
+  function teoPlegada(i) { return state.teo[i] != null ? !!state.teo[i] : teoPrev.indexOf(i) >= 0; }
+  steps.forEach(function (s, i) {
+    var h = s.querySelector('.stack > .sec-h');
+    if (!h || !/tienes que saber/.test(h.textContent)) return;
+    var box = document.createElement('div'); box.className = 'teo'; box.id = 'teo' + i;
+    var n = h.nextElementSibling;
+    while (n && !n.classList.contains('sec-h')) { var sig = n.nextElementSibling; box.appendChild(n); n = sig; }
+    h.after(box);
+    h.insertAdjacentHTML('beforeend', '<button type="button" class="teo-btn" data-teo="' + i + '" aria-controls="teo' + i + '"></button>');
+  });
+  function drawTeo() {
+    $$('.teo-btn').forEach(function (b) {
+      var i = +b.dataset.teo, p = teoPlegada(i);
+      $('#teo' + i).hidden = p; b.setAttribute('aria-expanded', String(!p)); b.textContent = p ? 'Mostrar la teoría' : 'Plegar la teoría';
+    });
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('.teo-btn'); if (!b) return;
+    var i = +b.dataset.teo; state.teo[i] = !teoPlegada(i); save(); drawTeo();
+  });
   /* preguntas del perfil: icono con su número */
   var PQ_IC = ['users', 'box', 'clock', 'pin', 'scale'];
   $$('.pq').forEach(function (q, k) { var nm = q.querySelector('.nm'); if (nm) nm.innerHTML = '<span class="qi">' + icon(PQ_IC[k]) + '<b>' + (k + 1) + '</b></span>'; });
-  /* calentamientos: icono en el título */
-  $$('.quiz-h h3').forEach(function (h) { h.insertAdjacentHTML('afterbegin', '<span class="qi" aria-hidden="true">' + icon('target') + '</span>'); });
   /* cierres de sesión: en qué punto del recorrido estás */
   $$('.fin').forEach(function (fn) {
     var n = +(fn.closest('.step').dataset.ses || 0); if (!n) return;
@@ -2898,10 +2807,10 @@
     });
     var onDot = $$('.step-dot')[i];
     if (onDot && onDot.scrollIntoView) onDot.scrollIntoView({ block: 'nearest', inline: 'center' });
+    drawTeo();
     if (i === 0) contarCifras();
-    if (i === 1) drawCls();
     if (i === 2) { drawTrae(); drawEfecto(); }
-    if (i === 3) { drawRolQuiz(); drawIdeas(); drawProds(); drawLadder(); drawEncaja(); drawLleva(); }
+    if (i === 3) { drawIdeas(); drawProds(); drawLadder(); drawEncaja(); drawLleva(); }
     if (i === 4) drawPrecio();
     if (i === 5) drawCanal();
     if (i === 6) drawCom();
