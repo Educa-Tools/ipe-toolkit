@@ -50,6 +50,8 @@
   p{margin:0;}
   button{font-family:inherit;color:inherit;}
   [hidden]{display:none !important;}
+  /* Modo B2C (vende a personas) o B2B (vende a empresas): cada texto o campo propio de un modo se oculta en el otro */
+  body.mode-b2b .only-b2c, body:not(.mode-b2b) .only-b2b{display:none !important;}
   .wrap{max-width:1080px;margin:0 auto;padding-inline:16px;padding-block:24px 56px;}
 
   /* ── Comunes ── */
@@ -87,6 +89,7 @@
   .tp span{font-size:15.5px;line-height:1.5;}
   .tp.soc{background:var(--soc-soft);color:var(--soc-ink);} .tp.soc b{color:var(--soc-deep);}
   .tp.psi{background:var(--psi-soft);color:var(--psi-ink);} .tp.psi b{color:var(--psi-deep);}
+  .tipo-group{margin-bottom:24px;}
   .fields{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:24px;}
   @media (min-width:600px){.fields.two{grid-template-columns:1fr 1.6fr;}}
   .field{display:flex;flex-direction:column;min-width:0;}
@@ -108,7 +111,8 @@
   .extras{margin-top:24px;}
   .extras-head{display:grid;gap:4px;margin-bottom:16px;}
   .extras-head h2{font-size:22px;}
-  .examples{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;}
+  .examples{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}
+  @media (min-width:960px){.examples{grid-template-columns:repeat(4,minmax(0,1fr));}}
   .ex{display:grid;grid-template-rows:auto 1fr auto;justify-items:center;gap:8px;text-align:center;padding:16px 12px;border:1px solid var(--line);border-radius:14px;background:var(--surface);cursor:pointer;font:inherit;color:inherit;transition:border-color .15s ease,transform .15s ease;}
   .ex:hover{border-color:var(--tool-line);transform:translateY(-2px);}
   .ex:focus-visible{outline:3px solid var(--tool-line);outline-offset:2px;}
@@ -538,12 +542,12 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     <div class="card">
       <h2 style="font-size:24px;margin-bottom:12px;">¿Qué es un buyer persona?</h2>
       <div class="what">
-        <div><strong>Un cliente semificticio</strong><span>Representa al consumidor final de tu producto o servicio. No es «todo el mundo».</span></div>
+        <div><strong>Un cliente semificticio</strong><span class="only-b2c">Representa al consumidor final de tu producto o servicio. No es «todo el mundo».</span><span class="only-b2b">Representa a la persona que compra en nombre de una empresa. No es «las empresas en general».</span></div>
         <div><strong>Con datos reales detrás</strong><span>Sale de estadísticas, entrevistas y otras fuentes. Piensa en una persona que existe.</span></div>
         <div><strong>Con nombre y atributos</strong><span>Si tiene nombre y características concretas, empiezas a tomar decisiones concretas.</span></div>
       </div>
       <div class="two-profiles">
-        <div class="tp soc"><b>Perfil sociodemográfico</b><span>Quién es: edad, género, estudios, trabajo, ingresos, familia y dónde vive.</span></div>
+        <div class="tp soc"><b class="only-b2c">Perfil sociodemográfico</b><b class="only-b2b">Perfil profesional</b><span class="only-b2c">Quién es: edad, género, estudios, trabajo, ingresos, familia y dónde vive.</span><span class="only-b2b">Quién es: edad, cargo, su empresa y qué papel tiene en la compra.</span></div>
         <div class="tp psi"><b>Perfil psicosocial</b><span>Cómo es: carácter, estilo de vida, aficiones, inquietudes y qué le empuja a comprar.</span></div>
       </div>
 
@@ -554,8 +558,10 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
 
       <div class="fields two">
         <div class="field"><label for="in-alumno">Tu nombre</label><input id="in-alumno" type="text" autocomplete="name" placeholder="Nombre y apellidos" data-f="alumno"></div>
-        <div class="field"><label for="in-negocio">Tu negocio o producto</label><input id="in-negocio" type="text" placeholder="Ej: Muebles a medida con madera reciclada" data-f="negocio"></div>
+        <div class="field"><label for="in-negocio">Tu negocio o producto</label><input id="in-negocio" type="text" placeholder="Ej: Muebles a medida con madera reciclada" data-ph-b2b="Ej: Uniformes de trabajo para restaurantes" data-f="negocio"></div>
       </div>
+      <div class="group tipo-group"><span class="lbl">¿A quién vendes?</span><div class="chips" data-path="tipo" data-mode="single" data-req data-list="TIPOS"></div>
+        <p class="note">Si tu cliente es otra empresa, elige «A empresas». Cambian algunos pasos.</p></div>
       <div class="intro-actions">
         <button type="button" class="btn btn-primary" id="btn-start" style="width:100%;padding:15px;">Crear mi personaje →</button>
         <details class="loader">
@@ -572,11 +578,11 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     <div class="card extras">
       <div class="extras-head">
         <h2>¿Quieres ver cómo queda?</h2>
-        <p class="tiny">Tres casos ficticios, con su ficha completa. Tu personaje no se toca.</p>
+        <p class="tiny">Cuatro casos ficticios (uno de venta a empresas), con su ficha completa. Tu personaje no se toca.</p>
       </div>
       <div class="examples" id="examples"></div>
       <div class="test-cta">
-        <div><b>Test rápido</b><span>Diez preguntas para comprobar si dominas el buyer persona.</span></div>
+        <div><b>Test rápido</b><span>Once preguntas para comprobar si dominas el buyer persona.</span></div>
         <button type="button" class="btn btn-ghost" id="btn-test-intro">Hacer el test →</button>
       </div>
     </div>
@@ -592,7 +598,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
         <h2 class="char-name empty" id="card-name">Sin nombre aún</h2>
         <p class="char-line" id="card-line"></p>
         <div class="bars">
-          <div class="bar b-soc"><div class="bar-top"><span>Perfil sociodemográfico</span><b id="bar-soc-n">0/10</b></div><div class="bar-track"><i id="bar-soc"></i></div></div>
+          <div class="bar b-soc"><div class="bar-top"><span data-soc>Perfil sociodemográfico</span><b id="bar-soc-n">0/10</b></div><div class="bar-track"><i id="bar-soc"></i></div></div>
           <div class="bar b-psi"><div class="bar-top"><span>Perfil psicosocial</span><b id="bar-psi-n">0/8</b></div><div class="bar-track"><i id="bar-psi"></i></div></div>
           <div class="bar b-lle"><div class="bar-top"><span>Cómo llegar</span><b id="bar-lle-n">0/3</b></div><div class="bar-track"><i id="bar-lle"></i></div></div>
         </div>
@@ -601,7 +607,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
 
       <main style="min-width:0;">
         <div class="stepper">
-          <div class="groups" aria-hidden="true"><span>Perfil sociodemográfico</span><span>Perfil psicosocial</span><span>Estrategia</span></div>
+          <div class="groups" aria-hidden="true"><span data-soc>Perfil sociodemográfico</span><span>Perfil psicosocial</span><span>Estrategia</span></div>
           <div class="segs" id="segs" role="group" aria-label="Pasos">
             <button type="button" class="seg g1" data-step="1" aria-label="Paso 1">1</button>
             <button type="button" class="seg g1" data-step="2" aria-label="Paso 2">2</button>
@@ -617,7 +623,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
 
         <!-- Paso 1 -->
         <section class="card step" id="step-1" hidden>
-          <p class="kicker">Perfil sociodemográfico · 1 de 3</p>
+          <p class="kicker"><span data-soc>Perfil sociodemográfico</span> · 1 de 3</p>
           <h2 class="step-title">Crea a tu personaje</h2>
           <p class="step-desc">Todo buyer persona empieza por ponerle cara y nombre. Dale uno y deja de ser «el público en general».</p>
 
@@ -662,6 +668,12 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
           </div>
 
           <div class="block">
+            <h3>¿A quién vendes?</h3>
+            <div class="group"><div class="chips" data-path="tipo" data-mode="single" data-req data-list="TIPOS" role="group" aria-label="¿A quién vendes?"></div>
+              <p class="note only-b2c">Tu cliente es una persona que compra para sí o para su familia: venta a consumidores (B2C).</p>
+              <p class="note only-b2b">Tu cliente es otra empresa: venta entre empresas (B2B). Compra la empresa, pero decide una persona, y esa es tu personaje.</p></div>
+          </div>
+          <div class="block">
             <h3>Datos básicos</h3>
             <div class="row age">
               <div class="field"><label for="f-edad">Edad</label><input id="f-edad" type="number" inputmode="numeric" min="12" max="99" placeholder="34" data-f="soc.edad"></div>
@@ -675,9 +687,11 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
 
         <!-- Paso 2 -->
         <section class="card step" id="step-2" hidden>
-          <p class="kicker">Perfil sociodemográfico · 2 de 3</p>
-          <h2 class="step-title">Formación y economía</h2>
-          <p class="step-desc">Qué ha estudiado, en qué trabaja y cuánto dinero maneja. Aquí se decide si puede pagar lo que vendes.</p>
+          <p class="kicker"><span data-soc>Perfil sociodemográfico</span> · 2 de 3</p>
+          <h2 class="step-title"><span class="only-b2c">Formación y economía</span><span class="only-b2b">Su puesto</span></h2>
+          <p class="step-desc only-b2c">Qué ha estudiado, en qué trabaja y cuánto dinero maneja. Aquí se decide si puede pagar lo que vendes.</p>
+          <p class="step-desc only-b2b">Qué hace en su empresa y qué papel tiene en la compra. En una empresa casi nunca decide una sola persona.</p>
+          <div class="only-b2c">
           <div class="block">
             <div class="group"><span class="lbl">Nivel educativo</span><div class="chips" data-path="soc.estudios" data-mode="single" data-list="ESTUDIOS"></div></div>
             <div class="group"><div class="field"><label for="f-trabajo">Trabajo actual</label><input id="f-trabajo" type="text" maxlength="70" placeholder="Ej: Técnica de laboratorio en un hospital" data-f="soc.trabajo" autocomplete="off"></div></div>
@@ -687,14 +701,31 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
             <div class="group"><span class="lbl">Rango de ingresos anuales</span><div class="chips" data-path="soc.ingA" data-mode="single" data-list="ING_A"></div>
               <p class="note" id="note-inga">Al elegir el mensual, el anual se rellena solo (×12). Cámbialo si cobra pagas extra o ingresos variables.</p></div>
           </div>
-          <div class="tip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg><span><b>Pista:</b> busca sueldos medios de ese puesto en tu zona (INE, portales de empleo). Un dato real vale más que una intuición.</span></div>
+          </div>
+          <div class="only-b2b">
+          <div class="block">
+            <div class="group"><div class="field"><label for="f-cargo">Cargo</label><input id="f-cargo" type="text" maxlength="70" placeholder="Ej: Responsable de compras" data-f="soc.trabajo" autocomplete="off"></div></div>
+            <div class="group"><span class="lbl">Departamento</span><div class="chips" data-path="emp.departamento" data-mode="single" data-list="DEPTOS"></div></div>
+            <div class="group"><span class="lbl">Presupuesto que maneja para lo que vendes</span><div class="chips" data-path="emp.presupuesto" data-mode="single" data-list="PRESU"></div></div>
+          </div>
+          <div class="block">
+            <h3>Quién decide la compra</h3>
+            <p class="note block-note">En una empresa, quien usa el producto, quien decide, quien aprueba el gasto y quien opina pueden ser personas distintas.</p>
+            <div class="group"><span class="lbl">Su papel en la compra <em>(puede tener varios)</em></span><div class="chips" data-path="emp.papel" data-mode="multi" data-max="4" data-list="PAPELES"></div></div>
+            <div class="group"><div class="field"><label for="f-otros">¿Quién más interviene? <em>(opcional)</em></label><textarea id="f-otros" maxlength="200" placeholder="Ej: La directora general aprueba los gastos de más de 3.000 € y los jefes de sala opinan sobre la comodidad." data-f="emp.otros" style="min-height:76px;"></textarea></div></div>
+          </div>
+          </div>
+          <div class="tip only-b2c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg><span><b>Pista:</b> busca sueldos medios de ese puesto en tu zona (INE, portales de empleo). Un dato real vale más que una intuición.</span></div>
+          <div class="tip only-b2b"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg><span><b>Pista:</b> tu personaje es quien más pesa en la decisión. Si no decide ni aprueba el gasto, anota quién lo hace: también tendrás que convencer a esa persona.</span></div>
         </section>
 
         <!-- Paso 3 -->
         <section class="card step" id="step-3" hidden>
-          <p class="kicker">Perfil sociodemográfico · 3 de 3</p>
-          <h2 class="step-title">Entorno vital</h2>
-          <p class="step-desc">Con quién vive y dónde. Cambia cuánto tiempo y dinero tiene, y por dónde le llegas.</p>
+          <p class="kicker"><span data-soc>Perfil sociodemográfico</span> · 3 de 3</p>
+          <h2 class="step-title"><span class="only-b2c">Entorno vital</span><span class="only-b2b">Su empresa</span></h2>
+          <p class="step-desc only-b2c">Con quién vive y dónde. Cambia cuánto tiempo y dinero tiene, y por dónde le llegas.</p>
+          <p class="step-desc only-b2b">A qué se dedica, cuánta gente tiene y dónde está. No compra igual un bar de barrio que una cadena de hoteles.</p>
+          <div class="only-b2c">
           <div class="block">
             <div class="group"><span class="lbl">Situación familiar</span><div class="chips" data-path="soc.familia" data-mode="single" data-list="FAMILIA"></div></div>
             <div class="group"><div class="field"><label for="f-famdet">Detalle <em>(opcional)</em></label><input id="f-famdet" type="text" maxlength="70" placeholder="Ej: Una hija de 4 años" data-f="soc.familiaDet" autocomplete="off"></div></div>
@@ -703,14 +734,27 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
             <div class="group"><div class="field"><label for="f-res">Lugar de residencia</label><input id="f-res" type="text" maxlength="60" placeholder="Ej: Santiago de Compostela, barrio de Conxo" data-f="soc.residencia" autocomplete="off"></div></div>
             <div class="group"><span class="lbl">Tipo de entorno <em>(opcional)</em></span><div class="chips" data-path="soc.entorno" data-mode="single" data-list="ENTORNO"></div></div>
           </div>
+          </div>
+          <div class="only-b2b">
+          <div class="block">
+            <div class="group"><div class="field"><label for="f-sector">Sector</label><input id="f-sector" type="text" maxlength="60" placeholder="Ej: Hostelería, hoteles de ciudad" data-f="emp.sector" autocomplete="off"></div></div>
+            <div class="group"><span class="lbl">Tamaño</span><div class="chips" data-path="emp.tamano" data-mode="single" data-list="TAMANOS"></div>
+              <p class="note">Por personas en plantilla, como en la definición europea de pyme (Recomendación 2003/361/CE de la Comisión, anexo, art. 2), que además pone límites de facturación.</p></div>
+          </div>
+          <div class="block">
+            <div class="group"><div class="field"><label for="f-ubic">Dónde está la empresa</label><input id="f-ubic" type="text" maxlength="60" placeholder="Ej: Málaga, con dos hoteles más en la Costa del Sol" data-f="soc.residencia" autocomplete="off"></div></div>
+            <div class="group"><span class="lbl">Tipo de entorno <em>(opcional)</em></span><div class="chips" data-path="soc.entorno" data-mode="single" data-list="ENTORNO"></div></div>
+          </div>
+          </div>
           <div class="block">
             <h3>¿De dónde salen estos datos?</h3>
             <p class="note block-note">Un buyer persona vale lo que valen sus datos. Marca todas las fuentes que hayas usado para este perfil.</p>
             <div class="group"><div class="chips" data-path="soc.fuentes" data-mode="multi" data-max="7" data-list="FUENTES"></div></div>
-            <div class="group"><div class="field"><label for="f-fsoc">¿Cuál, en concreto? <em>(opcional)</em></label><input id="f-fsoc" type="text" maxlength="120" placeholder="Ej: INE, salarios por ocupación; ofertas de empleo de la zona" data-f="soc.fuenteDet" autocomplete="off"></div></div>
+            <div class="group"><div class="field"><label for="f-fsoc">¿Cuál, en concreto? <em>(opcional)</em></label><input id="f-fsoc" type="text" maxlength="120" placeholder="Ej: INE, salarios por ocupación; ofertas de empleo de la zona" data-ph-b2b="Ej: DIRCE del INE (empresas por sector y tamaño); perfiles de LinkedIn del sector" data-f="soc.fuenteDet" autocomplete="off"></div></div>
             <div class="trust" data-trust="soc"></div>
           </div>
-          <div class="tip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg><span><b>Misión cumplida:</b> con este paso terminas el perfil sociodemográfico. Ahora toca meterte en su cabeza.</span></div>
+          <div class="tip only-b2b"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg><span><b>Pista:</b> el Directorio Central de Empresas (DIRCE) del INE dice cuántas empresas hay de cada sector y tamaño en tu provincia. Las cámaras de comercio y LinkedIn ayudan a ponerles cara.</span></div>
+          <div class="tip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg><span><b>Misión cumplida:</b> con este paso terminas el <span data-soc-lc>perfil sociodemográfico</span>. Ahora toca meterte en su cabeza.</span></div>
         </section>
 
         <!-- Paso 4 -->
@@ -744,7 +788,8 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
           </div>
           <div class="block">
             <h3>Inquietudes <em class="h3-em">(hasta 4)</em></h3>
-            <div class="tags" data-path="psi.inquietudes" data-max="4" data-list="INQ" data-ph="Escribe una inquietud"></div>
+            <div class="tags only-b2c" data-path="psi.inquietudes" data-max="4" data-list="INQ" data-ph="Escribe una inquietud"></div>
+            <div class="tags only-b2b" data-path="psi.inquietudes" data-max="4" data-list="INQ_B2B" data-ph="Escribe una inquietud"></div>
           </div>
         </section>
 
@@ -755,18 +800,18 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
           <p class="step-desc">La misión de tu personaje: qué necesidad o problema tiene y por qué necesita resolverlo ahora.</p>
           <div class="biz" id="biz-box" hidden>Tu negocio: <b id="biz-name"></b></div>
           <div class="block">
-            <div class="group"><span class="lbl">¿Qué le empuja a comprar? <em>(hasta 2)</em></span><div class="chips" data-path="psi.motor" data-mode="multi" data-max="2" data-list="MOTORES"></div></div>
-            <div class="group"><div class="field"><label for="f-nec">¿Qué necesidad o problema quiere solucionar?</label><textarea id="f-nec" maxlength="320" placeholder="Ej: Vive en un piso pequeño y no encuentra muebles que aprovechen el espacio sin costarle una fortuna." data-f="psi.necesidad"></textarea><span class="count" id="cnt-nec">0 / 320</span></div></div>
+            <div class="group"><span class="lbl">¿Qué le empuja a comprar? <em>(hasta 2)</em></span><div class="chips only-b2c" data-path="psi.motor" data-mode="multi" data-max="2" data-list="MOTORES"></div><div class="chips only-b2b" data-path="psi.motor" data-mode="multi" data-max="2" data-list="MOTORES_B2B"></div></div>
+            <div class="group"><div class="field"><label for="f-nec">¿Qué necesidad o problema quiere solucionar?</label><textarea id="f-nec" maxlength="320" placeholder="Ej: Vive en un piso pequeño y no encuentra muebles que aprovechen el espacio sin costarle una fortuna." data-ph-b2b="Ej: Los uniformes se estropean en pocos meses y cada hotel los compra por su cuenta, así que el gasto se dispara." data-f="psi.necesidad"></textarea><span class="count" id="cnt-nec">0 / 320</span></div></div>
           </div>
           <div class="block">
-            <div class="group"><div class="field"><label for="f-sol">¿Cómo lo resuelve tu producto o servicio? <em style="text-transform:none;letter-spacing:0;font-weight:500;">(opcional)</em></label><textarea id="f-sol" maxlength="240" placeholder="Ej: Diseñamos el mueble a su medida y se lo montamos en casa en una semana." data-f="psi.solucion" style="min-height:76px;"></textarea></div></div>
-            <div class="group"><div class="field"><label for="f-frase">Su frase típica <em style="text-transform:none;letter-spacing:0;font-weight:500;">(opcional)</em></label><input id="f-frase" type="text" maxlength="110" placeholder="Ej: «No tengo tiempo, solo quiero que funcione.»" data-f="psi.frase" autocomplete="off"></div></div>
+            <div class="group"><div class="field"><label for="f-sol">¿Cómo lo resuelve tu producto o servicio? <em style="text-transform:none;letter-spacing:0;font-weight:500;">(opcional)</em></label><textarea id="f-sol" maxlength="240" placeholder="Ej: Diseñamos el mueble a su medida y se lo montamos en casa en una semana." data-ph-b2b="Ej: Un solo pedido para los tres hoteles, con tallas guardadas y reposición en 48 horas." data-f="psi.solucion" style="min-height:76px;"></textarea></div></div>
+            <div class="group"><div class="field"><label for="f-frase">Su frase típica <em style="text-transform:none;letter-spacing:0;font-weight:500;">(opcional)</em></label><input id="f-frase" type="text" maxlength="110" placeholder="Ej: «No tengo tiempo, solo quiero que funcione.»" data-ph-b2b="Ej: «Si lo tengo que justificar ante dirección, necesito números.»" data-f="psi.frase" autocomplete="off"></div></div>
           </div>
           <div class="block">
             <h3>¿De dónde salen estos datos?</h3>
             <p class="note block-note">El carácter y las motivaciones no salen en las estadísticas: se descubren hablando con clientes. Marca todas las fuentes que hayas usado.</p>
             <div class="group"><div class="chips" data-path="psi.fuentes" data-mode="multi" data-max="7" data-list="FUENTES"></div></div>
-            <div class="group"><div class="field"><label for="f-fpsi">¿Cuál, en concreto? <em>(opcional)</em></label><input id="f-fpsi" type="text" maxlength="120" placeholder="Ej: Entrevistas a 4 compradores de muebles en una tienda del barrio" data-f="psi.fuenteDet" autocomplete="off"></div></div>
+            <div class="group"><div class="field"><label for="f-fpsi">¿Cuál, en concreto? <em>(opcional)</em></label><input id="f-fpsi" type="text" maxlength="120" placeholder="Ej: Entrevistas a 4 compradores de muebles en una tienda del barrio" data-ph-b2b="Ej: Entrevistas a 3 responsables de compras en una feria del sector" data-f="psi.fuenteDet" autocomplete="off"></div></div>
             <div class="trust" data-trust="psi"></div>
           </div>
         </section>
@@ -778,14 +823,15 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
           <p class="step-desc">Ya sabes quién es y qué le mueve. Ahora toca decidir dónde le encuentras y qué le frena antes de comprar.</p>
           <div class="block">
             <h3>Dónde encontrarle</h3>
-            <div class="group"><span class="lbl">Canales donde está <em>(hasta 3)</em></span><div class="chips" data-path="lle.canales" data-mode="multi" data-max="3" data-list="CANALES"></div></div>
-            <div class="group"><div class="field"><label for="f-momento">¿Cuándo y cómo suele comprar? <em>(opcional)</em></label><input id="f-momento" type="text" maxlength="160" placeholder="Ej: Desde el móvil, por la noche, cuando los niños ya duermen" data-f="lle.momento" autocomplete="off"></div></div>
+            <div class="group"><span class="lbl">Canales donde está <em>(hasta 3)</em></span><div class="chips only-b2c" data-path="lle.canales" data-mode="multi" data-max="3" data-list="CANALES"></div><div class="chips only-b2b" data-path="lle.canales" data-mode="multi" data-max="3" data-list="CANALES_B2B"></div></div>
+            <div class="group"><div class="field"><label for="f-momento">¿Cuándo y cómo suele comprar? <em>(opcional)</em></label><input id="f-momento" type="text" maxlength="160" placeholder="Ej: Desde el móvil, por la noche, cuando los niños ya duermen" data-ph-b2b="Ej: Al preparar el presupuesto anual, en octubre. Pide tres presupuestos antes de decidir." data-f="lle.momento" autocomplete="off"></div></div>
           </div>
           <div class="block">
             <h3>Frenos y objeciones <em class="h3-em">(hasta 3)</em></h3>
             <p class="note block-note">Lo que le haría decir «no» aunque le guste lo que ofreces.</p>
-            <div class="tags" data-path="lle.frenos" data-max="3" data-list="FRENOS" data-ph="Escribe un freno"></div>
-            <div class="group group-gap"><div class="field"><label for="f-conv">¿Cómo le convences? <em>(opcional)</em></label><textarea id="f-conv" maxlength="240" placeholder="Ej: Le dejamos probarlo 30 días y le enseñamos opiniones de otras familias del barrio." data-f="lle.convencer"></textarea><span class="count" id="cnt-conv">0 / 240</span></div></div>
+            <div class="tags only-b2c" data-path="lle.frenos" data-max="3" data-list="FRENOS" data-ph="Escribe un freno"></div>
+            <div class="tags only-b2b" data-path="lle.frenos" data-max="3" data-list="FRENOS_B2B" data-ph="Escribe un freno"></div>
+            <div class="group group-gap"><div class="field"><label for="f-conv">¿Cómo le convences? <em>(opcional)</em></label><textarea id="f-conv" maxlength="240" placeholder="Ej: Le dejamos probarlo 30 días y le enseñamos opiniones de otras familias del barrio." data-ph-b2b="Ej: Muestras gratis para un turno y un cálculo de lo que ahorra en un año, listo para enseñárselo a dirección." data-f="lle.convencer"></textarea><span class="count" id="cnt-conv">0 / 240</span></div></div>
           </div>
           <div class="tip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg><span><b>Pista:</b> si no sabes qué le frena, pregúntaselo. Dos o tres entrevistas cortas a clientes reales valen más que cualquier suposición.</span></div>
         </section>
@@ -812,7 +858,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     </div>
     <div class="card result">
       <div class="rep-head">
-        <div><p class="rep-kicker">Ficha · Buyer persona</p><h2 class="rep-title" id="rep-title">Tu negocio</h2></div>
+        <div><p class="rep-kicker" id="rep-kicker">Ficha · Buyer persona</p><h2 class="rep-title" id="rep-title">Tu negocio</h2></div>
         <div class="rep-meta"><strong id="rep-alumno"></strong><span id="rep-date"></span></div>
       </div>
       <div class="hero">
@@ -840,7 +886,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
         <button type="button" class="btn btn-ghost no-demo" id="btn-restart-2">Crear otro personaje</button>
       </div>
       <div class="test-cta no-demo no-print">
-        <div><b>Test rápido</b><span>Diez preguntas para comprobar lo que has aprendido.</span></div>
+        <div><b>Test rápido</b><span>Once preguntas para comprobar lo que has aprendido.</span></div>
         <button type="button" class="btn btn-ghost" id="btn-test">Hacer el test →</button>
       </div>
     </div>
@@ -851,7 +897,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     <div class="card test-card">
       <div class="test-top">
         <div><p class="rep-kicker">Test rápido</p><h2 class="step-title">¿Dominas el buyer persona?</h2>
-          <p class="step-desc">Diez preguntas. Si fallas, lee la explicación y vuelve a probar: cuenta tu última respuesta.</p></div>
+          <p class="step-desc">Once preguntas. Si fallas, lee la explicación y vuelve a probar: cuenta tu última respuesta.</p></div>
         <span class="score" id="sc-q" aria-live="polite"></span>
       </div>
       <div class="quiz" id="quiz"></div>
@@ -898,7 +944,17 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     FUENTES: ['Estadísticas oficiales (INE…)','Informes del sector','Entrevistas','Encuestas','Observación directa','Conozco a alguien así','Intuición'],
     CANALES: ['Instagram','TikTok','YouTube','LinkedIn','Grupos de WhatsApp','Buscadores (Google…)','Medios locales (prensa, radio)','Tienda física','Ferias o eventos','Boca a boca','Correo electrónico','Marketplaces (Amazon, Wallapop…)'],
     FRENOS: ['Le parece caro','No conoce la marca','Ya usa otra solución','Le da pereza cambiar','Duda de la calidad','Gastos de envío','Miedo a equivocarse','Necesita consultarlo'],
-    MOTORES: ['Ahorrar dinero','Ahorrar tiempo','Cuidar su imagen','Cuidar su salud','Sentirse seguro/a','Divertirse','Sentirse parte de una comunidad','Aprender']
+    MOTORES: ['Ahorrar dinero','Ahorrar tiempo','Cuidar su imagen','Cuidar su salud','Sentirse seguro/a','Divertirse','Sentirse parte de una comunidad','Aprender'],
+    /* Venta a empresas (B2B) */
+    TIPOS: [{v:'b2c',l:'A personas (B2C)'},{v:'b2b',l:'A empresas (B2B)'}],
+    DEPTOS: ['Dirección o gerencia','Compras','Marketing y ventas','Recursos humanos','Administración y finanzas','Operaciones o producción','Informática','Calidad y prevención'],
+    PRESU: ['Menos de 1.000 € al año','1.000 – 5.000 €','5.000 – 20.000 €','20.000 – 100.000 €','Más de 100.000 €','No lo sabe aún'],
+    PAPELES: ['Lo usa','Decide la compra','Aprueba el gasto','Influye o recomienda'],
+    TAMANOS: ['Autónomo/a sin plantilla','Microempresa (menos de 10)','Pequeña (10 – 49)','Mediana (50 – 249)','Grande (250 o más)'],
+    INQ_B2B: ['Cumplir objetivos','Falta de tiempo','Recortes de presupuesto','Quedar mal ante dirección','Cambios en la normativa','Rotación de personal','Digitalizarse','Estabilidad laboral'],
+    MOTORES_B2B: ['Reducir costes','Ganar productividad','Cumplir la normativa','Reducir riesgos','Crecer en ventas','Mejorar la imagen de la empresa','Ahorrar tiempo al equipo','Quedar bien ante dirección'],
+    CANALES_B2B: ['LinkedIn','Buscadores (Google…)','Ferias del sector','Visita comercial','Correo electrónico','Revistas y webs del sector','Asociaciones o cámaras de comercio','Recomendación de otra empresa','Jornadas y webinarios','Grupos de WhatsApp'],
+    FRENOS_B2B: ['Presupuesto cerrado','Necesita el visto bueno de dirección','Contrato con su proveedor actual','Compra lenta, con varios presupuestos','No encaja con lo que ya usa','Duda de la seriedad del proveedor','Le parece caro','Formar al equipo lleva tiempo']
   };
   var SLIDERS = [
     {k:'intro', n:'Energía social', l:'Reservado/a', r:'Sociable'},
@@ -908,6 +964,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     {k:'precio',n:'Qué valora más', l:'El precio', r:'La calidad'}
   ];
   var STEPS = ['Crea a tu personaje','Formación y economía','Entorno vital','Carácter','Estilo de vida','Motivación de compra','Cómo llegar a tu cliente'];
+  var STEPS_B2B = ['Crea a tu personaje','Su puesto','Su empresa','Carácter','Estilo de vida','Motivación de compra','Cómo llegar a tu cliente'];
   var LAST = STEPS.length, FICHA = LAST + 1, TEST = FICHA + 1;
   // Peso de cada fuente para la fiabilidad (mismo orden que L.FUENTES)
   var FUENTE_PESO = [3, 3, 3, 2, 2, 1, 0];
@@ -958,7 +1015,21 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
         solucion: 'Menús caseros adaptados (sin sal, triturados…) que se reparten tres veces por semana, con un aviso al móvil de la hija.', frase: 'Con que mi madre coma bien, yo duermo tranquila.',
         fuentes: ['Entrevistas'], fuenteDet: 'Entrevistas a 6 personas que cuidan de sus padres mayores' },
       lle: { canales: ['Grupos de WhatsApp', 'Boca a boca', 'Medios locales (prensa, radio)'], momento: 'Al salir del trabajo. Lo decide con sus hermanos por WhatsApp.',
-        frenos: ['Necesita consultarlo', 'Le parece caro', 'Duda de la calidad'], convencer: 'Semana de prueba a mitad de precio y una llamada de bienvenida a su madre.' } }
+        frenos: ['Necesita consultarlo', 'Le parece caro', 'Duda de la calidad'], convencer: 'Semana de prueba a mitad de precio y una llamada de bienvenida a su madre.' } },
+    { negocio: 'Uniformes de trabajo para hoteles y restaurantes', alumno: 'Caso de ejemplo', tipo: 'b2b',
+      av: { skin: 1, hs: 'mono', hc: 0, outfit: 0, top: 'camisa', face: 'auto', beard: 'none', glasses: 'cuadradas', head: 'none', ear: 'aros' },
+      soc: { nombre: 'Lucía Prieto', edad: '41', genero: 'Mujer', nacionalidad: 'Española', trabajo: 'Responsable de compras', residencia: 'Málaga, con dos hoteles más en la Costa del Sol', entorno: 'Zona costera o turística',
+        fuentes: ['Estadísticas oficiales (INE…)', 'Informes del sector'], fuenteDet: 'DIRCE del INE (hoteles por tamaño en Málaga) y perfiles de LinkedIn de responsables de compras' },
+      emp: { departamento: 'Compras', presupuesto: '20.000 – 100.000 €', papel: ['Decide la compra'], otros: 'El director general aprueba los gastos de más de 10.000 € y los jefes de sala y de pisos opinan sobre la comodidad.',
+        sector: 'Hostelería, hoteles de playa', tamano: 'Mediana (50 – 249)' },
+      psi: { descripcion: 'Metódica y negociadora. Compara siempre tres presupuestos y no se arriesga con proveedores nuevos si no tiene referencias.',
+        rasgos: ['Organizado/a', 'Prudente'], sl: { intro: 55, plan: 15, innov: 35, razon: 20, precio: 45 }, estilo: ['Sin tiempo para nada', 'Muy familiar'],
+        aficiones: ['Pádel', 'Cocinar', 'Viajar'], inquietudes: ['Cumplir objetivos', 'Recortes de presupuesto', 'Rotación de personal'], motor: ['Reducir costes', 'Mejorar la imagen de la empresa'],
+        necesidad: 'Cada temporada entra personal nuevo y los uniformes se pierden o se estropean. Cada hotel los pide por su cuenta y el gasto se dispara.',
+        solucion: 'Un solo pedido para los tres hoteles, tallas guardadas por empleado y reposición en 48 horas.', frase: 'Si se lo tengo que justificar a dirección, necesito números.',
+        fuentes: ['Entrevistas', 'Observación directa'], fuenteDet: 'Entrevistas a 3 responsables de compras de hoteles en una feria de hostelería' },
+      lle: { canales: ['LinkedIn', 'Ferias del sector', 'Visita comercial'], momento: 'En otoño, al preparar el presupuesto del año siguiente. Pide muestras y tres presupuestos.',
+        frenos: ['Contrato con su proveedor actual', 'Necesita el visto bueno de dirección', 'Duda de la seriedad del proveedor'], convencer: 'Muestras gratis para un turno, referencias de otros hoteles y un cálculo del ahorro anual listo para enseñárselo a dirección.' } }
   ];
 
   /* Test rápido: [id, pregunta, opciones, correcta, explicación] */
@@ -992,7 +1063,10 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
       'Lo normal es tener dos o tres: los grupos de clientes que más pesan en tu negocio. Uno por cliente ya no sería útil.'],
     ['q10', '¿Cuándo conviene revisar el buyer persona?',
       ['Nunca: se hace una vez y ya.', 'Cuando cambian el mercado o tus clientes, con datos nuevos.', 'Cada día.'], 1,
-      'Tus clientes cambian. Revísalo cuando tengas datos nuevos: ventas, encuestas o entrevistas.']
+      'Tus clientes cambian. Revísalo cuando tengas datos nuevos: ventas, encuestas o entrevistas.'],
+    ['q11', 'Vendes un programa de nóminas a gestorías (B2B). ¿Quién es tu buyer persona?',
+      ['La gestoría como empresa, sin nombre ni cara.', 'La persona de la gestoría que pesa en la compra, con su cargo, su empresa y quién más opina.', 'Cualquier persona que trabaje en una gestoría.'], 1,
+      'Compra la empresa, pero deciden personas. Tu buyer persona es quien pesa en la decisión, y conviene saber quién más interviene: quién lo usa, quién aprueba el gasto y quién opina.']
   ];
 
   // Selectores ‹ › del creador: [ruta, lista, nombre]
@@ -1000,11 +1074,13 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
 
   function blank() {
     return {
-      alumno:'', negocio:'',
+      alumno:'', negocio:'', tipo:'b2c',
       av:{skin:1, hs:'corto', hc:1, outfit:0, top:'camiseta', face:'auto', beard:'none', glasses:'none', head:'none', ear:'none', extra:'none'},
       soc:{nombre:'',edad:'',genero:'',nacionalidad:'',estudios:'',trabajo:'',ingM:'',ingA:'',ingAauto:false,familia:'',familiaDet:'',residencia:'',entorno:'',fuentes:[],fuenteDet:''},
       psi:{descripcion:'',rasgos:[],sl:{intro:50,plan:50,innov:50,razon:50,precio:50},estilo:[],aficiones:[],inquietudes:[],motor:[],necesidad:'',solucion:'',frase:'',fuentes:[],fuenteDet:''},
       lle:{canales:[],momento:'',frenos:[],convencer:''},
+      // Solo en B2B (el cargo va en soc.trabajo y la ubicación de la empresa en soc.residencia)
+      emp:{departamento:'',presupuesto:'',papel:[],otros:'',sector:'',tamano:''},
       quiz:{}
     };
   }
@@ -1153,12 +1229,22 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
   /* ───────── Progreso ───────── */
   function has(v) { return v != null && String(v).trim() !== ''; }
   var SOC_F = ['nombre','edad','genero','nacionalidad','estudios','trabajo','ingM','ingA','familia','residencia'];
-  function socDone() { return SOC_F.filter(function (k) { return has(state.soc[k]); }).length + (state.soc.fuentes.length > 0 ? 1 : 0); }
+  // En B2B: los datos de la persona (sin estudios, ingresos ni familia) y los de su empresa y su papel en la compra
+  var SOC_F_B2B = ['nombre','edad','genero','nacionalidad','trabajo','residencia'], EMP_F = ['departamento','presupuesto','sector','tamano'];
+  function isB2B() { return state.tipo === 'b2b'; }
+  function socChecks() {
+    var s = state.soc, e = state.emp;
+    if (!isB2B()) return SOC_F.map(function (k) { return has(s[k]); }).concat([s.fuentes.length > 0]);
+    return SOC_F_B2B.map(function (k) { return has(s[k]); }).concat(EMP_F.map(function (k) { return has(e[k]); }), [e.papel.length > 0, s.fuentes.length > 0]);
+  }
+  function socDone() { return socChecks().filter(Boolean).length; }
+  function socN() { return socChecks().length; }
+  function socName() { return isB2B() ? 'Perfil profesional' : 'Perfil sociodemográfico'; }
   function psiChecks() { var p = state.psi; return [has(p.descripcion), p.rasgos.length > 0, p.estilo.length > 0, p.aficiones.length > 0, p.inquietudes.length > 0, p.motor.length > 0, has(p.necesidad), p.fuentes.length > 0]; }
   function psiDone() { return psiChecks().filter(Boolean).length; }
   function lleDone() { var l = state.lle; return (l.canales.length > 0 ? 1 : 0) + (has(l.momento) ? 1 : 0) + (l.frenos.length > 0 ? 1 : 0); }
-  var SOC_N = SOC_F.length + 1, PSI_N = 8, LLE_N = 3, TOTAL_N = SOC_N + PSI_N + LLE_N;
-  function progress() { var t = socDone() + psiDone() + lleDone(); return { total: t, pct: Math.round(t / TOTAL_N * 100), xp: t * 10 + ' / ' + TOTAL_N * 10 + ' XP' }; }
+  var PSI_N = 8, LLE_N = 3;
+  function progress() { var t = socDone() + psiDone() + lleDone(), n = socN() + PSI_N + LLE_N; return { total: t, pct: Math.round(t / n * 100), xp: t * 10 + ' / ' + n * 10 + ' XP' }; }
   function trust(prof) {
     var o = state[prof], pts = 0;
     if (!o.fuentes.length) return 'none';
@@ -1168,11 +1254,11 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
   }
   function firstOpen() { for (var n = 1; n <= LAST; n++) if (!stepDone(n)) return n; return 1; }
   function stepDone(n) {
-    var s = state.soc, p = state.psi;
+    var s = state.soc, p = state.psi, e = state.emp, b2b = isB2B();
     switch (n) {
       case 1: return has(s.nombre) && has(s.edad) && has(s.genero) && has(s.nacionalidad);
-      case 2: return has(s.estudios) && has(s.trabajo) && has(s.ingM) && has(s.ingA);
-      case 3: return has(s.familia) && has(s.residencia);
+      case 2: return b2b ? has(s.trabajo) && has(e.departamento) && has(e.presupuesto) && e.papel.length > 0 : has(s.estudios) && has(s.trabajo) && has(s.ingM) && has(s.ingA);
+      case 3: return b2b ? has(e.sector) && has(e.tamano) && has(s.residencia) : has(s.familia) && has(s.residencia);
       case 4: return has(p.descripcion) && p.rasgos.length > 0;
       case 5: return p.estilo.length > 0 && p.aficiones.length > 0 && p.inquietudes.length > 0;
       case 6: return p.motor.length > 0 && has(p.necesidad);
@@ -1185,8 +1271,14 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     if (!has(s.nombre)) m.push('nombre');
     if (!has(s.edad)) m.push('edad');
     if (!has(s.genero)) m.push('género');
-    if (!has(s.trabajo)) m.push('trabajo actual');
-    if (!has(s.residencia)) m.push('lugar de residencia');
+    if (isB2B()) {
+      if (!has(s.trabajo)) m.push('cargo');
+      if (!has(state.emp.sector)) m.push('sector de su empresa');
+      if (!has(s.residencia)) m.push('dónde está la empresa');
+    } else {
+      if (!has(s.trabajo)) m.push('trabajo actual');
+      if (!has(s.residencia)) m.push('lugar de residencia');
+    }
     if (!has(p.descripcion)) m.push('descripción de su personalidad');
     if (!has(p.necesidad)) m.push('necesidad o problema');
     if (!state.lle.canales.length) m.push('canales donde encontrarle');
@@ -1202,12 +1294,18 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     var ei = L.ESTUDIOS.indexOf(s.estudios), im = L.ING_M.indexOf(s.ingM), ia = L.ING_A.indexOf(s.ingA);
     var tr = s.trabajo || '';
     var noJob = /estudiant|jubilad|pensionist|parad|desemplead|hogar|ama de casa|sin empleo/i;
-    if (age) {
+    if (isB2B()) {
+      var e = state.emp, pp = e.papel;
+      if (age && age < 18) a.push('Tiene ' + age + ' años y compra para una empresa. No es lo habitual: revisa la edad o el cargo.');
+      if (pp.length && pp.indexOf('Decide la compra') < 0 && pp.indexOf('Aprueba el gasto') < 0 && !has(e.otros)) a.push('¿Quién decide?|Tu personaje no decide la compra ni aprueba el gasto. Anota en el paso 2 quién lo hace: también tendrás que convencer a esa persona.');
+      if (/^Autónomo/.test(e.tamano) && pp.length && pp.length < 3) a.push('Un autónomo sin plantilla suele usar, decidir y pagar él mismo. Revisa su papel en la compra o el tamaño de la empresa.');
+    } else if (age) {
       if (age < 16 && has(tr) && !noJob.test(tr)) a.push('Tiene ' + age + ' años y un trabajo. A esa edad no es lo habitual. Si compra menor de edad, ¿quién paga: él o ella, o su familia?');
       if (age < 18 && ei >= 4) a.push('Con ' + age + ' años es difícil tener «' + s.estudios + '». Revisa la edad o el nivel educativo.');
       else if (age < 23 && ei === 6) a.push('Un máster a los ' + age + ' años es poco probable. Revisa la edad o el nivel educativo.');
       if (age < 18 && im >= 4) a.push('Esos ingresos mensuales son muy altos para alguien de ' + age + ' años.');
     }
+    if (isB2B()) im = ia = -1;
     if (im > -1 && ia > -1 && Math.abs(im - ia) > 1) a.push('Los ingresos mensuales y anuales no cuadran. Recuerda: anual ≈ mensual × 12.');
     if (im === 0 && has(tr) && !noJob.test(tr)) a.push('Dices que no tiene ingresos propios, pero tiene un trabajo. ¿Es un trabajo sin remunerar o hay que ajustar los ingresos?');
     var pf = state.psi.fuentes;
@@ -1283,6 +1381,27 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
   function syncInputs() {
     document.querySelectorAll('[data-f]').forEach(function (el) { el.value = get(el.getAttribute('data-f')) || ''; });
   }
+  /* Modo B2C / B2B: clase en el body (muestra u oculta lo propio de cada modo), nombres del perfil y ejemplos de los campos */
+  function applyMode() {
+    var b2b = isB2B();
+    document.body.classList.toggle('mode-b2b', b2b);
+    document.querySelectorAll('[data-soc]').forEach(function (el) { el.textContent = socName(); });
+    document.querySelectorAll('[data-soc-lc]').forEach(function (el) { el.textContent = socName().toLowerCase(); });
+    document.querySelectorAll('[data-ph-b2b]').forEach(function (el) {
+      if (!el.hasAttribute('data-ph-b2c')) el.setAttribute('data-ph-b2c', el.getAttribute('placeholder') || '');
+      el.setAttribute('placeholder', el.getAttribute(b2b ? 'data-ph-b2b' : 'data-ph-b2c'));
+    });
+  }
+  // Al cambiar de modo, las opciones de lista que no existen en el otro (motivos y canales) se quitan para que no queden ocultas en la ficha
+  function switchMode() {
+    var b2b = isB2B(), gone = 0;
+    [['psi', 'motor', b2b ? 'MOTORES_B2B' : 'MOTORES'], ['lle', 'canales', b2b ? 'CANALES_B2B' : 'CANALES']].forEach(function (x) {
+      var arr = state[x[0]][x[1]], keep = arr.filter(function (v) { return L[x[2]].indexOf(v) > -1; });
+      gone += arr.length - keep.length; state[x[0]][x[1]] = keep;
+    });
+    applyMode();
+    if (gone) toast('Se ' + (gone === 1 ? 'ha quitado 1 opción' : 'han quitado ' + gone + ' opciones') + ' de motivos o canales que no existen en este modo.');
+  }
   function refreshCard() {
     var s = state.soc, sd = socDone(), pd = psiDone(), ld = lleDone(), pr = progress(), pct = pr.pct;
     var nm = $('card-name');
@@ -1304,7 +1423,8 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
       toast('¡Sube de nivel! Ahora es «' + LEVELS[li][1] + '»');
     }
     lastLvl = li;
-    $('bar-soc-n').textContent = sd + '/' + SOC_N; $('bar-soc').style.width = Math.round(sd / SOC_N * 100) + '%';
+    var sn = socN();
+    $('bar-soc-n').textContent = sd + '/' + sn; $('bar-soc').style.width = Math.round(sd / sn * 100) + '%';
     $('bar-psi-n').textContent = pd + '/' + PSI_N; $('bar-psi').style.width = Math.round(pd / PSI_N * 100) + '%';
     $('bar-lle-n').textContent = ld + '/' + LLE_N; $('bar-lle').style.width = Math.round(ld / LLE_N * 100) + '%';
     $('card-tags').innerHTML = state.psi.rasgos.map(function (r) { return '<span class="pill">' + esc(r) + '</span>'; }).join('');
@@ -1323,7 +1443,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
       b.classList.toggle('done', n < FICHA && n !== step && stepDone(n));
       b.disabled = (n === FICHA && missing().length > 0);
     });
-    if (step >= 1 && step <= LAST) $('step-label').innerHTML = 'Paso <b>' + step + ' de ' + LAST + '</b> · ' + esc(STEPS[step - 1]);
+    if (step >= 1 && step <= LAST) $('step-label').innerHTML = 'Paso <b>' + step + ' de ' + LAST + '</b> · ' + esc((isB2B() ? STEPS_B2B : STEPS)[step - 1]);
     var next = $('btn-next'), hint = $('hint'), miss = missing();
     $('btn-prev').style.visibility = step <= 1 ? 'hidden' : 'visible';
     if (step === LAST) {
@@ -1354,6 +1474,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
   function goTo(n) {
     if (n === FICHA && missing().length) { toast('Completa los datos obligatorios para generar la ficha.'); return; }
     step = n;
+    applyMode();
     show('screen-intro', n === 0);
     show('screen-app', n >= 1 && n <= LAST);
     show('screen-result', n === FICHA);
@@ -1380,7 +1501,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     $('examples').innerHTML = EXAMPLES.map(function (e, i) {
       var st = exampleState(i);
       return '<button type="button" class="ex" data-ex="' + i + '"><span class="ex-av" aria-hidden="true">' + avatarFor(st) + '</span>' +
-        '<span class="ex-txt"><b>' + esc(st.soc.nombre) + ', ' + esc(st.soc.edad) + '</b><span>' + esc(st.negocio) + '</span></span><span class="ex-go">Ver su ficha →</span></button>';
+        '<span class="ex-txt"><b>' + esc(st.soc.nombre) + ', ' + esc(st.soc.edad) + '</b><span>' + esc(st.negocio) + (st.tipo === 'b2b' ? ' (B2B)' : '') + '</span></span><span class="ex-go">Ver su ficha →</span></button>';
     }).join('');
   }
   function openExample(i) {
@@ -1441,11 +1562,29 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
   }
   function lc(t) { return String(t).charAt(0).toLowerCase() + String(t).slice(1); }
   function joinEs(a) { return a.length < 2 ? a.join('') : a.slice(0, -1).join(', ') + ' y ' + a[a.length - 1]; }
+  // Tamaño de empresa dentro de una frase: «una empresa mediana (50 – 249 personas)»
+  function sizePhrase(t) {
+    var m = /^(Microempresa|Pequeña|Mediana|Grande) \((.+)\)$/.exec(t || '');
+    if (!m) return /^Autónomo/.test(t || '') ? 'su propio negocio' : 'una empresa';
+    return m[1] === 'Microempresa' ? 'una microempresa (' + m[2] + ' personas)' : 'una empresa ' + m[1].toLowerCase() + ' (' + m[2] + ' personas)';
+  }
+  function summaryB2B() {
+    var s = state.soc, e = state.emp, nm = has(s.nombre) ? s.nombre.trim() : 'Tu cliente';
+    var noun = s.genero === 'Mujer' ? 'una mujer' : s.genero === 'Hombre' ? 'un hombre' : 'una persona';
+    var a = nm + ' es ' + noun + (has(s.edad) ? ' de ' + s.edad + ' años' : '');
+    if (has(s.trabajo)) a += ', ' + lc(s.trabajo.trim()) + (has(e.departamento) ? ' (' + lc(e.departamento) + ')' : '');
+    a += ' en ' + sizePhrase(e.tamano) + (has(e.sector) ? ' del sector ' + lc(e.sector.trim()) : '') + (has(s.residencia) ? ', en ' + s.residencia.trim() : '') +
+      (/^Autónomo/.test(e.tamano) ? ', como ' + gend('autónomo/a') + ' sin plantilla' : '') + '.';
+    if (e.papel.length) a += ' Su papel en la compra: ' + joinEs(e.papel.map(lc)) + '.';
+    return a;
+  }
   function summaryParas() {
     var s = state.soc, p = state.psi, nm = has(s.nombre) ? s.nombre.trim() : 'Tu cliente';
     var noun = s.genero === 'Mujer' ? 'una mujer' : s.genero === 'Hombre' ? 'un hombre' : 'una persona';
     var a = nm + ' es ' + noun + (has(s.edad) ? ' de ' + s.edad + ' años' : '') + (has(s.nacionalidad) ? ' y de nacionalidad ' + lc(s.nacionalidad.trim()) : '');
+    if (isB2B()) a = summaryB2B().slice(0, -1);
     var tail = [];
+    if (isB2B()) s = { residencia: '', trabajo: '' };
     if (has(s.residencia)) tail.push('vive en ' + s.residencia.trim() + (has(s.familia) ? ' (' + lc(s.familia) + ')' : ''));
     if (has(s.trabajo)) tail.push('su ocupación actual es ' + lc(s.trabajo.trim()));
     if (tail.length === 2) a += ', que ' + tail[0] + ' y cuya ocupación actual es ' + lc(s.trabajo.trim());
@@ -1456,7 +1595,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     if (p.motor.length) parts.push((parts.length ? 'y ' : '') + 'le mueve ' + joinEs(p.motor.map(function (r) { return lc(gend(r)); })));
     var c = '', l = state.lle;
     // Las marcas mantienen su mayúscula; el resto va en minúscula dentro de la frase
-    if (l.canales.length) c += ' Se le encuentra sobre todo en ' + joinEs(l.canales.map(function (x) { return /^(Instagram|TikTok|YouTube|LinkedIn)$/.test(x) ? x : lc(x); })) + '.';
+    if (l.canales.length) c += (isB2B() ? ' Canales para llegar a esta persona: ' : ' Se le encuentra sobre todo en ') + joinEs(l.canales.map(function (x) { return /^(Instagram|TikTok|YouTube|LinkedIn)$/.test(x) ? x : lc(x); })) + '.';
     if (l.frenos.length) c += ' Lo que más le frena: ' + joinEs(l.frenos.map(lc)) + '.';
     if (!parts.length) return a + c;
     var b = parts.join(' ');
@@ -1476,7 +1615,8 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     $('rep-alumno').textContent = state.alumno;
     $('rep-date').textContent = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
     $('res-name').textContent = s.nombre;
-    $('res-sub').textContent = [has(s.edad) ? s.edad + ' años' : '', s.genero, s.nacionalidad, s.residencia].filter(has).join(' · ');
+    $('res-sub').textContent = (isB2B() ? [has(s.edad) ? s.edad + ' años' : '', s.genero, s.trabajo, state.emp.sector] : [has(s.edad) ? s.edad + ' años' : '', s.genero, s.nacionalidad, s.residencia]).filter(has).join(' · ');
+    $('rep-kicker').textContent = 'Ficha · Buyer persona' + (isB2B() ? ' B2B' : '');
     $('res-lvl').textContent = level(pct);
     $('res-xp').textContent = pr.xp;
     $('res-xpbar').style.width = pct + '%';
@@ -1486,7 +1626,12 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     var fam = [s.familia, s.familiaDet].filter(has).join('. ');
     var res = [s.residencia, s.entorno].filter(has).join(' · ');
     $('res-summary').innerHTML = '<span class="sum-k">En resumen</span>' + esc(summaryParas());
-    var socH = '<section class="panel soc"><h3><span>Perfil sociodemográfico</span>' + trustBadge('soc') + '</h3><div class="cols">' +
+    var e = state.emp;
+    var socH = isB2B() ? '<section class="panel soc"><h3><span>Perfil profesional</span>' + trustBadge('soc') + '</h3><div class="cols">' +
+      '<div class="grp"><h4>Identidad</h4><dl>' + kv('Edad', has(s.edad) ? s.edad + ' años' : '') + kv('Género', s.genero) + kv('Nacionalidad', s.nacionalidad) + '</dl></div>' +
+      '<div class="grp"><h4>Su puesto</h4><dl>' + kv('Cargo', s.trabajo) + kv('Departamento', e.departamento) + kv('Presupuesto', e.presupuesto) + kv('Papel en la compra', e.papel.join(', ')) + (has(e.otros) ? kv('Quién más interviene', e.otros) : '') + '</dl></div>' +
+      '<div class="grp"><h4>Su empresa</h4><dl>' + kv('Sector', e.sector) + kv('Tamaño', gend(e.tamano)) + kv('Ubicación', res) + '</dl></div></div>' + srcLine('soc') + '</section>'
+    : '<section class="panel soc"><h3><span>Perfil sociodemográfico</span>' + trustBadge('soc') + '</h3><div class="cols">' +
       '<div class="grp"><h4>Identidad</h4><dl>' + kv('Edad', has(s.edad) ? s.edad + ' años' : '') + kv('Género', s.genero) + kv('Nacionalidad', s.nacionalidad) + '</dl></div>' +
       '<div class="grp"><h4>Formación y trabajo</h4><dl>' + kv('Nivel educativo', s.estudios) + kv('Trabajo actual', s.trabajo) + kv('Ingresos / mes', s.ingM) + kv('Ingresos / año', s.ingA) + '</dl></div>' +
       '<div class="grp"><h4>Entorno vital</h4><dl>' + kv('Situación familiar', fam) + kv('Residencia', res) + '</dl></div></div>' + srcLine('soc') + '</section>';
@@ -1542,10 +1687,18 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     var t = 'BUYER PERSONA: ' + s.nombre + '\n';
     if (has(state.negocio)) t += 'Negocio: ' + state.negocio + '\n';
     t += '\nRESUMEN\n' + summaryParas() + '\n';
-    t += '\nPERFIL SOCIODEMOGRÁFICO\n';
+    t += '\n' + socName().toUpperCase() + (isB2B() ? ' (VENTA A EMPRESAS, B2B)' : '') + '\n';
     t += '- Edad: ' + s.edad + ' años\n- Género: ' + s.genero + '\n- Nacionalidad: ' + (s.nacionalidad || 'Sin definir') + '\n';
-    t += '- Nivel educativo: ' + (s.estudios || 'Sin definir') + '\n- Trabajo actual: ' + s.trabajo + '\n- Ingresos mensuales: ' + (s.ingM || 'Sin definir') + '\n- Ingresos anuales: ' + (s.ingA || 'Sin definir') + '\n';
-    t += '- Situación familiar: ' + ([s.familia, s.familiaDet].filter(has).join('. ') || 'Sin definir') + '\n- Lugar de residencia: ' + s.residencia + '\n';
+    if (isB2B()) {
+      var e = state.emp;
+      t += '- Cargo: ' + s.trabajo + '\n- Departamento: ' + (e.departamento || 'Sin definir') + '\n- Presupuesto: ' + (e.presupuesto || 'Sin definir') + '\n';
+      t += '- Papel en la compra: ' + list(e.papel) + '\n';
+      if (has(e.otros)) t += '- Quién más interviene: ' + e.otros + '\n';
+      t += '- Sector de su empresa: ' + (e.sector || 'Sin definir') + '\n- Tamaño: ' + (e.tamano || 'Sin definir') + '\n- Dónde está la empresa: ' + s.residencia + '\n';
+    } else {
+      t += '- Nivel educativo: ' + (s.estudios || 'Sin definir') + '\n- Trabajo actual: ' + s.trabajo + '\n- Ingresos mensuales: ' + (s.ingM || 'Sin definir') + '\n- Ingresos anuales: ' + (s.ingA || 'Sin definir') + '\n';
+      t += '- Situación familiar: ' + ([s.familia, s.familiaDet].filter(has).join('. ') || 'Sin definir') + '\n- Lugar de residencia: ' + s.residencia + '\n';
+    }
     t += '\nPERFIL PSICOSOCIAL\n';
     t += '- Personalidad: ' + p.descripcion + '\n- Rasgos: ' + list(p.rasgos) + '\n';
     SLIDERS.forEach(function (sl) { t += '- ' + sl.n + ': ' + sliderLabel(sl, p.sl[sl.k]) + '\n'; });
@@ -1560,7 +1713,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
     t += '- Frenos y objeciones: ' + list(l.frenos) + '\n';
     if (has(l.convencer)) t += '- Cómo le convencemos: ' + l.convencer + '\n';
     t += '\nFUENTES\n';
-    [['soc', 'Perfil sociodemográfico'], ['psi', 'Perfil psicosocial']].forEach(function (x) {
+    [['soc', socName()], ['psi', 'Perfil psicosocial']].forEach(function (x) {
       var o = state[x[0]], tr = trust(x[0]);
       t += '- ' + x[1] + ': ' + ([o.fuentes.join(', '), o.fuenteDet].filter(has).join('. ') || 'Sin indicar') + (tr !== 'none' ? ' (fiabilidad ' + TRUST_TXT[tr][0].toLowerCase() + ')' : '') + '\n';
     });
@@ -1605,6 +1758,7 @@ html body{ background:var(--kit-bg) !important; color:var(--kit-ink); -webkit-fo
       if (i > -1 && (!has(state.soc.ingA) || state.soc.ingAauto)) { state.soc.ingA = L.ING_A[i]; state.soc.ingAauto = true; }
     }
     if (path === 'soc.ingA') state.soc.ingAauto = false;
+    if (path === 'tipo') switchMode();
   }
   function addTag(box) {
     var path = box.getAttribute('data-path'), max = Number(box.getAttribute('data-max')), inp = box.querySelector('input'), v = inp.value.trim();
