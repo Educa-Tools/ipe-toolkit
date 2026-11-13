@@ -449,6 +449,12 @@ function PieNuevo([string]$base) {
 }
 
 # Página completa con el diseño nuevo. $o: titulo, desc, ruta (relativa al sitio, con / final), base, main
+function JsonLd($o) { '<script type="application/ld+json">' + ((ConvertTo-Json $o -Depth 8 -Compress).Replace('<', '<')) + '</script>' }
+# Migas para buscadores (BreadcrumbList): pares nombre, URL en orden
+function MigasLd([object[]]$pasos) {
+  $i = 0
+  JsonLd ([ordered]@{ '@context' = 'https://schema.org'; '@type' = 'BreadcrumbList'; itemListElement = @($pasos | ForEach-Object { $i++; [ordered]@{ '@type' = 'ListItem'; position = $i; name = $_[0]; item = $_[1] } }) })
+}
 function PaginaNueva($o) {
   @"
 <!DOCTYPE html>
@@ -577,7 +583,7 @@ $otroHtml
 "@
   $titulo = "$($c.nombre) · Esplora"
   $desc = Recortar "$($c.leyenda) $($ids.Count) herramientas interactivas para el aula, organizadas por temas." 160
-  Escribir "$($c.id)/index.html" (PaginaNueva @{ titulo = $titulo; desc = $desc; ruta = "$($c.id)/"; base = '../'; main = $main })
+  Escribir "$($c.id)/index.html" (PaginaNueva @{ titulo = $titulo; desc = $desc; ruta = "$($c.id)/"; base = '../'; main = $main; final = (MigasLd @(@('Inicio', "$Sitio/"), @($c.nombre, "$Sitio/$($c.id)/"))) })
 }
 
 # ---------- Materias: materias/ (todas) e ipe-1/, ipe-2/ (una cada una) ----------
@@ -610,7 +616,7 @@ $pastillas = '<nav class="pastillas" aria-label="Materias">' + (($conHerr | ForE
 $main = (PanelPagina 'Por materia' 'Herramientas por materia' 'Las mismas herramientas, ordenadas según la secuencia de bloques y unidades didácticas de cada módulo. Cada herramienta tiene una única ficha, común a todas las materias en las que se utiliza.' $pastillas) +
   "<div class=""wrap"">`n$(($conHerr | ForEach-Object { SeccionMateria $_ }) -join "`n")`n</div>`n" +
   '<div class="wrap"><p class="nota">También puedes verlas <a href="../criterios/">por criterios de evaluación</a> o en el <a href="../#todas">índice completo</a>.</p></div>'
-Escribir 'materias/index.html' (PaginaNueva @{ titulo = 'Herramientas por materia: IPE 1 e IPE 2 · Esplora'; desc = 'Herramientas interactivas de Esplora ordenadas por materia: IPE 1 por bloques e IPE 2 por unidades didácticas, con una ficha para cada una.'; ruta = 'materias/'; base = '../'; main = $main })
+Escribir 'materias/index.html' (PaginaNueva @{ titulo = 'Herramientas por materia: IPE 1 e IPE 2 · Esplora'; desc = 'Herramientas interactivas de Esplora ordenadas por materia: IPE 1 por bloques e IPE 2 por unidades didácticas, con una ficha para cada una.'; ruta = 'materias/'; base = '../'; main = $main; final = (MigasLd @(@('Inicio', "$Sitio/"), @('Por materia', "$Sitio/materias/"))) })
 
 foreach ($m in $conHerr) {
   $carpeta = CarpetaModulo $m
@@ -621,7 +627,7 @@ foreach ($m in $conHerr) {
   $main = (PanelPagina (Esc $m.tag) "$(Esc $m.tag) · $(Esc $m.nombre)" "$(Esc $m.descripcion) $n herramientas para usar en clase, ordenadas por $(Esc $w.plural)." '' $m.lema) +
     "<div class=""wrap"">`n$(SeccionMateria $m -soloUnidades)`n</div>`n" +
     '<div class="wrap"><p class="nota">Todas las materias en <a href="../materias/">Por materia</a>. Las mismas herramientas, por temas, en <a href="../trabajar/">Trabajo por cuenta ajena</a> y <a href="../emprender/">Emprendimiento</a>.</p></div>'
-  Escribir "$carpeta/index.html" (PaginaNueva @{ titulo = $titulo; desc = $desc; ruta = "$carpeta/"; base = '../'; main = $main })
+  Escribir "$carpeta/index.html" (PaginaNueva @{ titulo = $titulo; desc = $desc; ruta = "$carpeta/"; base = '../'; main = $main; final = (MigasLd @(@('Inicio', "$Sitio/"), @($m.tag, "$Sitio/$carpeta/"))) })
 }
 
 # ---------- Criterios de evaluación: criterios/ ----------
@@ -657,7 +663,7 @@ $selectorCur = if ($botonesCur.Count -gt 1) { '<div class="tipo selector-materia
 $main = (PanelPagina 'Por criterios de evaluación' 'Herramientas por criterios de evaluación' 'Relación entre resultados de aprendizaje (RA), criterios de evaluación (CE) y herramientas. Solo figuran los criterios que ya cuentan con alguna herramienta.' $selectorCur) +
   "<div class=""wrap"">`n$($bloquesCur -join "`n")`n</div>`n" +
   '<div class="wrap"><p class="nota">«Cobertura parcial»: la herramienta trabaja el criterio sin abarcarlo por completo.</p></div>'
-Escribir 'criterios/index.html' (PaginaNueva @{ titulo = 'Herramientas por criterios de evaluación (RA y CE) · Esplora'; desc = 'Qué herramientas de Esplora trabajan cada resultado de aprendizaje y criterio de evaluación de IPE, con su ficha y si lo cubren entero o en parte.'; ruta = 'criterios/'; base = '../'; main = $main })
+Escribir 'criterios/index.html' (PaginaNueva @{ titulo = 'Herramientas por criterios de evaluación (RA y CE) · Esplora'; desc = 'Qué herramientas de Esplora trabajan cada resultado de aprendizaje y criterio de evaluación de IPE, con su ficha y si lo cubren entero o en parte.'; ruta = 'criterios/'; base = '../'; main = $main; final = (MigasLd @(@('Inicio', "$Sitio/"), @('Por criterios de evaluación', "$Sitio/criterios/"))) })
 
 # ---------- Fichas: recursos/<slug>/index.html ----------
 # Una ficha por herramienta, sin depender de ninguna materia: arriba, su camino y su tema;
@@ -703,7 +709,6 @@ function DondeEncaja($id) {
 </section>
 "@
 }
-function JsonLd($o) { '<script type="application/ld+json">' + ((ConvertTo-Json $o -Depth 8 -Compress).Replace('<', '<')) + '</script>' }
 $flechaBtn = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>'
 
 $slugs = @{}
@@ -724,6 +729,13 @@ foreach ($id in $ordenH) {
   if ($t.informe) { $facts += "<div><dt>Entregable</dt><dd>Informe para imprimir o PDF</dd></div>" }
 
   $migas = '<li><a href="../../">Inicio</a></li><li><a href="../../' + $c.id + '/">' + (Esc $c.nombre) + '</a></li><li><a href="../../' + $c.id + '/#' + $te.id + '">' + (Esc $te.nombre) + '</a></li><li aria-current="page">' + (Esc $t.titulo) + '</li>'
+  $urlFichaLd = "$Sitio/recursos/$($t.slug)/"
+  $migasLd = MigasLd @(@('Inicio', "$Sitio/"), @($c.nombre, "$Sitio/$($c.id)/"), @($te.nombre, "$Sitio/$($c.id)/#$($te.id)"), @($t.titulo, $urlFichaLd))
+  $recLd = [ordered]@{ '@context' = 'https://schema.org'; '@type' = 'LearningResource'; name = $t.titulo; description = $t.descripcion; url = $urlFichaLd; inLanguage = 'es'
+    educationalLevel = 'Formación Profesional (grado medio y superior) y secundaria'; learningResourceType = $(if ($tipo) { $tipo.sing } else { 'Herramienta interactiva' }) }
+  if ($t.minutos) { $recLd.timeRequired = "PT$([int]$t.minutos)M" }
+  if ($entradas | Where-Object { $_.id -eq $id }) { $recLd.isAccessibleForFree = $true; $recLd.license = 'https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es' }
+  $recLd.publisher = [ordered]@{ '@type' = 'Organization'; name = 'Esplora'; url = "$Sitio/" }
   $verTema = '<a class="btn btn-sec" href="../../' + $c.id + '/#' + $te.id + '">Ver el tema</a>'
   $abrir = '<a class="btn" href="../../' + $t.url + '">Abrir la herramienta ' + $flechaBtn + '</a>'
   $hermanas = @(HerrDeTema $c $te | Where-Object { $_ -ne $id })
@@ -769,7 +781,7 @@ $(DondeEncaja $id)
 $mas
 "@
     $cabeza = if ($md.fm['palabras_clave']) { "<meta name=""keywords"" content=""$(Esc $md.fm['palabras_clave'])"">" } else { '' }
-    $final = (JsonLd $jsonRec) + "`n" + (JsonLd $jsonFaq) + "`n" + '<script>document.querySelectorAll(''[data-rubrica]'').forEach(function(b){b.addEventListener(''click'',function(){document.body.classList.add(''imprime-rubrica'');window.print();});});window.addEventListener(''afterprint'',function(){document.body.classList.remove(''imprime-rubrica'');});</script>'
+    $final = (JsonLd $jsonRec) + "`n" + (JsonLd $jsonFaq) + "`n" + $migasLd + "`n" + '<script>document.querySelectorAll(''[data-rubrica]'').forEach(function(b){b.addEventListener(''click'',function(){document.body.classList.add(''imprime-rubrica'');window.print();});});window.addEventListener(''afterprint'',function(){document.body.classList.remove(''imprime-rubrica'');});</script>'
     Escribir "recursos/$($t.slug)/index.html" (PaginaNueva @{ titulo = $tituloMd; desc = $descMd; ruta = "recursos/$($t.slug)/"; base = '../../'; main = $main; imagen = $id; nombre = $t.titulo; cabeza = $cabeza; final = $final })
     continue
   }
@@ -796,7 +808,7 @@ $mas
 $(DondeEncaja $id)
 $mas
 "@
-  Escribir "recursos/$($t.slug)/index.html" (PaginaNueva @{ titulo = $titulo; desc = $desc; ruta = "recursos/$($t.slug)/"; base = '../../'; main = $main; imagen = $id; nombre = $t.titulo })
+  Escribir "recursos/$($t.slug)/index.html" (PaginaNueva @{ titulo = $titulo; desc = $desc; ruta = "recursos/$($t.slug)/"; base = '../../'; main = $main; imagen = $id; nombre = $t.titulo; final = ((JsonLd $recLd) + "`n" + $migasLd) })
 }
 
 # ---------- Portada: index.html ----------
@@ -987,7 +999,11 @@ foreach ($e in $entradas) { $urls += "$Sitio/recursos/$($e.t.slug)/" }
 foreach ($e in $entradas) { $urls += "$Sitio/$($e.t.url)" }
 foreach ($l in (@($Legales.Keys) + 'sobre-esplora.html')) { if (Test-Path (Join-Path $Root $l)) { $urls += "$Sitio/$l" } }
 $xml = "<?xml version=""1.0"" encoding=""UTF-8""?>`n<urlset xmlns=""http://www.sitemaps.org/schemas/sitemap/0.9"">`n" +
-  (($urls | ForEach-Object { "  <url><loc>$_</loc></url>" }) -join "`n") + "`n</urlset>`n"
+  (($urls | ForEach-Object {
+    $rel = $_.Substring($Sitio.Length + 1); if (-not $rel -or $rel.EndsWith('/')) { $rel += 'index.html' }
+    $f = (& git -C $Root log -1 --format=%cs -- $rel 2>$null)
+    if ($f) { "  <url><loc>$_</loc><lastmod>$f</lastmod></url>" } else { "  <url><loc>$_</loc></url>" }
+  }) -join "`n") + "`n</urlset>`n"
 Escribir 'sitemap.xml' $xml
 
 # ---------- llms.txt ----------
