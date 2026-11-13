@@ -908,8 +908,8 @@ if ($idx -ne [IO.File]::ReadAllText($rutaIndex, $utf8)) { [IO.File]::WriteAllTex
 "Herramientas"
 $pieLegal = @"
 <!-- pie-legal:inicio (scripts/generar.ps1) -->
-<nav class="pie-legal" aria-label="Información legal" style="clear:both;max-width:880px;margin:32px auto 0;padding:16px 16px 28px;text-align:center;font:14px/1.6 system-ui,-apple-system,'Segoe UI',sans-serif;color:inherit">$(EnlacesLegales '' ' · ')</nav>
-<style>.pie-legal a{color:inherit;display:inline-block;padding-block:6px;text-underline-offset:3px}@media print{.pie-legal{display:none!important}}</style>
+{{VOLVER}}<nav class="pie-legal" aria-label="Información legal" style="clear:both;max-width:880px;margin:{{MARGEN}} auto 0;padding:16px 16px 28px;text-align:center;font:14px/1.6 system-ui,-apple-system,'Segoe UI',sans-serif;color:inherit">$(EnlacesLegales '' ' · ')</nav>
+<style>.pie-legal a,.pie-volver a{color:inherit;display:inline-block;padding-block:6px;text-underline-offset:3px}.pie-volver a{font-weight:600}@media (pointer:coarse){.pie-legal a,.pie-volver a{padding-block:11px}}@media print{.pie-legal,.pie-volver{display:none!important}}</style>
 <!-- pie-legal:fin -->
 "@
 foreach ($e in $entradas) {
@@ -917,7 +917,13 @@ foreach ($e in $entradas) {
   if (-not (Test-Path $ruta)) { $avisos.Add("No existe $($e.t.url) («$($e.id)»)."); continue }
   $txt = [IO.File]::ReadAllText($ruta, $utf8)
   $nl = if ($txt.Contains("`r`n")) { "`r`n" } else { "`n" }
-  $bloque = $pieLegal.Replace("`r`n", "`n").Replace("`n", $nl)
+  # Antes de los enlaces legales: vuelta al tema de la herramienta y a su ficha
+  $volver = ''; $cam = $caminos[$e.t.camino]; $donde = DondeTxt $e.id
+  if ($cam -and $donde) {
+    $volver = '<nav class="pie-volver" aria-label="Seguir en Esplora" style="clear:both;max-width:880px;margin:32px auto 0;padding:16px 16px 0;text-align:center;font:14px/1.6 system-ui,-apple-system,''Segoe UI'',sans-serif;color:inherit">' +
+      "<a href=""$($cam.id)/#$($e.t.tema)"">Más herramientas de «$(Esc $donde)»</a> · <a href=""recursos/$($e.t.slug)/"">Ficha de esta herramienta</a></nav>`n"
+  }
+  $bloque = $pieLegal.Replace('{{VOLVER}}', $volver).Replace('{{MARGEN}}', $(if ($volver) { '0' } else { '32px' })).Replace("`r`n", "`n").Replace("`n", $nl)
   $rePie = '(?s)<!-- pie-legal:inicio.*?<!-- pie-legal:fin -->'
   $nuevo = if ([regex]::IsMatch($txt, $rePie)) { [regex]::Replace($txt, $rePie, { param($x) $bloque }) }
            else { $i = $txt.LastIndexOf('</body>'); if ($i -lt 0) { $avisos.Add("$($e.t.url) no tiene </body>: sin pie legal."); $txt } else { $txt.Insert($i, "$bloque$nl") } }
