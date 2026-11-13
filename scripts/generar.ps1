@@ -948,12 +948,19 @@ foreach ($e in $entradas) {
              else { [regex]::Replace($txt, '(<header class="kit-bar">.*?)<small>', { param($x) $x.Groups[1].Value + '<small>' + $guia }, 'Singleline') }
     if ($nuevo -ne $txt) { $txt = $nuevo; [IO.File]::WriteAllText($ruta, $txt, $utf8); "  guía      $($e.t.url)" }
   }
-  if ($txt -match 'rel="canonical"') { continue }
+  # La que debe salir en Google es la ficha: la herramienta la señala como dirección canónica
+  $canFicha = "<link rel=""canonical"" href=""$Sitio/recursos/$($e.t.slug)/"">"
+  $reCan = [regex]'<link rel="canonical" href="[^"]*">'
+  if ($reCan.IsMatch($txt)) {
+    $nuevo = $reCan.Replace($txt, $canFicha, 1)
+    if ($nuevo -ne $txt) { [IO.File]::WriteAllText($ruta, $nuevo, $utf8); "  canonical $($e.t.url)" }
+    continue
+  }
   $hit =[regex]::Match($txt, '(?m)^([ \t]*)<meta name="description"[^>]*>')
   if (-not $hit.Success) { $hit = [regex]::Match($txt, '(?m)^([ \t]*)<title>[^<]*</title>') }
   if (-not $hit.Success) { $avisos.Add("$($e.t.url) no tiene <title>: no se ha añadido canonical."); continue }
   $nl = if ($txt.Contains("`r`n")) { "`r`n" } else { "`n" }
-  $txt = $txt.Insert($hit.Index + $hit.Length, "$nl$($hit.Groups[1].Value)<link rel=""canonical"" href=""$Sitio/$($e.t.url)"">")
+  $txt = $txt.Insert($hit.Index + $hit.Length, "$nl$($hit.Groups[1].Value)$canFicha")
   [IO.File]::WriteAllText($ruta, $txt, $utf8); "  canonical $($e.t.url)"
 }
 
@@ -977,7 +984,7 @@ foreach ($url in $paraCompartir) {
     '<meta property="og:type" content="website">',
     '<meta property="og:site_name" content="Esplora">',
     '<meta property="og:locale" content="es_ES">',
-    "<meta property=""og:url"" content=""$($can.Groups[2].Value)"">",
+    "<meta property=""og:url"" content=""$Sitio/$url"">",
     "<meta property=""og:title"" content=""$tit"">",
     "<meta property=""og:description"" content=""$des"">") +
     @($img.Replace("`r`n", "`n").Split("`n")) + @('<!-- compartir:fin -->')
@@ -996,7 +1003,7 @@ $urls += "$Sitio/materias/"
 if ($db.curriculo) { $urls += "$Sitio/criterios/" }
 foreach ($m in $materias) { if ($entradas | Where-Object { $_.m -eq $m }) { $urls += "$Sitio/$(CarpetaModulo $m)/" } }
 foreach ($e in $entradas) { $urls += "$Sitio/recursos/$($e.t.slug)/" }
-foreach ($e in $entradas) { $urls += "$Sitio/$($e.t.url)" }
+# Las herramientas no van en el mapa: cada una señala a su ficha como dirección canónica
 foreach ($l in (@($Legales.Keys) + 'sobre-esplora.html')) { if (Test-Path (Join-Path $Root $l)) { $urls += "$Sitio/$l" } }
 $xml = "<?xml version=""1.0"" encoding=""UTF-8""?>`n<urlset xmlns=""http://www.sitemaps.org/schemas/sitemap/0.9"">`n" +
   (($urls | ForEach-Object {
