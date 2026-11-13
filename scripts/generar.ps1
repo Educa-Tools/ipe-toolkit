@@ -789,14 +789,22 @@ $mas
   # Ficha corta
   $titulo = "$($t.titulo): ficha para el aula · Esplora"
   $desc = Recortar "$($t.descripcion) Herramienta gratuita, en el navegador y sin crear cuentas." 160
-  $titular = if ($t.titular) { $t.titular } else { Esc $t.titulo }
+  # El título principal nombra la herramienta. Si el titular es una frase distinta, pasa a subtítulo;
+  # si solo repite el nombre (con o sin artículo), no se muestra dos veces.
+  $titular = Esc $t.titulo; $subtitulo = ''
+  if ($t.titular) {
+    $plano = (SinEtiquetas $t.titular).Trim(); $nTit = Norm $t.titulo; $nPla = Norm $plano
+    $propias = @($nPla -split '[^\p{L}\p{N}]+' | Where-Object { $_.Length -gt 3 })
+    if ($nPla -eq $nTit) { $titular = $t.titular }
+    elseif (-not $nPla.Contains($nTit) -and @($propias | Where-Object { -not $nTit.Contains($_) }).Count) { $subtitulo = "`n    <p class=""subtitulo"">$($t.titular)</p>" }
+  }
   $main = @"
 <section class="wrap cab-pag" aria-labelledby="titulo">
   <div class="panel-pag ficha-pag" style="--c:$color">
     $($Espora.Replace('<svg ', '<svg class="espora-pag" '))
     <nav class="migas" aria-label="Estás aquí"><ol>$migas</ol></nav>
     <p class="antetitulo">$(Esc $c.nombre) · $(Esc $temaTxt)</p>
-    <h1 id="titulo">$titular</h1>
+    <h1 id="titulo">$titular</h1>$subtitulo
     <p class="lede">$(Esc $t.descripcion)</p>
     <dl class="facts">
       $($facts -join "`n      ")
