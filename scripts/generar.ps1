@@ -306,7 +306,7 @@ function Rejilla($ids, [string]$base, [switch]$conTema) {
   $lis = foreach ($id in $ids) {
     $t = $H[$id]
     $tipoId = if ($t.tipo) { $t.tipo } else { 'herramienta' }
-    $busca = Norm "$($t.titulo) $($t.pregunta) $($t.descripcion) $($tematica[$id])"
+    $busca = Norm "$($t.titulo) $($t.pregunta) $($t.descripcion) $($tematica[$id]) $($t.busca)"
     "    <li data-busca=""$(Esc $busca)"" data-tipo=""$tipoId"">$(Ventanita $id $base $(if ($conTema) { DondeTxt $id } else { '' }))</li>"
   }
   "<ul class=""tool-grid"">`n$($lis -join "`n")`n    </ul>"
@@ -863,7 +863,7 @@ $cols = foreach ($c in $db.caminos) {
     $i++
     $lis = foreach ($id in (HerrDeTema $c $te)) {
       $t = $H[$id]
-      $busca = Norm "$($t.titulo) $($t.pregunta) $($t.descripcion) $($te.nombre)"
+      $busca = Norm "$($t.titulo) $($t.pregunta) $($t.descripcion) $($te.nombre) $($t.busca)"
       $min = if ($t.minutos) { Duracion $t.minutos } else { '' }
       "        <li data-busca=""$(Esc $busca)""><a href=""recursos/$($t.slug)/""><span class=""c"" style=""--c:$($t.color)"" aria-hidden=""true""></span><b>$(Esc $t.titulo)</b><small>$min$flechaFina</small></a></li>"
     }

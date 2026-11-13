@@ -246,8 +246,11 @@
 .hero-demo .btn{background:#C5CD78;color:#1E1C1A;box-shadow:3px 3px 0 #6B7028;white-space:nowrap}
 .hero-demo .btn svg{width:17px;height:17px;flex:none}
 
+.demo-pausa{display:block;min-height:44px;margin:8px 0 0 auto;padding:0 4px;border:0;background:none;color:#1E1C1A;font:inherit;font-size:13px;font-weight:500;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.escena .demo-pausa+.gen-pie{margin-top:8px}
 @media (prefers-color-scheme:dark){
   .tema-auto .escena .gen-facts li{color:#FBFCEF;border-color:color-mix(in srgb,#FBFCEF 30%,transparent)}
+  .tema-auto .demo-pausa{color:#FBFCEF}
 }
 @media (prefers-reduced-motion:reduce){
   .js .entra,.js .escena{opacity:1!important;transform:none!important}

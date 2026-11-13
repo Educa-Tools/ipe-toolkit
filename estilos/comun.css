@@ -87,7 +87,7 @@ section[id]{scroll-margin-top:calc(var(--nav-h) + 16px)}
   .nav-movil{display:inline-flex;margin-left:auto}
 }
 /* Menú del móvil: hoja que baja bajo la barra */
-.hoja{position:fixed;inset:var(--nav-h) 0 0 0;z-index:55;overflow:auto;background:var(--bg);padding:16px 16px 40px;opacity:0;transform:translateY(-8px);visibility:hidden;transition:opacity .22s var(--ease-out),transform .22s var(--ease-out),visibility 0s .22s}
+.hoja{position:fixed;inset:var(--nav-h) 0 0 0;z-index:55;overflow:auto;overscroll-behavior:contain;background:var(--bg);padding:16px 16px 40px;opacity:0;transform:translateY(-8px);visibility:hidden;transition:opacity .22s var(--ease-out),transform .22s var(--ease-out),visibility 0s .22s}
 .hoja.abierto{opacity:1;transform:none;visibility:visible;transition:opacity .22s var(--ease-out),transform .22s var(--ease-out),visibility 0s}
 .hoja h2{font-size:20px;margin:24px 0 8px}
 .hoja ul{list-style:none;margin:0;padding:0}

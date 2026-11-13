@@ -132,9 +132,15 @@ const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const fig = document.getElementById('demo');
   if(!fig || calm || !('IntersectionObserver' in window)) return;
   const wait = ms => new Promise(r=>setTimeout(r, ms));
-  let visible = false, seguir = null;
-  const enPantalla = () => visible ? Promise.resolve() : new Promise(r=>{ seguir = r; });
-  new IntersectionObserver(([e])=>{ visible = e.isIntersecting; if(visible && seguir){ seguir(); seguir = null; } }).observe(fig);
+  let visible = false, pausado = false, seguir = null;
+  const enPantalla = () => (visible && !pausado) ? Promise.resolve() : new Promise(r=>{ seguir = r; });
+  const reanudar = () => { if(visible && !pausado && seguir){ seguir(); seguir = null; } };
+  new IntersectionObserver(([e])=>{ visible = e.isIntersecting; reanudar(); }).observe(fig);
+  // Botón para detener la animación (se repite sin fin: quien lo necesite puede pararla)
+  const pausa = document.createElement('button');
+  pausa.type = 'button'; pausa.className = 'demo-pausa'; pausa.textContent = 'Pausar la animación';
+  pausa.addEventListener('click', ()=>{ pausado = !pausado; pausa.textContent = pausado ? 'Reanudar la animación' : 'Pausar la animación'; reanudar(); });
+  fig.after(pausa);
   const perfiles = [
     { ciclo:'Marketing y Publicidad', marca:['Moda / belleza','Tecnología / gaming','Creatividad','Tecnología / RRSS','100% online'],
       ideas:[['Contenido UGC','Creación de contenido UGC en vídeo para marcas'],['Social media para pymes','Gestión de redes sociales y contenido para negocios locales'],['Mini-agencia de lanzamiento','Branding y plan de lanzamiento para emprendedores']] },

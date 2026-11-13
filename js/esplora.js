@@ -19,6 +19,8 @@
     hojaBtn.textContent = si ? 'Cerrar' : 'Menú';
     hoja.classList.toggle('abierto', si);
     document.body.classList.toggle('sin-scroll', si);
+    // Con el menú abierto, el teclado y el lector de pantalla no recorren la página de detrás
+    [...document.body.children].forEach(el => { if (el !== nav && el !== hoja && !el.contains(hoja) && !el.contains(nav)) el.inert = si; });
   }
   if (megaBtn) {
     megaBtn.addEventListener('click', () => abrirMega(megaBtn.getAttribute('aria-expanded') !== 'true'));
@@ -29,6 +31,8 @@
   if (hojaBtn) {
     hojaBtn.addEventListener('click', () => abrirHoja(hojaBtn.getAttribute('aria-expanded') !== 'true'));
     hoja.addEventListener('click', e => { if (e.target.closest('a')) abrirHoja(false); });
+    // Si la ventana se ensancha y el botón «Menú» desaparece, el menú no se queda abierto por detrás
+    addEventListener('resize', () => { if (hojaBtn.getAttribute('aria-expanded') === 'true' && !hojaBtn.offsetParent) abrirHoja(false); });
   }
   document.addEventListener('keydown', e => {
     if (e.key !== 'Escape') return;
