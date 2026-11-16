@@ -1,6 +1,6 @@
 ---
 title: "Herramienta PESTEL online para IPE | Esplora"
-meta_description: "Herramienta PESTEL interactiva y guiada para secundaria y FP (IPE 1 e IPE 2): el alumnado analiza el entorno de su idea de negocio, obtiene su mapa de impacto e incertidumbre y propone medidas. Incluye dinámica y rúbrica."
+meta_description: "Herramienta PESTEL guiada para FP y secundaria: el alumnado analiza el entorno de su idea y obtiene su mapa de impacto. Incluye dinámica y rúbrica."
 palabras_clave: actividad PESTEL FP, PESTEL IPE, análisis del entorno FP, herramienta PESTEL online, idea de negocio FP
 ---
 

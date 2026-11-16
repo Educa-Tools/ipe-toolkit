@@ -1,6 +1,6 @@
 ---
 title: "Generador de ideas de negocio online para IPE | Esplora"
-meta_description: "Generador de ideas de negocio guiado para FP y secundaria (IPE 2): el alumnado responde 8 pasos y recibe 3 ideas con plan de arranque. Incluye dinámica y rúbrica."
+meta_description: "Generador de ideas de negocio guiado para FP y secundaria: el alumnado responde 8 pasos y recibe 3 ideas con plan de arranque. Con dinámica y rúbrica."
 palabras_clave: generador de ideas de negocio FP, idea de negocio IPE, actividad emprendimiento FP, herramienta ideas de negocio online, IPE 2 emprendimiento
 ---
 

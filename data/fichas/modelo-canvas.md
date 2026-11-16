@@ -1,6 +1,6 @@
 ---
 title: "Modelo Canvas online para IPE | Esplora"
-meta_description: "Modelo Canvas guiado, bloque a bloque, para FP y secundaria (IPE 2): el alumnado responde preguntas guiadas y obtiene su Canvas en una página A4. Incluye dinámica y rúbrica."
+meta_description: "Modelo Canvas guiado para FP y secundaria: el alumnado responde bloque a bloque y obtiene su Canvas en una página A4. Incluye dinámica y rúbrica."
 palabras_clave: modelo Canvas FP, Canvas IPE, actividad modelo de negocio FP, herramienta Canvas online, plan de negocio FP emprendimiento
 ---
 
