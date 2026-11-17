@@ -57,7 +57,7 @@ catálogo. Sobre ellos el logo va en crema.
 #5D3D66  Mapa interactivo de la Unión Europea · Pirámide de la jerarquía normativa
 #6A3FA0  Ruta al Artículo 22
 #6B7028  Generador de ideas de negocio (el oliva de marca)
-#7A3244  Modelo Canvas
+#7A3244  Modelo Canvas · Matriz de evaluación de riesgos
 #8A5232  Guía de las vibraciones
 #8A5A2B  DAFO cruzado
 #8B3A3A  Buscador de enfermedades profesionales

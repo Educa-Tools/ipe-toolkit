@@ -26,6 +26,7 @@ El catálogo se organiza en dos caminos, cada uno con sus temas: «Trabajo por c
 - [Organización de la prevención en la empresa](https://esplora.es/recursos/organizacion-preventiva/): Las cinco modalidades del RD 39/1997, el Anexo I, un simulador que dice qué le toca a cada empresa y tres casos para entregar. (IPE 1, bloque 1, ≈ 45 min, con informe en PDF) · [abrir](https://esplora.es/organizacion-preventiva.html)
 - [Buscador de enfermedades profesionales](https://esplora.es/recursos/enfermedades-profesionales/): Descubre qué enfermedades profesionales del RD 1299/2006 pueden afectar a tu oficio. (IPE 1, bloque 1, ≈ 10 min) · [abrir](https://esplora.es/enfermedadesprofesionales.html)
 - [Guía del ruido](https://esplora.es/recursos/guia-ruido/): Decibelios, los tres escalones del RD 286/2006, simulador de obligaciones y caso práctico para entregar. (IPE 1, bloque 1, ≈ 40 min, con informe en PDF) · [abrir](https://esplora.es/guia-ruido.html)
+- [Matriz de evaluación de riesgos del INSST](https://esplora.es/recursos/matriz-riesgos/): Probabilidad por severidad: los cinco niveles del método del INSST y doce situaciones de una discoteca para colocar en la matriz y comparar con la técnica. (IPE 1, bloque 1, ≈ 40 min, con informe en PDF) · [abrir](https://esplora.es/matriz-riesgos.html)
 
 ## Trabajo por cuenta ajena · 2. Derecho del trabajo
 
