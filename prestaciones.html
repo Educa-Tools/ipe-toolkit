@@ -170,12 +170,15 @@
   .ej::before{content:"Ejemplo";display:block;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c);margin-bottom:4px;}
   .ej strong{color:var(--ink);background:linear-gradient(transparent 62%,var(--lime-mid) 62%);}
   .nota{font-size:.92rem;color:var(--ink-soft);}
+  .art{display:inline-block;font-size:.82em;font-weight:600;color:var(--c);}
+  .art::before{content:"(";}.art::after{content:")";}
   .tbl{width:100%;border-collapse:collapse;margin:8px 0 16px;font-size:.93rem;}
   .tbl caption{text-align:left;font-weight:650;margin-bottom:8px;}
   .tbl th,.tbl td{text-align:left;padding:8px 8px;border-bottom:1px solid var(--line);vertical-align:top;}
   .tbl th{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);border-bottom:var(--frame);}
   .tbl td.n,.tbl th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;}
   .tscroll{overflow-x:auto;}
+  .apb .tbl{table-layout:fixed;}
 
   .term{display:inline;padding:0;border:none;background:none;color:inherit;font:inherit;font-weight:600;cursor:help;text-decoration:underline dotted var(--c) 2px;text-underline-offset:3px;}
   .term:hover{color:var(--c);}
@@ -269,6 +272,7 @@
   .copt.bad{border-color:var(--bad);background:var(--bad-soft);}
   .copt.bad .lt{color:var(--bad);}
   .fb{margin-top:16px;padding-top:12px;border-top:1px solid var(--line);font-size:.95rem;color:var(--ink-soft);max-width:68ch;}
+  .fb .hint{font-weight:650;color:var(--olive-deep);}
   .fb b{display:block;margin-bottom:2px;font-family:var(--font-display);font-weight:600;font-size:1.02rem;color:var(--ink);}
 
   /* Glosario y definiciones */
@@ -371,7 +375,7 @@
 <div id="printSheet" aria-hidden="true"></div>
 
 <footer class="wrap">
-  <p><strong>Datos vigentes en 2026.</strong> Fuentes: texto consolidado de la <a href="https://www.boe.es/buscar/act.php?id=BOE-A-2015-11724" target="_blank" rel="noopener">Ley General de la Seguridad Social</a> (arts. 169-180 y 266-273), <a href="https://www.boe.es/buscar/doc.php?id=BOE-A-2025-15741" target="_blank" rel="noopener">Real Decreto-ley 9/2025</a> e IPREM de 600 € al mes (Ley 31/2022, prorrogada).</p>
+  <p><strong>Datos vigentes en 2026.</strong> Fuentes: texto consolidado de la <a href="https://www.boe.es/buscar/act.php?id=BOE-A-2015-11724" target="_blank" rel="noopener">Ley General de la Seguridad Social</a> (arts. 165-182 y 262-276), <a href="https://www.boe.es/buscar/act.php?id=BOE-A-2015-11430" target="_blank" rel="noopener">Estatuto de los Trabajadores</a> (art. 48.4), <a href="https://www.boe.es/buscar/doc.php?id=BOE-A-2025-15741" target="_blank" rel="noopener">Real Decreto-ley 9/2025</a> e IPREM de 600 € al mes (Ley 31/2022, prorrogada para 2026). Comprobado en el BOE consolidado el 18 de noviembre de 2026.</p>
   <p>Herramienta educativa: los cálculos son orientativos y no sustituyen la información de la <a href="https://www.seg-social.es" target="_blank" rel="noopener">Seguridad Social</a> ni del <a href="https://www.sepe.es" target="_blank" rel="noopener">SEPE</a>. Tu progreso se guarda solo en este navegador; desde «Mi resumen» puedes guardarlo en un archivo.</p>
 </footer>
 
@@ -394,6 +398,8 @@
    CONTENIDO
    Términos del glosario dentro del texto: {{id|texto visible}}
    ===================================================================== */
+/* Referencia normativa (comprobada en el BOE consolidado, 18-11-2026) */
+const A = t => ` <span class="art">${t}</span>`;
 const G = {
   'seguridad-social':['Seguridad Social','Sistema público que protege a las personas ante situaciones de necesidad (enfermedad, nacimiento de un hijo, pérdida del empleo, jubilación…). Se financia sobre todo con cotizaciones y con aportaciones del Estado.'],
   'tgss':['TGSS (Tesorería General de la Seguridad Social)','Organismo que gestiona la afiliación, las altas y bajas y el cobro de las cotizaciones.'],
@@ -448,15 +454,15 @@ const P = {
     claves:[['180 días en 5 años','Cotización exigida si es enfermedad común'],['60 % y 75 %','De la base reguladora, según el día de baja'],['365 + 180 días','Duración máxima, con prórroga']],
     ficha:[
       ['¿Qué cubre?',`<p>Protege a la persona trabajadora que <strong>no puede trabajar durante un tiempo</strong> por una enfermedad o un accidente y recibe asistencia sanitaria de la Seguridad Social. Durante la baja cobra un {{subsidio|subsidio}} que sustituye a su salario.</p>
-       <p>Según su origen, la baja puede ser por {{contingencias-comunes|contingencias comunes}} (enfermedad común o accidente no laboral) o por {{contingencias-profesionales|contingencias profesionales}} (accidente de trabajo o enfermedad profesional). El origen cambia los requisitos y lo que se cobra. Si dudas, usa el <a href="determinacioncontingencias.html">Wizard de determinación de contingencias</a>.</p>`],
+       <p>Según su origen, la baja puede ser por {{contingencias-comunes|contingencias comunes}} (enfermedad común o accidente no laboral) o por {{contingencias-profesionales|contingencias profesionales}} (accidente de trabajo o enfermedad profesional). El origen cambia los requisitos y lo que se cobra.${A('art. 169.1 LGSS')} Si dudas, usa el <a href="determinacioncontingencias.html">Wizard de determinación de contingencias</a>.</p>`],
       ['Requisitos',`<ul>
         <li>Estar {{afiliacion|afiliado/a}} y en {{alta|alta}} o en {{asimilada|situación asimilada al alta}}.</li>
-        <li>Tener un {{parte-baja|parte de baja}} médica y recibir asistencia sanitaria de la Seguridad Social.</li>
+        <li>Tener un {{parte-baja|parte de baja}} médica y recibir asistencia sanitaria de la Seguridad Social.${A('arts. 165 y 169 LGSS')}</li>
         <li>{{carencia|Período mínimo de cotización}}:
-          <ul><li><strong>Enfermedad común:</strong> 180 días cotizados en los 5 años anteriores a la baja.</li>
-          <li><strong>Accidente</strong> (de trabajo o no) y <strong>enfermedad profesional:</strong> no se exige ninguno.</li></ul></li>
+          <ul><li><strong>Enfermedad común:</strong> 180 días cotizados en los 5 años anteriores a la baja.${A('art. 172.a LGSS')}</li>
+          <li><strong>Accidente</strong> (de trabajo o no) y <strong>enfermedad profesional:</strong> no se exige ninguno.${A('art. 172.b LGSS')}</li></ul></li>
       </ul>`],
-      ['Base reguladora',`<p>La {{base-reguladora|base reguladora}} es la cantidad diaria sobre la que se aplica el porcentaje.</p>
+      ['Base reguladora',`<p>La {{base-reguladora|base reguladora}} es la cantidad diaria sobre la que se aplica el porcentaje.${A('art. 171 LGSS')}</p>
        <ul><li><strong>Contingencias comunes:</strong> {{base-cotizacion|base de cotización}} por contingencias comunes del mes anterior a la baja ÷ 30 (si cobras por meses).</li>
        <li><strong>Contingencias profesionales:</strong> base de cotización por contingencias profesionales del mes anterior, sin horas extra, ÷ 30, más las horas extra cobradas el año anterior ÷ 365.</li></ul>
        <p class="ej">Base de cotización de 1.800 € el mes anterior → 1.800 ÷ 30 = <strong>60 € al día</strong>.</p>`],
@@ -470,15 +476,17 @@ const P = {
         <thead><tr><th scope="col">Días de baja</th><th scope="col">Cuánto</th><th scope="col">Quién paga</th></tr></thead>
         <tbody><tr><td>Día de la baja</td><td>Salario completo</td><td>Empresa</td></tr>
         <tr><td>Desde el día siguiente</td><td>75 % de la base reguladora</td><td>INSS o mutua</td></tr></tbody></table></div>
-       <p>En la práctica, la empresa adelanta todo en la nómina ({{pago-delegado|pago delegado}}) y después lo descuenta de sus cotizaciones. Muchos {{convenio|convenios colectivos}} añaden un complemento hasta el 100 % del salario.</p>`],
-      ['Duración',`<ul><li>Máximo <strong>365 días</strong>.</li>
-        <li>Si se prevé la curación, el {{inss|INSS}} puede prorrogarla <strong>hasta 180 días más</strong> (545 en total).</li>
-        <li>Al llegar a los 365 días solo decide el INSS: alta, prórroga o iniciar el expediente de {{incapacidad-permanente|incapacidad permanente}}.</li>
-        <li>Las {{recaida|recaídas}} suman al mismo proceso.</li></ul>`],
-      ['Gestión y trámite',`<p>El médico del servicio público de salud (contingencias comunes) o de la {{mutua|mutua}} (contingencias profesionales) emite el parte de baja y los de confirmación. Desde abril de 2023 la persona trabajadora <strong>ya no entrega copia a la empresa</strong>: los partes se comunican por vía electrónica.</p>
+       <p>En la práctica, la empresa adelanta todo en la nómina ({{pago-delegado|pago delegado}}) y después lo descuenta de sus cotizaciones. Muchos {{convenio|convenios colectivos}} añaden un complemento hasta el 100 % del salario.</p>
+       <p class="nota">Días y quién paga: art. 173.1 LGSS. Porcentajes del 60 % y el 75 %: art. 2 del Decreto 3158/1966. Pago delegado: art. 102.1 LGSS.</p>`],
+      ['Duración',`<ul><li>Máximo <strong>365 días</strong>.${A('art. 169.1.a LGSS')}</li>
+        <li>Si se prevé la curación, el {{inss|INSS}} puede prorrogarla <strong>hasta 180 días más</strong> (545 en total).${A('art. 169.1.a LGSS')}</li>
+        <li>Al llegar a los 365 días solo decide el INSS: alta, prórroga o iniciar el expediente de {{incapacidad-permanente|incapacidad permanente}}.${A('art. 170.2 LGSS')}</li>
+        <li>Las {{recaida|recaídas}} suman al mismo proceso.${A('art. 169.2 LGSS')}</li></ul>`],
+      ['Gestión y trámite',`<p>El médico del servicio público de salud (contingencias comunes) o de la {{mutua|mutua}} (contingencias profesionales) emite el parte de baja y los de confirmación. Desde abril de 2023 la persona trabajadora <strong>ya no entrega copia a la empresa</strong>: los partes se comunican por vía electrónica.${A('art. 7 RD 625/2014')}</p>
        <p>Paga el INSS o la mutua, normalmente a través de la empresa.</p>`],
       ['¿Cuándo se acaba?',`<ul><li>Alta médica por curación o mejoría.</li><li>Al cumplirse los 545 días.</li><li>Reconocimiento de una incapacidad permanente o de la jubilación.</li><li>No acudir sin justificación a los reconocimientos médicos del INSS o de la mutua.</li><li>Fallecimiento.</li></ul>
-       <p class="nota">Durante una huelga o un cierre patronal no se cobra incapacidad temporal.</p>`]
+       <p class="nota">Causas de extinción: art. 174.1 LGSS.</p>
+       <p class="nota">Durante una huelga o un cierre patronal no se cobra incapacidad temporal.${A('art. 6.3 RDL 17/1977')}</p>`]
     ]
   },
   nac:{
@@ -487,27 +495,27 @@ const P = {
     claves:[['19 semanas','Por cada progenitor (32 si es familia monoparental)'],['100 %','De la base reguladora, exenta de IRPF'],['Paga el INSS','Directamente, no la empresa']],
     ficha:[
       ['¿Qué cubre?',`<p>Sustituye al salario durante el permiso por nacimiento, adopción, {{guarda|guarda con fines de adopción}} o acogimiento familiar.</p>
-       <p>Cada {{progenitor|progenitor}} tiene su propio permiso: es <strong>individual e intransferible</strong>, no se puede ceder al otro.</p>`],
-      ['Duración',`<p>Desde el Real Decreto-ley 9/2025, <strong>19 semanas para cada progenitor</strong>:</p>
+       <p>Cada {{progenitor|progenitor}} tiene su propio permiso: es <strong>individual e intransferible</strong>, no se puede ceder al otro.${A('art. 48.4 ET; art. 177 LGSS')}</p>`],
+      ['Duración',`<p>Desde el Real Decreto-ley 9/2025, <strong>19 semanas para cada progenitor</strong>:${A('art. 48.4 ET')}</p>
        <ul><li><strong>6 semanas obligatorias</strong>, seguidas y a jornada completa, justo después del parto o de la resolución de adopción o acogimiento.</li>
         <li><strong>11 semanas</strong> que se reparten por semanas, seguidas o no, hasta que el bebé cumpla 12 meses. Con acuerdo de la empresa, también a jornada parcial.</li>
         <li><strong>2 semanas</strong> para el cuidado del menor, que se pueden usar hasta que cumpla 8 años.</li></ul>
        <p><strong>Familias monoparentales:</strong> 32 semanas. La madre biológica puede adelantar parte del permiso hasta 4 semanas antes de la fecha prevista del parto.</p>
-       <p class="nota">La ampliación se aplica a nacimientos desde el 2 de agosto de 2024, pero las semanas nuevas solo se pueden pedir desde el 1 de enero de 2026.</p>`],
+       <p class="nota">Las 2 semanas que se pueden usar hasta los 8 años valen también para los nacimientos desde el 2 de agosto de 2024, y se pueden pedir desde el 1 de enero de 2026.${A('disposición transitoria única del RDL 9/2025')}</p>`],
       ['Requisitos',`<ul><li>Estar en {{alta|alta}} o en {{asimilada|situación asimilada al alta}} al empezar cada periodo de descanso.</li>
-        <li>{{carencia|Período mínimo de cotización}} según tu edad en la fecha del nacimiento (o de la resolución):</li></ul>
+        <li>{{carencia|Período mínimo de cotización}} según tu edad en la fecha del nacimiento (o de la resolución):${A('art. 178 LGSS')}</li></ul>
        <div class="tscroll"><table class="tbl"><thead><tr><th scope="col">Edad</th><th scope="col">Cotización exigida</th></tr></thead>
         <tbody><tr><td>Menos de 21 años</td><td>Ninguna</td></tr>
         <tr><td>De 21 a 25 años</td><td>90 días en los 7 años anteriores, <strong>o</strong> 180 días en toda la vida laboral</td></tr>
         <tr><td>26 años o más</td><td>180 días en los 7 años anteriores, <strong>o</strong> 360 días en toda la vida laboral</td></tr></tbody></table></div>`],
-      ['Base reguladora',`<p>{{base-cotizacion|Base de cotización}} por contingencias comunes del <strong>mes anterior al mes previo</strong> al nacimiento ÷ 30 (si cobras por meses y estuviste de alta todo ese mes).</p>
+      ['Base reguladora',`<p>{{base-cotizacion|Base de cotización}} por contingencias comunes del <strong>mes anterior al mes previo</strong> al nacimiento ÷ 30 (si cobras por meses y estuviste de alta todo ese mes).${A('art. 179.1 LGSS')}</p>
        <p class="ej">Si el bebé nace en junio, el mes previo es mayo y el anterior a ese es <strong>abril</strong>. Con una base de 2.100 € en abril: 2.100 ÷ 30 = <strong>70 € al día</strong>.</p>`],
-      ['Cuantía',`<ul><li><strong>100 % de la {{base-reguladora|base reguladora}}</strong> por cada día de permiso.</li>
-        <li>Está <strong>exenta de IRPF</strong>.</li>
+      ['Cuantía',`<ul><li><strong>100 % de la {{base-reguladora|base reguladora}}</strong> por cada día de permiso.${A('art. 179.1 LGSS')}</li>
+        <li>Está <strong>exenta de IRPF</strong>.${A('art. 7.h LIRPF')}</li>
         <li>Se sigue cotizando a la Seguridad Social durante el permiso.</li></ul>
-       <p><strong>Subsidio especial:</strong> si en caso de parto cumples todo menos la cotización mínima, puedes cobrar un subsidio {{no-contributiva|no contributivo}} del 100 % del {{iprem|IPREM}} (20 € al día) durante 42 días naturales. Se amplía 14 días en familia numerosa o monoparental, parto múltiple o discapacidad del 65 % o más.</p>`],
+       <p><strong>Subsidio especial:</strong> si en caso de parto cumples todo menos la cotización mínima, puedes cobrar un subsidio {{no-contributiva|no contributivo}} del 100 % del {{iprem|IPREM}} (20 € al día), o tu base reguladora si es menor, durante las 6 semanas de descanso obligatorio (42 días naturales). Se amplía 14 días en familia numerosa o monoparental, parto múltiple o discapacidad del 65 % o más.${A('arts. 181 y 182 LGSS')}</p>`],
       ['Gestión y solicitud',`<p>Lo reconoce y paga directamente el {{inss|INSS}}, no la empresa. Se pide en la sede electrónica de la Seguridad Social o con cita previa; la empresa envía un certificado con tus datos de cotización. Las notificaciones llegan solo por vía electrónica.</p>`],
-      ['¿Cuándo se pierde?',`<p>Se puede denegar, anular o suspender si se actúa de forma fraudulenta o si se trabaja (por cuenta propia o ajena) durante el permiso.</p>`]
+      ['¿Cuándo se pierde?',`<p>Se puede denegar, anular o suspender si se actúa de forma fraudulenta o si se trabaja (por cuenta propia o ajena) durante el permiso.${A('art. 180 LGSS')}</p>`]
     ]
   },
   des:{
@@ -516,30 +524,30 @@ const P = {
     claves:[['360 días en 6 años','Cotización mínima por desempleo'],['70 % y luego 60 %','De la base reguladora (desde el día 181)'],['De 120 a 720 días','Duración, según lo cotizado']],
     ficha:[
       ['¿Qué cubre?',`<p>Protege a quien <strong>pierde su empleo sin quererlo</strong> (o ve suspendido su contrato o reducida su jornada) y ha cotizado lo suficiente. Es una prestación {{contributiva|contributiva}}: lo que cobras depende de lo que has cotizado.</p>
-       <p>La reconoce y paga el {{sepe|SEPE}}.</p>`],
+       <p>La reconoce y paga el {{sepe|SEPE}}.${A('art. 262 LGSS')}</p>`],
       ['Requisitos',`<ul><li>Estar {{afiliacion|afiliado/a}} y en {{alta|alta}} o {{asimilada|situación asimilada}}.</li>
-        <li>Haber cotizado por desempleo <strong>al menos 360 días en los 6 años anteriores</strong>, sin haberlos usado ya para otra prestación.</li>
-        <li>Estar en {{sld|situación legal de desempleo}}: despido, fin de contrato temporal, no superar el periodo de prueba por decisión de la empresa, ERE… <strong>Irse voluntariamente no da derecho.</strong></li>
-        <li>Inscribirse como {{demandante|demandante de empleo}} y firmar el {{acuerdo|acuerdo de actividad}}.</li>
-        <li>No tener la edad ordinaria de jubilación (salvo que no te alcance la cotización para jubilarte).</li></ul>`],
-      ['Base reguladora',`<p>Media de las {{base-cotizacion|bases de cotización}} por desempleo de los <strong>últimos 180 días</strong>, sin horas extra.</p>
+        <li>Haber cotizado por desempleo <strong>al menos 360 días en los 6 años anteriores</strong>, sin haberlos usado ya para otra prestación.${A('arts. 266.b y 269.1 LGSS')}</li>
+        <li>Estar en {{sld|situación legal de desempleo}}: despido, fin de contrato temporal, no superar el periodo de prueba por decisión de la empresa, ERE… <strong>Irse voluntariamente no da derecho.</strong>${A('art. 267 LGSS')}</li>
+        <li>Inscribirse como {{demandante|demandante de empleo}} y firmar el {{acuerdo|acuerdo de actividad}}.${A('art. 266.c LGSS')}</li>
+        <li>No tener la edad ordinaria de jubilación (salvo que no te alcance la cotización para jubilarte).${A('art. 266.d LGSS')}</li></ul>`],
+      ['Base reguladora',`<p>Media de las {{base-cotizacion|bases de cotización}} por desempleo de los <strong>últimos 180 días</strong>, sin horas extra.${A('art. 270.1 LGSS')}</p>
        <p class="ej">Si en los últimos 6 meses tu base fue de 1.500 € cada mes: 9.000 ÷ 180 = <strong>50 € al día</strong> (1.500 € al mes).</p>`],
       ['Cuantía',`<ul><li><strong>70 %</strong> de la {{base-reguladora|base reguladora}} los primeros 180 días.</li>
-        <li><strong>60 %</strong> desde el día 181 (antes de 2023 era el 50 %).</li></ul>
+        <li><strong>60 %</strong> desde el día 181 (antes de 2023 era el 50 %).${A('art. 270.2 LGSS')}</li></ul>
        <div class="tscroll"><table class="tbl"><caption>Límites mensuales en 2026 (jornada completa)</caption>
         <thead><tr><th scope="col">Situación</th><th scope="col" class="n">Mínimo</th><th scope="col" class="n">Máximo</th></tr></thead>
         <tbody><tr><td>Sin hijos a cargo</td><td class="n">560 €</td><td class="n">1.225 €</td></tr>
         <tr><td>1 hijo a cargo</td><td class="n">749 €</td><td class="n">1.400 €</td></tr>
         <tr><td>2 o más hijos a cargo</td><td class="n">749 €</td><td class="n">1.575 €</td></tr></tbody></table></div>
-       <p class="nota">Se calculan con el {{iprem|IPREM}} (600 €) más una sexta parte, es decir, 700 €: el máximo es el 175 %, 200 % o 225 % y el mínimo el 80 % o 107 %. Si trabajabas a jornada parcial, se reducen en proporción.</p>
+       <p class="nota">Se calculan con el {{iprem|IPREM}} (600 €) más una sexta parte, es decir, 700 €: el máximo es el 175 %, 200 % o 225 % y el mínimo el 80 % o 107 %. Si trabajabas a jornada parcial, se reducen en proporción.${A('art. 270.3 LGSS; IPREM de la Ley 31/2022, prorrogada para 2026')}</p>
        <p>El SEPE paga la parte de la empresa de tu {{cotizacion|cotización}}; a ti te descuenta tu parte (y el IRPF, si corresponde).</p>`],
       ['Duración',`<div class="tscroll"><table class="tbl"><thead><tr><th scope="col">Días cotizados (últimos 6 años)</th><th scope="col" class="n">Días de prestación</th></tr></thead><tbody>
         ${[[360,539,120],[540,719,180],[720,899,240],[900,1079,300],[1080,1259,360],[1260,1439,420],[1440,1619,480],[1620,1799,540],[1800,1979,600],[1980,2159,660]].map(r=>`<tr><td>De ${r[0].toLocaleString('es-ES')} a ${r[1].toLocaleString('es-ES')}</td><td class="n">${r[2]}</td></tr>`).join('')}
-        <tr><td>2.160 o más</td><td class="n">720</td></tr></tbody></table></div>`],
-      ['Cómo se solicita',`<p>Inscríbete como demandante de empleo y pide la prestación al SEPE en los <strong>15 {{dias-habiles|días hábiles}}</strong> siguientes a quedarte sin trabajo. Si la pides tarde, pierdes los días de retraso. La empresa envía el certificado de empresa.</p>`],
-      ['Suspensión y fin',`<ul><li><strong>Se suspende</strong> si trabajas con un contrato de menos de 12 meses (después la puedes reanudar) o por algunas sanciones.</li>
-        <li><strong>Se extingue</strong> al agotar la duración, al trabajar 12 meses o más, por sanción grave o al jubilarte.</li></ul>
-       <p class="nota">Si no llegas a 360 días cotizados o ya la has agotado, quizá tengas derecho al {{subsidio-desempleo|subsidio por desempleo}} (reformado en 2024). Consulta al SEPE.</p>`]
+        <tr><td>2.160 o más</td><td class="n">720</td></tr></tbody></table></div><p class="nota">Escala del art. 269.1 LGSS.</p>`],
+      ['Cómo se solicita',`<p>Inscríbete como demandante de empleo y pide la prestación al SEPE en los <strong>15 {{dias-habiles|días hábiles}}</strong> siguientes a quedarte sin trabajo. Si la pides tarde, pierdes los días de retraso. La empresa envía el certificado de empresa.${A('art. 268.1 LGSS')}</p>`],
+      ['Suspensión y fin',`<ul><li><strong>Se suspende</strong> si trabajas con un contrato de menos de 12 meses (después la puedes reanudar) o por algunas sanciones.${A('art. 271.1 LGSS')}</li>
+        <li><strong>Se extingue</strong> al agotar la duración, al trabajar 12 meses o más, por sanción grave o al jubilarte.${A('art. 272.1 LGSS')}</li></ul>
+       <p class="nota">Si no llegas a 360 días cotizados o ya la has agotado, quizá tengas derecho al {{subsidio-desempleo|subsidio por desempleo}} (reformado en 2024). Consulta al SEPE.${A('arts. 274 y siguientes LGSS')}</p>`]
     ]
   }
 };
@@ -580,7 +588,7 @@ const R = {
   },
   'nac-noalta':c=>['no','Sin alta no hay prestación','Hay que estar de alta (o en situación asimilada) al empezar cada periodo de descanso.'],
   'nac-nocarencia':c=> c.parto
-    ? ['parcial','No llegas a la cotización mínima, pero hay un subsidio especial','En caso de parto, si cumples todo salvo la cotización mínima, puedes cobrar el subsidio no contributivo: 100 % del IPREM (20 € al día) durante 42 días naturales, ampliables 14 días en algunos casos (familia numerosa o monoparental, parto múltiple, discapacidad del 65 % o más).']
+    ? ['parcial','No llegas a la cotización mínima, pero hay un subsidio especial','En caso de parto, si cumples todo salvo la cotización mínima, puedes cobrar el subsidio no contributivo: 100 % del IPREM (20 € al día), o tu base reguladora si es menor, durante 42 días naturales, ampliables 14 días en algunos casos (familia numerosa o monoparental, parto múltiple, discapacidad del 65 % o más).']
     : ['no','No llegas a la cotización mínima','Para la prestación contributiva necesitas la cotización mínima que corresponde a tu edad. Pregunta al INSS si en tu caso existe alguna alternativa.'],
   'nac-si':c=>['si','Tienes derecho a la prestación', c.mono
     ? '<ul><li><strong>32 semanas</strong> de permiso (familia monoparental).</li><li>Cobras el <strong>100 %</strong> de tu base reguladora cada día, exento de IRPF.</li><li>Lo paga directamente el INSS.</li></ul>'
@@ -628,6 +636,30 @@ const C = {
       ['1.050 €','900 €','1.225 €','1.500 €'],0,
       'Base reguladora: 1.500 € al mes (50 € al día). Los primeros 180 días se cobra el 70 %: 1.050 €, que está entre el mínimo (560 €) y el máximo sin hijos (1.225 €). Desde el día 181 cobraría el 60 %: 900 €.']
   ]
+};
+
+/* Pista para cada respuesta incorrecta (null = la correcta) y norma de cada caso */
+const CH = {
+  it:[
+    [null,'El 75 % es para el día 21 en adelante (o desde el día siguiente si fuera accidente de trabajo). En enfermedad común los primeros días se cobra menos.','El porcentaje y el día 4 están bien, pero fíjate en quién paga: del día 4 al 15 lo abona la empresa.','Una baja corta sí se cobra: lo que no se cobra son los 3 primeros días.'],
+    ['Los 180 días solo se exigen en enfermedad común. ¿Qué tipo de contingencia es una caída mientras trabaja?',null,'El 60 % es de las contingencias comunes. En un accidente de trabajo el porcentaje es otro.','Es un derecho que da la ley, no el convenio: el convenio solo puede mejorarlo.'],
+    ['1.350 € sería cobrar el 75 % los 30 días. Separa los tramos: días 1 a 3, 4 a 20 y 21 a 30.','972 € sale de aplicar el 60 % a 27 días. Desde el día 21 el porcentaje sube al 75 %.',null,'1.800 € es la base entera. La incapacidad temporal paga un porcentaje de la base diaria (1.800 ÷ 30).']
+  ],
+  nac:[
+    ['180 días en 7 años se piden a partir de los 26. Andrea tiene 24: mira el tramo de 21 a 25 años.',null,'360 días es la alternativa de toda la vida laboral para mayores de 26. No es lo que se le pide a Andrea.','Sí se exige cotización desde los 21 años. Solo quien tiene menos de 21 no la necesita.'],
+    ['16 semanas era el permiso antes del Real Decreto-ley 9/2025, y no todas van seguidas.',null,'El permiso es individual e intransferible: no se puede ceder al otro progenitor.','Eso era antes de 2019. Hoy los dos progenitores tienen el mismo permiso.'],
+    ['42 € sería el 60 % de la base diaria. El permiso por nacimiento paga el 100 %.','52,50 € sería el 75 %. Aquí no hay tramos: se cobra el 100 % de la base diaria.','49 € es el 70 %, el porcentaje del paro. El permiso por nacimiento paga el 100 %.',null]
+  ],
+  des:[
+    ['Los 360 días hacen falta, pero no bastan. ¿Cómo ha perdido Sara el empleo?','120 días es la duración más corta de la escala, pero el problema está antes: ¿tiene derecho?',null,'El plazo de 15 días es para pedirla, pero solo si se tiene derecho. Revisa por qué terminó el contrato.'],
+    ['240 días corresponden a 720–899 días cotizados. Javier tiene 1.000.',null,'360 días corresponden a 1.080–1.259 días cotizados. Javier no llega.','No se cobra un día por cada día cotizado: se aplica la escala por tramos.'],
+    [null,'900 € es el 60 %, que se cobra desde el día 181. La pregunta es por los primeros 180 días.','1.225 € es el máximo sin hijos. El 70 % de su base no llega a ese tope.','1.500 € es la base entera. La prestación es un porcentaje de ella.']
+  ]
+};
+const CA = {
+  it:['arts. 172.a y 173.1 LGSS','arts. 172.b y 173.1 LGSS','art. 173.1 LGSS; art. 2 Decreto 3158/1966'],
+  nac:['art. 178.1.b LGSS','art. 48.4 ET','art. 179.1 LGSS'],
+  des:['arts. 266.c y 267 LGSS','art. 269.1 LGSS','art. 270 LGSS']
 };
 
 /* =====================================================================
@@ -996,7 +1028,7 @@ function caseHTML(pid,i){
         let cls=''; if(a){ if(j===c[3] && (a.ok||a.shown)) cls='good'; else if(j===a.sel && !a.ok && !a.shown) cls='bad'; }
         return `<button type="button" class="copt ${cls}" data-case="${i}" data-opt="${j}"${a?' disabled':''}><span class="lt" aria-hidden="true">${'ABCD'[j]}</span><span>${o}${cls==='good'?'<span class="sr"> (correcta)</span>':cls==='bad'?'<span class="sr"> (tu respuesta, incorrecta)</span>':''}</span></button>`;}).join('')}
     </div>
-    ${a?`<div class="fb" role="status"><b>${a.ok?'¡Correcto!':a.shown?`Solución: ${'ABCD'[c[3]]}`:'No es correcta.'}</b>${a.ok||a.shown?c[4]:'Piensa en qué requisito o regla falla y vuelve a intentarlo.'}</div>
+    ${a?`<div class="fb" role="status"><b>${a.ok?'¡Correcto!':a.shown?`Solución: ${'ABCD'[c[3]]}`:'No es correcta.'}</b>${a.ok||a.shown ? c[4]+A(CA[pid][i]) : `<span class="hint">Pista: </span>${(CH[pid][i]||[])[a.sel] || 'Piensa en qué requisito o regla falla y vuelve a intentarlo.'}`}</div>
       <div class="row" style="margin-top:12px">${a.ok?'':`<button type="button" class="btn btn-p" data-retry="${i}">Intentarlo otra vez</button>${a.shown?'':`<button type="button" class="btn btn-g" data-show="${i}">Ver la solución</button>`}`}</div>`:''}
   </article>`;
 }
