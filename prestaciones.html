@@ -59,6 +59,9 @@
   .top-in{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:60px;flex-wrap:wrap;padding-block:8px;}
   .brand{display:inline-flex;align-items:center;min-height:44px;}
   .top-nav{display:flex;align-items:center;gap:8px;}
+  .saved{font-size:.8rem;font-weight:600;color:#FBFCEF;opacity:0;transition:opacity .3s;margin-right:8px;}
+  .saved.on{opacity:1;}
+  @media (max-width:640px){.saved{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:30;margin:0;padding:8px 16px;border-radius:12px;background:var(--ink);white-space:nowrap;pointer-events:none;}}
   .nbtn{display:inline-flex;align-items:center;min-height:36px;padding:0 14px;border:1px solid rgba(251,252,239,.55);border-radius:999px;background:transparent;color:#FBFCEF;font-weight:600;font-size:.85rem;text-decoration:none;}
   .nbtn:hover{background:rgba(251,252,239,.12);}
   .nbtn[aria-current="page"]{background:#FBFCEF;border-color:#FBFCEF;color:var(--c);}
@@ -295,19 +298,46 @@
   .sum-p h3 span{font-size:1.5rem;color:var(--c);}
   .sum-p .tbl{margin-bottom:8px;}
   .print-only{display:none;}
+  .filebox{margin-top:32px;padding-top:16px;border-top:1px solid var(--line);}
+  .filebox p{margin:12px 0 0;font-size:.88rem;color:var(--ink-soft);max-width:64ch;}
+  #printSheet{display:none;}
 
   footer{border-top:1px solid var(--line);padding-block:24px 40px;color:var(--ink-soft);font-size:.88rem;}
   footer p{max-width:80ch;}
 
   @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important;}html{scroll-behavior:auto;}.scene .r{opacity:1}}
 
+  /* Informe A4: editorial, líneas finas y sin fondos */
   @media print{
-    @page{margin:16mm;}
-    body{background:#fff;font-size:11pt;}
-    .top,.no-print,footer,.crumb{display:none!important;}
-    .print-only{display:block;}
-    main{padding:0;}
-    a{color:inherit;text-decoration:none;}
+    @page{size:A4;margin:16mm;}
+    html,body{background:#fff;}
+    body{font-size:10pt;line-height:1.4;}
+    body>*:not(#printSheet){display:none!important;}
+    #printSheet{display:block;color:#1E1C1A;}
+    #printSheet .ph{display:flex;justify-content:space-between;align-items:flex-end;gap:12pt;border-bottom:1.5pt solid #3E5778;padding-bottom:6pt;margin-bottom:8pt;}
+    #printSheet .pk{margin:0 0 2pt;font-size:8pt;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#3E5778;}
+    #printSheet h1{font-family:'Fraunces',Georgia,serif;font-size:20pt;font-weight:700;margin:0;}
+    #printSheet .meta{font-size:9.5pt;color:#4A463F;text-align:right;line-height:1.5;white-space:nowrap;}
+    #printSheet .meta b{color:#1E1C1A;}
+    #printSheet .norm{font-size:8.5pt;color:#4A463F;margin:0 0 6pt;}
+    #printSheet .pc{margin-top:12pt;}
+    #printSheet .pin{break-inside:avoid;break-after:avoid;}
+    #printSheet .pch{display:flex;justify-content:space-between;align-items:baseline;gap:12pt;border-bottom:.75pt solid #1E1C1A;padding-bottom:3pt;}
+    #printSheet h2{font-family:'Fraunces',Georgia,serif;font-size:13pt;font-weight:600;margin:0;}
+    #printSheet h2 span{color:#3E5778;margin-right:6pt;}
+    #printSheet .pch>span{font-size:9.5pt;font-weight:700;white-space:nowrap;}
+    #printSheet .pq{font-size:8.5pt;color:#4A463F;margin:4pt 0 2pt;}
+    #printSheet h3{font-family:'Inter',sans-serif;font-size:7.5pt;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#3E5778;margin:7pt 0 2pt;break-after:avoid;}
+    #printSheet p{margin:0;font-size:9pt;}
+    #printSheet i{font-style:normal;font-weight:600;}
+    #printSheet .none{color:#4A463F;}
+    #printSheet table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:9pt;}
+    #printSheet th:nth-child(1){width:34%;}#printSheet th:nth-child(2){width:38%;}#printSheet th:nth-child(3){width:17%;}#printSheet th:nth-child(4){width:11%;}
+    #printSheet th{text-align:left;font-size:7.5pt;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#4A463F;padding:3pt 4pt;border-bottom:.75pt solid #1E1C1A;}
+    #printSheet td{padding:4pt;border-bottom:.5pt solid #E8E1D6;vertical-align:top;}
+    #printSheet .n{text-align:right;white-space:nowrap;}
+    #printSheet tr{break-inside:avoid;}
+    #printSheet .foot{margin-top:14pt;padding-top:5pt;border-top:.5pt solid #E8E1D6;font-size:8pt;color:#4A463F;}
   }
 </style>
 </head>
@@ -319,6 +349,7 @@
       <img src="marca/logo-horizontal-crema.svg" alt="" width="114" height="28">
     </a>
     <nav class="top-nav" aria-label="Herramienta">
+      <span class="saved" id="savedMsg" role="status">✓ Guardado en este navegador</span>
       <a class="nbtn" href="#/" data-nav="home">Inicio</a>
       <button type="button" class="nbtn" id="openGlos">Glosario</button>
       <a class="nbtn" href="#/resumen" data-nav="resumen">Mi resumen</a>
@@ -336,10 +367,12 @@
     </div>
   </section>
 </main>
+<input type="file" id="fileImp" accept="application/json,.json" hidden>
+<div id="printSheet" aria-hidden="true"></div>
 
 <footer class="wrap">
   <p><strong>Datos vigentes en 2026.</strong> Fuentes: texto consolidado de la <a href="https://www.boe.es/buscar/act.php?id=BOE-A-2015-11724" target="_blank" rel="noopener">Ley General de la Seguridad Social</a> (arts. 169-180 y 266-273), <a href="https://www.boe.es/buscar/doc.php?id=BOE-A-2025-15741" target="_blank" rel="noopener">Real Decreto-ley 9/2025</a> e IPREM de 600 € al mes (Ley 31/2022, prorrogada).</p>
-  <p>Herramienta educativa: los cálculos son orientativos y no sustituyen la información de la <a href="https://www.seg-social.es" target="_blank" rel="noopener">Seguridad Social</a> ni del <a href="https://www.sepe.es" target="_blank" rel="noopener">SEPE</a>. Tu progreso se guarda solo en este navegador.</p>
+  <p>Herramienta educativa: los cálculos son orientativos y no sustituyen la información de la <a href="https://www.seg-social.es" target="_blank" rel="noopener">Seguridad Social</a> ni del <a href="https://www.sepe.es" target="_blank" rel="noopener">SEPE</a>. Tu progreso se guarda solo en este navegador; desde «Mi resumen» puedes guardarlo en un archivo.</p>
 </footer>
 
 <dialog id="defDlg" aria-labelledby="defT">
@@ -600,12 +633,48 @@ const C = {
 /* =====================================================================
    ESTADO GUARDADO (solo en este navegador)
    ===================================================================== */
-const KEY = 'esplora-prestaciones-v1';
-const blank = () => ({nombre:'', p:{it:{},nac:{},des:{}}, casos:{}, calc:{}, last:''});
+const KEY = 'esplora-prestaciones-v1', TOOL = 'esplora-prestaciones';
+const blank = () => ({nombre:'', p:{it:{},nac:{},des:{}}, casos:{}, calc:{}, wz:{}, last:''});
+const esc = t => String(t ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+/* Valida lo que llega del navegador o de un archivo antes de usarlo */
+function apply(d){
+  const out = blank(); if(!d || typeof d !== 'object') return out;
+  const str = (x,n) => String(x ?? '').slice(0,n), num = (x,max) => { const v = Number(x); return isFinite(v) && v>=0 ? Math.min(v,max) : 0; };
+  out.nombre = str(d.nombre,40);
+  ['it','nac','des'].forEach(pid=>{
+    const p = d.p && d.p[pid] || {};
+    out.p[pid] = {ficha:p.ficha===true, wizard:p.wizard===true, calc:p.calc===true};
+    C[pid].forEach((c,i)=>{
+      const a = d.casos && d.casos[pid+i]; if(!a || typeof a !== 'object') return;
+      const sel = Number.isInteger(a.sel) && a.sel>=0 && a.sel<c[2].length ? a.sel : null;
+      const r = {tries:Math.min(99, Math.max(0, parseInt(a.tries,10) || (sel!=null?1:0))), sel, ok:a.ok===true && sel===c[3], shown:a.shown===true};
+      if(r.sel!=null || r.shown || r.tries) out.casos[pid+i] = r;
+    });
+    const w = d.wz && d.wz[pid];
+    if(w && typeof w === 'object' && ['si','no','parcial'].includes(w.tipo))
+      out.wz[pid] = {tipo:w.tipo, tit:str(w.tit,160), hist:Array.isArray(w.hist) ? w.hist.slice(0,12).map(h=>[str(h&&h[0],300), str(h&&h[1],200)]) : []};
+    const k = d.calc && d.calc[pid];
+    if(k && typeof k === 'object'){
+      if(pid==='it') out.calc.it = {tipo:k.tipo==='cp'?'cp':'cc', base:num(k.base,100000), he:num(k.he,1000000), dias:Math.max(1,Math.round(num(k.dias,545)))||30};
+      if(pid==='nac') out.calc.nac = {fam:k.fam==='1'?'1':'2', base:num(k.base,100000)};
+      if(pid==='des') out.calc.des = {base:num(k.base,100000), dias:Math.round(num(k.dias,2190)), hijos:['0','1','2'].includes(String(k.hijos))?String(k.hijos):'0'};
+      if(out.calc[pid] && typeof k.txt === 'string') out.calc[pid].txt = str(k.txt,300);
+    }
+  });
+  if(/^#\/(it|nac|des)\/(ficha|comprobador|calculadora|casos)$/.test(d.last||'')) out.last = d.last;
+  return out;
+}
 let ST = blank();
-try{ const s = JSON.parse(localStorage.getItem(KEY)||'null'); if(s && s.p) ST = Object.assign(blank(), s); }catch(e){}
-function save(){ try{ localStorage.setItem(KEY, JSON.stringify(ST)); }catch(e){} }
-function mark(pid, what){ if(!ST.p[pid][what]){ ST.p[pid][what] = true; save(); } }
+try{ ST = apply(JSON.parse(localStorage.getItem(KEY)||'null')); }catch(e){}
+let saveTimer;
+/* quiet: guarda sin enseñar el aviso (al moverse por la herramienta, no al responder) */
+function save(quiet){
+  try{ localStorage.setItem(KEY, JSON.stringify(ST)); }catch(e){ return; }
+  if(quiet) return;
+  const m = document.getElementById('savedMsg'); if(!m) return;
+  m.classList.add('on'); clearTimeout(saveTimer); saveTimer = setTimeout(()=>m.classList.remove('on'), 1600);
+}
+function mark(pid, what){ if(!ST.p[pid][what]){ ST.p[pid][what] = true; save(true); } }
 
 /* =====================================================================
    UTILIDADES
@@ -616,6 +685,10 @@ const main = $('#main');
 const eur = n => n.toLocaleString('es-ES',{style:'currency',currency:'EUR',minimumFractionDigits:2,maximumFractionDigits:2,useGrouping:'always'});
 const terms = html => html.replace(/\{\{([\w-]+)\|([^}]+)\}\}/g,(m,id,txt)=>G[id]?`<button type="button" class="term" data-term="${id}" aria-haspopup="dialog">${txt}</button>`:txt);
 const okCases = pid => C[pid].filter((_,i)=>ST.casos[pid+i] && ST.casos[pid+i].ok).length;
+/* 2 puntos a la primera, 1 tras fallar, 0 si se ve la solución */
+const casePts = (pid,i) => { const a = ST.casos[pid+i]; return !a || a.shown || !a.ok ? 0 : a.tries<=1 ? 2 : 1; };
+const ptsOf = pid => C[pid].reduce((t,_,i)=>t+casePts(pid,i),0);
+const PTS_MAX = Object.keys(C).reduce((t,pid)=>t+C[pid].length*2,0);
 
 /* =====================================================================
    VISTAS
@@ -746,6 +819,7 @@ function wzRender(pid){
     box.innerHTML = `<div class="res ${tipo}" role="status"><span class="verdict">${v}</span><h3><em>${tit}</em></h3>${txt.startsWith('<')?txt:`<p>${txt}</p>`}</div>${trail}
       <div class="row"><button type="button" class="btn btn-g" data-wz="back">${svg('back',2)} Cambiar la última respuesta</button><button type="button" class="btn btn-g" data-wz="reset">Empezar de nuevo</button><a class="btn btn-p" href="#/${pid}/ficha">Repasar la ficha</a></div>`;
     mark(pid,'wizard');
+    ST.wz[pid] = {tipo, tit, hist:s.hist.map(h=>[h.q.replace(/<[^>]+>/g,''), h.a])}; save(true);
   } else {
     const n = W[pid].nodes[s.node];
     box.innerHTML = `<p class="wz-step">Pregunta ${s.hist.length+1}</p><h2 class="wz-q" id="wzq" tabindex="-1">${n.q}</h2>${n.help?`<p class="wz-help">${n.help}</p>`:''}
@@ -901,18 +975,19 @@ function calcRun(pid){
     }
   }
   out.innerHTML = html;
+  ST.calc[pid].txt = calcTxt(pid);
   mark(pid,'calc'); save();
 }
 
 /* ---------- Casos prácticos ---------- */
 function casesHTML(pid){
   const n = okCases(pid);
-  return `<div class="cases-h"><p class="lead">Lee cada caso y elige una respuesta. Si fallas, lee la explicación y vuelve a intentarlo.</p><strong id="caseScore">${n} de 3 resueltos</strong></div>` +
+  return `<div class="cases-h"><p class="lead">Elige una respuesta en cada caso: 2 puntos a la primera, 1 si aciertas después de fallar y 0 si ves la solución.</p><strong id="caseScore">${ptsOf(pid)} de ${C[pid].length*2} puntos</strong></div>` +
     C[pid].map((c,i)=>caseHTML(pid,i)).join('');
 }
 function caseHTML(pid,i){
-  const c = C[pid][i], a = ST.casos[pid+i];
-  const st = a ? (a.ok ? '<span class="st ok">Correcto</span>' : a.shown ? '<span class="st">Solución vista</span>' : '<span class="st ko">Incorrecto</span>') : '';
+  const c = C[pid][i], a0 = ST.casos[pid+i], a = a0 && (a0.sel!=null || a0.shown) ? a0 : null, pt = casePts(pid,i);
+  const st = a ? (a.ok ? `<span class="st ok">Correcto · ${pt} punto${pt>1?'s':''}</span>` : a.shown ? '<span class="st">Solución vista · 0 puntos</span>' : '<span class="st ko">Incorrecto</span>') : a0 && a0.tries ? `<span class="st">Intento ${a0.tries+1}</span>` : '';
   return `<article class="caso" id="caso-${pid}-${i}" aria-labelledby="ct-${pid}-${i}">
     <h3><span class="cn">${i+1}</span><span id="ct-${pid}-${i}">${c[0]}</span>${st}</h3>
     <p>${c[1]}</p>
@@ -926,28 +1001,85 @@ function caseHTML(pid,i){
   </article>`;
 }
 
+/* Resumen de la calculadora en texto (para el informe) */
+function calcTxt(pid){
+  const k = ST.calc[pid];
+  const figs = [...document.querySelectorAll('#calcOut .fig')].map(f=>f.querySelector('.lbl').textContent+': '+f.querySelector('.big').textContent.replace(/\s+/g,' ').trim()).join(' · ');
+  const inp = pid==='it' ? `${k.tipo==='cp'?'Contingencias profesionales':'Contingencias comunes'}, base de ${eur(k.base)}, ${k.dias} ${k.dias===1?'día':'días'} de baja`
+    : pid==='nac' ? `${k.fam==='1'?'Familia monoparental':'Dos progenitores'}, base de ${eur(k.base)}`
+    : `Base media de ${eur(k.base)}, ${n0(k.dias)} días cotizados, ${k.hijos==='0'?'sin hijos':k.hijos==='1'?'1 hijo':'2 o más hijos'} a cargo`;
+  return `${inp}. ${figs}.`;
+}
+
+/* ---------- Guardar y cargar el progreso en un archivo ---------- */
+const fileBox = () => `<div class="filebox no-print">
+  <div class="row"><button class="btn btn-g" type="button" data-exp>Guardar progreso en archivo</button><button class="btn btn-g" type="button" data-imp>Cargar progreso</button></div>
+  <p>Tus respuestas se guardan solas en este navegador y no se envían a ningún sitio. Para seguir en otro equipo, guarda el progreso en un archivo y cárgalo allí.</p>
+</div>`;
+function exportar(){
+  const blob = new Blob([JSON.stringify(Object.assign({herramienta:TOOL, v:1, fecha:new Date().toISOString().slice(0,10)}, ST), null, 2)], {type:'application/json'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = TOOL+'-progreso.json';
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href), 1000);
+}
+document.addEventListener('click', e=>{
+  if(e.target.closest('[data-exp]')) exportar();
+  else if(e.target.closest('[data-imp]')) $('#fileImp').click();
+});
+$('#fileImp').addEventListener('change', function(){
+  const f = this.files && this.files[0]; if(!f) return;
+  const r = new FileReader();
+  r.onload = ()=>{
+    try{ const d = JSON.parse(r.result); if(!d || d.herramienta!==TOOL) throw 0;
+      ST = apply(d); save(); Object.keys(WS).forEach(k=>delete WS[k]); route(); alert('Progreso cargado.'); }
+    catch(err){ alert('Ese archivo no es un progreso de esta herramienta.'); }
+  };
+  r.readAsText(f); this.value = '';
+});
+
 /* ---------- Resumen ---------- */
+const caseRes = a => !a || (a.sel==null && !a.shown) ? (a && a.tries ? 'Sin resolver (lo ha intentado)' : 'Sin hacer') : a.shown ? 'Solución vista' : a.ok ? (a.tries<=1 ? 'A la primera' : 'Tras fallar') : 'Incorrecto';
 function viewResumen(){
-  let tot = 0, ok = 0;
+  const tot = Object.keys(P).reduce((t,pid)=>t+ptsOf(pid),0);
   const bloques = Object.keys(P).map((pid,k)=>{
     const s = ST.p[pid];
-    const casos = C[pid].map((c,i)=>{ const a = ST.casos[pid+i]; tot++; if(a&&a.ok) ok++;
-      return `<tr><td>${i+1}. ${c[0]}</td><td>${a?(a.ok?'Correcto':a.shown?'Solución vista':'Incorrecto'):'Sin hacer'}</td></tr>`; }).join('');
+    const casos = C[pid].map((c,i)=>`<tr><td>${i+1}. ${c[0]}</td><td>${caseRes(ST.casos[pid+i])}</td><td class="n">${casePts(pid,i)} de 2</td></tr>`).join('');
     return `<section class="sum-p"><h3><span>${String(k+1).padStart(2,'0')}</span><a href="#/${pid}/ficha" style="color:inherit;text-decoration:none">${P[pid].nombre}</a></h3>
       <p class="nota">Ficha: ${s.ficha?'leída':'sin leer'} · Comprobador: ${s.wizard?'hecho':'sin hacer'} · Calculadora: ${s.calc?'usada':'sin usar'}</p>
-      <div class="tscroll"><table class="tbl"><thead><tr><th scope="col">Caso práctico</th><th scope="col">Resultado</th></tr></thead><tbody>${casos}</tbody></table></div></section>`;
+      <div class="tscroll"><table class="tbl"><thead><tr><th scope="col">Caso práctico</th><th scope="col">Resultado</th><th scope="col" class="n">Puntos</th></tr></thead><tbody>${casos}</tbody></table></div></section>`;
   }).join('');
   return `
   <a class="crumb" href="#/">${svg('back',2)} Inicio</a>
   <div class="sum-head">
-    <div><span class="eyebrow">Prestaciones de la Seguridad Social</span><h1>Mi <em>resumen</em></h1><p>Imprime o guarda en PDF esta página para entregarla.</p></div>
-    <div class="score">${ok}<small>de ${tot} casos correctos</small></div>
+    <div><span class="eyebrow">Prestaciones de la Seguridad Social</span><h1>Mi <em>resumen</em></h1><p>El informe en A4 lleva tus casos, tu último comprobador y tu último cálculo de cada prestación.</p></div>
+    <div class="score">${tot}<small>de ${PTS_MAX} puntos</small></div>
   </div>
-  <div class="field no-print" style="max-width:420px"><label for="nombre">Tu nombre (aparecerá en la hoja)</label><input type="text" id="nombre" value="${(ST.nombre||'').replace(/"/g,'&quot;')}" autocomplete="name"></div>
-  <p class="print-only"><strong>Nombre:</strong> ${ST.nombre||'________________________'} &nbsp; <strong>Fecha:</strong> ${new Date().toLocaleDateString('es-ES')}</p>
-  <div class="row no-print" style="margin-bottom:8px"><button type="button" class="btn btn-p" id="doPrint">${svg('print',2)} Imprimir o guardar en PDF</button><button type="button" class="btn btn-g" id="doReset">Borrar mi progreso</button></div>
-  ${bloques}`;
+  <div class="field" style="max-width:420px"><label for="nombre">Tu nombre</label><input type="text" id="nombre" maxlength="40" value="${esc(ST.nombre)}" autocomplete="given-name"><small>Solo el nombre: sale en el informe y no se envía a ningún sitio.</small></div>
+  <div class="row" style="margin-bottom:8px"><button type="button" class="btn btn-p" id="doPrint">${svg('print',2)} Imprimir o guardar en PDF</button><button type="button" class="btn btn-g" id="doReset">Empezar de cero</button></div>
+  ${bloques}
+  ${fileBox()}`;
 }
+
+/* ---------- Informe A4 ---------- */
+function buildPrint(){
+  const tot = Object.keys(P).reduce((t,pid)=>t+ptsOf(pid),0);
+  let h = `<header class="ph"><div><p class="pk">Esplora · Seguridad Social</p><h1>Prestaciones de la Seguridad Social</h1></div>
+    <div class="meta">Nombre: <b>${ST.nombre?esc(ST.nombre):'________________'}</b><br>Fecha: ${new Date().toLocaleDateString('es-ES')}<br>Casos: <b>${tot} de ${PTS_MAX} puntos</b></div></header>
+    <p class="norm">Datos de 2026 según la Ley General de la Seguridad Social (texto consolidado). Cálculos orientativos: no sustituyen la información de la Seguridad Social ni del SEPE. Casos: 2 puntos si se acierta a la primera, 1 si se acierta tras fallar y 0 si se ve la solución.</p>`;
+  Object.keys(P).forEach((pid,k)=>{
+    const s = ST.p[pid], w = ST.wz[pid], c = ST.calc[pid];
+    h += `<section class="pc"><div class="pin"><div class="pch"><h2><span>${String(k+1).padStart(2,'0')}</span>${P[pid].nombre}</h2><span>${ptsOf(pid)} de ${C[pid].length*2} puntos</span></div>
+      <p class="pq">Ficha ${s.ficha?'leída':'sin leer'} · ${P[pid].claves.map(x=>`${x[0]}: ${x[1].charAt(0).toLowerCase()+x[1].slice(1)}`).join(' · ')}.</p></div>
+      <h3>¿Tengo derecho?</h3>${w?`<p><b>${esc(w.tit)}.</b> ${w.hist.map(x=>`${esc(x[0])} <i>${esc(x[1])}</i>`).join(' · ')}</p>`:'<p class="none">Sin hacer.</p>'}
+      <h3>Calculadora</h3>${c&&c.txt?`<p>${esc(c.txt)}</p>`:'<p class="none">Sin usar.</p>'}
+      <h3>Casos prácticos</h3>
+      <table><thead><tr><th>Caso</th><th>Tu respuesta</th><th>Resultado</th><th class="n">Puntos</th></tr></thead><tbody>
+      ${C[pid].map((cc,i)=>{ const a = ST.casos[pid+i], resp = a && a.sel!=null && !a.shown ? `${'ABCD'[a.sel]}. ${cc[2][a.sel]}` : '<span class="none">sin responder</span>';
+        return `<tr><td><b>${i+1}.</b> ${cc[0]}</td><td>${resp}</td><td>${caseRes(a)}</td><td class="n">${casePts(pid,i)} de 2</td></tr>`; }).join('')}
+      </tbody></table></section>`;
+  });
+  $('#printSheet').innerHTML = h;
+}
+addEventListener('beforeprint', buildPrint);
 
 /* =====================================================================
    NAVEGACIÓN (#/, #/it/ficha, #/resumen…)
@@ -959,19 +1091,20 @@ function route(){
   if(pid==='resumen'){
     main.innerHTML = viewResumen(); $('[data-nav="resumen"]').setAttribute('aria-current','page');
     document.title = 'Mi resumen · Prestaciones · Esplora';
-    $('#nombre').oninput = e=>{ ST.nombre = e.target.value; save(); };
-    $('#doPrint').onclick = ()=>window.print();
-    $('#doReset').onclick = ()=>{ if(confirm('¿Seguro que quieres borrar todo tu progreso en esta herramienta?')){ ST = blank(); save(); Object.keys(WS).forEach(k=>delete WS[k]); route(); } };
+    $('#nombre').oninput = e=>{ ST.nombre = e.target.value.slice(0,40); save(); };
+    $('#doPrint').onclick = ()=>{ buildPrint(); window.print(); };
+    $('#doReset').onclick = ()=>{ if(confirm('Se borrarán tus respuestas de las tres prestaciones en este navegador. ¿Seguro?')){ ST = blank(); save(); Object.keys(WS).forEach(k=>delete WS[k]); route(); } };
   } else if(P[pid]){
     if(!TABS.some(t=>t[0]===tab)) tab = 'ficha';
     main.innerHTML = viewP(pid, tab);
     document.title = P[pid].nombre + ' · Prestaciones · Esplora';
-    ST.last = `#/${pid}/${tab}`; save();
+    ST.last = `#/${pid}/${tab}`; save(true);
     bindP(pid, tab);
   } else {
     main.innerHTML = viewHome(); $('[data-nav="home"]').setAttribute('aria-current','page');
     document.title = 'Prestaciones de la Seguridad Social · Esplora';
   }
+  buildPrint();
 }
 
 function bindP(pid, tab){
@@ -995,14 +1128,15 @@ function bindP(pid, tab){
     $('#panel').onclick = e=>{
       const b = e.target.closest('button'); if(!b) return;
       let i;
-      if(b.dataset.case!==undefined){ i = +b.dataset.case; const j = +b.dataset.opt; ST.casos[pid+i] = {sel:j, ok:j===C[pid][i][3]}; }
-      else if(b.dataset.retry!==undefined){ i = +b.dataset.retry; delete ST.casos[pid+i]; }
-      else if(b.dataset.show!==undefined){ i = +b.dataset.show; ST.casos[pid+i] = {sel:C[pid][i][3], ok:false, shown:true}; }
+      const prev = k => ST.casos[pid+k] || {tries:0};
+      if(b.dataset.case!==undefined){ i = +b.dataset.case; const j = +b.dataset.opt; ST.casos[pid+i] = {tries:prev(i).tries+1, sel:j, ok:j===C[pid][i][3], shown:false}; }
+      else if(b.dataset.retry!==undefined){ i = +b.dataset.retry; ST.casos[pid+i] = {tries:prev(i).tries, sel:null, ok:false, shown:false}; }
+      else if(b.dataset.show!==undefined){ i = +b.dataset.show; ST.casos[pid+i] = {tries:prev(i).tries, sel:C[pid][i][3], ok:false, shown:true}; }
       else return;
       save();
       const art = $(`#caso-${pid}-${i}`);
       art.outerHTML = caseHTML(pid,i);
-      $("#caseScore").textContent = `${okCases(pid)} de 3 resueltos`;
+      $("#caseScore").textContent = `${ptsOf(pid)} de ${C[pid].length*2} puntos`;
       const nb = $(`#caso-${pid}-${i}`).querySelector('.fb, .copt');
       if(nb){ nb.setAttribute('tabindex','-1'); nb.focus(); }
     };
