@@ -28,10 +28,10 @@
   :root{
     --bg:#FBFCEF; --surface:#FFFFFF; --surface-alt:#F5F6E4;
     --ink:#1E1C1A; --ink-soft:#4A463F; --ink-muted:#8B847A;
-    --line:#E8E1D6; --line-soft:#EEEFD8;
+    --line:#E8E1D6; --line-soft:#F5F6E4;
     --olive-deep:#6B7028; --lime-soft:#E8EDC4; --lime-mid:#C5CD78;
-    --c:#557A35; --c-deep:#3F5C27; --c-soft:#E5EDDB;
-    --bad:#8B3A3A; --bad-soft:#F3E4E2;
+    --c:#557A35; --c-deep:#557A35; --c-soft:#E5EDDB;
+    --bad:#8B3A3A; --bad-soft:#F4E0DC;
     --font-display:'Fraunces',Georgia,serif;
     --font-ui:'Inter',-apple-system,'Segoe UI',sans-serif;
     --frame:1px solid var(--ink);
@@ -295,7 +295,7 @@
     body>*:not(#printSheet){display:none!important;}
     #printSheet{display:block;color:#1E1C1A;}
     #printSheet .ph{display:flex;justify-content:space-between;align-items:flex-end;gap:12pt;border-bottom:1.5pt solid #557A35;padding-bottom:6pt;margin-bottom:8pt;}
-    #printSheet .pk{margin:0 0 2pt;font-size:8pt;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#3F5C27;}
+    #printSheet .pk{margin:0 0 2pt;font-size:8pt;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#557A35;}
     #printSheet h1{font-family:'Fraunces',Georgia,serif;font-size:21pt;font-weight:700;margin:0;}
     #printSheet .meta{font-size:9.5pt;color:#4A463F;text-align:right;line-height:1.5;}
     #printSheet .meta b{color:#1E1C1A;}
@@ -310,11 +310,11 @@
     #printSheet table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:9pt;}
     #printSheet th:nth-child(1){width:46%;}#printSheet th:nth-child(2){width:26%;}#printSheet th:nth-child(3){width:17%;}#printSheet th:nth-child(4){width:11%;}
     #printSheet th{text-align:left;font-size:7.5pt;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#4A463F;padding:3pt 4pt;border-bottom:.75pt solid #1E1C1A;}
-    #printSheet td{padding:4pt;border-bottom:.5pt solid #CFCAC0;vertical-align:top;}
-    #printSheet td i{font-style:normal;color:#8B847A;}
+    #printSheet td{padding:4pt;border-bottom:.5pt solid #E8E1D6;vertical-align:top;}
+    #printSheet td i{font-style:normal;color:#4A463F;}
     #printSheet .n{text-align:right;white-space:nowrap;}
     #printSheet tr{break-inside:avoid;}
-    #printSheet .foot{margin-top:14pt;padding-top:5pt;border-top:.5pt solid #CFCAC0;font-size:8pt;color:#4A463F;}
+    #printSheet .foot{margin-top:14pt;padding-top:5pt;border-top:.5pt solid #E8E1D6;font-size:8pt;color:#4A463F;}
   }
 </style>
 </head>
@@ -584,14 +584,14 @@ const RECIBO_SVG=`<svg viewBox="0 0 320 300" aria-hidden="true" font-family="Int
   <g transform="rotate(-2 154 150)">
     <rect x="36" y="18" width="236" height="264" rx="12" fill="#fff" stroke="#1E1C1A" stroke-width="1.4"/>
     <g class="r" style="animation-delay:.1s"><text x="56" y="48" font-size="10" font-weight="700" letter-spacing="1.4" fill="#1E1C1A">RECIBO DE SALARIOS</text><text x="56" y="63" font-size="9.5" fill="#4A463F">Lucía · dependienta · 30 días</text><path d="M56 74h196" stroke="#1E1C1A"/></g>
-    <g class="r" style="animation-delay:.3s"><text x="56" y="94" font-size="8.5" font-weight="700" letter-spacing="1.2" fill="#3F5C27">I. DEVENGOS</text></g>
+    <g class="r" style="animation-delay:.3s"><text x="56" y="94" font-size="8.5" font-weight="700" letter-spacing="1.2" fill="#557A35">I. DEVENGOS</text></g>
     <g font-size="10" fill="#1E1C1A">
       <g class="r" style="animation-delay:.45s"><text x="56" y="113">Salario base</text><text x="252" y="113" text-anchor="end" font-weight="600">1.150,00</text></g>
       <g class="r" style="animation-delay:.55s"><text x="56" y="130">Plus de convenio</text><text x="252" y="130" text-anchor="end" font-weight="600">120,00</text></g>
       <g class="r" style="animation-delay:.65s"><text x="56" y="147">Comisión por ventas</text><text x="252" y="147" text-anchor="end" font-weight="600">90,00</text></g>
       <g class="r" style="animation-delay:.75s"><text x="56" y="164">Plus de transporte</text><text x="252" y="164" text-anchor="end" font-weight="600">60,00</text></g>
     </g>
-    <g class="r" style="animation-delay:.9s"><text x="56" y="190" font-size="8.5" font-weight="700" letter-spacing="1.2" fill="#3F5C27">II. DEDUCCIONES</text>
+    <g class="r" style="animation-delay:.9s"><text x="56" y="190" font-size="8.5" font-weight="700" letter-spacing="1.2" fill="#557A35">II. DEDUCCIONES</text>
       <rect x="56" y="201" width="112" height="5" rx="2.5" fill="#E8E1D6"/><rect x="214" y="201" width="38" height="5" rx="2.5" fill="#E8E1D6"/>
       <rect x="56" y="216" width="84" height="5" rx="2.5" fill="#E8E1D6"/><rect x="222" y="216" width="30" height="5" rx="2.5" fill="#E8E1D6"/></g>
     <g class="r" style="animation-delay:1.05s"><path d="M56 236h196" stroke="#1E1C1A"/><text x="56" y="262" font-size="8.5" font-weight="700" letter-spacing="1.2" fill="#1E1C1A">LÍQUIDO A PERCIBIR</text>
