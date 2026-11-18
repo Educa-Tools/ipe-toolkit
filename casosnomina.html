@@ -222,6 +222,8 @@
   .fb.ko b{color:var(--bad);}
   .fb.hint b{color:var(--olive-deep);}
   .fb p{margin:4px 0 0;}
+  .art{display:inline-block;font-size:.82em;font-weight:600;color:var(--c-deep);}
+  .art::before{content:"(";}.art::after{content:")";}
 
   /* recibo del detective (orden del modelo oficial: devengos, deducciones y bases) */
   .slip{border:var(--frame);border-radius:14px;overflow:hidden;background:#fff;font-size:.9rem;margin-bottom:16px;}
@@ -345,8 +347,8 @@
 <div id="printSheet" aria-hidden="true"></div>
 
 <footer class="wrap">
-  <p><strong>Datos vigentes en 2026.</strong> Fuentes: Estatuto de los Trabajadores (arts. 26 a 35), <a href="https://www.boe.es/eli/es/rd/2026/02/18/126/con" target="_blank" rel="noopener">RD 126/2026</a> (SMI: 1.221 €/mes, 17.094 €/año), Orden PJC/297/2026 (bases y tipos de cotización), art. 147 LGSS y art. 9 del Reglamento del IRPF (dietas: 26,67 €/día sin pernocta y 53,34 € con pernocta en España).</p>
-  <p>Herramienta educativa: los casos son ficticios y los cálculos, orientativos. Tu progreso se guarda solo en este navegador.</p>
+  <p><strong>Datos vigentes en 2026</strong>, comprobados en el BOE consolidado: <a href="https://www.boe.es/buscar/act.php?id=BOE-A-2015-11430" target="_blank" rel="noopener">Estatuto de los Trabajadores</a> (arts. 26 a 31), <a href="https://www.boe.es/eli/es/rd/2026/02/18/126/con" target="_blank" rel="noopener">RD 126/2026</a> (SMI: 1.221 € al mes y 17.094 € al año), <a href="https://www.boe.es/buscar/act.php?id=BOE-A-2026-7296" target="_blank" rel="noopener">Orden PJC/297/2026</a> (tipos de cotización), <a href="https://www.boe.es/buscar/act.php?id=BOE-A-2015-11724" target="_blank" rel="noopener">LGSS</a> (arts. 141 y 147) y <a href="https://www.boe.es/buscar/act.php?id=BOE-A-2007-6820" target="_blank" rel="noopener">Reglamento del IRPF</a> (art. 9: dietas de 26,67 € al día sin pernocta y 53,34 € con pernocta en España).</p>
+  <p>Herramienta educativa: los casos son ficticios y los cálculos, orientativos. Tu progreso se guarda solo en este navegador; desde «Mi resumen» puedes guardarlo en un archivo.</p>
 </footer>
 
 <script>
@@ -361,6 +363,8 @@ const r2=x=>Math.round((x+Number.EPSILON)*100)/100;
 const fmt=(x,d=2)=>{const [e,f]=Math.abs(x).toFixed(d).split('.');return (x<0?'−':'')+e.replace(/\B(?=(\d{3})+(?!\d))/g,'.')+(f?','+f:'')};
 const eur=(x,d=2)=>fmt(x,d)+' €';
 const pc=x=>fmt(x,2)+' %';
+/* referencia normativa al final de cada explicación (comprobada en el BOE consolidado, 18-11-2026) */
+const A=t=>` <span class="art">${t}</span>`;
 
 /* ---------- Caso 1 · Lucía ---------- */
 const LU={dias:2,dieta:30};
@@ -401,18 +405,18 @@ AN.pro=r2(2*AN.pagaExtra/12);
 AN.bcccMal=r2(AN.base+AN.conv+AN.pro);          // error: deja fuera el plus de transporte
 AN.bcccBien=r2(AN.bcccMal+AN.tr);
 const AN_LINES=[ // [sección, texto, importe, ¿error?, explicación]
-  ['DEVENGOS','*Salario base',AN.base,false,'Correcto: es la parte fija que marca el convenio.'],
-  ['DEVENGOS','*Plus de convenio',AN.conv,false,'Correcto: percepción salarial, cotiza.'],
-  ['DEVENGOS','*Prorrata de pagas extra (2 × 1.500 € ÷ 12)',AN.pro,false,'Correcto: 3.000 ÷ 12 = 250 €.'],
-  ['DEVENGOS','-Plus de transporte (no cotiza)',AN.tr,true,'Error: desde 2013 el plus de transporte cotiza y tributa entero. Debería ir con asterisco.'],
-  ['DEVENGOS',`-Dietas (${AN.dias} días × ${AN.dieta} €, sin pernocta)`,AN.dias*AN.dieta,false,'Correcto: 20 €/día no supera 26,67 €, así que están exentas.'],
-  ['BASES','BCCC (contingencias comunes)',AN.bcccMal,true,`Error: le falta el plus de transporte. La BCCC correcta es ${eur(AN.bcccBien)}.`],
-  ['DEDUCCIONES','Contingencias comunes 4,70 %',r2(AN.bcccMal*T.cc/100),false,'El tipo es correcto (4,70 %), aunque se aplica sobre una base mal calculada.'],
-  ['DEDUCCIONES','MEI 0,15 %',r2(AN.bcccMal*T.mei/100),false,'Tipo correcto para 2026: 0,15 % a cargo del trabajador.'],
-  ['DEDUCCIONES','Desempleo 1,60 %',r2(AN.bcccMal*T.desT/100),true,'Error: Andrea es indefinida. Su tipo de desempleo es el 1,55 %; el 1,60 % es para contratos temporales.'],
-  ['DEDUCCIONES','Formación profesional 0,10 %',r2(AN.bcccMal*T.fp/100),false,'Correcto: 0,10 % sobre la BCCP.'],
-  ['DEDUCCIONES','Accidentes de trabajo (AT/EP) 1,50 %',r2(AN.bcccMal*1.5/100),true,'Error: las contingencias profesionales las paga solo la empresa. Nunca se descuentan al trabajador.'],
-  ['DEDUCCIONES','Retención IRPF 12 %',r2((AN.base+AN.conv+AN.pro+AN.tr)*AN.irpf/100),false,'No se puede dar por erróneo: el porcentaje de IRPF es personal y lo calcula la empresa con el modelo 145.']];
+  ['DEVENGOS','*Salario base',AN.base,false,`Correcto: es la parte fija que marca el convenio y cotiza.${A('art. 26.3 ET')}`],
+  ['DEVENGOS','*Plus de convenio',AN.conv,false,`Correcto: es una percepción salarial y cotiza.${A('art. 26.3 ET')}`],
+  ['DEVENGOS','*Prorrata de pagas extra (2 × 1.500 € ÷ 12)',AN.pro,false,`Correcto: 3.000 ÷ 12 = 250 €. Las pagas extra prorrateadas cotizan cada mes.${A('art. 31 ET; art. 147.1 LGSS')}`],
+  ['DEVENGOS','-Plus de transporte (no cotiza)',AN.tr,true,`Error: desde diciembre de 2013 el plus de transporte cotiza entero (lo cambió el RDL 16/2013). Debería llevar asterisco.${A('art. 147.2 LGSS')}`],
+  ['DEVENGOS',`-Dietas (${AN.dias} días × ${AN.dieta} €, sin pernocta)`,AN.dias*AN.dieta,false,`Correcto: 20 € al día no supera el límite de 26,67 € sin pernocta en España, así que ni cotizan ni tributan.${A('art. 147.2.b LGSS; art. 9 RIRPF')}`],
+  ['BASES','BCCC (contingencias comunes)',AN.bcccMal,true,`Error: le falta el plus de transporte. La BCCC correcta es ${eur(AN.bcccBien)}.${A('art. 147 LGSS')}`],
+  ['DEDUCCIONES','Contingencias comunes 4,70 %',r2(AN.bcccMal*T.cc/100),false,`El tipo es correcto (4,70 %). El importe arrastra el error de la BCCC, pero esta línea no tiene un error propio.${A('art. 4 Orden PJC/297/2026')}`],
+  ['DEDUCCIONES','MEI 0,15 %',r2(AN.bcccMal*T.mei/100),false,`El tipo es correcto: 0,15 % a cargo del trabajador en 2026. El importe arrastra el error de la BCCC, pero esta línea no tiene un error propio.${A('art. 16 Orden PJC/297/2026')}`],
+  ['DEDUCCIONES','Desempleo 1,60 %',r2(AN.bcccMal*T.desT/100),true,`Error: Andrea es indefinida. Su tipo de desempleo es el 1,55 %; el 1,60 % es para contratos de duración determinada.${A('art. 33 Orden PJC/297/2026')}`],
+  ['DEDUCCIONES','Formación profesional 0,10 %',r2(AN.bcccMal*T.fp/100),false,`El tipo es correcto: 0,10 % sobre la BCCP (sin horas extra, BCCP = BCCC). El importe arrastra el error de la base, pero esta línea no tiene un error propio.${A('art. 33 Orden PJC/297/2026')}`],
+  ['DEDUCCIONES','Accidentes de trabajo (AT/EP) 1,50 %',r2(AN.bcccMal*1.5/100),true,`Error: la cotización por accidentes de trabajo y enfermedades profesionales la paga solo la empresa. Nunca se descuenta al trabajador.${A('art. 141.3 LGSS')}`],
+  ['DEDUCCIONES','Retención IRPF 12 %',r2((AN.base+AN.conv+AN.pro+AN.tr)*AN.irpf/100),false,`No se puede dar por erróneo: el porcentaje de retención es personal y la empresa lo calcula con los datos que le comunica Andrea (modelo 145).${A('arts. 80 a 88 RIRPF')}`]];
 const AN_SS=(()=>{const b=AN.bcccBien;return r2(r2(b*T.cc/100)+r2(b*T.mei/100)+r2(b*T.desI/100)+r2(b*T.fp/100))})();
 
 /* =========================================================
@@ -435,16 +439,16 @@ const CASES=[
   steps:[
    {type:'classify',col:'Tipo',q:'Clasifica cada percepción: ¿salarial o extrasalarial?',opts:['Salarial','Extrasalarial'],rows:LU_ROWS.map(r=>r[0]),ans:LU_ROWS.map(r=>r[2]==='S'?0:1),
     hint:'Pregúntate: ¿retribuye el trabajo o compensa un gasto? Las comisiones y las horas extra pagan trabajo.',
-    expl:'Salariales: base, plus de convenio, comisión y horas extra. Extrasalariales: plus de transporte y dietas (compensan gastos).'},
+    expl:`Salariales: base, plus de convenio, comisión y horas extra, porque retribuyen el trabajo. Extrasalariales: plus de transporte y dietas, porque compensan gastos.${A('art. 26.1 y 26.2 ET')}`},
    {type:'classify',col:'Cotiza',q:'¿Qué cotiza a la Seguridad Social?',opts:['Sí','No','Solo el exceso'],rows:LU_ROWS.map(r=>r[0]),ans:LU_ROWS.map(r=>r[3]),
     hint:'Ojo con el plus de transporte: desde 2013 ya no está exento. Y las dietas tienen un límite diario.',
-    expl:'Todo lo salarial cotiza. El plus de transporte, aunque es extrasalarial, cotiza entero. Las dietas solo cotizan por lo que supere 26,67 €/día.'},
+    expl:`Todo lo salarial cotiza. El plus de transporte, aunque es extrasalarial, cotiza entero porque la ley no lo excluye. Las dietas solo cotizan por lo que supere 26,67 € al día.${A('art. 147 LGSS; art. 9 RIRPF')}`},
    {type:'num',lbl:'Dietas que cotizan',q:'¿Qué parte de las dietas cotiza este mes?',ans:LU_EXC,
     hint:`El límite sin pernocta en España es de ${eur(DIETA.sin)} al día. Calcula el exceso de un día y multiplícalo por ${LU.dias}.`,
-    expl:`(${LU.dieta} − ${fmt(DIETA.sin)}) × ${LU.dias} = ${eur(LU_EXC)}.`},
+    expl:`(${LU.dieta} − ${fmt(DIETA.sin)}) × ${LU.dias} = ${eur(LU_EXC)}.${A('art. 147.2.b LGSS; art. 9 RIRPF')}`},
    {type:'num',lbl:'Total devengado',q:'¿Cuál es el total devengado de Lucía?',ans:LU_DEV,
     hint:'El total devengado suma todo lo que cobra en bruto, salarial y extrasalarial.',
-    expl:`${LU_ROWS.map(r=>fmt(r[1],0)).join(' + ')} = ${eur(LU_DEV)}.`}]},
+    expl:`${LU_ROWS.map(r=>fmt(r[1],0)).join(' + ')} = ${eur(LU_DEV)}. El devengado suma lo salarial y lo extrasalarial.${A('art. 26 ET')}`}]},
 
  {id:'ahmed',per:'Ahmed · mozo de almacén',ico:'box',titulo:'¿Cobra Ahmed el SMI?',sub:'El salario mínimo en cómputo anual',
   quien:`Ahmed es <b>mozo de almacén</b> en un operador logístico del puerto, a jornada completa. Su convenio le paga:`,
@@ -453,13 +457,13 @@ const CASES=[
   steps:[
    {type:'choice',lbl:'Conceptos que cuentan',res:'Base y turnicidad',q:'Para comprobar si cumple el SMI, ¿qué conceptos se suman?',opts:['Base, turnicidad y transporte: todo lo que cobra','Base y turnicidad: solo las percepciones salariales','Solo el salario base'],ans:1,
     hint:'El SMI garantiza un salario mínimo. ¿El plus de transporte es salario?',
-    expl:'Se suman las percepciones salariales (base y complementos). El plus de transporte es extrasalarial: compensa un gasto, así que no cuenta para el SMI.'},
+    expl:`Se suman las percepciones salariales: el salario base y los complementos. El plus de transporte es extrasalarial (compensa un gasto), así que no cuenta para el SMI.${A('arts. 26 y 27.1 ET; arts. 2 y 3 RD 126/2026')}`},
    {type:'num',lbl:'Salario en cómputo anual',q:'¿Cuánto suma Ahmed en cómputo anual?',ans:AH_ANUAL,
     hint:'El base se cobra 14 veces al año; el plus de turnicidad, 12.',
-    expl:`${fmt(AH.base,0)} × 14 + ${AH.turn} × 12 = ${eur(AH_ANUAL,0)}.`},
+    expl:`${fmt(AH.base,0)} × 14 + ${AH.turn} × 12 = ${eur(AH_ANUAL,0)}.${A('art. 27.1 ET')}`},
    {type:'choice',lbl:'¿Cumple el SMI?',q:'¿Cumple el SMI 2026?',opts:['Sí','No'],ans:AH_ANUAL>=SMI.anual?0:1,
     hint:`Compara con ${eur(SMI.anual,0)}.`,
-    expl:`${eur(AH_ANUAL,0)} ${AH_ANUAL>=SMI.anual?'≥':'<'} ${eur(SMI.anual,0)}: ${AH_ANUAL>=SMI.anual?'cumple':'no cumple'}. La empresa tiene que completar la diferencia.`},
+    expl:`${eur(AH_ANUAL,0)} ${AH_ANUAL>=SMI.anual?'≥':'<'} ${eur(SMI.anual,0)}: ${AH_ANUAL>=SMI.anual?'cumple':'no cumple'}. La empresa tiene que completar la diferencia.${A('art. 3.1 RD 126/2026')}`},
    {type:'num',lbl:'Subida mínima al año',q:'¿Cuánto tiene que subirle la empresa, como mínimo, al año?',ans:AH_DIF,
     hint:'Resta lo que cobra en cómputo anual al SMI anual.',
     expl:`${fmt(SMI.anual,0)} − ${fmt(AH_ANUAL,0)} = ${eur(AH_DIF,0)} al año.`},
@@ -473,19 +477,19 @@ const CASES=[
   steps:[
    {type:'num',lbl:'Prorrata de pagas extra',q:'¿Cuál es la prorrata mensual de las pagas extra?',ans:DA_PRO,
     hint:'Importe de cada paga × número de pagas ÷ 12.',
-    expl:`2 × 1.300 ÷ 12 = ${eur(DA_PRO)}.`},
+    expl:`2 × 1.300 ÷ 12 = ${eur(DA_PRO)}.${A('art. 31 ET')}`},
    {type:'num',lbl:'Total devengado',q:'¿Cuál es el total devengado?',ans:DA_DEV,
     hint:'Como las pagas están prorrateadas, la prorrata se cobra este mes: súmala.',
     expl:`${fmt(DA.base,0)} + ${DA.noct} + ${DA.tr} + ${DA.he} + ${fmt(DA_PRO)} = ${eur(DA_DEV)}.`},
    {type:'num',lbl:'BCCC',q:'Calcula la BCCC (base de contingencias comunes).',ans:DA_BCCC,
     hint:'Salariales del mes sin horas extra + prorrata + plus de transporte.',
-    expl:`${fmt(DA.base,0)} + ${DA.noct} + ${DA.tr} + ${fmt(DA_PRO)} = ${eur(DA_BCCC)}. Las horas extra no entran.`},
+    expl:`${fmt(DA.base,0)} + ${DA.noct} + ${DA.tr} + ${fmt(DA_PRO)} = ${eur(DA_BCCC)}. Las horas extra no entran en la base de contingencias comunes.${A('art. 147.2.e LGSS')}`},
    {type:'num',lbl:'BCCP',q:'Calcula la BCCP (base de contingencias profesionales).',ans:DA_BCCP,
     hint:'BCCP = BCCC + horas extra.',
-    expl:`${fmt(DA_BCCC)} + ${DA.he} = ${eur(DA_BCCP)}.`},
+    expl:`${fmt(DA_BCCC)} + ${DA.he} = ${eur(DA_BCCP)}. Las horas extra sí cotizan por contingencias profesionales.${A('art. 147.2.e LGSS')}`},
    {type:'num',lbl:'BIRPF',q:'Calcula la base de IRPF (BIRPF).',ans:DA_BIRPF,
     hint:'Todo lo que tributa y se cobra este mes. ¿Cobra la prorrata? ¿Y las horas extra?',
-    expl:`Incluye horas extra, plus de transporte y la prorrata, porque se cobra: ${eur(DA_BIRPF)}.`}]},
+    expl:`Incluye horas extra, plus de transporte y la prorrata, porque se cobra este mes: ${eur(DA_BIRPF)}.${A('art. 17.1 LIRPF')}`}]},
 
  {id:'sara',per:'Sara · carretillera · temporal',ico:'fork',titulo:'Cuotas y líquido de Sara',sub:'Base × tipo = cuota',
   quien:'Sara es <b>carretillera</b> en un almacén de distribución, con <b>contrato temporal</b>. Sus pagas extra van prorrateadas. Estos son los datos de su nómina:',
@@ -495,7 +499,7 @@ const CASES=[
   steps:[
    {type:'multi',lbl:'Cuotas',q:'Calcula cada cuota del trabajador.',cells:[['Contingencias comunes (4,70 % s/ BCCC)',SA_Q.cc],['MEI (0,15 % s/ BCCC)',SA_Q.mei],['Desempleo (1,60 % s/ BCCP)',SA_Q.des],['Formación profesional (0,10 % s/ BCCP)',SA_Q.fp],['Horas extra (4,70 % s/ su importe)',SA_Q.he]],
     hint:'Base × tipo ÷ 100. Como el contrato es temporal, el desempleo es el 1,60 %.',
-    expl:`CC ${eur(SA_Q.cc)} · MEI ${eur(SA_Q.mei)} · Desempleo ${eur(SA_Q.des)} · FP ${eur(SA_Q.fp)} · Horas extra ${eur(SA_Q.he)}.`},
+    expl:`CC ${eur(SA_Q.cc)} · MEI ${eur(SA_Q.mei)} · Desempleo ${eur(SA_Q.des)} · FP ${eur(SA_Q.fp)} · Horas extra ${eur(SA_Q.he)}.${A('arts. 4, 5, 16 y 33 Orden PJC/297/2026')}`},
    {type:'num',lbl:'Total Seguridad Social',q:'¿Cuánto paga en total a la Seguridad Social?',ans:SA_SS,
     hint:'Suma las cinco cuotas anteriores.',
     expl:`Total SS: ${eur(SA_SS)}.`},
@@ -507,15 +511,15 @@ const CASES=[
     expl:`${fmt(SA.dev,0)} − ${fmt(SA_SS)} − ${fmt(SA_IRPF)} = ${eur(SA_LIQ)}.`},
    {type:'choice',lbl:'Descuento por AT/EP',res:'Nada',q:'¿Cuánto le descuentan a Sara por accidentes de trabajo (AT/EP)?',opts:['El 1,50 % de la BCCP','El 0,10 %, igual que la formación','Nada: lo paga solo la empresa'],ans:2,
     hint:'Repasa quién paga las contingencias profesionales.',
-    expl:'Las contingencias profesionales (AT/EP) y el FOGASA los paga solo la empresa.'}]},
+    expl:`La cotización por accidentes de trabajo y enfermedades profesionales y la del FOGASA las paga solo la empresa.${A('art. 141.3 LGSS; art. 33 Orden PJC/297/2026')}`}]},
 
  {id:'andrea',per:'Andrea · administrativa · indefinida',ico:'search',titulo:'Detective de nóminas',sub:'Encuentra los errores',
   quien:`Andrea es <b>administrativa</b> en una transitaria, con <b>contrato indefinido</b>. Tiene dos pagas extra de 1.500 € prorrateadas y este mes ha viajado ${AN.dias} días a otra provincia, sin dormir fuera. Su gestoría le ha mandado esta nómina… y tiene <b>errores</b>.`,
   datos:null,
   steps:[
-   {type:'hunt',lbl:'Errores encontrados',q:'Pulsa las líneas que creas que están mal y después comprueba.',lines:AN_LINES,
-    hint:'Hay 4 errores. Revisa qué cotiza, qué tipo de desempleo corresponde a un contrato indefinido y qué paga solo la empresa.',
-    expl:'Errores: plus de transporte como no cotizable, BCCC sin el plus de transporte, desempleo al 1,60 % y descuento de AT/EP al trabajador.'},
+   {type:'hunt',lbl:'Errores encontrados',q:'Pulsa las líneas con un error propio (un concepto, un tipo o una base mal puestos) y después comprueba.',lines:AN_LINES,
+    hint:'Hay 4 errores propios. Revisa qué cotiza, qué tipo de desempleo corresponde a un contrato indefinido y qué paga solo la empresa. Una cuota con el tipo bien puesto no cuenta como error aunque su importe arrastre el fallo de la base.',
+    expl:'Errores: plus de transporte como no cotizable, BCCC sin el plus de transporte, desempleo al 1,60 % y descuento de AT/EP al trabajador. Las cuotas de contingencias comunes, MEI y formación profesional solo arrastran el error de la base.'},
    {type:'num',lbl:'BCCC correcta',q:'¿Cuál es la BCCC correcta?',ans:AN.bcccBien,
     hint:'Suma el plus de transporte a la BCCC de la nómina.',
     expl:`${fmt(AN.bcccMal)} + ${AN.tr} = ${eur(AN.bcccBien)}.`},
@@ -748,7 +752,7 @@ function markLine(b,l,reveal){
   const err=AN_LINES[l][3],sel=(ss('andrea',0).val||[]).includes(l);const sm=b.querySelector('small');
   b.classList.remove('found','miss','false');
   if(err&&(sel||reveal))b.classList.add(sel?'found':'miss');else if(!err&&sel)b.classList.add('false');
-  if(reveal||err&&sel||!err&&sel){sm.hidden=false;sm.textContent=AN_LINES[l][4]}
+  if(reveal||err&&sel||!err&&sel){sm.hidden=false;sm.innerHTML=AN_LINES[l][4]}
 }
 
 function check(c,i){
@@ -827,7 +831,7 @@ function buildPrint(){
   const nombre=ST.name?esc(ST.name):'________________________';
   let h=`<header class="ph"><div><p class="pk">Esplora · Derecho del trabajo</p><h1>Casos prácticos de nóminas</h1></div>
     <div class="meta">Nombre: <b>${nombre}</b><br>Fecha: ${new Date().toLocaleDateString('es-ES')}<br>Puntuación: <b>${tot} de ${totalMax}</b></div></header>
-    <p class="norm">Datos de 2026: Estatuto de los Trabajadores (arts. 26 a 35), RD 126/2026 (SMI), Orden PJC/297/2026 (bases y tipos de cotización), art. 147 LGSS y art. 9 del Reglamento del IRPF.</p>`;
+    <p class="norm">Datos de 2026: Estatuto de los Trabajadores (arts. 26 a 31), RD 126/2026 (SMI), Orden PJC/297/2026 (tipos de cotización), LGSS (arts. 141 y 147) y art. 9 del Reglamento del IRPF.</p>`;
   CASES.forEach((c,k)=>{
     const n=c.steps.length;
     h+=`<section class="pc"><div class="pin"><div class="pch"><h2><span>${String(k+1).padStart(2,'0')}</span>${c.titulo}</h2><span>${caseScore(c)} de ${n*2} puntos</span></div>
